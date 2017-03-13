@@ -27,6 +27,8 @@ Development mode can be started with
 donejs develop
 ```
 
+Load the app from `http://localhost:8080/development.html`
+
 ## Build and production mode
 
 To build the application into a production bundle run
