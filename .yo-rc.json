@@ -1,0 +1,9 @@
+{
+  "generator-donejs": {
+    "promptValues": {
+      "authorName": "EDC",
+      "authorEmail": "info@equibit.org",
+      "authorUrl": "https://equibit.org"
+    }
+  }
+}
