@@ -1,0 +1,14 @@
+{
+	"sites" : {
+		"docs": {
+			"glob" : {
+				"ignore": ["{node_modules,dist}/**/*"]
+			},
+			"parent": "wallet-ui",
+			"dest": "docs"
+		}
+	},
+	"siteDefaults": {
+		"source": "https://github.com/Equibit/wallet-ui"
+	}
+}
