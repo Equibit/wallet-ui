@@ -15,10 +15,11 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "test": "testee test.html --browsers firefox --reporter Spec",
-    "start": "done-serve --port 8080",
+    "build": "node build",
     "develop": "done-serve --static --develop --port 8080",
-    "build": "node build"
+    "document": "documentjs -d",
+    "start": "done-serve --port 8080",
+    "test": "testee test.html --browsers firefox --reporter Spec"
   },
   "main": "wallet-ui/index.stache!done-autorender",
   "files": [
@@ -72,11 +73,12 @@
     "steal-stache": "^3.0.4"
   },
   "devDependencies": {
+    "can-fixture": "^1.0.11",
+    "documentjs": "^0.4.4",
     "donejs-cli": "^1.0.0-alpha.2",
     "funcunit": "^3.1.0",
     "steal-qunit": "^1.0.0",
     "steal-tools": "^1.0.1",
-    "testee": "^0.3.0",
-    "can-fixture": "^1.0.11"
+    "testee": "^0.3.0"
   }
 }

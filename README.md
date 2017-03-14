@@ -1,4 +1,4 @@
-# wallet-ui
+# Equibit Wallet UI
 
 Welcome to the wallet-ui DoneJS application!
 
