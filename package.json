@@ -17,7 +17,7 @@
   "scripts": {
     "build": "node build",
     "develop": "done-serve --static --develop --port 8080",
-    "document": "documentjs -d",
+    "document": "documentjs -f -d",
     "start": "done-serve --port 8080",
     "test": "testee test.html --browsers firefox --reporter Spec"
   },

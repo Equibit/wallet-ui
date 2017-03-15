@@ -9,6 +9,7 @@
 		}
 	},
 	"siteDefaults": {
-		"source": "https://github.com/Equibit/wallet-ui"
+		"source": "https://github.com/Equibit/wallet-ui",
+		"templates": "doctheme/templates"
 	}
 }
