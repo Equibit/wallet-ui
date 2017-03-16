@@ -45,7 +45,7 @@
     "plugins": [
       "done-css",
       "done-component",
-      "steal-less",
+      "steal-sass",
       "steal-stache"
     ],
     "envs": {
@@ -56,7 +56,10 @@
     "serviceBaseURL": "",
     "meta": {
       "bootstrap": {
-        "deps": ["jquery","tether"]
+        "deps": [
+          "jquery",
+          "tether"
+        ]
       },
       "tether": {
         "exports": "Tether"
@@ -81,7 +84,7 @@
     "generator-donejs": "^1.0.0-alpha.0",
     "jquery": "^3.1.1",
     "steal": "^1.0.5",
-    "steal-less": "^1.0.2",
+    "steal-sass": "stealjs/steal-sass#upgrade-to-steal-1",
     "steal-stache": "^3.0.4",
     "tether": "^1.4.0"
   },
