@@ -53,9 +53,18 @@
         "renderingBaseURL": "/dist"
       }
     },
-    "serviceBaseURL": ""
+    "serviceBaseURL": "",
+    "meta": {
+      "bootstrap": {
+        "deps": ["jquery","tether"]
+      },
+      "tether": {
+        "exports": "Tether"
+      }
+    }
   },
   "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
     "can-component": "^3.0.4",
     "can-connect": "^1.0.21",
     "can-define": "^1.0.10",
@@ -65,14 +74,16 @@
     "can-stache": "^3.0.16",
     "can-view-autorender": "^3.0.3",
     "can-zone": "^0.6.0",
-    "done-serve": "^1.0.0-alpha.0",
     "done-autorender": "^1.0.0-alpha.0",
     "done-component": "^0.6.0-pre.5",
     "done-css": "^3.0.0-alpha.0",
+    "done-serve": "^1.0.0-alpha.0",
     "generator-donejs": "^1.0.0-alpha.0",
+    "jquery": "^3.1.1",
     "steal": "^1.0.5",
     "steal-less": "^1.0.2",
-    "steal-stache": "^3.0.4"
+    "steal-stache": "^3.0.4",
+    "tether": "^1.4.0"
   },
   "devDependencies": {
     "can-fixture": "^1.0.11",
@@ -81,7 +92,6 @@
     "eslint": "^3.12.2",
     "eslint-plugin-done-component": "^0.2.3",
     "eslint-plugin-html": "^1.7.0",
-    "eslint-plugin-import": "^2.0.1",
     "eslint-plugin-promise": "^3.4.0",
     "funcunit": "^3.1.0",
     "npm-run-all": "^4.0.2",
