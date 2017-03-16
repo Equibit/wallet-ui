@@ -1,38 +1,38 @@
 {
-	"env": {
-		"es6": true,
-		"mocha": true,
-		"shared-node-browser": true
-	},
-	"extends": [
-		"airbnb-base"
-	],
-	"globals": {
-		"describe": true,
-		"it": true,
-		"steal": true,
+  "env": {
+    "es6": true,
+    "mocha": true,
+    "shared-node-browser": true
+  },
+  "extends": [
+    "airbnb-base"
+  ],
+  "globals": {
+    "describe": true,
+    "it": true,
+    "steal": true,
     "window": true,
     "document": true
-	},
-	"parserOptions": {
+  },
+  "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module"
   },
-	"root": true,
+  "root": true,
   "plugins": ["promise", "done-component"],
-	"rules": {
-		"arrow-body-style": 0,
-		"import/no-mutable-exports": 0,
-		"import/no-unresolved": 0,
-		"max-len": 0,
-		"new-cap": 0,
-		"no-console": ["error", { "allow": ["warn", "error"] }],
-		"no-param-reassign": ["error", { "props": false }],
-		"no-shadow": ["error", { "allow": ["init"] }],
-		"no-underscore-dangle": 0,
-		"prefer-arrow-callback": 0,
-		"prefer-rest-params": 0,
-		"quotes": ["error", "single", { "allowTemplateLiterals": true }],
+  "rules": {
+    "arrow-body-style": 0,
+    "import/no-mutable-exports": 0,
+    "import/no-unresolved": 0,
+    "max-len": 0,
+    "new-cap": 0,
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-param-reassign": ["error", { "props": false }],
+    "no-shadow": ["error", { "allow": ["init"] }],
+    "no-underscore-dangle": 0,
+    "prefer-arrow-callback": 0,
+    "prefer-rest-params": 0,
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "spaced-comment": ["error", "always", { "exceptions": ["!steal-remove-start", "!steal-remove-end"] }],
     "no-prototype-builtins": 0,
     "class-methods-use-this": 0,
@@ -44,5 +44,5 @@
     "no-plusplus": 0,
     "comma-dangle": 0,
     "space-before-function-paren": 0
-	}
+  }
 }
