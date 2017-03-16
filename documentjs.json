@@ -2,7 +2,7 @@
   "sites" : {
     "docs": {
       "glob" : {
-        "ignore": ["{node_modules,dist}/**/*"]
+        "pattern": "{src,doctheme/md}/**/*.{less,md,js}"
       },
       "parent": "wallet-ui",
       "dest": "docs"
@@ -10,6 +10,7 @@
   },
   "siteDefaults": {
     "source": "https://github.com/Equibit/wallet-ui",
-    "templates": "doctheme/templates"
+    "templates": "doctheme/templates",
+    "static": "doctheme/static/"
   }
 }
