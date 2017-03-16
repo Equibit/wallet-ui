@@ -4,9 +4,7 @@
     "mocha": true,
     "shared-node-browser": true
   },
-  "extends": [
-    "airbnb-base"
-  ],
+  "extends": "eslint:recommended",
   "globals": {
     "describe": true,
     "it": true,
@@ -21,7 +19,7 @@
   "root": true,
   "plugins": ["promise", "done-component"],
   "rules": {
-    "arrow-body-style": 0,
+    "arrow-body-style": ["error", "as-needed"],
     "import/no-mutable-exports": 0,
     "import/no-unresolved": 0,
     "max-len": 0,
@@ -42,7 +40,6 @@
     "import/newline-after-import": 0,
     "promise/catch-or-return": 1,
     "no-plusplus": 0,
-    "comma-dangle": 0,
-    "space-before-function-paren": 0
+    "comma-dangle": 0
   }
 }
