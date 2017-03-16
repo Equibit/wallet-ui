@@ -1,3 +1,17 @@
+/**
+ * @module {can-map} wallet-ui/app AppViewModel
+ * @parent wallet-ui
+ *
+ * Application view model.
+ *
+ * Usage:
+ * ```
+ * <can-import from="wallet-ui/app" export-as="viewModel" />
+ * ```
+ *
+ * @group wallet-ui/app.properties 0 properties
+ */
+
 import DefineMap from 'can-define/map/';
 import route from 'can-route';
 import 'can-route-pushstate';
