@@ -15,11 +15,13 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "build": "node build",
-    "develop": "done-serve --static --develop --port 8080",
-    "document": "documentjs -f -d",
     "start": "done-serve --port 8080",
-    "test": "testee test.html --browsers firefox --reporter Spec"
+    "develop": "done-serve --static --develop --port 8080",
+    "build": "node build",
+    "document": "documentjs -f -d",
+    "lint": "eslint src test --ext .js --ext .component --fix",
+    "test": "npm-run-all lint test:unit",
+    "test:unit": "testee test.html --browsers firefox --reporter Spec"
   },
   "main": "wallet-ui/index.stache!done-autorender",
   "files": [
@@ -76,7 +78,13 @@
     "can-fixture": "^1.0.11",
     "documentjs": "^0.4.4",
     "donejs-cli": "^1.0.0-alpha.2",
+    "eslint": "^3.12.2",
+    "eslint-plugin-done-component": "^0.2.3",
+    "eslint-plugin-html": "^1.7.0",
+    "eslint-plugin-import": "^2.0.1",
+    "eslint-plugin-promise": "^3.4.0",
     "funcunit": "^3.1.0",
+    "npm-run-all": "^4.0.2",
     "steal-qunit": "^1.0.0",
     "steal-tools": "^1.0.1",
     "testee": "^0.3.0"

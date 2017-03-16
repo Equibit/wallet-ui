@@ -11,6 +11,6 @@ QUnit.module('wallet-ui functional smoke test', {
   }
 });
 
-QUnit.test('wallet-ui main page shows up', function() {
+QUnit.test('wallet-ui main page shows up', function () {
   F('title').text('wallet-ui', 'Title is set');
 });
