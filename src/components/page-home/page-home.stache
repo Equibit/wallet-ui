@@ -1,1 +1,5 @@
+<can-import from="can-stache/helpers/route" />
+
 <p>{{message}}</p>
+
+<a href="{{routeUrl page='signup'}}">Goto signup</a>

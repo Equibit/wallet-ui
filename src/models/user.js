@@ -1,7 +1,7 @@
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/list';
 import feathersClient from './feathers-client';
-import superModel from '../lib/super-model';
+import superModel from './super-model';
 import algebra from './algebra';
 
 var User = DefineMap.extend('User', {
