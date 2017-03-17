@@ -1,4 +1,4 @@
-<can-import from="wallet-ui/components/signup/signup.scss" />
+<can-import from="wallet-ui/components/page-signup/page-signup.scss" />
 
 <div class="container">
 

@@ -1,15 +1,16 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import view from './signup.stache';
+import './page-settings.scss';
+import view from './page-settings.stache';
 
 export const ViewModel = DefineMap.extend({
   message: {
-    value: 'This is the page-signup component'
+    value: 'This is the page-settings component'
   }
 });
 
 export default Component.extend({
-  tag: 'page-signup',
+  tag: 'page-settings',
   ViewModel,
   view
 });

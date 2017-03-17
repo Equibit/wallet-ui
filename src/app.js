@@ -13,8 +13,17 @@
  */
 
 import DefineMap from 'can-define/map/';
-import 'can-route';
+import route from 'can-route';
 import 'can-route-pushstate';
+
+var pages = {
+	home: 'public',
+	signup: 'public',
+	login: 'public',
+	dashboard: 'private',
+	settings: 'private',
+	loading: 'public'
+};
 
 const AppViewModel = DefineMap.extend({
   message: {
@@ -24,7 +33,30 @@ const AppViewModel = DefineMap.extend({
   title: {
     value: 'wallet-ui',
     serialize: false
-  }
+  },
+
+  /**
+	 * Page component of the route.
+	 */
+	page: {
+		serialize: true
+	},
+
+	/**
+	 * Determines which page-level component is displayed.
+	 */
+	displayedPage: {
+		get () {
+			let page = this.page;
+
+			if (!this.session) {
+				page = pages[page] === 'private' ? 'login' : page;
+			}
+			return pages[page] ? page : 'four-oh-four';
+		}
+	},
 });
+
+route('{page}', {page: 'home'});
 
 export default AppViewModel;

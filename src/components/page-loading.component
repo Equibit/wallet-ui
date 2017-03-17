@@ -1,0 +1,19 @@
+<can-component tag="page-loading">
+  <style type="scss">
+    display: block;
+
+    p { font-weight: bold; }
+  </style>
+  <view>
+    <p>{{message}}</p>
+  </view>
+  <script type="view-model">
+    import DefineMap from 'can-define/map/';
+
+    export default DefineMap.extend({
+      message: {
+        value: 'This is the page-loading component'
+      }
+    });
+  </script>
+</can-component>

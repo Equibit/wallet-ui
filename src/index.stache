@@ -9,10 +9,40 @@
     <can-import from="tether" />
     <can-import from="bootstrap" />
     <can-import from="bootstrap/dist/css/bootstrap.min.css" />
-    <can-import from="wallet-ui/styles.scss" />
-    <can-import from="wallet-ui/app" export-as="viewModel" />
+    <can-import from="~/styles.scss" />
+    <can-import from="~/app" export-as="viewModel" />
 
-    <h1>{{message}}</h1>
+    <can-import from="~/components/page-loading.component" />
+    <can-import from="~/components/page-home/" />
+    <can-import from="~/components/page-portfolio/" />
+    <can-import from="~/components/page-signup/" />
+    <can-import from="~/components/page-login/" />
+    <can-import from="~/components/page-settings/" />
+    <can-import from="~/components/page-four-oh-four/" />
+
+    {{#switch displayedPage}}
+			{{#case 'loading'}}
+				<page-loading></page-loading>
+			{{/case}}
+			{{#case 'home'}}
+				<page-home />
+			{{/case}}
+			{{#case 'portfolio'}}
+				<page-portfolio />
+			{{/case}}
+			{{#case 'signup'}}
+				<page-signup />
+			{{/case}}
+      {{#case 'login'}}
+				<page-login />
+			{{/case}}
+			{{#case 'settings'}}
+				<page-settings />
+			{{/case}}
+			{{#case 'four-oh-four'}}
+				<page-four-oh-four />
+			{{/case}}
+		{{/switch}}
 
     {{#switch env.NODE_ENV}}
       {{#case "production"}}
