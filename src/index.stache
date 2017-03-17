@@ -9,7 +9,7 @@
     <can-import from="tether" />
     <can-import from="bootstrap" />
     <can-import from="bootstrap/dist/css/bootstrap.min.css" />
-    <can-import from="wallet-ui/styles.less" />
+    <can-import from="wallet-ui/styles.scss" />
     <can-import from="wallet-ui/app" export-as="viewModel" />
 
     <h1>{{message}}</h1>

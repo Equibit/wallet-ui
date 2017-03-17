@@ -3,7 +3,7 @@ import QUnit from 'steal-qunit';
 
 import 'wallet-ui/models/test';
 
-import 'wallet-ui/signup/signup-test';
+import 'wallet-ui/components/signup/signup-test';
 
 F.attach(QUnit);
 
