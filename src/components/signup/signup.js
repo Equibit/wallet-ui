@@ -1,6 +1,5 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-//import './signup.scss';
 import view from './signup.stache';
 
 export const ViewModel = DefineMap.extend({
