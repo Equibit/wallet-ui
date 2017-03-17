@@ -1,4 +1,4 @@
-import QUnit from 'steal-qunit';
+import QUnit from 'steal-mocha';
 import { ViewModel } from './signup';
 
 // ViewModel unit tests

@@ -21,7 +21,7 @@
     "document": "documentjs -f -d",
     "lint": "semistandard --fix",
     "test": "npm-run-all lint test:unit",
-    "test:unit": "testee test.html --browsers firefox --reporter Spec"
+    "test:unit": "testee test/test.html --browsers firefox --reporter Spec"
   },
   "main": "wallet-ui/index.stache!done-autorender",
   "files": [
@@ -33,6 +33,11 @@
     "keychain",
     "wallet"
   ],
+  "semistandard": {
+    "env": [
+      "mocha"
+    ]
+  },
   "steal": {
     "main": "wallet-ui/index.stache!done-autorender",
     "directories": {
@@ -43,6 +48,7 @@
       "node_modules/can-zone/register"
     ],
     "plugins": [
+      "chai",
       "done-css",
       "done-component",
       "steal-sass",
@@ -54,12 +60,19 @@
       }
     },
     "serviceBaseURL": "",
+    "map": {
+      "assert": "chai/chai"
+    },
     "meta": {
       "bootstrap": {
         "deps": [
           "jquery",
           "tether"
         ]
+      },
+      "chai/chai": {
+        "format": "global",
+        "exports": "chai.assert"
       },
       "tether": {
         "exports": "Tether"
@@ -70,6 +83,7 @@
     "bootstrap": "^4.0.0-alpha.6",
     "can-component": "^3.0.4",
     "can-connect": "^1.0.21",
+    "can-connect-feathers": "^3.5.2",
     "can-define": "^1.0.10",
     "can-route": "^3.0.6",
     "can-route-pushstate": "^3.0.1",
@@ -78,24 +92,32 @@
     "can-view-autorender": "^3.0.3",
     "can-zone": "^0.6.0",
     "done-autorender": "^1.0.0-alpha.0",
-    "done-component": "^0.6.0-pre.5",
+    "done-component": "^1.0.0",
     "done-css": "^3.0.0-alpha.0",
     "done-serve": "^1.0.0-alpha.0",
+    "feathers": "^2.1.1",
+    "feathers-authentication-client": "^0.3.1",
+    "feathers-hooks": "^1.8.1",
+    "feathers-socketio": "^1.5.2",
     "generator-donejs": "^1.0.0-alpha.0",
     "jquery": "^3.1.1",
     "steal": "^1.0.5",
     "steal-sass": "stealjs/steal-sass#upgrade-to-steal-1",
+    "steal-socket.io": "^4.0.9",
     "steal-stache": "^3.0.4",
     "tether": "^1.4.0"
   },
   "devDependencies": {
+    "babel-eslint": "^7.1.1",
     "can-fixture": "^1.0.11",
+    "chai": "^3.5.0",
     "documentjs": "^0.4.4",
     "donejs-cli": "^1.0.0-alpha.2",
     "funcunit": "^3.1.0",
+    "mocha": "^3.2.0",
     "npm-run-all": "^4.0.2",
     "semistandard": "^10.0.0",
-    "steal-qunit": "^1.0.0",
+    "steal-mocha": "^1.0.0",
     "steal-tools": "^1.0.1",
     "testee": "^0.3.0"
   }
