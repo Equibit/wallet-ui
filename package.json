@@ -20,7 +20,8 @@
     "build": "node build",
     "document": "documentjs -f -d",
     "lint": "semistandard --fix",
-    "test": "npm-run-all lint test:unit",
+    "test": "npm-run-all lint test:unit test:funcunit",
+    "test:funcunit": "testee test/test-funcunit.html --browsers firefox --reporter Spec",
     "test:unit": "testee test/test.html --browsers firefox --reporter Spec"
   },
   "main": "wallet-ui/index.stache!done-autorender",
