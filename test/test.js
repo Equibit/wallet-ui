@@ -12,10 +12,12 @@ import F from 'funcunit';
 
 F.attach(mocha);
 
-describe('wallet-ui functional smoke test', () => {
+// Note: don't use arrow functions if you need to access `this` (see https://mochajs.org/#arrow-functions).
+describe('wallet-ui functional smoke test', function () {
+  this.timeout(5000);
+
   beforeEach((done) => {
-    console.log('beforeEach');
-    F.open('/index.html').then(function () {
+    F.open('/index.html', function () {
       done();
     });
   });
@@ -24,4 +26,5 @@ describe('wallet-ui functional smoke test', () => {
     let text = F('title').text();
     assert.equal(text, 'wallet-ui');
   });
+
 });
