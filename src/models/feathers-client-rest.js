@@ -1,14 +1,11 @@
 import feathers from 'feathers/client';
-import io from 'steal-socket.io';
-import socketio from 'feathers-socketio/client';
+import jQuery from 'jquery';
+import rest from 'feathers-rest/client';
 import auth from 'feathers-authentication-client';
 import hooks from 'feathers-hooks';
 
-var socket = io('http://localhost:3030', {
-  transports: ['websocket']
-});
 const feathersClient = feathers()
-  .configure(socketio(socket))
+  .configure(rest('http://localhost:3030').jquery(jQuery))
   .configure(hooks())
   .configure(auth());
 
