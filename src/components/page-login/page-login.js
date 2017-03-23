@@ -1,11 +1,22 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import './page-login.scss';
 import view from './page-login.stache';
+import feathersClient from '~/models/feathers-client';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the page-login component'
+  email: {
+    value: ''
+  },
+  password: {
+    value: ''
+  },
+  handleSubmit (event, email, password) {
+    event.preventDefault();
+    feathersClient.authenticate({
+      strategy: 'local',
+      email,
+      password
+    });
   }
 });
 

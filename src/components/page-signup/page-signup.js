@@ -1,10 +1,21 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import view from './page-signup.stache';
+import feathersClient from '~/models/feathers-client-rest';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the page-signup component'
+  email: {
+    value: ''
+  },
+  password: {
+    value: ''
+  },
+  handleSubmit (event, email, password) {
+    event.preventDefault();
+    feathersClient.service('users').create({
+      email,
+      password
+    });
   }
 });
 
