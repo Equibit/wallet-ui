@@ -11,7 +11,7 @@ export default new set.Algebra(
       return moment(cm2.date).toDate() - moment(cm1.date).toDate();
     }
     throw new Error("can't sort that way");
-  }),
+  })
   // {
   //   '$populate': function () {
   //     return true;

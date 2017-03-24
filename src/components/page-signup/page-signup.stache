@@ -2,23 +2,75 @@
 
 <div class="container">
 
-  <form class="form-signin" ($submit)="handleSubmit(%event, email, password)">
-    <h2 class="form-signin-heading">Sign up</h2>
-    <a href="{{routeUrl page='login'}}">Goto login</a>
-
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus  {($value)}="email">
-
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required {($value)}="password">
-
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
+  <div class="row justify-content-end">
+    <div class="col-6">
+      {{#if routeCurrent(page='signup')}}
+        <span>SIGN UP</span> | <a href="{{routeUrl page='login'}}">LOG IN</a>
+      {{else}}
+        <a href="{{routeUrl page='signup'}}">SIGN UP</a> | <span>LOG IN</span>
+      {{/if}}
     </div>
+  </div>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-  </form>
+
+  {{#if routeCurrent(page='signup')}}
+    <form class="form-signin" ($submit)="handleSignup(%event, email)">
+      <h2 class="form-signin-heading">Create an Account</h2>
+
+      {{^if isAccountCreated}}
+
+        <div class="form-group">
+          <label for="inputEmail">Email</label>
+          <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"
+                 {($value)}="email" required autofocus>
+          {{#if emailValidationMsg}}
+            <small id="emailHelp" class="form-text text-muted">{{emailValidationMsg}}</small>
+          {{/if}}
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me">
+            I agree to the <a href="{{routeUrl page='terms'}}">Terms & Conditions</a>
+            and <a href="{{routeUrl page='privacy'}}">Privacy Policy</a>.
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+
+      {{else}}
+
+        <p>Check your email to continue,
+        and then head to <a href="{{routeUrl page='login'}}">login</a>.</p>
+
+      {{/if}}
+    </form>
+
+  {{else}}
+
+    <form class="form-signin" ($submit)="handleLogin(%event, email, password)">
+      <h2 class="form-signin-heading">Log In</h2>
+
+      <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"
+               {($value)}="email" required autofocus>
+        {{#if emailValidationMsg}}
+          <small id="emailHelp" class="form-text text-muted">{{emailValidationMsg}}</small>
+        {{/if}}
+      </div>
+
+      <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input type="password" class="form-control" id="inputPassword" aria-describedby="emailHelp" placeholder="Enter password"
+               {($value)}="password" required>
+        {{#if passwordValidationMsg}}
+          <small id="emailHelp" class="form-text text-muted">{{passwordValidationMsg}}</small>
+        {{/if}}
+      </div>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+    </form>
+
+  {{/if}}
 
 </div>

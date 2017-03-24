@@ -10,9 +10,22 @@ export const ViewModel = DefineMap.extend({
   password: {
     value: ''
   },
-  handleSubmit (event, email, password) {
+  isAccountCreated: {
+    value: false
+  },
+  handleSignup (event, email, password) {
     event.preventDefault();
     feathersClient.service('users').create({
+      email,
+      password
+    }).then(() => {
+      this.isAccountCreated = true;
+    });
+  },
+  handleLogin (event, email, password) {
+    event.preventDefault();
+    feathersClient.authenticate({
+      strategy: 'local',
       email,
       password
     });

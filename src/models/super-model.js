@@ -7,15 +7,9 @@ import canMap from 'can-connect/can/map/';
 import canRef from 'can-connect/can/ref/';
 import dataCallbacks from 'can-connect/data/callbacks/';
 import realtime from 'can-connect/real-time/';
-// import errorHandler from './behaviors/error-handler';
 import feathersBehavior from 'can-connect-feathers/service';
-// import smartMergeBehavior from './behaviors/smart-merge';
 
 const superModel = function (options) {
-  // TODO: remove this when this issue is closed:
-  // https://github.com/canjs/can-connect/issues/100
-  options.idProp = '_id';
-
   const behaviors = [
     feathersBehavior,
     dataParse,
@@ -23,11 +17,9 @@ const superModel = function (options) {
     constructStore,
     constructOnce,
     canMap,
-    // smartMergeBehavior,
     canRef,
     dataCallbacks,
     realtime
-    //, errorHandler
   ];
 
   return connect(behaviors, options);
