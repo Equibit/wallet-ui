@@ -13,10 +13,22 @@ export const ViewModel = DefineMap.extend({
   handleSubmit (event, email, password) {
     event.preventDefault();
     feathersClient.authenticate({
-      strategy: 'local',
+      strategy: 'challenge-request',
       email,
       password
+    })
+    .then(response => {
+      Object.assign(this, response);
+    })
+    .catch(error => {
+      console.log(error);
     });
+  },
+  salt: 'string',
+  challenge: 'string',
+  clear () {
+    this.salt = '';
+    this.challenge = '';
   }
 });
 
