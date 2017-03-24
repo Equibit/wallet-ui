@@ -1,6 +1,6 @@
 import 'wallet-ui/models/test';
 
-// import 'wallet-ui/components/page-signup/page-signup-test';
+// import 'wallet-ui/components/page-auth/page-auth-test';
 // import 'wallet-ui/components/page-home/page-home-test';
 // import 'wallet-ui/components/page-portfolio/page-portfolio-test';
 // import 'wallet-ui/components/page-login/page-login-test';

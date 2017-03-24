@@ -1,6 +1,6 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import view from './page-signup.stache';
+import view from './page-auth.stache';
 import feathersClient from '~/models/feathers-client-rest';
 
 export const ViewModel = DefineMap.extend({
@@ -25,15 +25,26 @@ export const ViewModel = DefineMap.extend({
   handleLogin (event, email, password) {
     event.preventDefault();
     feathersClient.authenticate({
-      strategy: 'local',
-      email,
-      password
+      strategy: 'challenge-request',
+      email
+    })
+    .then(response => {
+      Object.assign(this, response);
+    })
+    .catch(error => {
+      console.log(error);
     });
+  },
+  salt: 'string',
+  challenge: 'string',
+  clear () {
+    this.salt = '';
+    this.challenge = '';
   }
 });
 
 export default Component.extend({
-  tag: 'page-signup',
+  tag: 'page-auth',
   ViewModel,
   view
 });

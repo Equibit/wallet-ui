@@ -1,4 +1,4 @@
-<can-import from="wallet-ui/components/page-signup/page-signup.scss" />
+<can-import from="wallet-ui/components/page-auth/page-auth.scss" />
 
 <div class="container">
 
@@ -70,6 +70,20 @@
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
     </form>
+
+    {{#if salt}}
+      <table>
+        <tr>
+          <td>Salt:</td>
+          <td>{{salt}}</td>
+        </tr>
+        <tr>
+          <td>Challenge:</td>
+          <td>{{challenge}}</td>
+        </tr>
+      </table>
+      <button ($click)="clear()">Clear</button>
+    {{/if}}
 
   {{/if}}
 

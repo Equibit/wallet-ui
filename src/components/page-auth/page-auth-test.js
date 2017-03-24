@@ -6,5 +6,5 @@ QUnit.module('wallet-ui/signup');
 
 QUnit.test('Has message', function () {
   var vm = new ViewModel();
-  QUnit.equal(vm.message, 'This is the page-signup component');
+  QUnit.equal(vm.message, 'This is the page-auth component');
 });

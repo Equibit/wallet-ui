@@ -5,18 +5,29 @@ import feathersClient from '~/models/feathers-client';
 
 export const ViewModel = DefineMap.extend({
   email: {
-    value: ''
+    value: 'marshall@creativeideal.net'
   },
   password: {
-    value: ''
+    value: 'test'
   },
   handleSubmit (event, email, password) {
     event.preventDefault();
     feathersClient.authenticate({
-      strategy: 'local',
-      email,
-      password
+      strategy: 'challenge-request',
+      email
+    })
+    .then(response => {
+      Object.assign(this, response);
+    })
+    .catch(error => {
+      console.log(error);
     });
+  },
+  salt: 'string',
+  challenge: 'string',
+  clear () {
+    this.salt = '';
+    this.challenge = '';
   }
 });
 

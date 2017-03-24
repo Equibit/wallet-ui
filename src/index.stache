@@ -15,7 +15,7 @@
     <can-import from="~/components/page-loading.component" />
     <can-import from="~/components/page-home/" />
     <can-import from="~/components/page-portfolio/" />
-    <can-import from="~/components/page-signup/" />
+    <can-import from="~/components/page-auth/" />
     <can-import from="~/components/page-settings/" />
     <can-import from="~/components/page-four-oh-four/" />
 
@@ -30,10 +30,10 @@
 				<page-portfolio />
 			{{/case}}
 			{{#case 'signup'}}
-				<page-signup />
+				<page-auth />
 			{{/case}}
       {{#case 'login'}}
-				<page-signup />
+				<page-auth />
 			{{/case}}
 			{{#case 'settings'}}
 				<page-settings />
