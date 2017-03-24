@@ -5,17 +5,16 @@ import feathersClient from '~/models/feathers-client';
 
 export const ViewModel = DefineMap.extend({
   email: {
-    value: ''
+    value: 'marshall@creativeideal.net'
   },
   password: {
-    value: ''
+    value: 'test'
   },
   handleSubmit (event, email, password) {
     event.preventDefault();
     feathersClient.authenticate({
       strategy: 'challenge-request',
-      email,
-      password
+      email
     })
     .then(response => {
       Object.assign(this, response);
