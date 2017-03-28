@@ -2,7 +2,6 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import view from './page-auth.stache';
 import feathersClient from '~/models/feathers-client-rest';
-import route from 'can-route';
 
 export const ViewModel = DefineMap.extend({
   email: {

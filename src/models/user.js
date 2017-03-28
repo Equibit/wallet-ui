@@ -1,6 +1,6 @@
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/list';
-//import feathersClient from './feathers-client';
+// import feathersClient from './feathers-client';
 import feathersClient from './feathers-client-rest';
 import superModel from './super-model';
 import algebra from './algebra';
@@ -19,23 +19,23 @@ var User = DefineMap.extend('User', {
     value: false
   },
   // Q: do we want different passphrases for mnemonic and privateKey? A: Not now.
-  generateKeys(passphrase){
+  generateKeys (password) {
     let mnemonic = crypto.generateMnemonic();
     let privateKey = crypto.mnemonicToPrivateKey(mnemonic);
-    let publicKey = crypto.generatePublicKey(privateKey);
+    let publicKey = crypto.getPublicKey(privateKey);
     return {
       mnemonic,
       privateKey,
       publicKey
     };
   },
-  signWithPrivateKey(){
+  signWithPrivateKey () {
     // Transactions and messages will be signed with PrivateKey.
   },
-  encryptWithPassword(){
+  encryptWithPassword () {
     // Private key and the 12 recovery words should be encrypted with user password.
   },
-  decryptWithPassword(){
+  decryptWithPassword () {
     // To sign anything with PrivateKey we need to decrypt it.
     // Also we want allow user to save his recovery phrase which also can be decrypted with pswd.
   }
