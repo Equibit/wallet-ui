@@ -4,6 +4,7 @@ import DefineList from 'can-define/list/list';
 import feathersClient from './feathers-client-rest';
 import superModel from './super-model';
 import algebra from './algebra';
+import crypto from '~/utils/crypto';
 
 var User = DefineMap.extend('User', {
   _id: 'string',
@@ -17,8 +18,16 @@ var User = DefineMap.extend('User', {
     type: 'boolean',
     value: false
   },
-  generatePrivateKey(){
-    // To generate Private Key we need to generate 12 words first.
+  // Q: do we want different passphrases for mnemonic and privateKey? A: Not now.
+  generateKeys(passphrase){
+    let mnemonic = crypto.generateMnemonic();
+    let privateKey = crypto.mnemonicToPrivateKey(mnemonic);
+    let publicKey = crypto.generatePublicKey(privateKey);
+    return {
+      mnemonic,
+      privateKey,
+      publicKey
+    };
   },
   signWithPrivateKey(){
     // Transactions and messages will be signed with PrivateKey.
