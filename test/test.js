@@ -1,4 +1,5 @@
-import 'wallet-ui/models/test';
+import '~/models/test';
+import '~/utils/test';
 
 // import 'wallet-ui/components/page-auth/page-auth-test';
 // import 'wallet-ui/components/page-home/page-home-test';
