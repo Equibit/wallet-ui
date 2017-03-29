@@ -12,7 +12,7 @@ describe('utils/crypto', function () {
   it('mnemonicToPrivateKey', function () {
     let mnemonic = crypto.generateMnemonic();
     let pk = crypto.mnemonicToPrivateKey(mnemonic);
-    assert.ok(pk.chainCode instanceof Uint8Array , 'chainCode should be an array of 8-bit unsigned integers');
+    assert.ok(pk.chainCode instanceof Uint8Array, 'chainCode should be an array of 8-bit unsigned integers');
     assert.ok(pk.keyPair.compressed, 'keyPair should be compressed');
   });
 });

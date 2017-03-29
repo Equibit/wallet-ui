@@ -20,6 +20,7 @@
     "build": "node build",
     "document": "documentjs -f -d",
     "lint": "semistandard",
+    "lint:fix": "semistandard --fix",
     "test": "npm-run-all lint test:unit",
     "test:funcunit": "testee test/test-funcunit.html --browsers firefox --reporter Spec",
     "test:unit": "testee test/test.html --browsers firefox --reporter Spec"
