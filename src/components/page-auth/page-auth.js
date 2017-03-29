@@ -30,6 +30,8 @@ export const ViewModel = DefineMap.extend({
     })
     .then(response => {
       Object.assign(this, response);
+      // If its a new account we want to generate 12 words of the recovery phrase and a Private Key.
+      // Both 12 words and PK will be encrypted with a password and saved as user data in DB.
     })
     .catch(error => {
       console.log(error);
