@@ -1,5 +1,6 @@
 import '~/models/test';
 import '~/utils/test';
+import '~/components/page-auth/password-strength/test';
 
 // import 'wallet-ui/components/page-auth/page-auth-test';
 // import 'wallet-ui/components/page-home/page-home-test';
