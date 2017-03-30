@@ -24,5 +24,16 @@ https://bitcoin.org/en/glossary
     - 12 words -> 128 entropy bits;
     - 24 words -> 256 entropy bits.
 
+**Public key** - the public portion of a keypair which can be used to verify signatures made with the private portion of the keypair.
+  - ECDSA Public Key
+  - Bitcoin ECDSA public keys represent a point on a particular Elliptic Curve (EC) defined in secp256k1. In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate.
+
+**Compressed Public Key** - An ECDSA public key that is 33 bytes long rather than the 65 bytes of an uncompressed public key.
+  - this is achieved with no data loss by dropping the Y coordinate and adding an extra bit. This is possible because only two points along the curve share any particular X coordinate, so the 32-byte Y coordinate can be replaced with a single bit indicating whether the point is on what appears in the illustration as the "top" side or the "bottom" side.
+
+**Payment address**
+  - A 20-byte hash formatted using `base58check` to produce either a P2PKH or P2SH Bitcoin/Equibit address.
+
 Links:
-- Bitcoin Developer Guide. Wallets: https://bitcoin.org/en/developer-guide#wallets
+- Bitcoin Developer Guide: https://bitcoin.org/en/developer-guide
+  - Wallets: https://bitcoin.org/en/developer-guide#wallets
