@@ -1,3 +1,4 @@
-import 'wallet-ui/models/fixtures/users';
+import './users';
+import './authenticate';
 
 // Main file that loads all model fixtures

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/canjs/can-fixture-socket.png?branch=master)](https://travis-ci.org/canjs/can-fixture-socket)
+
 # Equibit Wallet UI
 
 Welcome to the wallet-ui DoneJS application!

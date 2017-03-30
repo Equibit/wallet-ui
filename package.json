@@ -19,8 +19,9 @@
     "develop": "done-serve --static --develop --port 8080",
     "build": "node build",
     "document": "documentjs -f -d",
-    "lint": "semistandard --fix",
-    "test": "npm-run-all lint test:unit test:funcunit",
+    "lint": "semistandard",
+    "lint:fix": "semistandard --fix",
+    "test": "npm-run-all lint test:unit",
     "test:funcunit": "testee test/test-funcunit.html --browsers firefox --reporter Spec",
     "test:unit": "testee test/test.html --browsers firefox --reporter Spec"
   },
@@ -81,7 +82,7 @@
     }
   },
   "dependencies": {
-    "@equibit/wallet-crypto": "^0.0.11",
+    "@equibit/wallet-crypto": "^0.1.0",
     "bootstrap": "^4.0.0-alpha.6",
     "can-component": "^3.0.7",
     "can-connect": "^1.0.21",

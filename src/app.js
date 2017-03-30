@@ -15,7 +15,7 @@
 import DefineMap from 'can-define/map/';
 import route from 'can-route';
 import 'can-route-pushstate';
-// import '~/models/fixtures/fixtures';
+import '~/models/fixtures/fixtures';
 
 var pages = {
   home: 'public',

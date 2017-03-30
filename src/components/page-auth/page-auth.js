@@ -28,6 +28,7 @@ export const ViewModel = DefineMap.extend({
   },
   handleLogin (event, email, password) {
     event.preventDefault();
+
     let hashedPassword = signed.createHash(password);
     let data = { email };
 
