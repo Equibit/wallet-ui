@@ -35,6 +35,12 @@
       {{#case 'login'}}
 				<page-auth />
 			{{/case}}
+			{{#case 'forgot'}}
+				<page-auth />
+			{{/case}}
+			{{#case 'change-password'}}
+				<page-auth />
+			{{/case}}
 			{{#case 'settings'}}
 				<page-settings />
 			{{/case}}
