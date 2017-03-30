@@ -1,14 +1,15 @@
 <can-import from="wallet-ui/components/page-auth/page-auth.scss" />
+<can-import from="./change-password/" />
 
 <div class="container">
 
   <div class="row justify-content-end">
-    <div class="col-6">
-      {{#if routeCurrent(page='signup')}}
-        <span>SIGN UP</span> | <a href="{{routeUrl page='login'}}">LOG IN</a>
-      {{else}}
-        <a href="{{routeUrl page='signup'}}">SIGN UP</a> | <span>LOG IN</span>
-      {{/if}}
+    <div class="col-9">
+      {{#if routeCurrent(page='signup')}}<span>SIGN UP</span>{{else}}<a href="{{routeUrl page='signup'}}">SIGN UP</a>{{/if}}
+      |
+      {{#if routeCurrent(page='login')}}<span>LOGIN</span>{{else}}<a href="{{routeUrl page='login'}}">LOGIN</a>{{/if}}
+      |
+      {{#if routeCurrent(page='change-password')}}<span>CHANGE PW</span>{{else}}<a href="{{routeUrl page='change-password'}}">CHANGE PW</a>{{/if}}
     </div>
   </div>
 
@@ -45,7 +46,9 @@
       {{/if}}
     </form>
 
-  {{else}}
+  {{/if}}
+
+  {{#if routeCurrent(page='login')}}
 
     <form class="form-signin" ($submit)="handleLogin(%event, email, password)">
       <h2 class="form-signin-heading">Log In</h2>
@@ -74,6 +77,10 @@
     {{#if salt}}
       <table>
         <tr>
+          <td>Password:</td>
+          <td>{{hashedPassword}}</td>
+        </tr>
+        <tr>
           <td>Salt:</td>
           <td>{{salt}}</td>
         </tr>
@@ -81,10 +88,22 @@
           <td>Challenge:</td>
           <td>{{challenge}}</td>
         </tr>
+        <tr>
+          <td>Secret:</td>
+          <td>{{secret}}</td>
+        </tr>
+        <tr>
+          <td>Signature:</td>
+          <td>{{signature}}</td>
+        </tr>
       </table>
       <button ($click)="clear()">Clear</button>
     {{/if}}
 
+  {{/if}}
+
+  {{#if routeCurrent(page='change-password')}}
+    <change-password></change-password>
   {{/if}}
 
 </div>

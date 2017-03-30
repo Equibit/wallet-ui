@@ -21,6 +21,8 @@ var pages = {
   home: 'public',
   signup: 'public',
   login: 'public',
+  forgot: 'public',
+  'change-password': 'public',
   dashboard: 'private',
   settings: 'private',
   loading: 'public'
