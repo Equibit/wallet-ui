@@ -11,6 +11,9 @@ export const ViewModel = DefineMap.extend({
   password: {
     value: 'test'
   },
+  passwordVisible: {
+    value: false
+  },
   hashedPassword: 'string',
   isAccountCreated: {
     value: false
@@ -74,6 +77,9 @@ export const ViewModel = DefineMap.extend({
     this.challenge = '';
     this.secret = '';
     this.hashedPassword = '';
+  },
+  togglePassword () {
+    this.passwordVisible = !this.passwordVisible;
   }
 });
 

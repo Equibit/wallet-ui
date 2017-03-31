@@ -7,12 +7,18 @@ import signed from '~/models/feathers-signed';
 
 export const ViewModel = DefineMap.extend({
   email: {
-    value: 'marshall@creativeideal.net',
+    value: '',
     type: 'string'
   },
   password: {
-    value: 'test',
+    value: '',
     type: 'string'
+  },
+  passwordVisible: {
+    value: false
+  },
+  updatePassword (el) {
+    this.password = el.value;
   },
   handlePasswordChange (event, email, password) {
     event.preventDefault();
@@ -31,6 +37,9 @@ export const ViewModel = DefineMap.extend({
           throw new Error(`User ${email} not found.`);
         }
       });
+  },
+  togglePassword () {
+    this.passwordVisible = !this.passwordVisible;
   }
 });
 
