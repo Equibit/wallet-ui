@@ -6,7 +6,7 @@ import zxcvbn from 'zxcvbn';
 
 export const ViewModel = DefineMap.extend({
   password: 'string',
-  get score() {
+  get score () {
     return this.password && zxcvbn(this.password).score;
   }
 });
