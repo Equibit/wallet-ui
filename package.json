@@ -111,7 +111,8 @@
     "steal-sass": "stealjs/steal-sass#upgrade-to-steal-1",
     "steal-socket.io": "^4.0.9",
     "steal-stache": "^3.0.4",
-    "tether": "^1.4.0"
+    "tether": "^1.4.0",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",

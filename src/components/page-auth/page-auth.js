@@ -55,11 +55,11 @@ export const ViewModel = DefineMap.extend({
         return feathersClient.authenticate(signedData);
       })
       .then(response => {
-        debugger;
+        // debugger;
       })
       .catch(error => {
         console.log(error);
-        debugger;
+        // debugger;
       });
     })
     .catch(error => {
