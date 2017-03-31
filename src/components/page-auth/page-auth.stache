@@ -1,4 +1,5 @@
-<can-import from="wallet-ui/components/page-auth/page-auth.scss" />
+<can-import from="can-stache/helpers/route" />
+<can-import from="~/components/page-auth/page-auth.scss" />
 <can-import from="./change-password/" />
 
 <div class="container">
