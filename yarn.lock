@@ -1688,9 +1688,9 @@ can-stache-bindings@^3.0.5:
     can-view-model "^3.0.0"
     can-view-scope "^3.0.0"
 
-can-stache@^3.0.0, can-stache@^3.0.1, can-stache@^3.0.13, can-stache@^3.0.15, can-stache@^3.0.16:
-  version "3.0.20"
-  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.0.20.tgz#ebf4f1e0e91ff5d6d40ef77b311d4cc802a5827c"
+can-stache@^3.0.0, can-stache@^3.0.1, can-stache@^3.0.13, can-stache@^3.0.15, can-stache@^3.0.21:
+  version "3.0.21"
+  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.0.21.tgz#1ead0bf22d21cc5f6f6071f49526e84f072691aa"
   dependencies:
     can-compute "^3.0.4"
     can-namespace "1.0.0"
@@ -2237,10 +2237,6 @@ crypto-browserify@~3.11.0:
     pbkdf2 "^3.0.3"
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
-
-crypto@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/crypto/-/crypto-0.0.3.tgz#470a81b86be4c5ee17acc8207a1f5315ae20dbb0"
 
 csv-generate@^0.0.6:
   version "0.0.6"
@@ -3083,11 +3079,10 @@ feathers-authentication-popups@^0.1.2:
     events "^1.1.1"
     feathers-errors "^2.4.0"
 
-feathers-authentication-signed@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/feathers-authentication-signed/-/feathers-authentication-signed-0.0.3.tgz#709a1ee06774afa9459eca022f0de1ad7f28aed2"
+feathers-authentication-signed@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/feathers-authentication-signed/-/feathers-authentication-signed-0.0.4.tgz#ef1e2415be704e76c1f2d03176712a33e9acf025"
   dependencies:
-    crypto "^0.0.3"
     debug "^2.6.3"
     feathers-authentication-local "^0.3.3"
     feathers-errors "^2.6.2"
@@ -3432,9 +3427,9 @@ generate-object-property@^1.1.0:
   dependencies:
     is-property "^1.0.0"
 
-generator-donejs@^1.0.0-alpha.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/generator-donejs/-/generator-donejs-1.0.0.tgz#0f417211afdfdbd73bdf21b4ae257a89aa7118df"
+generator-donejs@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/generator-donejs/-/generator-donejs-1.0.2.tgz#e40714d69743d1fd0e27675b01c3d7e8ae885063"
   dependencies:
     is-valid-element-name "^1.0.0"
     lodash "^3.10.0"
@@ -6214,9 +6209,9 @@ steal-parse-amd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/steal-parse-amd/-/steal-parse-amd-1.0.0.tgz#3b0b29fade323473b24665e682301facb361bc61"
 
-steal-sass@stealjs/steal-sass#upgrade-to-steal-1:
-  version "1.0.3"
-  resolved "https://codeload.github.com/stealjs/steal-sass/tar.gz/28cd31e81cf94b5981a536a6af8be9865baf55c7"
+steal-sass@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/steal-sass/-/steal-sass-1.1.0.tgz#0b5f66c2c89d857db8df08ee141d2b871e6b4046"
   dependencies:
     sass.js "^0.9.4"
 
@@ -6226,7 +6221,7 @@ steal-socket.io@^4.0.9:
   dependencies:
     socket.io-client "^1.7.1"
 
-steal-stache@^3.0.0, steal-stache@^3.0.3, steal-stache@^3.0.4:
+steal-stache@^3.0.0, steal-stache@^3.0.3, steal-stache@^3.0.4, steal-stache@^3.0.5:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/steal-stache/-/steal-stache-3.0.5.tgz#5d607bf09a7dd82032ce0f7e07dba80702486394"
   dependencies:
