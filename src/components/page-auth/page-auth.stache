@@ -1,6 +1,8 @@
 <can-import from="can-stache/helpers/route" />
 <can-import from="~/components/page-auth/page-auth.scss" />
 <can-import from="./change-password/" />
+<can-import from="~/utils/helpers" />
+<can-import from="~/components/validation-message.component" />
 
 <!-- TODO: use bootstrap3 _glyphicons.scss: -->
 <!-- <can-import from="bootstrap-sass/assets/stylesheets/bootstrap/_glyphicons.scss"/> -->
@@ -37,20 +39,19 @@
 
         <div class="form-group">
           <label for="inputEmail">Email</label>
-          <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"
-                 {($value)}="email" required autofocus>
-          {{#if emailValidationMsg}}
-            <small id="emailHelp" class="form-text text-muted">{{emailValidationMsg}}</small>
-          {{/if}}
+          <input type="text" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"
+                 {($value)}="email" autofocus>
+          <validation-message {message}="emailError" />
         </div>
 
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me">
+            <input type="checkbox" {($checked)}="agreedToTerms">
             I agree to the <a href="{{routeUrl page='terms'}}">Terms & Conditions</a>
             and <a href="{{routeUrl page='privacy'}}">Privacy Policy</a>.
           </label>
         </div>
+        <validation-message {message}="termsError" />
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
 
       {{else}}
@@ -72,9 +73,7 @@
         <label for="inputEmail">Email</label>
         <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"
                {($value)}="email" required autofocus>
-        {{#if emailValidationMsg}}
-          <small id="emailHelp" class="form-text text-muted">{{emailValidationMsg}}</small>
-        {{/if}}
+        <validation-message {message}="emailError" />
       </div>
 
       <div class="form-group">
@@ -83,9 +82,7 @@
               ($click)="togglePassword()"></span>
         <input type="{{#if passwordVisible}}text{{else}}password{{/if}}" class="form-control" id="inputPassword" aria-describedby="emailHelp" placeholder="Enter password"
                {($value)}="password" required>
-        {{#if passwordValidationMsg}}
-          <small id="emailHelp" class="form-text text-muted">{{passwordValidationMsg}}</small>
-        {{/if}}
+        <validation-message {message}="passwordError" />
       </div>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
