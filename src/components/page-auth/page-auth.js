@@ -3,16 +3,35 @@ import DefineMap from 'can-define/map/';
 import view from './page-auth.stache';
 import feathersClient from '~/models/feathers-client-rest';
 import signed from '~/models/feathers-signed';
+import validate from '~/utils/validators';
 
 export const ViewModel = DefineMap.extend({
   email: {
-    value: 'marshall@creativeideal.net'
+    type: 'string',
+    set (value) {
+      this.emailError = validate.email(value, {allowEmpty: 1});
+      return value;
+    }
   },
   password: {
-    value: 'test'
+    type: 'string',
+    set (value) {
+      this.passwordError = validate.password(value, {allowEmpty: 1});
+      return value;
+    }
   },
+  /**
+   * @property {boolean} Toggles the password input visibility (password vs text type).
+   */
   passwordVisible: {
     value: false
+  },
+  agreedToTerms: {
+    type: 'boolean',
+    set (value) {
+      this.termsError = '';
+      return value;
+    }
   },
   hashedPassword: 'string',
   isAccountCreated: {
@@ -22,8 +41,28 @@ export const ViewModel = DefineMap.extend({
   challenge: 'string',
   secret: 'string', // The secret is used to sign requests.
   signature: 'string', // Remove this.  It's only here for verification / testing.
+
+  // Form validation:
+  emailError: 'string',
+  passwordError: 'string',
+  termsError: 'string',
+  get isSignupValid () {
+    this.emailError = validate.email(this.email, {allowEmpty: 0});
+    this.termsError = validate.terms(this.agreedToTerms);
+    return !this.emailError && !this.termsError;
+  },
+  get isLoginValid () {
+    this.emailError = validate.email(this.email, {allowEmpty: 0});
+    this.passwordError = validate.password(this.password, {allowEmpty: 0});
+    return !this.emailError && !this.passwordError;
+  },
+
+  // Methods:
   handleSignup (event, email, password) {
     event.preventDefault();
+    if (!this.isSignupValid) {
+      return false;
+    }
     feathersClient.service('users').create({ email })
       .then(() => {
         this.isAccountCreated = true;
@@ -31,6 +70,9 @@ export const ViewModel = DefineMap.extend({
   },
   handleLogin (event, email, password) {
     event.preventDefault();
+    if (!this.isLoginValid) {
+      return false;
+    }
 
     let hashedPassword = signed.createHash(password);
     let data = { email };

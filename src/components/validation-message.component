@@ -1,0 +1,19 @@
+<can-component tag="validation-message">
+  <style type="scss">
+    display: block;
+  </style>
+  <view>
+    {{#if message}}
+      <small class="form-text text-muted">{{message}}</small>
+    {{/if}}
+  </view>
+  <script type="view-model">
+    import DefineMap from 'can-define/map/';
+
+    export default DefineMap.extend({
+      message: {
+        value: null
+      }
+    });
+  </script>
+</can-component>
