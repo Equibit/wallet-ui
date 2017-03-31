@@ -20,6 +20,9 @@ export const ViewModel = DefineMap.extend({
       return value;
     }
   },
+  /**
+   * @property {boolean} Toggles the password input visibility (password vs text type).
+   */
   passwordVisible: {
     value: false
   },
@@ -38,13 +41,14 @@ export const ViewModel = DefineMap.extend({
   challenge: 'string',
   secret: 'string', // The secret is used to sign requests.
   signature: 'string', // Remove this.  It's only here for verification / testing.
+
+  // Form validation:
   emailError: 'string',
   passwordError: 'string',
   termsError: 'string',
   get isSignupValid () {
     this.emailError = validate.email(this.email, {allowEmpty: 0});
     this.termsError = validate.terms(this.agreedToTerms);
-    debugger
     return !this.emailError && !this.termsError;
   },
   get isLoginValid () {
@@ -52,6 +56,8 @@ export const ViewModel = DefineMap.extend({
     this.passwordError = validate.password(this.password, {allowEmpty: 0});
     return !this.emailError && !this.passwordError;
   },
+
+  // Methods:
   handleSignup (event, email, password) {
     event.preventDefault();
     if (!this.isSignupValid) {
