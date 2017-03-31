@@ -1,3 +1,17 @@
+<!-- TODO: use bootstrap3 _glyphicons.scss: -->
+<!-- <can-import from="bootstrap-sass/assets/stylesheets/bootstrap/_glyphicons.scss"/> -->
+<style>
+  @font-face {
+    font-family: "Glyphicons Halflings";
+    src: url("/node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff") format('woff');
+  }
+  .glyphicon {
+    font-family: "Glyphicons Halflings"
+  }
+  .glyphicon-eye-open:before { content: "\e105"; }
+  .glyphicon-eye-close:before { content: "\e106"; }
+</style>
+
 <script type="text/stache" can-autorender>
   <can-import from="jquery" />
   <can-import from="tether" />

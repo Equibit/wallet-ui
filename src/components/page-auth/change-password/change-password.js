@@ -14,6 +14,9 @@ export const ViewModel = DefineMap.extend({
     value: '',
     type: 'string'
   },
+  passwordVisible: {
+    value: false
+  },
   updatePassword (el) {
     this.password = el.value;
   },
@@ -34,6 +37,9 @@ export const ViewModel = DefineMap.extend({
           throw new Error(`User ${email} not found.`);
         }
       });
+  },
+  togglePassword () {
+    this.passwordVisible = !this.passwordVisible;
   }
 });
 

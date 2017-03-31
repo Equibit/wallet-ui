@@ -1,5 +1,6 @@
 <can-import from="can-stache/helpers/route" />
 <can-import from="~/components/page-auth/page-auth.scss" />
+<!--<can-import from="bootstrap-sass/assets/stylesheets/bootstrap/_glyphicons.scss"/>-->
 <can-import from="./change-password/" />
 
 <div class="container">
@@ -65,7 +66,9 @@
 
       <div class="form-group">
         <label for="inputPassword">Password</label>
-        <input type="password" class="form-control" id="inputPassword" aria-describedby="emailHelp" placeholder="Enter password"
+        <span class="show-password glyphicon glyphicon-eye-{{#if passwordVisible}}close{{else}}open{{/if}}"
+              ($click)="togglePassword()"></span>
+        <input type="{{#if passwordVisible}}text{{else}}password{{/if}}" class="form-control" id="inputPassword" aria-describedby="emailHelp" placeholder="Enter password"
                {($value)}="password" required>
         {{#if passwordValidationMsg}}
           <small id="emailHelp" class="form-text text-muted">{{passwordValidationMsg}}</small>
