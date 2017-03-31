@@ -1,7 +1,6 @@
 <can-import from="can-stache/helpers/route" />
 <can-import from="~/components/page-auth/page-auth.scss" />
 <can-import from="./change-password/" />
-<can-import from="~/utils/helpers" />
 <can-import from="~/components/validation-message.component" />
 
 <!-- TODO: use bootstrap3 _glyphicons.scss: -->
@@ -32,14 +31,14 @@
 
 
   {{#if routeCurrent(page='signup')}}
-    <form class="form-signin" ($submit)="handleSignup(%event, email)">
+    <form class="form-signin" ($submit)="handleSignup(%event, email)" novalidate>
       <h2 class="form-signin-heading">Create an Account</h2>
 
       {{^if isAccountCreated}}
 
         <div class="form-group">
           <label for="inputEmail">Email</label>
-          <input type="text" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"
+          <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"
                  {($value)}="email" autofocus>
           <validation-message {message}="emailError" />
         </div>
@@ -72,7 +71,7 @@
       <div class="form-group">
         <label for="inputEmail">Email</label>
         <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"
-               {($value)}="email" required autofocus>
+               {($value)}="email" autofocus novalidate>
         <validation-message {message}="emailError" />
       </div>
 
@@ -81,7 +80,7 @@
         <span class="show-password glyphicon glyphicon-eye-{{#if passwordVisible}}close{{else}}open{{/if}}"
               ($click)="togglePassword()"></span>
         <input type="{{#if passwordVisible}}text{{else}}password{{/if}}" class="form-control" id="inputPassword" aria-describedby="emailHelp" placeholder="Enter password"
-               {($value)}="password" required>
+               {($value)}="password">
         <validation-message {message}="passwordError" />
       </div>
 
