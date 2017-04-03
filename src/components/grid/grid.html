@@ -1,0 +1,63 @@
+<script type="text/stache" id="demo" can-autorender>
+  <can-import from="bootstrap/dist/css/bootstrap.min.css" />
+  <can-import from="~/styles/styles.less" />
+  <can-import from="~/components/grid/grid.less" />
+
+  <can-import from="grid-component" />
+
+  <grid-component {(rows)}="rows">
+      <p>
+        Rows: {{rows.length}}<br>
+        Selected: {{selectedRow.country}} {{selectedRow.amount}}
+      </p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th ($click)="{sortBy 'company'}">Company {{{sortArrow 'company'}}}</th>
+            <th ($click)="{sortBy 'domicile'}">Domicile {{{sortArrow 'domicile'}}}</th>
+            <th ($click)="{sortBy 'issuance'}">Issuance {{{sortArrow 'issuance'}}}</th>
+            <th ($click)="{sortBy 'type'}">Issuance Type {{{sortArrow 'type'}}}</th>
+            <th ($click)="{sortBy 'restrictions'}">Restriction {{{sortArrow 'restrictions'}}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each rows as row}}
+            <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
+              <td>{{row.company}}</td>
+              <td>{{row.domicile}}</td>
+              <td>{{row.issuance}}</td>
+              <td>{{row.type}}</td>
+              <td>{{row.restrictions}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+  </grid-component>
+</script>
+<script src="../../../node_modules/steal/steal.js"
+        main="can-view-autorender">
+
+  import DefineList from 'can-define/list/list';
+  import DefineMap from 'can-define/map/map';
+  import canViewModel from 'can-view-model';
+  import _ from 'lodash';
+
+  window.canViewModel = canViewModel;
+
+  canViewModel(document.getElementById('demo')).set({
+    rows: new DefineList(_.times(10, function (i) {
+      return new DefineMap({
+        company: [
+          'Imperial Brands','Allianz SE','Kingfisher plc','Deutsche Telekom','Experian plc',
+          'Propanc Health','Marks & Spencer','Cool Technologies','The Pulse Beverages'][i % 5],
+        domicile: ['USA','Canada','Brazil','Germany'][i % 4],
+        issuance: ['Series 1', 'Series 3', 'Series 1A'][i % 3],
+        type: ['Common Shares', 'Preferred Shares', 'Trust Units'][i % 3],
+        restrictions: [1, 2, 'None'][i % 3],
+        selected: false,
+        isChecked: false
+      });
+    })),
+    selectedRow: null
+  });
+</script>

@@ -264,6 +264,10 @@ ast-traverse@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/ast-traverse/-/ast-traverse-0.1.1.tgz#69cf2b8386f19dcda1bb1e05d68fe359d8897de6"
 
+ast-types@0.8.15:
+  version "0.8.15"
+  resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.8.15.tgz#8eef0827f04dff0ec8857ba925abe3fea6194e52"
+
 ast-types@0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.8.2.tgz#7ccb999037b7c5e373fb060b20b9e6fb45ae2c95"
@@ -280,11 +284,7 @@ async@0.2.x, async@~0.2.6, async@~0.2.7:
   version "0.2.10"
   resolved "https://registry.yarnpkg.com/async/-/async-0.2.10.tgz#b6bbe0b0674b9d719708ca38de8c237cb526c3d1"
 
-async@1.x, async@~1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/async/-/async-1.0.0.tgz#f8fc04ca3a13784ade9e1641af98578cfbd647a9"
-
-async@^1.4.0:
+async@1.x, async@^1.4.0:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
@@ -297,6 +297,10 @@ async@^2.0.0, async@^2.0.1:
 async@~0.9.0:
   version "0.9.2"
   resolved "https://registry.yarnpkg.com/async/-/async-0.9.2.tgz#aea74d5e61c1f899613bf64bda66d4c78f2fd17d"
+
+async@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/async/-/async-1.0.0.tgz#f8fc04ca3a13784ade9e1641af98578cfbd647a9"
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -865,7 +869,7 @@ can-component@^3.0.0, can-component@^3.0.7:
     can-view-nodelist "^3.0.2"
     can-view-scope "^3.1.1"
 
-can-compute@^3.0.0, can-compute@^3.0.4:
+can-compute@^3.0.0, can-compute@^3.0.4, can-compute@^3.0.7:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/can-compute/-/can-compute-3.0.7.tgz#fc50b1e3720f6ede7425f185aa157f193ad70280"
   dependencies:
@@ -909,7 +913,7 @@ can-connect@^1.0.0, can-connect@^1.0.21:
     jquery "2.x - 3.x"
     steal-stache "^3.0.3"
 
-can-construct@^3.0.0, can-construct@^3.0.4, can-construct@^3.0.6, can-construct@^3.1.0:
+can-construct@^3.0.0, can-construct@^3.0.4, can-construct@^3.0.6, can-construct@^3.1.0, can-construct@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/can-construct/-/can-construct-3.1.1.tgz#c1d80baf075a9c556e079962f2c0bf37435ebd4f"
   dependencies:
@@ -929,7 +933,7 @@ can-control@^3.0.4:
     can-types "^1.0.1"
     can-util "^3.2.2"
 
-can-define@^1.0.10, can-define@^1.0.9:
+can-define@^1.0.10, can-define@^1.0.17, can-define@^1.0.9:
   version "1.0.17"
   resolved "https://registry.yarnpkg.com/can-define/-/can-define-1.0.17.tgz#3447b9d5ef348fb10130a4287d7554d526ab0fdb"
   dependencies:
@@ -942,7 +946,7 @@ can-define@^1.0.10, can-define@^1.0.9:
     can-types "^1.0.1"
     can-util "^3.1.1"
 
-can-event@^3.0.1:
+can-event@^3.0.1, can-event@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/can-event/-/can-event-3.2.0.tgz#eb4c09c0c6fb902a24a0484a0528bfb1423af9d7"
   dependencies:
@@ -1050,7 +1054,7 @@ can-simple-map@^3.0.0:
     can-types "^1.0.1"
     can-util "^3.1.1"
 
-can-stache-bindings@^3.0.5:
+can-stache-bindings@^3.0.13, can-stache-bindings@^3.0.5:
   version "3.0.13"
   resolved "https://registry.yarnpkg.com/can-stache-bindings/-/can-stache-bindings-3.0.13.tgz#eda8fe187c34d96333f6071126e817dca964ff06"
   dependencies:
@@ -1088,7 +1092,7 @@ can-types@^1.0.0, can-types@^1.0.1:
   dependencies:
     can-namespace "1.0.0"
 
-can-util@^3.0.0-pre.17, can-util@^3.0.1, can-util@^3.1.0, can-util@^3.1.1, can-util@^3.2.0, can-util@^3.2.1, can-util@^3.2.2, can-util@^3.3.0:
+can-util@^3.0.0-pre.17, can-util@^3.0.1, can-util@^3.1.0, can-util@^3.1.1, can-util@^3.2.0, can-util@^3.2.1, can-util@^3.2.2, can-util@^3.3.0, can-util@^3.3.5:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/can-util/-/can-util-3.3.5.tgz#0f15bfe239962850bcf6a54c540070c41111d9ef"
   dependencies:
@@ -1104,7 +1108,7 @@ can-vdom@^3.0.1:
     can-util "^3.0.0-pre.17"
     can-view-parser "^3.0.0-pre.2"
 
-can-view-autorender@^3.0.3:
+can-view-autorender@^3.0.3, can-view-autorender@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/can-view-autorender/-/can-view-autorender-3.0.4.tgz#432e202ef124cb8ad82083dbd0091564c3335a77"
   dependencies:
@@ -1144,7 +1148,7 @@ can-view-live@^3.0.0, can-view-live@^3.0.4:
     can-view-parser "^3.0.0"
     can-view-target "^3.0.0"
 
-can-view-model@^3.0.0, can-view-model@^3.1.2:
+can-view-model@^3.0.0, can-view-model@^3.1.2, can-view-model@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/can-view-model/-/can-view-model-3.1.3.tgz#386d8379a82955c6dd0ae3721216fa8677f329d2"
   dependencies:
@@ -2984,6 +2988,25 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.4, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
+grid-component@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/grid-component/-/grid-component-0.8.0.tgz#71f4cc3500a7c20d83af4f74103d20d6701230a4"
+  dependencies:
+    can-component "^3.0.7"
+    can-compute "^3.0.7"
+    can-construct "^3.1.1"
+    can-define "^1.0.17"
+    can-event "^3.2.0"
+    can-stache "^3.0.21"
+    can-stache-bindings "^3.0.13"
+    can-util "^3.3.5"
+    can-view-autorender "^3.0.4"
+    can-view-model "^3.1.3"
+    lodash ">=3.9.1"
+    steal "^1.3.2"
+    steal-less "^1.2.0"
+    steal-stache "^3.0.5"
+
 grouped-queue@^0.3.0:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/grouped-queue/-/grouped-queue-0.3.3.tgz#c167d2a5319c5a0e0964ef6a25b7c2df8996c85c"
@@ -3930,13 +3953,13 @@ lodash.upperfirst@^4.1.2:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/lodash.upperfirst/-/lodash.upperfirst-4.3.1.tgz#1365edf431480481ef0d1c68957a5ed99d49f7ce"
 
+lodash@>=3.9.1, lodash@^4.0.0, lodash@^4.11.1, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+
 lodash@^3.10.0, lodash@^3.9.3:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
-
-lodash@^4.0.0, lodash@^4.11.1, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.2.0, lodash@^4.3.0:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 lodash@~2.4.1:
   version "2.4.2"
@@ -4821,7 +4844,7 @@ readline2@^1.0.1:
     is-fullwidth-code-point "^1.0.0"
     mute-stream "0.0.5"
 
-recast@0.10.18, recast@^0.10.10:
+recast@0.10.18:
   version "0.10.18"
   resolved "https://registry.yarnpkg.com/recast/-/recast-0.10.18.tgz#025ba90e1841758be03bb716170e52ca9914e186"
   dependencies:
@@ -4829,6 +4852,15 @@ recast@0.10.18, recast@^0.10.10:
     esprima-fb "~14001.1.0-dev-harmony-fb"
     private "~0.1.5"
     source-map "~0.4.1"
+
+recast@^0.10.10:
+  version "0.10.43"
+  resolved "https://registry.yarnpkg.com/recast/-/recast-0.10.43.tgz#b95d50f6d60761a5f6252e15d80678168491ce7f"
+  dependencies:
+    ast-types "0.8.15"
+    esprima-fb "~15001.1001.0-dev-harmony-fb"
+    private "~0.1.5"
+    source-map "~0.5.0"
 
 recast@^0.11.17:
   version "0.11.23"
