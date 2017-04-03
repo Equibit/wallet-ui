@@ -1,5 +1,5 @@
 <can-component tag="validation-message">
-  <style type="scss">
+  <style type="less">
     display: block;
   </style>
   <view>
