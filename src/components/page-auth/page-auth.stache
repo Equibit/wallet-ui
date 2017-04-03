@@ -1,5 +1,5 @@
 <can-import from="can-stache/helpers/route" />
-<can-import from="~/components/page-auth/page-auth.scss" />
+<can-import from="~/components/page-auth/page-auth.less" />
 <can-import from="./change-password/" />
 <can-import from="~/components/validation-message.component" />
 

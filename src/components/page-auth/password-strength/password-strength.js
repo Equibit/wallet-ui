@@ -1,6 +1,6 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import './password-strength.scss';
+import './password-strength.less';
 import view from './password-strength.stache';
 import zxcvbn from 'zxcvbn';
 

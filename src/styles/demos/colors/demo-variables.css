@@ -1,0 +1,44 @@
+.black {
+  background-color: #000;
+}
+
+.gray-dark {
+  background-color: #333;
+}
+.gray {
+  background-color: #666;
+}
+.gray-light{
+  background-color: #999;
+}
+.gray-lighter {
+  background-color: #CCC;
+}
+.gray-lightest {
+  background-color: #F2F2F2;
+}
+.white {
+  background-color: #FFF;
+}
+
+.red {
+  background-color: #FF4B55;
+}
+
+.yellow {
+  background-color: #FFBC5E;
+}
+.green {
+  background-color: #32B576;
+}
+.blue {
+  background-color: #468CD9;
+}
+.teal {
+  background-color: #3ED2C8;
+}
+
+.brand-edc {
+  background-color: #D30E1B;
+}
+
