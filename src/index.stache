@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
   <body>
-    <can-import from="jquery" />
-    <can-import from="tether" />
     <can-import from="~/styles/styles.less" />
     <can-import from="~/app" export-as="viewModel" />
 

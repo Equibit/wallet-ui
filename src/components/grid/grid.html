@@ -1,7 +1,7 @@
 <script type="text/stache" id="demo" can-autorender>
   <can-import from="bootstrap/dist/css/bootstrap.min.css" />
-  <can-import from="~/styles.scss" />
-  <!--<can-import from="~/components/grid/grid.scss" />-->
+  <can-import from="~/styles/styles.less" />
+  <can-import from="~/components/grid/grid.less" />
 
   <can-import from="grid-component" />
 
@@ -12,7 +12,6 @@
       </p>
       <table class="table">
         <thead>
-
           <tr>
             <th ($click)="{sortBy 'company'}">Company {{{sortArrow 'company'}}}</th>
             <th ($click)="{sortBy 'domicile'}">Domicile {{{sortArrow 'domicile'}}}</th>
@@ -21,7 +20,6 @@
             <th ($click)="{sortBy 'restrictions'}">Restriction {{{sortArrow 'restrictions'}}}</th>
           </tr>
         </thead>
-
         <tbody>
           {{#each rows as row}}
             <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
