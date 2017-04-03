@@ -3,10 +3,18 @@
   * @parent styles.theme
   *
   * @description
-  * Uses IcoMoon - Free icon set as a baseline from https://icomoon.io/
+  * Uses IcoMoon - Free icon set as a baseline from [https://icomoon.io/](https://icomoon.io/).
   *
-  * @iframe src/styles/demos/icons/icons-edcicons.html 440
+  * @iframe src/styles/demos/icons/icons-edcicons.html 2000
   *
+  * ### To add a new icon:
+  * - Upload `edc-icons.json` to a new project on IcoMoon
+  * - Add new icon to the library
+  * - Generate Font
+  * - Under "Preferences" make sure the setting **Encode and Embed Font in CSS** is selected.
+  * - Update generated json file
+  * - Update this file with new icons and the embeded font
+  * - Commit changes
 **/
 
 @font-face {
@@ -241,10 +249,10 @@
 .icon-cloud-check:before {
   content: "\e9c4";
 }
-.icon-download3:before {
+.icon-download:before {
   content: "\e9c7";
 }
-.icon-upload3:before {
+.icon-upload:before {
   content: "\e9c8";
 }
 .icon-link:before {
@@ -298,19 +306,10 @@
 .icon-blocked:before {
   content: "\ea0e";
 }
-.icon-cross2:before {
-  content: "\ea0f";
-}
 .icon-checkmark:before {
   content: "\ea10";
 }
-.icon-checkmark2:before {
-  content: "\ea11";
-}
 .icon-loop:before {
-  content: "\ea2d";
-}
-.icon-loop2:before {
   content: "\ea2e";
 }
 .icon-arrow:before {
@@ -322,16 +321,13 @@
 .icon-table:before {
   content: "\ea70";
 }
-.icon-table2:before {
-  content: "\ea71";
-}
 .icon-share:before {
   content: "\ea7d";
 }
 .icon-share2:before {
   content: "\ea82";
 }
-.icon-facebook2:before {
+.icon-facebook:before {
   content: "\ea91";
 }
 .icon-twitter:before {
@@ -343,4 +339,3 @@
 .icon-linkedin:before {
   content: "\eac9";
 }
-
