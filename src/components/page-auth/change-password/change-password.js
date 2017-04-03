@@ -1,6 +1,6 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import './change-password.scss';
+import './change-password.less';
 import view from './change-password.stache';
 import feathersClient from '~/models/feathers-client-rest';
 import signed from '~/models/feathers-signed';

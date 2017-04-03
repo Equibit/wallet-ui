@@ -2,7 +2,7 @@
   "sites" : {
     "docs": {
       "glob" : {
-        "pattern": "{src,doctheme/md}/**/*.{less,md,js}"
+        "pattern": "{src,doctheme/md}/**/*.{scss,md,js}"
       },
       "parent": "wallet-ui",
       "dest": "docs"

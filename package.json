@@ -53,7 +53,7 @@
       "chai",
       "done-css",
       "done-component",
-      "steal-sass",
+      "steal-less",
       "steal-stache"
     ],
     "envs": {
@@ -85,6 +85,7 @@
     "@equibit/wallet-crypto": "^0.1.0",
     "bootstrap": "^4.0.0-alpha.6",
     "bootstrap-sass": "^3.3.7",
+    "bootstrap4-less": "^4.0.0-alpha.6.1",
     "can-component": "^3.0.7",
     "can-connect": "^1.0.21",
     "can-connect-feathers": "^3.5.2",
@@ -123,8 +124,8 @@
     "mocha": "^3.2.0",
     "npm-run-all": "^4.0.2",
     "semistandard": "^10.0.0",
+    "steal-less": "^1.2.0",
     "steal-mocha": "^1.0.0",
-    "steal-sass": "^1.1.0",
     "steal-stache": "^3.0.5",
     "steal-tools": "^1.0.1",
     "testee": "^0.3.0"
