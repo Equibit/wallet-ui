@@ -7,10 +7,7 @@
   <body>
     <can-import from="jquery" />
     <can-import from="tether" />
-    <can-import from="bootstrap" />
-    <!--can-import from="bootstrap/dist/css/bootstrap.min.css" /-->
-    <can-import from="bootstrap4-less/dist/bootstrap.less" />
-    <can-import from="~/styles/styles.scss" />
+    <can-import from="~/styles/styles.less" />
     <can-import from="~/app" export-as="viewModel" />
 
     <can-import from="~/components/page-loading.component" />

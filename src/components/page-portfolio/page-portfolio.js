@@ -1,6 +1,6 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import './page-portfolio.scss';
+import './page-portfolio.less';
 import view from './page-portfolio.stache';
 
 export const ViewModel = DefineMap.extend({

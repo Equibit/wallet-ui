@@ -1,5 +1,5 @@
 <can-component tag="page-loading">
-  <style type="scss">
+  <style type="less">
     display: block;
 
     p { font-weight: bold; }

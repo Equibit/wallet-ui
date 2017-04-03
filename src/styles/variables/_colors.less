@@ -1,0 +1,57 @@
+/**
+  * @stylesheet _colors.less Color Palette
+  * @parent styles.theme 2
+  *
+  * @iframe src/styles/demos/colors/color-palette.html 282
+**/
+
+
+@gray-base:     #000;
+@gray-dark:     #333;
+@gray:          #666;
+@gray-light:    #999;
+@gray-lighter:  #CCC;
+@gray-lightest: #F2F2F2;
+@white:         #FFF;
+
+@brand-primary: #468CD9;
+@brand-edc:     #D30E1B;
+
+
+/**
+  * @styles colors-messaging Messaging Colors
+  * @parent _colors.less 1
+  *
+  * @description
+  * These colors are used for messages, alerts and form validation.
+  *
+  * @iframe src/styles/demos/colors/color-messaging.html 150
+**/
+
+
+@brand-success:  #32B576;
+@brand-info:     #3ED2C8;
+@brand-warning:  #FFBC5E;
+@brand-danger:   #FF4B55;
+
+/**
+  * @styles colors-scafolding Scafolding
+  * @parent _colors.less 2
+  *
+  * @description
+  * Settings for some of the most global styles.
+  *
+  * @iframe src/styles/demos/colors/color-scafolding.html 150
+**/
+
+@body-bg:               @gray-lightest;
+
+@text-color:            @gray-dark;
+
+@link-color:            @brand-primary;
+@link-hover-color:      darken(@link-color, 15%);
+@link-hover-decoration: underline;
+
+
+
+
