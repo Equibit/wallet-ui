@@ -23,7 +23,7 @@ var pages = {
   signup: 'public',
   login: 'public',
   'forgot-password': 'public',
-  'change-password': 'public',
+  'change-password': 'private',
   dashboard: 'private',
   settings: 'private',
   loading: 'public'

@@ -18,17 +18,10 @@ import signed from '~/models/feathers-signed';
 import Session from '~/models/session';
 import validate from '~/utils/validators';
 
-// To persist user email when a new account is created under SignUp and user goes to Login.
-let newUserEmail = '';
-
 export const ViewModel = DefineMap.extend({
   email: {
     type: 'string',
-    value () {
-      return newUserEmail;
-    },
     set (value) {
-      newUserEmail = '';
       this.emailError = validate.email(value, {allowEmpty: 1});
       return value;
     }
@@ -87,7 +80,6 @@ export const ViewModel = DefineMap.extend({
     feathersClient.service('users').create({ email })
       .then(() => {
         this.isAccountCreated = true;
-        newUserEmail = email;
       });
   },
   handleLogin (event, email, password) {
@@ -150,5 +142,10 @@ export const ViewModel = DefineMap.extend({
 export default Component.extend({
   tag: 'page-auth',
   ViewModel,
-  view
+  view,
+  events: {
+    inserted: function(){
+      console.log('page-auth inserted!');
+    }
+  }
 });
