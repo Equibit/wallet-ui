@@ -15,6 +15,7 @@
 import DefineMap from 'can-define/map/';
 import route from 'can-route';
 import 'can-route-pushstate';
+import Session from '~/models/session';
 // import '~/models/fixtures/fixtures';
 
 var pages = {
@@ -29,13 +30,20 @@ var pages = {
 };
 
 const AppViewModel = DefineMap.extend({
-  message: {
-    value: 'Hello World!',
+  '*': {
     serialize: false
   },
   title: {
     value: 'wallet-ui',
-    serialize: false
+  },
+
+  /**
+   * @property {wallet-ui/app.session} wallet-ui/app.session session
+   * @parent wallet-ui/app.properties
+   * A session object that get's created on successful user login.
+   */
+  session: {
+    Type: Session
   },
 
   /**

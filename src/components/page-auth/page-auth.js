@@ -15,6 +15,7 @@ import DefineMap from 'can-define/map/';
 import view from './page-auth.stache';
 import feathersClient from '~/models/feathers-client-rest';
 import signed from '~/models/feathers-signed';
+import Session from '~/models/session';
 import validate from '~/utils/validators';
 
 // To persist user email when a new account is created under SignUp and user goes to Login.
@@ -120,8 +121,8 @@ export const ViewModel = DefineMap.extend({
         this.signature = signedData.signature;
         return feathersClient.authenticate(signedData);
       })
-      .then(response => {
-        // debugger;
+      .then(({ user }) => {
+        this.session = new Session({ user });
       })
       .catch(error => {
         console.log(error);

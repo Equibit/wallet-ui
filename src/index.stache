@@ -26,16 +26,16 @@
         <page-portfolio />
       {{/case}}
       {{#case 'signup'}}
-        <page-auth />
+        <page-auth {(session)}="session" />
       {{/case}}
       {{#case 'login'}}
-        <page-auth />
+        <page-auth {(session)}="session"  />
       {{/case}}
       {{#case 'forgot-password'}}
-        <page-auth />
+        <page-auth {(session)}="session"  />
       {{/case}}
       {{#case 'change-password'}}
-        <page-auth />
+        <page-auth {(session)}="session"  />
       {{/case}}
       {{#case 'settings'}}
         <page-settings />
