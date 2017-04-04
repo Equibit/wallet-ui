@@ -1,0 +1,10 @@
+<can-component tag="page-four-oh-one">
+  <style type="less">
+    display: block;
+
+    p { font-weight: bold; }
+  </style>
+  <view>
+    <p>You need to <a href="{{routeUrl page='login'}}">log in</a> to access this page</p>
+  </view>
+</can-component>

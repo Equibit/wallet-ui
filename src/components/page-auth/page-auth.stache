@@ -4,7 +4,6 @@
 <can-import from="./forgot-password/" />
 <can-import from="~/components/validation-message.component" />
 
-<<<<<<< HEAD
 <div class="row center-xs">
   <div class="col-xs-12 col-md-4">
     <div class="auth-container">

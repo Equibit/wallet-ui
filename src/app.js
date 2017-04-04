@@ -26,7 +26,8 @@ var pages = {
   'change-password': 'private',
   dashboard: 'private',
   settings: 'private',
-  loading: 'public'
+  loading: 'public',
+  'four-oh-one': 'public'
 };
 
 const AppViewModel = DefineMap.extend({
@@ -61,7 +62,7 @@ const AppViewModel = DefineMap.extend({
       let page = this.page;
 
       if (!this.session) {
-        page = pages[page] === 'private' ? 'login' : page;
+        page = pages[page] === 'private' ? 'four-oh-one' : page;
       }
       return pages[page] ? page : 'four-oh-four';
     }

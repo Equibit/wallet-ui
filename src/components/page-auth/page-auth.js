@@ -33,6 +33,9 @@ export const ViewModel = DefineMap.extend({
       return value;
     }
   },
+  session: {
+    type: 'any'
+  },
   /**
    * @property {boolean}
    * Toggles the password input visibility (password vs text type).
@@ -118,7 +121,13 @@ export const ViewModel = DefineMap.extend({
       })
       .catch(error => {
         console.log(error);
-        // debugger;
+        this.session = new Session({
+          user: {
+            email,
+            isNewAccount: true,
+            usedTmpPassword: true
+          }
+        });
       });
     })
     .catch(error => {
