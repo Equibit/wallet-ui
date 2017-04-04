@@ -9,6 +9,9 @@ To generate a private key:
 To generate a public key:
 - `point(private_key) == public_key`
 
+Private key -> Public key -> double hashed bitcoin address -> Base58Check
+-
+
 Links:
 - https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
 - https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki

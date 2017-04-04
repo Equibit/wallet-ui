@@ -24,5 +24,19 @@ https://bitcoin.org/en/glossary
     - 12 words -> 128 entropy bits;
     - 24 words -> 256 entropy bits.
 
+**Public key**
+  - is calculated from the private key using _elliptic curve multiplication_, which is irreversible: `K = k * G`
+  where `k` is the private key, `G` is a constant point called the generator point and `K` is the resulting public key.
+  - Bitcoin uses a specific elliptic curve and set of mathematical constants, as defined in a standard called `secp256k1`.
+
+**Bitcoin address**
+  - is derived from the public key through the use of one-way cryptographic hashing.
+  - `A = RIPEMD160 ( SHA256 ( K ) )`
+    - *RIPEMD* - RACE Integrity Primitives Evaluation Message Digest.
+    - *SHA* - Secure Hash Algorithm.
+    - is called "Double Hash" or "Hash160".
+  - Bitcoin addresses are almost always presented to users in an encoding called _Base58Check_, which uses 58 characters (a Base58 number system) and a checksum.
+    - Base58 is a subset of Base64: a set of lower and capital letters and numbers without the four (0, O, l, I).
+
 Links:
 - Bitcoin Developer Guide. Wallets: https://bitcoin.org/en/developer-guide#wallets
