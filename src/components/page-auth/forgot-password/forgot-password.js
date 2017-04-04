@@ -31,7 +31,7 @@ export const ViewModel = DefineMap.extend({
       .then(() => {
         this.isDone = true;
       });
-  },
+  }
 });
 
 export default Component.extend({
