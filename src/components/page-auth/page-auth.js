@@ -153,7 +153,7 @@ export default Component.extend({
   ViewModel,
   view,
   events: {
-    inserted: function(){
+    inserted: function () {
       console.log('page-auth inserted!');
     }
   }

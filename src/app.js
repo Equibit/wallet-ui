@@ -35,7 +35,7 @@ const AppViewModel = DefineMap.extend({
     serialize: false
   },
   title: {
-    value: 'wallet-ui',
+    value: 'wallet-ui'
   },
 
   /**
