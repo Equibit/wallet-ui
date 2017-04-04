@@ -4,20 +4,6 @@
 <can-import from="./forgot-password/" />
 <can-import from="~/components/validation-message.component" />
 
-<!-- TODO: use bootstrap3 _glyphicons.scss: -->
-<!-- <can-import from="bootstrap-sass/assets/stylesheets/bootstrap/_glyphicons.scss"/> -->
-<style>
-  @font-face {
-    font-family: "Glyphicons Halflings";
-    src: url("/node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff") format('woff');
-  }
-  .glyphicon {
-    font-family: "Glyphicons Halflings"
-  }
-  .glyphicon-eye-open:before { content: "\e105"; }
-  .glyphicon-eye-close:before { content: "\e106"; }
-</style>
-
 <div class="container">
 
   <div class="row justify-content-end">
@@ -29,7 +15,6 @@
       {{#if routeCurrent(page='change-password')}}<span>CHANGE PW</span>{{else}}<a href="{{routeUrl page='change-password'}}">CHANGE PW</a>{{/if}}
     </div>
   </div>
-
 
   {{#if routeCurrent(page='signup')}}
     <form class="form-signin" ($submit)="handleSignup(%event, email)" novalidate>
@@ -78,7 +63,7 @@
 
       <div class="form-group">
         <label for="inputPassword">Password</label>
-        <span class="show-password glyphicon glyphicon-eye-{{#if passwordVisible}}close{{else}}open{{/if}}"
+        <span class="show-password icon icon-eye{{^if passwordVisible}}-blocked{{/if}}"
               ($click)="togglePassword()"></span>
         <input type="{{#if passwordVisible}}text{{else}}password{{/if}}" class="form-control" id="inputPassword" aria-describedby="emailHelp" placeholder="Enter password"
                {($value)}="password">
