@@ -16,37 +16,34 @@
     <can-import from="~/components/page-four-oh-four/" />
 
     {{#switch displayedPage}}
-			{{#case 'loading'}}
-				<page-loading></page-loading>
-			{{/case}}
-			{{#case 'home'}}
-				<page-home />
-			{{/case}}
-			{{#case 'portfolio'}}
-				<page-portfolio />
-			{{/case}}
-			{{#case 'signup'}}
-				<page-auth />
-			{{/case}}
+      {{#case 'loading'}}
+        <page-loading></page-loading>
+      {{/case}}
+      {{#case 'home'}}
+        <page-home />
+      {{/case}}
+      {{#case 'portfolio'}}
+        <page-portfolio />
+      {{/case}}
+      {{#case 'signup'}}
+        <page-auth />
+      {{/case}}
       {{#case 'login'}}
-				<page-auth />
-			{{/case}}
-			{{#case 'forgot'}}
-				<page-auth />
-			{{/case}}
-			{{#case 'change-password'}}
-				<page-auth />
-			{{/case}}
-			{{#case 'forgot-password'}}
-				<page-auth />
-			{{/case}}
-			{{#case 'settings'}}
-				<page-settings />
-			{{/case}}
-			{{#case 'four-oh-four'}}
-				<page-four-oh-four />
-			{{/case}}
-		{{/switch}}
+        <page-auth />
+      {{/case}}
+      {{#case 'forgot-password'}}
+        <page-auth />
+      {{/case}}
+      {{#case 'change-password'}}
+        <page-auth />
+      {{/case}}
+      {{#case 'settings'}}
+        <page-settings />
+      {{/case}}
+      {{#case 'four-oh-four'}}
+        <page-four-oh-four />
+      {{/case}}
+    {{/switch}}
 
     {{#switch env.NODE_ENV}}
       {{#case "production"}}

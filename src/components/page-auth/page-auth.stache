@@ -1,6 +1,7 @@
 <can-import from="can-stache/helpers/route" />
 <can-import from="~/components/page-auth/page-auth.less" />
 <can-import from="./change-password/" />
+<can-import from="./forgot-password/" />
 <can-import from="~/components/validation-message.component" />
 
 <!-- TODO: use bootstrap3 _glyphicons.scss: -->

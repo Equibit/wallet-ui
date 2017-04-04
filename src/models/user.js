@@ -7,6 +7,10 @@ import algebra from './algebra';
 import crypto from '~/utils/crypto';
 
 var User = DefineMap.extend('User', {
+  forgotPassword (email) {
+    return Promise.resolve({status: 200, email});
+  }
+}, {
   _id: 'string',
   email: 'string',
   password: 'string',
