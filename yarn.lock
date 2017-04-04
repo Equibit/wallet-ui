@@ -2615,6 +2615,10 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
+flexboxgrid-less@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/flexboxgrid-less/-/flexboxgrid-less-0.0.1.tgz#46d93b8a170e7db37aaac9d9d13486cc6cd01f92"
+
 for-in@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
