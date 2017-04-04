@@ -18,7 +18,7 @@
 
     {{! if used within switch/case then component gets re-rendered and we cannot share email between cases. }}
     {{#if oneOf(displayedPage, 'signup', 'login', 'forgot-password', 'change-password')}}
-      <page-auth {(session)}="session" />
+      <page-auth {(session)}="session" {page}="displayedPage" />
     {{/if}}
 
     {{#switch displayedPage}}
