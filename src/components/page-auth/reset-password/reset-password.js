@@ -1,6 +1,7 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import feathersClient from '~/models/feathers-client-rest';
+import signed from '~/models/feathers-signed';
 import validate from '~/utils/validators';
 import './reset-password.less';
 import view from './reset-password.stache';
