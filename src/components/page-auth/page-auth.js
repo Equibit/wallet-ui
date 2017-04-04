@@ -6,7 +6,7 @@ import signed from '~/models/feathers-signed';
 import validate from '~/utils/validators';
 
 // To persist user email when a new account is created under SignUp and user goes to Login.
-let newUserEmail;
+let newUserEmail = '';
 
 export const ViewModel = DefineMap.extend({
   email: {

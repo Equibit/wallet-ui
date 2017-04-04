@@ -1,15 +1,14 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import './change-password.less';
-import view from './change-password.stache';
 import feathersClient from '~/models/feathers-client-rest';
 import signed from '~/models/feathers-signed';
 import validate from '~/utils/validators';
+import './reset-password.less';
+import view from './reset-password.stache';
 
 export const ViewModel = DefineMap.extend({
-  email: {
-    type: 'string'
-  },
+  // TODO: create session and use user info from there.
+  email: 'string',
   password: {
     type: 'string',
     set (value) {
@@ -17,9 +16,8 @@ export const ViewModel = DefineMap.extend({
       return value;
     }
   },
-  passwordVisible: {
-    value: false
-  },
+  passwordVisible: 'boolean',
+  isDone: 'boolean',
 
   // Form validation:
   passwordError: 'string',
@@ -29,26 +27,24 @@ export const ViewModel = DefineMap.extend({
   },
 
   // Methods:
-  updatePassword (el) {
-    this.password = el.value;
-  },
-  handlePasswordChange (event, email, password) {
+  handleSubmit (event, email, password) {
     event.preventDefault();
     if (!this.isPasswordValid) {
       return false;
     }
 
+    // TODO: create session and use user info from there.
     let userService = feathersClient.service('users');
     let idField = '_id';
 
-    password = signed.createHash(password);
+    let hashedPassword = signed.createHash(password);
 
     userService.find({email})
       .then(users => {
         users = users.data || users;
         let user = users[0];
         if (user) {
-          userService.patch(user[idField], {password});
+          userService.patch(user[idField], {password: hashedPassword});
         } else {
           throw new Error(`User ${email} not found.`);
         }
@@ -60,7 +56,7 @@ export const ViewModel = DefineMap.extend({
 });
 
 export default Component.extend({
-  tag: 'change-password',
+  tag: 'forgot-password',
   ViewModel,
   view
 });

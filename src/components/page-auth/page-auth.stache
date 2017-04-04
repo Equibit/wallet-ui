@@ -1,21 +1,8 @@
 <can-import from="can-stache/helpers/route" />
 <can-import from="~/components/page-auth/page-auth.less" />
 <can-import from="./change-password/" />
+<can-import from="./forgot-password/" />
 <can-import from="~/components/validation-message.component" />
-
-<!-- TODO: use bootstrap3 _glyphicons.scss: -->
-<!-- <can-import from="bootstrap-sass/assets/stylesheets/bootstrap/_glyphicons.scss"/> -->
-<style>
-  @font-face {
-    font-family: "Glyphicons Halflings";
-    src: url("/node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff") format('woff');
-  }
-  .glyphicon {
-    font-family: "Glyphicons Halflings"
-  }
-  .glyphicon-eye-open:before { content: "\e105"; }
-  .glyphicon-eye-close:before { content: "\e106"; }
-</style>
 
 <div class="container">
 
@@ -28,7 +15,6 @@
       {{#if routeCurrent(page='change-password')}}<span>CHANGE PW</span>{{else}}<a href="{{routeUrl page='change-password'}}">CHANGE PW</a>{{/if}}
     </div>
   </div>
-
 
   {{#if routeCurrent(page='signup')}}
     <form class="form-signin" ($submit)="handleSignup(%event, email)" novalidate>
@@ -77,14 +63,15 @@
 
       <div class="form-group">
         <label for="inputPassword">Password</label>
-        <span class="show-password glyphicon glyphicon-eye-{{#if passwordVisible}}close{{else}}open{{/if}}"
+        <span class="show-password icon icon-eye{{^if passwordVisible}}-blocked{{/if}}"
               ($click)="togglePassword()"></span>
         <input type="{{#if passwordVisible}}text{{else}}password{{/if}}" class="form-control" id="inputPassword" aria-describedby="emailHelp" placeholder="Enter password"
                {($value)}="password">
         <validation-message {message}="passwordError" />
       </div>
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+      <button class="btn btn-lg btn-primary" type="submit">Log In</button>
+      <a href="{{routeUrl page='forgot-password'}}" class="pull-right">Forgot password?</a>
     </form>
 
     {{#if salt}}
@@ -117,6 +104,10 @@
 
   {{#if routeCurrent(page='change-password')}}
     <change-password></change-password>
+  {{/if}}
+
+  {{#if routeCurrent(page='forgot-password')}}
+    <forgot-password></forgot-password>
   {{/if}}
 
 </div>
