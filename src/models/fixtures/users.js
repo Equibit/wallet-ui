@@ -10,7 +10,7 @@ const store = fixture.store([{
 }], User.connection.algebra);
 
 fixture('/users/{_id}', store);
-fixture('POST /users', function(request, response){
+fixture('POST /users', function (request, response) {
   response(request.data);
 });
 

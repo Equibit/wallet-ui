@@ -9,7 +9,7 @@ import dataCallbacks from 'can-connect/data/callbacks/';
 import realtime from 'can-connect/real-time/';
 import feathersBehavior from 'can-connect-feathers/service';
 
-const superModel = function (options, optionBehaviors=[]) {
+const superModel = function (options, optionBehaviors = []) {
   const behaviors = [
     feathersBehavior,
     dataParse,

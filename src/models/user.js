@@ -55,9 +55,7 @@ User.List = DefineList.extend('UserList', {
 const ignoreUserNoIdBehavior = connect.behavior('user-ignore-no-id', function (baseConnection) {
   return {
     createInstance: function (data) {
-      if (!data._id) {
-        return;
-      } else {
+      if (data._id) {
         return baseConnection.createInstance.apply(this, arguments);
       }
     }
