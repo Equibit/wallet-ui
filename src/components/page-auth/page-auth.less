@@ -8,6 +8,10 @@ page-auth {
   flex-direction: column;
   justify-content: center;
 
+  .auth-container {
+     padding: 3%;
+  }
+
   h2 {
     font-size: @font-size-h3;
   }
@@ -23,23 +27,35 @@ page-auth {
       background-size: contain;
       background-repeat: no-repeat;
       text-indent: -9999px;
+      @media (max-width: @screen-xs) {
+        margin: 0 auto;
+        float: none;
+      }
     }
 
     .auth-tabs {
-      color: @white;
+      color: @gray-lighter;
       text-align: right;
       padding: @padding-large-vertical 0;
+      @media (max-width: @screen-xs) {
+        text-align: inherit;
+      }
 
       span, a {
+        font-size: @font-size-small;
         margin: 0 @padding-xs-horizontal;
       }
     }
   }
 
-
-
   .panel {
     padding: 4% 7% 7%;
+  }
+
+  .show-password {
+    color: @brand-primary;
+    float: right;
+    font-size: 20px;
   }
 }
 
