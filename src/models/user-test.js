@@ -1,6 +1,7 @@
 import assert from 'chai/chai';
 import 'steal-mocha';
 import User from './user';
+import feathersClient from '~/models/feathers-client-rest';
 
 // describe('models/user', function () {
 //  it('should getList', function (done) {
@@ -23,5 +24,21 @@ describe('models/user', function () {
     assert.ok(keys.mnemonic, 'mnemonic');
     assert.ok(keys.privateKey.keyPair.compressed, 'private key compressed');
     // assert.ok(keys.publicKey, 'public key');
+  });
+
+  it('should handle a new user without id', function (done) {
+    let email = 'test@bitovi.com';
+    feathersClient.service('users').create({ email }).then(function () {
+      assert.ok('User created');
+      done();
+    });
+  });
+
+  it('should handle a new user with id', function (done) {
+    let email = 'test@bitovi.com';
+    feathersClient.service('users').create({ _id: 1, email }).then(function () {
+      assert.ok('User created');
+      done();
+    });
   });
 });
