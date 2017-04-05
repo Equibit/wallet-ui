@@ -11,11 +11,8 @@
       <div class="auth-header">
         <a class="header-logo">EDC Web Portfolio</a>
         <div class="auth-tabs">
-          {{#is page 'signup'}}<span>SIGN UP</span>{{else}}<a href="{{routeUrl page='signup'}}">SIGN UP</a>{{/is}}
-          |
-          {{#is page 'login'}}<span>LOGIN</span>{{else}}<a href="{{routeUrl page='login'}}">LOGIN</a>{{/is}}
-          |
-          {{#if routeCurrent(page='change-password')}}<span>CHANGE PW</span>{{else}}<a href="{{routeUrl page='change-password'}}">CHANGE PW</a>{{/if}}
+          {{#is page 'signup'}}<span>Sign Up</span>{{else}}<a href="{{routeUrl page='signup'}}">Sign Up</a>{{/is}}
+          {{#is page 'login'}}<span>Log In</span>{{else}}<a href="{{routeUrl page='login'}}">Log In</a>{{/is}}
         </div>
       </div>
 
@@ -30,7 +27,7 @@
 
                 <div class="form-group">
                   <label for="inputEmail">Email</label>
-                  <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"
+                  <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
                          {($value)}="email" autofocus>
                   <validation-message {message}="emailError" />
                 </div>
@@ -66,7 +63,7 @@
 
               <div class="form-group">
                 <label for="inputEmail">Email</label>
-                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email"
+                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
                        {($value)}="email" autofocus novalidate>
                 <validation-message {message}="emailError" />
               </div>
@@ -75,13 +72,16 @@
                 <label for="inputPassword">Password</label>
                 <span class="show-password icon icon-eye{{^if passwordVisible}}-blocked{{/if}}"
                       ($click)="togglePassword()"></span>
-                <input type="{{#if passwordVisible}}text{{else}}password{{/if}}" class="form-control" id="inputPassword" aria-describedby="emailHelp" placeholder="Enter password"
+                <input type="{{#if passwordVisible}}text{{else}}password{{/if}}" class="form-control" id="inputPassword" aria-describedby="emailHelp"
                        {($value)}="password">
                 <validation-message {message}="passwordError" />
               </div>
 
-              <button class="btn btn-lg btn-primary" type="submit">Log In</button>
-              <a href="{{routeUrl page='forgot-password'}}" class="pull-right">Forgot password?</a>
+              <button class="btn btn-primary" type="submit">
+                <span class="icon icon-lock"></span>
+                Log In
+              </button>
+              <a href="{{routeUrl page='forgot-password'}}" class="btn btn-link pull-right">Forgot password?</a>
             </form>
           {{#if salt}}
             <table>
