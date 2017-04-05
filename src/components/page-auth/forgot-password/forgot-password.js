@@ -1,3 +1,14 @@
+/**
+ * @module {can.Component} components/page-auth/forgot-password Forgot Password
+ * @parent components.auth
+ *
+ * @link ../src/components/page-auth/forgot-password/forgot-password.html Full Page Demo
+ * ## Example
+ *
+ * @demo src/components/page-auth/forgot-password/forgot-password.html
+ *
+**/
+
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './forgot-password.less';

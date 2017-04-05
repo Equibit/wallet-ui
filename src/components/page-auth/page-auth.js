@@ -1,3 +1,15 @@
+/**
+ *
+ * @module {can.Component} components/page-auth Page Authentication
+ * @parent components.auth
+ *
+ * @link ../src/components/page-auth/page-auth.html Full Page Demo
+ * ## Example
+ *
+ * @demo src/components/page-auth/page-auth.html
+ *
+**/
+
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import view from './page-auth.stache';
@@ -28,7 +40,8 @@ export const ViewModel = DefineMap.extend({
     }
   },
   /**
-   * @property {boolean} Toggles the password input visibility (password vs text type).
+   * @property {boolean}
+   * Toggles the password input visibility (password vs text type).
    */
   passwordVisible: {
     value: false

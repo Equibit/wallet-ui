@@ -1,5 +1,4 @@
 /**
- *
  * @module {can.Component} components/page-auth/change-password Change Password
  * @parent components.auth
  *

@@ -1,3 +1,14 @@
+/**
+ * @module {can.Component} components/page-auth/reset-password Reset Password
+ * @parent components.auth
+ *
+ * @link ../src/components/page-auth/reset-password/reset-password.html Full Page Demo
+ * ## Example
+ *
+ * @demo src/components/page-auth/reset-password/reset-password.html
+ *
+**/
+
 import QUnit from 'steal-qunit';
 import { ViewModel } from './forgot-password';
 

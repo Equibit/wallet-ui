@@ -1,3 +1,13 @@
+/**
+ * @module {can.Component} components/page-auth/password-strenght Password Strenght
+ * @parent components.auth
+ *
+ * ## Example
+ *
+ * @demo src/components/page-auth/password-strength/password-strength.html
+ *
+**/
+
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './password-strength.less';
