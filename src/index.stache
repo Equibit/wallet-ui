@@ -13,7 +13,14 @@
     <can-import from="~/components/page-portfolio/" />
     <can-import from="~/components/page-auth/" />
     <can-import from="~/components/page-settings/" />
-    <can-import from="~/components/page-four-oh-four/" />
+    <can-import from="~/components/page-four-oh-four.component" />
+    <can-import from="~/components/page-four-oh-one.component" />
+    <can-import from="~/utils/stache-helpers/" />
+
+    {{! if used within switch/case then component gets re-rendered and we cannot share email between cases. }}
+    {{#if oneOf(displayedPage, 'signup', 'login', 'forgot-password', 'change-password')}}
+      <page-auth {(session)}="session" {page}="displayedPage" />
+    {{/if}}
 
     {{#switch displayedPage}}
       {{#case 'loading'}}
@@ -25,20 +32,11 @@
       {{#case 'portfolio'}}
         <page-portfolio />
       {{/case}}
-      {{#case 'signup'}}
-        <page-auth />
-      {{/case}}
-      {{#case 'login'}}
-        <page-auth />
-      {{/case}}
-      {{#case 'forgot-password'}}
-        <page-auth />
-      {{/case}}
-      {{#case 'change-password'}}
-        <page-auth />
-      {{/case}}
       {{#case 'settings'}}
         <page-settings />
+      {{/case}}
+      {{#case 'four-oh-one'}}
+        <page-four-oh-one />
       {{/case}}
       {{#case 'four-oh-four'}}
         <page-four-oh-four />

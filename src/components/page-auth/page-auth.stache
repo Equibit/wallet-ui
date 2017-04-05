@@ -11,18 +11,15 @@
       <div class="auth-header">
         <a class="header-logo">EDC Web Portfolio</a>
         <div class="auth-tabs">
-          {{#if routeCurrent(page='signup')}}<span>SIGN UP</span>{{else}}<a href="{{routeUrl page='signup'}}">SIGN UP</a>{{/if}}
-
-          {{#if routeCurrent(page='login')}}<span>LOGIN</span>{{else}}<a href="{{routeUrl page='login'}}">LOGIN</a>{{/if}}
-
-
+          {{#is page 'signup'}}<span>Sign Up</span>{{else}}<a href="{{routeUrl page='signup'}}">Sign Up</a>{{/is}}
+          {{#is page 'login'}}<span>Log In</span>{{else}}<a href="{{routeUrl page='login'}}">Log In</a>{{/is}}
         </div>
       </div>
 
       <div class="panel panel-default">
         <div class="panel-body">
 
-          {{#if routeCurrent(page='signup')}}
+          {{#is page 'signup'}}
             <form class="form-signin" ($submit)="handleSignup(%event, email)" novalidate>
               <h2 class="form-signin-heading">Create an Account</h2>
 
@@ -58,9 +55,9 @@
 
               {{/if}}
             </form>
-          {{/if}}
+          {{/is}}
 
-          {{#if routeCurrent(page='login')}}
+          {{#is page 'login'}}
             <form class="form-signin" ($submit)="handleLogin(%event, email, password)">
               <h2 class="form-signin-heading">Log In</h2>
 
@@ -112,15 +109,15 @@
             <button ($click)="clear()">Clear</button>
           {{/if}}
 
-          {{/if}}
+          {{/is}}
 
-          {{#if routeCurrent(page='change-password')}}
+          {{#is page 'change-password'}}
             <change-password></change-password>
-          {{/if}}
+          {{/is}}
 
-          {{#if routeCurrent(page='forgot-password')}}
+          {{#is page 'forgot-password'}}
             <forgot-password></forgot-password>
-          {{/if}}
+          {{/is}}
         </div>
       </div>
 
