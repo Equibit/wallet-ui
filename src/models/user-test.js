@@ -28,8 +28,7 @@ describe('models/user', function () {
 
   it('should handle a new user without id', function (done) {
     let email = 'test@bitovi.com';
-    feathersClient.service('users').create({ email }).then(function (data) {
-      console.log('data', data);
+    feathersClient.service('users').create({ email }).then(function () {
       assert.ok('User created');
       done();
     });
@@ -37,8 +36,7 @@ describe('models/user', function () {
 
   it('should handle a new user with id', function (done) {
     let email = 'test@bitovi.com';
-    feathersClient.service('users').create({ _id: 1, email }).then(function (data) {
-      console.log('data', data);
+    feathersClient.service('users').create({ _id: 1, email }).then(function () {
       assert.ok('User created');
       done();
     });
