@@ -1,0 +1,62 @@
+/**
+  * @stylesheet _forms.less Form Elements
+  * @parent styles.base
+  *
+  *
+**/
+
+/**
+  * @styles form-example Form Example
+  * @parent _forms.less 0
+  *
+  * @demo src/styles/demos/forms/form-example.html
+**/
+
+label {
+  font-size: @font-size-small;
+  color: @gray;
+}
+
+.form-control {
+  box-shadow: none;
+  color: @input-color;
+}
+
+/**
+  * @styles input-types Input Types
+  * @parent _forms.less 1
+  *
+  * @demo src/styles/demos/forms/form-input-types.html
+**/
+
+
+/**
+  * @styles checkboxes_radios Checkboxes & Radios
+  * @parent _forms.less 2
+  *
+  * @description
+  * These styles are used to make custom checkboxes and radio buttons by hiding the standard elements.
+  *
+  * @demo src/styles/demos/forms/form-checkboxes-radios.html
+**/
+
+/**
+  * @styles control-sizes Control Sizes
+  * @parent _forms.less 4
+  *
+  * @demo src/styles/demos/forms/form-control-sizes.html
+**/
+
+/**
+  * @styles control-states Input States
+  * @parent _forms.less 5
+  *
+  * @demo src/styles/demos/forms/form-input-states.html
+**/
+
+  &[disabled],
+  &[readonly],
+  fieldset[disabled] & {
+    border-color: @gray-lightest;
+    color: @gray-light;
+  }

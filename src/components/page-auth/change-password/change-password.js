@@ -1,3 +1,15 @@
+/**
+ *
+ * @module {can.Component} components/page-auth/change-password Change Password
+ * @parent components.auth
+ *
+ * @link ../src/components/page-auth/change-password/change-password.html Full Page Demo
+ * ## Example
+ *
+ * @demo src/components/page-auth/change-password/change-password.html
+ *
+**/
+
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './change-password.less';
