@@ -8,18 +8,38 @@ page-auth {
   flex-direction: column;
   justify-content: center;
 
-  .auth-tabs {
-    color: @white;
-    text-align: right;
-    padding: @padding-large-vertical 0;
+  h2 {
+    font-size: @font-size-h3;
+  }
 
-    span, a {
-      margin: 0 @padding-xs-horizontal;
+  .auth-header {
+      margin-bottom: @padding-large-vertical;
+    .header-logo {
+      background: url(../../styles/img/wallet-app-logo.png);
+      float: left;
+      width: 190px;
+      height: 41px;
+      display: block;
+      background-size: contain;
+      background-repeat: no-repeat;
+      text-indent: -9999px;
+    }
+
+    .auth-tabs {
+      color: @white;
+      text-align: right;
+      padding: @padding-large-vertical 0;
+
+      span, a {
+        margin: 0 @padding-xs-horizontal;
+      }
     }
   }
 
+
+
   .panel {
-    padding: 5% 10% 10%;
+    padding: 4% 7% 7%;
   }
 }
 
