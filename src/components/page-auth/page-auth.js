@@ -15,19 +15,13 @@ import DefineMap from 'can-define/map/';
 import view from './page-auth.stache';
 import feathersClient from '~/models/feathers-client-rest';
 import signed from '~/models/feathers-signed';
+import Session from '~/models/session';
 import validate from '~/utils/validators';
-
-// To persist user email when a new account is created under SignUp and user goes to Login.
-let newUserEmail = '';
 
 export const ViewModel = DefineMap.extend({
   email: {
     type: 'string',
-    value () {
-      return newUserEmail;
-    },
     set (value) {
-      newUserEmail = '';
       this.emailError = validate.email(value, {allowEmpty: 1});
       return value;
     }
@@ -38,6 +32,9 @@ export const ViewModel = DefineMap.extend({
       this.passwordError = validate.password(value, {allowEmpty: 1});
       return value;
     }
+  },
+  session: {
+    type: 'any'
   },
   /**
    * @property {boolean}
@@ -86,7 +83,6 @@ export const ViewModel = DefineMap.extend({
     feathersClient.service('users').create({ email })
       .then(() => {
         this.isAccountCreated = true;
-        newUserEmail = email;
       });
   },
   handleLogin (event, email, password) {
@@ -120,12 +116,18 @@ export const ViewModel = DefineMap.extend({
         this.signature = signedData.signature;
         return feathersClient.authenticate(signedData);
       })
-      .then(response => {
-        // debugger;
+      .then(({ user }) => {
+        this.session = new Session({ user });
       })
       .catch(error => {
         console.log(error);
-        // debugger;
+        this.session = new Session({
+          user: {
+            email,
+            isNewAccount: true,
+            usedTmpPassword: true
+          }
+        });
       });
     })
     .catch(error => {
@@ -149,5 +151,10 @@ export const ViewModel = DefineMap.extend({
 export default Component.extend({
   tag: 'page-auth',
   ViewModel,
-  view
+  view,
+  events: {
+    inserted: function () {
+      console.log('page-auth inserted!');
+    }
+  }
 });

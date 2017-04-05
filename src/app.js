@@ -15,6 +15,7 @@
 import DefineMap from 'can-define/map/';
 import route from 'can-route';
 import 'can-route-pushstate';
+import Session from '~/models/session';
 // import '~/models/fixtures/fixtures';
 
 var pages = {
@@ -22,20 +23,28 @@ var pages = {
   signup: 'public',
   login: 'public',
   'forgot-password': 'public',
-  'change-password': 'public',
+  'change-password': 'private',
   dashboard: 'private',
   settings: 'private',
-  loading: 'public'
+  loading: 'public',
+  'four-oh-one': 'public'
 };
 
 const AppViewModel = DefineMap.extend({
-  message: {
-    value: 'Hello World!',
+  '*': {
     serialize: false
   },
   title: {
-    value: 'wallet-ui',
-    serialize: false
+    value: 'wallet-ui'
+  },
+
+  /**
+   * @property {wallet-ui/app.session} wallet-ui/app.session session
+   * @parent wallet-ui/app.properties
+   * A session object that get's created on successful user login.
+   */
+  session: {
+    Type: Session
   },
 
   /**
@@ -53,7 +62,7 @@ const AppViewModel = DefineMap.extend({
       let page = this.page;
 
       if (!this.session) {
-        page = pages[page] === 'private' ? 'login' : page;
+        page = pages[page] === 'private' ? 'four-oh-one' : page;
       }
       return pages[page] ? page : 'four-oh-four';
     }
