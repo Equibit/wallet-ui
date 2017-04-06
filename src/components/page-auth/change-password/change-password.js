@@ -16,6 +16,7 @@ import view from './change-password.stache';
 import feathersClient from '~/models/feathers-client';
 import signed from '~/models/feathers-signed';
 import validate from '~/utils/validators';
+import route from 'can-route';
 
 export const ViewModel = DefineMap.extend({
   email: {
@@ -55,7 +56,9 @@ export const ViewModel = DefineMap.extend({
 
     let userService = feathersClient.service('users');
     password = signed.createHash(password);
-    userService.patch(this.userId, { password });
+    userService.patch(this.userId, { password })
+      .then(() => route.data.page = 'portfolio')
+      .catch(e => console.error(e));
   },
   togglePassword () {
     this.passwordVisible = !this.passwordVisible;

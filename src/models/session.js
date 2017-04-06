@@ -6,13 +6,13 @@ export const Session = DefineMap.extend('Session', {
   user: {
     Type: User
   },
+  usingTempPassword: 'boolean',
   get email () {
-    return this.user.email;
+    return this.user && this.user.email;
   },
   get isNewAccount () {
-    return this.user.isNew;
+    return this.user && this.user.isNewUser;
   },
-  usingTempPassword: 'boolean'
 });
 
 export default Session;

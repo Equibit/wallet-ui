@@ -150,10 +150,5 @@ export const ViewModel = DefineMap.extend({
 export default Component.extend({
   tag: 'page-auth',
   ViewModel,
-  view,
-  events: {
-    inserted: function () {
-      console.log('page-auth inserted!');
-    }
-  }
+  view
 });

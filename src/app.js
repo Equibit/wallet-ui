@@ -20,14 +20,15 @@ import Session from '~/models/session';
 
 var pages = {
   home: 'public',
+  loading: 'public',
   signup: 'public',
   login: 'public',
+  'four-oh-one': 'public',
   'forgot-password': 'public',
   'change-password': 'private',
   dashboard: 'private',
   settings: 'private',
-  loading: 'public',
-  'four-oh-one': 'public'
+  portfolio: 'private'
 };
 
 const AppViewModel = DefineMap.extend({

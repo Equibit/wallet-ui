@@ -16,14 +16,7 @@ var User = DefineMap.extend('User', {
   _id: 'string',
   email: 'string',
   password: 'string',
-  usedTmpPassword: {
-    type: 'boolean',
-    value: false
-  },
-  isNewAccount: {
-    type: 'boolean',
-    value: false
-  },
+  isNewUser: 'boolean',
   // Q: do we want different passphrases for mnemonic and privateKey? A: Not now.
   generateKeys (password) {
     let mnemonic = crypto.generateMnemonic();
