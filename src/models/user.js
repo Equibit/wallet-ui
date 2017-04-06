@@ -9,7 +9,7 @@ import connect from 'can-connect';
 
 var User = DefineMap.extend('User', {
   forgotPassword (email) {
-    return Promise.resolve({status: 200, email});
+    return feathersClient.service('forgot-password').create({email});
   },
   seal: false
 }, {
