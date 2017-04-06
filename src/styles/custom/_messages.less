@@ -1,0 +1,63 @@
+/**
+  * @stylesheet _messages.less Messages
+  * @parent styles.base
+  *
+**/
+
+/**
+* @styles message-box Message Box
+* @parent _messages.less 0
+*
+* Use `.message-box` to display:
+* - Placeholder messages when large pieces of content are not available, or are empty.
+* - Content on error pages (such as 404 or server errors)
+*
+* @demo src/styles/demos/messages/message-box.html
+**/
+
+.message-box {
+    border: 2px solid @gray-lighter;
+    box-sizing: border-box;
+    margin-bottom: @padding-small-horizontal;
+    padding: 8%;
+    position: relative;
+    text-align: center;
+    border-radius: @border-radius-large;
+
+    // Styles the icons
+    .icon {
+        font-size: 30px;
+        display: inline-block;
+    }
+    &.danger .icon {
+        color: @brand-danger;
+    }
+    &.info .icon  {
+        color: @brand-info;
+    }
+    &.success .icon {
+        color: @brand-success;
+    }
+    &.warning .icon {
+        color: @brand-warning;
+    }
+    &.no-border {
+        border: none;
+    }
+    [class*="col-"] {
+        padding-left: @padding-small-horizontal;
+        padding-right: @padding-small-horizontal;
+    }
+    .btn {
+        margin-top: @padding-large-horizontal;
+    }
+}
+
+.message-box-status {
+    font-size: @font-size-h4;
+    padding: 0 @padding-large-vertical 0;
+}
+.message-box-cause {
+    margin: 0 auto;
+    color: @gray-dark;
+}
