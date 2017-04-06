@@ -13,7 +13,7 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './forgot-password.less';
 import view from './forgot-password.stache';
-import User from '~/models/user';
+import User from '~/models/user/user';
 import validate from '~/utils/validators';
 
 export const ViewModel = DefineMap.extend({
@@ -26,7 +26,6 @@ export const ViewModel = DefineMap.extend({
   },
   isDone: 'boolean',
   emailError: 'string',
-
   get isEmailValid () {
     this.emailError = validate.email(this.email, {allowEmpty: 0});
     return !this.emailError;

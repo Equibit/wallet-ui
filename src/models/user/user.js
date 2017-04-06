@@ -1,15 +1,21 @@
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/list';
-import feathersClient from './feathers-client';
-import signed from './feathers-signed';
-import superModel from './super-model';
-import algebra from './algebra';
+import feathersClient from '~/models/feathers-client';
+import signed from '~/models/feathers-signed';
+import superModel from '~/models/super-model';
+import algebra from '~/models/algebra';
 import crypto from '~/utils/crypto';
 import connect from 'can-connect';
+import login from './login';
 
 const userService = feathersClient.service('users');
 
 const User = DefineMap.extend('User', {
+  // static methods:
+  login,
+  signup (email) {
+    return feathersClient.service('users').create({ email });
+  },
   forgotPassword (email) {
     return feathersClient.service('forgot-password').create({email});
   }

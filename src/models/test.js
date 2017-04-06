@@ -1,3 +1,3 @@
 import './fixtures/';
 
-import 'wallet-ui/models/user-test';
+import 'wallet-ui/models/user/user-test';

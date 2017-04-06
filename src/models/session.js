@@ -1,6 +1,6 @@
 /* global window */
 import DefineMap from 'can-define/map/';
-import User from '~/models/user';
+import User from '~/models/user/user';
 
 export const Session = DefineMap.extend('Session', {
   user: {
