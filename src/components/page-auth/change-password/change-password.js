@@ -13,7 +13,7 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './change-password.less';
 import view from './change-password.stache';
-import feathersClient from '~/models/feathers-client-rest';
+import feathersClient from '~/models/feathers-client';
 import signed from '~/models/feathers-signed';
 import validate from '~/utils/validators';
 

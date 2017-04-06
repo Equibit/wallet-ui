@@ -13,7 +13,7 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import view from './page-auth.stache';
-import feathersClient from '~/models/feathers-client-rest';
+import feathersClient from '~/models/feathers-client';
 import signed from '~/models/feathers-signed';
 import Session from '~/models/session';
 import validate from '~/utils/validators';
@@ -96,12 +96,12 @@ export const ViewModel = DefineMap.extend({
     let data = { email };
 
     signed.sign(data, hashedPassword)
-      .then(signedData => {
-        return feathersClient.authenticate({
-          strategy: 'challenge-request',
-          ...signedData
-        });
-      })
+    .then(signedData => {
+      return feathersClient.authenticate({
+        strategy: 'challenge-request',
+        ...signedData
+      });
+    })
     .then(({challenge, salt}) => {
       this.challenge = challenge;
       this.salt = salt;

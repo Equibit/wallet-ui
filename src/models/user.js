@@ -1,7 +1,7 @@
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/list';
 // import feathersClient from './feathers-client';
-import feathersClient from './feathers-client-rest';
+import feathersClient from './feathers-client';
 import superModel from './super-model';
 import algebra from './algebra';
 import crypto from '~/utils/crypto';
