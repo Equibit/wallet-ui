@@ -22,7 +22,7 @@ export default function login (email, password) {
     })
     .then(signedData => {
       signedData.strategy = 'challenge';
-      console.log('signedData', signedData);
+      // console.log('signedData', signedData);
       return feathersClient.authenticate(signedData);
     });
 }
