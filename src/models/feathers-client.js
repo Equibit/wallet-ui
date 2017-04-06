@@ -6,7 +6,8 @@ import socketio from 'feathers-socketio/client';
 import auth from 'feathers-authentication-client';
 import hooks from 'feathers-hooks';
 
-const transport = 'socketio';
+// const transport = 'socketio';
+const transport = 'rest';
 
 const feathersClient = feathers();
 
