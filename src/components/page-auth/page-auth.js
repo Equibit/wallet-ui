@@ -18,8 +18,13 @@ import signed from '~/models/feathers-signed';
 import Session from '~/models/session';
 import validate from '~/utils/validators';
 import route from 'can-route';
+import signupTpl from './signup.stache';
+import loginTpl from './login.stache';
 
 export const ViewModel = DefineMap.extend({
+  signupTpl,
+  loginTpl,
+
   email: {
     type: 'string',
     set (value) {

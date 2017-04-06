@@ -13,8 +13,6 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './change-password.less';
 import view from './change-password.stache';
-import feathersClient from '~/models/feathers-client';
-import signed from '~/models/feathers-signed';
 import validate from '~/utils/validators';
 import route from 'can-route';
 
@@ -32,13 +30,11 @@ export const ViewModel = DefineMap.extend({
   passwordVisible: {
     value: false
   },
-  isNewUser: {
-    value: false
-  },
-  userId: 'string',
+  user: '*',
 
   // Form validation:
   passwordError: 'string',
+  generalError: 'string',
   get isPasswordValid () {
     this.passwordError = validate.password(this.password, {allowEmpty: 0});
     return !this.passwordError;
@@ -54,11 +50,14 @@ export const ViewModel = DefineMap.extend({
       return false;
     }
 
-    let userService = feathersClient.service('users');
-    password = signed.createHash(password);
-    userService.patch(this.userId, { password })
-      .then(() => route.data.page = 'portfolio')
-      .catch(e => console.error(e));
+    this.user.changePassword(password)
+      .then(() => {
+        route.data.page = 'portfolio';
+      })
+      .catch(e => {
+        console.error(e);
+        this.generalError = JSON.stringify(e);
+      });
   },
   togglePassword () {
     this.passwordVisible = !this.passwordVisible;

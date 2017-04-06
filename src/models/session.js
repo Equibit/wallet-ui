@@ -12,7 +12,7 @@ export const Session = DefineMap.extend('Session', {
   },
   get isNewAccount () {
     return this.user && this.user.isNewUser;
-  },
+  }
 });
 
 export default Session;

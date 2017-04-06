@@ -20,99 +20,15 @@
         <div class="panel-body">
 
           {{#is page 'signup'}}
-            <form class="form-signin" ($submit)="handleSignup(%event, email)" novalidate>
-              <h2 class="form-signin-heading">Create an Account</h2>
-
-              {{^if isAccountCreated}}
-
-                <div class="form-group">
-                  <label for="inputEmail">Email</label>
-                  <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
-                         {($value)}="email" autofocus>
-                  <validation-message {message}="emailError" />
-                </div>
-
-                <div class="form-group">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" {($checked)}="agreedToTerms">
-                      I agree to the <a href="{{routeUrl page='terms'}}">Terms & Conditions</a>
-                      and <a href="{{routeUrl page='privacy'}}">Privacy Policy</a>.
-                    </label>
-                  </div>
-                  <validation-message {message}="termsError" />
-                </div>
-
-                <button class="btn btn-primary" type="submit">
-                  <span class="icon icon-lock"></span>
-                  Sign up
-                </button>
-
-              {{else}}
-
-                <p>Check your email to continue,
-                and then head to <a href="{{routeUrl page='login'}}" ($click)="clearAccountCreated()">login</a>.</p>
-
-              {{/if}}
-            </form>
+            {{>signupTpl}}
           {{/is}}
 
           {{#is page 'login'}}
-            <form class="form-signin" ($submit)="handleLogin(%event, email, password)">
-              <h2 class="form-signin-heading">Log In</h2>
-
-              <div class="form-group">
-                <label for="inputEmail">Email</label>
-                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
-                       {($value)}="email" autofocus novalidate>
-                <validation-message {message}="emailError" />
-              </div>
-
-              <div class="form-group">
-                <label for="inputPassword">Password</label>
-                <span class="show-password icon icon-eye{{#if passwordVisible}}-blocked{{/if}}"
-                      ($click)="togglePassword()"></span>
-                <input type="{{#if passwordVisible}}text{{else}}password{{/if}}" class="form-control" id="inputPassword" aria-describedby="emailHelp"
-                       {($value)}="password">
-                <validation-message {message}="passwordError" />
-              </div>
-
-              <button class="btn btn-primary" type="submit">
-                <span class="icon icon-lock"></span>
-                Log In
-              </button>
-              <a href="{{routeUrl page='forgot-password'}}" class="btn btn-link pull-right">Forgot password?</a>
-            </form>
-          {{#if salt}}
-            <table>
-              <tr>
-                <td>Password:</td>
-                <td>{{hashedPassword}}</td>
-              </tr>
-              <tr>
-                <td>Salt:</td>
-                <td>{{salt}}</td>
-              </tr>
-              <tr>
-                <td>Challenge:</td>
-                <td>{{challenge}}</td>
-              </tr>
-              <tr>
-                <td>Secret:</td>
-                <td>{{secret}}</td>
-              </tr>
-              <tr>
-                <td>Signature:</td>
-                <td>{{signature}}</td>
-              </tr>
-            </table>
-            <button ($click)="clear()">Clear</button>
-          {{/if}}
-
+            {{>loginTpl}}
           {{/is}}
 
           {{#is page 'change-password'}}
-            <change-password {is-new-user}="session.isNew" {user-id}="session.user._id"></change-password>
+            <change-password {user}="session.user"></change-password>
           {{/is}}
 
           {{#is page 'forgot-password'}}
