@@ -1,5 +1,5 @@
 import fixture from 'can-fixture';
-import User from '../user';
+import User from '~/models/user/user';
 
 const store = fixture.store([{
   _id: 0,
