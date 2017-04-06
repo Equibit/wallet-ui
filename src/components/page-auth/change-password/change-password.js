@@ -13,9 +13,8 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './change-password.less';
 import view from './change-password.stache';
-import feathersClient from '~/models/feathers-client-rest';
-import signed from '~/models/feathers-signed';
 import validate from '~/utils/validators';
+import route from 'can-route';
 
 export const ViewModel = DefineMap.extend({
   email: {
@@ -31,9 +30,11 @@ export const ViewModel = DefineMap.extend({
   passwordVisible: {
     value: false
   },
+  user: '*',
 
   // Form validation:
   passwordError: 'string',
+  generalError: 'string',
   get isPasswordValid () {
     this.passwordError = validate.password(this.password, {allowEmpty: 0});
     return !this.passwordError;
@@ -43,26 +44,19 @@ export const ViewModel = DefineMap.extend({
   updatePassword (el) {
     this.password = el.value;
   },
-  handlePasswordChange (event, email, password) {
+  handlePasswordChange (event, password) {
     event.preventDefault();
     if (!this.isPasswordValid) {
       return false;
     }
 
-    let userService = feathersClient.service('users');
-    let idField = '_id';
-
-    password = signed.createHash(password);
-
-    userService.find({email})
-      .then(users => {
-        users = users.data || users;
-        let user = users[0];
-        if (user) {
-          userService.patch(user[idField], {password});
-        } else {
-          throw new Error(`User ${email} not found.`);
-        }
+    this.user.changePassword(password)
+      .then(() => {
+        route.data.page = 'portfolio';
+      })
+      .catch(e => {
+        console.error(e);
+        this.generalError = JSON.stringify(e);
       });
   },
   togglePassword () {

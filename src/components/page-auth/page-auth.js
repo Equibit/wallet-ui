@@ -13,12 +13,18 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import view from './page-auth.stache';
-import feathersClient from '~/models/feathers-client-rest';
+import feathersClient from '~/models/feathers-client';
 import signed from '~/models/feathers-signed';
 import Session from '~/models/session';
 import validate from '~/utils/validators';
+import route from 'can-route';
+import signupTpl from './signup.stache';
+import loginTpl from './login.stache';
 
 export const ViewModel = DefineMap.extend({
+  signupTpl,
+  loginTpl,
+
   email: {
     type: 'string',
     set (value) {
@@ -95,12 +101,12 @@ export const ViewModel = DefineMap.extend({
     let data = { email };
 
     signed.sign(data, hashedPassword)
-      .then(signedData => {
-        return feathersClient.authenticate({
-          strategy: 'challenge-request',
-          ...signedData
-        });
-      })
+    .then(signedData => {
+      return feathersClient.authenticate({
+        strategy: 'challenge-request',
+        ...signedData
+      });
+    })
     .then(({challenge, salt}) => {
       this.challenge = challenge;
       this.salt = salt;
@@ -116,18 +122,12 @@ export const ViewModel = DefineMap.extend({
         this.signature = signedData.signature;
         return feathersClient.authenticate(signedData);
       })
-      .then(({ user }) => {
-        this.session = new Session({ user });
+      .then(({ usingTempPassword, user }) => {
+        this.session = new Session({ usingTempPassword, user });
+        route.data.page = usingTempPassword ? 'change-password' : 'portfolio';
       })
       .catch(error => {
         console.log(error);
-        this.session = new Session({
-          user: {
-            email,
-            isNewAccount: true,
-            usedTmpPassword: true
-          }
-        });
       });
     })
     .catch(error => {
@@ -145,16 +145,15 @@ export const ViewModel = DefineMap.extend({
   },
   togglePassword () {
     this.passwordVisible = !this.passwordVisible;
+  },
+  clearAccountCreated () {
+    this.password = '';
+    this.isAccountCreated = false;
   }
 });
 
 export default Component.extend({
   tag: 'page-auth',
   ViewModel,
-  view,
-  events: {
-    inserted: function () {
-      console.log('page-auth inserted!');
-    }
-  }
+  view
 });

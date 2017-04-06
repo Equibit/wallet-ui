@@ -1,0 +1,35 @@
+<form class="form-signin" ($submit)="handleSignup(%event, email)" novalidate>
+  <h2 class="form-signin-heading">Create an Account</h2>
+
+  {{^if isAccountCreated}}
+
+    <div class="form-group">
+      <label for="inputEmail">Email</label>
+      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
+             {($value)}="email" autofocus>
+      <validation-message {message}="emailError" />
+    </div>
+
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" {($checked)}="agreedToTerms">
+          I agree to the <a href="{{routeUrl page='terms'}}">Terms & Conditions</a>
+          and <a href="{{routeUrl page='privacy'}}">Privacy Policy</a>.
+        </label>
+      </div>
+      <validation-message {message}="termsError" />
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+      <span class="icon icon-lock"></span>
+      Sign up
+    </button>
+
+  {{else}}
+
+    <p>Check your email to continue,
+      and then head to <a href="{{routeUrl page='login'}}" ($click)="clearAccountCreated()">login</a>.</p>
+
+  {{/if}}
+</form>
