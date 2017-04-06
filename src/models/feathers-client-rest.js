@@ -7,6 +7,8 @@ import hooks from 'feathers-hooks';
 const feathersClient = feathers()
   .configure(rest('http://localhost:3030').jquery(jQuery))
   .configure(hooks())
-  .configure(auth());
+  .configure(auth({
+    storage: window.localStorage
+  }));
 
 export default feathersClient;

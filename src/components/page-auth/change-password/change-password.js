@@ -31,6 +31,10 @@ export const ViewModel = DefineMap.extend({
   passwordVisible: {
     value: false
   },
+  isNewUser: {
+    value: false
+  },
+  userId: 'string',
 
   // Form validation:
   passwordError: 'string',
@@ -43,27 +47,15 @@ export const ViewModel = DefineMap.extend({
   updatePassword (el) {
     this.password = el.value;
   },
-  handlePasswordChange (event, email, password) {
+  handlePasswordChange (event, password) {
     event.preventDefault();
     if (!this.isPasswordValid) {
       return false;
     }
 
     let userService = feathersClient.service('users');
-    let idField = '_id';
-
     password = signed.createHash(password);
-
-    userService.find({email})
-      .then(users => {
-        users = users.data || users;
-        let user = users[0];
-        if (user) {
-          userService.patch(user[idField], {password});
-        } else {
-          throw new Error(`User ${email} not found.`);
-        }
-      });
+    userService.patch(this.userId, { password });
   },
   togglePassword () {
     this.passwordVisible = !this.passwordVisible;

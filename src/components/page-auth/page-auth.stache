@@ -51,7 +51,7 @@
               {{else}}
 
                 <p>Check your email to continue,
-                and then head to <a href="{{routeUrl page='login'}}">login</a>.</p>
+                and then head to <a href="{{routeUrl page='login'}}" ($click)="clearAccountCreated()">login</a>.</p>
 
               {{/if}}
             </form>
@@ -70,7 +70,7 @@
 
               <div class="form-group">
                 <label for="inputPassword">Password</label>
-                <span class="show-password icon icon-eye{{^if passwordVisible}}-blocked{{/if}}"
+                <span class="show-password icon icon-eye{{#if passwordVisible}}-blocked{{/if}}"
                       ($click)="togglePassword()"></span>
                 <input type="{{#if passwordVisible}}text{{else}}password{{/if}}" class="form-control" id="inputPassword" aria-describedby="emailHelp"
                        {($value)}="password">
@@ -112,7 +112,7 @@
           {{/is}}
 
           {{#is page 'change-password'}}
-            <change-password></change-password>
+            <change-password {is-new-user}="session.isNew" {user-id}="session.user._id"></change-password>
           {{/is}}
 
           {{#is page 'forgot-password'}}

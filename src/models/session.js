@@ -10,11 +10,9 @@ export const Session = DefineMap.extend('Session', {
     return this.user.email;
   },
   get isNewAccount () {
-    return this.user.isNewAccount;
+    return this.user.isNew;
   },
-  get usedTmpPassword () {
-    return this.user.usedTmpPassword;
-  }
+  usingTempPassword: 'boolean'
 });
 
 export default Session;

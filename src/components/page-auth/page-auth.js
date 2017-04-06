@@ -17,6 +17,7 @@ import feathersClient from '~/models/feathers-client-rest';
 import signed from '~/models/feathers-signed';
 import Session from '~/models/session';
 import validate from '~/utils/validators';
+import route from 'can-route';
 
 export const ViewModel = DefineMap.extend({
   email: {
@@ -116,18 +117,12 @@ export const ViewModel = DefineMap.extend({
         this.signature = signedData.signature;
         return feathersClient.authenticate(signedData);
       })
-      .then(({ user }) => {
-        this.session = new Session({ user });
+      .then(({ usingTempPassword, user }) => {
+        this.session = new Session({ usingTempPassword, user });
+        route.data.page = usingTempPassword ? 'change-password' : 'portfolio';
       })
       .catch(error => {
         console.log(error);
-        this.session = new Session({
-          user: {
-            email,
-            isNewAccount: true,
-            usedTmpPassword: true
-          }
-        });
       });
     })
     .catch(error => {
@@ -145,6 +140,10 @@ export const ViewModel = DefineMap.extend({
   },
   togglePassword () {
     this.passwordVisible = !this.passwordVisible;
+  },
+  clearAccountCreated () {
+    this.password = '';
+    this.isAccountCreated = false;
   }
 });
 

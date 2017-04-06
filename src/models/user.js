@@ -10,7 +10,8 @@ import connect from 'can-connect';
 var User = DefineMap.extend('User', {
   forgotPassword (email) {
     return Promise.resolve({status: 200, email});
-  }
+  },
+  seal: false
 }, {
   _id: 'string',
   email: 'string',
