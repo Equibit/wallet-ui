@@ -2,7 +2,7 @@ import assert from 'chai/chai';
 import 'steal-mocha';
 import { ViewModel } from './password-strength';
 
-describe('wallet-ui/components/page-auth/password-strength', function () {
+describe('components/page-auth/password-strength', function () {
   const vm = new ViewModel({});
   it('should detect Worst password', function () {
     vm.password = 'zxcvbn';
