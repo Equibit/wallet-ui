@@ -28,8 +28,12 @@
 
   {{else}}
 
-    <p>Check your email to continue,
-      and then head to <a href="{{routeUrl page='login'}}" ($click)="clearAccountCreated()">login</a>.</p>
+    <div class="message-box">
+        <div class="icon icon-email"></div>
+        <p class="message-box-cause">
+          Check your email to continue, and then head to <a href="{{routeUrl page='login'}}" ($click)="clearAccountCreated()">login</a>.
+        </p>
+    </div>
 
   {{/if}}
 </form>

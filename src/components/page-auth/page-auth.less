@@ -2,7 +2,7 @@
 
 page-auth {
   display: block;
-  background-color: @gray-dark;
+  background-color: @gray-base;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -61,5 +61,28 @@ page-auth {
     float: right;
     font-size: 20px;
   }
+
+  .message-box {
+    margin-top: @padding-large-vertical*2;
+    .icon-email {
+      font-size: 40px;
+      position: relative;
+      margin-bottom: @padding-large-vertical;
+      color: @gray-lighter;
+      &:after {
+        font-family: 'edc-icons' !important;
+        content : '\ea10';
+        position: absolute;
+        background-color: @brand-success;
+        font-size: 10px;
+        padding: @padding-small-vertical;
+        border-radius: 10px;
+        color: white;
+        bottom: -3px;
+        right: -11px;
+      }
+    }
+  }
+
 }
 
