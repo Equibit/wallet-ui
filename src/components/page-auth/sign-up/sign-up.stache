@@ -1,6 +1,10 @@
 <form class="form-signin" ($submit)="handleSignup(%event, email)" novalidate>
   <h2 class="form-signin-heading">Create an Account</h2>
 
+  {{#if signupError}}
+    <div class="alert alert-danger">Sorry, unexpected error happened. Please, try again later.</div>
+  {{/if}}
+
   {{^if isAccountCreated}}
 
     <div class="form-group">
@@ -29,10 +33,10 @@
   {{else}}
 
     <div class="message-box">
-        <div class="icon icon-email"></div>
-        <p class="message-box-cause">
-          Check your email to continue, and then head to <a href="{{routeUrl page='login'}}" ($click)="clearAccountCreated()">login</a>.
-        </p>
+      <div class="icon icon-email"></div>
+      <p class="message-box-cause">
+        Check your email to continue, and then head to <a href="{{routeUrl page='login'}}" ($click)="clearAccountCreated()">login</a>.
+      </p>
     </div>
 
   {{/if}}

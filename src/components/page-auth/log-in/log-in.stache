@@ -1,6 +1,10 @@
 <form class="form-signin" ($submit)="handleLogin(%event, email, password)">
   <h2 class="form-signin-heading">Log In</h2>
 
+  {{#if loginError}}
+    <div class="alert alert-danger">Invalid login. Try again, or <a href="{{routeUrl page='forgot-password'}}">reset your password</a>.</div>
+  {{/if}}
+
   <div class="form-group">
     <label for="inputEmail">Email</label>
     <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"

@@ -1,5 +1,7 @@
 <can-import from="can-stache/helpers/route" />
 <can-import from="~/components/page-auth/page-auth.less" />
+<can-import from="./sign-up/" />
+<can-import from="./log-in/" />
 <can-import from="./change-password/" />
 <can-import from="./forgot-password/" />
 <can-import from="~/components/validation-message.component" />
@@ -18,22 +20,20 @@
 
       <div class="panel panel-default">
         <div class="panel-body">
-
-          {{#is page 'signup'}}
-            {{>signupTpl}}
-          {{/is}}
-
-          {{#is page 'login'}}
-            {{>loginTpl}}
-          {{/is}}
-
-          {{#is page 'change-password'}}
-            <change-password {user}="session.user"></change-password>
-          {{/is}}
-
-          {{#is page 'forgot-password'}}
-            <forgot-password></forgot-password>
-          {{/is}}
+          {{#switch page}}
+            {{#case 'signup'}}
+              <sign-up {(email)}="email" />
+            {{/case}}
+            {{#case 'login'}}
+              <log-in {(session)}="session" {(email)}="email" />
+            {{/case}}
+            {{#case 'change-password'}}
+              <change-password {user}="session.user" />
+            {{/case}}
+            {{#case 'forgot-password'}}
+              <forgot-password {(email)}="email" />
+            {{/case}}
+          {{/switch}}
         </div>
       </div>
 
