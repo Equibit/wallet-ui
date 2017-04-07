@@ -7,7 +7,6 @@ import view from './alerts.stache';
 import hub from '~/utils/event-hub';
 import CID from 'can-cid';
 
-
 var hubStream = canStream.toStream(hub, 'alert').map(ev => {
   return Object.assign({
     id: CID(ev),
@@ -17,7 +16,7 @@ var hubStream = canStream.toStream(hub, 'alert').map(ev => {
 
 export const ViewModel = DefineMap.extend({
   autoHideStream: {
-    value() {
+    value () {
       return hubStream.flatMap(alert => {
         // Allows displayInterval to be falsy OR Infinity to disable autohide
         if (alert.displayInterval > 0 && alert.displayInterval !== Infinity) {
@@ -31,7 +30,7 @@ export const ViewModel = DefineMap.extend({
     }
   },
   alerts: {
-    stream() {
+    stream () {
       return hubStream
         .merge(this.autoHideStream)
         .merge(this.stream('remove'))
