@@ -264,10 +264,6 @@ ast-traverse@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/ast-traverse/-/ast-traverse-0.1.1.tgz#69cf2b8386f19dcda1bb1e05d68fe359d8897de6"
 
-ast-types@0.8.15:
-  version "0.8.15"
-  resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.8.15.tgz#8eef0827f04dff0ec8857ba925abe3fea6194e52"
-
 ast-types@0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.8.2.tgz#7ccb999037b7c5e373fb060b20b9e6fb45ae2c95"
@@ -284,7 +280,11 @@ async@0.2.x, async@~0.2.6, async@~0.2.7:
   version "0.2.10"
   resolved "https://registry.yarnpkg.com/async/-/async-0.2.10.tgz#b6bbe0b0674b9d719708ca38de8c237cb526c3d1"
 
-async@1.x, async@^1.4.0:
+async@1.x, async@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/async/-/async-1.0.0.tgz#f8fc04ca3a13784ade9e1641af98578cfbd647a9"
+
+async@^1.4.0:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
@@ -297,10 +297,6 @@ async@^2.0.0, async@^2.0.1:
 async@~0.9.0:
   version "0.9.2"
   resolved "https://registry.yarnpkg.com/async/-/async-0.9.2.tgz#aea74d5e61c1f899613bf64bda66d4c78f2fd17d"
-
-async@~1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/async/-/async-1.0.0.tgz#f8fc04ca3a13784ade9e1641af98578cfbd647a9"
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -846,7 +842,7 @@ camelcase@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-3.0.0.tgz#32fc4b9fcdaf845fcdf7e73bb97cac2261f0ab0a"
 
-can-cid@^1.0.0:
+can-cid@^1.0.0, can-cid@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/can-cid/-/can-cid-1.0.3.tgz#815521622bf1fbca4f6f0b46f0e1b07af79dbe17"
   dependencies:
@@ -933,7 +929,18 @@ can-control@^3.0.4:
     can-types "^1.0.1"
     can-util "^3.2.2"
 
-can-define@^1.0.10, can-define@^1.0.17, can-define@^1.0.9:
+can-define-stream@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/can-define-stream/-/can-define-stream-0.0.7.tgz#0b17b36bf5ccde3e2db88f4fabb34c722dfcd8f4"
+  dependencies:
+    can-compute "^3.0.0"
+    can-define "^1.0.0"
+    can-observation "^3.0.0"
+    can-stream "^0.0.5"
+    can-util "^3.0.0"
+    kefir "^3.5.1"
+
+can-define@^1.0.0, can-define@^1.0.10, can-define@^1.0.17, can-define@^1.0.9:
   version "1.0.17"
   resolved "https://registry.yarnpkg.com/can-define/-/can-define-1.0.17.tgz#3447b9d5ef348fb10130a4287d7554d526ab0fdb"
   dependencies:
@@ -946,7 +953,7 @@ can-define@^1.0.10, can-define@^1.0.17, can-define@^1.0.9:
     can-types "^1.0.1"
     can-util "^3.1.1"
 
-can-event@^3.0.1, can-event@^3.2.0:
+can-event@^3.0.0, can-event@^3.0.1, can-event@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/can-event/-/can-event-3.2.0.tgz#eb4c09c0c6fb902a24a0484a0528bfb1423af9d7"
   dependencies:
@@ -994,7 +1001,7 @@ can-namespace@1.0.0, can-namespace@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/can-namespace/-/can-namespace-1.0.0.tgz#0b8fafafbb11352b9ead4222ffe3822405b43e99"
 
-can-observation@^3.0.1, can-observation@^3.0.3, can-observation@^3.0.4, can-observation@^3.0.5:
+can-observation@^3.0.0, can-observation@^3.0.1, can-observation@^3.0.3, can-observation@^3.0.4, can-observation@^3.0.5:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/can-observation/-/can-observation-3.1.2.tgz#d8fd6ea65844729ce2725e7223b121aa6a99c8eb"
   dependencies:
@@ -1086,13 +1093,24 @@ can-stache@^3.0.0, can-stache@^3.0.1, can-stache@^3.0.13, can-stache@^3.0.15, ca
     can-view-scope "^3.1.1"
     can-view-target "^3.0.4"
 
+can-stream@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/can-stream/-/can-stream-0.0.5.tgz#d1193bea632a1d2eeb5b51165ce4e308cd845fd7"
+  dependencies:
+    can-compute "^3.0.0"
+    can-define "^1.0.0"
+    can-event "^3.0.0"
+    can-observation "^3.0.0"
+    can-util "^3.0.0"
+    kefir "^3.5.1"
+
 can-types@^1.0.0, can-types@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/can-types/-/can-types-1.0.4.tgz#9ff109e0aa2ce85050ce63d09bd2e91a249f942b"
   dependencies:
     can-namespace "1.0.0"
 
-can-util@^3.0.0-pre.17, can-util@^3.0.1, can-util@^3.1.0, can-util@^3.1.1, can-util@^3.2.0, can-util@^3.2.1, can-util@^3.2.2, can-util@^3.3.0, can-util@^3.3.5:
+can-util@^3.0.0, can-util@^3.0.0-pre.17, can-util@^3.0.1, can-util@^3.1.0, can-util@^3.1.1, can-util@^3.2.0, can-util@^3.2.1, can-util@^3.2.2, can-util@^3.3.0, can-util@^3.3.5:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/can-util/-/can-util-3.3.5.tgz#0f15bfe239962850bcf6a54c540070c41111d9ef"
   dependencies:
@@ -3677,6 +3695,12 @@ keep-alive-agent@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/keep-alive-agent/-/keep-alive-agent-0.0.1.tgz#44847ca394ce8d6b521ae85816bd64509942b385"
 
+kefir@^3.5.1, kefir@^3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/kefir/-/kefir-3.7.1.tgz#e77f56feeec46f4a2ee2997e5c3226e904877b5b"
+  dependencies:
+    symbol-observable "^1.0.1"
+
 kind-of@^3.0.2:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.1.0.tgz#475d698a5e49ff5e53d14e3e732429dc8bf4cf47"
@@ -4848,7 +4872,7 @@ readline2@^1.0.1:
     is-fullwidth-code-point "^1.0.0"
     mute-stream "0.0.5"
 
-recast@0.10.18:
+recast@0.10.18, recast@^0.10.10:
   version "0.10.18"
   resolved "https://registry.yarnpkg.com/recast/-/recast-0.10.18.tgz#025ba90e1841758be03bb716170e52ca9914e186"
   dependencies:
@@ -4856,15 +4880,6 @@ recast@0.10.18:
     esprima-fb "~14001.1.0-dev-harmony-fb"
     private "~0.1.5"
     source-map "~0.4.1"
-
-recast@^0.10.10:
-  version "0.10.43"
-  resolved "https://registry.yarnpkg.com/recast/-/recast-0.10.43.tgz#b95d50f6d60761a5f6252e15d80678168491ce7f"
-  dependencies:
-    ast-types "0.8.15"
-    esprima-fb "~15001.1001.0-dev-harmony-fb"
-    private "~0.1.5"
-    source-map "~0.5.0"
 
 recast@^0.11.17:
   version "0.11.23"
@@ -5794,6 +5809,10 @@ supports-color@3.1.2, supports-color@^3.1.0:
 supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
+
+symbol-observable@^1.0.1:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
 
 syn@^0.4.2:
   version "0.4.2"
