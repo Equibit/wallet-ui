@@ -11,7 +11,7 @@
     <div class="auth-container">
 
       <div class="auth-header">
-        <a class="header-logo">EDC Web Portfolio</a>
+        <a class="header-logo" href="{{routeUrl page='home'}}">EDC Web Portfolio</a>
         <div class="auth-tabs">
           {{#is page 'signup'}}<span>Sign Up</span>{{else}}<a href="{{routeUrl page='signup'}}">Sign Up</a>{{/is}}
           {{#is page 'login'}}<span>Log In</span>{{else}}<a href="{{routeUrl page='login'}}">Log In</a>{{/is}}

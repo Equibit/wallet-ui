@@ -1,16 +1,16 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import './page-home.less';
-import view from './page-home.stache';
+import './nav-bar.less';
+import view from './nav-bar.stache';
 
 export const ViewModel = DefineMap.extend({
   message: {
-    value: 'Welcome to Equibit!'
+    value: 'This is the nav-bar component'
   }
 });
 
 export default Component.extend({
-  tag: 'page-home',
+  tag: 'nav-bar',
   ViewModel,
   view
 });

@@ -47,6 +47,9 @@ const AppViewModel = DefineMap.extend({
   session: {
     Type: Session
   },
+  get isLoggedIn () {
+    return !!(this.session && this.session.user);
+  },
 
   /**
    * Page component of the route.
@@ -67,6 +70,12 @@ const AppViewModel = DefineMap.extend({
       }
       return pages[page] ? page : 'four-oh-four';
     }
+  },
+  logout () {
+    // TODO: what do we call in feathers to logout?
+    // this.session.user.logout();
+    this.session = null;
+    this.page = 'home';
   }
 });
 

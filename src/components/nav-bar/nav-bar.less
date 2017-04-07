@@ -1,0 +1,28 @@
+@import '../../styles/bootstrap-custom/_variables.less';
+
+// Customize Bootstrap's navbar vars:
+@navbar-height: 60px;
+@navbar-inverse-color: @gray-dark;
+
+nav-bar {
+	display: block;
+
+  .navbar.navbar-inverse {
+    border: none;
+    border-radius: 0;
+
+    .header-logo {
+      height: @navbar-height;
+      margin-left: 10px;
+      margin-right: 60px;
+    }
+
+    .navbar-collapse {
+      border: none;
+      .navbar-nav > li > a {
+        line-height: 30px;
+      }
+    }
+
+  }
+}
