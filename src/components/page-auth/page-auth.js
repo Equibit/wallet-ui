@@ -13,9 +13,8 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import view from './page-auth.stache';
-import feathersClient from '~/models/feathers-client';
-import signed from '~/models/feathers-signed';
 import Session from '~/models/session';
+import User from '~/models/user/user';
 import validate from '~/utils/validators';
 import route from 'can-route';
 import signupTpl from './signup.stache';
@@ -60,10 +59,6 @@ export const ViewModel = DefineMap.extend({
   isAccountCreated: {
     value: false
   },
-  salt: 'string',
-  challenge: 'string',
-  secret: 'string', // The secret is used to sign requests.
-  signature: 'string', // Remove this.  It's only here for verification / testing.
 
   // Form validation:
   emailError: 'string',
@@ -86,7 +81,7 @@ export const ViewModel = DefineMap.extend({
     if (!this.isSignupValid) {
       return false;
     }
-    feathersClient.service('users').create({ email })
+    User.signup(email)
       .then(() => {
         this.isAccountCreated = true;
       });
@@ -97,51 +92,14 @@ export const ViewModel = DefineMap.extend({
       return false;
     }
 
-    let hashedPassword = signed.createHash(password);
-    let data = { email };
-
-    signed.sign(data, hashedPassword)
-    .then(signedData => {
-      return feathersClient.authenticate({
-        strategy: 'challenge-request',
-        ...signedData
-      });
-    })
-    .then(({challenge, salt}) => {
-      this.challenge = challenge;
-      this.salt = salt;
-      signed.generateSecret(hashedPassword, salt).then(secret => {
-        // The secret is the same as the stored password, but it
-        // never gets sent across the wire.
-        this.secret = secret;
-        let data = {email, challenge};
-        return signed.sign(data, secret);
-      })
-      .then(signedData => {
-        signedData.strategy = 'challenge';
-        this.signature = signedData.signature;
-        return feathersClient.authenticate(signedData);
-      })
-      .then(({ usingTempPassword, user }) => {
-        this.session = new Session({ usingTempPassword, user });
-        route.data.page = usingTempPassword ? 'change-password' : 'portfolio';
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    User.login(email, password)
+    .then(({ usingTempPassword, user }) => {
+      this.session = new Session({ usingTempPassword, user });
+      route.data.page = usingTempPassword ? 'change-password' : 'portfolio';
     })
     .catch(error => {
       console.log(error);
     });
-  },
-  hashPassword (password) {
-    return password;
-  },
-  clear () {
-    this.salt = '';
-    this.challenge = '';
-    this.secret = '';
-    this.hashedPassword = '';
   },
   togglePassword () {
     this.passwordVisible = !this.passwordVisible;
