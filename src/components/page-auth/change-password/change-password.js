@@ -14,7 +14,8 @@ import DefineMap from 'can-define/map/';
 import './change-password.less';
 import view from './change-password.stache';
 import validate from '~/utils/validators';
-import route from 'can-route';import hub from '~/utils/event-hub';
+import route from 'can-route';
+import hub from '~/utils/event-hub';
 
 export const ViewModel = DefineMap.extend({
   email: {
