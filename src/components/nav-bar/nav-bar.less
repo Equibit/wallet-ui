@@ -1,0 +1,27 @@
+@import '../../styles/bootstrap-custom/_variables.less';
+
+@navbar-height: 60px;
+
+nav-bar {
+	display: block;
+
+  .navbar.navbar-inverse {
+    //background-color: @gray-dark !important;
+    border: none;
+    border-radius: 0;
+
+    .header-logo {
+      height: @navbar-height;
+      margin-left: 10px;
+      margin-right: 60px;
+    }
+
+    .navbar-collapse {
+      border: none;
+      .navbar-nav > li > a {
+        line-height: 30px;
+      }
+    }
+
+  }
+}
