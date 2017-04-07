@@ -17,12 +17,15 @@
     <can-import from="~/components/page-four-oh-one.component" />
     <can-import from="~/utils/stache-helpers/" />
     <can-import from="~/components/alerts/alerts" />
+    <can-import from="~/components/nav-bar/" />
 
     <bit-alerts/>
 
     {{! if used within switch/case then component gets re-rendered and we cannot share email between cases. }}
     {{#if oneOf(displayedPage, 'signup', 'login', 'forgot-password', 'change-password')}}
       <page-auth {(session)}="session" {page}="displayedPage" />
+    {{else}}
+      <nav-bar {page}="displayedPage" {logout}="@logout" {is-logged-in}="isLoggedIn"/>
     {{/if}}
 
     {{#switch displayedPage}}

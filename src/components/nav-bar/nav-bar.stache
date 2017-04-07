@@ -14,19 +14,35 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Research <span class="sr-only">(current)</span></a></li>
-        <li class=""><a href="#">Issuances</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></a>
+        <li class="{{#is page 'research'}}active{{/is}}">
+          <a href="{{routeUrl page='research'}}">Research {{#is page 'research'}}<span class="sr-only">(current)</span>{{/is}}</a>
+        </li>
+        <li class="{{#is page 'issuances'}}active{{/is}}">
+          <a href="{{routeUrl page='issuances'}}">Issuances {{#is page 'issuances'}}<span class="sr-only">(current)</span>{{/is}}</a>
+        </li>
+
+        {{#if isLoggedIn}}
+        <li class="dropdown {{#is page 'portfolio'}}active{{/is}}">
+          <a href="{{routeUrl page='portfolio'}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Summary</a></li>
             <li><a href="#">Transactions</a></li>
           </ul>
         </li>
+        {{/if}}
       </ul>
 
-      <button type="button" class="btn btn-default navbar-btn navbar-right">Log out</button>
-      <p class="navbar-text navbar-right">45.2392  BTC</p>
+      {{#if isLoggedIn}}
+        <button type="button" class="btn btn-default navbar-btn navbar-right" ($click)="logout()">Log out</button>
+      {{else}}
+        <a href="{{routeUrl page='login'}}" class="btn btn-default navbar-btn navbar-right" ($click)="logout()">Log In</a>
+        <a href="{{routeUrl page='signup'}}" class="btn btn-primary navbar-btn navbar-right" ($click)="logout()">Sign In</a>
+      {{/if}}
+
+      {{#if isLoggedIn}}
+        <p class="navbar-text navbar-right">45.2392  BTC</p>
+      {{/if}}
+
       <form class="navbar-form navbar-right">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
