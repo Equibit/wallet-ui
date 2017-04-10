@@ -1,3 +1,15 @@
+/**
+ *
+ * @module {can.Component} components/nav-bar Global Nav
+ * @parent components.general
+ *
+ * @link ../src/components/nav-bar/nav-bar.html Full Page Demo
+ * ## Example
+ *
+ * @demo src/components/nav-bar/nav-bar.html
+ *
+**/
+
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './nav-bar.less';

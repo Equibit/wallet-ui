@@ -1,0 +1,114 @@
+/**
+  * @stylesheet _navbar.less Global Navigation
+  * @parent styles.base
+  *
+  * @demo src/styles/demos/navigation/navbar.html
+**/
+
+.navbar-inverse {
+  border: 0;
+}
+
+.navbar-header {
+  width: 100%;
+}
+
+.navbar {
+  padding: 0 1%;
+
+  .header-logo {
+    margin: @padding-base-vertical @padding-small-horizontal*2 0 0;
+  }
+
+  // Styles any buttons placed in the navbar
+  .btn {
+    text-transform: uppercase;
+    font-size: @font-size-small;
+    margin-left: @padding-small-horizontal;
+  }
+  .btn-default {
+    background-color: transparent;
+    color: @gray-lighter;
+  }
+
+
+  // Styles the Links and Controls in the Main List Nav
+  .main-nav {
+    &.navbar-nav {
+      > li {
+        > a {
+        text-transform: uppercase;
+        font-size: @font-size-small;
+        padding: 14.5px @padding-large-horizontal 10.5px;
+
+        }
+      }
+      > .active > a {
+        &,
+        &:hover,
+        &:focus {
+          border-bottom: @padding-small-vertical solid @brand-primary;
+        }
+      }
+    }
+  }
+
+  .navbar-nav {
+    > li > {
+      .dropdown-menu {
+        margin-top: -5px;
+        border-top-right-radius: @border-radius-base;
+        border-top-left-radius: @border-radius-base;
+      }
+    }
+  }
+
+  // Styles the Search Form
+  .search-form {
+    position: relative;
+    .search-input {
+      background-color: transparent;
+      border-width: 0 0 1px 0;
+      border-radius: 0;
+      border-color: @gray-light;
+      width: 300px;
+      color: @white;
+      padding-left: @padding-small-horizontal*2;
+    }
+    .icon-search {
+      position: absolute;
+      left: 0px;
+      top: 8px;
+      font-size: @font-size-small;
+      color: @gray-lighter;
+    }
+  }
+
+  // Styles the Settings Menu {
+  .settings-nav {
+    &.navbar-nav {
+      > li > a {
+        &.icon {
+          font-size: 23px;
+        }
+      }
+    }
+  }
+
+}
+
+// Handles Responsiveness
+@media (min-width: 630px) {
+  .navbar-header,
+  .main-nav.navbar-nav,
+  .main-nav.navbar-nav > li {
+    float: left;
+  }
+  .main-nav {
+    margin: 0;
+  }
+}
+@media (max-width: 630px) {
+
+}
+
