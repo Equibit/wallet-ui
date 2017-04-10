@@ -5,12 +5,23 @@
   * @demo src/styles/demos/navigation/navbar.html
 **/
 
+//To Remove
+
+.collapse {
+  display: block;
+}
+
 .navbar-inverse {
   border: 0;
 }
 
 .navbar-header {
   width: 100%;
+}
+
+.navbar-toggle {
+  color: @gray-lighter;
+  margin-right: 0;
 }
 
 .navbar {
@@ -92,8 +103,16 @@
 
   // Styles the Settings Menu {
   .settings-nav {
+    float: right;
+    margin: 5px;
+    @media (max-width: @screen-lg) {
+      position: absolute;
+      right: 44px;
+    }
     &.navbar-nav {
       > li > a {
+        padding-top: 10px;
+        padding-bottom: 10px;
         &.icon {
           font-size: 23px;
         }
@@ -104,32 +123,76 @@
   // Styles the Login Menu
   .login-menu {
     float: right;
+    @media (max-width: @screen-lg) {
+      margin-right: 44px;
+    }
+
   }
 
   // Styles the Currency Container
   .currency-container {
     float: right;
+    .navbar-text {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
   }
 
 }
+
+// Styles Items in the collapsible menu
+.navbar-collapse {
+  .navbar-form {
+    box-shadow: none;
+    border: 0;
+    margin: 0;
+  }
+  .login-menu,
+  .currency-container {
+    //float: left;
+  }
+}
+
+
 
 // Handles Responsiveness
+.navbar {
+  @media (max-width: 780px) {
+    .login-menu {
+      float: left;
+      &.hidden-xs {
+        display: none !important;
+      }
+      &.visible-xs {
+        display: block !important;
+      }
+    }
+  }
+
+  @media (max-width: 920px) {
+    .currency-container {
+      &.hidden-xs {
+        display: none !important;
+      }
+      &.visible-xs {
+        display: block !important;
+      }
+    }
+  }
+
+}
 
 
-@media (max-width: 780px) {
+@media (max-width: @screen-sm) {
+  .navbar-collapse {
+    .navbar-right {
+      float: left;
+      width: 100%;
+    }
+  }
   .login-menu {
-    &.hidden-xs {
-      display: none !important;
-    }
+    margin-bottom: 15px;
   }
-}
 
-@media (max-width: 920px) {
-  .currency-container {
-    &.hidden-xs {
-      display: none !important;
-    }
-  }
 }
-
 
