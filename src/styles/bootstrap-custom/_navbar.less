@@ -1,5 +1,5 @@
 /**
-  * @stylesheet _navbar.less Global Navigation
+  * @stylesheet _navbar.less Navbar
   * @parent styles.base
   *
   * @demo src/styles/demos/navigation/navbar.html
@@ -27,9 +27,6 @@
 .navbar {
   padding: 0 1%;
 
-  .header-logo {
-    margin: @padding-base-vertical @padding-small-horizontal*2 0 0;
-  }
 
   // Styles any buttons placed in the navbar
   .btn {
@@ -42,147 +39,30 @@
     color: @gray-lighter;
   }
 
-
-  // Styles the Links and Controls in the Main List Nav
-  .main-nav {
-    margin: 0;
-    float: left;
-    &.navbar-nav {
-      > li {
-        float: left;
-        > a {
-        text-transform: uppercase;
-        font-size: @font-size-small;
-        padding: 14.5px 11px 10.5px;
-
-        }
-      }
-      > .active > a {
-        &,
-        &:hover,
-        &:focus {
-          border-bottom: @padding-small-vertical solid @brand-primary;
-        }
-      }
-    }
-  }
-
   .navbar-nav {
     > li > {
       .dropdown-menu {
-        margin-top: -5px;
+        margin-top: - @padding-small-vertical;
         border-top-right-radius: @border-radius-base;
         border-top-left-radius: @border-radius-base;
       }
     }
   }
 
-  // Styles the Search
-  .search-container {
-    float: right;
-  }
-  .search-form {
-    position: relative;
-    .search-input {
-      background-color: transparent;
-      border-width: 0 0 1px 0;
-      border-radius: 0;
-      border-color: @gray-light;
-      width: 300px;
-      color: @white;
-      padding-left: @padding-small-horizontal*2;
-    }
-    .icon-search {
-      position: absolute;
-      left: 0px;
-      top: 8px;
-      font-size: @font-size-small;
-      color: @gray-lighter;
-    }
-  }
-
-  // Styles the Settings Menu {
-  .settings-nav {
-    float: right;
-    margin: 5px;
-    @media (max-width: @screen-lg) {
-      position: absolute;
-      right: 44px;
-    }
-    &.navbar-nav {
-      > li > a {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        &.icon {
-          font-size: 23px;
-        }
-      }
-    }
-  }
-
-  // Styles the Login Menu
-  .login-menu {
-    float: right;
-    @media (max-width: @screen-lg) {
-      margin-right: 44px;
-    }
-
-  }
-
-  // Styles the Currency Container
-  .currency-container {
-    float: right;
-    .navbar-text {
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-  }
-
 }
 
-// Styles Items in the collapsible menu
+// Removes the separators in items in the collapsed menu
 .navbar-collapse {
   .navbar-form {
     box-shadow: none;
     border: 0;
     margin: 0;
   }
-  .login-menu,
-  .currency-container {
-    //float: left;
-  }
 }
 
 
 
 // Handles Responsiveness
-.navbar {
-  @media (max-width: 780px) {
-    .login-menu {
-      float: left;
-      &.hidden-xs {
-        display: none !important;
-      }
-      &.visible-xs {
-        display: block !important;
-      }
-    }
-  }
-
-  @media (max-width: 920px) {
-    .currency-container {
-      &.hidden-xs {
-        display: none !important;
-      }
-      &.visible-xs {
-        display: block !important;
-      }
-    }
-  }
-
-}
-
-
 @media (max-width: @screen-sm) {
   .navbar-collapse {
     .navbar-right {
@@ -190,9 +70,5 @@
       width: 100%;
     }
   }
-  .login-menu {
-    margin-bottom: 15px;
-  }
-
 }
 
