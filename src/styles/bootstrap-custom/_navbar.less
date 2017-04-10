@@ -34,12 +34,15 @@
 
   // Styles the Links and Controls in the Main List Nav
   .main-nav {
+    margin: 0;
+    float: left;
     &.navbar-nav {
       > li {
+        float: left;
         > a {
         text-transform: uppercase;
         font-size: @font-size-small;
-        padding: 14.5px @padding-large-horizontal 10.5px;
+        padding: 14.5px 11px 10.5px;
 
         }
       }
@@ -63,7 +66,10 @@
     }
   }
 
-  // Styles the Search Form
+  // Styles the Search
+  .search-container {
+    float: right;
+  }
   .search-form {
     position: relative;
     .search-input {
@@ -95,20 +101,35 @@
     }
   }
 
+  // Styles the Login Menu
+  .login-menu {
+    float: right;
+  }
+
+  // Styles the Currency Container
+  .currency-container {
+    float: right;
+  }
+
 }
 
 // Handles Responsiveness
-@media (min-width: 630px) {
-  .navbar-header,
-  .main-nav.navbar-nav,
-  .main-nav.navbar-nav > li {
-    float: left;
-  }
-  .main-nav {
-    margin: 0;
-  }
-}
-@media (max-width: 630px) {
 
+
+@media (max-width: 780px) {
+  .login-menu {
+    &.hidden-xs {
+      display: none !important;
+    }
+  }
 }
+
+@media (max-width: 920px) {
+  .currency-container {
+    &.hidden-xs {
+      display: none !important;
+    }
+  }
+}
+
 
