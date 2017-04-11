@@ -1,0 +1,68 @@
+/**
+  * @stylesheet _navbar.less Navbar
+  * @parent styles.base
+  *
+  * @demo src/styles/demos/navigation/navbar.html
+**/
+
+.navbar-inverse {
+  border: 0;
+}
+
+.navbar-header {
+  width: 100%;
+}
+
+.navbar-toggle {
+  color: @gray-lighter;
+  margin-right: 0;
+}
+
+.navbar {
+  padding: 0 1%;
+
+
+  // Styles any buttons placed in the navbar
+  .btn {
+    text-transform: uppercase;
+    font-size: @font-size-small;
+    margin-left: @padding-small-horizontal;
+  }
+  .btn-default {
+    background-color: transparent;
+    color: @gray-lighter;
+  }
+
+  .navbar-nav {
+    > li > {
+      .dropdown-menu {
+        margin-top: - @padding-small-vertical;
+        border-top-right-radius: @border-radius-base;
+        border-top-left-radius: @border-radius-base;
+      }
+    }
+  }
+
+}
+
+// Removes the separators in items in the collapsed menu
+.navbar-collapse {
+  .navbar-form {
+    box-shadow: none;
+    border: 0;
+    margin: 0;
+  }
+}
+
+
+
+// Handles Responsiveness
+@media (max-width: @screen-sm) {
+  .navbar-collapse {
+    .navbar-right {
+      float: left;
+      width: 100%;
+    }
+  }
+}
+

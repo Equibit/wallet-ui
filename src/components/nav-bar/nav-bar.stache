@@ -1,6 +1,5 @@
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
+
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -9,11 +8,8 @@
         <span class="icon-bar"></span>
       </button>
       <a class="header-logo">EDC Web Portfolio</a>
-    </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav main-nav">
         <li class="{{#is page 'research'}}active{{/is}}">
           <a href="{{routeUrl page='research'}}">Research {{#is page 'research'}}<span class="sr-only">(current)</span>{{/is}}</a>
         </li>
@@ -32,25 +28,65 @@
         {{/if}}
       </ul>
 
-      {{#if isLoggedIn}}
-        <button type="button" class="btn btn-default navbar-btn navbar-right" ($click)="logout()">Log out</button>
-      {{else}}
-        <a href="{{routeUrl page='login'}}" class="btn btn-default navbar-btn navbar-right" ($click)="logout()">Log In</a>
-        <a href="{{routeUrl page='signup'}}" class="btn btn-primary navbar-btn navbar-right" ($click)="logout()">Sign In</a>
-      {{/if}}
+      <ul class="nav navbar-nav settings-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle icon icon-cog" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          </a>
+        </li>
+      </ul>
+
+      <div class="login-menu hidden-xs">
+        {{#if isLoggedIn}}
+          <button type="button" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log out</button>
+        {{else}}
+          <a href="{{routeUrl page='signup'}}" class="btn btn-primary navbar-btn btn-sm" ($click)="logout()">Sign Up</a>
+         <a href="{{routeUrl page='login'}}" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log In</a>
+        {{/if}}
+      </div>
+
+      <div class="currency-container hidden-xs">
+        <div class="navbar-text">45.2392  BTC</div>
+      </div>
+
+      <div class="search-container visible-lg">
+        <form class="navbar-form ">
+          <div class="form-group search-form ">
+            <input type="text" class="form-control input-sm search-input" placeholder="Search">
+            <span class="icon icon-search">
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Toggle Items -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <div class="search-container navbar-right hidden-lg">
+        <form class="navbar-form">
+          <div class="form-group search-form">
+            <input type="text" class="form-control input-sm search-input" placeholder="Search">
+            <span class="icon icon-search">
+          </div>
+        </form>
+      </div>
 
       {{#if isLoggedIn}}
-        <p class="navbar-text navbar-right">45.2392  BTC</p>
+      <div class="currency-container navbar-right visible-xs">
+        <div class="navbar-text">45.2392  BTC</div>
+      </div>
       {{/if}}
 
-      <form class="navbar-form navbar-right">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-      </form>
-      <!--<ul class="nav navbar-nav navbar-right">-->
-        <!--<li><a href="#">Link</a></li>-->
-      <!--</ul>-->
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+      <div class="login-menu navbar-right visible-xs">
+        {{#if isLoggedIn}}
+          <button type="button" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log out</button>
+        {{else}}
+          <a href="{{routeUrl page='signup'}}" class="btn btn-primary navbar-btn btn-sm" ($click)="logout()">Sign Up</a>
+          <a href="{{routeUrl page='login'}}" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log In</a>
+
+        {{/if}}
+      </div>
+
+    </div>
+
 </nav>

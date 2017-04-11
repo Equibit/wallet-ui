@@ -1,28 +1,119 @@
 @import '../../styles/bootstrap-custom/_variables.less';
 
-// Customize Bootstrap's navbar vars:
-@navbar-height: 60px;
-@navbar-inverse-color: @gray-dark;
 
 nav-bar {
 	display: block;
 
-  .navbar.navbar-inverse {
-    border: none;
-    border-radius: 0;
+  .header-logo {
+    margin: @padding-base-vertical @padding-small-horizontal*2 0 0;
+  }
 
-    .header-logo {
-      height: @navbar-height;
-      margin-left: 10px;
-      margin-right: 60px;
-    }
+  // Styles the Links in the main navigation
+  .main-nav {
+    margin: 0;
+    float: left;
+    &.navbar-nav {
+      > li {
+        float: left;
+        > a {
+        text-transform: uppercase;
+        font-size: @font-size-small;
+        padding: 14.5px 11px 10.5px;
 
-    .navbar-collapse {
-      border: none;
-      .navbar-nav > li > a {
-        line-height: 30px;
+        }
+      }
+      > .active > a {
+        &,
+        &:hover,
+        &:focus {
+          border-bottom: @padding-small-vertical solid @brand-primary;
+        }
       }
     }
-
+    @media (max-width: @screen-sm) {
+      margin-right: 25px;
+    }
   }
+
+  // Styles the Search
+  .search-container {
+    float: right;
+  }
+  .search-form {
+    position: relative;
+    .search-input {
+      background-color: transparent;
+      border-width: 0 0 1px 0;
+      border-radius: 0;
+      border-color: @gray-light;
+      width: 300px;
+      color: @white;
+      padding-left: @padding-small-horizontal*2;
+    }
+    .icon-search {
+      position: absolute;
+      left: 0px;
+      top: 8px;
+      font-size: @font-size-small;
+      color: @gray-lighter;
+    }
+  }
+
+  // Styles the Settings Menu {
+  .settings-nav {
+    float: right;
+    margin: 5px;
+    @media (max-width: @screen-lg) {
+      position: absolute;
+      right: 44px;
+    }
+    &.navbar-nav {
+      > li > a {
+        padding-top: @padding-large-vertical;
+        padding-bottom: @padding-large-vertical;
+        &.icon {
+          font-size: 23px;
+        }
+      }
+    }
+  }
+
+  // Styles the Login Menu
+  .login-menu {
+    float: right;
+    @media (max-width: @screen-lg) {
+      margin-right: 44px;
+    }
+    @media (max-width: @screen-sm) {
+      margin-bottom: @padding-large-horizontal;
+    }
+    // Using a custom media query to handle responsiveness according to the specific content
+    @media (max-width: 780px) {
+      &.hidden-xs {
+        display: none !important;
+      }
+      &.visible-xs {
+        display: block !important;
+      }
+    }
+  }
+
+  // Styles the Currency Container
+  .currency-container {
+    float: right;
+    .navbar-text {
+      padding-left: @padding-large-horizontal;
+      padding-right: @padding-large-horizontal;
+    }
+    // Using a custom media query to handle responsiveness according to the specific content
+    @media (max-width: 920px) {
+      &.hidden-xs {
+        display: none !important;
+      }
+      &.visible-xs {
+        display: block !important;
+      }
+    }
+  }
+
 }
