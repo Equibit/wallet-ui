@@ -1,3 +1,6 @@
+<can-import from="~/components/nav-bar/login-buttons.component" />
+<can-import from="~/components/nav-bar/search-form.component" />
+
 <nav class="navbar navbar-inverse">
 
     <div class="navbar-header">
@@ -36,12 +39,7 @@
       </ul>
 
       <div class="login-menu hidden-xs">
-        {{#if isLoggedIn}}
-          <button type="button" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log out</button>
-        {{else}}
-          <a href="{{routeUrl page='signup'}}" class="btn btn-primary navbar-btn btn-sm" ($click)="logout()">Sign Up</a>
-         <a href="{{routeUrl page='login'}}" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log In</a>
-        {{/if}}
+        <login-buttons {is-logged-in}="isLoggedIn" {logout}="@logout" />
       </div>
 
       <div class="currency-container hidden-xs">
@@ -49,12 +47,7 @@
       </div>
 
       <div class="search-container visible-lg">
-        <form class="navbar-form ">
-          <div class="form-group search-form ">
-            <input type="text" class="form-control input-sm search-input" placeholder="Search">
-            <span class="icon icon-search">
-          </div>
-        </form>
+        <search-form />
       </div>
 
     </div>
@@ -63,12 +56,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <div class="search-container navbar-right hidden-lg">
-        <form class="navbar-form">
-          <div class="form-group search-form">
-            <input type="text" class="form-control input-sm search-input" placeholder="Search">
-            <span class="icon icon-search">
-          </div>
-        </form>
+        <search-form />
       </div>
 
       {{#if isLoggedIn}}
@@ -78,13 +66,7 @@
       {{/if}}
 
       <div class="login-menu navbar-right visible-xs">
-        {{#if isLoggedIn}}
-          <button type="button" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log out</button>
-        {{else}}
-          <a href="{{routeUrl page='signup'}}" class="btn btn-primary navbar-btn btn-sm" ($click)="logout()">Sign Up</a>
-          <a href="{{routeUrl page='login'}}" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log In</a>
-
-        {{/if}}
+        <login-buttons {is-logged-in}="isLoggedIn" {logout}="@logout" />
       </div>
 
     </div>

@@ -1,0 +1,23 @@
+<can-component tag="search-form">
+  <style type="less">
+    display: block;
+    p { font-weight: bold; }
+  </style>
+  <view>
+    <form class="navbar-form">
+      <div class="form-group search-form">
+        <input type="text" class="form-control input-sm search-input" placeholder="Search">
+        <span class="icon icon-search"></span>
+      </div>
+    </form>
+  </view>
+  <script type="view-model">
+    import DefineMap from 'can-define/map/';
+
+    export default DefineMap.extend({
+      search () {
+        // search here...
+      }
+    });
+  </script>
+</can-component>
