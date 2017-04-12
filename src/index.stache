@@ -26,7 +26,7 @@
     {{#if oneOf(displayedPage, 'signup', 'login', 'forgot-password', 'change-password')}}
       <page-auth {(session)}="session" {page}="displayedPage" />
     {{else}}
-      <nav-bar {page}="displayedPage" {logout}="@logout" {is-logged-in}="isLoggedIn"/>
+      <nav-bar {page}="page" {logout}="@logout" {is-logged-in}="isLoggedIn"/>
     {{/if}}
 
     {{#switch displayedPage}}
