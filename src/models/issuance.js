@@ -12,6 +12,8 @@ const Issuance = DefineMap.extend('Issuance', {
   issuanceType: 'string',
   restriction: 'string',
   marketCap: 'number',
+  marketCapBtc: 'number',
+  change: 'number',
   changeBtc: 'number',
   changePercentage: 'number'
 });
