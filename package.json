@@ -66,10 +66,9 @@
       "assert": "chai/chai"
     },
     "meta": {
-      "bootstrap": {
+      "bootstrap/dist/js/bootstrap": {
         "deps": [
-          "jquery",
-          "tether"
+          "jquery"
         ]
       },
       "chai/chai": {
