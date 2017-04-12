@@ -13,8 +13,11 @@
       <th ($click)="{sortBy 'company'}">Company {{{sortArrow 'company'}}}</th>
       <th ($click)="{sortBy 'domicile'}">Domicile {{{sortArrow 'domicile'}}}</th>
       <th ($click)="{sortBy 'issuance'}">Issuance {{{sortArrow 'issuance'}}}</th>
-      <th ($click)="{sortBy 'type'}">Issuance Type {{{sortArrow 'type'}}}</th>
-      <th ($click)="{sortBy 'restrictions'}">Restriction {{{sortArrow 'restrictions'}}}</th>
+      <th ($click)="{sortBy 'issuanceType'}">Issuance Type {{{sortArrow 'issuanceType'}}}</th>
+      <th ($click)="{sortBy 'restriction'}">Restriction {{{sortArrow 'restriction'}}}</th>
+      <th ($click)="{sortBy 'marketCapBtc'}">Market Cap (μBTC) {{{sortArrow 'marketCapBtc'}}}</th>
+      <th ($click)="{sortBy 'changeBtc'}">Change (μBTC) {{{sortArrow 'changeBtc'}}}</th>
+      <th ($click)="{sortBy 'changePercentage'}">Change (%) {{{sortArrow 'changePercentage'}}}</th>
     </tr>
     </thead>
     <tbody>
@@ -23,8 +26,11 @@
         <td>{{row.company}}</td>
         <td>{{row.domicile}}</td>
         <td>{{row.issuance}}</td>
-        <td>{{row.type}}</td>
-        <td>{{row.restrictions}}</td>
+        <td>{{row.issuanceType}}</td>
+        <td>{{row.restriction}}</td>
+        <td>{{row.marketCapBtc}}</td>
+        <td>{{row.changeBtc}}</td>
+        <td>{{row.changePercentage}}</td>
       </tr>
     {{/each}}
     </tbody>

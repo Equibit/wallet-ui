@@ -1,31 +1,25 @@
 import fixture from 'can-fixture';
 import Issuance from '~/models/issuance';
+import _ from 'lodash';
 
-const store = fixture.store([{
-  _id: 0,
-  company: 'Imperial Brands',
-  domicile: 'USA',
-  issuance: 'Series 1',
-  issuanceType: 'Common Shares',
-  restriction: '1',
-  marketCap: 285123700,
-  changeBtc: 502,
-  changePercentage: 0.74
-}, {
-  _id: 1,
-  company: 'Johnson & Johnson',
-  domicile: 'UK',
-  issuance: 'Series 2',
-  issuanceType: 'Trust Units',
-  restriction: 'None',
-  marketCap: 785123700,
-  changeBtc: -659,
-  changePercentage: 0.67
-}], Issuance.connection.algebra);
+const store = fixture.store(_.times(90, function (i) {
+  return {
+    _id: i,
+    company: [
+      'Imperial Brands','Allianz SE','Kingfisher plc','Deutsche Telekom','Experian plc',
+      'Propanc Health','Marks & Spencer','Cool Technologies','The Pulse Beverages'][i % 9] + ' - ' + i,
+    domicile: ['USA','UK','Poland','Sweden','France'][i % 5],
+    issuance: ['Series 1', 'Series 2'][i % 2],
+    issuanceType: ['Common Shares', 'Trust Units', 'Preferred Shares'][i % 3],
+    restriction: ['1', '2', 'None'][i % 3],
+    marketCap: 285123700,
+    marketCapBtc: [285123700, 285123700, 285123700][i % 3],
+    change: 502,
+    changeBtc: [502, 601, 120][i % 3],
+    changePercentage: [0.74, 0.56, 0.45][i % 3]
+  }
+}), Issuance.connection.algebra);
 
-fixture('/users/{_id}', store);
-fixture('POST /issuances', function (request, response) {
-  response(request.data);
-});
+fixture('/issuances/{_id}', store);
 
 export default store;
