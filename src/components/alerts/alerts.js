@@ -1,3 +1,14 @@
+/**
+ * @module {can.Component} components/alerts Floating Alerts
+ * @parent components.general
+ *
+ * @link ../src/components/alerts/alerts.html Full Page Demo
+ * ## Example
+ *
+ * @demo src/components/alerts/alerts.html
+ *
+**/
+
 import Kefir from 'kefir';
 import canStream from 'can-stream';
 import Component from 'can-component';

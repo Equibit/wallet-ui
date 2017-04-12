@@ -1,0 +1,89 @@
+/**
+  * @stylesheet _alerts.less Alerts
+  * @parent styles.base
+  *
+  * @demo src/styles/demos/messages/alerts.html
+  *
+**/
+.alert {
+    padding-left: 40px;
+    border-top-width: 5px;
+    position: relative;
+    font-size: @font-size-small;
+    .alert-link {
+        color: @link-color;
+    }
+
+    // Styles the icons
+    &:before {
+        .icon;
+        width: 38px;
+        height: 30px;
+        position: absolute;
+        top: 10px;
+        left: 2px;
+        font-size: 17px;
+        text-align: center;
+    }
+    &.alert-danger:before {
+        content: "\ea08";
+        color: @brand-danger;
+    }
+    &.alert-info:before {
+        content: "\ea0c";
+        color: @brand-info;
+    }
+    &.alert-success:before {
+        content: "\ea10";
+        color: @brand-success;
+    }
+    &.alert-warning:before {
+        content: "\ea07";
+        color: @brand-warning;
+    }
+
+    // Styles the color bars
+    &.alert-danger {
+        border-top-color: @brand-danger;
+    }
+    &.alert-info {
+        border-top-color: @brand-info;
+    }
+    &.alert-success {
+        border-top-color: @brand-success;
+    }
+    &.alert-warning {
+        border-top-color: @brand-warning;
+    }
+
+    //Styles the floating alerts
+    &.alert-floating {
+        width: 300px;
+        background-color: @gray-dark;
+        color: @gray-lightest;
+        border-width: 5px 0 0 0;
+        padding-right: 12px;
+        &:before {
+            font-size: 19px;
+        }
+        .alert-message {
+            font-size: @font-size-base;
+            color: @white;
+        }
+        .alert-details {
+            font-color: @gray-lighter;
+        }
+        a {
+            color: @link-color-on-dark;
+        }
+    }
+
+    // Styles the close button
+    .close {
+        color: @white;
+        text-shadow: none;
+        font-size: 18px;
+        opacity: .4;
+        right: -4px;
+    }
+}
