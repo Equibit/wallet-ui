@@ -1,0 +1,32 @@
+<can-import from="~/components/grid/grid.less" />
+
+<can-import from="grid-component" />
+
+<grid-component {(rows)}="rows">
+  <p>
+    Rows: {{rows.length}}<br>
+    Selected: {{selectedRow.country}} {{selectedRow.amount}}
+  </p>
+  <table class="table">
+    <thead>
+    <tr>
+      <th ($click)="{sortBy 'company'}">Company {{{sortArrow 'company'}}}</th>
+      <th ($click)="{sortBy 'domicile'}">Domicile {{{sortArrow 'domicile'}}}</th>
+      <th ($click)="{sortBy 'issuance'}">Issuance {{{sortArrow 'issuance'}}}</th>
+      <th ($click)="{sortBy 'type'}">Issuance Type {{{sortArrow 'type'}}}</th>
+      <th ($click)="{sortBy 'restrictions'}">Restriction {{{sortArrow 'restrictions'}}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each rows as row}}
+      <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
+        <td>{{row.company}}</td>
+        <td>{{row.domicile}}</td>
+        <td>{{row.issuance}}</td>
+        <td>{{row.type}}</td>
+        <td>{{row.restrictions}}</td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</grid-component>

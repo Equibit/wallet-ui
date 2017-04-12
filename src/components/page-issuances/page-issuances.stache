@@ -1,0 +1,3 @@
+<can-import from="~/components/page-issuances/grid-issuances/" />
+
+<grid-issuances {(rows)}="rows" />
