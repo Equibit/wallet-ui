@@ -9,7 +9,6 @@
  *
 **/
 
-
 import Kefir from 'kefir';
 import canStream from 'can-stream';
 import Component from 'can-component';
