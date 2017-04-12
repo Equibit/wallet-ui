@@ -1,8 +1,4 @@
 <can-component tag="search-form">
-  <style type="less">
-    display: block;
-    p { font-weight: bold; }
-  </style>
   <view>
     <form class="navbar-form">
       <div class="form-group search-form">

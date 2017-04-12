@@ -1,8 +1,4 @@
 <can-component tag="login-buttons">
-  <style type="less">
-    display: block;
-    p { font-weight: bold; }
-  </style>
   <view>
     {{#if isLoggedIn}}
       <button type="button" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log out</button>
@@ -11,11 +7,4 @@
       <a href="{{routeUrl page='login'}}" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log In</a>
     {{/if}}
   </view>
-  <script type="view-model">
-    import DefineMap from 'can-define/map/';
-
-    export default DefineMap.extend({
-      isLoggedIn: 'boolean'
-    });
-  </script>
 </can-component>
