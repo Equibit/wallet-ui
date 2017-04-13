@@ -4,7 +4,7 @@ import { ViewModel } from './panel';
 // ViewModel unit tests
 QUnit.module('wallet-ui/components/general/panel');
 
-QUnit.test('Has message', function(){
+QUnit.test('Has message', function () {
   var vm = new ViewModel();
   QUnit.equal(vm.message, 'This is the drag-panel component');
 });
