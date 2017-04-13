@@ -1,5 +1,5 @@
 <can-import from="~/components/common/grid/grid.less" />
-
+<can-import from="~/utils/stache-helpers/" />
 <can-import from="grid-component" />
 
 <grid-component {(rows)}="rows" {^selected-row}="selectedRow" pagination="10">
@@ -13,8 +13,8 @@
         <th ($click)="{sortBy 'issuance'}">Issuance {{{sortArrow 'issuance'}}}</th>
         <th ($click)="{sortBy 'issuanceType'}">Issuance Type {{{sortArrow 'issuanceType'}}}</th>
         <th ($click)="{sortBy 'restriction'}">Restriction {{{sortArrow 'restriction'}}}</th>
-        <th ($click)="{sortBy 'marketCapBtc'}">Market Cap (μBTC) {{{sortArrow 'marketCapBtc'}}}</th>
-        <th ($click)="{sortBy 'changeBtc'}">Change (μBTC) {{{sortArrow 'changeBtc'}}}</th>
+        <th ($click)="{sortBy 'marketCap'}">Market Cap (μBTC) {{{sortArrow 'marketCap'}}}</th>
+        <th ($click)="{sortBy 'change'}">Change (μBTC) {{{sortArrow 'change'}}}</th>
         <th ($click)="{sortBy 'changePercentage'}">Change (%) {{{sortArrow 'changePercentage'}}}</th>
       </tr>
     </thead>
@@ -26,8 +26,8 @@
         <td>{{row.issuance}}</td>
         <td>{{row.issuanceType}}</td>
         <td>{{row.restriction}}</td>
-        <td>{{row.marketCapBtc}}</td>
-        <td>{{row.changeBtc}}</td>
+        <td>{{row.marketCap}}</td>
+        <td class="arrow-change{{#if is-lt(row.change, 0)}}-neg{{/if}}">{{row.change}}</td>
         <td>{{row.changePercentage}}</td>
       </tr>
     {{/each}}

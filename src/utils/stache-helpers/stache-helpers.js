@@ -1,1 +1,2 @@
-import './oneOf';
+import './one-of';
+import './is-lt';

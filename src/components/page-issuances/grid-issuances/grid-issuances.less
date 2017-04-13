@@ -1,3 +1,5 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
 grid-issuances {
 	display: block;
 
@@ -23,5 +25,21 @@ grid-issuances {
         }
       }
     }
+  }
+
+  .arrow-change, .arrow-change:before {
+    color: @brand-success;
+  }
+  .arrow-change:before {
+    content: '\25B2';
+    margin-right: 5px;
+  }
+  .arrow-change-neg, .arrow-change-neg:before {
+    content: '\25BC';
+    color: @brand-danger;
+  }
+  .arrow-change-neg:before {
+    content: '\25BC';
+    margin-right: 5px;
   }
 }

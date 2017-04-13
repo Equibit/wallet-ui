@@ -12,10 +12,8 @@ const store = fixture.store(_.times(90, function (i) {
     issuance: ['Series 1', 'Series 2'][i % 2],
     issuanceType: ['Common Shares', 'Trust Units', 'Preferred Shares'][i % 3],
     restriction: ['1', '2', 'None'][i % 3],
-    marketCap: 285123700,
-    marketCapBtc: [285123700, 285123700, 285123700][i % 3],
-    change: 502,
-    changeBtc: [502, 601, 120][i % 3],
+    marketCap: [285123700, 285123700, 285123700][i % 3],
+    change: [502, -601, 120, -120][i % 4],
     changePercentage: [0.74, 0.56, 0.45][i % 3]
   };
 }), Issuance.connection.algebra);
