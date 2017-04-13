@@ -7,6 +7,9 @@ import view from './grid-issuances.stache';
 export const ViewModel = DefineMap.extend({
   rows: {
     value: new DefineList([])
+  },
+  selectedRow: {
+    type: '*'
   }
 });
 

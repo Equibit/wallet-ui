@@ -1,15 +1,15 @@
 <can-import from="~/components/general/panel/" />
 <can-import from="~/components/page-issuances/grid-issuances/" />
+<can-import from="~/components/page-issuances/issuance-info/" />
 
 <drag-panel panel-title="All Issuances">
   <div class="row">
     <div class="col-md-8">
-      <grid-issuances {rows}="rows" />
+      <grid-issuances {rows}="rows" {^selected-row}="selectedRow"/>
     </div>
     <div class="col-md-4">
       <div class="well">
-        Company info here
-        <issuance-info {row}="selectedRow"/>
+        <issuance-info {issuance}="selectedRow"/>
       </div>
     </div>
   </div>

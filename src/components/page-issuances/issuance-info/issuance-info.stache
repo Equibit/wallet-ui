@@ -1,0 +1,7 @@
+{{#if issuance}}
+  <h3>{{issuance.company}}</h3>
+  <p>{{issuance.domicile}}</p>
+  <p>{{issuance.marketCapBtc}}</p>
+{{else}}
+  Select an issuance from the table.
+{{/if}}

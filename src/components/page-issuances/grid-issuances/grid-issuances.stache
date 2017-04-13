@@ -2,7 +2,7 @@
 
 <can-import from="grid-component" />
 
-<grid-component {(rows)}="rows">
+<grid-component {(rows)}="rows" {^selected-row}="selectedRow">
   <p>
   </p>
   <table class="table">

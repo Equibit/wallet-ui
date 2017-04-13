@@ -13,6 +13,9 @@ export const ViewModel = DefineMap.extend({
       });
       return new DefineList([]);
     }
+  },
+  selectedRow: {
+    type: '*'
   }
 });
 
