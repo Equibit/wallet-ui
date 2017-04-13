@@ -6,7 +6,9 @@ import algebra from '~/models/algebra';
 
 const Issuance = DefineMap.extend('Issuance', {
   _id: 'string',
-  company: 'string',
+  companyId: 'string',
+  companyName: 'string',
+  companySlug: 'string',
   domicile: 'string',
   issuance: 'string',
   issuanceType: 'string',
