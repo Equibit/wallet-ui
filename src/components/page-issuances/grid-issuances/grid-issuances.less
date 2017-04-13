@@ -1,7 +1,6 @@
 grid-issuances {
 	display: block;
 
-
   grid-component {
     table.table {
       tbody {
@@ -18,6 +17,10 @@ grid-issuances {
       }
       > tfoot > tr > td {
         border: none;
+
+        &:last-child {
+          text-align: right;
+        }
       }
     }
   }

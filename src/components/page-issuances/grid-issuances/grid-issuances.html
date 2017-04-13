@@ -1,24 +1,28 @@
-<script type="text/stache" id="demo" can-autorender>
-  <can-import from="bootstrap/dist/css/bootstrap.min.css" />
+<div id="demo"></div>
+<script type="text/stache" id="demo-template">
   <can-import from="~/styles/styles.less" />
   <can-import from="~/components/page-issuances/grid-issuances/" />
 
   <grid-issuances {(rows)}="rows" />
 </script>
 <script src="../../../../node_modules/steal/steal.js"
-        main="can-view-autorender">
+        main="@empty">
 
-  import DefineList from 'can-define/list/list';
-  import DefineMap from 'can-define/map/map';
-  import canViewModel from 'can-view-model';
+  import $ from 'jquery';
+  import stache from 'can-stache';
+  import reload from 'live-reload';
   import Issuance from '~/models/issuance';
   import '~/models/fixtures/issuances';
 
-  window.canViewModel = canViewModel;
+  Promise.all([
+    stache.async($('#demo-template').html()),
+    Issuance.getList()
 
-  Issuance.getList().then(rows => {
-    canViewModel(document.getElementById('demo')).set({
-      rows
-    });
+  ]).then(([template, rows]) => {
+    let render = () => $('#demo').html(template({ rows }));
+    render();
+    reload(render);
   });
+
+
 </script>
