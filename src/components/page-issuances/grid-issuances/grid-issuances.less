@@ -3,7 +3,7 @@ grid-issuances {
 
 
   grid-component {
-    table {
+    table.table {
       tbody {
         height: 300px;
       }
@@ -15,6 +15,9 @@ grid-issuances {
         &:nth-child(1){
           flex-grow: 2;
         }
+      }
+      > tfoot > tr > td {
+        border: none;
       }
     }
   }

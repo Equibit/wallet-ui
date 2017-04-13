@@ -2,7 +2,7 @@
 
 <can-import from="grid-component" />
 
-<grid-component {(rows)}="rows" {^selected-row}="selectedRow">
+<grid-component {(rows)}="rows" {^selected-row}="selectedRow" pagination="10">
   <p>
   </p>
   <table class="table">
@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-    {{#each rows as row}}
+    {{#each pagedRows as row}}
       <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
         <td>{{row.company}}</td>
         <td>{{row.domicile}}</td>
@@ -34,9 +34,18 @@
     </tbody>
     <tfoot>
       <tr>
-        <td>1 2 3 Next</td>
+        <td>
+          {{#if hasPages}}
+            <div class="btn-group" role="group" aria-label="pagination">
+              <button type="button" class="btn btn-default" ($click)="prev()" {{^if isPrevActive}}disabled{{/if}}>&laquo;</button>
+              {{#each pages}}
+                <button type="button" class="btn btn-default {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
+              {{/each}}
+              <button type="button" class="btn btn-default" ($click)="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
+            </div>
+          {{/if}}
+        </td>
         <td>Rows: {{rows.length}}</td>
-        <td>Selected: {{selectedRow.company}} {{selectedRow.marketCapBtc}}</td>
       </tr>
     <br>
 
