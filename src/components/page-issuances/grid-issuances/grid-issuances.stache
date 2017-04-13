@@ -8,7 +8,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th ($click)="{sortBy 'company'}">Company {{{sortArrow 'company'}}}</th>
+        <th ($click)="{sortBy 'companyName'}">Company {{{sortArrow 'companyName'}}}</th>
         <th ($click)="{sortBy 'domicile'}">Domicile {{{sortArrow 'domicile'}}}</th>
         <th ($click)="{sortBy 'issuance'}">Issuance {{{sortArrow 'issuance'}}}</th>
         <th ($click)="{sortBy 'issuanceType'}">Issuance Type {{{sortArrow 'issuanceType'}}}</th>
@@ -21,7 +21,7 @@
     <tbody>
     {{#each pagedRows as row}}
       <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
-        <td>{{row.company}}</td>
+        <td><a href="{{routeUrl page='issuances' subpage=row.companySlug }}">{{row.companyName}}</a></td>
         <td>{{row.domicile}}</td>
         <td>{{row.issuance}}</td>
         <td>{{row.issuanceType}}</td>

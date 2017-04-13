@@ -2,12 +2,15 @@ import fixture from 'can-fixture';
 import Issuance from '~/models/issuance';
 import _ from 'lodash';
 
+const companies = [
+  'Imperial Brands', 'Allianz SE', 'Kingfisher plc', 'Deutsche Telekom', 'Experian plc',
+  'Propanc Health', 'Marks And Spencer', 'Cool Technologies', 'The Pulse Beverages'
+];
 const store = fixture.store(_.times(90, function (i) {
   return {
     _id: i,
-    company: [
-      'Imperial Brands', 'Allianz SE', 'Kingfisher plc', 'Deutsche Telekom', 'Experian plc',
-      'Propanc Health', 'Marks & Spencer', 'Cool Technologies', 'The Pulse Beverages'][i % 9] + ' - ' + i,
+    companyName: companies[i % 9] + ' - ' + i,
+    companySlug: companies[i % 9].toLowerCase().split(' ').join('-'),
     domicile: ['USA', 'UK', 'Poland', 'Sweden', 'France'][i % 5],
     issuance: ['Series 1', 'Series 2'][i % 2],
     issuanceType: ['Common Shares', 'Trust Units', 'Preferred Shares'][i % 3],
