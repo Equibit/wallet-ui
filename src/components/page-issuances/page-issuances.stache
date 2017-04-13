@@ -1,4 +1,4 @@
-<can-import from="~/components/general/panel/" />
+<can-import from="~/components/common/panel/" />
 <can-import from="~/components/page-issuances/grid-issuances/" />
 <can-import from="~/components/page-issuances/issuance-info/" />
 

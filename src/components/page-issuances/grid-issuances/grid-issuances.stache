@@ -1,4 +1,4 @@
-<can-import from="~/components/grid/grid.less" />
+<can-import from="~/components/common/grid/grid.less" />
 
 <can-import from="grid-component" />
 

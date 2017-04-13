@@ -1,7 +1,7 @@
 /**
  *
  * @module {can.Component} components/nav-bar Global Nav
- * @parent components.general
+ * @parent components.common
  *
  * @link ../src/components/nav-bar/nav-bar.html Full Page Demo
  * ## Example

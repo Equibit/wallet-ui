@@ -2,7 +2,7 @@ import QUnit from 'steal-qunit';
 import { ViewModel } from './panel';
 
 // ViewModel unit tests
-QUnit.module('wallet-ui/components/general/panel');
+QUnit.module('wallet-ui/components/common/panel');
 
 QUnit.test('Has message', function () {
   var vm = new ViewModel();

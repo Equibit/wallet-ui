@@ -1,2 +1,2 @@
 import '~/components/page-auth/password-strength/test';
-import '~/components/alerts/alerts-test';
+import '~/components/common/alerts/alerts-test';

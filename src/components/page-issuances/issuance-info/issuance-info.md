@@ -1,4 +1,4 @@
-@parent components.general
+@parent components.common
 @module {can.Component} components/issuance-info <issuance-info>
 
 Detailed info on the selected issuance.

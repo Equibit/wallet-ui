@@ -17,7 +17,7 @@
     <can-import from="~/components/page-four-oh-four.component" />
     <can-import from="~/components/page-four-oh-one.component" />
     <can-import from="~/utils/stache-helpers/" />
-    <can-import from="~/components/alerts/alerts" />
+    <can-import from="~/components/common/alerts/alerts" />
     <can-import from="~/components/nav-bar/" />
 
     <bit-alerts/>

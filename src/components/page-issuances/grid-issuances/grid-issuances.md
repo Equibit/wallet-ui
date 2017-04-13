@@ -1,4 +1,4 @@
-@parent components.general
+@parent components.common
 @module {can.Component} components/page-issuances/grid-issuances <grid-issuances>
 
 A short description of the grid-issuances component
