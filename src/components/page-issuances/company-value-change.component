@@ -1,0 +1,90 @@
+<can-component tag="company-value-change">
+  <style type="less">
+    display: block;
+
+    .total {
+      display: block;
+      font-size: large;
+      .currency {
+        font-size: smaller;
+      }
+    }
+    .change {
+      display: block;
+    }
+    .percentage {
+      font-size: smaller;
+    }
+    .bid {
+      display: block;
+      font-weight: bolder;
+      font-size: medium;
+      .shares {
+        font-size: smaller;
+      }
+    }
+  </style>
+  <view>
+    <can-import from="~/utils/stache-helpers/" />
+
+    <span class="total">
+      {{total}}
+      <span class="currency">({{currency}})</span>
+    </span>
+    <span class="change arrow-change{{#if is-lt(change, 0)}}-neg}}">
+      {{change}}
+      <span class="percentage">({{changePercentage}}%)</span>
+    </span>
+    <span class="bid">
+      <span class="hbid">{{highestBid}}</span> / <span class="ask">{{lowestAsk}}</span>
+      <span class="shares">({{highestNumShares}} / {{lowestNumShares}})</span>
+    </span>
+  </view>
+  <script type="view-model">
+    import DefineMap from 'can-define/map/';
+
+    export default DefineMap.extend({
+      issuance: {type: '*', value: {}},
+      total: {
+        get (val) {
+          return typeof val !== 'undefined' ? val : this.issuance.total;
+        }
+      },
+      currency: {
+        get (val) {
+          return typeof val !== 'undefined' ? val : this.issuance.currency;
+        }
+      },
+      change: {
+        get (val) {
+          return typeof val !== 'undefined' ? val : this.issuance.change;
+        }
+      },
+      changePercentage: {
+        get (val) {
+          return typeof val !== 'undefined' ? val : this.issuance.changePercentage;
+        }
+      },
+      highestBid: {
+        get (val) {
+          return typeof val !== 'undefined' ? val : this.issuance.highestBid;
+        }
+      },
+      lowestAsk: {
+        get (val) {
+          return typeof val !== 'undefined' ? val : this.issuance.lowestAsk;
+        }
+      },
+      highestNumShares: {
+        get (val) {
+          return typeof val !== 'undefined' ? val : this.issuance.highestNumShares;
+        }
+      },
+      lowestNumShares: {
+        get (val) {
+          return typeof val !== 'undefined' ? val : this.issuance.lowestNumShares;
+        }
+      },
+    });
+  </script>
+</can-component>
