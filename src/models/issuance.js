@@ -15,7 +15,13 @@ const Issuance = DefineMap.extend('Issuance', {
   marketCapBtc: 'number',
   change: 'number',
   changeBtc: 'number',
-  changePercentage: 'number'
+  changePercentage: 'number',
+
+  // extras:
+  selected: {
+    type: 'boolean',
+    serialize: false
+  }
 });
 
 Issuance.List = DefineList.extend('IssuanceList', {

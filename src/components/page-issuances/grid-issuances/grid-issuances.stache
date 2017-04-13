@@ -4,21 +4,19 @@
 
 <grid-component {(rows)}="rows">
   <p>
-    Rows: {{rows.length}}<br>
-    Selected: {{selectedRow.country}} {{selectedRow.amount}}
   </p>
   <table class="table">
     <thead>
-    <tr>
-      <th ($click)="{sortBy 'company'}">Company {{{sortArrow 'company'}}}</th>
-      <th ($click)="{sortBy 'domicile'}">Domicile {{{sortArrow 'domicile'}}}</th>
-      <th ($click)="{sortBy 'issuance'}">Issuance {{{sortArrow 'issuance'}}}</th>
-      <th ($click)="{sortBy 'issuanceType'}">Issuance Type {{{sortArrow 'issuanceType'}}}</th>
-      <th ($click)="{sortBy 'restriction'}">Restriction {{{sortArrow 'restriction'}}}</th>
-      <th ($click)="{sortBy 'marketCapBtc'}">Market Cap (μBTC) {{{sortArrow 'marketCapBtc'}}}</th>
-      <th ($click)="{sortBy 'changeBtc'}">Change (μBTC) {{{sortArrow 'changeBtc'}}}</th>
-      <th ($click)="{sortBy 'changePercentage'}">Change (%) {{{sortArrow 'changePercentage'}}}</th>
-    </tr>
+      <tr>
+        <th ($click)="{sortBy 'company'}">Company {{{sortArrow 'company'}}}</th>
+        <th ($click)="{sortBy 'domicile'}">Domicile {{{sortArrow 'domicile'}}}</th>
+        <th ($click)="{sortBy 'issuance'}">Issuance {{{sortArrow 'issuance'}}}</th>
+        <th ($click)="{sortBy 'issuanceType'}">Issuance Type {{{sortArrow 'issuanceType'}}}</th>
+        <th ($click)="{sortBy 'restriction'}">Restriction {{{sortArrow 'restriction'}}}</th>
+        <th ($click)="{sortBy 'marketCapBtc'}">Market Cap (μBTC) {{{sortArrow 'marketCapBtc'}}}</th>
+        <th ($click)="{sortBy 'changeBtc'}">Change (μBTC) {{{sortArrow 'changeBtc'}}}</th>
+        <th ($click)="{sortBy 'changePercentage'}">Change (%) {{{sortArrow 'changePercentage'}}}</th>
+      </tr>
     </thead>
     <tbody>
     {{#each rows as row}}
@@ -34,5 +32,14 @@
       </tr>
     {{/each}}
     </tbody>
+    <tfoot>
+      <tr>
+        <td>1 2 3 Next</td>
+        <td>Rows: {{rows.length}}</td>
+        <td>Selected: {{selectedRow.company}} {{selectedRow.marketCapBtc}}</td>
+      </tr>
+    <br>
+
+    </tfoot>
   </table>
 </grid-component>
