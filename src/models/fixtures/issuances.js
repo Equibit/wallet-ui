@@ -19,16 +19,16 @@ const store = fixture.store(_.times(90, function (i) {
     change: [502, -601, 120, -120][i % 4],
     changePercentage: [0.74, 0.56, 0.45][i % 3],
 
-    highestBid: [100000,120000,130000][i % 3],
-    lowestAsk: [90000,93000,125000][i % 3],
-    highestNumShares: [1000,1100,1200][i % 3],
-    lowestNumShares: [800,900,950][i % 3],
+    highestBid: [100000, 120000, 130000][i % 3],
+    lowestAsk: [90000, 93000, 125000][i % 3],
+    highestNumShares: [1000, 1100, 1200][i % 3],
+    lowestNumShares: [800, 900, 950][i % 3],
 
     volume24h: 1541,
     sharesAuthorized: 10000,
     sharesIssued: 8459,
     sharesDividend: 764,
-    sharesDividendYield: 2.6,
+    sharesDividendYield: 2.6
   };
 }), Issuance.connection.algebra);
 

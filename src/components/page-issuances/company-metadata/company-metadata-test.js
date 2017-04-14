@@ -16,7 +16,7 @@ describe('components/page-issuances/company-metadata', function () {
         sharesAuthorized: 10000,
         sharesIssued: 8459,
         sharesDividend: 764,
-        sharesDividendYield: 2.6,
+        sharesDividendYield: 2.6
       }
     };
     let template = stache('<company-metadata {issuance}="issuance" currency="μBTC" />');
