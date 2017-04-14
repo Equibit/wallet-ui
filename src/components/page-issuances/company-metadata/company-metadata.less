@@ -1,0 +1,42 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+company-metadata {
+  display: block;
+
+  .title {
+    text-transform: uppercase;
+    color: @gray-light;
+  }
+  small {
+    color: @gray;
+  }
+
+  > div.container-fluid {
+    margin-top: 20px;
+    padding-top: 10px;
+
+    .column {
+      border-left: 1px solid @gray-lighter;
+    }
+  }
+
+  &.narrow {
+    .title {
+      text-align: right;
+    }
+
+    > div.container-fluid {
+      border-top: 1px solid @gray-lighter;
+
+      .column {
+        border-left: none;
+        margin-bottom: 10px;
+
+        &.col-md-3 {
+          flex-basis: 50%;
+          max-width: 50%;
+        }
+      }
+    }
+  }
+}

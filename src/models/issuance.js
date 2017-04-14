@@ -10,7 +10,7 @@ const Issuance = DefineMap.extend('Issuance', {
   companyName: 'string',
   companySlug: 'string',
   domicile: 'string',
-  issuance: 'string',
+  issuanceName: 'string',
   issuanceType: 'string',
   restriction: 'string',
   marketCap: 'number',
@@ -22,6 +22,13 @@ const Issuance = DefineMap.extend('Issuance', {
   lowestAsk: 'number',
   highestNumShares: 'number',
   lowestNumShares: 'number',
+
+  // meta data:
+  volume24h: 'number',
+  sharesAuthorized: 'number',
+  sharesIssued: 'number',
+  sharesDividend: 'number',
+  sharesDividendYield: 'number',
 
   // extras:
   selected: {

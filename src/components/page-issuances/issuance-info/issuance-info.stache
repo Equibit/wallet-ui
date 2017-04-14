@@ -1,4 +1,5 @@
 <can-import from="~/components/page-issuances/company-value-change.component" />
+<can-import from="~/components/page-issuances/company-metadata.component" />
 
 {{#if issuance}}
   <h3>
@@ -6,10 +7,9 @@
     <small>{{issuance.domicile}}</small>
   </h3>
 
-  <company-value-change {issuance}="issuance"
-                        {total}="issuance.marketCap"
-                        currency="μBTC"
-  />
+  <company-value-change {issuance}="issuance" currency="μBTC" />
+
+  <company-metadata {issuance}="issuance" currency="μBTC" />
 {{else}}
   Select an issuance from the table.
 {{/if}}
