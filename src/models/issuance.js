@@ -17,6 +17,12 @@ const Issuance = DefineMap.extend('Issuance', {
   change: 'number',
   changePercentage: 'number',
 
+  // 24h stat data:
+  highestBid: 'number',
+  lowestAsk: 'number',
+  highestNumShares: 'number',
+  lowestNumShares: 'number',
+
   // extras:
   selected: {
     type: 'boolean',

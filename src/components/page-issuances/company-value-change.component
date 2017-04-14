@@ -18,7 +18,7 @@
     .bid {
       display: block;
       font-weight: bolder;
-      font-size: medium;
+      font-size: small;
       .shares {
         font-size: smaller;
       }
@@ -26,15 +26,15 @@
   </style>
   <view>
     <can-import from="~/utils/stache-helpers/" />
+    <can-import from="~/components/common/arrow-change.component" />
 
     <span class="total">
       {{total}}
       <span class="currency">({{currency}})</span>
     </span>
-    <span class="change arrow-change{{#if is-lt(change, 0)}}-neg}}">
-      {{change}}
+    <arrow-change class="change" {change}="change">
       <span class="percentage">({{changePercentage}}%)</span>
-    </span>
+    </arrow-change>
     <span class="bid">
       <span class="hbid">{{highestBid}}</span> / <span class="ask">{{lowestAsk}}</span>
       <span class="shares">({{highestNumShares}} / {{lowestNumShares}})</span>

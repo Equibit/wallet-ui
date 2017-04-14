@@ -1,6 +1,7 @@
 <can-import from="~/components/common/grid/grid.less" />
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="grid-component" />
+<can-import from="~/components/common/arrow-change.component" />
 
 <grid-component {(rows)}="rows" {^selected-row}="selectedRow" pagination="10">
   <p>
@@ -27,7 +28,7 @@
         <td>{{row.issuanceType}}</td>
         <td>{{row.restriction}}</td>
         <td>{{row.marketCap}}</td>
-        <td class="arrow-change{{#if is-lt(row.change, 0)}}-neg{{/if}}">{{row.change}}</td>
+        <td><arrow-change {change}="row.change" /></td>
         <td>{{row.changePercentage}}</td>
       </tr>
     {{/each}}

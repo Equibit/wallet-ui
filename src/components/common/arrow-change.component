@@ -1,0 +1,27 @@
+<can-component tag="arrow-change">
+  <style type="less">
+    @import '../../styles/bootstrap-custom/_variables.less';
+
+    > span {
+      color: @brand-success;
+
+      &:before {
+        color: @brand-success;
+        content: '\25B2';
+        margin-right: 5px;
+      }
+      &.arrow-neg, &.arrow-neg:before {
+        content: '\25BC';
+        color: @brand-danger;
+      }
+      &.arrow-neg:before {
+        content: '\25BC';
+        margin-right: 5px;
+      }
+    }
+  </style>
+  <view>
+    <can-import from="~/utils/stache-helpers/" />
+    <span class="{{#if is-lt(change, 0)}}arrow-neg{{/if}}">{{change}} <content/></span>
+  </view>
+</can-component>

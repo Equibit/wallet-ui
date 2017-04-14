@@ -17,7 +17,11 @@ const store = fixture.store(_.times(90, function (i) {
     restriction: ['1', '2', 'None'][i % 3],
     marketCap: [285123700, 285123700, 285123700][i % 3],
     change: [502, -601, 120, -120][i % 4],
-    changePercentage: [0.74, 0.56, 0.45][i % 3]
+    changePercentage: [0.74, 0.56, 0.45][i % 3],
+    highestBid: [100000,120000,130000][i % 3],
+    lowestAsk: [90000,93000,125000][i % 3],
+    highestNumShares: [1000,1100,1200][i % 3],
+    lowestNumShares: [800,900,950][i % 3],
   };
 }), Issuance.connection.algebra);
 
