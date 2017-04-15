@@ -1,21 +1,33 @@
 <style>
-  .page { padding: 10px 20px }
+  body { padding: 20px }
 </style>
 <script type="text/stache" id="demo" can-autorender>
   <can-import from="~/styles/styles.less" />
   <can-import from="~/components/page-issuances/company-value-change.component" />
 
-  <company-value-change {issuance}="issuance" />
+  <company-value-change {issuance}="issuance1" />
+  <br><br>
+  <company-value-change {issuance}="issuance2" />
 </script>
 <script src="../../../node_modules/steal/steal.js"
         main="can-view-autorender">
   import canViewModel from 'can-view-model';
 
   canViewModel(document.getElementById('demo')).set({
-    issuance: {
+    issuance1: {
       marketCap: 30432,
       currency: 'μBTC',
       change: -602,
+      changePercentage: 3.23,
+      highestBid: 30355,
+      lowestAsk: 30208,
+      highestNumShares: 100,
+      lowestNumShares: 80
+    },
+    issuance2: {
+      marketCap: 30432,
+      currency: 'μBTC',
+      change: 501,
       changePercentage: 3.23,
       highestBid: 30355,
       lowestAsk: 30208,

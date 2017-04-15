@@ -11,7 +11,7 @@
       <tr>
         <th ($click)="{sortBy 'companyName'}">Company {{{sortArrow 'companyName'}}}</th>
         <th ($click)="{sortBy 'domicile'}">Domicile {{{sortArrow 'domicile'}}}</th>
-        <th ($click)="{sortBy 'issuance'}">Issuance {{{sortArrow 'issuance'}}}</th>
+        <th ($click)="{sortBy 'issuanceName'}">Issuance {{{sortArrow 'issuanceName'}}}</th>
         <th ($click)="{sortBy 'issuanceType'}">Issuance Type {{{sortArrow 'issuanceType'}}}</th>
         <th ($click)="{sortBy 'restriction'}">Restriction {{{sortArrow 'restriction'}}}</th>
         <th ($click)="{sortBy 'marketCap'}">Market Cap (μBTC) {{{sortArrow 'marketCap'}}}</th>
@@ -24,7 +24,7 @@
       <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
         <td><a href="{{routeUrl page='issuances' subpage=row.companySlug }}">{{row.companyName}}</a></td>
         <td>{{row.domicile}}</td>
-        <td>{{row.issuance}}</td>
+        <td>{{row.issuanceName}}</td>
         <td>{{row.issuanceType}}</td>
         <td>{{row.restriction}}</td>
         <td>{{row.marketCap}}</td>
