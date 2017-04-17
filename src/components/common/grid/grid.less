@@ -1,0 +1,36 @@
+@row-selected-bg: #f0f6fc;
+@row-selected-border: 3px solid #428adc;
+
+
+grid-component {
+  table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  tr {
+    display: flex;
+
+    &.selected {
+      background-color: @row-selected-bg;
+      td:nth-child(1){
+        border-left: @row-selected-border;
+      }
+    }
+  }
+  thead, tbody {
+    overflow-y: scroll;
+  }
+  thead {
+    background-color: white;
+  }
+  th, td {
+    flex-grow: 1;
+    flex-basis: 5%;
+  }
+  tbody td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

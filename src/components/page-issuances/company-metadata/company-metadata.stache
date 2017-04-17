@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="title">Issuance</div>
+  <div class="row">
+    <div class="column col-md-3">
+      <small>Name</small>
+      {{issuance.issuanceName}}
+    </div>
+    <div class="column col-md-3">
+      <small>Type</small>
+      {{issuance.issuanceType}}
+    </div>
+    <div class="column col-md-3">
+      <small>24h Volume</small>
+      {{issuance.volume24h}}
+    </div>
+    <div class="column col-md-3">
+      <small>Restriction Level</small>
+      {{issuance.restriction}}
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="title">Shares</div>
+  <div class="row">
+    <div class="column col-md-3">
+      <small>Authorized</small>
+      {{issuance.sharesAuthorized}}
+    </div>
+    <div class="column col-md-3">
+      <small>Issued</small>
+      {{issuance.sharesIssued}}
+    </div>
+    <div class="column col-md-3">
+      <small>Dividend/Share</small>
+      {{issuance.sharesDividend}} ({{currency}})
+    </div>
+    <div class="column col-md-3">
+      <small>Dividend Yield</small>
+      {{issuance.sharesDividendYield}}
+    </div>
+  </div>
+</div>

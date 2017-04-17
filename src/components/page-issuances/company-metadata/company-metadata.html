@@ -1,0 +1,41 @@
+<style>
+  body { padding: 20px }
+  .wide { width: 560px }
+  .narrow { width: 280px }
+</style>
+<div id="demo"></div>
+<script type="text/stache" id="demo-template">
+  <can-import from="~/styles/styles.less" />
+  <can-import from="~/components/page-issuances/company-metadata/" />
+
+  <company-metadata class="wide" {issuance}="issuance" currency="μBTC" />
+  <br><br>
+  <company-metadata class="narrow" {issuance}="issuance" currency="μBTC" />
+</script>
+<script src="../../../../node_modules/steal/steal.js"
+        main="@empty">
+  import $ from 'jquery';
+  import stache from 'can-stache';
+  import 'can-view-import';
+  import reload from 'live-reload';
+
+  let data = {
+    issuance: {
+      issuanceName: 'Series 1',
+      issuanceType: 'Common Shares',
+      restriction: '1',
+      volume24h: 1541,
+
+      sharesAuthorized: 10000,
+      sharesIssued: 8459,
+      sharesDividend: 764,
+      sharesDividendYield: 2.6,
+    }
+  };
+
+  stache.async($('#demo-template').html()).then(template => {
+    let render = () => $('#demo').html(template(data));
+    render();
+    reload(render);
+  });
+</script>

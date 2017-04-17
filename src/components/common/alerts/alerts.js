@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/alerts Floating Alerts
- * @parent components.general
+ * @parent components.common
  *
  * @link ../src/components/alerts/alerts.html Full Page Demo
  * ## Example

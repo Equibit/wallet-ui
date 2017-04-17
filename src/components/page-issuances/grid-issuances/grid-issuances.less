@@ -1,0 +1,29 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
+grid-issuances {
+	display: block;
+
+  grid-component {
+    table.table {
+      tbody {
+        height: 300px;
+      }
+      // Customize column width:
+      th, td {
+        flex-basis: 5%;
+        font-size: 11px;
+
+        &:nth-child(1){
+          flex-grow: 2;
+        }
+      }
+      > tfoot > tr > td {
+        border: none;
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import stache from 'can-stache';
 
-stache.registerHelper('oneOf', function () {
+stache.registerHelper('one-of', function () {
   var [input, ...args] = arguments;
   // Get rid of options that are passed as the last argument to a helper:
   args.pop();

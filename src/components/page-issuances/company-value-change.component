@@ -1,0 +1,55 @@
+<can-component tag="company-value-change">
+  <style type="less">
+    display: block;
+
+    .total {
+      display: block;
+      font-size: large;
+      .currency {
+        font-size: smaller;
+      }
+    }
+    .change {
+      display: block;
+    }
+    .percentage {
+      font-size: smaller;
+    }
+    .bid {
+      display: block;
+      font-weight: bolder;
+      font-size: small;
+      .shares {
+        font-size: smaller;
+      }
+    }
+  </style>
+  <view>
+    <can-import from="~/utils/stache-helpers/" />
+    <can-import from="~/components/common/arrow-change.component" />
+
+    <span class="total">
+      {{issuance.marketCap}}
+      <span class="currency">({{currency}})</span>
+    </span>
+    <arrow-change class="change" {change}="issuance.change">
+      <span class="percentage">({{issuance.changePercentage}}%)</span>
+    </arrow-change>
+    <span class="bid">
+      <span class="hbid">{{issuance.highestBid}}</span> / <span class="ask">{{issuance.lowestAsk}}</span>
+      <span class="shares">({{issuance.highestNumShares}} / {{issuance.lowestNumShares}})</span>
+    </span>
+  </view>
+  <script type="view-model">
+    import DefineMap from 'can-define/map/';
+
+    export default DefineMap.extend({
+      issuance: {type: '*', value: {}},
+      currency: {
+        get (val) {
+          return typeof val !== 'undefined' ? val : this.issuance.currency;
+        }
+      }
+    });
+  </script>
+</can-component>

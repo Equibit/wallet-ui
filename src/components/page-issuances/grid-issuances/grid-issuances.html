@@ -1,0 +1,28 @@
+<div id="demo"></div>
+<script type="text/stache" id="demo-template">
+  <can-import from="~/styles/styles.less" />
+  <can-import from="~/components/page-issuances/grid-issuances/" />
+
+  <grid-issuances {(rows)}="rows" />
+</script>
+<script src="../../../../node_modules/steal/steal.js"
+        main="@empty">
+
+  import $ from 'jquery';
+  import stache from 'can-stache';
+  import reload from 'live-reload';
+  import Issuance from '~/models/issuance';
+  import '~/models/fixtures/issuances';
+
+  Promise.all([
+    stache.async($('#demo-template').html()),
+    Issuance.getList()
+
+  ]).then(([template, rows]) => {
+    let render = () => $('#demo').html(template({ rows }));
+    render();
+    reload(render);
+  });
+
+
+</script>

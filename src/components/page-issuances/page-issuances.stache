@@ -1,0 +1,16 @@
+<can-import from="~/components/common/panel/" />
+<can-import from="~/components/page-issuances/grid-issuances/" />
+<can-import from="~/components/page-issuances/issuance-info/" />
+
+<drag-panel panel-title="All Issuances">
+  <div class="row">
+    <div class="col-md-8">
+      <grid-issuances {rows}="rows" {^selected-row}="selectedRow"/>
+    </div>
+    <div class="col-md-4">
+      <div class="well">
+        <issuance-info {issuance}="selectedRow"/>
+      </div>
+    </div>
+  </div>
+</drag-panel>
