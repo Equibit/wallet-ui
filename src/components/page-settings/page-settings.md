@@ -1,9 +1,9 @@
-@parent wallet-ui
-@module {can.Component} wallet-ui/components/page-settings <page-settings>
+@module {can.Component} wallet-ui/components/page-settings page-settings
+@parent components.pages
 
 A short description of the page-settings component
 
-@signature `<page-settings>`
+@signature `<page-settings />`
 
 @body
 

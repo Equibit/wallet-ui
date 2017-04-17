@@ -1,9 +1,9 @@
-@parent wallet-ui
-@module {can.Component} wallet-ui/components/page-portfolio <page-portfolio>
+@module {can.Component} wallet-ui/components/page-portfolio page-portfolio
+@parent components.pages
 
 A short description of the page-portfolio component
 
-@signature `<page-portfolio>`
+@signature `<page-portfolio />`
 
 @body
 

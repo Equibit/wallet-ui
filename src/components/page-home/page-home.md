@@ -1,5 +1,5 @@
-@parent wallet-ui
-@module {can.Component} wallet-ui/components/page-home <page-home>
+@parent components.pages
+@module {can.Component} components/page-home page-home
 
 A short description of the page-home component
 

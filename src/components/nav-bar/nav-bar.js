@@ -1,6 +1,5 @@
 /**
- *
- * @module {can.Component} components/nav-bar <nav-bar>
+ * @module {can.Component} components/nav-bar nav-bar
  * @parent components.common
  *
  * Global navbar.

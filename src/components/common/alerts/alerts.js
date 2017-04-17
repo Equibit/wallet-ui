@@ -1,11 +1,30 @@
 /**
- * @module {can.Component} components/alerts Floating Alerts
+ * @module {can.Component} components/bit-alerts bit-alerts
  * @parent components.common
  *
- * @link ../src/components/alerts/alerts.html Full Page Demo
+ * Floating Alerts
+ *
+ * @signature `<bit-alerts />`
+ *
+ *  To show an alert render `<bit-alerts />` component in the beginning of your body tag, and fire an event:
+ *
+ *  ```
+ *  import hub from '~/utils/event-hub';
+ *
+ *  const options = {
+ *    type: 'alert',
+ *    kind: 'danger|success|info|warning',
+ *    title: 'My Alert',
+ *    displayInterval: 3000,
+ *    message: 'This is an alert!'
+ *  };
+ *  hub.dispatch(options);
+ *  ```
+ *
+ * @link ../src/components/common/alerts/alerts.html Full Page Demo
  * ## Example
  *
- * @demo src/components/alerts/alerts.html
+ * @demo src/components/common/alerts/alerts.html
  *
 **/
 

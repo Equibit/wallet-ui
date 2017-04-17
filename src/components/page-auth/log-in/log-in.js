@@ -44,7 +44,6 @@ export const ViewModel = DefineMap.extend({
     type: 'any'
   },
   /**
-   * @property {boolean}
    * Toggles the password input visibility (password vs text type).
    */
   passwordVisible: {
