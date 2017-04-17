@@ -1,6 +1,13 @@
 /**
- * @module {can.Component} components/page-auth/log-in Login
+ * @module {can.Component} components/page-auth/log-in log-in
  * @parent components.auth
+ *
+ * Login component
+ *
+ * @signature `<log-in {(session)}="session" {(email)}="email" />`
+ *
+ *  @param {models/session} session Application's {models/session} instance
+ *  @param {String} User's email to pre-populate email input field
  *
  * @link ../src/components/page-auth/log-in/log-in.html Full Page Demo
  * ## Example

@@ -1,6 +1,12 @@
 /**
- * @module {can.Component} components/page-auth/change-password Change Password
+ * @module {can.Component} components/page-auth/change-password change-password
  * @parent components.auth
+ *
+ * Change password component
+ *
+ * @signature `<change-password {user}="user" />`
+ *
+ *  @param {models/user} user A reference to the [models/user] instance
  *
  * @link ../src/components/page-auth/change-password/change-password.html Full Page Demo
  * ## Example

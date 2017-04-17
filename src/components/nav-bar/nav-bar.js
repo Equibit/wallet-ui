@@ -5,7 +5,7 @@
  *
  * Global navbar.
  *
- * @signature `<nav-bar {page}="page" {logout}="@logout" {is-logged-in}="isLoggedIn">`
+ * @signature `<nav-bar {page}="page" {logout}="@logout" {is-logged-in}="isLoggedIn" />`
  *
  *  @param {String} page A reference to the route param `page`.
  *  @param {Function} logout A function to be called on logout button click.

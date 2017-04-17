@@ -1,6 +1,14 @@
 /**
- * @module {can.Component} components/page-auth/password-strenght Password Strenght
+ * @module {can.Component} components/page-auth/password-strength password-strength
  * @parent components.auth
+ *
+ * Password strength estimator
+ *
+ * @signature `<password-strength {password}="password" />`
+ *
+ * Uses Dropbox's [https://www.npmjs.com/package/zxcvbn zxcvbn] package
+ *
+ *  @param {String} password A password string
  *
  * ## Example
  *
