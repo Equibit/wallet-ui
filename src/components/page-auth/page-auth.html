@@ -1,14 +1,14 @@
-<script type="text/stache" can-autorender>
-  <can-import from="~/styles/styles.less" />
-
-  <can-import from="wallet-ui/components/page-auth/page-auth" />
-  <page-auth></page-auth>
+<script type="text/stache" can-autorender id="demo-html" page="signup">
+<can-import from="~/styles/styles.less" />
+<can-import from="~/components/page-auth/page-auth" />
+<page-auth {page}="page"></page-auth>
 </script>
+
 <script src="../../../node_modules/steal/steal.js"
         main="can-view-autorender">
   import '~/models/fixtures/fixtures.js';
   import route from 'can-route';
 
-  route('{page}', {page: 'home'});
+  route('{page}', {page: 'signup'});
   route.ready();
 </script>

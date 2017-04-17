@@ -1,6 +1,12 @@
 /**
- * @module {can.Component} components/page-auth/sign-up Signup
+ * @module {can.Component} components/page-auth/sign-up sign-up
  * @parent components.auth
+ *
+ * Signup component
+ *
+ * @signature `<sign-up {(email)}="email" />`
+ *
+ *  @param {String} email User's email
  *
  * @link ../src/components/page-auth/sign-up/sign-up.html Full Page Demo
  * ## Example

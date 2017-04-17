@@ -1,9 +1,12 @@
+@module {can.Component} components/page-issuances/grid-issuances grid-issuances
 @parent components.common
-@module {can.Component} components/page-issuances/grid-issuances <grid-issuances>
 
-A short description of the grid-issuances component
+A grid with a list of [models/issuance].
 
-@signature `<grid-issuances>`
+@signature `<grid-issuances {rows}="rows" {^selected-row}="selectedRow" />`
+
+  @param {can.List} rows A list of [models/issuance]
+  @param {models/issuance} The selected [models/issuance] item
 
 @link ../src/components/page-issuances/grid-issuances/grid-issuances.html Full Page Demo
 

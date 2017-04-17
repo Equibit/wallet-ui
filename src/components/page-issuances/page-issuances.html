@@ -1,15 +1,15 @@
-<style>
-  .page { padding: 10px 20px }
-</style>
+<style>.page { padding: 20px }</style>
 <div id="demo"></div>
-<script type="text/stache" id="demo-template">
-  <can-import from="~/styles/styles.less" />
-  <can-import from="~/components/nav-bar/" />
-  <can-import from="~/components/page-issuances/" />
 
-  <nav-bar page="issuances" />
-  <page-issuances class="page"></page-issuances>
+<script type="text/stache" id="demo-html">
+<can-import from="~/styles/styles.less" />
+<can-import from="~/components/nav-bar/" />
+<can-import from="~/components/page-issuances/" />
+
+<nav-bar page="issuances" />
+<page-issuances class="page"></page-issuances>
 </script>
+
 <script src="../../../node_modules/steal/steal.js"
         main="@empty">
   import '~/models/fixtures/issuances';
@@ -17,7 +17,7 @@
   import stache from 'can-stache';
   import reload from 'live-reload';
 
-  stache.async($('#demo-template').html()).then(template => {
+  stache.async($('#demo-html').html()).then(template => {
     let render = () => $('#demo').html(template({}));
     render();
     reload(render);

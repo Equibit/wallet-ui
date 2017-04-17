@@ -1,6 +1,15 @@
 /**
- * @module {can.Component} components/page-auth/forgot-password Forgot Password
+ * @module {can.Component} components/page-auth/forgot-password forgot-password
  * @parent components.auth
+ *
+ * Forgot Password
+ *
+ * @signature `<forgot-password {(email)}="email" />`
+ *
+ * On forgot-password request the server will send email with a temporary password. User will have to create a new
+ * password once he logs in with the temporary one.
+ *
+ *  @param {String} User's email
  *
  * @link ../src/components/page-auth/forgot-password/forgot-password.html Full Page Demo
  * ## Example
