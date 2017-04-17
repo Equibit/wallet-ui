@@ -1,3 +1,18 @@
+/**
+ * @module {can.Component} components/page-issuances page-issuances
+ * @parent components.pages
+ *
+ * Page Issuances
+ *
+ * @signature `<page-issuances />`
+ *
+ * @link ../src/components/page-issuances/page-issuances.html Full Page Demo
+ * ## Example
+ *
+ * @demo src/components/page-issuances/page-issuances.html
+ *
+ */
+
 import Component from 'can-component';
 import DefineMap from 'can-define/map/map';
 import DefineList from 'can-define/list/list';

@@ -14,7 +14,7 @@
  *
  * @demo src/components/page-auth/page-auth.html
  *
-**/
+ */
 
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
