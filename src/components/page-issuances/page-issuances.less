@@ -3,12 +3,26 @@
 page-issuances {
 	display: block;
 
-  .card-row-full {
-    .well {
-      @media (max-width: 991px) {
+  @media (max-width: 991px) {
+
+    grid-issuances {
+      display: initial;
+
+      grid-component {
+        display: initial;
+
+        .table {
+          height: 360px;
+        }
+      }
+    }
+
+    .card-row-full {
+      .well {
         flex: initial;
         margin-bottom: 20px;
       }
     }
   }
+
 }

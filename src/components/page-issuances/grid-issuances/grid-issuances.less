@@ -1,17 +1,19 @@
 @import '../../../styles/bootstrap-custom/_variables';
 
 grid-issuances {
-	display: block;
+	display: flex;
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
 
   grid-component {
+
     table.table {
       tbody {
-        height: 300px;
       }
       // Customize column width:
       th, td {
         flex-basis: 5%;
-        font-size: 11px;
 
         &:nth-child(1){
           flex-grow: 2;

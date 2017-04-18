@@ -3,9 +3,7 @@
 <can-import from="grid-component" />
 <can-import from="~/components/common/arrow-change.component" />
 
-<grid-component {(rows)}="rows" {^selected-row}="selectedRow" pagination="10">
-  <p>
-  </p>
+<grid-component {(rows)}="rows" {^selected-row}="selectedRow" pagination="50">
   <table class="table">
     <thead>
       <tr>
@@ -38,11 +36,11 @@
         <td>
           {{#if hasPages}}
             <div class="btn-group" role="group" aria-label="pagination">
-              <button type="button" class="btn btn-default" ($click)="prev()" {{^if isPrevActive}}disabled{{/if}}>&laquo;</button>
+              <button type="button" class="btn btn-default btn-sm" ($click)="prev()" {{^if isPrevActive}}disabled{{/if}}>&laquo;</button>
               {{#each pages}}
-                <button type="button" class="btn btn-default {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
+                <button type="button" class="btn btn-default btn-sm {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
               {{/each}}
-              <button type="button" class="btn btn-default" ($click)="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
+              <button type="button" class="btn btn-default btn-sm" ($click)="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
             </div>
           {{/if}}
         </td>

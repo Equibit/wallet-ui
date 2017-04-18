@@ -1,12 +1,19 @@
-@row-selected-bg: #f0f6fc;
-@row-selected-border: 3px solid #428adc;
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+@row-selected-bg: fade(@brand-primary, 10%);
+@row-selected-border: 3px solid @brand-primary;
 
 
 grid-component {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  flex: 1;
   table {
     display: flex;
     flex-direction: column;
     width: 100%;
+    flex: 1;
   }
   tr {
     display: flex;
@@ -18,11 +25,12 @@ grid-component {
       }
     }
   }
-  thead, tbody {
+  tbody {
     overflow-y: scroll;
   }
   thead {
-    background-color: white;
+    background-color: @white;
+    vertical-align: bottom;
   }
   th, td {
     flex-grow: 1;
@@ -32,5 +40,14 @@ grid-component {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .table {
+    margin-bottom: 0;
+
+    tfoot td {
+      padding-top: 20px;
+      vertical-align: middle;
+    }
   }
 }
