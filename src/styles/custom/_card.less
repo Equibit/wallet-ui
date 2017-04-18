@@ -1,6 +1,13 @@
 .card-full {
   height: @card-full-height;
+  display: flex;
+  flex-direction: column;
+    .panel-body {
+      overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+    }
 }
 .card-row-full {
-  height: @card-row-full-height;
+  flex: 1;
 }

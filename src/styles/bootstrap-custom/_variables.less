@@ -105,6 +105,8 @@
 @line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
 @line-height-small:         1.5;
 
+@border-color:              darken(@gray-lightest, 7%);
+@border-default:            1px solid @border-color;
 @border-radius-base:        4px;
 @border-radius-large:       8px;
 @border-radius-small:       3px;
@@ -763,7 +765,7 @@
 //##
 
 @well-bg:                     transparent;
-@well-border:                 darken(@gray-lightest, 7%);
+@well-border:                 @border-color;
 
 
 //== Badges

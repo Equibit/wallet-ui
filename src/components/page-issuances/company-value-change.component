@@ -1,11 +1,12 @@
 <can-component tag="company-value-change">
 
   <style type="less">
+  @import '../../styles/bootstrap-custom/_variables.less';
     display: block;
 
     .total {
       display: block;
-      font-size: large;
+      font-size: @font-size-h4;
       .currency {
         font-size: smaller;
       }

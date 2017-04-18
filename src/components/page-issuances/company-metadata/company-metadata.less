@@ -6,38 +6,41 @@ company-metadata {
   .title {
     text-transform: uppercase;
     color: @gray-light;
-    font-size: @font-size-base;
+    font-size: @font-size-small;
+    margin-bottom: @padding-small-vertical;
   }
   small {
     color: @gray;
   }
+  .group {
+    margin-bottom: @padding-large-vertical*2;
+  }
+  .column {
+    border-left: @border-default;
+    padding: 0 1rem;
+    line-height: 1.8rem;
 
-  > div.container-fluid {
-    margin-top: 20px;
-    padding-top: 10px;
-
-    .column {
-      border-left: 1px solid @gray-lighter;
+    .sub {
+      font-size: @font-size-small - 1;
     }
   }
 
   &.narrow {
-    .title {
-      text-align: right;
+    .group {
+      border-top: @border-default;
+      padding-top: @padding-small-vertical;
     }
-
-    > div.container-fluid {
-      border-top: 1px solid @gray-lighter;
-
-      .column {
-        border-left: none;
-        margin-bottom: 10px;
-
-        &.col-md-3 {
-          flex-basis: 50%;
-          max-width: 50%;
-        }
-      }
+    .column {
+      border-left: none;
+      margin-bottom: @padding-large-vertical;
+      flex-basis: 50%;
+      max-width: 50%;
+      padding-left: 0;
     }
   }
+
+  @media (max-width: @screen-sm) {
+    .narrow;
+  }
+
 }

@@ -1,43 +1,55 @@
-<div class="container-fluid">
+<div class="group">
   <div class="title">Issuance</div>
   <div class="row">
-    <div class="column col-md-3">
+    <div class="column col-xs-6 col-sm-3">
       <small>Name</small>
       {{issuance.issuanceName}}
     </div>
-    <div class="column col-md-3">
+    <div class="column col-xs-6 col-sm-3">
       <small>Type</small>
       {{issuance.issuanceType}}
     </div>
-    <div class="column col-md-3">
+    <div class="column col-xs-6 col-sm-3">
       <small>24h Volume</small>
-      {{issuance.volume24h}}
+      <span class="value">
+        {{issuance.volume24h}}
+        <span class="sub">(BTC)</span>
+      <span>
     </div>
-    <div class="column col-md-3">
+    <div class="column col-xs-6 col-sm-3">
       <small>Restriction Level</small>
-      {{issuance.restriction}}
+      <span class="value">
+        {{issuance.restriction}}
+        <span class="sub">(Passport Required)</span>
+      </span>
     </div>
   </div>
 </div>
 
-<div class="container-fluid">
+<div class="group">
   <div class="title">Shares</div>
   <div class="row">
-    <div class="column col-md-3">
+    <div class="column col-xs-6 col-sm-3">
       <small>Authorized</small>
       {{issuance.sharesAuthorized}}
     </div>
-    <div class="column col-md-3">
+    <div class="column col-xs-6 col-sm-3">
       <small>Issued</small>
       {{issuance.sharesIssued}}
     </div>
-    <div class="column col-md-3">
+    <div class="column col-xs-6 col-sm-3">
       <small>Dividend/Share</small>
-      {{issuance.sharesDividend}} ({{currency}})
+      <span class="value">
+        {{issuance.sharesDividend}}
+        <span class="sub">({{currency}})</span>
+      </span>
     </div>
-    <div class="column col-md-3">
+    <div class="column col-xs-6 col-sm-3">
       <small>Dividend Yield</small>
-      {{issuance.sharesDividendYield}}
+      <span class="value">
+        {{issuance.sharesDividendYield}}
+        <span class="sub">%</span>
+      </span>
     </div>
   </div>
 </div>

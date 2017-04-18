@@ -9,7 +9,9 @@
 
   <company-value-change {issuance}="issuance" currency="μBTC" />
 
-  <company-metadata {issuance}="issuance" currency="μBTC" />
+  <company-metadata {issuance}="issuance" currency="μBTC" class="narrow" />
+
+  <button class="btn btn-default">View Details</button>
 {{else}}
   Select an issuance from the table.
 {{/if}}
