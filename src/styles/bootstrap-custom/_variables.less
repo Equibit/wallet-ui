@@ -29,7 +29,7 @@
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-@body-bg:               #fff;
+@body-bg:               @gray-lightest;
 //** Global text color on `<body>`.
 @text-color:            @gray-dark;
 
@@ -57,7 +57,7 @@
 
 @font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
 @font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
-@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h3:            ceil((@font-size-base * 1.4)); // ~24px
 @font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
 @font-size-h5:            @font-size-base;
 @font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
@@ -105,6 +105,8 @@
 @line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
 @line-height-small:         1.5;
 
+@border-color:              darken(@gray-lightest, 7%);
+@border-default:            1px solid @border-color;
 @border-radius-base:        4px;
 @border-radius-large:       8px;
 @border-radius-small:       3px;
@@ -762,8 +764,8 @@
 //
 //##
 
-@well-bg:                     #f5f5f5;
-@well-border:                 darken(@well-bg, 7%);
+@well-bg:                     transparent;
+@well-border:                 @border-color;
 
 
 //== Badges

@@ -1,8 +1,12 @@
 @import '../../styles/bootstrap-custom/_variables.less';
-
+@import '../../styles/custom/_variables.less';
 
 nav-bar {
 	display: block;
+  height: @global-header-height;
+  @media (max-width: @screen-xs) {
+    height: @global-header-height-mobile;
+  }
 
   .header-logo {
     margin: @padding-base-vertical @padding-small-horizontal*2 0 0;
