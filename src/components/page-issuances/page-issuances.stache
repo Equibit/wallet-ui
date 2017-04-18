@@ -2,15 +2,19 @@
 <can-import from="~/components/page-issuances/grid-issuances/" />
 <can-import from="~/components/page-issuances/issuance-info/" />
 
-<drag-panel panel-title="All Issuances">
-  <div class="row">
-    <div class="col-md-8">
-      <grid-issuances {rows}="rows" {^selected-row}="selectedRow"/>
-    </div>
-    <div class="col-md-4">
-      <div class="well">
-        <issuance-info {issuance}="selectedRow"/>
+<div class="row">
+  <div class="col-xs-12">
+    <drag-panel panel-title="All Issuances">
+      <div class="row card-row-full">
+        <div class="col-md-8">
+          <grid-issuances {rows}="rows" {^selected-row}="selectedRow"/>
+        </div>
+        <div class="col-md-4">
+          <div class="well">
+            <issuance-info {issuance}="selectedRow"/>
+          </div>
+        </div>
       </div>
-    </div>
+    </drag-panel>
   </div>
-</drag-panel>
+</div>

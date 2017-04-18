@@ -1,4 +1,5 @@
 <can-component tag="company-value-change">
+
   <style type="less">
     display: block;
 
