@@ -35,16 +35,23 @@
       <tr>
         <td>
           {{#if hasPages}}
-            <div class="btn-group" role="group" aria-label="pagination">
-              <button type="button" class="btn btn-default btn-sm" ($click)="prev()" {{^if isPrevActive}}disabled{{/if}}>&laquo;</button>
+            <div class="btn-group pagination" role="group" aria-label="pagination">
+              {{^if isNextActive}}
+                <button type="button" class="btn btn-default btn-sm" ($click)="prev()" >&laquo;</button>
+              {{/if}}
+
               {{#each pages}}
                 <button type="button" class="btn btn-default btn-sm {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
               {{/each}}
-              <button type="button" class="btn btn-default btn-sm" ($click)="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
+
+              {{^if isPrevActive}}
+                <button type="button" class="btn btn-default btn-sm" ($click)="next()" >&raquo;</button>
+              {{/if}}
+
             </div>
           {{/if}}
         </td>
-        <td>Showing {{pagedRows.length}} of {{rows.length}} Results</td>
+        <td><div class="grid-results">Showing {{pagedRows.length}} of {{rows.length}} Results</div></td>
       </tr>
     <br>
 

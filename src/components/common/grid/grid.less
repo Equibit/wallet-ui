@@ -25,29 +25,41 @@ grid-component {
       }
     }
   }
-  tbody {
-    overflow-y: scroll;
-  }
-  thead {
-    background-color: @white;
-    vertical-align: bottom;
-  }
+
   th, td {
     flex-grow: 1;
     flex-basis: 5%;
   }
-  tbody td {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+  thead {
+    background-color: @white;
+    vertical-align: bottom;
+  }
+
+  tbody {
+    overflow-y: scroll;
+    td {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
   }
 
   .table {
     margin-bottom: 0;
 
-    tfoot td {
-      padding-top: 20px;
-      vertical-align: middle;
+    tfoot {
+      //display: -webkit-box;
+      tr {
+        display: table;
+        width: 100%;
+      }
+      td {
+        padding-top: 20px;
+        vertical-align: middle;
+      }
     }
+
   }
 }

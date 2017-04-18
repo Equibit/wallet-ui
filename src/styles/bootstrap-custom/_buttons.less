@@ -8,4 +8,18 @@
 
 .btn {
   padding-left: 6.5px 12px;
+  &.active {
+    background-color: @brand-primary;
+    color: @white;
+    border-color: @brand-primary;
+    box-shadow: none;
+  }
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      outline: 0;
+    }
+  }
 }
