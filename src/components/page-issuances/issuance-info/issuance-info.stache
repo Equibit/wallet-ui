@@ -9,9 +9,11 @@
 
   <company-value-change {issuance}="issuance" currency="μBTC" />
 
-  <company-metadata {issuance}="issuance" currency="μBTC" class="narrow" />
+  <company-metadata {issuance}="issuance" currency="μBTC" />
 
-  <button class="btn btn-default">View Details</button>
+  <div class="container-fluid">
+    <a href="{{routeUrl page='issuance-details' companySlug=issuance.companySlug issuanceId=issuance._id }}" class="btn btn-default">View Details</a>
+  </div>
 {{else}}
   Select an issuance from the table.
 {{/if}}

@@ -12,6 +12,7 @@
     <can-import from="~/components/page-loading.component" />
     <can-import from="~/components/page-home/" />
     <can-import from="~/components/page-issuances/" />
+    <can-import from="~/components/page-issuance-details/" />
     <can-import from="~/components/page-portfolio/" />
     <can-import from="~/components/page-auth/" />
     <can-import from="~/components/page-settings/" />
@@ -39,6 +40,9 @@
       {{/case}}
       {{#case 'issuances'}}
         <page-issuances />
+      {{/case}}
+      {{#case 'issuance-details'}}
+        <page-issuance-details />
       {{/case}}
       {{#case 'portfolio'}}
         <page-portfolio />

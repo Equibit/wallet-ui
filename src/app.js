@@ -24,6 +24,7 @@ var pages = {
   signup: 'public',
   login: 'public',
   issuances: 'public',
+  'issuance-details': 'public',
   'four-oh-one': 'public',
   'forgot-password': 'public',
   'change-password': 'private',
@@ -72,6 +73,10 @@ const AppViewModel = DefineMap.extend({
       return pages[page] ? page : 'four-oh-four';
     }
   },
+
+  companySlug: 'string',
+  issuanceId: 'string',
+
   logout () {
     // TODO: what do we call in feathers to logout?
     // this.session.user.logout();
@@ -80,6 +85,7 @@ const AppViewModel = DefineMap.extend({
   }
 });
 
+route('issuances/{companySlug}/{issuanceId}', {page: 'issuances'});
 route('{page}', {page: 'home'});
 
 export default AppViewModel;
