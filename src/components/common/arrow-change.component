@@ -5,18 +5,8 @@
     > span {
       color: @brand-success;
 
-      &:before {
-        color: @brand-success;
-        content: '\25B2';
-        margin-right: 5px;
-      }
-      &.arrow-neg, &.arrow-neg:before {
-        content: '\25BC';
+      &.arrow-neg {
         color: @brand-danger;
-      }
-      &.arrow-neg:before {
-        content: '\25BC';
-        margin-right: 5px;
       }
     }
   </style>

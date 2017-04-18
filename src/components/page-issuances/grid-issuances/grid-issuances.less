@@ -14,6 +14,21 @@ grid-issuances {
       // Customize column width:
       th, td {
         flex-basis: 5%;
+        &.column-change-percentage {
+          flex-basis: 0;
+        }
+        &.column-change-price {
+          flex-basis: 0;
+        }
+        &.column-market-cap {
+          flex-basis: 3%;
+        }
+        &.column-restriction {
+          flex-basis: 2%;
+        }
+        &.column-domicile {
+           flex-basis: 2%;
+        }
 
         &:nth-child(1){
           flex-grow: 2;
@@ -27,6 +42,7 @@ grid-issuances {
         }
       }
     }
+
     .grid-results {
       color: @gray;
       font-size: @font-size-xsmall;
@@ -36,5 +52,14 @@ grid-issuances {
         min-width: 33px;
       }
     }
+
+    .column-market-cap,
+    .column-change-price,
+    .column-change-percentage,
+    .column-restriction {
+      text-align: right;
+    }
+
   }
+
 }
