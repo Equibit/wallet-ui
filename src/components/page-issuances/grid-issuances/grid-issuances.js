@@ -26,7 +26,7 @@ export const ViewModel = DefineMap.extend({
   selectedRow: {
     type: '*'
   },
-  loadPage: function (){
+  loadPage: function () {
     Issuance.getList(this.pagination.params).then(items => {
       this.rows = items;
     });

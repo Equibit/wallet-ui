@@ -8,6 +8,6 @@ export default DefineMap.extend({
     return {
       '$skip': this.skip,
       '$limit': this.limit
-    }
+    };
   }
 });
