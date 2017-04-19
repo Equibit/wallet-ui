@@ -3,7 +3,10 @@
 <can-import from="grid-component" />
 <can-import from="~/components/common/arrow-change.component" />
 
-<grid-component {(rows)}="rows" {^selected-row}="selectedRow" pagination="10">
+<grid-component {(rows)}="rows"
+                {^selected-row}="selectedRow"
+                {pagination}="pagination"
+                (onpage)=loadPage()>
   <p>
   </p>
   <table class="table">
@@ -20,7 +23,7 @@
       </tr>
     </thead>
     <tbody>
-    {{#each pagedRows as row}}
+    {{#each rows as row}}
       <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
         <td><a href="{{routeUrl page='issuances' subpage=row.companySlug }}">{{row.companyName}}</a></td>
         <td>{{row.domicile}}</td>

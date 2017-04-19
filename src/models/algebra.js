@@ -3,6 +3,7 @@ import moment from 'moment';
 
 export default new set.Algebra(
   set.comparators.id('_id'),
+  set.props.offsetLimit('$skip', '$limit'),
   set.comparators.sort('$sort', function ($sort, cm1, cm2) {
     if ($sort.date) {
       if (parseInt($sort.date, 10) === 1) {
