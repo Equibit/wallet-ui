@@ -1,9 +1,14 @@
+<style>
+  grid-issuances { display: initial; }
+  grid-issuances grid-component { display: initial; }
+  grid-issuances grid-component  .table { height: 360px; }
+</style>
 <div id="demo"></div>
 <script type="text/stache" id="demo-template">
   <can-import from="~/styles/styles.less" />
   <can-import from="~/components/page-issuances/grid-issuances/" />
 
-  <grid-issuances {(rows)}="rows" />
+  <grid-issuances {pagination}="pagination" />
 </script>
 <script src="../../../../node_modules/steal/steal.js"
         main="@empty">
@@ -13,13 +18,16 @@
   import reload from 'live-reload';
   import Issuance from '~/models/issuance';
   import '~/models/fixtures/issuances';
+  import Pagination from '~/models/pagination';
 
-  Promise.all([
-    stache.async($('#demo-template').html()),
-    Issuance.getList()
-
-  ]).then(([template, rows]) => {
-    let render = () => $('#demo').html(template({ rows }));
+  stache.async($('#demo-template').html()).then(template => {
+    let render = () => $('#demo').html(template({
+      pagination: new Pagination({
+        skip: 0,
+        limit: 10,
+        total: 30
+      })
+    }));
     render();
     reload(render);
   });

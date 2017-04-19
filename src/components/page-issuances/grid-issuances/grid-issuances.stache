@@ -40,7 +40,7 @@
         <td>
           {{#if hasPages}}
             <div class="btn-group pagination" role="group" aria-label="pagination">
-              {{^if isNextActive}}
+              {{#if isPrevActive}}
                 <button type="button" class="btn btn-default btn-sm" ($click)="prev()" >&laquo;</button>
               {{/if}}
 
@@ -48,14 +48,16 @@
                 <button type="button" class="btn btn-default btn-sm {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
               {{/each}}
 
-              {{^if isPrevActive}}
+              {{#if isNextActive}}
                 <button type="button" class="btn btn-default btn-sm" ($click)="next()" >&raquo;</button>
               {{/if}}
 
             </div>
           {{/if}}
         </td>
-        <td><div class="grid-results">Showing {{pagedRows.length}} of {{rows.length}} Results</div></td>
+        <td>
+          <div class="grid-results">Showing {{rows.length}} of {{pagination.total}} Results</div>
+        </td>
       </tr>
     <br>
 

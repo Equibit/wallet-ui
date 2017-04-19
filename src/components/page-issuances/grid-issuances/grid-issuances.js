@@ -18,7 +18,9 @@ export const ViewModel = DefineMap.extend({
         return value;
       }
       Issuance.getList(this.pagination.params).then(rows => {
-        this.pagination.total = rows.total;
+        if (rows.total) {
+          this.pagination.total = rows.total;
+        }
         resolve(rows);
       });
     }
