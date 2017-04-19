@@ -1,14 +1,64 @@
 @import '../../styles/bootstrap-custom/_variables.less';
 
+@break-point-columns: 1144px;
+@break-point-max-screen: 1440px;
+
 page-issuances {
 	display: block;
 
-  .card-row-full {
-    .well {
-      @media (max-width: 991px) {
+  @media (min-width: 1145px) and (max-width: @break-point-max-screen) {
+    .col-md-3 {
+      flex-basis: auto;
+      max-width: 300px;
+    }
+  }
+
+  @media (min-width: @screen-md) and (max-width: @break-point-columns) {
+    .col-md-3 {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+  }
+
+  @media (min-width: @screen-md) and (max-width: @break-point-max-screen) {
+    .col-md-9 {
+      flex-grow: 1;
+      flex-basis: auto;
+      max-width: initial;
+    }
+  }
+
+  @media (max-width: @break-point-columns) {
+
+    grid-issuances {
+      display: initial;
+
+      grid-component {
+        display: initial;
+
+        .table {
+          height: 360px;
+        }
+      }
+    }
+
+    .card-row-full {
+      .well {
         flex: initial;
         margin-bottom: 20px;
       }
     }
   }
+
+  @media (min-width: @break-point-columns) {
+    grid-component {
+      .table tfoot {
+        display: -webkit-box;
+      }
+      .pagination {
+        margin-bottom: 0;
+      }
+    }
+  }
+
 }
