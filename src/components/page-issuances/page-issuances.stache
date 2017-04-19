@@ -6,10 +6,10 @@
   <div class="col-xs-12">
     <drag-panel panel-title="All Issuances">
       <div class="row card-row-full">
-        <div class="col-md-8 col-xs-12">
+        <div class="col-md-9 col-xs-12">
           <grid-issuances {rows}="rows" {^selected-row}="selectedRow"/>
         </div>
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-3 col-xs-12">
           <div class="well">
             <issuance-info {issuance}="selectedRow"/>
           </div>

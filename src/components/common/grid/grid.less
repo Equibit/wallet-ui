@@ -1,12 +1,19 @@
-@row-selected-bg: #f0f6fc;
-@row-selected-border: 3px solid #428adc;
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+@row-selected-bg: fade(@brand-primary, 10%);
+@row-selected-border: 3px solid @brand-primary;
 
 
 grid-component {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  flex: 1;
   table {
     display: flex;
     flex-direction: column;
     width: 100%;
+    flex: 1;
   }
   tr {
     display: flex;
@@ -18,19 +25,41 @@ grid-component {
       }
     }
   }
-  thead, tbody {
-    overflow-y: scroll;
-  }
-  thead {
-    background-color: white;
-  }
+
   th, td {
     flex-grow: 1;
     flex-basis: 5%;
   }
-  tbody td {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+  thead {
+    background-color: @white;
+    vertical-align: bottom;
+  }
+
+  tbody {
+    overflow-y: scroll;
+    td {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+  }
+
+  .table {
+    margin-bottom: 0;
+
+    tfoot {
+      //display: -webkit-box;
+      tr {
+        display: table;
+        width: 100%;
+      }
+      td {
+        padding-top: 20px;
+        vertical-align: middle;
+      }
+    }
+
   }
 }

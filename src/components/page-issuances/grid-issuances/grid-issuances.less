@@ -1,17 +1,34 @@
 @import '../../../styles/bootstrap-custom/_variables';
 
 grid-issuances {
-	display: block;
+	display: flex;
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
 
   grid-component {
+
     table.table {
       tbody {
-        height: 300px;
       }
       // Customize column width:
       th, td {
         flex-basis: 5%;
-        font-size: 11px;
+        &.column-change-percentage {
+          flex-basis: 0;
+        }
+        &.column-change-price {
+          flex-basis: 0;
+        }
+        &.column-market-cap {
+          flex-basis: 3%;
+        }
+        &.column-restriction {
+          flex-basis: 2%;
+        }
+        &.column-domicile {
+           flex-basis: 2%;
+        }
 
         &:nth-child(1){
           flex-grow: 2;
@@ -25,5 +42,24 @@ grid-issuances {
         }
       }
     }
+
+    .grid-results {
+      color: @gray;
+      font-size: @font-size-xsmall;
+    }
+    .pagination {
+      &.btn-group > .btn {
+        min-width: 33px;
+      }
+    }
+
+    .column-market-cap,
+    .column-change-price,
+    .column-change-percentage,
+    .column-restriction {
+      text-align: right;
+    }
+
   }
+
 }

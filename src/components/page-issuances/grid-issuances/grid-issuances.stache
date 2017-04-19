@@ -3,33 +3,31 @@
 <can-import from="grid-component" />
 <can-import from="~/components/common/arrow-change.component" />
 
-<grid-component {(rows)}="rows" {^selected-row}="selectedRow" pagination="10">
-  <p>
-  </p>
+<grid-component {(rows)}="rows" {^selected-row}="selectedRow" pagination="50">
   <table class="table">
     <thead>
       <tr>
-        <th ($click)="{sortBy 'companyName'}">Company {{{sortArrow 'companyName'}}}</th>
-        <th ($click)="{sortBy 'domicile'}">Domicile {{{sortArrow 'domicile'}}}</th>
-        <th ($click)="{sortBy 'issuanceName'}">Issuance {{{sortArrow 'issuanceName'}}}</th>
-        <th ($click)="{sortBy 'issuanceType'}">Issuance Type {{{sortArrow 'issuanceType'}}}</th>
-        <th ($click)="{sortBy 'restriction'}">Restriction {{{sortArrow 'restriction'}}}</th>
-        <th ($click)="{sortBy 'marketCap'}">Market Cap (μBTC) {{{sortArrow 'marketCap'}}}</th>
-        <th ($click)="{sortBy 'change'}">Change (μBTC) {{{sortArrow 'change'}}}</th>
-        <th ($click)="{sortBy 'changePercentage'}">Change (%) {{{sortArrow 'changePercentage'}}}</th>
+        <th ($click)="{sortBy 'companyName'}" class="column-company">Company {{{sortArrow 'companyName'}}}</th>
+        <th ($click)="{sortBy 'domicile'}" class="column-domicile">Domicile {{{sortArrow 'domicile'}}}</th>
+        <th ($click)="{sortBy 'issuanceName'}" class="column-issuance">Issuance {{{sortArrow 'issuanceName'}}}</th>
+        <th ($click)="{sortBy 'issuanceType'}" class="column-issuance-type">Issuance Type {{{sortArrow 'issuanceType'}}}</th>
+        <th ($click)="{sortBy 'restriction'}" class="column-restriction">Restriction {{{sortArrow 'restriction'}}}</th>
+        <th ($click)="{sortBy 'marketCap'}" class="column-market-cap">Market Cap (μBTC) {{{sortArrow 'marketCap'}}}</th>
+        <th ($click)="{sortBy 'change'}" class="column-change-price">Change (μBTC) {{{sortArrow 'change'}}}</th>
+        <th ($click)="{sortBy 'changePercentage'}" class="column-change-percentage">Change (%) {{{sortArrow 'changePercentage'}}}</th>
       </tr>
     </thead>
     <tbody>
     {{#each pagedRows as row}}
       <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
-        <td><a href="{{routeUrl page='issuances' subpage=row.companySlug }}">{{row.companyName}}</a></td>
-        <td>{{row.domicile}}</td>
-        <td>{{row.issuanceName}}</td>
-        <td>{{row.issuanceType}}</td>
-        <td>{{row.restriction}}</td>
-        <td>{{row.marketCap}}</td>
-        <td><arrow-change {change}="row.change" /></td>
-        <td>{{row.changePercentage}}</td>
+        <td class="column-company"><a href="{{routeUrl page='issuances' subpage=row.companySlug }}">{{row.companyName}}</a></td>
+        <td class="column-domicile">{{row.domicile}}</td>
+        <td class="column-issuance">{{row.issuanceName}}</td>
+        <td class="column-issuance-type">{{row.issuanceType}}</td>
+        <td class="column-restriction">{{row.restriction}}</td>
+        <td class="column-market-cap">{{row.marketCap}}</td>
+        <td class="column-change-price"><arrow-change {change}="row.change" /></td>
+        <td class="column-change-percentage">{{row.changePercentage}}</td>
       </tr>
     {{/each}}
     </tbody>
@@ -37,16 +35,23 @@
       <tr>
         <td>
           {{#if hasPages}}
-            <div class="btn-group" role="group" aria-label="pagination">
-              <button type="button" class="btn btn-default" ($click)="prev()" {{^if isPrevActive}}disabled{{/if}}>&laquo;</button>
+            <div class="btn-group pagination" role="group" aria-label="pagination">
+              {{^if isNextActive}}
+                <button type="button" class="btn btn-default btn-sm" ($click)="prev()" >&laquo;</button>
+              {{/if}}
+
               {{#each pages}}
-                <button type="button" class="btn btn-default {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
+                <button type="button" class="btn btn-default btn-sm {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
               {{/each}}
-              <button type="button" class="btn btn-default" ($click)="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
+
+              {{^if isPrevActive}}
+                <button type="button" class="btn btn-default btn-sm" ($click)="next()" >&raquo;</button>
+              {{/if}}
+
             </div>
           {{/if}}
         </td>
-        <td>Showing {{pagedRows.length}} of {{rows.length}} Results</td>
+        <td><div class="grid-results">Showing {{pagedRows.length}} of {{rows.length}} Results</div></td>
       </tr>
     <br>
 
