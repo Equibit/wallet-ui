@@ -1,3 +1,14 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+  "jshint.enable": false,
+  "semistandard.enable": true,
+  "semistandard.options": {
+    "parser": "babel-eslint",
+    "globals": ["jest", "it", "expect", "describe", "before", "after", "System"]
+  },
+  "standard.enable": false,
+  "standard.options": {
+    "parser": "babel-eslint",
+    "globals": ["jest", "it", "expect", "describe", "before", "after", "System"]
+  }
 }
