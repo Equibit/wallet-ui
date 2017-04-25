@@ -24,7 +24,7 @@
     <tbody>
     {{#each rows as row}}
       <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
-        <td class="column-company"><a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id }}">{{row.companyName}}</a></td>
+        <td class="column-company"><a href="{{routeUrl page='issuances' companySlug=row.companySlug issuanceId=row._id }}">{{row.companyName}}</a></td>
         <td class="column-domicile">{{row.domicile}}</td>
         <td class="column-issuance">{{row.issuanceName}}</td>
         <td class="column-issuance-type">{{row.issuanceType}}</td>

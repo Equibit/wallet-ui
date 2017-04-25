@@ -39,10 +39,11 @@
         <page-home />
       {{/case}}
       {{#case 'issuances'}}
-        <page-issuances />
-      {{/case}}
-      {{#case 'issuance-details'}}
-        <page-issuance-details />
+        {{#if companySlug}}
+          <page-issuance-details {company-slug}="companySlug" {issuance-id}="issuanceId" />
+        {{else}}
+          <page-issuances />
+        {{/if}}
       {{/case}}
       {{#case 'portfolio'}}
         <page-portfolio />
