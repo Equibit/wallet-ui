@@ -1,8 +1,3 @@
-<can-import from="candlestick-volume-chart/dist/candlestick-volume-chart" />
+<can-import from="~/components/page-issuance-details/candlestick-chart/" />
 
-<candlestick-volume-chart {chart-data}="chartData"
-                          {(candlestick-size)}="candlestickSize"
-                          {chart-height}="chartHeight" />
-
-
-
+<candlestick-chart />
