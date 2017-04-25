@@ -1247,7 +1247,7 @@ can-types@^1.0.0, can-types@^1.0.1:
   dependencies:
     can-namespace "1.0.0"
 
-can-util@^3.0.0, can-util@^3.0.0-pre.17, can-util@^3.0.1, can-util@^3.1.0, can-util@^3.1.1, can-util@^3.2.0, can-util@^3.2.1, can-util@^3.2.2, can-util@^3.3.0:
+can-util@^3.0.0, can-util@^3.0.1, can-util@^3.1.0, can-util@^3.1.1, can-util@^3.2.1, can-util@^3.2.2, can-util@^3.3.0:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/can-util/-/can-util-3.3.5.tgz#0f15bfe239962850bcf6a54c540070c41111d9ef"
   dependencies:
@@ -1255,7 +1255,7 @@ can-util@^3.0.0, can-util@^3.0.0-pre.17, can-util@^3.0.1, can-util@^3.1.0, can-u
     can-namespace "1.0.0"
     can-types "^1.0.1"
 
-can-util@^3.3.6:
+can-util@^3.0.0-pre.17, can-util@^3.2.0, can-util@^3.3.6:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/can-util/-/can-util-3.3.7.tgz#09ddcfb9cbb7e14fd76ed2afd82868d5672c8b95"
   dependencies:
