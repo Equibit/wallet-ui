@@ -8,5 +8,5 @@ RUN yarn --ignore-engines
 
 COPY . /home/www/wallet-ui
 
-EXPOSE 8001
+EXPOSE 8082
 CMD [ "npm", "start" ]
