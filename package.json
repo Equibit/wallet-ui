@@ -15,7 +15,7 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "start": "done-serve --port 8080",
+    "start": "node start.js",
     "develop": "done-serve --static --develop --port 8080",
     "build": "node build",
     "document": "documentjs -f -d",
@@ -115,6 +115,7 @@
     "kefir": "^3.7.1",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
+    "pushstate-server": "^3.0.0",
     "steal": "^1.4.6",
     "steal-socket.io": "^4.0.9",
     "tether": "^1.4.0",
