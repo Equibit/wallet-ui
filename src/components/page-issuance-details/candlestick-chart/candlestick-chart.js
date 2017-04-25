@@ -25,7 +25,7 @@ export const ViewModel = DefineMap.extend({
     Candlestick.getList().then(chartData => {
       console.log(`loadedData(${chartData.length})`);
       this.chartData = chartData;
-    })
+    });
   }
 });
 
