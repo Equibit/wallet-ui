@@ -15,7 +15,7 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "start": "node start.js",
+    "start": "done-serve --static --port 8082",
     "develop": "done-serve --static --develop --port 8080",
     "build": "node build",
     "document": "documentjs -f -d",

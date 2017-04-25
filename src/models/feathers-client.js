@@ -5,20 +5,22 @@ import rest from 'feathers-rest/client';
 import socketio from 'feathers-socketio/client';
 import auth from 'feathers-authentication-client';
 import hooks from 'feathers-hooks';
+import environment from '~/environment';
+
+const { api } = environment;
 
 // const transport = 'socketio';
 const transport = 'rest';
-
 const feathersClient = feathers();
 
 if (transport === 'socketio') {
-  var socket = io('http://localhost:3030', {
+  var socket = io(api, {
     transports: ['websocket']
   });
   feathersClient.configure(socketio(socket));
 }
 if (transport === 'rest') {
-  feathersClient.configure(rest('http://localhost:3030').jquery(jQuery));
+  feathersClient.configure(rest(api).jquery(jQuery));
 }
 
 feathersClient.configure(hooks())
