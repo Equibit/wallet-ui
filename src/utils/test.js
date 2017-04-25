@@ -30,4 +30,14 @@ describe('stache-helpers', function () {
       assert.equal(frag.textContent, 'pos');
     });
   });
+  describe('one-of', function () {
+    it('should resolve in true if value is one of the provided values', function () {
+      let frag = stache('{{#if one-of(value, "foo", "bar")}}OK{{/if}}')({value: 'foo'});
+      assert.equal(frag.textContent, 'OK');
+    });
+    it('should resolve in false when value is not one-of', function () {
+      let frag = stache('{{^if one-of(value, "foo", "bar")}}OK{{/if}}')({value: 'baz'});
+      assert.equal(frag.textContent, 'OK');
+    });
+  });
 });
