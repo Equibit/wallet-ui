@@ -9,7 +9,7 @@
 
   <company-value-change {issuance}="issuance" currency="μBTC" />
 
-  <company-metadata {issuance}="issuance" currency="μBTC" />
+  <company-metadata {issuance}="issuance" currency="μBTC" class="narrow" />
 
   <div class="container-fluid">
     <a href="{{routeUrl page='issuance-details' companySlug=issuance.companySlug issuanceId=issuance._id }}" class="btn btn-default">View Details</a>
