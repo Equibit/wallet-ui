@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="header-logo">EDC Web Portfolio</a>
+      <a class="header-logo" href="{{routeUrl page='home'}}">EDC Web Portfolio</a>
 
       <ul class="nav navbar-nav main-nav">
         <li class="{{#is page 'research'}}active{{/is}}">
