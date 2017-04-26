@@ -11,7 +11,9 @@
 
   <company-metadata {issuance}="issuance" currency="μBTC" class="narrow" />
 
-  <button class="btn btn-default">View Details</button>
+  <div class="container-fluid">
+    <a href="{{routeUrl page='issuance-details' companySlug=issuance.companySlug issuanceId=issuance._id }}" class="btn btn-default">View Details</a>
+  </div>
 {{else}}
   Select an issuance from the table.
 {{/if}}

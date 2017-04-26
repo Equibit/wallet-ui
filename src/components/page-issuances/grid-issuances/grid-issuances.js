@@ -32,6 +32,9 @@ export const ViewModel = DefineMap.extend({
     Issuance.getList(this.pagination.params).then(items => {
       this.rows = items;
     });
+  },
+  noop (ev) {
+    ev.stopPropagation();
   }
 });
 

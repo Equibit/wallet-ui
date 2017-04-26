@@ -1,0 +1,3 @@
+<can-import from="~/components/page-issuance-details/candlestick-chart/" />
+
+<candlestick-chart />
