@@ -2,10 +2,15 @@ const feathers = require('feathers');
 const path = require('path');
 const host = process.env.VIRTUAL_HOST || process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 8080;
+const basicAuth = require('express-basic-auth');
 const handler = require('feathers-errors/handler');
 const notFound = require('feathers-errors/not-found');
 
 const app = feathers();
+
+app.use(basicAuth({
+  users: { 'admin': process.env.HTTP_PASSWORD }
+}));
 
 // Host the public folder
 app.use('/', feathers.static('./'));
