@@ -1,14 +1,13 @@
-build:
+remove-build:
 	-rm -rf dist
-	node build
 
 release-qa:
+	-git branch -D qa
 	git checkout -b qa
 	git add -f dist
 	git commit -m "QA build"
 	git push -f origin qa
 	git checkout -
-	git branch -D qa
 	git push
 	git push --tags
 

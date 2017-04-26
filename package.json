@@ -17,7 +17,8 @@
   "scripts": {
     "start": "node start.js",
     "develop": "done-serve --static --develop --port 8080",
-    "build": "make build",
+    "build": "npm run remove-build && node build",
+    "remove-build": "make remove-build",
     "document": "documentjs -f -d",
     "lint": "semistandard",
     "lint:fix": "semistandard --fix",
