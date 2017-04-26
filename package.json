@@ -116,7 +116,6 @@
     "kefir": "^3.7.1",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
-    "pushstate-server": "^3.0.0",
     "steal": "^1.4.6",
     "steal-socket.io": "^4.0.9",
     "tether": "^1.4.0",
