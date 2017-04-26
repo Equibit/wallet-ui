@@ -37,8 +37,18 @@ const AppViewModel = DefineMap.extend({
   '*': {
     serialize: false
   },
-  title: {
-    value: 'wallet-ui'
+
+  /**
+   * Route params.
+   */
+  page: {
+    serialize: true
+  },
+  companySlug: {
+    serialize: true
+  },
+  issuanceId: {
+    serialize: true
   },
 
   /**
@@ -51,13 +61,6 @@ const AppViewModel = DefineMap.extend({
   },
   get isLoggedIn () {
     return !!(this.session && this.session.user);
-  },
-
-  /**
-   * Page component of the route.
-   */
-  page: {
-    serialize: true
   },
 
   /**
@@ -74,9 +77,6 @@ const AppViewModel = DefineMap.extend({
     }
   },
 
-  companySlug: 'string',
-  issuanceId: 'string',
-
   logout () {
     // TODO: what do we call in feathers to logout?
     // this.session.user.logout();
@@ -85,7 +85,7 @@ const AppViewModel = DefineMap.extend({
   }
 });
 
-route('issuances/{companySlug}/{issuanceId}', {page: 'issuances'});
+route('issuances/{companySlug}/{issuanceId}', {page: 'issuance-details'});
 route('{page}', {page: 'home'});
 
 export default AppViewModel;
