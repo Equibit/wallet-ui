@@ -88,6 +88,7 @@
   },
   "dependencies": {
     "@equibit/wallet-crypto": "^0.1.0",
+    "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
     "can-cid": "^1.0.3",
     "can-component": "^3.0.7",
@@ -108,7 +109,7 @@
     "done-component": "^1.0.0",
     "done-css": "^3.0.0",
     "done-serve": "^1.1.0",
-    "express-basic-auth": "^1.0.1",
+    "express-session": "^1.15.2",
     "feathers": "^2.1.1",
     "feathers-authentication-client": "^0.3.1",
     "feathers-authentication-signed": "^0.0.6",
