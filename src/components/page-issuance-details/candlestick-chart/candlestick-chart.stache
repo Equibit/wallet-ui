@@ -1,0 +1,10 @@
+<can-import from="candlestick-volume-chart/dist/candlestick-volume-chart" />
+
+{{#if candlestickSize}}
+  {{#if chartData}}
+    <candlestick-volume-chart {chart-data}="chartData"
+                              {(candlestick-size)}="candlestickSize"
+                              {chart-height}="chartHeight" />
+
+  {{/if}}
+{{/if}}
