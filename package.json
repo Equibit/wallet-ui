@@ -17,7 +17,7 @@
   "scripts": {
     "start": "node start.js",
     "develop": "done-serve --static --develop --port 8080",
-    "build": "node build",
+    "build": "make build",
     "document": "documentjs -f -d",
     "lint": "semistandard",
     "lint:fix": "semistandard --fix",
@@ -26,9 +26,9 @@
     "test:unit": "testee test/test.html --browsers firefox --reporter Spec",
     "preversion": "npm test",
     "qa": "npm run release:qa:patch",
-    "release:qa:patch": "npm version patch && make release-qa",
-    "release:qa:minor": "npm version minor && make release-qa",
-    "release:qa:major": "npm version major && make release-qa"
+    "release:qa:patch": "npm test && npm run build && npm version patch && make release-qa",
+    "release:qa:minor": "npm test && npm run build && npm version minor && make release-qa",
+    "release:qa:major": "npm test && npm run build && npm version major && make release-qa"
   },
   "main": "wallet-ui/index.stache!done-autorender",
   "files": [

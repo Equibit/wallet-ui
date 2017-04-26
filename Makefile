@@ -1,7 +1,9 @@
+build:
+	-rm -rf dist
+	node build
+
 release-qa:
 	git checkout -b qa1
-	-rm -rf dist
-	npm run build
 	git add -f dist
 	git commit -m "QA build"
 	git push -f origin qa1
