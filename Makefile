@@ -1,4 +1,4 @@
-deploy-qa:
+release-qa:
 	git checkout -b qa1
 	-rm -rf dist
 	npm run build
