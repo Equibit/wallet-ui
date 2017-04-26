@@ -1,3 +1,7 @@
+let hostname = window.location.hostname;
+let proto = window.location.protocol;
+let host = hostname === 'localhost' ? 'localhost:3030' : `api-${hostname}`;
+
 export default {
-  api: `${window.location.protocol}//api.${window.location.host}`
+  api: `${proto}//${host}`
 };
