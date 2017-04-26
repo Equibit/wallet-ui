@@ -3,12 +3,12 @@ build:
 	node build
 
 release-qa:
-	git checkout -b qa1
+	git checkout -b qa
 	git add -f dist
 	git commit -m "QA build"
-	git push -f origin qa1
+	git push -f origin qa
 	git checkout -
-	git branch -D qa1
+	git branch -D qa
 	git push
 	git push --tags
 
