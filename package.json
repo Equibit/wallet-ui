@@ -1,6 +1,6 @@
 {
   "name": "wallet-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Equibit Web Wallet UI",
   "homepage": "",
   "repository": {
@@ -18,13 +18,17 @@
     "start": "node start.js",
     "develop": "done-serve --static --develop --port 8080",
     "build": "node build",
-    "qa": "make deploy-qa",
     "document": "documentjs -f -d",
     "lint": "semistandard",
     "lint:fix": "semistandard --fix",
     "test": "npm-run-all lint test:unit",
     "test:funcunit": "testee test/test-funcunit.html --browsers firefox --reporter Spec",
-    "test:unit": "testee test/test.html --browsers firefox --reporter Spec"
+    "test:unit": "testee test/test.html --browsers firefox --reporter Spec",
+    "preversion": "npm test",
+    "qa": "npm run release:qa:patch",
+    "release:qa:patch": "npm version patch && make release-qa",
+    "release:qa:minor": "npm version minor && make release-qa",
+    "release:qa:major": "npm version major && make release-qa"
   },
   "main": "wallet-ui/index.stache!done-autorender",
   "files": [
