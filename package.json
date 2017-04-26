@@ -98,7 +98,7 @@
     "can-stream": "^0.0.5",
     "can-view-autorender": "^3.0.3",
     "can-zone": "^0.6.0",
-    "candlestick-volume-chart": "^0.1.8",
+    "candlestick-volume-chart": "^0.1.9",
     "done-autorender": "^1.0.0-alpha.0",
     "done-component": "^1.0.0",
     "done-css": "^3.0.0",
