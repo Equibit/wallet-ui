@@ -1,12 +1,12 @@
 deploy-qa
-  git checkout -b qa1
-  -rm -rf dist
-  npm run build
-  git add -f dist
-  git commit -m "QA build"
-  git push -f origin qa1
-  git checkout -
-  git branch -D qa1
+	git checkout -b qa1
+	-rm -rf dist
+	npm run build
+	git add -f dist
+	git commit -m "QA build"
+	git push -f origin qa1
+	git checkout -
+	git branch -D qa1
 
 publish-docs:
 	npm install
