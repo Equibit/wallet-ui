@@ -24,7 +24,7 @@
     "test": "npm-run-all lint test:unit",
     "test:funcunit": "testee test/test-funcunit.html --browsers firefox --reporter Spec",
     "test:unit": "testee test/test.html --browsers firefox --reporter Spec",
-    "preversion": "npm lint && npm test",
+    "preversion": "npm run lint && npm test",
     "qa": "npm run release:qa:patch",
     "release:qa:patch": "npm version patch && make release-qa"
   },
