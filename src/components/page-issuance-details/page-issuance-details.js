@@ -1,3 +1,18 @@
+/**
+ * @module {can.Component} components/page-issuances page-issuance-details
+ * @parent components.pages
+ *
+ * Page Issuance Details
+ *
+ * @signature `<page-issuance-details {issuance-id}="issuanceId" />`
+ *
+ * @link ../src/components/page-issuance-details/page-issuance-details.html Full Page Demo
+ * ## Example
+ *
+ * @demo src/components/page-issuance-details/page-issuance-details.html
+ *
+ */
+
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './page-issuance-details.less';
@@ -5,18 +20,17 @@ import view from './page-issuance-details.stache';
 import Issuance from '~/models/issuance';
 
 export const ViewModel = DefineMap.extend({
+  issuanceId: {
+    type: 'string',
+    set (val) {
+      Issuance.get(val).then(issuance => {
+        this.issuance = issuance;
+      });
+      return val;
+    }
+  },
   issuance: {
-    value: new Issuance({
-      issuanceName: 'Series 1',
-      issuanceType: 'Common Shares',
-      restriction: '1',
-      volume24h: 1541,
-
-      sharesAuthorized: 10000,
-      sharesIssued: 8459,
-      sharesDividend: 764,
-      sharesDividendYield: 2.6,
-    })
+    type: '*'
   }
 });
 
