@@ -1,3 +1,27 @@
+<can-import from="~/components/common/panel/" />
+<can-import from="~/components/page-issuances/company-metadata/" />
 <can-import from="~/components/page-issuance-details/candlestick-chart/" />
 
-<candlestick-chart />
+<div class="row">
+  <div class="col-xs-12">
+    <drag-panel>
+      <div class="panel-heading">
+        <h3 class="panel-title">{{issuance.issuanceName}}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row card-row-full">
+          <div class="col-md-5 col-xs-12">
+
+            <company-metadata class="wide" {issuance}="issuance" currency="μBTC" />
+
+            <candlestick-chart />
+
+          </div>
+          <div class="col-md-7 col-xs-12">
+            Trading passports, etc
+          </div>
+        </div>
+      </div>
+    </drag-panel>
+  </div>
+</div>
