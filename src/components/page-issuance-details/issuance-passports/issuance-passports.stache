@@ -1,6 +1,6 @@
 <can-import from="~/utils/stache-helpers/"></can-import>
 
-<h3><small>ACCEPTED TRADING PASSPORTS</small> <span class="badge">{{passports.length}}</span></h3>
+<h3><small>ACCEPTED TRADING PASSPORTS <span class="badge">{{passports.length}}</span></small></h3>
 
 <div class="well">
   <div class="row">

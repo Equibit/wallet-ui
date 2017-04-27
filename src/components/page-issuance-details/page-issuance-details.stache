@@ -2,6 +2,7 @@
 <can-import from="~/components/page-issuances/company-metadata/" />
 <can-import from="~/components/page-issuance-details/candlestick-chart/" />
 <can-import from="~/components/page-issuance-details/issuance-passports/" />
+<can-import from="~/components/page-issuance-details/market-depth/" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -21,7 +22,7 @@
                 <issuance-passports></issuance-passports>
               </div>
               <div class="col-md-4">
-                <h3><small>MARKET DEPTH</small></h3>
+                <issuance-market-depth></issuance-market-depth>
               </div>
             </div>
           </div>
