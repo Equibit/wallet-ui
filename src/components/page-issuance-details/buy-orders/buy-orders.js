@@ -31,7 +31,7 @@ export const ViewModel = DefineMap.extend({
     })
   },
   sell (id) {
-    return;
+
   }
 });
 

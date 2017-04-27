@@ -17,6 +17,7 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './sell-orders.less';
 import view from './sell-orders.stache';
+import _ from 'lodash';
 
 export const ViewModel = DefineMap.extend({
   rows: {
@@ -30,7 +31,7 @@ export const ViewModel = DefineMap.extend({
     })
   },
   buy (id) {
-    return;
+
   }
 });
 
