@@ -17,10 +17,19 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './latest-issuances.less';
 import view from './latest-issuances.stache';
+import Issuance from '~/models/issuance';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the latest-issuances component'
+  rowsPromise: {
+    type: '*'
+  },
+  rows: {
+    get (val, resolve) {
+      if (val) {
+        return val;
+      }
+      this.rowsPromise = Issuance.getList().then(resolve);
+    }
   }
 });
 

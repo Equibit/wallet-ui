@@ -3,7 +3,7 @@
 <can-import from="grid-component" />
 <can-import from="~/components/common/arrow-change.component" />
 
-<grid-component {(rows)}="rows"
+<grid-component {rows}="rows"
                 {^selected-row}="selectedRow"
                 {pagination}="pagination"
                 (onpage)=loadPage()>
