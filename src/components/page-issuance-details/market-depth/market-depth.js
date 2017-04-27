@@ -1,10 +1,10 @@
 /**
- * @module {can.Component} components/issuance-market-depth issuance-market-depth
+ * @module {can.Component} components/market-depth market-depth
  * @parent components.common
  *
- * Market Depth
+ * Issuance Details / Market Depth
  *
- * @signature `<issuance-market-depth />`
+ * @signature `<market-depth />`
  *
  * @link ../src/components/page-issuance-details/market-depth/market-depth.html Full Page Demo
  * ## Example
@@ -20,12 +20,12 @@ import view from './market-depth.stache';
 
 export const ViewModel = DefineMap.extend({
   message: {
-    value: 'This is the issuance-market-depth component'
+    value: 'This is the market-depth component'
   }
 });
 
 export default Component.extend({
-  tag: 'issuance-market-depth',
+  tag: 'market-depth',
   ViewModel,
   view
 });
