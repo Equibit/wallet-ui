@@ -108,7 +108,7 @@
     "done-autorender": "^1.0.0-alpha.0",
     "done-component": "^1.0.0",
     "done-css": "^3.0.0",
-    "done-serve": "^1.1.0",
+    "done-serve": "^1.2.0",
     "express-session": "^1.15.2",
     "feathers": "^2.1.1",
     "feathers-authentication-client": "^0.3.1",

@@ -2097,9 +2097,9 @@ done-css@^3.0.0:
   dependencies:
     steal-css "^1.1.1"
 
-done-serve@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/done-serve/-/done-serve-1.1.0.tgz#528ef72f6a018baee31f866721feb3734958b2a3"
+done-serve@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/done-serve/-/done-serve-1.2.0.tgz#6697b7e76e442fc7fc7fdec731abb0c71fb10f93"
   dependencies:
     commander "^2.8.1"
     compression "^1.6.1"

@@ -1,4 +1,5 @@
 const feathers = require('feathers');
+const fs = require('fs');
 const path = require('path');
 const host = process.env.VIRTUAL_HOST || process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 8080;
@@ -37,11 +38,17 @@ app.use(function (req, res, next) {
 // Host the public folder
 app.use('/', feathers.static('./'));
 app.get('*', function (req, res, next) {
-  const requestedUrl = path.parse(req.url);
-  // allow: /test?email=user@gmail.com
-  // skip: /image.png
-  if (!requestedUrl.ext || requestedUrl.name.includes('?')) {
-    return res.sendFile(path.join(__dirname, './production.html'));
+  var urlParts = path.parse(req.url);
+  var isPushstateRoute = !urlParts.ext || urlParts.name.includes('?');
+  if (isPushstateRoute) {
+    var env = process.env.NODE_ENV || 'development';
+    var htmlPath = path.join(__dirname, './' + env + '.html');
+    if (!fs.existsSync(htmlPath)) {
+      htmlPath = path.join(__dirname, './production.html');
+    }
+    if (fs.existsSync(htmlPath)) {
+      return res.sendFile(htmlPath);
+    }
   }
   return next();
 });
