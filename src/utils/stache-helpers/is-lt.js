@@ -5,6 +5,5 @@ stache.registerHelper('is-lt', function (a, b) {
 });
 
 stache.registerHelper('is-gt', function (a, b) {
-  debugger
   return a > b;
 });
