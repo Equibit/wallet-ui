@@ -1,6 +1,7 @@
 <can-import from="~/components/common/panel/" />
 <can-import from="~/components/page-issuances/company-metadata/" />
 <can-import from="~/components/page-issuance-details/candlestick-chart/" />
+<can-import from="~/components/page-issuance-details/issuance-passports/" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -11,14 +12,18 @@
       <div class="panel-body">
         <div class="row card-row-full">
           <div class="col-md-5 col-xs-12">
-
             <company-metadata class="wide" {issuance}="issuance" currency="μBTC" />
-
             <candlestick-chart />
-
           </div>
           <div class="col-md-7 col-xs-12">
-            Trading passports, etc
+            <div class="row">
+              <div class="col-md-8">
+                <issuance-passports></issuance-passports>
+              </div>
+              <div class="col-md-4">
+                <h3><small>MARKET DEPTH</small></h3>
+              </div>
+            </div>
           </div>
         </div>
       </div>
