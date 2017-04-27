@@ -1,6 +1,6 @@
 <can-import from="grid-component" />
 
-<grid-component {rows}="rows">
+<grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
   <table class="table table-condensed">
     <thead>
     <tr>
@@ -13,8 +13,12 @@
     {{#each rows as row}}
       <tr class="">
         <td class="column-company">{{row.companyName}}</td>
-        <td class="column-change">{{row.change}}</td>
-        <td class="column-changepercent">{{row.changePercent}}</td>
+        <td class="column-change">
+          <arrow-change class="change" {change}="row.change">μBTC</arrow-change>
+        </td>
+        <td class="column-changepercent">
+          <arrow-change class="change" {change}="row.changePercent">%</arrow-change>
+        </td>
       </tr>
     {{/each}}
     </tbody>

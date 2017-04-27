@@ -15,7 +15,6 @@
 
 import Component from 'can-component';
 import DefineMap from 'can-define/map/map';
-import DefineList from 'can-define/list/list';
 import './biggest-movers-grid.less';
 import view from './biggest-movers-grid.stache';
 

@@ -13,7 +13,7 @@ const store = fixture.store(_.times(50, function (i) {
     companySlug: companies[i % 9].toLowerCase().split(' ').join('-'),
     domicile: ['USA', 'UK', 'Poland', 'Sweden', 'France'][i % 5],
     change: [502, -601, 120, -120][i % 4],
-    changePercent: [0.74, 0.56, 0.45][i % 3],
+    changePercent: [0.74, -0.56, 0.45, -0.44][i % 4],
   };
 }), BiggestMovers.connection.algebra);
 
