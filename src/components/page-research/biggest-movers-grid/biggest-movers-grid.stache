@@ -1,0 +1,22 @@
+<can-import from="grid-component" />
+
+<grid-component {rows}="rows">
+  <table class="table table-condensed">
+    <thead>
+    <tr>
+      <th class="column-company">Company</th>
+      <th class="column-change">Change (μBTC) </th>
+      <th class="column-changepercent">Change (%)</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each rows as row}}
+      <tr class="">
+        <td class="column-company">{{row.companyName}}</td>
+        <td class="column-change">{{row.change}}</td>
+        <td class="column-changepercent">{{row.changePercent}}</td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</grid-component>
