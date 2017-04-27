@@ -37,7 +37,7 @@ export const ViewModel = DefineMap.extend({
   },
   rowsBottom: {
     value: []
-  },
+  }
 });
 
 export default Component.extend({
