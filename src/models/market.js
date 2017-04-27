@@ -1,5 +1,5 @@
 import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
+// import DefineList from 'can-define/list/list';
 import feathersClient from '~/models/feathers-client';
 import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
@@ -9,7 +9,7 @@ const Market = DefineMap.extend('Market', {
   newIssuances: 'number',
   volume: 'number',
   tradesNum: 'number',
-  shareVolume: 'number',
+  shareVolume: 'number'
 });
 
 // Market.List = DefineList.extend('MarketList', {

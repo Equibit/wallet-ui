@@ -5,6 +5,6 @@ fixture('GET /market', function () {
     newIssuances: 420,
     volume: 34058,
     tradesNum: 4931,
-    shareVolume: 63 * 1000,
-  }
+    shareVolume: 63 * 1000
+  };
 });
