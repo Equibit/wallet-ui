@@ -3,12 +3,35 @@ candlestick-chart {
   max-width: 600px;
   background: white;
 
+  div.well {
+    padding: 10px;
+  }
+
   candlestick-volume-chart {
     * {
       box-sizing: content-box;
     }
     .chartBoundsContainer {
       font-family: serif;
+    }
+
+    .chart-controls {
+      .label {
+        display: none;
+      }
+
+      .zoom {
+        margin-right: 10px;
+        .btn {
+          &:nth-child(3), &:nth-child(4), &:nth-child(6) {
+            display: none;
+          }
+        }
+      }
+
+      .zoom, .candlestick-controls {
+        display: inline-block;
+      }
     }
   }
 }

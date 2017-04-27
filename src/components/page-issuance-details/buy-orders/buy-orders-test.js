@@ -1,8 +1,8 @@
 import QUnit from 'steal-qunit';
-import { ViewModel } from './issuance-buy-orders';
+import { ViewModel } from './buy-orders';
 
 // ViewModel unit tests
-QUnit.module('wallet-ui/components/page-issuance-details/issuance-buy-orders');
+QUnit.module('wallet-ui/components/page-issuance-details/buy-orders');
 
 QUnit.test('Has message', function () {
   var vm = new ViewModel();
