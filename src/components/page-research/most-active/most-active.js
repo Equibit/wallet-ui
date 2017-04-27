@@ -17,10 +17,19 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './most-active.less';
 import view from './most-active.stache';
+import Issuance from '~/models/issuance';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the most-active component'
+  rowsPromise: {
+    type: '*'
+  },
+  rows: {
+    get (val, resolve) {
+      if (val) {
+        return val;
+      }
+      this.rowsPromise = Issuance.getList().then(resolve);
+    }
   }
 });
 

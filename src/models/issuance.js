@@ -30,6 +30,8 @@ const Issuance = DefineMap.extend('Issuance', {
   sharesDividend: 'number',
   sharesDividendYield: 'number',
 
+  tradesNum: 'number',
+
   // extras:
   selected: {
     type: 'boolean',

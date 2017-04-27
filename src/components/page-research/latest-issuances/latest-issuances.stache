@@ -14,11 +14,11 @@
               <table class="table table-condensed">
                 <thead>
                   <tr>
-                    <th ($click)="{sortBy 'companyName'}" class="column-company">Company {{{sortArrow 'companyName'}}}</th>
-                    <th ($click)="{sortBy 'domicile'}" class="column-domicile">Domicile {{{sortArrow 'domicile'}}}</th>
-                    <th ($click)="{sortBy 'issuanceName'}" class="column-issuance">Issuance {{{sortArrow 'issuanceName'}}}</th>
-                    <th ($click)="{sortBy 'issuanceType'}" class="column-issuance-type">Issuance Type {{{sortArrow 'issuanceType'}}}</th>
-                    <th ($click)="{sortBy 'restriction'}" class="column-restriction">Restriction {{{sortArrow 'restriction'}}}</th>
+                    <th class="column-company">Company</th>
+                    <th class="column-domicile">Domicile</th>
+                    <th class="column-issuance">Issuance</th>
+                    <th class="column-issuance-type">Issuance Type</th>
+                    <th class="column-restriction">Restriction</th>
                   </tr>
                 </thead>
                 <tbody>
