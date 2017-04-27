@@ -1,1 +1,41 @@
-<p>{{message}}</p>
+<can-import from="~/components/common/panel/" />
+
+<div class="row">
+  <div class="col-xs-12">
+    <drag-panel>
+      <div class="panel-heading">
+        <h3 class="panel-title">Market Summary <small>Last 24 hours</small></h3>
+      </div>
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="row">
+              <div class="col-md-4">
+                <small>New Issuances</small>
+                <span>{{market.newIssuances}}</span>
+              </div>
+              <div class="col-md-8">
+                <small>Volume</small>
+                <span>{{market.volume}} <small>BTC</small></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <small>Trades</small>
+                <span>{{market.tradesNum}}</span>
+              </div>
+              <div class="col-md-8">
+                <small>Share Volume</small>
+                <span>{{market.shareVolume}} <small>EQB</small></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </drag-panel>
+  </div>
+</div>

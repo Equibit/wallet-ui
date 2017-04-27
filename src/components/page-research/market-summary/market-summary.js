@@ -17,10 +17,21 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './market-summary.less';
 import view from './market-summary.stache';
+import Market from '~/models/market';
+
+import '~/models/fixtures/market';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the market-summary component'
+  marketPromise: {
+    type: '*'
+  },
+  market: {
+    get (val, resolve) {
+      if (val) {
+        return val;
+      }
+      this.marketPromise = Market.get().then(resolve);
+    }
   }
 });
 
