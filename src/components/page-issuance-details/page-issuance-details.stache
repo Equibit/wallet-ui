@@ -4,6 +4,7 @@
 <can-import from="~/components/page-issuance-details/issuance-passports/" />
 <can-import from="~/components/page-issuance-details/market-depth/" />
 <can-import from="~/components/page-issuance-details/order-book/" />
+<can-import from="~/components/page-issuance-details/related-companies/" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -27,13 +28,17 @@
               <div class="col-md-4">
                 <market-depth></market-depth>
               </div>
-            </div>
 
-            <br>
+              <br>
 
-            <div class="row">
               <div class="col-md-12">
                 <order-book />
+              </div>
+
+              <br>
+
+              <div class="col-md-12">
+                <related-companies />
               </div>
             </div>
           </div>
