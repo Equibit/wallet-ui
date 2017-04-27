@@ -1,0 +1,17 @@
+<can-import from="~/components/page-issuance-details/sell-orders/" />
+<can-import from="~/components/page-issuance-details/buy-orders/" />
+
+<h3><small>ORDER BOOK</small></h3>
+
+<div class="well">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="title">SELL ORDERS</div>
+      <sell-orders />
+    </div>
+    <div class="col-md-6">
+      <div class="title">BUY ORDERS</div>
+      <buy-orders />
+    </div>
+  </div>
+</div>

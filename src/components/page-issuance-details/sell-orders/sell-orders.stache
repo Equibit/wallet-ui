@@ -1,0 +1,31 @@
+<can-import from="~/components/common/grid/grid.less" />
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="grid-component" />
+
+<grid-component {(rows)}="rows">
+  <table class="table table-condensed">
+    <thead>
+    <tr>
+      <th class="column-quantity">Quantity</th>
+      <th class="column-askprice">Ask Price</th>
+      <th class="column-datetime">Date/Time</th>
+      <th class="column-partial">Partial</th>
+      <th class="action-buttons"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each rows as row}}
+      <tr class="">
+        <td class="column-quantity">{{row.quantity}}</td>
+        <td class="column-askprice">{{row.price}}</td>
+        <td class="column-datetime">{{row.date}}</td>
+        <td class="column-partial">{{row.partial}}</td>
+        <td class="action-buttons"><button class="btn btn-default btn-xs">BUY</button></td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</grid-component>
+
+<button class="btn btn-primary btn-xs">+ ADD SELL ORDER</button>
+<button class="btn btn-link btn-xs">VIEW ALL</button>

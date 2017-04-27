@@ -1,9 +1,15 @@
-<script type="text/stache" can-autorender>
+<style>body { padding: 20px }</style>
+<script type="text/stache" can-autorender panel-title="All Issuances">
   <can-import from="~/styles/styles.less" />
   <can-import from="bootstrap/dist/js/bootstrap" />
   <can-import from="wallet-ui/components/common/panel/" />
-  <drag-panel panel-title="All Issuances">
-    Content here
+  <drag-panel>
+    <div class="panel-heading">
+      <h3 class="panel-title">{{panelTitle}}</h3>
+    </div>
+    <div class="panel-body">
+      Content here
+    </div>
   </drag-panel>
 </script>
 <script src="../../../../node_modules/steal/steal.js"
