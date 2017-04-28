@@ -1,3 +1,26 @@
 biggest-movers-grid {
-	display: block;
+  display: block;
+
+  grid-component {
+    table.table {
+
+      tbody {
+        max-height: 225px;
+      }
+
+      // Customize column width:
+      th, td {
+        flex-basis: 5%;
+        &.column-change {
+          flex-basis: 10%;
+        }
+      }
+
+      tr:nth-child(1) {
+        td {
+          border-top: none;
+        }
+      }
+    }
+  }
 }
