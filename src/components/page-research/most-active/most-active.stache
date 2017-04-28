@@ -1,5 +1,6 @@
 <can-import from="grid-component" />
 <can-import from="~/components/common/grid/grid.less" />
+<can-import from="~/components/common/panel/" />
 
 <div class="row">
   <div class="col-xs-12">
