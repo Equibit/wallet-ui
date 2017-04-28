@@ -37,8 +37,14 @@ export const ViewModel = DefineMap.extend({
   userPassports: {
     value: []
   },
+  isModalShown: 'boolean',
   get visiblePassports () {
     return this.passports.length > 8 ? _.take(this.passports, 7) : this.passports;
+  },
+  showModal () {
+    // Note: we need to re-insert the modal content:
+    this.isModalShown = false;
+    this.isModalShown = true;
   }
 });
 

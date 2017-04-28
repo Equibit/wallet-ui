@@ -21,6 +21,11 @@ import view from './page-research.stache';
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the page-research component'
+  },
+  isModalShown: 'boolean',
+  showModal () {
+    this.isModalShown = false;
+    this.isModalShown = true;
   }
 });
 

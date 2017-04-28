@@ -1,4 +1,5 @@
 <can-import from="~/utils/stache-helpers/"></can-import>
+<can-import from="bootstrap-canjs" />
 
 <h3><small>ACCEPTED TRADING PASSPORTS <span class="badge">{{passports.length}}</span></small></h3>
 
@@ -13,9 +14,32 @@
     {{#if is-gt(passports.length, 8)}}
       <div class="col-md-6">
         <div>
-          <button class="btn btn-default btn-xs">VIEW ALL</button>
+          <button ($click)="showModal()" class="btn btn-default btn-xs">VIEW ALL</button>
         </div>
       </div>
     {{/is-gt}}
   </div>
 </div>
+
+{{#if isModalShown}}
+  <bootstrap-modal-content class="issuance-passports">
+    <div class="modal-header">
+      <button ($click)="close()" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">
+        Accepted Trading Passports <br>
+        <small>This issuance is restricted and requires at least one of these passports.</small>
+      </h4>
+    </div>
+    <div class="modal-body">
+      <div class="well">
+        <div class="row">
+          {{#each passports}}
+            <div class="col-md-6">
+              <div>{{name}} <a class="icon icon-share"></a></div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </bootstrap-modal-content>
+{{/if}}
