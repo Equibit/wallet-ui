@@ -2,13 +2,13 @@
 
 <grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
   <table class="table table-condensed1">
-    <thead>
-    <tr>
-      <th class="column-company">Company</th>
-      <th class="column-change">Change (μBTC) </th>
-      <th class="column-changepercent">Change (%)</th>
-    </tr>
-    </thead>
+    <!--<thead>-->
+    <!--<tr>-->
+      <!--<th class="column-company">Company</th>-->
+      <!--<th class="column-change">Change (μBTC) </th>-->
+      <!--<th class="column-changepercent">Change (%)</th>-->
+    <!--</tr>-->
+    <!--</thead>-->
     <tbody>
     {{#each rows as row}}
       <tr class="">

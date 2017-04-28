@@ -22,6 +22,9 @@
         margin-right: 5px;
       }
     }
+    &.no-arrow > span:before {
+      content: ''!important;
+    }
   </style>
   <view>
     <can-import from="~/utils/stache-helpers/" />
