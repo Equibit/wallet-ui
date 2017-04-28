@@ -1,7 +1,7 @@
 <can-import from="grid-component" />
 
 <grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
-  <table class="table table-condensed">
+  <table class="table table-condensed1">
     <thead>
     <tr>
       <th class="column-company">Company</th>
