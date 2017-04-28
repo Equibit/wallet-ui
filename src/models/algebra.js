@@ -1,5 +1,5 @@
 import set from 'can-set';
-import moment from 'moment';
+// import moment from 'moment';
 import helpers from 'can-set/src/helpers';
 
 export default new set.Algebra(
@@ -33,16 +33,20 @@ export default new set.Algebra(
 // TODO: this should belong to can-set module: `can-set/src/helpers.defaultSort`
 // See this PR: https://github.com/canjs/can-set/pull/25/commits/b744d23cba7bccd694a858853560c7d816b26f42
 // Gives back the value of an object at a provided dot-separated path string.
-function getValueFromPath (obj, path){
+function getValueFromPath (obj, path) {
   path = path.split('.');
-  for (var i = 0; i < path.length; i++){
+  for (var i = 0; i < path.length; i++) {
     obj = obj[path[i]];
-  };
+  }
   return obj;
 }
 helpers.getValueFromPath = getValueFromPath;
-function mongoSort(sortPropValue, item1, item2) {
-  var parts = [], sortProp, item1Value, item2Value, desc;
+function mongoSort (sortPropValue, item1, item2) {
+  var parts = [];
+  var sortProp;
+  var item1Value;
+  var item2Value;
+  var desc;
 
   if (typeof sortPropValue === 'string') {
     parts = sortPropValue.split(' ');
@@ -50,12 +54,11 @@ function mongoSort(sortPropValue, item1, item2) {
     item1Value = item1[sortProp];
     item2Value = item2[sortProp];
     desc = parts[1] || '';
-    desc = desc.toLowerCase()	=== 'desc';
-
+    desc = desc.toLowerCase() === 'desc';
   } else {
     var path = Object.keys(sortPropValue)[0];
     var sortDir = sortPropValue[Object.keys(sortPropValue)[0]];
-    if (sortDir == -1) {
+    if (sortDir === -1 || sortDir === '-1') {
       desc = true;
     }
 
@@ -63,18 +66,18 @@ function mongoSort(sortPropValue, item1, item2) {
     item2Value = helpers.getValueFromPath(item2, path);
   }
 
-  if(desc) {
+  if (desc) {
     var temp;
     temp = item1Value;
     item1Value = item2Value;
     item2Value = temp;
   }
 
-  if(item1Value < item2Value) {
+  if (item1Value < item2Value) {
     return -1;
   }
 
-  if(item1Value > item2Value) {
+  if (item1Value > item2Value) {
     return 1;
   }
 
