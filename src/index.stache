@@ -9,6 +9,8 @@
     <can-import from="~/styles/styles.less" />
     <can-import from="~/app" export-as="viewModel" />
 
+    <can-import from="bootstrap-canjs" />
+    <can-import from="bootstrap-canjs/modal/modal.less" />
     <can-import from="~/components/page-loading.component" />
     <can-import from="~/components/page-home/" />
     <can-import from="~/components/page-research/" />
@@ -24,6 +26,8 @@
     <can-import from="~/components/nav-bar/" />
 
     <bit-alerts/>
+
+    <bootstrap-modal></bootstrap-modal>
 
     {{! if used within switch/case then component gets re-rendered and we cannot share email between cases. }}
     {{#if one-of(displayedPage, 'signup', 'login', 'forgot-password', 'change-password')}}
