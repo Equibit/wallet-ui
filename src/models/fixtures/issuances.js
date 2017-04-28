@@ -28,7 +28,9 @@ const store = fixture.store(_.times(90, function (i) {
     sharesAuthorized: 10000,
     sharesIssued: 8459,
     sharesDividend: 764,
-    sharesDividendYield: 2.6
+    sharesDividendYield: 2.6,
+
+    tradesNum: [40, 25, 54, 300][i % 4]
   };
 }), Issuance.connection.algebra);
 

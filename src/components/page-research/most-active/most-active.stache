@@ -1,0 +1,42 @@
+<can-import from="grid-component" />
+<can-import from="~/components/common/grid/grid.less" />
+
+<div class="row">
+  <div class="col-xs-12">
+    <drag-panel>
+      <div class="panel-heading">
+        <h3 class="panel-title">Most Active <small>Last 24 hours</small></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
+              <table class="table table-condensed">
+                <thead>
+                <tr>
+                  <th class="column-company">Company</th>
+                  <th class="column-issuance">Issuance</th>
+                  <th class="column-trades"># Trades</th>
+                  <th class="column-volume">Volume (μBTC)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each rows as row}}
+                  <tr>
+                    <td class="column-company">
+                      <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
+                    </td>
+                    <td class="column-issuance">{{row.issuanceName}}</td>
+                    <td class="column-trades">{{row.tradesNum}}</td>
+                    <td class="column-volume">{{row.volume24h}}</td>
+                  </tr>
+                {{/each}}
+                </tbody>
+              </table>
+            </grid-component>
+          </div>
+        </div>
+      </div>
+    </drag-panel>
+  </div>
+</div>

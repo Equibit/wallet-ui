@@ -1,0 +1,22 @@
+<can-import from="~/components/page-research/biggest-movers-grid/" />
+<can-import from="~/models/biggest-movers" {^value.default}="*BiggestMovers" />
+
+<div class="row">
+  <div class="col-xs-12">
+    <drag-panel>
+      <div class="panel-heading">
+        <h3 class="panel-title">Biggest Movers <small>Last 24 hours</small></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            <biggest-movers-grid {model}="*BiggestMovers" sort="asc"/>
+          </div>
+          <div class="col-md-6">
+            <biggest-movers-grid {model}="*BiggestMovers" sort="desc"/>
+          </div>
+        </div>
+      </div>
+    </drag-panel>
+  </div>
+</div>

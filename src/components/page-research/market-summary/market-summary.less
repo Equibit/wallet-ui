@@ -1,0 +1,42 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+market-summary {
+	display: block;
+
+  .panel-default > .panel-heading {
+    border-bottom: 0;
+    background: white;
+    padding: 15px 25px;
+  }
+
+  .panel-body {
+    padding-top: 0;
+
+    .row > div > .row {
+      &:nth-child(1) {
+        border-bottom: 1px solid @gray-lighter;
+      }
+
+      > div {
+        padding-top: 23px;
+        padding-bottom: 23px;
+      }
+
+      > div:nth-child(1) {
+        border-right: 1px solid @gray-lighter;
+      }
+
+      span {
+        font-size: 35px;
+        small {
+          font-size: 15px;
+        }
+      }
+
+      small {
+        font-size: 10px;
+        color: @gray-light;
+      }
+    }
+  }
+}

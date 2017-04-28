@@ -23,6 +23,7 @@ var pages = {
   loading: 'public',
   signup: 'public',
   login: 'public',
+  research: 'public',
   issuances: 'public',
   'issuance-details': 'public',
   'four-oh-one': 'public',

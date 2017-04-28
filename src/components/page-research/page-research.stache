@@ -1,0 +1,26 @@
+<can-import from="~/components/page-research/market-summary/" />
+<can-import from="~/components/page-research/market-capitalization/" />
+<can-import from="~/components/page-research/most-active/" />
+<can-import from="~/components/page-research/latest-issuances/" />
+<can-import from="~/components/page-research/biggest-movers/" />
+
+<div class="row">
+  <div class="col-md-4">
+    <market-summary />
+  </div>
+  <div class="col-md-4">
+    <market-capitalization />
+  </div>
+  <div class="col-md-4">
+    <most-active />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <latest-issuances />
+  </div>
+  <div class="col-md-6">
+    <biggest-movers />
+  </div>
+</div>
