@@ -19,7 +19,7 @@
     "develop": "done-serve --static --develop --port 8080",
     "build": "npm run remove-build && node build",
     "remove-build": "make remove-build",
-    "document": "documentjs -f -d",
+    "docs": "documentjs -f -d",
     "lint": "semistandard",
     "lint:fix": "semistandard --fix",
     "test": "npm-run-all lint test:unit",
