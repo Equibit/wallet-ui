@@ -110,6 +110,7 @@
     "done-component": "^1.0.0",
     "done-css": "^3.0.0",
     "done-serve": "^1.2.0",
+    "es6-object-assign": "^1.1.0",
     "express-session": "^1.15.2",
     "feathers": "^2.1.1",
     "feathers-authentication-client": "^0.3.1",

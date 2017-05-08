@@ -12,6 +12,10 @@
  * @group wallet-ui/app.properties 0 properties
  */
 
+// Polyfill for Object.assign (IE11 support)
+import objectAssignPolyfill from 'es6-object-assign';
+objectAssignPolyfill.polyfill();
+
 import DefineMap from 'can-define/map/';
 import route from 'can-route';
 import 'can-route-pushstate';
