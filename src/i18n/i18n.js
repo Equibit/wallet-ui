@@ -28,6 +28,8 @@
  *
  * To change language from a VM use `setLang` function:
  * ```
+ * import { setLang } from "i18n";
+ * 
  * {
  *     changeLanguage (lang) {
  *         setLang(lang)
