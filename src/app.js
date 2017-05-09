@@ -12,6 +12,7 @@
  * @group wallet-ui/app.properties 0 properties
  */
 
+import 'core-js/client/core';
 import DefineMap from 'can-define/map/';
 import route from 'can-route';
 import 'can-route-pushstate';
