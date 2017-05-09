@@ -19,8 +19,6 @@ import './market-summary.less';
 import view from './market-summary.stache';
 import Market from '~/models/market';
 
-import '~/models/fixtures/market';
-
 export const ViewModel = DefineMap.extend({
   marketPromise: {
     type: '*'
