@@ -1,3 +1,4 @@
+import 'core-js/client/core';
 import '~/models/test';
 import '~/utils/test';
 import '~/components/test';
