@@ -3,7 +3,6 @@ export default {
   timestamp: 'MMMM D, YYYY',
   timestampDetailed: 'MMMM Do YYYY, h:mm:ss a',
 
-
   // Signup / Login forms:
   createAccount: 'Create an Account',
 
