@@ -4,6 +4,9 @@ import feathersClient from '~/models/feathers-client';
 import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
 
+// TODO: FIXTURES ON!
+import '~/models/fixtures/market';
+
 const Market = DefineMap.extend('Market', {
   _id: 'string',
   newIssuances: 'number',
