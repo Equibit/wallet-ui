@@ -22,6 +22,7 @@ import view from './change-password.stache';
 import validate from '~/utils/validators';
 import route from 'can-route';
 import hub from '~/utils/event-hub';
+import i18n from '~/i18n/';
 
 export const ViewModel = DefineMap.extend({
   email: {
@@ -60,12 +61,14 @@ export const ViewModel = DefineMap.extend({
     this.user.changePassword(password)
       .then(() => {
         route.data.page = 'portfolio';
+        let title = this.user.isNewUser ? i18n.accountCreated : i18n.passwordReset;
+        let msg = this.user.isNewUser ? i18n.welcomeMsg : i18n.passwordResetMsg;
         hub.dispatch({
           'type': 'alert',
           'kind': 'success',
-          'title': 'Account Created',
-          'displayInterval': 2000,
-          'message': 'Welcome to Equibit! Your account was created successfully!'
+          'title': title,
+          'displayInterval': 5000,
+          'message': msg
         });
       })
       .catch(e => {
