@@ -1,7 +1,6 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './panel.less';
-import view from './panel.stache';
 
 export const ViewModel = DefineMap.extend({
   message: {
@@ -12,5 +11,4 @@ export const ViewModel = DefineMap.extend({
 export default Component.extend({
   tag: 'drag-panel',
   ViewModel,
-  view
 });

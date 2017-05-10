@@ -9,7 +9,7 @@ export const ViewModel = DefineMap.extend({
   pagination: {
     value: new Pagination({
       skip: 0,
-      limit: 10
+      limit: 50
     })
   },
   rows: {

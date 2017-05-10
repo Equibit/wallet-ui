@@ -57,12 +57,10 @@
             </div>
           {{/if}}
         </td>
-        <td>
+        <td class="grid-results-container">
           <div class="grid-results">Showing {{rows.length}} of {{pagination.total}} Results</div>
         </td>
       </tr>
-    <br>
-
     </tfoot>
   </table>
 </grid-component>
