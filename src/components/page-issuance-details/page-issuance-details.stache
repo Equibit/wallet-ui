@@ -7,7 +7,7 @@
 <can-import from="~/components/page-issuance-details/related-companies/" />
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-xs-12">
     <drag-panel class="panel panel-default card card-full">
       <div class="panel-heading">
         <h3 class="panel-title">{{issuance.companyName}} <small>{{issuance.issuanceName}}</small></h3>
