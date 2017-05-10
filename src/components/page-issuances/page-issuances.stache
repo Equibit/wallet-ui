@@ -4,7 +4,7 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <drag-panel>
+    <drag-panel class="panel panel-default card card-full">
       <div class="panel-heading">
         <h3 class="panel-title">All Issuances</h3>
       </div>

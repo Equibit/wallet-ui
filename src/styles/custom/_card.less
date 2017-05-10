@@ -1,13 +1,22 @@
-.card-full {
-  height: @card-full-height;
+.card {
   display: flex;
   flex-direction: column;
-    .panel-body {
-      overflow-y: scroll;
-      display: flex;
-      flex-direction: column;
-    }
+  .panel-body {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    padding: 1em 0.5em;
+  }
 }
+
+.card-full {
+  height: @card-full-height;
+}
+
+.card-half {
+  height: @card-half-height;
+}
+
 .card-row-full {
   flex: 1;
 }

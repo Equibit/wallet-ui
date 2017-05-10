@@ -1,18 +1,14 @@
 <can-import from="~/components/common/panel/" />
 
-<div class="row">
-  <div class="col-xs-12">
-    <drag-panel>
-      <div class="panel-heading">
-        <h3 class="panel-title">Market Capitalization <small>Last 24 hours</small></h3>
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12">
-            Chart here...
-          </div>
-        </div>
-      </div>
-    </drag-panel>
+<drag-panel class="panel panel-default card card-half">
+  <div class="panel-heading">
+    <h3 class="panel-title">Market Capitalization <small>Last 24 hours</small></h3>
   </div>
-</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        Chart here...
+      </div>
+    </div>
+  </div>
+</drag-panel>
