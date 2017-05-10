@@ -7,10 +7,10 @@
   </div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-xs-6">
         <biggest-movers-grid {model}="*BiggestMovers" sort="-1"/>
       </div>
-      <div class="col-md-6">
+      <div class="col-xs-6">
         <biggest-movers-grid {model}="*BiggestMovers" sort="1"/>
       </div>
     </div>
