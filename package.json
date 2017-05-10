@@ -90,6 +90,7 @@
   "dependencies": {
     "@equibit/wallet-crypto": "^0.1.0",
     "accounting": "^0.4.1",
+    "bit-c3": "^0.2.0",
     "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
     "bootstrap-canjs": "^0.1.4",
