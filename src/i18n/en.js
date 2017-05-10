@@ -19,5 +19,5 @@ export default {
   newIssuances: 'New Issuances',
   volume: 'Volume',
   trades: 'Trades',
-  shareVolume: 'Share Volume',
+  shareVolume: 'Share Volume'
 };
