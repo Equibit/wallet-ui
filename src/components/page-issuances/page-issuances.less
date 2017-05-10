@@ -1,10 +1,12 @@
 @import '../../styles/bootstrap-custom/_variables.less';
+@import '../../styles/custom/_mixins.less';
 
 @break-point-columns: 1144px;
 @break-point-max-screen: 1440px;
 
 page-issuances {
 	display: block;
+  .page-layout;
 
   @media (min-width: 1145px) and (max-width: @break-point-max-screen) {
     .col-md-3 {
