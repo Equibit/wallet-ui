@@ -1,6 +1,6 @@
 {
   "name": "wallet-ui",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Equibit Web Wallet UI",
   "homepage": "",
   "repository": {
@@ -28,7 +28,8 @@
     "qa": "npm run release:qa:patch",
     "release:qa:patch": "npm test && npm run build && npm version patch && make release-qa",
     "release:qa:minor": "npm test && npm run build && npm version minor && make release-qa",
-    "release:qa:major": "npm test && npm run build && npm version major && make release-qa"
+    "release:qa:major": "npm test && npm run build && npm version major && make release-qa",
+    "deps-bundle": "steal-tools bundle --deps"
   },
   "main": "wallet-ui/index.stache!done-autorender",
   "files": [
@@ -88,6 +89,7 @@
   },
   "dependencies": {
     "@equibit/wallet-crypto": "^0.1.0",
+    "accounting": "^0.4.1",
     "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
     "bootstrap-canjs": "^0.1.4",
