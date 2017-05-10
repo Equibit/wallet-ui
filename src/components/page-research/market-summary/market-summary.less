@@ -14,28 +14,36 @@ market-summary {
 
     .row > div > .row {
       &:nth-child(1) {
-        border-bottom: 1px solid @gray-lighter;
-      }
-
-      > div {
-        padding-top: 23px;
-        padding-bottom: 23px;
+        border-bottom: @border-default;
       }
 
       > div:nth-child(1) {
-        border-right: 1px solid @gray-lighter;
+        border-right: @border-default;
       }
 
+
+    }
+    .market-summary-section {
+      padding-top: @padding-large-horizontal;
+      padding-bottom: @padding-large-horizontal;
       span {
-        font-size: 35px;
+        font-size: 33px;
         small {
-          font-size: 15px;
+          font-size: @font-size-base;
         }
       }
+    }
+  }
 
-      small {
-        font-size: 10px;
-        color: @gray-light;
+  @media (max-width: @screen-xs) {
+    .panel-body {
+      .market-summary-section {
+        span {
+          font-size: @font-size-h3;
+          small {
+            font-size: @font-size-small;
+          }
+        }
       }
     }
   }
