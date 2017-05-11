@@ -6,42 +6,45 @@
 <grid-component {rows}="rows"
                 {^selected-row}="selectedRow"
                 {pagination}="pagination"
-                (onpage)=loadPage()>
+                (onpage)=loadPage()
+                class="thin-scrollbar">
 
-  <table class="table grid-header">
-    <thead>
-      <tr>
-        <th class="column-company sort">Company</th>
-        <th class="column-domicile sort">Domicile</th>
-        <th class="column-issuance sort">Issuance</th>
-        <th class="column-issuance-type sort">Issuance Type</th>
-        <th class="column-restriction sort">Restriction</th>
-        <th class="column-market-cap sort">Market Cap (μBTC)</th>
-        <th ($click)="changeSort()" class="column-change-price sort">Change (μBTC) {{{sort-arrow(../sort)}}}</th>
-        <th class="column-change-percentage sort">Change (%)</th>
-      </tr>
-    </thead>
-  </table>
-
-  <div class="grid-body-scroll thin-scrollbar">
-    <table class="table grid-body">
-      <tbody>
-      {{#each rows as row}}
-        <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
-          <td class="column-company">
-            <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
-          </td>
-          <td class="column-domicile">{{row.domicile}}</td>
-          <td class="column-issuance">{{row.issuanceName}}</td>
-          <td class="column-issuance-type">{{row.issuanceType}}</td>
-          <td class="column-restriction">{{row.restriction}}</td>
-          <td class="column-market-cap"><div class="truncate">{{row.marketCap}}</div></td>
-          <td class="column-change-price"><arrow-change {change}="row.change" class="no-arrow" /></td>
-          <td class="column-change-percentage">{{row.changePercentage}}</td>
+  <div class="grid-responsive">
+    <table class="table grid-header">
+      <thead>
+        <tr>
+          <th class="column-company sort">Company</th>
+          <th class="column-domicile sort">Domicile</th>
+          <th class="column-issuance sort">Issuance</th>
+          <th class="column-issuance-type sort">Issuance Type</th>
+          <th class="column-restriction sort">Restriction</th>
+          <th class="column-market-cap sort">Market Cap (μBTC)</th>
+          <th ($click)="changeSort()" class="column-change-price sort">Change (μBTC) {{{sort-arrow(../sort)}}}</th>
+          <th class="column-change-percentage sort">Change (%)</th>
         </tr>
-      {{/each}}
-      </tbody>
+      </thead>
     </table>
+
+    <div class="grid-body-scroll thin-scrollbar">
+      <table class="table grid-body">
+        <tbody>
+        {{#each rows as row}}
+          <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
+            <td class="column-company">
+              <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
+            </td>
+            <td class="column-domicile">{{row.domicile}}</td>
+            <td class="column-issuance">{{row.issuanceName}}</td>
+            <td class="column-issuance-type">{{row.issuanceType}}</td>
+            <td class="column-restriction">{{row.restriction}}</td>
+            <td class="column-market-cap"><div class="truncate">{{row.marketCap}}</div></td>
+            <td class="column-change-price"><arrow-change {change}="row.change" class="no-arrow" /></td>
+            <td class="column-change-percentage">{{row.changePercentage}}</td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div class="grid-footer">

@@ -8,7 +8,7 @@
       <div class="panel-heading">
         <h3 class="panel-title">All Issuances</h3>
       </div>
-      <div class="panel-body">
+      <div class="panel-body thin-scrollbar">
         <div class="row card-row-full">
           <div class="col-md-9 col-xs-12">
             <grid-issuances {^selected-row}="selectedRow" {(sort)}="sort"/>

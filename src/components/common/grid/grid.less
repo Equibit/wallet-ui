@@ -12,6 +12,12 @@ grid-component {
   flex: 1;
   height: 80vh;
 
+  .grid-responsive {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
   // Bootstrap Overwrites
   .table {
     margin-bottom: 0;
@@ -21,17 +27,15 @@ grid-component {
 
   .grid-header {
     text-align: left;
-    width: calc(~"100% - "@scrollbar-width - 1);
-    table {
-
-    }
+    width: calc(~"100% - "@scrollbar-width);
     th {
-      border: 1px solid blue;
+      //border: 1px solid blue;
     }
   }
 
   .grid-body-scroll {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     flex-grow: 1;
   }
   .grid-body {
@@ -42,7 +46,7 @@ grid-component {
         text-overflow: ellipsis;
       }
       cursor: pointer;
-      border: 1px solid red;
+      //border: 1px solid red;
     }
     tr {
       &.selected {
