@@ -26,7 +26,7 @@
     </table>
 
     <div class="grid-body-scroll thin-scrollbar">
-      <table class="table grid-body">
+      <table class="table table-condensed grid-body">
         <tbody>
         {{#each rows as row}}
           <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">

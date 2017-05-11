@@ -5,12 +5,12 @@
 @row-selected-border: 3px solid @brand-primary;
 
 
+
 grid-component {
   display: flex;
   width: 100%;
   flex-direction: column;
   flex: 1;
-  height: 80vh;
 
   .grid-responsive {
     display: flex;
@@ -28,9 +28,6 @@ grid-component {
   .grid-header {
     text-align: left;
     width: calc(~"100% - "@scrollbar-width);
-    th {
-      //border: 1px solid blue;
-    }
   }
 
   .grid-body-scroll {
@@ -46,7 +43,6 @@ grid-component {
         text-overflow: ellipsis;
       }
       cursor: pointer;
-      //border: 1px solid red;
     }
     tr {
       &.selected {

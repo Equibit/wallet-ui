@@ -2,19 +2,18 @@
 @import '../../styles/custom/_variables.less';
 @import '../../styles/custom/_mixins.less';
 
+@table-height: 80vh;
 
 page-issuances {
 	display: block;
   .page-layout;
 
-/*
-  @media (min-width: 1145px) and (max-width: @break-point-max-screen) {
-    .col-md-3 {
-      flex-basis: auto;
-      max-width: 300px;
+  grid-component {
+    height: @table-height;
+    .grid-responsive {
+      height: @table-height;
     }
   }
-*/
   @media (min-width: @screen-md) and (max-width: @break-point-columns) {
     .col-md-3 {
       flex-basis: 100%;
@@ -36,7 +35,7 @@ page-issuances {
       display: initial;
 
       grid-component {
-        height: 360px;
+        height: 345px;
         margin-bottom: @padding-large-vertical*2;
       }
     }
