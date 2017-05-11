@@ -47,7 +47,7 @@ MarketCap.List = DefineList.extend('MarketCapList', {
       acc.labels.push(el.companyName);
       acc.values[0].push(el.price);
       return acc;
-    }, {labels: new DefineList(['x']), values: new DefineList([new DefineList(['MarketCap'])])});
+    }, {labels: ['x'], values: [['MarketCap']]});
   }
 });
 
