@@ -49,7 +49,7 @@ export const ViewModel = DefineMap.extend({
       }
     }
   },
-  axisXData: {
+  axisX: {
     type: '*'
   }
 });
