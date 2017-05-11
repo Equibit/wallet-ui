@@ -11,14 +11,14 @@
   <table class="table table-condensed">
     <thead>
       <tr>
-        <th ($click)="{sortBy 'companyName'}" class="column-company sort">Company {{{sortArrow 'companyName'}}}</th>
-        <th ($click)="{sortBy 'domicile'}" class="column-domicile sort">Domicile {{{sortArrow 'domicile'}}}</th>
-        <th ($click)="{sortBy 'issuanceName'}" class="column-issuance sort">Issuance {{{sortArrow 'issuanceName'}}}</th>
-        <th ($click)="{sortBy 'issuanceType'}" class="column-issuance-type sort">Issuance Type {{{sortArrow 'issuanceType'}}}</th>
-        <th ($click)="{sortBy 'restriction'}" class="column-restriction sort">Restriction {{{sortArrow 'restriction'}}}</th>
-        <th ($click)="{sortBy 'marketCap'}" class="column-market-cap sort">Market Cap (μBTC) {{{sortArrow 'marketCap'}}}</th>
-        <th ($click)="{sortBy 'change'}" class="column-change-price sort">Change (μBTC) {{{sortArrow 'change'}}}</th>
-        <th ($click)="{sortBy 'changePercentage'}" class="column-change-percentage sort">Change (%) {{{sortArrow 'changePercentage'}}}</th>
+        <th class="column-company sort">Company</th>
+        <th class="column-domicile sort">Domicile</th>
+        <th class="column-issuance sort">Issuance</th>
+        <th class="column-issuance-type sort">Issuance Type</th>
+        <th class="column-restriction sort">Restriction</th>
+        <th class="column-market-cap sort">Market Cap (μBTC)</th>
+        <th ($click)="changeSort()" class="column-change-price sort">Change (μBTC) {{{sort-arrow(../sort)}}}</th>
+        <th class="column-change-percentage sort">Change (%)</th>
       </tr>
     </thead>
     <tbody>

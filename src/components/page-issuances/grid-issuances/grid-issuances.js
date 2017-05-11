@@ -17,7 +17,7 @@ export const ViewModel = DefineMap.extend({
       if (value) {
         return value;
       }
-      Issuance.getList(this.pagination.params).then(rows => {
+      Issuance.getList(this.queryParams).then(rows => {
         if (rows.total) {
           this.pagination.total = rows.total;
         }
@@ -28,13 +28,31 @@ export const ViewModel = DefineMap.extend({
   selectedRow: {
     type: '*'
   },
+  sort: {
+    type: '*'
+  },
+  queryParams: {
+    get () {
+      let params = this.pagination.params;
+      if (typeof this.sort !== 'undefined'){
+        params["$sort"] = {
+          change: this.sort
+        };
+      }
+      return params;
+    }
+  },
   loadPage: function () {
-    Issuance.getList(this.pagination.params).then(items => {
+    Issuance.getList(this.queryParams).then(items => {
       this.rows = items;
     });
   },
   noop (ev) {
     ev.stopPropagation();
+  },
+  changeSort () {
+    this.sort = typeof this.sort === 'undefined' ? -1 : this.sort * (-1);
+    this.loadPage();
   }
 });
 

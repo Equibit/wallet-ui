@@ -18,6 +18,9 @@ import DefineMap from 'can-define/map/map';
 import './biggest-movers-grid.less';
 import view from './biggest-movers-grid.stache';
 
+// TODO: turn OFF the FIXTURES
+import '~/models/fixtures/biggest-movers';
+
 export const ViewModel = DefineMap.extend({
   model: {
     type: '*'
@@ -41,8 +44,9 @@ export const ViewModel = DefineMap.extend({
       if (this.model) {
         console.log('quering: ' + this.sort + ' ' + typeof this.sort);
         this.rowsPromise = this.model.getList({
-          $sort: { change: this.sort }
-          // $limit: 3
+          $sort: { change: this.sort },
+          $limit: 5,
+          $skip: 0
         }).then(resolve);
       }
     }
