@@ -23,21 +23,21 @@ export const ViewModel = DefineMap.extend({
   dataPromise: {
     get () {
       return MarketCap.getList({}).then(a => {
-        return a.barChart
+        return a.barChart;
       });
     }
   },
   dataColumns: {
     get (lastVal, resolve) {
       this.dataPromise.then(a => {
-        resolve(a.values)
+        resolve(a.values);
       });
     }
   },
   labels: {
     get (lastVal, resolve) {
       this.dataPromise.then(a => {
-        resolve(a.labels)
+        resolve(a.labels);
       });
     }
   }

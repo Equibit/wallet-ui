@@ -1,5 +1,5 @@
 <can-import from="bit-c3" />
-<bit-c3 {axis}="axis">
+<bit-c3 {config}="config">
   <bit-c3-data {type}="type">
     {{#each dataColumns}}
       <bit-c3-data-column value="{.}" {axis-x}="axisXData" />

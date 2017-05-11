@@ -6,7 +6,6 @@ import assert from 'chai/chai';
 import 'steal-mocha';
 import MarketCap from './market-cap';
 
-
 describe('models/market-cap', function () {
   it('should project list for barchart data', function () {
     let m = new MarketCap.List([

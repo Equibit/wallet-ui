@@ -40,15 +40,14 @@ const MarketCap = DefineMap.extend('MarketCap', {
 MarketCap.List = DefineList.extend('MarketCapList', {
   '#': MarketCap,
   get barChart () {
-    console.log
-    if (!this.length){
-      return
+    if (!this.length) {
+      return;
     }
     return [].reduce.call(this, (acc, el) => {
       acc.labels.push(el.companyName);
       acc.values[0].push(el.price);
       return acc;
-    }, {labels: new DefineList(['x']), values: new DefineList([ new DefineList(['MarketCap'])])})
+    }, {labels: new DefineList(['x']), values: new DefineList([new DefineList(['MarketCap'])])});
   }
 });
 
