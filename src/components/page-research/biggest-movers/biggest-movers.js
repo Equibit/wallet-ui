@@ -17,27 +17,8 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './biggest-movers.less';
 import view from './biggest-movers.stache';
-import BiggestMovers from '~/models/biggest-movers';
-
-// FIXTURES ON:
-import '~/models/fixtures/biggest-movers';
 
 export const ViewModel = DefineMap.extend({
-  rowsTopPromise: {
-    type: '*'
-  },
-  rowsTop: {
-    get (val, resolve) {
-      if (val) {
-        return val;
-      }
-      this.rowsTopPromise = BiggestMovers.getList().then(resolve);
-      return val;
-    }
-  },
-  rowsBottom: {
-    value: []
-  }
 });
 
 export default Component.extend({

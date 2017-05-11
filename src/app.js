@@ -52,6 +52,9 @@ const AppViewModel = DefineMap.extend({
   issuanceId: {
     serialize: true
   },
+  sort: {
+    serialize: true
+  },
 
   /**
    * @property {wallet-ui/app.session} wallet-ui/app.session session
@@ -87,6 +90,7 @@ const AppViewModel = DefineMap.extend({
   }
 });
 
+route('issuances/sort/{sort}', {page: 'issuances'});
 route('issuances/{companySlug}/{issuanceId}', {page: 'issuance-details'});
 route('{page}', {page: 'home'});
 
