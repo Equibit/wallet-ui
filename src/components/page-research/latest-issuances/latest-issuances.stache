@@ -21,7 +21,7 @@
               </tr>
             </thead>
             <tbody>
-            {{#each rows as row}}
+              {{#each rows as row}}
               <tr>
                 <td class="column-company">
                   <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
@@ -31,7 +31,12 @@
                 <td class="column-issuance-type">{{row.issuanceType}}</td>
                 <td class="column-restriction">{{row.restriction}}</td>
               </tr>
-            {{/each}}
+              {{/each}}
+              <tr>
+                <td colspan="5">
+                  <a href="{{routeUrl page='issuances'}}" class="btn btn-default btn-xs">VIEW ALL</a>
+                </td>
+              </tr>
             </tbody>
           </table>
         </grid-component>
