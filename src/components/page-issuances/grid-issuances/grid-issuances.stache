@@ -8,7 +8,7 @@
                 {pagination}="pagination"
                 (onpage)=loadPage()>
 
-  <table class="table table-condensed">
+  <table class="table grid-header">
     <thead>
       <tr>
         <th class="column-company sort">Company</th>
@@ -21,46 +21,49 @@
         <th class="column-change-percentage sort">Change (%)</th>
       </tr>
     </thead>
-    <tbody>
-    {{#each rows as row}}
-      <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
-        <td class="column-company">
-          <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
-        </td>
-        <td class="column-domicile">{{row.domicile}}</td>
-        <td class="column-issuance">{{row.issuanceName}}</td>
-        <td class="column-issuance-type">{{row.issuanceType}}</td>
-        <td class="column-restriction">{{row.restriction}}</td>
-        <td class="column-market-cap">{{row.marketCap}}</td>
-        <td class="column-change-price"><arrow-change {change}="row.change" class="no-arrow" /></td>
-        <td class="column-change-percentage">{{row.changePercentage}}</td>
-      </tr>
-    {{/each}}
-    </tbody>
-    <tfoot>
-      <tr>
-        <td>
-          {{#if hasPages}}
-            <div class="btn-group pagination" role="group" aria-label="pagination">
-              {{#if isPrevActive}}
-                <button type="button" class="btn btn-default btn-sm" ($click)="prev()" >&laquo;</button>
-              {{/if}}
-
-              {{#each pages}}
-                <button type="button" class="btn btn-default btn-sm {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
-              {{/each}}
-
-              {{#if isNextActive}}
-                <button type="button" class="btn btn-default btn-sm" ($click)="next()" >&raquo;</button>
-              {{/if}}
-
-            </div>
-          {{/if}}
-        </td>
-        <td class="grid-results-container">
-          <div class="grid-results">Showing {{rows.length}} of {{pagination.total}} Results</div>
-        </td>
-      </tr>
-    </tfoot>
   </table>
+
+  <div class="grid-body-scroll thin-scrollbar">
+    <table class="table grid-body">
+      <tbody>
+      {{#each rows as row}}
+        <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
+          <td class="column-company">
+            <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
+          </td>
+          <td class="column-domicile">{{row.domicile}}</td>
+          <td class="column-issuance">{{row.issuanceName}}</td>
+          <td class="column-issuance-type">{{row.issuanceType}}</td>
+          <td class="column-restriction">{{row.restriction}}</td>
+          <td class="column-market-cap"><div class="truncate">{{row.marketCap}}</div></td>
+          <td class="column-change-price"><arrow-change {change}="row.change" class="no-arrow" /></td>
+          <td class="column-change-percentage">{{row.changePercentage}}</td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-footer">
+    {{#if hasPages}}
+      <div class="btn-group pagination" role="group" aria-label="pagination">
+        {{#if isPrevActive}}
+          <button type="button" class="btn btn-default btn-xs" ($click)="prev()" >&laquo;</button>
+        {{/if}}
+
+        {{#each pages}}
+          <button type="button" class="btn btn-default btn-xs {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
+        {{/each}}
+
+        {{#if isNextActive}}
+          <button type="button" class="btn btn-default btn-xs" ($click)="next()" >&raquo;</button>
+        {{/if}}
+
+      </div>
+    {{/if}}
+
+    <div class="grid-results">Showing {{rows.length}} of {{pagination.total}} Results</div>
+
+  </div>
+
 </grid-component>

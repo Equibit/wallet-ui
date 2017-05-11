@@ -1,6 +1,25 @@
-@page-margin: 0.5em;
+@import '_variables';
+@import '../bootstrap-custom/_variables';
+
 
 .page-layout {
   padding-left: @page-margin;
   padding-right: @page-margin;
+}
+
+
+.thin-scrollbar {
+  &::-webkit-scrollbar {
+    width: @scrollbar-width;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: @gray-lighter;
+    background-clip: padding-box;
+    border: 11px solid rgba(0, 0, 0, 0);
+    height: 90px;
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: none;
+    border-radius: 10px;
+  }
 }
