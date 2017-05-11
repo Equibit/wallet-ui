@@ -13,11 +13,15 @@ export default {
   passwordResetMsg: 'Your password was changed successfully',
 
   // Pages:
+
   // - Research
+
   marketSummary: 'Market Summary',
   last24hours: 'Last 24 hours',
   newIssuances: 'New Issuances',
   volume: 'Volume',
   trades: 'Trades',
-  shareVolume: 'Share Volume'
+  shareVolume: 'Share Volume',
+
+  marketCapitalization: 'Market Capitalization'
 };
