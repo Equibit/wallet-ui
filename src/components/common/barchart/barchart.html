@@ -3,7 +3,7 @@
 <script type="text/stache" can-autorender id="demo-html">
 <can-import from="~/styles/styles.less" />
 <can-import from="wallet-ui/components/common/barchart/" />
-<bar-chart {type}="type" {data-columns}="dataColumns"></bar-chart>
+<bar-chart {type}="type" {data-columns}="dataColumns" {axis-x}="axisX"></bar-chart>
 </script>
 
 <script src="../../../../node_modules/steal/steal.js"
@@ -15,9 +15,11 @@
   let data2 = new DefineList(['data2', 130, 100, 140, 200, 150, 50]);
   let type = 'bar';
   let vm = canViewModel(document.getElementById('demo-html'));
+  let axisX = new DefineList(['x','cat 1','cat 2','cat 3', 'cat 4', 'cat 5', 'cat 6']);
 
   vm.set({
     dataColumns: new DefineList([data1, data2]),
-    type: type
+    type: type,
+    axisX
   });
 </script>

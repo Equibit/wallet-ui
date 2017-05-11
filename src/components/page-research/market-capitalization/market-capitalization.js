@@ -17,10 +17,29 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './market-capitalization.less';
 import view from './market-capitalization.stache';
+import MarketCap from '~/models/market-cap';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the market-capitalization component'
+  dataPromise: {
+    get () {
+      return MarketCap.getList({}).then(a => {
+        return a.barChart
+      });
+    }
+  },
+  dataColumns: {
+    get (lastVal, resolve) {
+      this.dataPromise.then(a => {
+        resolve(a.values)
+      });
+    }
+  },
+  labels: {
+    get (lastVal, resolve) {
+      this.dataPromise.then(a => {
+        resolve(a.labels)
+      });
+    }
   }
 });
 

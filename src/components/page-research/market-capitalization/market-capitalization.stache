@@ -1,4 +1,6 @@
 <can-import from="~/components/common/panel/" />
+<can-import from="wallet-ui/components/common/barchart/" />
+<can-import from="~/utils/stache-helpers/" />
 
 <drag-panel class="panel panel-default card card-half">
   <div class="panel-heading">
@@ -7,7 +9,11 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12">
-        Chart here...
+        {{#if dataPromise.isPending}}
+          <i>Loading...</i>
+        {{else}}
+          <bar-chart type="bar" {data-columns}="dataColumns" {axis-x-data}="labels"></bar-chart>
+        {{/if}}
       </div>
     </div>
   </div>

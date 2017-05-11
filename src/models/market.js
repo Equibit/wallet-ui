@@ -1,3 +1,12 @@
+/**
+ * @module {can-map} models/market Market
+ * @parent models.auth
+ *
+ * Market Summary for last 24 hours
+ *
+ * @group models/market.properties 0 properties
+ */
+
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/list';
 import feathersClient from '~/models/feathers-client';
@@ -9,9 +18,29 @@ import '~/models/fixtures/market';
 
 const Market = DefineMap.extend('Market', {
   _id: 'string',
+  /**
+   * @property {Number} models/market.properties.newIssuances newIssuances
+   * @parent models/market.properties
+   * Number of new issuances
+   */
   newIssuances: 'number',
+  /**
+   * @property {Number} models/market.properties.volume volume
+   * @parent models/market.properties
+   * Volume in BTC
+   */
   volume: 'number',
+  /**
+   * @property {Number} models/market.properties.tradesNum tradesNum
+   * @parent models/market.properties
+   * Number of trades
+   */
   tradesNum: 'number',
+  /**
+   * @property {Number} models/market.properties.shareVolume shareVolume
+   * @parent models/market.properties
+   * Volume of shares in EQB
+   */
   shareVolume: 'number'
 });
 

@@ -24,6 +24,31 @@ export const ViewModel = DefineMap.extend({
   },
   type: {
     type: 'string'
+  },
+  axis: {
+    type: '*',
+    value: {
+      x: {
+        type: 'category',
+        tick: {
+          rotate: -25,
+          multiline: false
+        },
+        height: 30,
+        padding: {
+          left: 0.5
+        }
+      },
+      y: {
+        label: {
+          text: 'Price (BTC)',
+          position: 'inner-top'
+        }
+      }
+    }
+  },
+  axisXData: {
+    type: '*'
   }
 });
 
