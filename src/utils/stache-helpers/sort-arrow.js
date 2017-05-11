@@ -6,12 +6,11 @@ let isAsc = function (value) {
 };
 
 stache.registerHelper('sort-arrow', function (value) {
-  if (typeof value === 'undefined'){
+  if (typeof value === 'undefined') {
     return '<span class="arrow no-dir">△▽</span>';
   }
   let asc = isAsc(value);
-  let arrow = asc  ? '△' : '▽';
+  let arrow = asc ? '△' : '▽';
   let className = asc ? 'asc' : 'desc';
   return `<span class="arrow arrow-${className}">${arrow}</span>`;
 });
-

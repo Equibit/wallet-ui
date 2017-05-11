@@ -34,8 +34,8 @@ export const ViewModel = DefineMap.extend({
   queryParams: {
     get () {
       let params = this.pagination.params;
-      if (typeof this.sort !== 'undefined'){
-        params["$sort"] = {
+      if (typeof this.sort !== 'undefined') {
+        params['$sort'] = {
           change: this.sort
         };
       }
