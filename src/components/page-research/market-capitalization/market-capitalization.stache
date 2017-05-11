@@ -12,7 +12,7 @@
         {{#if dataPromise.isPending}}
           <i>Loading...</i>
         {{else}}
-          <bar-chart type="bar" {data-columns}="dataColumns" {axis-x-data}="labels"></bar-chart>
+          <bar-chart type="bar" {data-columns}="dataColumns" {axis-x}="labels"></bar-chart>
         {{/if}}
       </div>
     </div>

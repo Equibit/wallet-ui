@@ -2,7 +2,7 @@
 <bit-c3 {config}="config">
   <bit-c3-data {type}="type">
     {{#each dataColumns}}
-      <bit-c3-data-column value="{.}" {axis-x}="axisXData" />
+      <bit-c3-data-column value="{.}" {axis-x}="axisX" />
     {{/each}}
   </bit-c3-data>
 </bit-c3>
