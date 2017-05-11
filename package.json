@@ -45,6 +45,9 @@
   "semistandard": {
     "env": [
       "mocha"
+    ],
+    "ignore": [
+      "dev-bundle.js"
     ]
   },
   "steal": {
