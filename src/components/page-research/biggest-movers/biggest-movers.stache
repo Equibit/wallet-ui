@@ -7,11 +7,11 @@
   </div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-xs-6">
+      <div class="col-sm-6 col-xs-12">
         <biggest-movers-grid {model}="*BiggestMovers" sort="-1"/>
         <a href="{{routeUrl page='issuances' sort='asc'}}" class="btn btn-default btn-xs">VIEW ALL</a>
       </div>
-      <div class="col-xs-6">
+      <div class="col-sm-6 col-xs-12">
         <biggest-movers-grid {model}="*BiggestMovers" sort="1"/>
         <a href="{{routeUrl page='issuances' sort='desc'}}" class="btn btn-default btn-xs">VIEW ALL</a>
       </div>

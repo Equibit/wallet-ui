@@ -2,21 +2,36 @@ biggest-movers-grid {
   display: block;
 
   grid-component {
-    table.table {
-
-      // Customize column width:
-      th, td {
-        flex-basis: 5%;
-        &.column-change {
-          flex-basis: 10%;
-        }
-      }
-
+    .table {
       tr:nth-child(1) {
         td {
           border-top: none;
         }
       }
+    }
+    .column-company {
+    }
+    .truncate {
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+
+      .truncated-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .column-change {
+      width: 95px;
+    }
+    .column-changepercent {
+      width: 68px;
+    }
+    .column-change,
+    .column-changepercent {
+      text-align: right;
     }
   }
 }
