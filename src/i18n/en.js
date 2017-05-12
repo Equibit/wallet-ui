@@ -23,5 +23,9 @@ export default {
   trades: 'Trades',
   shareVolume: 'Share Volume',
 
-  marketCapitalization: 'Market Capitalization'
+  marketCapitalization: 'Market Capitalization',
+
+  // Common:
+  yes: 'YES',
+  no: 'NO'
 };
