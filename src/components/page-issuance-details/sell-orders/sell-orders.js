@@ -30,7 +30,7 @@ export const ViewModel = DefineMap.extend({
         $limit: this.limit,
         $skip: 0
       } : {};
-      return SellOrder.getList(params)
+      return SellOrder.getList(params);
     }
   },
   rows: {

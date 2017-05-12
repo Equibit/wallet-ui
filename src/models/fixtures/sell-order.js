@@ -7,7 +7,7 @@ let store = fixture.store(_.times(50, (i) => {
     _id: i,
     quantity: 100 * i,
     price: 70 * i,
-    date: [(new Date).toJSON(), '2017-04-12T04:35:34.835Z', '2017-03-05T08:45:34.835Z'][i%3],
+    date: [(new Date()).toJSON(), '2017-04-12T04:35:34.835Z', '2017-03-05T08:45:34.835Z'][i % 3],
     partial: [true, false][i % 2]
   };
 }), SellOrder.algebra);

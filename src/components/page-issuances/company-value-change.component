@@ -31,7 +31,7 @@
     <can-import from="~/components/common/arrow-change.component" />
 
     <span class="total">
-      {{issuance.marketCap}}
+      {{format(issuance.marketCap, '')}}
       <span class="currency">({{currency}})</span>
     </span>
     <arrow-change class="change" {change}="issuance.change">

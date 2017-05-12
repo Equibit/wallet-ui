@@ -1,5 +1,10 @@
 <script type="text/stache" can-autorender>
-  <can-import from="wallet-ui/components/page-issuance-details/order-book/" />
+  <can-import from="~/styles/styles.less" />
+  <can-import from="~/components/page-issuance-details/order-book/" />
+  <can-import from="bootstrap-canjs" />
+  <can-import from="bootstrap-canjs/modal/modal.less" />
+
+  <bootstrap-modal></bootstrap-modal>
   <order-book></order-book>
 </script>
 <script src="../../../../node_modules/steal/steal.js"
