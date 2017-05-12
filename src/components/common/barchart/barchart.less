@@ -1,3 +1,15 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
 bar-chart {
 	display: block;
+
+  .c3 .c3-axis {
+    path, line {
+      stroke: @gray-lighter;
+    }
+    text {
+      font-family: @font-family-base;
+      fill: @gray;
+    }
+  }
 }
