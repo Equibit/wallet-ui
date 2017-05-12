@@ -1,4 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/terms-and-conditions.component" />
+<can-import from="~/components/common/privacy-policy.component" />
 
 <form class="form-signin" ($submit)="handleSignup(%event, email)" novalidate>
   <h2 class="form-signin-heading">{{i18n('createAccount')}}</h2>
@@ -20,8 +22,8 @@
       <div class="checkbox">
         <label>
           <input type="checkbox" {($checked)}="agreedToTerms">
-          I agree to the <a href="{{routeUrl page='terms'}}">Terms & Conditions</a>
-          and <a href="{{routeUrl page='privacy'}}">Privacy Policy</a>.
+          I agree to the <a ($click)="showTerms('termsVisible')">Terms & Conditions</a>
+          and <a ($click)="showTerms('policyVisible')">Privacy Policy</a>.
         </label>
       </div>
       <validation-message {message}="termsError" />
@@ -43,3 +45,10 @@
 
   {{/if}}
 </form>
+
+{{#if termsVisible}}
+  <terms-and-conditions />
+{{/if}}
+{{#if policyVisible}}
+  <privacy-policy />
+{{/if}}

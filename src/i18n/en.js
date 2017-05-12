@@ -13,9 +13,7 @@ export default {
   passwordResetMsg: 'Your password was changed successfully',
 
   // Pages:
-
   // - Research
-
   marketSummary: 'Market Summary',
   last24hours: 'Last 24 hours',
   newIssuances: 'New Issuances',
@@ -24,6 +22,10 @@ export default {
   shareVolume: 'Share Volume',
 
   marketCapitalization: 'Market Capitalization',
+
+  // - Terms and conditions:
+  termsAndConditions: 'EDC Terms of Use',
+  privacyPolicy: 'EDC Privacy Policy',
 
   // Common:
   yes: 'YES',
