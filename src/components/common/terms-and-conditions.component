@@ -1,0 +1,93 @@
+<can-component tag="terms-and-conditions">
+  <style type="less">
+    display: block;
+  </style>
+  <view>
+    <can-import from="~/utils/stache-helpers/" />
+    <can-import from="~/components/common/terms.less" />
+
+    <bootstrap-modal-content class="terms-and-conditions">
+      <div class="modal-header">
+        <button ($click)="close()" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">
+          <small>Terms</small><br>
+          {{i18n('termsAndConditions')}}
+        </h4>
+      </div>
+      <div class="modal-body">
+        <p>The following are terms of a legal agreement between you and EDC. By accessing, browsing and/or using this
+          web site, you acknowledge that you have read, understood, and agree, to be bound by these terms and to comply
+          with all applicable laws and regulations, including export and re-export control laws and regulations.&nbsp;EDC&nbsp;is
+          governed by the laws of the Province of Ontario in&nbsp;Canada. If you do not agree to these terms, do not use
+          this web site.</p>
+        <p>This Web site may contain other proprietary notices and copyright information, the terms of which must be
+          observed and followed. Information on this Web site may contain technical inaccuracies or typographical
+          errors.</p>
+        <p>Information may be changed or updated without notice.&nbsp;EDC&nbsp;may also make improvements and/or changes
+          in the products and/or the&nbsp;programs described in this information at any time without notice.</p>
+        <p><span style="line-height: 1.42857;">EDC&nbsp;</span>assumes no responsibility regarding the accuracy of the
+          information that is provided by&nbsp;EDC&nbsp;and use of such information is at the&nbsp;recipient's own risk.&nbsp;EDC&nbsp;provides
+          no assurances that any reported problems may be resolved with the use of any information&nbsp;that&nbsp;EDC&nbsp;provides.
+          By furnishing information,&nbsp;EDC&nbsp;does not grant any licenses to any copyrights, patents or any&nbsp;other&nbsp;intellectual
+          property rights.</p>
+        <p><span style="line-height: 1.42857;">EDC&nbsp;</span>does not want to receive confidential or proprietary
+          information from you through our Web site. Please note that any information or material sent to&nbsp;EDC&nbsp;will
+          be deemed NOT to be confidential. By sending&nbsp;EDC&nbsp;any information or material, you grant&nbsp;EDC&nbsp;an
+          unrestricted, irrevocable license to use, reproduce, display, perform, modify, transmit and distribute those
+          materials or&nbsp;information, and you also agree that&nbsp;EDC&nbsp;is free to use any ideas, concepts,
+          know-how or techniques that you send us for any&nbsp;purpose.</p>
+        <div class="h3">Global Availability</div>
+        <p>Information&nbsp;EDC&nbsp;publishes on the World Wide Web may contain references or cross references to&nbsp;EDC&nbsp;products,
+          programs and&nbsp;services that are not announced or available in your country. Such references do not imply
+          that&nbsp;EDC&nbsp;intends to announce such&nbsp;products, programs or services in your country. Consult your
+          local&nbsp;EDC&nbsp;business contact for information regarding the products,&nbsp;programs and services which
+          may be available to you.</p>
+        <p><span style="line-height: 1.42857;">EDC's&nbsp;</span>obligations with respect to its products and services
+          are governed solely by the agreements under which they are provided. If you obtain a product or service from&nbsp;EDC&nbsp;off
+          this web site that is provided without an agreement, that product or service is provided&nbsp;"AS-IS" with no
+          warranties whatsoever, express or implied, and your use of that product or service is at your own risk.</p>
+        <div class="h3">Business Relationships</div>
+        <p><span style="line-height: 1.42857;">EDC&nbsp;</span>makes no representations whatsoever about any other Web
+          site which you may access through this one. When you access a non-EDC&nbsp;Web site, even one that may contain
+          the&nbsp;EDC&nbsp;logo, please understand that it is independent from&nbsp;EDC, and that&nbsp;EDC&nbsp;has&nbsp;no&nbsp;control
+          over the content on that Web site. In addition, a link to a non-EDC&nbsp;Web site does not mean that&nbsp;EDC&nbsp;endorses&nbsp;or
+          accepts any responsibility for the content, or the use, of such Web site. It is up to you to take precautions
+          to ensure that whatever you select for your use is free of such items as viruses, worms, trojan horses and
+          other items of a destructive nature.</p>
+        <p>IN NO EVENT WILL&nbsp;EDC&nbsp;BE LIABLE TO ANY PARTY FOR ANY DIRECT, INDIRECT, SPECIAL OR OTHER
+          CONSEQUENTIAL&nbsp;DAMAGES FOR ANY USE OF THIS WEB SITE, OR ON ANY OTHER HYPER LINKED WEB SITE, INCLUDING,
+          WITHOUT LIMITATION, ANY LOST PROFITS, BUSINESS INTERRUPTION, LOSS OF PROGRAMS OR OTHER DATA ON YOUR
+          INFORMATION HANDLING SYSTEM OR OTHERWISE, EVEN IF WE ARE EXPRESSLY ADVISED OF THE POSSIBILITY OF SUCH
+          DAMAGES.</p>
+        <p>ALL INFORMATION IS PROVIDED BY&nbsp;EDC&nbsp;ON AN "AS IS" BASIS ONLY.&nbsp;EDC&nbsp;PROVIDES NO
+          REPRESENTATIONS&nbsp;AND&nbsp;WARRANTIES, EXPRESS OR IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF FITNESS FOR
+          A PARTICULAR PURPOSE, MERCHANTABILITY AND NONINFRINGEMENT.</p>
+        <p>EDC may at any time revise these terms by updating this posting. By using this web site, you agree to be
+          bound by any such revisions and should therefore periodically visit this page to determine the then current
+          terms to which you are bound.</p>
+        <div class="h3">Copyright Notice</div>
+        <p>No portion of this service may be reproduced in any form, or by any means, without prior written permission
+          from&nbsp;EDC. The logos and&nbsp;content displayed on as part of the Website are the property of&nbsp;EDC&nbsp;or
+          other third parties. Users are not permitted to use these&nbsp;copyrighted works without our prior written
+          consent or the consent of such third party which may own the content. Unless otherwise specified in these
+          Terms, all information and screens appearing on the Website, including documents, services, site design, text,
+          graphics, logos, images and icons, as well as the arrangement thereof, are the sole property of&nbsp;EDC.
+          Copyright © 2015. All&nbsp;rights reserved. All rights not expressly granted herein are reserved. Except as
+          otherwise required or limited by applicable law, any reproduction, distribution, modification, retransmission,
+          or publication of any copyrighted material is strictly prohibited without the express written consent of the
+          copyright owner or authorized licensor.</p>
+        <div class="h3">Contact Us</div>
+        <a href="mailto:info@equibit.org">info@equibit.org</a>
+        <p>This page, the entire&nbsp;EDC&nbsp;site, images / documents are Copyright © 2015 by Equibit Development
+          Corporation. All Rights Reserved.</p>
+        <p>- Revised: Wednesday, July 1, 2015</p>
+      </div>
+    </bootstrap-modal-content>
+  </view>
+  <script type="view-model">
+    import DefineMap from 'can-define/map/';
+
+    export default DefineMap.extend({
+    });
+  </script>
+</can-component>

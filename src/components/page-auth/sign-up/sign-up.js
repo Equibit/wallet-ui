@@ -38,6 +38,8 @@ export const ViewModel = DefineMap.extend({
     }
   },
   isAccountCreated: 'boolean',
+  termsVisible: 'boolean',
+  policyVisible: 'boolean',
 
   // Error validation:
   signupError: 'boolean',
@@ -68,6 +70,10 @@ export const ViewModel = DefineMap.extend({
   },
   clearAccountCreated () {
     this.isAccountCreated = false;
+  },
+  showTerms (popupFlag) {
+    this[popupFlag] = false;
+    this[popupFlag] = true;
   }
 });
 
