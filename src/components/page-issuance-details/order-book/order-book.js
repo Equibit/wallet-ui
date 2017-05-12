@@ -19,8 +19,14 @@ import './order-book.less';
 import view from './order-book.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the order-book component'
+  issuance: {
+    type: '*'
+  },
+  isModalShown: 'boolean',
+  showModal () {
+    // Note: we need to re-insert the modal content:
+    this.isModalShown = false;
+    this.isModalShown = true;
   }
 });
 

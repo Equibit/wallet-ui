@@ -7,11 +7,59 @@
   <div class="row">
     <div class="col-md-6">
       <div class="title">SELL ORDERS</div>
-      <sell-orders />
+
+      <sell-orders limit="10" />
+
+      <div>
+        <button class="btn btn-primary btn-xs">+ ADD SELL ORDER</button>
+        <button class="btn btn-link btn-xs" ($click)="showModal()">VIEW ALL</button>
+      </div>
     </div>
     <div class="col-md-6">
       <div class="title">BUY ORDERS</div>
-      <buy-orders />
+
+      <buy-orders limit="10" />
+
+      <div>
+        <button class="btn btn-primary btn-xs">+ ADD BUY ORDER</button>
+        <button class="btn btn-link btn-xs" ($click)="showModal()">VIEW ALL</button>
+      </div>
     </div>
   </div>
 </div>
+
+{{#if isModalShown}}
+  <bootstrap-modal-content class="issuance-passports">
+    <div class="modal-header">
+      <button ($click)="close()" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">
+        Order Book <br>
+        <small>{{issuance.companyName}}, {{issuance.domicile}}</small>
+      </h4>
+    </div>
+    <div class="modal-body">
+      <div class="well">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="title">SELL ORDERS</div>
+
+            <sell-orders limit="13"/>
+
+            <div>
+              <button class="btn btn-primary btn-xs">+ ADD SELL ORDER</button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="title">BUY ORDERS</div>
+
+            <buy-orders limit="13" />
+
+            <div>
+              <button class="btn btn-primary btn-xs">+ ADD BUY ORDER</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </bootstrap-modal-content>
+{{/if}}
