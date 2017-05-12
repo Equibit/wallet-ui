@@ -4,8 +4,6 @@
 @row-selected-bg: fade(@brand-primary, 10%);
 @row-selected-border: 3px solid @brand-primary;
 
-
-
 grid-component {
   display: flex;
   width: 100%;
@@ -80,4 +78,10 @@ grid-component {
     }
   }
 
+  // Customize some common columns:
+  .column-domicile {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
