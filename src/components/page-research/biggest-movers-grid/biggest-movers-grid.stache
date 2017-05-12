@@ -13,12 +13,18 @@
     <tbody>
     {{#each rows as row}}
       <tr class="">
-        <td class="column-company">{{row.companyName}}</td>
+        <td class="column-company">
+          <div class="truncate">
+            <div class="truncated-text">{{row.companyName}}</div>
+          </div>
+        </td>
         <td class="column-change">
-          <arrow-change class="change" {change}="row.change">μBTC</arrow-change>
+          <arrow-change class="change" {change}="row.change">
+          <small>μBTC</small>
+          </arrow-change>
         </td>
         <td class="column-changepercent">
-          <arrow-change class="change" {change}="row.changePercent">%</arrow-change>
+          <arrow-change class="no-arrow" {change}="row.changePercent">%</arrow-change>
         </td>
       </tr>
     {{/each}}

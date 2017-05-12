@@ -1,6 +1,39 @@
-@page-margin: 0.5em;
+@import '_variables';
+@import '../bootstrap-custom/_variables';
+
 
 .page-layout {
   padding-left: @page-margin;
   padding-right: @page-margin;
+}
+
+
+.thin-scrollbar {
+  &::-webkit-scrollbar {
+    width: @scrollbar-width;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: @gray-lighter;
+    background-clip: padding-box;
+    border: solid rgba(0, 0, 0, 0);
+    height: 90px;
+    border-top-width: 7px;
+    border-right-width: 9px;
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: none;
+    border-radius: 10px;
+  }
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.no-padding-right {
+  padding-right: 0 !important;
+}
+
+.no-padding-left {
+  padding-left: 0 !important;
 }

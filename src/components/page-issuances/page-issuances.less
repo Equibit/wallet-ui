@@ -1,20 +1,19 @@
 @import '../../styles/bootstrap-custom/_variables.less';
+@import '../../styles/custom/_variables.less';
 @import '../../styles/custom/_mixins.less';
 
-@break-point-columns: 1144px;
-@break-point-max-screen: 1440px;
+@table-height: 80vh;
 
 page-issuances {
 	display: block;
   .page-layout;
 
-  @media (min-width: 1145px) and (max-width: @break-point-max-screen) {
-    .col-md-3 {
-      flex-basis: auto;
-      max-width: 300px;
+  grid-component {
+    height: @table-height;
+    .grid-responsive {
+      height: @table-height;
     }
   }
-
   @media (min-width: @screen-md) and (max-width: @break-point-columns) {
     .col-md-3 {
       flex-basis: 100%;
@@ -36,18 +35,15 @@ page-issuances {
       display: initial;
 
       grid-component {
-        display: initial;
-
-        .table {
-          height: 360px;
-        }
+        height: 345px;
+        margin-bottom: @padding-large-vertical*2;
       }
     }
 
     .card-row-full {
       .well {
         flex: initial;
-        margin-bottom: 20px;
+        margin-bottom: @padding-large-vertical*2;
       }
     }
   }
@@ -60,6 +56,14 @@ page-issuances {
       .pagination {
         margin-bottom: 0;
       }
+    }
+  }
+  @media (max-width: 963px) {
+    grid-component .grid-responsive {
+      width: 891px;
+    }
+    grid-component {
+      overflow-x: auto;
     }
   }
 

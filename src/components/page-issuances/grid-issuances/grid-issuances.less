@@ -1,66 +1,33 @@
 @import '../../../styles/bootstrap-custom/_variables';
 
 grid-issuances {
-	display: flex;
-  width: 100%;
-  flex: 1;
-  flex-direction: column;
+  .column-domicile {
+    width: 100px;
+  }
+  .column-issuance {
+    width: 120px;
+  }
+  .column-issuance-type {
+    width: 120px;
+  }
+  .column-restriction {
+    width: 80px;
+  }
+  .column-market-cap {
+    width: 150px;
+  }
+  .column-change-price {
+    width: 150px;
+  }
+  .column-change-percentage {
+    width: 90px;
+  }
 
-  grid-component {
-
-    table.table {
-      tbody {
-      }
-      // Customize column width:
-      th, td {
-        flex-basis: 4%;
-        &.column-change-percentage {
-          flex-basis: 3%;
-        }
-        &.column-change-price {
-          flex-basis: 6%;
-        }
-        &.column-market-cap {
-          flex-basis: 8%;
-        }
-        &.column-restriction {
-          flex-basis: 2%;
-        }
-        &.column-domicile {
-           flex-basis: 2%;
-        }
-
-        &:nth-child(1){
-          flex-grow: 2;
-        }
-      }
-      > tfoot > tr > td {
-        border: none;
-
-        &.grid-results-container {
-          text-align: right;
-          vertical-align: middle;
-        }
-      }
-    }
-
-    .grid-results {
-      color: @gray;
-      font-size: @font-size-xsmall;
-    }
-    .pagination {
-      &.btn-group > .btn {
-        min-width: 33px;
-      }
-    }
-
-    .column-market-cap,
-    .column-change-price,
-    .column-change-percentage,
-    .column-restriction {
-      text-align: right;
-    }
-
+  .column-market-cap,
+  .column-change-price,
+  .column-change-percentage,
+  .column-restriction {
+    text-align: right;
   }
 
 }

@@ -1,7 +1,9 @@
 @import '../../../styles/bootstrap-custom/_variables.less';
+@import '../../../styles/custom/_variables';
 
 @row-selected-bg: fade(@brand-primary, 10%);
 @row-selected-border: 3px solid @brand-primary;
+
 
 
 grid-component {
@@ -9,58 +11,65 @@ grid-component {
   width: 100%;
   flex-direction: column;
   flex: 1;
-  table {
+
+  .grid-responsive {
     display: flex;
-    flex-direction: column;
     width: 100%;
-    flex: 1;
-  }
-  tr {
-    display: flex;
-
-    &.selected {
-      background-color: @row-selected-bg;
-      td:nth-child(1){
-        border-left: @row-selected-border;
-      }
-    }
+    flex-direction: column;
   }
 
-  th, td {
-    flex-grow: 1;
-    flex-basis: 5%;
-  }
-
-  thead {
-    background-color: @white;
-    vertical-align: bottom;
-  }
-
-  tbody {
-    overflow-y: scroll;
-    td {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      cursor: pointer;
-    }
-  }
-
+  // Bootstrap Overwrites
   .table {
     margin-bottom: 0;
+  }
 
-    tfoot {
-      //display: -webkit-box;
-      tr {
-        display: table;
-        width: 100%;
+  // Custom Styles
+
+  .grid-header {
+    text-align: left;
+    width: calc(~"100% - "@scrollbar-width);
+  }
+
+  .grid-body-scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-grow: 1;
+  }
+  .grid-body {
+    td {
+      .truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-      td {
-        padding-top: 20px;
-        vertical-align: middle;
+      cursor: pointer;
+    }
+    tr {
+      &.selected {
+        background-color: @row-selected-bg;
+        td:nth-child(1){
+          border-left: @row-selected-border;
+        }
       }
     }
+  }
 
+  .grid-footer {
+    width: 100%;
+    padding: 16px 0px;
+
+    .pagination {
+      margin: 0;
+      &.btn-group > .btn {
+        min-width: 33px;
+      }
+    }
+    .grid-results {
+      float: right;
+      margin-top: 4px;
+      color: @gray;
+      font-size: @font-size-xsmall;
+    }
   }
 
   th.sort {
