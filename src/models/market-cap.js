@@ -31,7 +31,7 @@ const MarketCap = DefineMap.extend('MarketCap', {
   companyName: 'string',
   get companyNameDisplay () {
     return this.companyName.length > 15 ? this.companyName.substr(0, 12) + '...' : this.companyName;
-  } ,
+  },
   /**
    * @property {Number} models/marketCap.properties.price price
    * @parent models/marketCap.properties
