@@ -18,7 +18,7 @@
                   <th class="column-domicile">Domicile</th>
                   <th class="column-issuance">Issuance</th>
                   <th class="column-issuance-type">Issuance Type</th>
-                  <th class="column-restriction">Restriction</th>
+                  <!--<th class="column-restriction">Restriction</th>-->
                 </tr>
               </thead>
             </table>
@@ -34,7 +34,7 @@
                     <td class="column-domicile">{{row.domicile}}</td>
                     <td class="column-issuance">{{row.issuanceName}}</td>
                     <td class="column-issuance-type">{{row.issuanceType}}</td>
-                    <td class="column-restriction">{{row.restriction}}</td>
+                    <!--<td class="column-restriction">{{row.restriction}}</td>-->
                   </tr>
                   {{/each}}
                 </tbody>
