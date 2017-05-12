@@ -10,13 +10,13 @@
       <div class="col-sm-6 col-xs-12">
         <biggest-movers-grid {model}="*BiggestMovers" sort="-1"/>
         <div>
-          <a href="{{routeUrl page='issuances' sort='asc'}}" class="btn btn-default">VIEW ALL</a>
+          <a href="{{routeUrl page='issuances' sort='desc'}}" class="btn btn-default">VIEW ALL</a>
         </div>
       </div>
       <div class="col-sm-6 col-xs-12">
         <biggest-movers-grid {model}="*BiggestMovers" sort="1"/>
         <div>
-          <a href="{{routeUrl page='issuances' sort='desc'}}" class="btn btn-default">VIEW ALL</a>
+          <a href="{{routeUrl page='issuances' sort='asc'}}" class="btn btn-default">VIEW ALL</a>
         </div>
       </div>
     </div>
