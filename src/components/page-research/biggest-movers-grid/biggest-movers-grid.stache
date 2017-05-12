@@ -2,32 +2,42 @@
 <can-import from="~/components/common/arrow-change.component" />
 
 <grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
-  <table class="table table-condensed1">
-    <!--<thead>-->
-    <!--<tr>-->
-      <!--<th class="column-company">Company</th>-->
-      <!--<th class="column-change">Change (μBTC) </th>-->
-      <!--<th class="column-changepercent">Change (%)</th>-->
-    <!--</tr>-->
-    <!--</thead>-->
-    <tbody>
-    {{#each rows as row}}
-      <tr class="">
-        <td class="column-company">
-          <div class="truncate">
-            <div class="truncated-text">{{row.companyName}}</div>
-          </div>
-        </td>
-        <td class="column-change">
-          <arrow-change class="change" {change}="row.change">
-          <small>μBTC</small>
-          </arrow-change>
-        </td>
-        <td class="column-changepercent">
-          <arrow-change class="no-arrow" {change}="row.changePercent">%</arrow-change>
-        </td>
-      </tr>
-    {{/each}}
-    </tbody>
-  </table>
+  <div class="grid-responsive">
+    <!--<table class="table table-condensed grid-header">-->
+      <!--<thead>-->
+      <!--<tr>-->
+        <!--<th class="column-company">Company</th>-->
+        <!--<th class="column-change">Change (μBTC) </th>-->
+        <!--<th class="column-changepercent">Change (%)</th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+    <!--</table>-->
+
+    <div class="grid-body-scroll thin-scrollbar">
+      <table class="table table-condensed1">
+        <tbody>
+        {{#each rows as row}}
+          <tr class="">
+            <td class="column-company">
+              <div class="truncate">
+                <div class="truncated-text">{{row.companyName}}</div>
+              </div>
+            </td>
+            <td class="column-change">
+              <arrow-change class="change" {change}="row.change">
+              <small>μBTC</small>
+              </arrow-change>
+            </td>
+            <td class="column-changepercent">
+              <arrow-change class="no-arrow" {change}="row.changePercent">%</arrow-change>
+            </td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid-footer">
+    <a href="{{routeUrl page='issuances' sort=sort}}" class="btn btn-default">VIEW ALL</a>
+  </div>
 </grid-component>

@@ -8,16 +8,10 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-sm-6 col-xs-12">
-        <biggest-movers-grid {model}="*BiggestMovers" sort="-1"/>
-        <div>
-          <a href="{{routeUrl page='issuances' sort='desc'}}" class="btn btn-default">VIEW ALL</a>
-        </div>
+        <biggest-movers-grid {model}="*BiggestMovers" sort="desc"/>
       </div>
       <div class="col-sm-6 col-xs-12">
-        <biggest-movers-grid {model}="*BiggestMovers" sort="1"/>
-        <div>
-          <a href="{{routeUrl page='issuances' sort='asc'}}" class="btn btn-default">VIEW ALL</a>
-        </div>
+        <biggest-movers-grid {model}="*BiggestMovers" sort="asc"/>
       </div>
     </div>
   </div>

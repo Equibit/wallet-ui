@@ -25,13 +25,7 @@ export const ViewModel = DefineMap.extend({
   model: {
     type: '*'
   },
-  sort: {
-    type: 'number'
-    // set (val) {
-    //   console.log('sort.set ' + val);
-    //   return val === 'asc' ? 1 : -1;
-    // }
-  },
+  sort: 'string',
   rowsPromise: {
     type: '*'
   },
@@ -42,10 +36,9 @@ export const ViewModel = DefineMap.extend({
       }
       // Note: `this.model` can be set later than `this.rows`.
       if (this.model) {
-        console.log('quering: ' + this.sort + ' ' + typeof this.sort);
         this.rowsPromise = this.model.getList({
-          $sort: { change: this.sort },
-          $limit: 5,
+          $sort: { change: (this.sort === 'asc' ? '1' : -1) },
+          $limit: 6,
           $skip: 0
         }).then(resolve);
       }
