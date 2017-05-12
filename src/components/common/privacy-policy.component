@@ -4,7 +4,7 @@
   </style>
   <view>
     <can-import from="~/utils/stache-helpers/" />
-    <can-import from="~/components/common/terms.less" />
+    <can-import from="~/components/common/modal.less" />
 
     <bootstrap-modal-content class="privacy-policy">
       <div class="modal-header">
