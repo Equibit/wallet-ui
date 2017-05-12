@@ -42,9 +42,11 @@
         <login-buttons {is-logged-in}="isLoggedIn" {logout}="@logout" />
       </div>
 
+      {{#if isLoggedIn}}
       <div class="currency-container hidden-xs">
         <div class="navbar-text">45.2392  BTC</div>
       </div>
+      {{/if}}
 
       <div class="search-container visible-lg">
         <search-form />
