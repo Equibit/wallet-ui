@@ -6,11 +6,11 @@
  *
  * @signature `<market-summary />`
  *
- * @link ../src/wallet-ui/components/page-research/market-summary.html Full Page Demo
+ * @link ../src/components/page-research/market-summary.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-research/market-summary.html
+ * @demo src/components/page-research/market-summary.html
  */
 
 import Component from 'can-component';

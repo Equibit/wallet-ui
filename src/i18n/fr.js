@@ -8,7 +8,11 @@ export default {
   // Signup / Login forms:
   createAccount: 'Créer un compte',
   forgotPassword: 'Mot de passe oublié',
-  password: 'Mot de passe'
+  password: 'Mot de passe',
 
   // - alert messages:
+
+  // Common:
+  yes: 'OUI',
+  no: 'NON'
 };

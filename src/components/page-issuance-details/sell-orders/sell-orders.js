@@ -17,21 +17,26 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './sell-orders.less';
 import view from './sell-orders.stache';
-import _ from 'lodash';
+import SellOrder from '~/models/sell-order';
+
+// TODO: turn FIXTURES OFF
+import '~/models/fixtures/sell-order';
 
 export const ViewModel = DefineMap.extend({
-  rows: {
-    value: _.times(10, (i) => {
-      return {
-        quantity: 100 * i,
-        price: 70 * i,
-        date: '13:47',
-        partial: ['YES', 'NO'][i % 2]
-      };
-    })
+  limit: 'number',
+  rowsPromise: {
+    get () {
+      let params = this.limit ? {
+        $limit: this.limit,
+        $skip: 0
+      } : {};
+      return SellOrder.getList(params);
+    }
   },
-  buy (id) {
-
+  rows: {
+    get (lastVal, resolve) {
+      this.rowsPromise.then(resolve);
+    }
   }
 });
 

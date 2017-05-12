@@ -10,7 +10,7 @@
  * ```
  * <can-import from="~/utils/stache-helpers/" />
  *
- * <h2>{{i18n('createAccount')}}</h2>
+ * <h2>{ {i18n('createAccount')}}</h2>
  * ```
  *
  * In a view model import the DefineMap instance or the `translate` function:

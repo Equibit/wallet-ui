@@ -6,11 +6,11 @@
  *
  * @signature `<most-active />`
  *
- * @link ../src/wallet-ui/components/page-research/most-active.html Full Page Demo
+ * @link ../src/components/page-research/most-active.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-research/most-active.html
+ * @demo src/components/page-research/most-active.html
  */
 
 import Component from 'can-component';

@@ -6,11 +6,11 @@
  *
  * @signature `<bar-chart />`
  *
- * @link ../src/wallet-ui/components/common/barchart.html Full Page Demo
+ * @link ../src/components/common/barchart.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/common/barchart.html
+ * @demo src/components/common/barchart.html
  */
 
 import Component from 'can-component';

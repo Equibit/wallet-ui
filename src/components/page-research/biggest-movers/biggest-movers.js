@@ -6,11 +6,11 @@
  *
  * @signature `<biggest-movers />`
  *
- * @link ../src/wallet-ui/components/page-research/biggest-movers.html Full Page Demo
+ * @link ../src/components/page-research/biggest-movers.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-research/biggest-movers.html
+ * @demo src/components/page-research/biggest-movers.html
  */
 
 import Component from 'can-component';

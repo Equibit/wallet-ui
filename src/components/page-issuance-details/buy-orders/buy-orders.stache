@@ -18,14 +18,11 @@
       <tr class="">
         <td class="column-quantity">{{row.quantity}}</td>
         <td class="column-askprice">{{row.price}}</td>
-        <td class="column-datetime">{{row.date}}</td>
-        <td class="column-partial">{{row.partial}}</td>
+        <td class="column-datetime">{{format-time(row.date)}}</td>
+        <td class="column-partial">{{yes-no(row.partial)}}</td>
         <td class="action-buttons"><button class="btn btn-default btn-xs" ($click)="sell(row.id)">SELL</button></td>
       </tr>
     {{/each}}
     </tbody>
   </table>
 </grid-component>
-
-<button class="btn btn-primary btn-xs">+ ADD BUY ORDER</button>
-<button class="btn btn-link btn-xs">VIEW ALL</button>
