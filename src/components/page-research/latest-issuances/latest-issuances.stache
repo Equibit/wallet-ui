@@ -39,7 +39,7 @@
                   {{/each}}
                   <tr>
                     <td colspan="5">
-                      <a href="{{routeUrl page='issuances'}}" class="btn btn-default btn-xs">View All</a>
+                      <a href="{{routeUrl page='issuances'}}" class="btn btn-default">VIEW ALL</a>
                     </td>
                   </tr>
                 </tbody>
