@@ -46,6 +46,9 @@ export const ViewModel = DefineMap.extend({
             position: 'inner-top'
           }
         }
+      },
+      color: {
+        pattern: ['#32B576', '#468CD9', '#FFBC5E', '#EC2F39']
       }
     }
   },

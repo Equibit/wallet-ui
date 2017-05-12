@@ -29,6 +29,9 @@ const MarketCap = DefineMap.extend('MarketCap', {
    * Company name
    */
   companyName: 'string',
+  get companyNameDisplay () {
+    return this.companyName.length > 15 ? this.companyName.substr(0, 12) + '...' : this.companyName;
+  },
   /**
    * @property {Number} models/marketCap.properties.price price
    * @parent models/marketCap.properties
@@ -44,7 +47,7 @@ MarketCap.List = DefineList.extend('MarketCapList', {
       return;
     }
     return [].reduce.call(this, (acc, el) => {
-      acc.labels.push(el.companyName);
+      acc.labels.push(el.companyNameDisplay);
       acc.values[0].push(el.price);
       return acc;
     }, {labels: ['x'], values: [['MarketCap']]});

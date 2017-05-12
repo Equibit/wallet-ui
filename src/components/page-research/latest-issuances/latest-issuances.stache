@@ -37,14 +37,13 @@
                     <td class="column-restriction">{{row.restriction}}</td>
                   </tr>
                   {{/each}}
-                  <tr>
-                    <td colspan="5">
-                      <a href="{{routeUrl page='issuances'}}" class="btn btn-default">VIEW ALL</a>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>
+          </div>
+
+          <div class="grid-footer">
+            <a href="{{routeUrl page='issuances'}}" class="btn btn-default">VIEW ALL</a>
           </div>
         </grid-component>
       </div>

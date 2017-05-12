@@ -7,7 +7,13 @@
 <can-import from="~/models/biggest-movers" {^value.default}="*BiggestMovers" />
 <can-import from="~/components/page-research/biggest-movers-grid/" />
 
-<biggest-movers-grid {model}="*BiggestMovers" sort="1"></biggest-movers-grid>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <biggest-movers-grid {model}="*BiggestMovers" sort="1"></biggest-movers-grid>
+    </div>
+  </div>
+</div>
 </script>
 
 <script src="../../../../node_modules/steal/steal.js"
