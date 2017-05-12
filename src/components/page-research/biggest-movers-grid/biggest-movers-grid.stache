@@ -37,7 +37,7 @@
       </table>
     </div>
   </div>
-  <div class="grid-footer">
-    <a href="{{routeUrl page='issuances' sort=sort}}" class="btn btn-default">VIEW ALL</a>
-  </div>
+  <!--<div class="grid-footer">-->
+    <!--<a href="{{routeUrl page='issuances' sort=sort}}" class="btn btn-default">VIEW ALL</a>-->
+  <!--</div>-->
 </grid-component>
