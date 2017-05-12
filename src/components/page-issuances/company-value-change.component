@@ -38,7 +38,7 @@
       <span class="percentage">({{issuance.changePercentage}}%)</span>
     </arrow-change>
     <span class="bid">
-      <span class="hbid">{{issuance.highestBid}}</span> / <span class="ask">{{issuance.lowestAsk}}</span>
+      <span class="hbid">{{format(issuance.highestBid, '')}}</span> / <span class="ask">{{format(issuance.lowestAsk, '')}}</span>
       <span class="shares">({{issuance.highestNumShares}} / {{issuance.lowestNumShares}})</span>
     </span>
   </view>

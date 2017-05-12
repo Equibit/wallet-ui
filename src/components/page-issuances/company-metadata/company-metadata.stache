@@ -1,3 +1,5 @@
+<can-import from="~/utils/stache-helpers/" />
+
 <div class="group">
   <div class="title">Issuance</div>
   <div class="row">
@@ -12,7 +14,7 @@
     <div class="column col-xs-6 col-sm-3">
       <small>24h Volume</small>
       <span class="value">
-        {{issuance.volume24h}}
+        {{format(issuance.volume24h,'')}}
         <span class="sub">(BTC)</span>
       <span>
     </div>
@@ -31,11 +33,11 @@
   <div class="row">
     <div class="column col-xs-6 col-sm-3">
       <small>Authorized</small>
-      {{issuance.sharesAuthorized}}
+      {{format(issuance.sharesAuthorized,'')}}
     </div>
     <div class="column col-xs-6 col-sm-3">
       <small>Issued</small>
-      {{issuance.sharesIssued}}
+      {{format(issuance.sharesIssued,'')}}
     </div>
     <div class="column col-xs-6 col-sm-3">
       <small>Dividend/Share</small>

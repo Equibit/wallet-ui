@@ -37,7 +37,7 @@
             <td class="column-issuance">{{row.issuanceName}}</td>
             <td class="column-issuance-type">{{row.issuanceType}}</td>
             <td class="column-restriction">{{row.restriction}}</td>
-            <td class="column-market-cap"><div class="truncate">{{row.marketCap}}</div></td>
+            <td class="column-market-cap"><div class="truncate">{{format(row.marketCap, '', 2)}}</div></td>
             <td class="column-change-price"><arrow-change {change}="row.change" class="no-arrow" /></td>
             <td class="column-change-percentage">{{row.changePercentage}}</td>
           </tr>
