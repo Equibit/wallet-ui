@@ -6,11 +6,11 @@
  *
  * @signature `<market-capitalization />`
  *
- * @link ../src/wallet-ui/components/page-research/market-capitalization.html Full Page Demo
+ * @link ../src/components/page-research/market-capitalization.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-research/market-capitalization.html
+ * @demo src/components/page-research/market-capitalization.html
  */
 
 import Component from 'can-component';

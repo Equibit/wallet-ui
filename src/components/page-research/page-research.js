@@ -6,11 +6,11 @@
  *
  * @signature `<page-research />`
  *
- * @link ../src/wallet-ui/components/page-research.html Full Page Demo
+ * @link ../src/components/page-research.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-research.html
+ * @demo src/components/page-research.html
  */
 
 import Component from 'can-component';
