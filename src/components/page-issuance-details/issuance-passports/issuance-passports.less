@@ -1,11 +1,5 @@
 issuance-passports {
 	display: block;
-  a.icon-share {
-    margin-left: 5px;
-    &:hover {
-      text-decoration: none;
-    }
-  }
 
   h3 .badge {
     font-size: 9px;
@@ -14,9 +8,28 @@ issuance-passports {
   }
 }
 
+.passport-link {
+  padding: 3px 0;
+
+  a:hover {
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .icon-share {
+    margin-left: 5px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 bootstrap-modal-content.issuance-passports {
   .modal-header {
     padding-bottom: 0;
     border-bottom: none;
+  }
+
+  .passport-link {
+    padding: 5px 0;
   }
 }

@@ -7,7 +7,7 @@
   <div class="row">
     {{#each visiblePassports}}
       <div class="col-md-6">
-        <div>{{name}} <a class="icon icon-share"></a></div>
+        <div class="passport-link"><a>{{name}} <span class="icon icon-share"></span></a></div>
       </div>
     {{/each}}
 
@@ -35,7 +35,7 @@
         <div class="row">
           {{#each passports}}
             <div class="col-md-6">
-              <div>{{name}} <a class="icon icon-share"></a></div>
+              <div class="passport-link"><a>{{name}} <span class="icon icon-share"></span></a></div>
             </div>
           {{/each}}
         </div>
