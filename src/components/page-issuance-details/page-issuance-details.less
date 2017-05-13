@@ -4,6 +4,10 @@ page-issuance-details {
 	display: block;
   .page-layout;
 
+  .page-panel {
+    margin-bottom: 0;
+  }
+
   h3 {
     margin: 0 0 5px 0;
   }
@@ -13,5 +17,12 @@ page-issuance-details {
     font-size: 12px;
     min-height: 95px;
     margin-bottom: 10px;
+  }
+
+  // To get rid of extra scrollbar for the main page panel:
+  candlestick-chart, related-companies {
+    .well {
+      margin-bottom: 8px;
+    }
   }
 }

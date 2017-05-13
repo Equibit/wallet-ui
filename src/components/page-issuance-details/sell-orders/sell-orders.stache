@@ -3,26 +3,33 @@
 <can-import from="grid-component" />
 
 <grid-component {(rows)}="rows">
-  <table class="table table-condensed">
-    <thead>
-    <tr>
-      <th class="column-quantity">Quantity</th>
-      <th class="column-askprice">Ask Price</th>
-      <th class="column-datetime">Date/Time</th>
-      <th class="column-partial">Partial</th>
-      <th class="action-buttons"></th>
-    </tr>
-    </thead>
-    <tbody>
-    {{#each rows as row}}
-      <tr class="">
-        <td class="column-quantity">{{row.quantity}}</td>
-        <td class="column-askprice">{{row.price}}</td>
-        <td class="column-datetime">{{format-time(row.date)}}</td>
-        <td class="column-partial">{{yes-no(row.partial)}}</td>
-        <td class="action-buttons"><button class="btn btn-default btn-xs">BUY</button></td>
+  <div class="grid-responsive">
+    <table class="table grid-header">
+      <thead>
+      <tr>
+        <th class="column-quantity">Quantity</th>
+        <th class="column-askprice">Ask Price</th>
+        <th class="column-datetime">Date/Time</th>
+        <th class="column-partial">Partial</th>
+        <th class="action-buttons"></th>
       </tr>
-    {{/each}}
-    </tbody>
-  </table>
+      </thead>
+    </table>
+
+    <div class="grid-body-scroll x-thin-scrollbar">
+      <table class="table table-condensed">
+        <tbody>
+        {{#each rows as row}}
+          <tr class="">
+            <td class="column-quantity">{{row.quantity}}</td>
+            <td class="column-askprice">{{row.price}}</td>
+            <td class="column-datetime">{{format-time(row.date)}}</td>
+            <td class="column-partial">{{yes-no(row.partial)}}</td>
+            <td class="action-buttons"><button class="btn btn-default btn-xs">BUY</button></td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </grid-component>
