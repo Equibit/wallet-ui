@@ -9,7 +9,7 @@ export const ViewModel = DefineMap.extend({
     type: '*'
   },
   chartHeight: {
-    value: 250
+    value: 246
   },
   candlestickSize: {
     value: 7200,

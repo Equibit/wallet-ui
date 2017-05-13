@@ -8,9 +8,18 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <drag-panel class="panel panel-default card card-full">
+    <drag-panel class="page-panel panel panel-default card card-full">
       <div class="panel-heading">
-        <h3 class="panel-title">{{issuance.companyName}} <br><small>{{issuance.domicile}}</small></h3>
+        <div class="row">
+          <div class="col-md-5">
+            <div>
+              <h3 class="panel-title">{{issuance.companyName}} <br><small>{{issuance.domicile}}</small></h3>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <company-value-change {issuance}="issuance" currency="μBTC" />
+          </div>
+        </div>
       </div>
       <div class="panel-body">
         <div class="row card-row-full">

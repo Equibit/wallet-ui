@@ -4,6 +4,26 @@ page-issuance-details {
 	display: block;
   .page-layout;
 
+  .page-panel {
+    margin-bottom: 0;
+
+    .panel-heading {
+      company-value-change {
+        margin-left: 7px;
+        border-left: 1px solid lightgray;
+        padding-left: 10px;
+        font-size: smaller;
+
+        .total, arrow-change {
+          display: inline;
+        }
+        .total {
+          font-size: 1.3em;
+        }
+      }
+    }
+  }
+
   h3 {
     margin: 0 0 5px 0;
   }
@@ -13,5 +33,12 @@ page-issuance-details {
     font-size: 12px;
     min-height: 95px;
     margin-bottom: 10px;
+  }
+
+  // To get rid of extra scrollbar for the main page panel:
+  candlestick-chart, related-companies {
+    .well {
+      margin-bottom: 8px;
+    }
   }
 }
