@@ -36,3 +36,7 @@ cache/
 # IDE
 .idea
 /.vscode/launch.json
+
+dev-bundle.css
+
+dev-bundle.js
