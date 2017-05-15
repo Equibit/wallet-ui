@@ -4,7 +4,7 @@
 <can-import from="~/components/common/arrow-change.component" />
 
 <grid-component {rows}="rows"
-                {^selected-row}="selectedRow"
+                {(selected-row)}="selectedRow"
                 {pagination}="pagination"
                 (onpage)=loadPage()
                 class="thin-scrollbar">
