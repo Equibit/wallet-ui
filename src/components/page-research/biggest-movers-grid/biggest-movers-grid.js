@@ -38,7 +38,7 @@ export const ViewModel = DefineMap.extend({
       if (this.model) {
         this.rowsPromise = this.model.getList({
           $sort: { change: (this.sort === 'asc' ? '1' : -1) },
-          $limit: 6,
+          $limit: 5,
           $skip: 0
         }).then(resolve);
       }
