@@ -9,7 +9,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-12 no-padding-right">
-        <grid-component {rows}="rows" class="thin-scrollbar {{#if rowsPromise.isPending}}loading{{/if}}">
+        <grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
           <div class="grid-responsive">
             <table class="table table-condensed grid-header">
               <thead>
@@ -23,7 +23,7 @@
               </thead>
             </table>
 
-            <div class="grid-body-scroll thin-scrollbar">
+            <div class="grid-body-scroll">
               <table class="table table-condensed grid-body">
                 <tbody>
                   {{#each rows as row}}
@@ -43,7 +43,7 @@
           </div>
 
           <div class="grid-footer">
-            <a href="{{routeUrl page='issuances'}}" class="btn btn-default">VIEW ALL</a>
+            <a href="{{routeUrl page='issuances'}}" class="btn btn-default btn-sm">VIEW ALL</a>
           </div>
         </grid-component>
       </div>

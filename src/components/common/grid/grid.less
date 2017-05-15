@@ -32,15 +32,18 @@ grid-component {
     overflow-y: auto;
     overflow-x: hidden;
     flex-grow: 1;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
   }
   .grid-body {
+    width: calc(~"100% - "@scrollbar-width);
     td {
-      .truncate {
+      cursor: pointer;
+      &.truncate {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      cursor: pointer;
+
     }
     tr {
       &.selected {
@@ -54,7 +57,8 @@ grid-component {
 
   .grid-footer {
     width: 100%;
-    padding: 16px 0px;
+    padding: 16px 0 0;
+    align-self: flex-end;
 
     .pagination {
       margin: 0;
@@ -70,27 +74,15 @@ grid-component {
     }
   }
 
-  th.sort {
-    cursor: pointer;
-    &:hover {
-      color: @gray-base;
-      background-color: @gray-lightest;
-    }
-  }
-
   th {
+    &.sort {
+    cursor: pointer;
+    }
     .icon-arrow {
       color: @brand-primary;
     }
   }
-
-  // Customize some common columns:
-  .column-domicile {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
+  
   // Coloring td content:
   .color-change {
     color: @brand-success;
@@ -98,4 +90,13 @@ grid-component {
   .color-change-neg {
     color: @brand-danger;
   }
+
+  // Responsiveness
+  @media (max-width: @screen-md) {
+    .grid-responsive {
+      overflow-x: auto;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+  }
+
 }

@@ -23,7 +23,7 @@
             </thead>
           </table>
 
-          <div class="grid-body-scroll thin-scrollbar">
+          <div class="grid-body-scroll">
             <table class="table table-condensed grid-body">
               <tbody>
               {{#each rows as row}}
