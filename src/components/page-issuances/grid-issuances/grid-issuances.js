@@ -14,10 +14,10 @@ export const ViewModel = DefineMap.extend({
   },
   rows: {
     set (value) {
-      if (value && value[0]){
+      if (value && value[0]) {
         setTimeout(() => {
-          this.selectRowDefault(value[0])
-        }, 0)
+          this.selectRowDefault(value[0]);
+        }, 0);
       }
       return value;
     },
