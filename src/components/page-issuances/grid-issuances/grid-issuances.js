@@ -13,6 +13,14 @@ export const ViewModel = DefineMap.extend({
     })
   },
   rows: {
+    set (value) {
+      if (value && value[0]) {
+        setTimeout(() => {
+          this.selectRowDefault(value[0]);
+        }, 0);
+      }
+      return value;
+    },
     get (value, resolve) {
       if (value) {
         return value;
@@ -22,6 +30,7 @@ export const ViewModel = DefineMap.extend({
           this.pagination.total = rows.total;
         }
         resolve(rows);
+        this.selectRowDefault(rows[0]);
       });
     }
   },
@@ -53,11 +62,20 @@ export const ViewModel = DefineMap.extend({
   changeSort () {
     this.sort = typeof this.sort === 'undefined' ? -1 : this.sort * (-1);
     this.loadPage();
+  },
+  selectRowDefault (row) {
+    row.selected = true;
+    this.selectedRow = row;
   }
 });
 
 export default Component.extend({
   tag: 'grid-issuances',
   ViewModel,
-  view
+  view,
+  events: {
+    removed () {
+      this.viewModel.selectedRow.selected = false;
+    }
+  }
 });
