@@ -12,56 +12,23 @@ page-issuances {
       height: 72vh;
     }
   }
-  @media (min-width: @screen-md) and (max-width: @break-point-columns) {
-    .col-md-3 {
-      flex-basis: 100%;
-      max-width: 100%;
-    }
-  }
-
-  @media (min-width: @screen-md) and (max-width: @break-point-max-screen) {
-    .col-md-9 {
-      flex-grow: 1;
-      flex-basis: auto;
-      max-width: initial;
-    }
-  }
-
-  @media (max-width: @break-point-columns) {
-
-    grid-issuances {
-      display: initial;
-
-      grid-component {
-        height: 345px;
-        margin-bottom: @padding-large-vertical*2;
-      }
-    }
-
-    .card-row-full {
-      .well {
-        flex: initial;
-        margin-bottom: @padding-large-vertical*2;
-      }
-    }
-  }
-
-  @media (min-width: @break-point-columns) {
+  @media (max-width: @screen-md) {
     grid-component {
-      .table tfoot {
-        display: -webkit-box;
-      }
-      .pagination {
-        margin-bottom: 0;
+      .grid-responsive {
+        .grid-header-container,
+        .grid-body-scroll {
+          width: 891px;
+        }
       }
     }
   }
-  @media (max-width: 963px) {
-    grid-component .grid-responsive {
-      width: 891px;
-    }
-    grid-component {
-      overflow-x: auto;
+
+  @media (max-width: @screen-xs) {
+    grid component {
+      height: initial;
+      .grid-responsive {
+        height: initial;
+      }
     }
   }
 

@@ -32,15 +32,18 @@ grid-component {
     overflow-y: auto;
     overflow-x: hidden;
     flex-grow: 1;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
   }
   .grid-body {
+    width: calc(~"100% - "@scrollbar-width);
     td {
-      .truncate {
+      cursor: pointer;
+      &.truncate {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      cursor: pointer;
+
     }
     tr {
       &.selected {
@@ -75,13 +78,6 @@ grid-component {
     cursor: pointer;
   }
 
-  // Customize some common columns:
-  .column-domicile {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
   // Coloring td content:
   .color-change {
     color: @brand-success;
@@ -89,4 +85,13 @@ grid-component {
   .color-change-neg {
     color: @brand-danger;
   }
+
+  // Responsiveness
+  @media (max-width: @screen-md) {
+    .grid-responsive {
+      overflow-x: auto;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+  }
+
 }
