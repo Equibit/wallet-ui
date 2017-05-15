@@ -2,16 +2,14 @@
 @import '../../styles/custom/_variables.less';
 @import '../../styles/custom/_mixins.less';
 
-@table-height: 80vh;
-
 page-issuances {
 	display: block;
   .page-layout;
 
   grid-component {
-    height: @table-height;
+    height: 80vh;
     .grid-responsive {
-      height: @table-height;
+      height: 72vh;
     }
   }
   @media (min-width: @screen-md) and (max-width: @break-point-columns) {

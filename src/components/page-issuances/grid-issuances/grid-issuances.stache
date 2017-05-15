@@ -10,20 +10,22 @@
                 class="thin-scrollbar">
 
   <div class="grid-responsive">
-    <table class="table grid-header">
-      <thead>
-        <tr>
-          <th class="column-company sort">Company</th>
-          <th class="column-domicile sort">Domicile</th>
-          <th class="column-issuance sort">Issuance</th>
-          <th class="column-issuance-type sort">Issuance Type</th>
-          <th class="column-restriction sort">Restriction</th>
-          <th class="column-market-cap sort">Market Cap (μBTC)</th>
-          <th ($click)="changeSort()" class="column-change-price sort">Change (μBTC) {{{sort-arrow(../sort)}}}</th>
-          <th class="column-change-percentage sort">Change (%)</th>
-        </tr>
-      </thead>
-    </table>
+    <div class="grid-header-container">
+      <table class="table grid-header">
+        <thead>
+          <tr>
+            <th class="column-company">Company</th>
+            <th class="column-domicile">Domicile</th>
+            <th class="column-issuance">Issuance</th>
+            <th class="column-issuance-type">Issuance Type</th>
+            <th class="column-restriction">Restriction</th>
+            <th class="column-market-cap">Market Cap (μBTC)</th>
+            <th ($click)="changeSort()" class="column-change-price sort">Change (μBTC) {{{sort-arrow(../sort)}}}</th>
+            <th class="column-change-percentage">Change (%)</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
 
     <div class="grid-body-scroll thin-scrollbar">
       <table class="table table-condensed grid-body">

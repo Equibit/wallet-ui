@@ -54,7 +54,8 @@ grid-component {
 
   .grid-footer {
     width: 100%;
-    padding: 16px 0px;
+    padding: 16px 0 0;
+    align-self: flex-end;
 
     .pagination {
       margin: 0;
@@ -72,10 +73,6 @@ grid-component {
 
   th.sort {
     cursor: pointer;
-    &:hover {
-      color: @gray-base;
-      background-color: @gray-lightest;
-    }
   }
 
   // Customize some common columns:
