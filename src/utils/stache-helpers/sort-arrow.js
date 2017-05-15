@@ -1,16 +1,19 @@
 import stache from 'can-stache';
 
-let ascVals = [true, 1, 'asc'];
-let isAsc = function (value) {
-  return ascVals.indexOf(value) !== -1;
-};
-
 stache.registerHelper('sort-arrow', function (value) {
-  if (typeof value === 'undefined') {
-    return '<span class="arrow no-dir">△▽</span>';
+  let className = '';
+  switch (value) {
+    case undefined:
+    case null:
+      className = 'icon-sort';
+      break;
+    case 1:
+    case 'asc':
+    case true:
+      className = 'icon-arrow';
+      break;
+    default:
+      className = 'icon-arrow rotate-180';
   }
-  let asc = isAsc(value);
-  let arrow = asc ? '△' : '▽';
-  let className = asc ? 'asc' : 'desc';
-  return `<span class="arrow arrow-${className}">${arrow}</span>`;
+  return `<span class="icon ${className}"></span>`;
 });
