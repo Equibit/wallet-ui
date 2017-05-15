@@ -72,5 +72,10 @@ export const ViewModel = DefineMap.extend({
 export default Component.extend({
   tag: 'grid-issuances',
   ViewModel,
-  view
+  view,
+  events: {
+    removed () {
+      this.viewModel.selectedRow.selected = false;
+    }
+  }
 });
