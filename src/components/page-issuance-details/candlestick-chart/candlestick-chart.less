@@ -1,3 +1,5 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
 candlestick-chart {
 	display: block;
   max-width: 600px;
@@ -17,7 +19,12 @@ candlestick-chart {
 
     .chart-controls {
       .label {
-        display: none;
+        display: block;
+        text-align: left;
+        font-size: small;
+        color: @gray;
+        font-weight: normal;
+        margin-bottom: 3px;
       }
 
       .zoom {
