@@ -1371,9 +1371,9 @@ can@2.3.8:
   dependencies:
     can-simple-dom "^0.2.21"
 
-candlestick-volume-chart@0.1.17:
-  version "0.1.17"
-  resolved "https://registry.yarnpkg.com/candlestick-volume-chart/-/candlestick-volume-chart-0.1.17.tgz#af2f89b94f392cf92446e1092300e433a00e51a7"
+candlestick-volume-chart@0.1.18:
+  version "0.1.18"
+  resolved "https://registry.yarnpkg.com/candlestick-volume-chart/-/candlestick-volume-chart-0.1.18.tgz#a948340a2b7ea818bf6ee1f010d0e07e2d46d023"
   dependencies:
     can-component "^3.0.7"
     can-define "^1.0.17"
