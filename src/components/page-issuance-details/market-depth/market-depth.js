@@ -21,10 +21,10 @@ import './market-depth.less';
 import view from './market-depth.stache';
 
 let data1 = { key: "ask", type: "area-spline", data: new DefineList(
-  _.times(10, i => Math.abs(Math.floor(Math.sin(i) * 30))).concat(_.times(9, () => null))
+  _.times(30, i => Math.abs(Math.floor(Math.sin(i) * 750))).concat(_.times(31, () => null))
   ) },
   data2 = { key: "bid", type: "area-spline", data: new DefineList(
-    _.times(9, () => null).concat(_.times(10, i => Math.abs(Math.floor(Math.sin(2*i) * 30))))
+    _.times(29, () => null).concat(_.times(32, i => Math.abs(Math.floor(Math.sin(2*i) * 750))))
   ) };
 
 export const ViewModel = DefineMap.extend({
@@ -42,9 +42,16 @@ export const ViewModel = DefineMap.extend({
       },
       height: 30,
       axis: {
-        // x1: {
-        //   categories: _.times(19, i => (i * 30))
-        // },
+        x1: {
+          type: 'category',
+          categories: _.times(61, i => '30,' + (650 + i*10)),
+          tick: {
+            count: 4
+          },
+          padding1: {
+            left: 0
+          }
+        },
         y: {
           tick: {
             count: 4,
