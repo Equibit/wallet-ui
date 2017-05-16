@@ -32,10 +32,10 @@
           <div class="col-md-7 col-xs-12">
             <div class="row">
               <div class="col-md-8">
-                <issuance-passports></issuance-passports>
+                <issuance-passports />
               </div>
               <div class="col-md-4">
-                <market-depth></market-depth>
+                <market-depth />
               </div>
 
               <br>

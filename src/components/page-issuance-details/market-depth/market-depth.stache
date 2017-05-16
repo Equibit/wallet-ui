@@ -1,9 +1,13 @@
 <h3><small>MARKET DEPTH</small></h3>
 
 <div class="well">
-  <div class="row">
-    <div class="col-md-12">
-      Chart here...
-    </div>
-  </div>
+  <can-import from="bit-c3" />
+  <bit-c3 {config}="config">
+    <bit-c3-data>
+      {{#each dataColumns}}
+        <bit-c3-data-column key="{key}" value="{data}" />
+        <bit-c3-data-type key="{key}" value="{type}" />
+      {{/each}}
+    </bit-c3-data>
+  </bit-c3>
 </div>

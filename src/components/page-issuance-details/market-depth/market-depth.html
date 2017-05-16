@@ -1,6 +1,31 @@
-<script type="text/stache" can-autorender>
+<script type="text/stache" can-autorender id="demo-html">
+  <can-import from="~/styles/styles.less" />
   <can-import from="wallet-ui/components/page-issuance-details/market-depth/" />
-  <issuance-market-depth></issuance-market-depth>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <market-depth {data-columns1}="dataColumns" />
+      </div>
+    </div>
+  </div>
 </script>
 <script src="../../../../node_modules/steal/steal.js"
-        main="can-view-autorender"></script>
+        main="can-view-autorender">
+
+  import canViewModel from 'can-view-model';
+  import DefineList from 'can-define/list/list';
+  import _ from 'lodash';
+
+//  let vm = canViewModel(document.getElementById('demo-html'));
+//
+//  let data1 = { key: "data1", type: "area-spline", data: new DefineList(
+//      _.times(100, i => Math.abs(Math.sin(i) * 30)).concat(_.times(99, () => null))
+//    ) },
+//    data2 = { key: "data2", type: "area-spline", data: new DefineList(
+//      _.times(99, () => null).concat(_.times(100, i => Math.abs(Math.sin(2*i) * 30)))
+//    ) };
+//
+//  vm.set({
+//    dataColumns: new DefineList([data1, data2])
+//  });
+</script>
