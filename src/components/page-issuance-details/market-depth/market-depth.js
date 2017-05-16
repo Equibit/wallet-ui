@@ -15,36 +15,47 @@
 
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
 import _ from 'lodash';
 import './market-depth.less';
 import view from './market-depth.stache';
+import MarketDepth from '~/models/market-depth';
 
-let data1 = { key: "ask", type: "area-spline", data: new DefineList(
-  _.times(30, i => Math.abs(Math.floor(Math.sin(i) * 750))).concat(_.times(31, () => null))
-  ) },
-  data2 = { key: "bid", type: "area-spline", data: new DefineList(
-    _.times(29, () => null).concat(_.times(32, i => Math.abs(Math.floor(Math.sin(2*i) * 750))))
-  ) };
+let data1 = _.times(30, i => Math.abs(Math.floor(Math.sin(i) * 750))).concat(_.times(31, () => null));
+let data2 = _.times(29, () => null).concat(_.times(32, i => Math.abs(Math.floor(Math.sin(2*i) * 750))));
+let dataX = _.times(61, i => '30,' + (50 + i*10));
 
 export const ViewModel = DefineMap.extend({
-  dataColumns: {
+  dataPromise: {
+    value: MarketDepth.get({})
+  },
+  chartData: {
     get (lastVal, resolve) {
-      setTimeout(() => {
-        resolve(new DefineList([data1, data2]))
-      }, 100)
+      return {
+        x: 'x',
+        type: 'area-spline',
+        columns: [
+          ['x'].concat(dataX),
+          ['ask'].concat(data1),
+          ['bid'].concat(data2)
+        ]
+      };
     }
   },
   config: {
+    get () {
+      return Object.assign({}, this.configOpt, { data: this.chartData });
+    }
+  },
+  configOpt: {
+    type: '*',
     value: {
       color: {
         pattern: ['#32B576', '#EC2F39']
       },
       height: 30,
       axis: {
-        x1: {
+        x: {
           type: 'category',
-          categories: _.times(61, i => '30,' + (650 + i*10)),
           tick: {
             count: 4
           },

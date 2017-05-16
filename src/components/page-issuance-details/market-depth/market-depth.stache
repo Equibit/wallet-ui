@@ -2,12 +2,7 @@
 
 <div class="well">
   <can-import from="bit-c3" />
-  <bit-c3 {config}="config">
-    <bit-c3-data>
-      {{#each dataColumns}}
-        <bit-c3-data-column key="{key}" value="{data}" />
-        <bit-c3-data-type key="{key}" value="{type}" />
-      {{/each}}
-    </bit-c3-data>
-  </bit-c3>
+  {{#if chartData}}
+    <bit-c3 {config}="config" />
+  {{/if}}
 </div>
