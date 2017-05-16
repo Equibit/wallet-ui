@@ -15,14 +15,9 @@
 
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import _ from 'lodash';
 import './market-depth.less';
 import view from './market-depth.stache';
 import MarketDepth from '~/models/market-depth';
-
-let data1 = _.times(30, i => Math.abs(Math.floor(Math.sin(i) * 750))).concat(_.times(31, () => null));
-let data2 = _.times(29, () => null).concat(_.times(32, i => Math.abs(Math.floor(Math.sin(2*i) * 750))));
-let dataX = _.times(61, i => '30,' + (50 + i*10));
 
 export const ViewModel = DefineMap.extend({
   dataPromise: {
@@ -30,15 +25,13 @@ export const ViewModel = DefineMap.extend({
   },
   chartData: {
     get (lastVal, resolve) {
-      return {
-        x: 'x',
-        type: 'area-spline',
-        columns: [
-          ['x'].concat(dataX),
-          ['ask'].concat(data1),
-          ['bid'].concat(data2)
-        ]
-      };
+      this.dataPromise.then(data => {
+        resolve({
+          x: 'x',
+          type: 'area-spline',
+          columns: data.c3Data
+        });
+      });
     }
   },
   config: {
@@ -57,7 +50,8 @@ export const ViewModel = DefineMap.extend({
         x: {
           type: 'category',
           tick: {
-            count: 4
+            count: 5,
+            multiline: false
           },
           padding1: {
             left: 0
@@ -67,6 +61,10 @@ export const ViewModel = DefineMap.extend({
           tick: {
             count: 4,
             format: (d) =>  Math.floor(d)
+          },
+          padding: {
+            top: 0,
+            bottom: 0
           }
         }
       },
@@ -85,6 +83,11 @@ export const ViewModel = DefineMap.extend({
         left: 30,
         right: 10,
         bottom: 10
+      },
+      tooltip: {
+        position: function (data, width, height, element) {
+          return {top: -height, left: parseInt(element.getAttribute('x'))}
+        }
       }
     }
   }

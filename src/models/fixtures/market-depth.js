@@ -1,23 +1,32 @@
 import fixture from 'can-fixture';
 import _ from 'lodash';
 
-const asksMnt = 21;
-const bidsMnt = 20;
+const asksMnt = 61;
+const bidsMnt = 40;
 const maxVal = 800;
 // Should be an odd number:
 const totalMnt = asksMnt + bidsMnt;
 
 let asksVal = maxVal;
+let bidsVal = 0;
 
 fixture('GET /market-depth', function () {
   return {
     _id: 1,
-    asks: _.times(asksMnt, i => (
+
+    asks: _.times(asksMnt - 7, i => (
       i < asksMnt / 2
         ? maxVal
-        : (asksVal = asksVal - Math.floor(Math.random()*10), asksVal)
-    )),
-    bids: _.times(asksMnt, i => i ),
-    cats: _.times(totalMnt, i => '30,' + (50 + i * 12))
+        : (i < asksMnt * 0.7
+            ? (asksVal = asksVal - Math.floor(Math.random()*20), asksVal)
+            : (asksVal = asksVal - Math.floor(Math.random()*40), asksVal))
+    )).concat(_.times(6, i => i * 60).reverse()).concat([0]).concat(_.times(bidsMnt, i => null)),
+
+    bids: _.times(asksMnt-20, i => null).concat(_.times(bidsMnt+20, i => (
+      i < bidsMnt / 2
+        ? (bidsVal = bidsVal + Math.floor(Math.random()*45), bidsVal)
+        : (bidsVal = bidsVal + Math.floor(Math.random()*15), bidsVal)
+    ))),
+    cats: _.times(totalMnt, i => '30,' + (100 + (i+1) * 5))
   };
 });

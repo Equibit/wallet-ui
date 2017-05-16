@@ -28,13 +28,26 @@ const MarketDepth = DefineMap.extend('MarketDepth', {
    * @parent models/marketDepth.properties
    * Asks data
    */
-  asks: 'string',
+  asks: '*',
   /**
    * @property {Array} models/marketDepth.properties.bids bids
    * @parent models/marketDepth.properties
    * Bids data
    */
-  bids: 'number'
+  bids: '*',
+  /**
+   * @property {Array} models/marketDepth.properties.cats cats
+   * @parent models/marketDepth.properties
+   * Categories for x-axis
+   */
+  cats: '*',
+  get c3Data () {
+    return [
+      ['x'].concat(this.cats),
+      ['asks'].concat(this.asks),
+      ['bids'].concat(this.bids)
+    ]
+  }
 });
 
 MarketDepth.List = DefineList.extend('MarketDepthList', {
