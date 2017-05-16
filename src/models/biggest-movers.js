@@ -1,3 +1,11 @@
+/**
+ * @module {can-map} models/biggest-movers BiggestMovers
+ * @parent models
+ *
+ * Biggest Movers - grid on the Research page
+ *
+ * @group models/biggest-movers.properties 0 properties
+ */
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/list';
 import feathersClient from '~/models/feathers-client';
@@ -8,7 +16,13 @@ const BiggestMovers = DefineMap.extend('BiggestMovers', {
   _id: 'string',
   companyName: 'string',
   change: 'number',
-  changePercent: 'number'
+  changePercent: 'number',
+  /**
+   * @property {String} issuanceId
+   * @parent models/biggest-movers.properties
+   * Id of the most popular issuance of the company
+   */
+  issuanceId: 'string'
 });
 
 BiggestMovers.List = DefineList.extend('BiggestMovers', {
