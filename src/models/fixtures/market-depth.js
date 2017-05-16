@@ -22,7 +22,7 @@ fixture('GET /market-depth', function () {
             : (asksVal = asksVal - Math.floor(Math.random()*40), asksVal))
     )).concat(_.times(6, i => i * 60).reverse()).concat([0]).concat(_.times(bidsMnt, i => null)),
 
-    bids: _.times(asksMnt-20, i => null).concat(_.times(bidsMnt+20, i => (
+    bids: _.times(asksMnt-19, i => null).concat([0]).concat(_.times(bidsMnt+20, i => (
       i < bidsMnt / 2
         ? (bidsVal = bidsVal + Math.floor(Math.random()*45), bidsVal)
         : (bidsVal = bidsVal + Math.floor(Math.random()*15), bidsVal)
