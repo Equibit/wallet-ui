@@ -20,7 +20,11 @@
           <tr class="">
             <td class="column-company">
               <div class="truncate">
-                <div class="truncated-text">{{row.companyName}}</div>
+                <div class="truncated-text">
+                  <!-- TODO: change to a-href once data is in place -->
+                  <!--<a class="truncated-text" href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row.issuanceId}}">{{row.companyName}}</a>-->
+                  {{row.companyName}}
+                </div>
               </div>
             </td>
             <td class="column-change">
