@@ -58,11 +58,14 @@ export const ViewModel = DefineMap.extend({
       return false;
     }
 
+    // Note: after changing password user is no longer new.
+    const isNewUser = this.user.isNewUser;
+
     this.user.changePassword(password)
       .then(() => {
         route.data.page = 'portfolio';
-        let title = this.user.isNewUser ? i18n.accountCreated : i18n.passwordReset;
-        let msg = this.user.isNewUser ? i18n.welcomeMsg : i18n.passwordResetMsg;
+        let title = isNewUser ? i18n.accountCreated : i18n.passwordReset;
+        let msg = isNewUser ? i18n.welcomeMsg : i18n.passwordResetMsg;
         hub.dispatch({
           'type': 'alert',
           'kind': 'success',
