@@ -14,7 +14,8 @@ export default {
   accountCreated: 'Account Created',
   passwordReset: 'Password Reset',
   welcomeMsg: 'Welcome to Equibit! Your account was created successfully!',
-  passwordResetMsg: 'Your password was changed successfully',
+  // passwordResetMsg: 'Your password was changed successfully',
+  passwordResetMsg: '',
 
   // Pages:
   // - Research
