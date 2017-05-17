@@ -6,9 +6,9 @@ export default {
   // Signup / Login forms:
   createAccount: 'Create an Account',
   createPasswordTitle: 'Create a Password',
-  changePasswordTitle: 'Change Password',
+  changePasswordTitle: 'Reset Password',
   createPasswordMsg: 'Create a password for your account.',
-  changePasswordMsg: 'Update the password on your account',
+  changePasswordMsg: 'Create a new password for your account.',
 
   // - alert messages:
   accountCreated: 'Account Created',
