@@ -1,5 +1,7 @@
 <can-import from="~/components/common/panel/" />
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/arrow-change.component" />
+<can-import from="~/components/common/grid/grid.less" />
 
 <drag-panel class="panel panel-default card card-half">
   <div class="panel-heading">
@@ -15,8 +17,8 @@
               <thead>
               <tr>
                 <th class="column-company">Company</th>
-                <th class="column-domicile">Change (μBTC)</th>
-                <th class="column-issuance">Change (%)</th>
+                <th class="column-change">Change (μBTC)</th>
+                <th class="column-changepercent">Change (%)</th>
               </tr>
               </thead>
             </table>
@@ -29,8 +31,12 @@
                     <td class="column-company">
                       <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
                     </td>
-                    <td class="column-domicile">{{row.domicile}}</td>
-                    <td class="column-issuance">{{row.issuanceName}}</td>
+                    <td class="column-change">
+                      <arrow-change class="no-arrow" {change}="row.change"></arrow-change>
+                    </td>
+                    <td class="column-changepercent">
+                      <arrow-change class="no-arrow" {change}="row.changePercent"></arrow-change>
+                    </td>
                   </tr>
                 {{/each}}
                 </tbody>
