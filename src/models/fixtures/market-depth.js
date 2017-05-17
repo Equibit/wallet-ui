@@ -21,7 +21,7 @@ fixture('GET /market-depth', function () {
         : (i < asksMnt * 0.7
             ? (asksVal = asksVal - Math.floor(Math.random()*20), asksVal)
             : (asksVal = asksVal - Math.floor(Math.random()*40), asksVal))
-    )).concat(_.times(6, i => i * 60).reverse()).concat([0]).concat(_.times(bidsMnt, i => null)),
+    )).concat(_.times(7, i => i * 60).reverse()).concat(_.times(bidsMnt, i => null)),
 
     bids: _.times(asksMnt - 1, i => null).concat([0]).concat(_.times(bidsMnt + 1, i => (
       i < bidsMnt / 2

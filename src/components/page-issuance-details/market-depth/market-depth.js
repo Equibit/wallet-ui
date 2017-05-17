@@ -86,7 +86,9 @@ export const ViewModel = DefineMap.extend({
       },
       tooltip: {
         position: function (data, width, height, element) {
-          return {top: -height, left: parseInt(element.getAttribute('x'))};
+          let top = data.length > 1 ? 25 - height : -height;
+          let left = parseInt(element.getAttribute('x')) - 30;
+          return { top, left };
         }
       }
     }
