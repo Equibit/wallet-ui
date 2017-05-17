@@ -1,5 +1,6 @@
-<can-import from="~/components/common/panel/" />
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/panel/" />
+<can-import from="~/components/page-portfolio/portfolio-toolbar/" />
 
 <drag-panel class="panel panel-default card card-half">
   <div class="panel-heading">
@@ -7,11 +8,7 @@
   </div>
 
   <div class="panel-body">
-    <div class="row">
-      <div class="col-md-12">
-        Balance {{portfolio.balance}} BTC
-      </div>
-    </div>
+    <portfolio-toolbar {balance}="portfolio.balance" />
 
     <div class="row">
       <div class="col-md-2">

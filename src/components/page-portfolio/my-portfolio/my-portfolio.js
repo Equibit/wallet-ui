@@ -19,8 +19,8 @@ import './my-portfolio.less';
 import view from './my-portfolio.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the my-portfolio component'
+  portfolio: {
+    type: '*'
   }
 });
 
