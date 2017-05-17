@@ -31,7 +31,7 @@
 </div>
 
 {{#if isModalShown}}
-  <bootstrap-modal-content class="order-book">
+  <bootstrap-modal-content class="modal-full-height order-book">
     <div class="modal-header">
       <button ($click)="close()" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <h4 class="modal-title">
