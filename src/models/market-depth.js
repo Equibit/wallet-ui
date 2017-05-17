@@ -46,7 +46,7 @@ const MarketDepth = DefineMap.extend('MarketDepth', {
       ['x'].concat(this.cats),
       ['asks'].concat(this.asks),
       ['bids'].concat(this.bids)
-    ]
+    ];
   }
 });
 

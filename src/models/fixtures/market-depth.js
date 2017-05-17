@@ -10,6 +10,7 @@ const totalMnt = asksMnt + bidsMnt;
 let asksVal = maxVal;
 let bidsVal = 0;
 
+/*eslint-disable */
 fixture('GET /market-depth', function () {
   return {
     _id: 1,
@@ -22,11 +23,12 @@ fixture('GET /market-depth', function () {
             : (asksVal = asksVal - Math.floor(Math.random()*40), asksVal))
     )).concat(_.times(6, i => i * 60).reverse()).concat([0]).concat(_.times(bidsMnt, i => null)),
 
-    bids: _.times(asksMnt-19, i => null).concat([0]).concat(_.times(bidsMnt+20, i => (
+    bids: _.times(asksMnt - 1, i => null).concat([0]).concat(_.times(bidsMnt + 1, i => (
       i < bidsMnt / 2
-        ? (bidsVal = bidsVal + Math.floor(Math.random()*45), bidsVal)
-        : (bidsVal = bidsVal + Math.floor(Math.random()*15), bidsVal)
+        ? (bidsVal = bidsVal + Math.floor(Math.random() * 45), bidsVal)
+        : (bidsVal = bidsVal + Math.floor(Math.random() * 15), bidsVal)
     ))),
-    cats: _.times(totalMnt, i => '30,' + (100 + (i+1) * 5))
+    cats: _.times(totalMnt, i => '30,' + (100 + ((i + 1) * 5)))
   };
 });
+/*eslint-enable */

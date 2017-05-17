@@ -60,7 +60,7 @@ export const ViewModel = DefineMap.extend({
         y: {
           tick: {
             count: 4,
-            format: (d) =>  Math.floor(d)
+            format: (d) => Math.floor(d)
           },
           padding: {
             top: 0,
@@ -86,7 +86,7 @@ export const ViewModel = DefineMap.extend({
       },
       tooltip: {
         position: function (data, width, height, element) {
-          return {top: -height, left: parseInt(element.getAttribute('x'))}
+          return {top: -height, left: parseInt(element.getAttribute('x'))};
         }
       }
     }
