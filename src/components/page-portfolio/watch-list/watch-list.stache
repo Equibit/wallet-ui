@@ -1,1 +1,44 @@
-<p>{{message}}</p>
+<can-import from="~/components/common/panel/" />
+<can-import from="~/utils/stache-helpers/" />
+
+<drag-panel class="panel panel-default card card-half">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{i18n('watchList')}}</h3>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-12 no-padding-right">
+        <grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
+          <div class="grid-responsive">
+            <table class="table table-condensed grid-header">
+              <thead>
+              <tr>
+                <th class="column-company">Company</th>
+                <th class="column-domicile">Change (μBTC)</th>
+                <th class="column-issuance">Change (%)</th>
+              </tr>
+              </thead>
+            </table>
+
+            <div class="grid-body-scroll">
+              <table class="table table-condensed grid-body">
+                <tbody>
+                {{#each rows as row}}
+                  <tr>
+                    <td class="column-company">
+                      <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
+                    </td>
+                    <td class="column-domicile">{{row.domicile}}</td>
+                    <td class="column-issuance">{{row.issuanceName}}</td>
+                  </tr>
+                {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </grid-component>
+      </div>
+    </div>
+  </div>
+</drag-panel>

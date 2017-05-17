@@ -39,6 +39,7 @@ export default {
   unrealizedPL: 'Unrealized P&L',
   companies: 'Companies',
   trades: 'Trades',
+  watchList: 'Watchlist',
 
   // Common:
   yes: 'YES',
