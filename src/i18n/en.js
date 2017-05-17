@@ -40,6 +40,7 @@ export default {
   companies: 'Companies',
   trades: 'Trades',
   watchList: 'Watchlist',
+  myPortfolio: 'My Portfolio',
 
   // Common:
   yes: 'YES',
