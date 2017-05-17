@@ -1,6 +1,50 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
 market-depth {
 	display: block;
   .well {
     height: 114px;
+  }
+
+
+  .c3 {
+    .c3-axis {
+      text {
+        fill: @gray-light;
+      }
+    }
+    path {
+      stroke: @gray-lighter;
+    }
+
+    // Hide ticks (too many):
+    .tick line {
+      opacity: 0;
+    }
+
+    // Hide chart legend:
+    .c3-legend-item {
+      display: none;
+    }
+
+    // Hide chart points:
+    .c3-chart-lines circle {
+      opacity: 0!important;
+    }
+
+    // Grid style:
+    line.c3-ygrid, line.c3-xgrid {
+      stroke-dasharray: initial;
+      stroke: @gray-lighter;
+    }
+    // Hide the 1st line of the grid:
+    .c3-xgrids .c3-xgrid:first-child {
+      display: none;
+    }
+
+    .c3-tooltip-name--bids .name {
+      white-space: nowrap;
+    }
+
   }
 }
