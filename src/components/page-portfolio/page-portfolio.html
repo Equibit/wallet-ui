@@ -1,6 +1,24 @@
-<script type="text/stache" can-autorender>
-  <can-import from="wallet-ui/components/page-portfolio/" />
+<div id="demo"></div>
+
+<script type="text/stache" can-autorender id="demo-html">
+  <can-import from="~/styles/styles.less" />
+  <can-import from="~/components/nav-bar/" />
+  <can-import from="~/components/page-portfolio/" />
+
+  <nav-bar page="portfolio" is-logged-in="true" />
   <page-portfolio></page-portfolio>
 </script>
+
 <script src="../../../node_modules/steal/steal.js"
-        main="can-view-autorender"></script>
+        main="@empty">
+  // import '~/models/fixtures/issuances';
+  import $ from 'jquery';
+  import stache from 'can-stache';
+  import reload from 'live-reload';
+
+  stache.async($('#demo-html').html()).then(template => {
+    let render = () => $('#demo').html(template({}));
+    render();
+    reload(render);
+  });
+</script>
