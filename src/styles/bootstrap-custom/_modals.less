@@ -1,0 +1,31 @@
+/**
+  * @stylesheet _modals.less Modals
+  * @parent styles.base
+  *
+  * @iframe src/styles/demos/modals/modals.html 400
+  *
+**/
+.modal-content {
+  border-radius: @border-radius-medium;
+}
+
+.modal-header {
+  padding-bottom: 8px;
+}
+
+.modal-body {
+  padding-top: 8px;
+  h4:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.modal-footer {
+  border: none;
+  border-bottom-left-radius: @border-radius-medium;
+  border-bottom-right-radius: @border-radius-medium;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: @gray-lightest;
+  text-align: left;
+}

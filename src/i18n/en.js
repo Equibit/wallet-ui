@@ -7,13 +7,13 @@ export default {
   createAccount: 'Create an Account',
   createPasswordTitle: 'Create a Password',
   changePasswordTitle: 'Change Password',
-  createPasswordMsg: 'Create a password for your account',
-  changePasswordMsg: 'Change a password for your account',
+  createPasswordMsg: 'Create a password for your account.',
+  changePasswordMsg: 'Update the password on your account',
 
   // - alert messages:
   accountCreated: 'Account Created',
   passwordReset: 'Password Reset',
-  welcomeMsg: 'Welcome to Equibit! Your account was created successfully!',
+  // welcomeMsg: 'Welcome to Equibit! Your account was created successfully!',
   // passwordResetMsg: 'Your password was changed successfully',
   passwordResetMsg: '',
 
@@ -29,7 +29,7 @@ export default {
   marketCapitalization: 'Market Capitalization',
 
   // - Terms and conditions:
-  termsAndConditions: 'EDC Terms of Use',
+  termsAndConditions: 'EDC Terms & Conditions',
   privacyPolicy: 'EDC Privacy Policy',
 
   // Common:
