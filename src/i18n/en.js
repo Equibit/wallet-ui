@@ -33,6 +33,12 @@ export default {
 
   // - Portfolio page:
   portfolioSummary: 'Portfolio Summary',
+  balance: 'Balance',
+  totalCash: 'Total Cash',
+  totalSecurities: 'Total Securities',
+  unrealizedPL: 'Unrealized P&L',
+  companies: 'Companies',
+  trades: 'Trades',
 
   // Common:
   yes: 'YES',

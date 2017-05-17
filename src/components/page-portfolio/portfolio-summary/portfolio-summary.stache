@@ -12,15 +12,15 @@
 
         <div class="row">
           <div class="col-md-12">
-            <label>{{i18n('Balance')}}</label>
+            <label>{{i18n('balance')}}</label>
             <span>{{format-int(summary.balance)}} <small>BTC</small></span>
           </div>
           <div class="col-md-12">
-            <label>{{i18n('Total Cash')}}</label>
+            <label>{{i18n('totalCash')}}</label>
             <span>{{format-int(summary.totalCash)}} <small>BTC</small></span>
           </div>
           <div class="col-md-12">
-            <label>{{i18n('Total Securities')}}</label>
+            <label>{{i18n('totalSecurities')}}</label>
             <span>{{format-int(summary.totalSec)}} <small>BTC</small></span>
           </div>
         </div>
@@ -30,15 +30,15 @@
 
         <div class="row">
           <div class="col-md-12">
-            <label>{{i18n('Unrealized P&L')}}</label>
+            <label>{{i18n('unrealizedPL')}}</label>
             <span>{{format-int(summary.unrealizedPL)}}</span>
           </div>
           <div class="col-md-12">
-            <label>{{i18n('Companies')}}</label>
+            <label>{{i18n('companies')}}</label>
             <span>{{format-int(summary.companiesMnt)}}</span>
           </div>
           <div class="col-md-12">
-            <label>{{i18n('Trades')}}</label>
+            <label>{{i18n('trades')}}</label>
             <span>{{format-int(summary.tradesMnt)}}</span>
           </div>
         </div>
