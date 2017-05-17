@@ -23,9 +23,8 @@ import './nav-bar.less';
 import view from './nav-bar.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the nav-bar component'
-  }
+  page: 'string',
+  isLoggedIn: 'boolean'
 });
 
 export default Component.extend({
