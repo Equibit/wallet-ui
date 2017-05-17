@@ -10,7 +10,6 @@ export default {
   createPasswordMsg: 'Create a password for your account',
   changePasswordMsg: 'Change a password for your account',
 
-
   // - alert messages:
   accountCreated: 'Account Created',
   passwordReset: 'Password Reset',
