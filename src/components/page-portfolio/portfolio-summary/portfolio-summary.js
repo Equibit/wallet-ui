@@ -17,10 +17,16 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './portfolio-summary.less';
 import view from './portfolio-summary.stache';
+import Model from '~/models/portfolio-summary';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the portfolio-summary component'
+  get dataPromise () {
+    return Model.get({});
+  },
+  summary: {
+    get (val, resolve) {
+      this.dataPromise.then(resolve);
+    }
   }
 });
 

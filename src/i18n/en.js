@@ -25,12 +25,14 @@ export default {
   volume: 'Volume',
   trades: 'Trades',
   shareVolume: 'Share Volume',
-
   marketCapitalization: 'Market Capitalization',
 
   // - Terms and conditions:
   termsAndConditions: 'EDC Terms of Use',
   privacyPolicy: 'EDC Privacy Policy',
+
+  // - Portfolio page:
+  portfolioSummary: 'Portfolio Summary',
 
   // Common:
   yes: 'YES',

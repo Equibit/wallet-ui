@@ -1,1 +1,51 @@
-<p>{{message}}</p>
+<can-import from="~/components/common/panel/" />
+<can-import from="~/utils/stache-helpers/" />
+
+<drag-panel class="panel panel-default card card-half">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{i18n('portfolioSummary')}}</h3>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-7">
+
+        <div class="row">
+          <div class="col-md-12">
+            <label>{{i18n('Balance')}}</label>
+            <span>{{format-int(summary.balance)}} <small>BTC</small></span>
+          </div>
+          <div class="col-md-12">
+            <label>{{i18n('Total Cash')}}</label>
+            <span>{{format-int(summary.totalCash)}} <small>BTC</small></span>
+          </div>
+          <div class="col-md-12">
+            <label>{{i18n('Total Securities')}}</label>
+            <span>{{format-int(summary.totalSec)}} <small>BTC</small></span>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-5">
+
+        <div class="row">
+          <div class="col-md-12">
+            <label>{{i18n('Unrealized P&L')}}</label>
+            <span>{{format-int(summary.unrealizedPL)}}</span>
+          </div>
+          <div class="col-md-12">
+            <label>{{i18n('Companies')}}</label>
+            <span>{{format-int(summary.companiesMnt)}}</span>
+          </div>
+          <div class="col-md-12">
+            <label>{{i18n('Trades')}}</label>
+            <span>{{format-int(summary.tradesMnt)}}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</drag-panel>
+
