@@ -690,9 +690,9 @@ bip66@^1.1.0:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/bip66/-/bip66-1.1.4.tgz#8a59f8ae16eccb94681c3c2a7b224774605aadfb"
 
-bit-c3@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/bit-c3/-/bit-c3-0.2.2.tgz#06cf76b5aae3a85f3493f3bf98eaddf4f2f28f9f"
+bit-c3@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/bit-c3/-/bit-c3-0.2.3.tgz#1ac736047da6d524ca49edc7f7944a8a9b1ff44b"
   dependencies:
     c3 "0.4.11"
     can-component "^3.0.7"
