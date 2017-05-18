@@ -82,7 +82,7 @@ grid-component {
       color: @brand-primary;
     }
   }
-  
+
   // Coloring td content:
   .color-change {
     color: @brand-success;
@@ -96,6 +96,19 @@ grid-component {
     .grid-responsive {
       overflow-x: auto;
       -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+  }
+
+  @media (max-width: @screen-xs) {
+    .grid-footer {
+      .pagination {
+        float: left;
+        width: 100%;
+      }
+      .grid-results {
+        float: left;
+        margin-top: @padding-large-horizontal;
+      }
     }
   }
 

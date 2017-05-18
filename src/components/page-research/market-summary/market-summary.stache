@@ -8,7 +8,7 @@
 
   <div class="panel-body">
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-xs-12 no-padding">
 
         <div class="row">
           <div class="col-xs-5 col-md-4 market-summary-section">
