@@ -2,12 +2,6 @@
 
 candlestick-chart {
 	display: block;
-  //max-width: 600px;
-  //background: white;
-
-  div.well {
-    //padding: 10px;
-  }
 
   candlestick-volume-chart {
     * {
@@ -17,14 +11,18 @@ candlestick-chart {
       font-family: serif;
     }
 
+    .chart-container .chart {
+      margin-bottom: 0;
+    }
+
     .chart-controls {
       .label {
         display: block;
         text-align: left;
-        font-size: small;
+        font-size: @font-size-small;
         color: @gray;
         font-weight: normal;
-        margin-bottom: 3px;
+        padding: 5px 0;
       }
 
       .zoom {
@@ -38,6 +36,7 @@ candlestick-chart {
 
       .zoom, .candlestick-controls {
         display: inline-block;
+        margin-top: 10px;
       }
     }
   }
