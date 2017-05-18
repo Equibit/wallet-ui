@@ -28,41 +28,18 @@ export const ViewModel = DefineMap.extend({
     })
   },
   rows: {
-    set (value) {
-      if (value && value[0]) {
-        setTimeout(() => {
-          this.selectRowDefault(value[0]);
-        }, 0);
-      }
-      return value;
-    },
     get (value, resolve) {
-      if (value) {
-        return value;
-      }
       Issuance.getList(this.queryParams).then(rows => {
         if (rows.total) {
           this.pagination.total = rows.total;
         }
         resolve(rows);
-        this.selectRowDefault(rows[0]);
       });
     }
-  },
-  selectedRow: {
-    type: '*'
-  },
-  sort: {
-    type: '*'
   },
   queryParams: {
     get () {
       let params = this.pagination.params;
-      if (typeof this.sort !== 'undefined') {
-        params['$sort'] = {
-          change: this.sort
-        };
-      }
       return params;
     }
   }

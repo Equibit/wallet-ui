@@ -4,6 +4,7 @@
 <can-import from="~/components/page-portfolio/portfolio-breakdown/" />
 <can-import from="~/components/page-portfolio/portfolio-cash/" />
 <can-import from="~/components/page-portfolio/equity-grid/" />
+<can-import from="~/components/page-portfolio/bonds-grid/" />
 
 <drag-panel class="panel panel-default card">
   <div class="panel-heading">
