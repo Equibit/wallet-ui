@@ -37,7 +37,6 @@ grid-component {
   .grid-body {
     width: calc(~"100% - "@scrollbar-width);
     td {
-      cursor: pointer;
       &.truncate {
         white-space: nowrap;
         overflow: hidden;
@@ -46,6 +45,9 @@ grid-component {
 
     }
     tr {
+      &.even-odd {
+        cursor: pointer;
+      }
       &.selected {
         background-color: @row-selected-bg;
         td:nth-child(1){
