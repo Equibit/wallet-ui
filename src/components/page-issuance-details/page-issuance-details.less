@@ -1,4 +1,4 @@
-@import '../../styles/custom/_mixins.less';
+@import '../../styles/custom/_helpers.less';
 
 page-issuance-details {
 	display: block;
@@ -9,19 +9,27 @@ page-issuance-details {
 
     .panel-heading {
       company-value-change {
-        margin-left: 7px;
-        border-left: 1px solid lightgray;
-        padding-left: 10px;
-        font-size: smaller;
+        margin-left: @padding-small-horizontal;
+        border-left: @border-default;
+        padding-left: @padding-small-horizontal;
+        color: @gray-dark;
 
         .total, arrow-change {
           display: inline;
         }
         .total {
-          font-size: 1.3em;
+          // font-size: 1.3em;
         }
       }
     }
+  }
+
+  .panel-title {
+    font-size: @font-size-h3 + 2;
+  }
+
+  .panel-subtitle {
+    font-size: @font-size-small;
   }
 
   h3 {
