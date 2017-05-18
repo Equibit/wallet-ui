@@ -1,14 +1,18 @@
 <can-import from="candlestick-volume-chart/dist/candlestick-volume-chart" />
 
-<h3><small>SHARE PERFORMANCE</small></h3>
+<h2 class="subtitle">Share Performance</h2>
 
 <div class="well">
-  {{#if candlestickSize}}
-    {{#if chartData}}
-      <candlestick-volume-chart {chart-data}="chartData"
-                                {(candlestick-size)}="candlestickSize"
-                                {chart-height}="chartHeight" />
+  <!-- div class="row"-->
+    <!-- div class="col-md-5 col-xs-12" -->
+    {{#if candlestickSize}}
+      {{#if chartData}}
+        <candlestick-volume-chart {chart-data}="chartData"
+                                  {(candlestick-size)}="candlestickSize"
+                                  {chart-height}="chartHeight" />
 
+      {{/if}}
     {{/if}}
-  {{/if}}
+    <!--/div-->
+  <!--/div -->
 </div>
