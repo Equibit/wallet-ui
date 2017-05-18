@@ -41,6 +41,7 @@ export default {
   trades: 'Trades',
   watchList: 'Watchlist',
   myPortfolio: 'My Portfolio',
+  breakdown: 'Breakdown',
 
   // Common:
   yes: 'YES',

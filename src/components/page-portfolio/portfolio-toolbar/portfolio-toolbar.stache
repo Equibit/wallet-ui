@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar">
   <div class="container-fluid">
     <p class="navbar-text">Balance {{balance}} BTC</p>
 

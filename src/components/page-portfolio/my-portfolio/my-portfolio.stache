@@ -1,6 +1,7 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/common/panel/" />
 <can-import from="~/components/page-portfolio/portfolio-toolbar/" />
+<can-import from="~/components/page-portfolio/portfolio-breakdown/" />
 
 <drag-panel class="panel panel-default card card-half">
   <div class="panel-heading">
@@ -30,7 +31,7 @@
 
       </div>
       <div class="col-md-5">
-        BREAKDOWN
+        <portfolio-breakdown />
       </div>
       <div class="col-md-5">
         CASH
