@@ -6,7 +6,7 @@
   <div class="col-xs-12">
     <drag-panel class="panel panel-default card card-full">
       <div class="panel-heading">
-        <h3 class="panel-title">All Issuances</h3>
+        <h1 class="panel-title">All Issuances</h1>
       </div>
       <div class="panel-body">
         <div class="row card-row-full">

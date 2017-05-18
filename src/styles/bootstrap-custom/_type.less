@@ -1,0 +1,24 @@
+dt {
+  font-size: @font-size-small;
+  color: @gray;
+}
+
+.dl-horizontal {
+  dt {
+    float: left;
+    width: (@dl-horizontal-offset - 20);
+    clear: left;
+    text-align: right;
+    .text-overflow();
+  }
+  dd {
+    margin-left: @dl-horizontal-offset;
+  }
+}
+
+.subtitle {
+  font-size: @font-size-small;
+  text-transform: uppercase;
+  color: @gray-light;
+  margin-bottom: @padding-small-vertical;
+}
