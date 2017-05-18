@@ -1,0 +1,69 @@
+<can-import from="~/components/common/grid/grid.less" />
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="grid-component" />
+<can-import from="~/components/common/arrow-change.component" />
+
+<grid-component {rows}="rows"
+                {(selected-row)}="selectedRow"
+                {pagination}="pagination"
+                (onpage)=loadPage()
+                class="thin-scrollbar">
+
+  <div class="grid-responsive">
+
+    <div class="grid-header-container">
+      <table class="table grid-header">
+        <thead>
+        <tr>
+          <th class="column-company">Company</th>
+          <th class="column-issuance">Issuance</th>
+          <th class="column-quantity">Quantity</th>
+          <th class="column-cost">Cost (μBTC)</th>
+          <th class="column-price">Price (μBTC)</th>
+          <th class="column-value">Value (μBTC)</th>
+          <th class="column-pl">P&L (μBTC)</th>
+        </tr>
+        </thead>
+      </table>
+    </div>
+
+    <div class="grid-body-scroll">
+      <table class="table table-condensed grid-body">
+        <tbody>
+        {{#each rows as row}}
+          <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
+            <td class="column-company truncate">
+              <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
+            </td>
+            <td class="column-issuance">{{row.issuanceName}}</td>
+            <td class="column-quantity">{{row.quantity}}</td>
+            <td class="column-cost">{{row.cost}}</td>
+            <td class="column-price">{{row.price}}</td>
+            <td class="column-value">{{row.value}}</td>
+            <td class="column-pl">{{row.pl}}</td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-footer">
+    {{#if hasPages}}
+      <div class="btn-group pagination" role="group" aria-label="pagination">
+        <button type="button" class="btn btn-default btn-xs" ($click)="prev()" {{^if isPrevActive}}disabled{{/if}}>&laquo;</button>
+
+        {{#each pages}}
+          <button type="button" class="btn btn-default btn-xs {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
+        {{/each}}
+
+        <button type="button" class="btn btn-default btn-xs" ($click)="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
+
+      </div>
+    {{/if}}
+
+    <div class="grid-results">Showing {{rows.length}} of {{pagination.total}} Results</div>
+
+  </div>
+
+</grid-component>

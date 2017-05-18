@@ -3,10 +3,11 @@
 <can-import from="~/components/page-portfolio/portfolio-toolbar/" />
 <can-import from="~/components/page-portfolio/portfolio-breakdown/" />
 <can-import from="~/components/page-portfolio/portfolio-cash/" />
+<can-import from="~/components/page-portfolio/equity-grid/" />
 
-<drag-panel class="panel panel-default card card-half">
+<drag-panel class="panel panel-default card">
   <div class="panel-heading">
-    <h3 class="panel-title">{{i18n('myPortfolio')}}</h3>
+    <h1 class="panel-title">{{i18n('myPortfolio')}}</h1>
   </div>
 
   <div class="panel-body">
@@ -41,7 +42,16 @@
 
     <div class="row">
       <div class="col-md-12">
-        SECURITIES
+        <h2 class="sub-title">{{i18n('securities')}}</h2>
+        <div class="well">
+
+          <h3>{{i18n('Equity')}}</h3>
+          <equity-grid />
+
+          <h3>{{i18n('Bonds')}}</h3>
+          <bonds-grid />
+
+        </div>
       </div>
     </div>
 

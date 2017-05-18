@@ -48,6 +48,9 @@ export default {
   valuation: 'Valuation',
   bitcoin: 'Bitcoin',
   equibit: 'Equibit',
+  securities: 'Securities',
+  equity: 'Equity',
+  bonds: 'Bonds',
 
   // Common:
   yes: 'YES',
