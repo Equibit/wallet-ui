@@ -10,34 +10,35 @@
     <div class="row">
       <div class="col-xs-12 no-padding-right">
         <grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
+          <div class="grid-responsive">
 
-
-          <table class="table table-condensed grid-header">
-            <thead>
-            <tr>
-              <th class="column-company">Company</th>
-              <th class="column-issuance">Issuance</th>
-              <th class="column-trades"># Trades</th>
-              <th class="column-volume">Volume (μBTC)</th>
-            </tr>
-            </thead>
-          </table>
-
-          <div class="grid-body-scroll">
-            <table class="table table-condensed grid-body">
-              <tbody>
-              {{#each rows as row}}
-                <tr>
-                  <td class="column-company">
-                    <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
-                  </td>
-                  <td class="column-issuance">{{row.issuanceName}}</td>
-                  <td class="column-trades">{{row.tradesNum}}</td>
-                  <td class="column-volume">{{row.volume24h}}</td>
-                </tr>
-              {{/each}}
-              </tbody>
+            <table class="table table-condensed grid-header">
+              <thead>
+              <tr>
+                <th class="column-company">Company</th>
+                <th class="column-issuance">Issuance</th>
+                <th class="column-trades"># Trades</th>
+                <th class="column-volume">Volume (μBTC)</th>
+              </tr>
+              </thead>
             </table>
+
+            <div class="grid-body-scroll">
+              <table class="table table-condensed grid-body">
+                <tbody>
+                {{#each rows as row}}
+                  <tr>
+                    <td class="column-company">
+                      <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
+                    </td>
+                    <td class="column-issuance">{{row.issuanceName}}</td>
+                    <td class="column-trades">{{row.tradesNum}}</td>
+                    <td class="column-volume">{{row.volume24h}}</td>
+                  </tr>
+                {{/each}}
+                </tbody>
+              </table>
+            </div>
           </div>
 
         </grid-component>
