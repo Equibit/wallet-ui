@@ -1,0 +1,30 @@
+<can-import from="~/utils/stache-helpers/"></can-import>
+<can-import from="bit-c3" />
+
+<h2 class="sub-title">{{i18n('cash')}}</h2>
+
+<div class="well">
+  <div class="row">
+    <table class="table">
+      <thead>
+      <tr>
+        <th class="column-currency">{{i18n('currency')}}</th>
+        <th class="column-quantity">{{i18n('quantity')}}</th>
+        <th class="column-valuation">{{i18n('valuation')}} (μBTC)</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{i18n('Bitcoin')}}</td>
+          <td>{{cash.btc}}</td>
+          <td>{{cash.btcVal}}</td>
+        </tr>
+        <tr>
+          <td>{{i18n('equibit')}}</td>
+          <td>{{cash.eqb}}</td>
+          <td>{{cash.eqbVal}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

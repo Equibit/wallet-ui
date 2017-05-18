@@ -42,6 +42,12 @@ export default {
   watchList: 'Watchlist',
   myPortfolio: 'My Portfolio',
   breakdown: 'Breakdown',
+  cash: 'Cash',
+  currency: 'Currency',
+  quantity: 'Quantity',
+  valuation: 'Valuation',
+  bitcoin: 'Bitcoin',
+  equibit: 'Equibit',
 
   // Common:
   yes: 'YES',

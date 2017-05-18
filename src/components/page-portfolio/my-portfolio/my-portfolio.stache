@@ -2,6 +2,7 @@
 <can-import from="~/components/common/panel/" />
 <can-import from="~/components/page-portfolio/portfolio-toolbar/" />
 <can-import from="~/components/page-portfolio/portfolio-breakdown/" />
+<can-import from="~/components/page-portfolio/portfolio-cash/" />
 
 <drag-panel class="panel panel-default card card-half">
   <div class="panel-heading">
@@ -34,7 +35,7 @@
         <portfolio-breakdown />
       </div>
       <div class="col-md-5">
-        CASH
+        <portfolio-cash />
       </div>
     </div>
 
