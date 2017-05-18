@@ -11,7 +11,6 @@
           <bit-c3-data-column value="{.}" />
         {{/each}}
       </bit-c3-data>
-      <c3-donut title="{title}" />
     </bit-c3>
   </div>
 </div>

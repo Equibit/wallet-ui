@@ -18,7 +18,6 @@ import DefineMap from 'can-define/map/map';
 import DefineList from 'can-define/list/list';
 import './portfolio-breakdown.less';
 import view from './portfolio-breakdown.stache';
-import d3 from 'd3';
 
 export const ViewModel = DefineMap.extend({
   dataColumns: {
@@ -48,8 +47,8 @@ export const ViewModel = DefineMap.extend({
       },
       onrendered: () => {
         // Manually reposition chart and legend:
-        d3.select('portfolio-breakdown .c3-chart-arcs').attr('transform', 'translate(80,58)');
-        d3.selectAll('portfolio-breakdown svg .c3-legend-item').attr('transform','translate(10,0)');
+        document.querySelector('portfolio-breakdown .c3-chart-arcs').setAttribute('transform', 'translate(80,58)');
+        document.querySelectorAll('portfolio-breakdown svg .c3-legend-item').forEach(a => a.setAttribute('transform', 'translate(10,0)'));
       }
     }
   }
