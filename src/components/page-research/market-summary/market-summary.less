@@ -9,43 +9,46 @@ market-summary {
     padding: 15px 25px;
   }
 
-  .panel-body {
-    padding-top: 0;
+  .card {
+    .panel-body {
+      padding-top: 0;
 
-    .row > div > .row {
-      &:nth-child(1) {
-        border-bottom: @border-default;
+      .row > div > .row {
+        &:nth-child(1) {
+          border-bottom: @border-default;
+        }
+
+        > div:nth-child(1) {
+          border-right: @border-default;
+        }
+
+
       }
-
-      > div:nth-child(1) {
-        border-right: @border-default;
-      }
-
-
-    }
-    .market-summary-section {
-      padding-top: @padding-large-horizontal;
-      padding-bottom: @padding-large-horizontal;
-      span {
-        font-size: 33px;
-        small {
-          font-size: @font-size-base;
+      .market-summary-section {
+        padding: @padding-large-horizontal 0 0 @padding-large-horizontal;
+        span {
+          font-size: 33px;
+          small {
+            font-size: @font-size-base;
+          }
         }
       }
-    }
-    .market-summary-section-accent{
-      color: @gray-light;
-    }
+      .market-summary-section-accent{
+        color: @gray-light;
+      }
 
+    }
   }
 
   @media (max-width: @screen-xs) {
-    .panel-body {
-      .market-summary-section {
-        span {
-          font-size: @font-size-h3;
-          small {
-            font-size: @font-size-small;
+    .card {
+      .panel-body {
+        .market-summary-section {
+          span {
+            font-size: @font-size-h3;
+            small {
+              font-size: @font-size-small;
+            }
           }
         }
       }

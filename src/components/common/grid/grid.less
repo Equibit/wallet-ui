@@ -37,7 +37,6 @@ grid-component {
   .grid-body {
     width: calc(~"100% - "@scrollbar-width);
     td {
-      cursor: pointer;
       &.truncate {
         white-space: nowrap;
         overflow: hidden;
@@ -46,6 +45,9 @@ grid-component {
 
     }
     tr {
+      &.even-odd {
+        cursor: pointer;
+      }
       &.selected {
         background-color: @row-selected-bg;
         td:nth-child(1){
@@ -82,7 +84,7 @@ grid-component {
       color: @brand-primary;
     }
   }
-  
+
   // Coloring td content:
   .color-change {
     color: @brand-success;
@@ -96,6 +98,19 @@ grid-component {
     .grid-responsive {
       overflow-x: auto;
       -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+  }
+
+  @media (max-width: @screen-xs) {
+    .grid-footer {
+      .pagination {
+        float: left;
+        width: 100%;
+      }
+      .grid-results {
+        float: left;
+        margin-top: @padding-large-horizontal;
+      }
     }
   }
 
