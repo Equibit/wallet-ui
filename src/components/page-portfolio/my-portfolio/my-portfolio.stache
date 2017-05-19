@@ -51,6 +51,8 @@
           <h3>{{i18n('Equity')}}</h3>
           <equity-grid />
 
+          <br>
+
           <h3>{{i18n('Bonds')}}</h3>
           <bonds-grid />
 

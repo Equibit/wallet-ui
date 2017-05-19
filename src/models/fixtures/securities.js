@@ -6,7 +6,7 @@ const companies = [
   'Imperial Brands', 'Allianz SE', 'Kingfisher plc', 'Deutsche Telekom', 'Experian plc',
   'Propanc Health', 'Marks And Spencer', 'Cool Technologies', 'The Pulse Beverages'
 ];
-const store = fixture.store(_.times(90, function (i) {
+const store = fixture.store(_.times(50, function (i) {
   return {
     _id: i,
     companyName: companies[i % 9],
