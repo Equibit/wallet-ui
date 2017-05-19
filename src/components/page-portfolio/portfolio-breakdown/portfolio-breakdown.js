@@ -26,7 +26,7 @@ export const ViewModel = DefineMap.extend({
       new DefineList(['Domest. Equity', 10]),
       new DefineList(['Domest. Bonds', 20]),
       new DefineList(['Int. Equity', 15]),
-      new DefineList(['Int. Bonds', 20]),
+      new DefineList(['Int. Bonds', 20])
     ])
   },
   config: {

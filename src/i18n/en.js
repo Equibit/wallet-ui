@@ -38,7 +38,6 @@ export default {
   totalSecurities: 'Total Securities',
   unrealizedPL: 'Unrealized P&L',
   companies: 'Companies',
-  trades: 'Trades',
   watchList: 'Watchlist',
   myPortfolio: 'My Portfolio',
   breakdown: 'Breakdown',

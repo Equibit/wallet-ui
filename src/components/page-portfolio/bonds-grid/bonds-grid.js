@@ -26,7 +26,7 @@ export const ViewModel = DefineMap.extend({
         resolve(rows);
       });
     }
-  },
+  }
 });
 
 export default Component.extend({
