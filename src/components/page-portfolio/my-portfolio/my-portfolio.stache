@@ -1,0 +1,65 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/panel/" />
+<can-import from="~/components/page-portfolio/portfolio-toolbar/" />
+<can-import from="~/components/page-portfolio/portfolio-breakdown/" />
+<can-import from="~/components/page-portfolio/portfolio-cash/" />
+<can-import from="~/components/page-portfolio/equity-grid/" />
+<can-import from="~/components/page-portfolio/bonds-grid/" />
+
+<drag-panel class="panel panel-default card">
+  <div class="panel-heading">
+    <h1 class="panel-title">{{i18n('myPortfolio')}}</h1>
+  </div>
+
+  <div class="panel-body">
+    <portfolio-toolbar {balance}="portfolio.balance" />
+
+    <div class="row">
+      <div class="col-md-3">
+
+        <div class="row">
+          <div class="col-md-12 summary-section">
+            <label>{{i18n('totalCash')}}</label>
+            <span>{{portfolio.totalCash}} <small>BTC</small></span>
+          </div>
+          <div class="col-md-12 summary-section">
+            <label>{{i18n('totalSecurities')}}</label>
+            <span>{{portfolio.totalSec}} <small>BTC</small></span>
+          </div>
+          <div class="col-md-12 summary-section">
+            <label>{{i18n('unrealizedPL')}}</label>
+            <arrow-change class="change" {change}="portfolio.unrealizedPL">
+              <span class="percentage">({{portfolio.unrealizedPLPercent}}%)</span>
+            </arrow-change>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-4">
+        <portfolio-breakdown />
+      </div>
+      <div class="col-md-5">
+        <portfolio-cash />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="sub-title">{{i18n('securities')}}</h2>
+        <div class="well">
+
+          <h3>{{i18n('Equity')}}</h3>
+          <equity-grid />
+
+          <br>
+
+          <h3>{{i18n('Bonds')}}</h3>
+          <bonds-grid />
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</drag-panel>
+

@@ -1,1 +1,23 @@
-<p>{{message}}</p>
+<can-import from="~/components/page-portfolio/portfolio-summary/" />
+<can-import from="~/components/page-portfolio/watch-list/" />
+<can-import from="~/components/page-portfolio/my-portfolio/" />
+
+<div class="row">
+  <div class="col-md-4 col-sm-12">
+
+    <div class="row">
+      <div class="col-md-12">
+        <portfolio-summary />
+      </div>
+      <div class="col-md-12">
+        <watch-list />
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-8 col-sm-12">
+
+    <my-portfolio />
+
+  </div>
+</div>

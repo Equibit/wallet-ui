@@ -25,12 +25,31 @@ export default {
   volume: 'Volume',
   trades: 'Trades',
   shareVolume: 'Share Volume',
-
   marketCapitalization: 'Market Capitalization',
 
   // - Terms and conditions:
   termsAndConditions: 'EDC Terms & Conditions',
   privacyPolicy: 'EDC Privacy Policy',
+
+  // - Portfolio page:
+  portfolioSummary: 'Portfolio Summary',
+  balance: 'Balance',
+  totalCash: 'Total Cash',
+  totalSecurities: 'Total Securities',
+  unrealizedPL: 'Unrealized P&L',
+  companies: 'Companies',
+  watchList: 'Watchlist',
+  myPortfolio: 'My Portfolio',
+  breakdown: 'Breakdown',
+  cash: 'Cash',
+  currency: 'Currency',
+  quantity: 'Quantity',
+  valuation: 'Valuation',
+  bitcoin: 'Bitcoin',
+  equibit: 'Equibit',
+  securities: 'Securities',
+  equity: 'Equity',
+  bonds: 'Bonds',
 
   // Common:
   yes: 'YES',

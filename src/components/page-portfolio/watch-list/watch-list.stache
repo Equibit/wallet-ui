@@ -1,0 +1,50 @@
+<can-import from="~/components/common/panel/" />
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/arrow-change.component" />
+<can-import from="~/components/common/grid/grid.less" />
+
+<drag-panel class="panel panel-default card card-half">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{i18n('watchList')}}</h3>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-12 no-padding-right">
+        <grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
+          <div class="grid-responsive">
+            <table class="table table-condensed grid-header">
+              <thead>
+              <tr>
+                <th class="column-company">Company</th>
+                <th class="column-change">Change (μBTC)</th>
+                <th class="column-changepercent">Change (%)</th>
+              </tr>
+              </thead>
+            </table>
+
+            <div class="grid-body-scroll">
+              <table class="table table-condensed grid-body">
+                <tbody>
+                {{#each rows as row}}
+                  <tr>
+                    <td class="column-company">
+                      <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
+                    </td>
+                    <td class="column-change">
+                      <arrow-change class="no-arrow" {change}="row.change"></arrow-change>
+                    </td>
+                    <td class="column-changepercent">
+                      <arrow-change class="no-arrow" {change}="row.changePercent"></arrow-change>
+                    </td>
+                  </tr>
+                {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </grid-component>
+      </div>
+    </div>
+  </div>
+</drag-panel>
