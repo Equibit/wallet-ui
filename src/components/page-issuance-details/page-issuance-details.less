@@ -9,10 +9,12 @@ page-issuance-details {
 
     .panel-heading {
       company-value-change {
-        margin-left: @padding-small-horizontal;
-        border-left: @border-default;
-        padding-left: @padding-small-horizontal;
         color: @gray-dark;
+        @media (min-width: @screen-xs) {
+          margin-left: @padding-small-horizontal;
+          border-left: @border-default;
+          padding-left: @padding-small-horizontal;
+        }
 
         .total, arrow-change {
           display: inline;
