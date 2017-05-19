@@ -17,12 +17,12 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './bonds-grid.less';
 import view from './bonds-grid.stache';
-import Issuance from '~/models/issuance';
+import PortfolioSecurity from '~/models/portfolio-security';
 
 export const ViewModel = DefineMap.extend({
   rows: {
     get (value, resolve) {
-      Issuance.getList({}).then(rows => {
+      PortfolioSecurity.getList({securityType: 'bond', $limit: 5, $skip: 0}).then(rows => {
         resolve(rows);
       });
     }

@@ -28,16 +28,18 @@
       <table class="table table-condensed grid-body">
         <tbody>
         {{#each rows as row}}
-          <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
+          <tr>
             <td class="column-company truncate">
               <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
             </td>
             <td class="column-issuance">{{row.issuanceName}}</td>
             <td class="column-quantity">{{row.quantity}}</td>
-            <td class="column-cost">{{row.cost}}</td>
-            <td class="column-price">{{row.price}}</td>
-            <td class="column-value">{{row.value}}</td>
-            <td class="column-pl">{{row.pl}}</td>
+            <td class="column-cost">{{format(row.cost, '', 4)}}</td>
+            <td class="column-price">{{format(row.price, '', 4)}}</td>
+            <td class="column-value">{{format(row.value, '', 4)}}</td>
+            <td class="column-pl">
+              <arrow-change class="no-arrow" {change}="row.profitLoss"></arrow-change>
+            </td>
           </tr>
         {{/each}}
         </tbody>

@@ -17,8 +17,11 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './equity-grid.less';
 import view from './equity-grid.stache';
-import Issuance from '~/models/issuance';
+import PortfolioSecurity from '~/models/portfolio-security';
 import Pagination from '~/models/pagination';
+
+// TODO: turn fixtures off
+import '~/models/fixtures/securities';
 
 export const ViewModel = DefineMap.extend({
   pagination: {
@@ -29,7 +32,7 @@ export const ViewModel = DefineMap.extend({
   },
   rows: {
     get (value, resolve) {
-      Issuance.getList(this.queryParams).then(rows => {
+      PortfolioSecurity.getList(this.queryParams).then(rows => {
         if (rows.total) {
           this.pagination.total = rows.total;
         }
@@ -40,7 +43,7 @@ export const ViewModel = DefineMap.extend({
   queryParams: {
     get () {
       let params = this.pagination.params;
-      return params;
+      return Object.assign({securityType: 'equity'}, params);
     }
   }
 });
