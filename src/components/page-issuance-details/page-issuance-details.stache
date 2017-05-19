@@ -8,25 +8,32 @@
 
 <div class="row">
   <div class="col-xs-12">
+
     <drag-panel class="page-panel panel panel-default card card-full">
+
       <div class="panel-heading panel-heading-clear">
         <div class="row">
+
           <div class="col-md-5 no-padding">
               <h1 class="panel-title">{{issuance.companyName}}</h1>
               <div class="panel-subtitle">{{issuance.issuanceName}}</div>
-
           </div>
+
           <div class="col-md-7">
             <company-value-change {issuance}="issuance" currency="μBTC" />
           </div>
+
         </div>
       </div>
+
       <div class="panel-body">
         <div class="row card-row-full">
 
           <div class="col-md-5 col-xs-12">
             <company-metadata class="wide" {issuance}="issuance" currency="μBTC" />
             <candlestick-chart />
+
+            <small class="fineprint">Price and data does not include trades outside of the Equibit network.</small>
           </div>
 
           <div class="col-md-7 col-xs-12">
@@ -34,6 +41,7 @@
               <div class="col-md-8">
                 <issuance-passports />
               </div>
+
               <div class="col-md-4">
                 <market-depth />
               </div>
