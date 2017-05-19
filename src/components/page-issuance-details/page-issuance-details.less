@@ -25,10 +25,15 @@ page-issuance-details {
     font-size: @font-size-h3 + 2;
   }
 
-  candlestick-chart,
-  related-companies {
+  issuance-passports,
+  market-depth {
     .well {
-      margin-bottom: @padding-large-vertical;
+      @media (min-width: @screen-sm){
+        height: 114px;
+      }
     }
   }
+
+  small.fineprint {
+    margin: @padding-large-vertical * 2 0;  }
 }

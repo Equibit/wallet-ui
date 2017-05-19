@@ -1,30 +1,27 @@
 <can-import from="~/utils/stache-helpers/"></can-import>
 <can-import from="bootstrap-canjs" />
 
-<h3><small>ACCEPTED TRADING PASSPORTS <span class="badge">{{passports.length}}</span></small></h3>
+<h2 class="subtitle">
+  Accepted Trading Passports
+  <span class="badge">{{passports.length}}</span>
+</h2>
 
 <div class="well">
-  <div class="row">
+    <ul class="list-unstyled passport-list">
     {{#each visiblePassports}}
-      <div class="col-md-6">
-        <div class="passport-link"><a>{{name}} <span class="icon icon-share"></span></a></div>
-      </div>
+      <li ><a href="#">{{name}} <span class="icon icon-link-external"></span></a></li>
     {{/each}}
 
     {{#if is-gt(passports.length, 8)}}
-      <div class="col-md-6">
-        <div>
-          <button ($click)="showModal()" class="btn btn-default btn-xs">VIEW ALL</button>
-        </div>
-      </div>
+      <li><button ($click)="showModal()" class="btn btn-default btn-xs text-uppercase">View All</button></li>
     {{/is-gt}}
-  </div>
+    </ul>
 </div>
 
 {{#if isModalShown}}
   <bootstrap-modal-content class="issuance-passports">
     <div class="modal-header">
-      <button ($click)="close()" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
       <h4 class="modal-title">
         Accepted Trading Passports <br>
         <small>This issuance is restricted and requires at least one of these passports.</small>
@@ -32,13 +29,11 @@
     </div>
     <div class="modal-body">
       <div class="well">
-        <div class="row">
+        <ul class="list-unstyled passport-list">
           {{#each passports}}
-            <div class="col-md-6">
-              <div class="passport-link"><a>{{name}} <span class="icon icon-share"></span></a></div>
-            </div>
+            <li ><a href="#">{{name}} <span class="icon icon-link-external"></span></a></li>
           {{/each}}
-        </div>
+        </ul>
       </div>
     </div>
   </bootstrap-modal-content>
