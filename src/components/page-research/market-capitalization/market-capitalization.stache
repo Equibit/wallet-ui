@@ -12,7 +12,9 @@
         {{#if dataPromise.isPending}}
           <i>Loading...</i>
         {{else}}
-          <bar-chart type="bar" {data-columns}="dataColumns" {axis-x}="labels"></bar-chart>
+          <a href="{{routeUrl page='issuances' sort='asc'}}">
+            <bar-chart type="bar" {data-columns}="dataColumns" {axis-x}="labels"></bar-chart>
+          </a>
         {{/if}}
       </div>
     </div>
