@@ -1,6 +1,6 @@
 <nav class="navbar">
   <div class="container-fluid">
-    <p class="navbar-text">Balance {{balance}} BTC</p>
+    <p class="navbar-text"><label>Balance</label> <span class="balance">{{balance}} <small>BTC</small></span></p>
 
     <ul class="nav navbar-nav navbar-right">
       <li><a><span class="icon icon-arrow"></span> Send</a></li>
