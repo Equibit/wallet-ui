@@ -1,0 +1,21 @@
+<can-import from="bootstrap-canjs" />
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/trade-funds/send-funds/" />
+
+<bootstrap-modal-content class="send-funds">
+  <div class="modal-header">
+    <button ($click)="close()" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">
+      <span class="icon icon-upload"></span> Send<br>
+      <small>Send funds or securities from your account.</small>
+    </h4>
+  </div>
+  <div class="modal-body">
+    <send-funds />
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary">Next</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <a class="pull-right">Advanced Send</a>
+  </div>
+</bootstrap-modal-content>

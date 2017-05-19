@@ -50,6 +50,8 @@ export default {
   securities: 'Securities',
   equity: 'Equity',
   bonds: 'Bonds',
+  send: 'Send',
+  receive: 'Receive',
 
   // Common:
   yes: 'YES',
