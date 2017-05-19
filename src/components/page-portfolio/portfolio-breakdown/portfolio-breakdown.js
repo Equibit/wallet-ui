@@ -47,8 +47,8 @@ export const ViewModel = DefineMap.extend({
       },
       onrendered: () => {
         // Manually reposition chart and legend:
-        document.querySelector('portfolio-breakdown .c3-chart-arcs').setAttribute('transform', 'translate(80,58)');
-        document.querySelectorAll('portfolio-breakdown svg .c3-legend-item').forEach(a => a.setAttribute('transform', 'translate(10,0)'));
+        document.querySelector('portfolio-breakdown .c3-chart-arcs').setAttribute('transform', 'translate(60,58)');
+        document.querySelectorAll('portfolio-breakdown svg .c3-legend-item').forEach(a => a.setAttribute('transform', 'translate(20,0)'));
       }
     }
   }
