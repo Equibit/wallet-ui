@@ -33,6 +33,6 @@ export default {
   privacyPolicy: 'EDC Privacy Policy',
 
   // Common:
-  yes: 'YES',
-  no: 'NO'
+  yes: 'Yes',
+  no: 'No'
 };

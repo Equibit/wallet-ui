@@ -1,18 +1,51 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
 order-book {
 	display: block;
 
+  @media (min-screen: @screen-md) {
+    .sell-orders {
+      padding-left: 0;
+    }
+    .buy-orders {
+      padding-right: 0;
+    }
+  }
+
+  @media (max-width: 1199px) {
+    .sell-orders {
+      padding: 0;
+    }
+    .buy-orders {
+      margin-top: @padding-large-vertical*2;
+      padding: 0;
+    }
+  }
+
   grid-component {
+    margin-bottom: 10px;
     .grid-responsive {
       height: 196px;
-    }
+      @media (max-width: @screen-sm) {
+        height: initial;
+      }
 
-    table {
-      tbody {
-        max-height: 180px;
+      // Column widths
+      .column-quantity {
+        width: 66px;
+      }
+      .column-price {
+        width: 50px;
+      }
+      .column-datetime {
+        width: 77px;
+      }
+      .column-action-buttons {
+        width: 46px;
       }
     }
-    margin-bottom: 10px;
   }
+
 }
 
 bootstrap-modal-content.order-book {

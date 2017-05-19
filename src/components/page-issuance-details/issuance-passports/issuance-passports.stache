@@ -13,7 +13,7 @@
     {{/each}}
 
     {{#if is-gt(passports.length, 8)}}
-      <li><button ($click)="showModal()" class="btn btn-default btn-xs text-uppercase">View All</button></li>
+      <li><button ($click)="showModal()" class="btn btn-default btn-xs">View All</button></li>
     {{/is-gt}}
     </ul>
 </div>
