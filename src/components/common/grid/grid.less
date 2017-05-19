@@ -36,14 +36,6 @@ grid-component {
   }
   .grid-body {
     width: calc(~"100% - "@scrollbar-width);
-    td {
-      &.truncate {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-    }
     tr {
       &.even-odd {
         cursor: pointer;
@@ -74,6 +66,16 @@ grid-component {
       color: @gray;
       font-size: @font-size-xsmall;
     }
+  }
+
+  th,
+  td {
+    &.truncate {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
   }
 
   th {

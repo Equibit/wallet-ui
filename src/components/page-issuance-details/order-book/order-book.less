@@ -1,17 +1,58 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
 order-book {
 	display: block;
 
   grid-component {
+    margin-bottom: 10px;
     .grid-responsive {
       height: 196px;
-    }
-
-    table {
-      tbody {
-        max-height: 180px;
+      @media (max-width: @screen-sm) {
+        height: initial;
       }
     }
-    margin-bottom: 10px;
+  }
+
+}
+
+order-book,
+.order-book {
+  @media (min-screen: @screen-md) {
+    .sell-orders {
+      padding-left: 0;
+    }
+    .buy-orders {
+      padding-right: 0;
+    }
+  }
+
+  @media (max-width: 1199px) {
+    .sell-orders {
+      padding: 0;
+    }
+    .buy-orders {
+      margin-top: @padding-large-vertical*2;
+      padding: 0;
+    }
+  }
+
+  grid-component {
+     // Column widths
+    .column-quantity {
+      width: 66px;
+    }
+    .column-price {
+      width: 50px;
+    }
+    .column-datetime {
+      //width: 77px;
+    }
+    .column-action-buttons {
+      width: 46px;
+    }
+    .column-partial {
+      width: 30px;
+    }
   }
 }
 
@@ -20,7 +61,13 @@ bootstrap-modal-content.order-book {
   company-value-change {
     .total, arrow-change {
       display: inline;
-      font-size: smaller;
     }
   }
+  @media (max-width: 1199px) {
+    &.modal-full-height .modal-body {
+      height: 72vh;
+    }
+  }
+
 }
+

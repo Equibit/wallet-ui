@@ -1,3 +1,64 @@
+/**
+  * @stylesheet bootstrap-custom/_type.less Type
+  * @parent styles.base
+  *
+**/
+
+/**
+* @styles font-sizes-additional Additional Font Sizes
+* @parent bootstrap-custom/_type.less 3
+*
+* @description
+* Use `.subtitle` to style headings from `<h2>` to `<h5>` that usually go above a `well`
+* mantaining page semantics.
+*
+* @iframe src/styles/demos/fonts/font-sizes-additional.html
+**/
+
+.subtitle {
+  font-size: @font-size-small;
+  text-transform: uppercase;
+  color: @gray-light;
+  margin-bottom: @padding-small-vertical;
+  margin-top: 0;
+  .badge {
+    padding: 1px 7px;
+    font-size: @font-size-small - 1;
+    margin-top: -3px;
+  }
+}
+
+.subheading {
+  font-size: @font-size-small;
+  text-transform: uppercase;
+  color: @gray-dark;
+  font-weight: bold;
+  padding-bottom: 3px;
+  border-bottom: 2px solid @border-color;
+  margin: 0;
+}
+
+/**
+* @styles inline-elements Inline Elements
+* @parent bootstrap-custom/_type.less 4
+*
+* @demo src/styles/demos/fonts/font-inline-elements.html
+**/
+
+small.fineprint {
+ font-size: @font-size-xsmall;
+ color: @gray-light;
+ margin-bottom: @padding-base-vertical;
+}
+
+
+/**
+* @styles lists Lists
+* @parent bootstrap-custom/_type.less 5
+*
+* @demo src/styles/demos/fonts/font-lists.html
+**/
+
 dt {
   font-size: @font-size-small;
   color: @gray;
@@ -16,10 +77,3 @@ dt {
   }
 }
 
-.subtitle {
-  font-size: @font-size-small;
-  text-transform: uppercase;
-  color: @gray-light;
-  margin-bottom: @padding-small-vertical;
-  margin-top: 0;
-}

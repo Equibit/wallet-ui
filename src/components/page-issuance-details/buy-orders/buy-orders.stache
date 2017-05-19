@@ -4,28 +4,28 @@
 
 <grid-component {(rows)}="rows">
   <div class="grid-responsive">
-    <table class="table grid-header">
+    <table class="table table-condensed grid-header">
       <thead>
       <tr>
         <th class="column-quantity">Quantity</th>
-        <th class="column-askprice">Bid Price</th>
+        <th class="column-price truncate">Bid Price</th>
         <th class="column-datetime">Date/Time</th>
         <th class="column-partial">Partial</th>
-        <th class="action-buttons"></th>
+        <th class="column-action-buttons"></th>
       </tr>
       </thead>
     </table>
 
-    <div class="grid-body-scroll x-thin-scrollbar">
-      <table class="table table-condensed">
+    <div class="grid-body-scroll">
+      <table class="table table-condensed grid-body">
         <tbody>
         {{#each rows as row}}
           <tr class="">
             <td class="column-quantity">{{row.quantity}}</td>
-            <td class="column-askprice">{{row.price}}</td>
+            <td class="column-price">{{row.price}}</td>
             <td class="column-datetime">{{format-time(row.date)}}</td>
             <td class="column-partial">{{yes-no(row.partial)}}</td>
-            <td class="action-buttons"><button class="btn btn-default btn-xs" ($click)="sell(row.id)">SELL</button></td>
+            <td class="column-action-buttons"><button class="btn btn-default btn-xs" ($click)="sell(row.id)">Sell</button></td>
           </tr>
         {{/each}}
         </tbody>

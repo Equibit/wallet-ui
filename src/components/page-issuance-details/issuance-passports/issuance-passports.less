@@ -1,35 +1,28 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
 issuance-passports {
 	display: block;
-
-  h3 .badge {
-    font-size: 9px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-  }
 }
 
-.passport-link {
-  padding: 3px 0;
-
-  a:hover {
-    text-decoration: none;
-    cursor: pointer;
+issuance-passports,
+.issuance-passports {
+  .well {
+    @media (min-width: @screen-sm){
+      column-count: 2;
+    }
   }
-  .icon-share {
-    margin-left: 5px;
-    &:hover {
-      text-decoration: none;
+  .passport-list {
+    font-size: @font-size-small;
+    li {
+      margin: 2px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+    }
+    .btn {
+      margin-top: 5px;
     }
   }
 }
 
-bootstrap-modal-content.issuance-passports {
-  .modal-header {
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-
-  .passport-link {
-    padding: 5px 0;
-  }
-}

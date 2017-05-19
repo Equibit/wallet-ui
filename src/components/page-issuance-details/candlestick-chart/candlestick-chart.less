@@ -2,6 +2,9 @@
 
 candlestick-chart {
 	display: block;
+  .well {
+    margin-bottom: @padding-large-vertical*2;
+  }
 
   candlestick-volume-chart {
     * {
@@ -38,6 +41,19 @@ candlestick-chart {
         display: inline-block;
         margin-top: 10px;
       }
+
+      // Makes buttons pills for mobile to handle wrapping
+      @media (max-width: @screen-xs) {
+        .btn-group > .btn {
+          margin: 3px;
+          &:first-child:not(:last-child),
+          &:not(:first-child):not(:last-child):not(.dropdown-toggle),
+          &:last-child:not(:first-child) {
+            border-radius: @border-radius-large*2;
+          }
+        }
+      }
+
     }
   }
 }

@@ -9,10 +9,12 @@ page-issuance-details {
 
     .panel-heading {
       company-value-change {
-        margin-left: @padding-small-horizontal;
-        border-left: @border-default;
-        padding-left: @padding-small-horizontal;
         color: @gray-dark;
+        @media (min-width: @screen-sm) {
+          margin-left: @padding-small-horizontal;
+          border-left: @border-default;
+          padding-left: @padding-small-horizontal;
+        }
 
         .total, arrow-change {
           display: inline;
@@ -25,19 +27,29 @@ page-issuance-details {
     font-size: @font-size-h3 + 2;
   }
 
-  .panel-subtitle {
-    font-size: @font-size-small;
-  }
-
-
-  .well {
-   // padding-top: 10px 0;
-  }
-
-  // To get rid of extra scrollbar for the main page panel:
-  candlestick-chart, related-companies {
-    .well {
-      margin-bottom: 8px;
+  .column-right {
+    @media (max-width: @screen-md) {
+      padding: 0;
     }
   }
+  market-depth {
+    padding-bottom: @padding-large-vertical*2;
+  }
+
+  issuance-passports,
+  market-depth {
+    .well {
+      height: 119px;
+    }
+  }
+
+  @media (max-width: @screen-sm){
+     issuance-passports .well {
+      height: initial;
+      margin-bottom: @padding-large-vertical*2;
+     }
+  }
+
+  small.fineprint {
+    margin: @padding-large-vertical * 2 0;  }
 }

@@ -54,6 +54,6 @@ export default {
   receive: 'Receive',
 
   // Common:
-  yes: 'YES',
-  no: 'NO'
+  yes: 'Yes',
+  no: 'No'
 };
