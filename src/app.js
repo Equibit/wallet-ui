@@ -92,6 +92,6 @@ const AppViewModel = DefineMap.extend({
 
 route('issuances/sort/{sort}', {page: 'issuances'});
 route('issuances/{companySlug}/{issuanceId}', {page: 'issuance-details'});
-route('{page}', {page: 'home'});
+route('{page}', {page: 'research'});
 
 export default AppViewModel;
