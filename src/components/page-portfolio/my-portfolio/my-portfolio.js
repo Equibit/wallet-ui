@@ -27,7 +27,9 @@ export const ViewModel = DefineMap.extend({
       unrealizedPL: 0.109,
       unrealizedPLPercent: 1.2
     }
-  }
+  },
+  isSendFundsPopup: 'boolean',
+  isReceiveFundsPopup: 'boolean'
 });
 
 export default Component.extend({

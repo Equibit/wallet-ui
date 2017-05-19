@@ -5,6 +5,8 @@
 <can-import from="~/components/page-portfolio/portfolio-cash/" />
 <can-import from="~/components/page-portfolio/equity-grid/" />
 <can-import from="~/components/page-portfolio/bonds-grid/" />
+<can-import from="~/components/trade-funds/send-popup/" />
+<can-import from="~/components/trade-funds/receive-popup/" />
 
 <drag-panel class="panel panel-default card">
   <div class="panel-heading">
@@ -12,7 +14,9 @@
   </div>
 
   <div class="panel-body">
-    <portfolio-toolbar {balance}="portfolio.balance" />
+    <portfolio-toolbar {balance}="portfolio.balance"
+                       {^send-funds-popup}="isSendFundsPopup"
+                       {^receive-funds-popup}="isReceiveFundsPopup"/>
 
     <div class="row">
       <div class="col-md-3">
@@ -63,3 +67,10 @@
   </div>
 </drag-panel>
 
+{{#if isSendFundsPopup}}
+  <send-popup />
+{{/if}}
+
+{{#if isReceiveFundsPopup}}
+  <receive-popup />
+{{/if}}

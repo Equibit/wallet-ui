@@ -19,7 +19,17 @@ import './portfolio-toolbar.less';
 import view from './portfolio-toolbar.stache';
 
 export const ViewModel = DefineMap.extend({
-  balance: 'number'
+  balance: 'number',
+  sendFundsPopup: 'boolean',
+  receiveFundsPopup: 'boolean',
+  sendFunds () {
+    this.sendFundsPopup = false;
+    this.sendFundsPopup = true;
+  },
+  receiveFunds () {
+    this.receiveFundsPopup = false;
+    this.receiveFundsPopup = true;
+  }
 });
 
 export default Component.extend({
