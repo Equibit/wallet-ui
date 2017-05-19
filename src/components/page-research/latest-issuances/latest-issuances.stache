@@ -43,7 +43,7 @@
           </div>
 
           <div class="grid-footer">
-            <a href="{{routeUrl page='issuances'}}" class="btn btn-default btn-sm">VIEW ALL</a>
+            <a href="{{routeUrl page='issuances'}}" class="btn btn-default btn-sm">View All</a>
           </div>
         </grid-component>
       </div>

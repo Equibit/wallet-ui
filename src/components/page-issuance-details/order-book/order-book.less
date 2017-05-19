@@ -3,6 +3,20 @@
 order-book {
 	display: block;
 
+  grid-component {
+    margin-bottom: 10px;
+    .grid-responsive {
+      height: 196px;
+      @media (max-width: @screen-sm) {
+        height: initial;
+      }
+    }
+  }
+
+}
+
+order-book,
+.order-book {
   @media (min-screen: @screen-md) {
     .sell-orders {
       padding-left: 0;
@@ -23,29 +37,23 @@ order-book {
   }
 
   grid-component {
-    margin-bottom: 10px;
-    .grid-responsive {
-      height: 196px;
-      @media (max-width: @screen-sm) {
-        height: initial;
-      }
-
-      // Column widths
-      .column-quantity {
-        width: 66px;
-      }
-      .column-price {
-        width: 50px;
-      }
-      .column-datetime {
-        width: 77px;
-      }
-      .column-action-buttons {
-        width: 46px;
-      }
+     // Column widths
+    .column-quantity {
+      width: 66px;
+    }
+    .column-price {
+      width: 50px;
+    }
+    .column-datetime {
+      //width: 77px;
+    }
+    .column-action-buttons {
+      width: 46px;
+    }
+    .column-partial {
+      width: 30px;
     }
   }
-
 }
 
 bootstrap-modal-content.order-book {
@@ -53,7 +61,13 @@ bootstrap-modal-content.order-book {
   company-value-change {
     .total, arrow-change {
       display: inline;
-      font-size: smaller;
     }
   }
+  @media (max-width: 1199px) {
+    &.modal-full-height .modal-body {
+      height: 72vh;
+    }
+  }
+
 }
+

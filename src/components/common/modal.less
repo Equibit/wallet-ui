@@ -1,3 +1,5 @@
+@import '../../styles/bootstrap-custom/_variables.less';
+
 bootstrap-modal {
   bootstrap-modal-content {
     &.modal-full-height {
@@ -5,8 +7,15 @@ bootstrap-modal {
       .modal-body {
         position: relative;
         overflow: auto;
-        height: 79vh;
+        height: 78vh;
+      }
+      @media (max-width: @screen-xs) {
+        height: 97vh;
+        .modal-body {
+          height: 81vh;
+        }
       }
     }
   }
 }
+

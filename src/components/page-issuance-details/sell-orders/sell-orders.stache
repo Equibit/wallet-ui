@@ -16,8 +16,8 @@
       </thead>
     </table>
 
-    <div class="grid-body-scroll x-thin-scrollbar">
-      <table class="table table-condensed">
+    <div class="grid-body-scroll">
+      <table class="table table-condensed grid-body">
         <tbody>
         {{#each rows as row}}
           <tr class="">
