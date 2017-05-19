@@ -10,7 +10,7 @@ page-issuance-details {
     .panel-heading {
       company-value-change {
         color: @gray-dark;
-        @media (min-width: @screen-xs) {
+        @media (min-width: @screen-sm) {
           margin-left: @padding-small-horizontal;
           border-left: @border-default;
           padding-left: @padding-small-horizontal;
@@ -27,13 +27,27 @@ page-issuance-details {
     font-size: @font-size-h3 + 2;
   }
 
+  .column-right {
+    @media (max-width: @screen-md) {
+      padding: 0;
+    }
+  }
+  .row-top {
+    padding-bottom: @padding-large-vertical*2;
+  }
+
   issuance-passports,
   market-depth {
     .well {
-      @media (min-width: @screen-sm){
-        height: 114px;
-      }
+      height: 114px;
     }
+  }
+
+  @media (max-width: @screen-sm){
+     issuance-passports .well {
+      height: initial;
+      margin-bottom: @padding-large-vertical*2;
+     }
   }
 
   small.fineprint {

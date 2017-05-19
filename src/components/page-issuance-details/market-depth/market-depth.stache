@@ -1,4 +1,4 @@
-<h3><small>MARKET DEPTH</small></h3>
+<h2 class="subtitle">Market Depth</h2>
 
 <div class="well">
   <can-import from="bit-c3" />
