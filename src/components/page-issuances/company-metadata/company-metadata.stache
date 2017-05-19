@@ -1,24 +1,19 @@
 <can-import from="~/utils/stache-helpers/" />
 
 <div class="group">
-  <div class="title">Issuance</div>
   <div class="row">
-    <div class="column col-xs-6 col-sm-3">
-      <small>Name</small>
-      {{issuance.issuanceName}}
+    <div class="column col-xs-6 col-sm-4">
+      <small>Domicile</small>
+      {{issuance.domicile}}
     </div>
-    <div class="column col-xs-6 col-sm-3">
-      <small>Type</small>
-      {{issuance.issuanceType}}
-    </div>
-    <div class="column col-xs-6 col-sm-3">
+    <div class="column col-xs-6 col-sm-4">
       <small>24h Volume</small>
       <span class="value">
         {{format(issuance.volume24h,'')}}
         <span class="sub">(BTC)</span>
       <span>
     </div>
-    <div class="column col-xs-6 col-sm-3">
+    <div class="column col-xs-6 col-sm-4">
       <small>Restriction Level</small>
       <span class="value">
         {{issuance.restriction}}
@@ -28,30 +23,36 @@
   </div>
 </div>
 
-<div class="group">
-  <div class="title">Shares</div>
-  <div class="row">
-    <div class="column col-xs-6 col-sm-3">
-      <small>Authorized</small>
-      {{format(issuance.sharesAuthorized,'')}}
-    </div>
-    <div class="column col-xs-6 col-sm-3">
-      <small>Issued</small>
-      {{format(issuance.sharesIssued,'')}}
-    </div>
-    <div class="column col-xs-6 col-sm-3">
-      <small>Dividend/Share</small>
-      <span class="value">
-        {{issuance.sharesDividend}}
-        <span class="sub">({{currency}})</span>
-      </span>
-    </div>
-    <div class="column col-xs-6 col-sm-3">
-      <small>Dividend Yield</small>
-      <span class="value">
-        {{issuance.sharesDividendYield}}
-        <span class="sub">%</span>
-      </span>
-    </div>
+<div class="group issuance-details">
+
+  <div class="subtitle">{{issuance.issuanceType}}</div>
+    <div class="well">
+
+      <dl class="dl-horizontal">
+
+        <dt>Authorized</dt>
+        <dd>{{format(issuance.sharesAuthorized,'')}}</dd>
+
+        <dt>Issued</dt>
+        <dd>{{format(issuance.sharesIssued,'')}}</dd>
+
+        <dt>Dividend/Share</dt>
+        <dd>
+          <span class="value">
+            {{issuance.sharesDividend}}
+            <span class="sub">({{currency}})</span>
+          </span>
+        </dd>
+
+        <dt>Dividend Yield</dt>
+        <dd>
+          <span class="value">
+            {{issuance.sharesDividendYield}}
+            <span class="sub">%</span>
+          </span>
+        </dd>
+      </dl>
+
   </div>
+
 </div>

@@ -5,11 +5,12 @@ import 'can-view-import';
 import './company-metadata';
 
 describe('components/page-issuances/company-metadata', function () {
-  it('should render issuance name', function () {
+  it('should render issuance domicile', function () {
     let data = {
       issuance: {
         issuanceName: 'Series 1',
         issuanceType: 'Common Shares',
+        domicile: 'Canada',
         restriction: '1',
         volume24h: 1541,
 
@@ -21,6 +22,6 @@ describe('components/page-issuances/company-metadata', function () {
     };
     let template = stache('<company-metadata {issuance}="issuance" currency="μBTC" />');
     let frag = template(data);
-    assert.equal(frag.querySelector('.column').lastChild.wholeText.trim(), 'Series 1');
+    assert.equal(frag.querySelector('.column').lastChild.wholeText.trim(), 'Canada');
   });
 });

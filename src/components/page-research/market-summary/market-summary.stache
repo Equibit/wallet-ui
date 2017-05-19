@@ -2,7 +2,7 @@
 <can-import from="~/utils/stache-helpers/" />
 
 <drag-panel class="panel panel-default card card-half">
-  <div class="panel-heading">
+  <div class="panel-heading panel-heading-clear no-border">
     <h3 class="panel-title">{{i18n('marketSummary')}} <small>{{i18n('last24hours')}}</small></h3>
   </div>
 
