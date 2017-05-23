@@ -19,8 +19,14 @@ import './send-popup.less';
 import view from './send-popup.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the send-popup component'
+  mode: {
+    value: 'edit'
+  },
+  next () {
+    this.mode = 'confirm';
+  },
+  edit () {
+    this.mode = 'edit';
   }
 });
 

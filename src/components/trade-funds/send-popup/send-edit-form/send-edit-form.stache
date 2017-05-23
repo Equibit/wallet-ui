@@ -28,15 +28,15 @@
       </div>
 
       {{#is type 'FUNDS'}}
-      <div class="form-group">
-        <label for="">Select Type</label><br>
-        <div class="btn-group" role="group" aria-label="...">
-          <button ($click)="setFundsType('EQB', %element)" type="button"
-                  class="btn btn-default {{#is fundsType 'EQB'}}active{{/is}}">Equibits</button>
-          <button ($click)="setFundsType('BTC', %element)" type="button"
-                  class="btn btn-default {{#is fundsType 'BTC'}}active{{/is}}">Bitcoins</button>
+        <div class="form-group">
+          <label for="">Select Type 111</label><br>
+          <div class="btn-group" role="group" aria-label="...">
+            <button ($click)="setFundsType('EQB', %element)" type="button"
+                    class="btn btn-default {{#is fundsType 'EQB'}}active{{/is}}">Equibits</button>
+            <button ($click)="setFundsType('BTC', %element)" type="button"
+                    class="btn btn-default {{#is fundsType 'BTC'}}active{{/is}}">Bitcoins</button>
+          </div>
         </div>
-      </div>
       {{/is}}
     </div>
 
@@ -49,7 +49,7 @@
         <div class="form-group">
           <label for="">Quantity</label>
           <input type="number" class="form-control" ($value)="quantity">
-          <span class="icon icon-enlarge rotate-45"></span>
+          <span class="rate-arrows icon icon-enlarge rotate-45"></span>
           <div class="input-group quantity-usd">
             <input type="number" class="form-control" aria-describedby="quantity-usd">
             <span class="input-group-addon" id="quantity-usd" ($value)="quantityUsd">USD</span>
@@ -69,7 +69,7 @@
               {{#is fundsType 'EQB'}}Blank EQB{{else}}BTC{{/is}}
             </span>
           </div>
-          <span class="icon icon-enlarge rotate-45"></span>
+          <span class="rate-arrows icon icon-enlarge rotate-45"></span>
           <div class="input-group quantity-usd">
             <input type="number" class="form-control" aria-describedby="quantity-usd">
             <span class="input-group-addon" id="quantity-usd" ($value)="quantityUsd">USD</span>
@@ -81,12 +81,12 @@
   </li>
 
   {{#if type}}
-  <li class="list-group-item">
-    <div class="form-group">
-      <label for="">Description</label>
-      <textarea class="form-control" ($value)="description" />
-      <!--OR <button class="btn btn-default">Scan</button>-->
-    </div>
-  </li>
+    <li class="list-group-item">
+      <div class="form-group">
+        <label for="">Description</label>
+        <textarea class="form-control" ($value)="description" />
+        <!--OR <button class="btn btn-default">Scan</button>-->
+      </div>
+    </li>
   {{/if}}
 </ul>

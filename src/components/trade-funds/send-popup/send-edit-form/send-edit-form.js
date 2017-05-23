@@ -1,22 +1,22 @@
 /**
- * @module {can.Component} wallet-ui/components/trade-funds/send-funds send-funds
+ * @module {can.Component} wallet-ui/components/trade-funds/send-popup/send-edit-form send-edit-form
  * @parent components.common
  *
- * A short description of the send-funds component
+ * A short description of the send-edit-form component
  *
- * @signature `<send-funds />`
+ * @signature `<send-edit-form />`
  *
- * @link ../src/wallet-ui/components/trade-funds/send-funds.html Full Page Demo
+ * @link ../src/wallet-ui/components/trade-funds/send-popup/send-edit-form.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/trade-funds/send-funds.html
+ * @demo src/wallet-ui/components/trade-funds/send-popup/send-edit-form.html
  */
 
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import './send-funds.less';
-import view from './send-funds.stache';
+import './send-edit-form.less';
+import view from './send-edit-form.stache';
 
 export const ViewModel = DefineMap.extend({
   /**
@@ -41,11 +41,11 @@ export const ViewModel = DefineMap.extend({
   setFundsType (val, el) {
     this.fundsType = val;
     el.blur();
-  }
+  },
 });
 
 export default Component.extend({
-  tag: 'send-funds',
+  tag: 'send-edit-form',
   ViewModel,
   view
 });
