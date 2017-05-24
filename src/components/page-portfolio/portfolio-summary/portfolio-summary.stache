@@ -3,45 +3,46 @@
 <can-import from="~/components/common/arrow-change.component" />
 
 <drag-panel class="panel panel-default card card-half">
-  <div class="panel-heading">
+  <div class="panel-heading panel-heading-clear no-border">
     <h3 class="panel-title">{{i18n('portfolioSummary')}}</h3>
   </div>
 
   {{#if summary}}
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-6 border-right">
+      <div class="col-xs-6 no-padding border-right">
 
         <div class="row">
-          <div class="col-md-12 summary-section larger">
+          <div class="col-xs-12 summary-section larger">
             <label>{{i18n('balance')}}</label>
             <span>{{summary.balance}} <small>BTC</small></span>
           </div>
-          <div class="col-md-12 summary-section">
+          <div class="col-xs-12 summary-section">
             <label>{{i18n('totalCash')}}</label>
             <span>{{summary.totalCash}} <small>BTC</small></span>
           </div>
-          <div class="col-md-12 summary-section">
+          <div class="col-xs-12 summary-section">
             <label>{{i18n('totalSecurities')}}</label>
             <span>{{summary.totalSec}} <small>BTC</small></span>
           </div>
         </div>
 
       </div>
-      <div class="col-md-6">
+
+      <div class="col-xs-6 no-padding">
 
         <div class="row">
-          <div class="col-md-12 summary-section">
+          <div class="col-xs-12 summary-section">
             <label>{{i18n('unrealizedPL')}}</label>
             <arrow-change class="change" {change}="summary.unrealizedPL">
               <span class="percentage">({{summary.unrealizedPLPercent}}%)</span>
             </arrow-change>
           </div>
-          <div class="col-md-12 summary-section larger accent">
+          <div class="col-xs-12 summary-section larger accent">
             <label>{{i18n('companies')}}</label>
             <span>{{format-int(summary.companiesMnt)}}</span>
           </div>
-          <div class="col-md-12 summary-section larger accent">
+          <div class="col-xs-12 summary-section larger accent">
             <label>{{i18n('trades')}}</label>
             <span>{{format-int(summary.tradesMnt)}}</span>
           </div>
