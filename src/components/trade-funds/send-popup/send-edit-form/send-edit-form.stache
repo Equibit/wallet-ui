@@ -75,7 +75,7 @@
           </div>
           <span class="rate-arrows icon icon-enlarge rotate-45"></span>
 
-          <currency-converter {(input)}="formData.amount" {currency}="fundsToUsd" />
+          <currency-converter {(input)}="formData.amount" {currency}="fundsToUsd" {^output}="formData.price"/>
 
         </div>
       </div>

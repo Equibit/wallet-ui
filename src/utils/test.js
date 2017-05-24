@@ -3,6 +3,7 @@ import 'steal-mocha';
 import crypto from './crypto';
 import stache from 'can-stache';
 import './stache-helpers/stache-helpers';
+import { toMaxPrecision } from '~/utils/formatter';
 
 describe('utils/crypto', function () {
   it('mnemonicToSeed', function () {
@@ -39,5 +40,15 @@ describe('stache-helpers', function () {
       let frag = stache('{{^if one-of(value, "foo", "bar")}}OK{{/if}}')({value: 'baz'});
       assert.equal(frag.textContent, 'OK');
     });
+  });
+});
+
+describe('formatter', function () {
+  it('should format to max precision of 8', function () {
+    assert.equal(toMaxPrecision(1.123456789, 8), 1.12345679);
+    assert.equal(toMaxPrecision(1.123456789, 8).toString(), "1.12345679");
+  });
+  it('should not add extra zeros', function () {
+    assert.equal(toMaxPrecision(1.12345, 8).toString(), "1.12345");
   });
 });
