@@ -1,3 +1,5 @@
+<can-import from="~/utils/stache-helpers/" />
+
 <ul class="list-group">
   <li class="list-group-item">
     <div class="form-group to-address">
@@ -6,18 +8,18 @@
     </div>
 
     <div class="form-group securities">
-      <label for="">Securities</label>
-      <p class="input-value">{{formData.issuance.companyName}}</p>
+      <label for="">Securities</label> <br>
+      <span class="input-value">{{formData.issuance.companyName}}</span>
 
       <div class="row small-text">
         <div class="col-sm-5">
           <span class="input-value">{{formData.issuance.issuanceName}}</span>
         </div>
         <div class="col-sm-4 text-right">
-          <span class="input-value">{{formData.sharesAmount}} Shares</span>
+          <span class="input-value">{{formData.amount}} Shares</span>
         </div>
         <div class="col-sm-3 text-right">
-          <span class="input-value">$ {{formData.sharesPrice}} USD</span>
+          <span class="input-value">$ {{formData.price}} USD</span>
         </div>
       </div>
     </div>
@@ -45,7 +47,7 @@
           <span class="input-value">My Portfolio</span>
         </div>
         <div class="col-sm-4 text-right">
-          <span class="input-value small-text">- {{formData.sharesAmount}} Shares</span>
+          <span class="input-value small-text">- {{formData.amount}} Shares</span>
         </div>
       </div>
       <div class="row">
@@ -53,7 +55,7 @@
           <span class="input-value small-text">- {{formData.transactionFee}} Blank EQB</span>
         </div>
         <div class="col-sm-3 text-right">
-          <span class="input-value small-text">$ - {{formData.transactionFeePrice}} USD</span>
+          <span class="input-value small-text">$ - {{sum(formData.price, formData.transactionFeePrice)}} USD</span>
         </div>
       </div>
     </div>

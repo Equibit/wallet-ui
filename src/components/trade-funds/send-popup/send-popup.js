@@ -34,8 +34,8 @@ export const ViewModel = DefineMap.extend({
       fundsType: 'EQB',
 
       toAddress: '1QJqB6mwTCELUStpay1zNQEo6mXLFhf7Qs',
-      sharesAmount: 4,
-      sharesPrice: 100 * 1000,
+      amount: 4,
+      price: 100 * 1000,
       issuance: new Issuance({
         companyName: 'Alibaba Group',
         issuanceName: 'Series A'
@@ -46,7 +46,7 @@ export const ViewModel = DefineMap.extend({
     })
   },
   mode: {
-    value: 'confirm'
+    value: 'edit'
   },
   next () {
     this.mode = 'confirm';
