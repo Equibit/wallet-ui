@@ -1,0 +1,95 @@
+<ul class="list-group">
+  {{!
+  <li class="list-group-item">
+    <div class="form-group">
+      <label for="">From</label>
+      <input type="text" class="form-control" value="My Portfolio" readonly>
+    </div>
+  </li>
+  }}
+  <li class="list-group-item">
+    <div class="form-group">
+      <label for="">To</label>
+      <input type="text" class="form-control" placeholder="Paste address" {($value)}="formData.toAddress">
+      {{!OR <button class="btn btn-default">Scan</button>}}
+    </div>
+  </li>
+  <li class="list-group-item">
+
+    <div class="row">
+      <div class="col-sm-5 col-xs-6">
+        <div class="form-group">
+          <label for="">Send</label><br>
+          <div class="btn-group" role="group" aria-label="...">
+            <button ($click)="setType('SECURITIES', %element)" type="button"
+                    class="btn btn-default {{#is formData.type 'SECURITIES'}}active{{/is}}">Securities</button>
+            <button ($click)="setType('FUNDS', %element)" type="button"
+                    class="btn btn-default {{#is formData.type 'FUNDS'}}active{{/is}}">Funds</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5 col-xs-6">
+        {{#is formData.type 'FUNDS'}}
+          <div class="form-group">
+            <label for="">Select Type</label><br>
+            <div class="btn-group" role="group" aria-label="...">
+              <button ($click)="setFundsType('EQB', %element)" type="button"
+                      class="btn btn-default {{#is formData.fundsType 'EQB'}}active{{/is}}">Equibits</button>
+              <button ($click)="setFundsType('BTC', %element)" type="button"
+                      class="btn btn-default {{#is formData.fundsType 'BTC'}}active{{/is}}">Bitcoins</button>
+            </div>
+          </div>
+        {{/is}}
+      </div>
+    </div>
+
+    {{#is formData.type 'SECURITIES'}}
+      <div class="form-group">
+        <label for="">Issuance</label>
+        <input type="text" class="form-control" placeholder="Enter Company Name" {($value)}="formData.issuance.companyName">
+      </div>
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="">Quantity</label>
+          <input type="number" class="form-control" {($value)}="formData.amount">
+          <span class="rate-arrows icon icon-enlarge rotate-45"></span>
+          <div class="input-group quantity-usd">
+            <input type="number" class="form-control" {($value)}="formData.price" aria-describedby="quantity-usd">
+            <span class="input-group-addon" id="quantity-usd">USD</span>
+          </div>
+        </div>
+      </div>
+    {{/is}}
+
+    {{#is formData.type 'FUNDS'}}
+      <br>
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="">Quantity</label>
+          <div class="input-group funds-quantity">
+            <input type="number" class="form-control" {($value)}="formData.amount" aria-describedby="funds-quantity">
+            <span class="input-group-addon" id="funds-quantity">
+              {{#is formData.fundsType 'EQB'}}Blank EQB{{else}}BTC{{/is}}
+            </span>
+          </div>
+          <span class="rate-arrows icon icon-enlarge rotate-45"></span>
+          <div class="input-group quantity-usd">
+            <input type="number" class="form-control" {($value)}="formData.price" aria-describedby="quantity-usd">
+            <span class="input-group-addon" id="quantity-usd">USD</span>
+          </div>
+        </div>
+      </div>
+    {{/is}}
+
+  </li>
+
+  {{#if formData.type}}
+    <li class="list-group-item">
+      <div class="form-group">
+        <label for="">Description</label>
+        <textarea class="form-control" {($value)}="formData.description" />
+        <!--OR <button class="btn btn-default">Scan</button>-->
+      </div>
+    </li>
+  {{/if}}
+</ul>

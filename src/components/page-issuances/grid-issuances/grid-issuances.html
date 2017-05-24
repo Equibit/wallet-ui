@@ -4,7 +4,7 @@
   grid-issuances grid-component  .table { height: 360px; }
 </style>
 <div id="demo"></div>
-<script type="text/stache" id="demo-template">
+<script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
   <can-import from="~/components/page-issuances/grid-issuances/" />
 
@@ -20,7 +20,7 @@
   import '~/models/fixtures/issuances';
   import Pagination from '~/models/pagination';
 
-  stache.async($('#demo-template').html()).then(template => {
+  stache.async($('#demo-html').html()).then(template => {
     let render = () => $('#demo').html(template({
       pagination: new Pagination({
         skip: 0,
