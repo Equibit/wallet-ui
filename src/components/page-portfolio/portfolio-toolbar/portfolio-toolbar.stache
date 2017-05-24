@@ -2,7 +2,7 @@
   <div class="row">
     <p class="navbar-text"><label>{{i18n('balance')}}</label> <span class="balance">{{balance}} <small>BTC</small></span></p>
 
-    <ul class="nav navbar-nav toolbar-actions">
+    <ul class="nav navbar-nav navbar-right toolbar-actions">
       <li><a ($click)="sendFunds()"><span class="icon icon-upload"></span> {{i18n('send')}}</a></li>
       <li><a ($click)="receiveFunds()"><span class="icon icon-download"></span> {{i18n('receive')}}</a></li>
       <li class="dropdown">

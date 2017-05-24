@@ -13,7 +13,7 @@
 **/
 
 nav.navbar.toolbar {
-  margin: 0 -10px;
+  margin-bottom: 0;
   border-bottom: @border-default;
   padding: 0 1.2em;
 }
@@ -29,11 +29,34 @@ nav.navbar.toolbar {
     }
   }
 
-  @media (min-width: @screen-xs) {
-    .navbar-nav > li {
+  .navbar-nav {
+    > li {
       float: left;
     }
   }
+
+  .nav .open > a {
+    &:hover,
+    &:focus {
+      background-color: transparent;
+    }
+  }
+
+  @media (max-width: @screen-lg) {
+    .navbar-nav .open .dropdown-menu {
+      position: absolute;
+      float: left;
+      min-width: 160px;
+      margin: 2px 0 0;
+      background-color: @dropdown-bg;
+      border: 1px solid @dropdown-border;
+      .box-shadow(0 6px 12px rgba(0,0,0,.175));
+      left: auto;
+      right: 0;
+    }
+  }
+
+
 
 }
 

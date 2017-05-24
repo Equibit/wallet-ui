@@ -3,32 +3,35 @@
 my-portfolio {
 	display: block;
 
-  h2.sub-title {
-    margin: 10px 0 6px;
-    font-size: @font-size-small;
-    text-transform: uppercase;
-    color: @gray;
-  }
-  h3 {
-    margin: 0 0 6px 0;
-    font-size: @font-size-small;
-    text-transform: uppercase;
-    border-bottom: 2px solid @gray-light;
+  .balances {
+    arrow-change {
+      margin-top: -6px;
+    }
   }
 
-  drag-panel.card {
-    .panel-body {
-      padding-top: 0;
-    }
+  .section {
+    margin-bottom: 30px;
   }
 
   .summary-section {
-    border-bottom: 1px solid @gray-lighter;
+    border-bottom: @border-default;
     padding-bottom: 8px;
     margin-bottom: 10px;
-
     &:first-child {
       margin-top: 10px;
     }
+    > span {
+      line-height: 0.8em;
+    }
   }
+
+  @media (min-width: @screen-sm) {
+    portfolio-breakdown,
+    portfolio-cash {
+      .well {
+        min-height: 146px;
+      }
+    }
+  }
+
 }
