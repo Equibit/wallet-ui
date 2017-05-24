@@ -34,7 +34,7 @@ export const ViewModel = DefineMap.extend({
 
   get fundsToUsd () {
     // TODO: the rate depends on the selected issuance!
-    const val = this.formData.fundsType === 'EQB' ? { rate: 25, symbol: 'USD' } : { rate: 2800, symbol: 'USD' }
+    const val = this.formData.fundsType === 'EQB' ? { rate: 25, symbol: 'USD' } : { rate: 2800, symbol: 'USD' };
     return new Currency(val);
   },
 
