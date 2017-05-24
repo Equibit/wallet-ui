@@ -41,7 +41,7 @@ export const ViewModel = DefineMap.extend({
   setFundsType (val, el) {
     this.formData.fundsType = val;
     el.blur();
-  },
+  }
 });
 
 export default Component.extend({
