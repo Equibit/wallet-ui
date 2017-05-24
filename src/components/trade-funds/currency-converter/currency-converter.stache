@@ -1,2 +1,13 @@
-<input type="text" {($value)}="output" /> {{currency.symbol}}
+{{#if currency.symbol}}
+
+  <div class="input-group quantity-usd">
+    <input type="text" class="form-control" {($value)}="output" aria-describedby="quantity-{{currency.symbol}}">
+    <span class="input-group-addon" id="quantity-{{currency.symbol}}">{{currency.symbol}}</span>
+  </div>
+
+{{else}}
+
+  <input type="text" {($value)}="output" />\
+
+{{/if}}
 

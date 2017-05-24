@@ -29,10 +29,7 @@ const Currency = DefineMap.extend({
 });
 
 export const ViewModel = DefineMap.extend({
-  currency: {
-    Type: Currency,
-    value: new Currency({ rate: 1.5, symbol: 'USD' })
-  },
+  currency: Currency,
   input: {
     type: '*'
   },
