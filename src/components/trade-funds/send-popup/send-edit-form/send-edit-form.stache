@@ -1,3 +1,5 @@
+<can-import from="~/components/trade-funds/currency-converter/" />
+
 <ul class="list-group">
   {{!
   <li class="list-group-item">
@@ -53,10 +55,9 @@
           <label for="">Quantity</label>
           <input type="number" class="form-control" {($value)}="formData.amount">
           <span class="rate-arrows icon icon-enlarge rotate-45"></span>
-          <div class="input-group quantity-usd">
-            <input type="number" class="form-control" {($value)}="formData.price" aria-describedby="quantity-usd">
-            <span class="input-group-addon" id="quantity-usd">USD</span>
-          </div>
+
+          <currency-converter {(input)}="formData.amount" {currency}="sharesToUsd" />
+
         </div>
       </div>
     {{/is}}
@@ -73,10 +74,9 @@
             </span>
           </div>
           <span class="rate-arrows icon icon-enlarge rotate-45"></span>
-          <div class="input-group quantity-usd">
-            <input type="number" class="form-control" {($value)}="formData.price" aria-describedby="quantity-usd">
-            <span class="input-group-addon" id="quantity-usd">USD</span>
-          </div>
+
+          <currency-converter {(input)}="formData.amount" {currency}="fundsToUsd" />
+
         </div>
       </div>
     {{/is}}

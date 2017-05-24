@@ -17,27 +17,32 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './send-edit-form.less';
 import view from './send-edit-form.stache';
+import { Currency } from '~/components/trade-funds/currency-converter/';
 
 export const ViewModel = DefineMap.extend({
-  /**
-   * @property {String} type
-   * ENUM ('SECURITIES', 'FUNDS')
-   */
-  type: 'string',
+  formData: {
+    type: '*'
+  },
 
-  /**
-   * @property {String} fundsType
-   * ENUM ('EQB', 'BTC')
-   */
-  fundsType: {
-    type: 'string',
-    value: 'EQB'
+  sharesToUsd: {
+    // TODO: the rate depends on the selected issuance!
+    value: {
+      rate: 110,
+      symbol: 'USD'
+    }
+  },
+
+  get fundsToUsd () {
+    // TODO: the rate depends on the selected issuance!
+    const val = this.formData.fundsType === 'EQB' ? { rate: 25, symbol: 'USD' } : { rate: 2800, symbol: 'USD' };
+    return new Currency(val);
   },
 
   setType (val, el) {
     this.formData.type = val;
     el.blur();
   },
+
   setFundsType (val, el) {
     this.formData.fundsType = val;
     el.blur();
