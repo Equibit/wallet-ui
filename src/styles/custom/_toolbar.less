@@ -1,0 +1,60 @@
+/**
+  * @stylesheet custom/_toolbar.less Toolbar
+  * @parent styles.base
+  *
+  * @description
+  * Customization of the Boostrap `.navbar` to be used in a page as a `.toolbar`.
+  *
+  * To use add the class `.toolbar` to the `.navbar` container. Note that the actions in the toolbar
+  * can be used outside of the `.toolbar` container, applying the class `.toolbar-actions` to the `ul.nav`.
+  *
+  * @demo src/styles/demos/navigation/toolbar.html
+  *
+**/
+
+nav.navbar.toolbar {
+  margin: 0 -10px;
+  border-bottom: @border-default;
+  padding: 0 1.2em;
+}
+
+.toolbar {
+  .navbar-text {
+    display: flex;
+    align-items: center;
+    margin-right: @padding-xs-horizontal;
+    label {
+      margin-right: @padding-small-horizontal;
+      margin-bottom: 0;
+    }
+  }
+
+  @media (min-width: @screen-xs) {
+    .navbar-nav > li {
+      float: left;
+    }
+  }
+
+}
+
+.toolbar-actions {
+  &.nav {
+    > li {
+      > a {
+        display: flex;
+        cursor: pointer;
+        &:hover,
+        &:focus {
+          background-color: transparent;
+        }
+        .icon {
+          font-size: @font-size-large;
+          margin-right: @padding-small-horizontal;
+          &.no-label {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+}
