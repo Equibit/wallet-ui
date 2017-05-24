@@ -19,8 +19,8 @@ import './send-confirm-form.less';
 import view from './send-confirm-form.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'send-confirm-form component'
+  formData: {
+    type: '*'
   }
 });
 

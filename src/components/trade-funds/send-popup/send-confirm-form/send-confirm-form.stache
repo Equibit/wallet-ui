@@ -1,1 +1,68 @@
-Confirm form here...
+<ul class="list-group">
+  <li class="list-group-item">
+    <div class="form-group to-address">
+      <label for="">To</label>
+      <p class="input-value">{{formData.toAddress}}</p>
+    </div>
+
+    <div class="form-group securities">
+      <label for="">Securities</label>
+      <p class="input-value">{{formData.issuance.companyName}}</p>
+
+      <div class="row small-text">
+        <div class="col-sm-5">
+          <span class="input-value">{{formData.issuance.issuanceName}}</span>
+        </div>
+        <div class="col-sm-4 text-right">
+          <span class="input-value">{{formData.sharesAmount}} Shares</span>
+        </div>
+        <div class="col-sm-3 text-right">
+          <span class="input-value">$ {{formData.sharesPrice}} USD</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group transaction-fee">
+      <div class="row small-text">
+        <div class="col-sm-5">
+          <span class="input-value">Transaction Fee</span>
+        </div>
+        <div class="col-sm-4 text-right">
+          <span class="input-value">{{formData.transactionFee}} Blank EQB</span>
+        </div>
+        <div class="col-sm-3 text-right">
+          <span class="input-value">$ {{formData.transactionFeePrice}} USD</span>
+        </div>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="form-group to-address">
+      <label for="">From</label> <br>
+      <div class="row">
+        <div class="col-sm-5">
+          <span class="input-value">My Portfolio</span>
+        </div>
+        <div class="col-sm-4 text-right">
+          <span class="input-value small-text">- {{formData.sharesAmount}} Shares</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-5 text-right">
+          <span class="input-value small-text">- {{formData.transactionFee}} Blank EQB</span>
+        </div>
+        <div class="col-sm-3 text-right">
+          <span class="input-value small-text">$ - {{formData.transactionFeePrice}} USD</span>
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="list-group-item">
+    <div class="form-group">
+      <label for="">Description</label>
+      <p class="input-value">{{formData.description}}</p>
+    </div>
+  </li>
+</ul>

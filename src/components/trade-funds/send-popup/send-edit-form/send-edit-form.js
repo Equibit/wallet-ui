@@ -35,11 +35,11 @@ export const ViewModel = DefineMap.extend({
   },
 
   setType (val, el) {
-    this.type = val;
+    this.formData.type = val;
     el.blur();
   },
   setFundsType (val, el) {
-    this.fundsType = val;
+    this.formData.fundsType = val;
     el.blur();
   },
 });

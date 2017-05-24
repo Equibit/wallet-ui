@@ -14,9 +14,9 @@
   <div class="modal-body {{#is mode 'edit'}}edit-mode{{/is}}">
 
     {{#is mode 'edit'}}
-      <send-edit-form />
+      <send-edit-form {form-data}="formData" />
     {{else}}
-      <send-confirm-form />
+      <send-confirm-form {form-data}="formData" />
     {{/is}}
 
   </div>
