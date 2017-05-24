@@ -33,17 +33,17 @@ export const ViewModel = DefineMap.extend({
     Type: Currency,
     value: new Currency({ rate: 1.5, symbol: 'USD' })
   },
-  inputVal: {
+  input: {
     type: '*'
   },
   output: {
     type: '*',
     set (val) {
-      this.inputVal = accounting.unformat(val) / this.currency.rate;
+      this.input = accounting.unformat(val) / this.currency.rate;
       return val;
     },
     get () {
-      return accounting.formatMoney(this.inputVal * this.currency.rate, '', this.precision);
+      return accounting.formatMoney(this.input * this.currency.rate, '', this.precision);
     }
   }
 });
