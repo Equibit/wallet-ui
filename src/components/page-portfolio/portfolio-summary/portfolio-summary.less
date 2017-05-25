@@ -4,30 +4,36 @@ portfolio-summary {
 	display: block;
 
   .panel-default > .panel-heading {
-    border-bottom: 0;
-    background: white;
-    padding: 15px 25px;
+    padding: 15px 2rem;
   }
 
   .border-right {
-    border-right: 1px solid @gray-lighter;
+    border-right: @border-default;
+  }
+
+  .card {
+    .panel-body {
+      padding-top: 0;
+    }
   }
 
   .summary-section {
+    padding: @padding-large-horizontal 0 0 @padding-large-horizontal;
+    min-height: 60px; // Fixed height to align the rows
+    small {
+      font-size: @font-size-base;
+    }
 
-    height: 70px;
-
-    > span, > arrow-change {
-      font-size: 20px;
-      font-weight: normal;
-      small {
-        color: @gray-light;
-      }
+    > span,
+    > arrow-change {
+      font-size: @font-size-h4;
+      line-height: 1em;
     }
 
     &.larger {
       > span {
-        font-size: 25px;
+        font-size: @font-size-h3;
+        line-height: 0.8em;
       }
     }
 

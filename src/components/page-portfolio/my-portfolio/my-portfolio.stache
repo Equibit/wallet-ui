@@ -8,29 +8,29 @@
 <can-import from="~/components/trade-funds/send-popup/" />
 <can-import from="~/components/trade-funds/receive-popup/" />
 
-<drag-panel class="panel panel-default card">
+<drag-panel class="panel panel-default card card-full">
   <div class="panel-heading">
     <h1 class="panel-title">{{i18n('myPortfolio')}}</h1>
   </div>
 
-  <div class="panel-body">
-    <portfolio-toolbar {balance}="portfolio.balance"
+  <portfolio-toolbar {balance}="portfolio.balance"
                        {^send-funds-popup}="isSendFundsPopup"
                        {^receive-funds-popup}="isReceiveFundsPopup"/>
 
+  <div class="panel-body">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-lg-3 col-md-6 col-xs-12 balances section">
 
         <div class="row">
-          <div class="col-md-12 summary-section">
+          <div class="col-xs-12 summary-section no-padding-right no-padding-left">
             <label>{{i18n('totalCash')}}</label>
             <span>{{portfolio.totalCash}} <small>BTC</small></span>
           </div>
-          <div class="col-md-12 summary-section">
+          <div class="col-xs-12 summary-section no-padding-right no-padding-left">
             <label>{{i18n('totalSecurities')}}</label>
             <span>{{portfolio.totalSec}} <small>BTC</small></span>
           </div>
-          <div class="col-md-12 summary-section">
+          <div class="col-xs-12 summary-section no-padding-right no-padding-left">
             <label>{{i18n('unrealizedPL')}}</label>
             <arrow-change class="change" {change}="portfolio.unrealizedPL">
               <span class="percentage">({{portfolio.unrealizedPLPercent}}%)</span>
@@ -39,26 +39,28 @@
         </div>
 
       </div>
-      <div class="col-md-4">
-        <portfolio-breakdown />
-      </div>
-      <div class="col-md-5">
+      <div class="col-lg-4 col-md-6 col-xs-12 section ">
         <portfolio-cash />
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <h2 class="sub-title">{{i18n('securities')}}</h2>
+      <div class="col-lg-5 col-xs-12 section">
+        <portfolio-breakdown />
+      </div>
+
+
+      <div class="col-xs-12">
+        <h2 class="subtitle">{{i18n('securities')}}</h2>
         <div class="well">
 
-          <h3>{{i18n('Equity')}}</h3>
-          <equity-grid />
+          <div class="col-xs-12 section no-padding">
+            <h3 class="subheading">{{i18n('Equity')}}</h3>
+            <equity-grid />
+          </div>
 
-          <br>
-
-          <h3>{{i18n('Bonds')}}</h3>
-          <bonds-grid />
+          <div class="col-xs-12 no-padding">
+            <h3 class="subheading">{{i18n('Bonds')}}</h3>
+            <bonds-grid />
+          </div>
 
         </div>
       </div>

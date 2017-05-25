@@ -19,8 +19,6 @@ market-summary {
         > div:nth-child(1) {
           border-right: @border-default;
         }
-
-
       }
       .market-summary-section {
         padding: @padding-large-horizontal 0 0 @padding-large-horizontal;
@@ -36,7 +34,12 @@ market-summary {
       }
 
     }
+
+    @media (max-width: @screen-md) and (min-width: @screen-xs) {
+      min-height: 286px; // Fixed height as the Market Cap graph has a set fixed height as well
+    }
   }
+
 
   @media (max-width: @screen-xs) {
     .card {
@@ -52,4 +55,6 @@ market-summary {
       }
     }
   }
+
+
 }
