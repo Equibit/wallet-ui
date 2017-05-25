@@ -4,17 +4,19 @@
 
 <grid-component {(rows)}="rows">
   <div class="grid-responsive">
-    <table class="table table-condensed grid-header">
-      <thead>
-      <tr>
-        <th class="column-quantity">Quantity</th>
-        <th class="column-price truncate">Bid Price</th>
-        <th class="column-datetime">Date/Time</th>
-        <th class="column-partial">Partial</th>
-        <th class="column-action-buttons"></th>
-      </tr>
-      </thead>
-    </table>
+    <div class="grid-header-container">
+      <table class="table table-condensed grid-header">
+        <thead>
+        <tr>
+          <th class="column-quantity">Quantity</th>
+          <th class="column-price truncate">Bid Price</th>
+          <th class="column-datetime">Date/Time</th>
+          <th class="column-partial">Partial</th>
+          <th class="column-action-buttons"></th>
+        </tr>
+        </thead>
+      </table>
+    </div>
 
     <div class="grid-body-scroll">
       <table class="table table-condensed grid-body">
