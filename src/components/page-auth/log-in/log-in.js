@@ -21,7 +21,6 @@ import DefineMap from 'can-define/map/';
 import './log-in.less';
 import view from './log-in.stache';
 import Session from '~/models/session/session';
-import User from '~/models/user/user';
 import validate from '~/utils/validators';
 import route from 'can-route';
 
@@ -74,7 +73,6 @@ export const ViewModel = DefineMap.extend({
     let user = { email, password };
 
     new Session({ user }).save()
-    // User.login(email, password)
       .then(({ usingTempPassword, user }) => {
         this.session = new Session({ usingTempPassword, user });
         route.data.page = usingTempPassword ? 'change-password' : 'portfolio';
