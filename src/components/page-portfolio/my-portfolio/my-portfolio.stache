@@ -67,6 +67,21 @@
     </div>
 
   </div>
+
+    <!-- TODO: Show when the user has never had securities
+    <div class="panel-body align-center">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="message-box no-border">
+            <div class="message-box-status">Manage your Portfolio</div>
+            <p class="message-box-cause">Get started by receiving funds or securities to your portfolio.</p>
+            <a href="#"><span class="icon icon-download"></span> Receive</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  -->
+
 </drag-panel>
 
 {{#if isSendFundsPopup}}

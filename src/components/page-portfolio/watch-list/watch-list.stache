@@ -10,6 +10,7 @@
 
   <div class="panel-body">
     <div class="row">
+
       <div class="col-xs-12 no-padding-right">
         <grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
           <div class="grid-responsive">
@@ -47,4 +48,19 @@
       </div>
     </div>
   </div>
+
+  <!-- TODO: Show when the user has 0 securities or removed all of the companies from their watchlist
+    <div class="panel-body align-center">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="message-box no-border">
+            <div class="message-box-status">Add to Your Watchlist</div>
+            <p class="message-box-cause">Add companies you want to watch on the issuance details.</p>
+            <a class="btn btn-sm btn-primary"href="{{routeUrl page='issuances'}}">Explore Issuances</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  -->
+
 </drag-panel>

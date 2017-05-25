@@ -25,6 +25,15 @@ my-portfolio {
     }
   }
 
+  @media (max-width: @screen-md){
+    grid-component .grid-responsive {
+      .grid-header-container,
+      .grid-body-scroll {
+        width: 568px
+      }
+    }
+  }
+
   @media (min-width: @screen-sm) {
     portfolio-breakdown,
     portfolio-cash {
