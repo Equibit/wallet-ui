@@ -3,4 +3,13 @@
 page-portfolio {
 	display: block;
   .page-layout;
+
+  @media (max-width: @screen-md){
+    grid-component .grid-responsive {
+      .grid-header-container,
+      .grid-body-scroll {
+        width: 568px
+      }
+    }
+  }
 }

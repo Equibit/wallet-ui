@@ -11,7 +11,7 @@
   <div class="grid-responsive">
 
     <div class="grid-header-container">
-      <table class="table grid-header">
+      <table class="table table-condensed grid-header">
         <thead>
         <tr>
           <th class="column-company">Company</th>
