@@ -16,7 +16,7 @@ import 'core-js/client/core';
 import DefineMap from 'can-define/map/';
 import route from 'can-route';
 import 'can-route-pushstate';
-import Session from '~/models/session';
+import Session from '~/models/session/session';
 // import '~/models/fixtures/fixtures';
 
 var pages = {

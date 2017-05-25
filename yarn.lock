@@ -2670,9 +2670,9 @@ feathers-authentication-popups@^0.1.2:
     events "^1.1.1"
     feathers-errors "^2.4.0"
 
-feathers-authentication-signed@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/feathers-authentication-signed/-/feathers-authentication-signed-0.0.6.tgz#d079ee760ba1b0194f877360c207c0debd989525"
+feathers-authentication-signed@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/feathers-authentication-signed/-/feathers-authentication-signed-2.0.0.tgz#1290d117d4515dad185c7012113ad262a56a0825"
   dependencies:
     debug "^2.6.3"
     feathers-authentication-local "^0.3.3"
