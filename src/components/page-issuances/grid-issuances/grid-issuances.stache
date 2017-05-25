@@ -12,7 +12,7 @@
   <div class="grid-responsive">
 
     <div class="grid-header-container">
-      <table class="table grid-header">
+      <table class="table grid-header table-condensed">
         <thead>
           <tr>
             <th class="column-company">Company</th>
@@ -27,7 +27,7 @@
         </thead>
       </table>
     </div>
-     
+
     <div class="grid-body-scroll">
       <table class="table table-condensed grid-body">
         <tbody>
