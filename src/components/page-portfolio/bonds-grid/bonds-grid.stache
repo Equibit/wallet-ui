@@ -14,7 +14,7 @@
         <tr>
           <th class="column-company">Company</th>
           <th class="column-issuance">Issuance</th>
-          <th class="column-quantity">Quantity</th>
+          <th class="column-quantity">Quantity (BTC)</th>
           <th class="column-cost">Cost (μBTC)</th>
           <th class="column-price">Price (μBTC)</th>
           <th class="column-value">Value (μBTC)</th>
