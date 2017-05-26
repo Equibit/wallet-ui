@@ -20,7 +20,7 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './log-in.less';
 import view from './log-in.stache';
-import Session from '~/models/session/session';
+import Session from '~/models/session';
 import validate from '~/utils/validators';
 import route from 'can-route';
 

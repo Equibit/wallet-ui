@@ -7,7 +7,7 @@ import canMap from 'can-connect/can/map/';
 import canRef from 'can-connect/can/ref/';
 import dataCallbacks from 'can-connect/data/callbacks/';
 import realtime from 'can-connect/real-time/';
-import feathersAuthenticationSignedSession from './signed-behavior';
+import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior';
 
 import feathersClient from '../feathers-client';
 import signed from '~/models/feathers-signed';
