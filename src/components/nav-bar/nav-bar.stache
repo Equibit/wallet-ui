@@ -59,7 +59,7 @@
       </ul>
 
       <div class="main-nav-container hidden-xxs">
-        <main-nav />
+        <main-nav {page}="page"/>
       </div>
 
       <div class="login-menu hidden-xs">
@@ -82,7 +82,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <div class="main-nav-container visible-xxs">
-        <main-nav />
+        <main-nav {page}="page"/>
       </div>
 
       <div class="search-container navbar-right hidden-lg">

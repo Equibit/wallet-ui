@@ -9,4 +9,11 @@
       </li>
     </ul>
   </view>
+  <script type="view-model">
+    import DefineMap from 'can-define/map/';
+
+    export default DefineMap.extend({
+      page: 'string'
+    });
+  </script>
 </can-component>
