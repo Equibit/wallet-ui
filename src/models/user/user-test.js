@@ -47,6 +47,28 @@ describe('models/user', function () {
     });
   });
 
+  it('should sign the request', function (done) {
+    let email = 'test@bitovi.com';
+
+    feathersClient.service('users').hooks({
+      before: {
+        create (hook) {
+          assert(hook.data.signature, 'the data contained a signature');
+        }
+      },
+      after: {
+        create (hook) {
+          hook.result.hooksRanSuccessfully = true;
+        }
+      }
+    });
+
+    feathersClient.service('users').create({ _id: 1, email }).then(function (user) {
+      assert(user.hooksRanSuccessfully === true, 'the signing hooks ran properly');
+      done();
+    });
+  });
+
   describe('static methods', function () {
     describe('#login', function () {
       let loginAssertions = 0;
@@ -88,8 +110,8 @@ describe('models/user', function () {
           done();
         })
         .catch(error => {
-          console.log(error);
-        })
+          assert(!error, 'this should not happen');
+        });
       });
     });
     describe('#forgotPassword', function () {
