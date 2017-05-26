@@ -1,7 +1,6 @@
 <can-component tag="login-buttons">
   <view>
     {{#if isLoggedIn}}
-      <button type="button" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log out</button>
     {{else}}
       <a href="{{routeUrl page='signup'}}" class="btn btn-primary navbar-btn btn-sm" ($click)="logout()">Sign Up</a>
       <a href="{{routeUrl page='login'}}" class="btn btn-default navbar-btn btn-sm" ($click)="logout()">Log In</a>

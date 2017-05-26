@@ -7,6 +7,11 @@
 
 .navbar-inverse {
   border: 0;
+  .navbar-toggle {
+    &:focus {
+      color: @brand-primary;
+    }
+  }
 }
 
 .navbar-header {
@@ -14,7 +19,6 @@
 }
 
 .navbar-toggle {
-  color: @gray-lighter;
   margin-right: 0;
 }
 
@@ -28,10 +32,6 @@
     font-size: @font-size-small;
     margin-left: @padding-small-horizontal;
   }
-  .btn-default {
-    background-color: transparent;
-    color: @gray-lighter;
-  }
 
   .navbar-nav {
     > li > {
@@ -39,6 +39,9 @@
         margin-top: - @padding-small-vertical;
         border-top-right-radius: @border-radius-base;
         border-top-left-radius: @border-radius-base;
+        .btn {
+          text-transform: none;
+        }
       }
     }
   }
