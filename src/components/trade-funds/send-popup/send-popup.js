@@ -78,7 +78,7 @@ export const ViewModel = DefineMap.extend({
   },
   issuances: {
     get (val, resolve) {
-      if (!val){
+      if (!val) {
         Issuance.getList().then(resolve);
       }
       return val;
