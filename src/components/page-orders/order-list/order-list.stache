@@ -1,0 +1,21 @@
+<drag-panel class="panel panel-default card card-full">
+  <div class="panel-heading">
+    <h3 class="panel-title">My Orders</h3>
+  </div>
+  <div class="panel-body">
+
+    <ul class="nav nav-pills">
+      <li role="presentation" class="active"><a href="#">Buy</a></li>
+      <li role="presentation"><a href="#">Sell</a></li>
+      <li role="presentation"><a href="#">Archive</a></li>
+    </ul>
+
+    <ul class="list-group">
+      <li class="list-group-item">Imperial Brands, Series 1</li>
+      <li class="list-group-item">Johnson & Johnson, Series 1</li>
+      <li class="list-group-item">China Mobile, Series 2</li>
+      <li class="list-group-item">Alibraba Group, Series 1</li>
+      <li class="list-group-item">Procter & Gamble, Series 2</li>
+    </ul>
+  </div>
+</drag-panel>
