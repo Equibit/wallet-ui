@@ -51,7 +51,9 @@
         <label for="">Issuance</label>
         <!--<input type="text" class="form-control" placeholder="Enter Company Name" {($value)}="formData.issuance.companyName">-->
         <can-search-select {items}="issuances" {format}="@formatIssuance"
-                           btn-class="icon icon-chevron rotate-90" filter-prop-name="companyName"/>
+                           btn-class="icon icon-chevron rotate-90"
+                           filter-prop-name="companyName"
+                           {(selected-item)}="formData.issuance" />
       </div>
       <div class="form-inline">
         <div class="form-group">

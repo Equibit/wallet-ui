@@ -1205,9 +1205,9 @@ can-route@^3.0.0, can-route@^3.0.10, can-route@^3.0.5:
     can-types "^1.0.1"
     can-util "^3.1.1"
 
-can-search-select@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/can-search-select/-/can-search-select-0.2.0.tgz#3b050ae705bb6705581e9ba33f5497a26d347e8c"
+can-search-select@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/can-search-select/-/can-search-select-0.2.2.tgz#aab044283feddd7f6b2c453db731f249ac3ee1e4"
   dependencies:
     can-component "^3.0.7"
     can-define "^1.0.20"
