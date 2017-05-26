@@ -1,123 +1,220 @@
 @import '../../styles/bootstrap-custom/_variables.less';
 @import '../../styles/custom/_variables.less';
+@import '../../styles/custom/_rotate.less';
+
+
+@screen-xxs: 375px; // Avoid the nav going into 3 lines on iPhone 6 and down
+@screen-xxs-max: (@screen-xxs + 1);
 
 nav-bar {
-	display: block;
-  height: @global-header-height;
-  @media (max-width: @screen-xs) {
-    height: @global-header-height-mobile;
-  }
+  .navbar-inverse {
+  	display: block;
 
-  .header-logo {
-    margin: @padding-base-vertical @padding-small-horizontal*2 0 0;
-  }
+    .header-logo {
+      margin: @padding-base-vertical @padding-small-horizontal*2 0 0;
+    }
 
-  // Styles the Links in the main navigation
-  .main-nav {
-    margin: 0;
-    float: left;
-    &.navbar-nav {
-      > li {
-        float: left;
-        > a {
-        text-transform: uppercase;
+    .more-toggle {
+      .icon {
+        .icon-cross {
+          .rotate-90;
+          transition: 1s;
+          color: @link-color;
+        }
+        &.collapsed {
+          .icon-cross {
+            .rotate-45;
+            transition: 1s;
+            color: @gray-lighter;
+          }
+        }
+
+      }
+      @media (min-width: 1260px) {
+        display: none;
+      }
+    }
+
+    // Styles the Links in the main navigation
+    .main-nav {
+      margin: 0;
+      float: left;
+      &.navbar-nav {
+        > li {
+          float: left;
+          > a {
+          text-transform: uppercase;
+          font-size: @font-size-small;
+          padding: 14.5px 11px 10.5px;
+          }
+        }
+        > .active > a {
+          &,
+          &:hover,
+          &:focus {
+            border-bottom: @padding-small-vertical solid @brand-primary;
+          }
+        }
+      }
+      @media (max-width: @screen-xxs) {
+        &.navbar-nav {
+          > li {
+            float: none !important;
+          }
+          > .active > a {
+            &,
+            &:hover,
+            &:focus {
+              border-bottom: 0;
+              border-left: 5px solid #468CD9;
+            }
+          }
+
+
+          &.main-nav{
+            float: none;
+            margin-right: 0;
+            margin-top: @padding-large-vertical;
+          }
+        }
+      }
+    }
+
+    // Handles showing and hiddingt the links in the main navigation
+    .main-nav-container {
+      @media (min-width: @screen-xxs-max) {
+        &.visible-xxs {
+          display: none;
+        }
+      }
+      @media (max-width: @screen-xxs) {
+        &.hidden-xxs {
+          display: none !important;
+        }
+      }
+    }
+
+    // Styles the Search
+    .search-container {
+      float: right;
+      @media (max-width: @screen-sm) {
+        .navbar-form {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+    }
+    .search-form {
+      position: relative;
+      .search-input {
+        background-color: transparent;
+        border-width: 0 0 1px 0;
+        border-radius: 0;
+        border-color: @gray-light;
+        color: @white;
+        padding-left: @padding-small-horizontal*2;
+        &.form-control:focus {
+          box-shadow: none;
+        }
+        @media (min-width: @screen-xs) {
+          min-width: 300px;
+        }
+      }
+      .icon-search {
+        position: absolute;
+        left: 0px;
+        top: 8px;
         font-size: @font-size-small;
-        padding: 14.5px 11px 10.5px;
+        color: @gray-lighter;
+      }
 
+    }
+
+    // Styles the Additional Menu {
+    .add-nav {
+      float: right;
+      margin: 5px;
+      &.navbar-nav {
+        > .open > a {
+          color: @link-color;
+          background: transparent;
+        }
+        > li {
+          float: left;
+          > a {
+            padding-top: @padding-large-vertical;
+            padding-bottom: @padding-large-vertical;
+            &.icon {
+              font-size: 23px;
+            }
+          }
+        }
+        .user-nav {
+          .btn {
+            margin: 4px 20px 6px;
+          }
+        }
+        .settings-nav {
+          padding: 15px 20px 20px;
+          min-width: 205px;
+          label {
+            margin-bottom: @padding-large-vertical;
+          }
+        }
+        @media (max-width: @screen-lg) {
+          .open .dropdown-menu {
+            position: absolute;
+            float: left;
+            margin: 2px 0 0;
+            background-color: @dropdown-bg;
+            border: 1px solid @dropdown-border;
+            box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            left: auto;
+            right: 0;
+            a {
+              color: @link-color;
+              &.btn-selected {
+                color: @white;
+              }
+            }
+            > li > a {
+              padding: 3px 20px;
+            }
+            .divider {
+              background-color: @gray-lighter;
+            }
+          }
         }
       }
-      > .active > a {
-        &,
-        &:hover,
-        &:focus {
-          border-bottom: @padding-small-vertical solid @brand-primary;
+    }
+
+    // Styles the Login Menu
+    .login-menu {
+      float: right;
+      .btn-default {
+        background-color: transparent;
+        color: @gray-lighter;
+      }
+      @media (max-width: @screen-sm) {
+        margin-bottom: @padding-large-horizontal;
+      }
+      // Using a custom media query to handle responsiveness according to the specific content
+      @media (max-width: 780px) {
+        &.hidden-xs {
+          display: none !important;
+        }
+        &.visible-xs {
+          display: block !important;
         }
       }
     }
-    @media (max-width: @screen-sm) {
-      margin-right: 25px;
-    }
-  }
 
-  // Styles the Search
-  .search-container {
-    float: right;
-  }
-  .search-form {
-    position: relative;
-    .search-input {
-      background-color: transparent;
-      border-width: 0 0 1px 0;
-      border-radius: 0;
-      border-color: @gray-light;
-      width: 300px;
-      color: @white;
-      padding-left: @padding-small-horizontal*2;
-    }
-    .icon-search {
-      position: absolute;
-      left: 0px;
-      top: 8px;
-      font-size: @font-size-small;
-      color: @gray-lighter;
-    }
-  }
-
-  // Styles the Settings Menu {
-  .settings-nav {
-    float: right;
-    margin: 5px;
-    @media (max-width: @screen-lg) {
-      position: absolute;
-      right: 44px;
-    }
-    &.navbar-nav {
-      > li > a {
-        padding-top: @padding-large-vertical;
-        padding-bottom: @padding-large-vertical;
-        &.icon {
-          font-size: 23px;
-        }
+    // Styles the Currency Container
+    .currency-container {
+      float: right;
+      .navbar-text {
+        margin-right: @padding-small-horizontal;
       }
     }
   }
-
-  // Styles the Login Menu
-  .login-menu {
-    float: right;
-    @media (max-width: @screen-lg) {
-      margin-right: 44px;
-    }
-    @media (max-width: @screen-sm) {
-      margin-bottom: @padding-large-horizontal;
-    }
-    // Using a custom media query to handle responsiveness according to the specific content
-    @media (max-width: 780px) {
-      &.hidden-xs {
-        display: none !important;
-      }
-      &.visible-xs {
-        display: block !important;
-      }
-    }
-  }
-
-  // Styles the Currency Container
-  .currency-container {
-    float: right;
-    .navbar-text {
-      padding-left: @padding-large-horizontal;
-      padding-right: @padding-large-horizontal;
-    }
-    // Using a custom media query to handle responsiveness according to the specific content
-    @media (max-width: 920px) {
-      &.hidden-xs {
-        display: none !important;
-      }
-      &.visible-xs {
-        display: block !important;
-      }
-    }
-  }
-
 }
