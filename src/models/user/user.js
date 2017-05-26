@@ -158,10 +158,20 @@ const ignoreUserNoIdBehavior = connect.behavior('user-ignore-no-id', function (b
   };
 });
 
+const feathersService = feathersClient.service('/users');
+
+feathersService.hooks({
+  before: {
+    all: [
+      signed.hooks.sign()
+    ]
+  }
+});
+
 User.connection = superModel({
   Map: User,
   List: User.List,
-  feathersService: feathersClient.service('/users'),
+  feathersService,
   name: 'users',
   algebra
 }, [ignoreUserNoIdBehavior]);

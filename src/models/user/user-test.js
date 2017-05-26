@@ -32,6 +32,10 @@ describe('models/user', function () {
     feathersClient.service('users').create({ email }).then(function () {
       assert.ok('User created');
       done();
+    })
+    .catch(error => {
+      assert(!error, 'this error should not have occurred.');
+      done();
     });
   });
 
@@ -39,6 +43,28 @@ describe('models/user', function () {
     let email = 'test@bitovi.com';
     feathersClient.service('users').create({ _id: 1, email }).then(function () {
       assert.ok('User created');
+      done();
+    });
+  });
+
+  it('should sign the request', function (done) {
+    let email = 'test@bitovi.com';
+
+    feathersClient.service('users').hooks({
+      before: {
+        create (hook) {
+          assert(hook.data.signature, 'the data contained a signature');
+        }
+      },
+      after: {
+        create (hook) {
+          hook.result.hooksRanSuccessfully = true;
+        }
+      }
+    });
+
+    feathersClient.service('users').create({ _id: 1, email }).then(function (user) {
+      assert(user.hooksRanSuccessfully === true, 'the signing hooks ran properly');
       done();
     });
   });
@@ -82,6 +108,9 @@ describe('models/user', function () {
         User.signup('ilya@bitovi.com').then(function (data) {
           assert.equal(data.email, 'ilya@bitovi.com');
           done();
+        })
+        .catch(error => {
+          assert(!error, 'this should not happen');
         });
       });
     });
