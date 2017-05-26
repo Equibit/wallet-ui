@@ -1,3 +1,5 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
 send-popup {
 	display: block;
 
@@ -10,6 +12,19 @@ send-popup {
   .modal-footer {
     a.pull-right {
       line-height: 35px;
+    }
+  }
+}
+
+can-search-select {
+  .dropdown-list {
+    max-height: 160px;
+    border-color: @gray-lighter;
+
+    li {
+      &:hover {
+        background-color: @gray-lightest;
+      }
     }
   }
 }

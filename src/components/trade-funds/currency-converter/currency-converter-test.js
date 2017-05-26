@@ -13,7 +13,7 @@ describe('wallet-ui/components/trade-funds/currency-converter', function () {
     assert.equal(vm.output, '20.00');
   });
   it('should convert output', function () {
-    vm.output = '1,500.00';
+    vm.outputFormatted = '1,500.00';
     assert.equal(vm.input, '750');
   });
 });

@@ -1,4 +1,5 @@
 <can-import from="~/components/trade-funds/currency-converter/" />
+<can-import from="can-search-select" />
 
 <ul class="list-group">
   {{!
@@ -48,7 +49,11 @@
     {{#is formData.type 'SECURITIES'}}
       <div class="form-group">
         <label for="">Issuance</label>
-        <input type="text" class="form-control" placeholder="Enter Company Name" {($value)}="formData.issuance.companyName">
+        <!--<input type="text" class="form-control" placeholder="Enter Company Name" {($value)}="formData.issuance.companyName">-->
+        <can-search-select {items}="issuances" {format}="@formatIssuance"
+                           btn-class="icon icon-chevron rotate-90"
+                           filter-prop-name="companyName"
+                           {(selected-item)}="formData.issuance" />
       </div>
       <div class="form-inline">
         <div class="form-group">
@@ -75,7 +80,7 @@
           </div>
           <span class="rate-arrows icon icon-enlarge rotate-45"></span>
 
-          <currency-converter {(input)}="formData.amount" {currency}="fundsToUsd" />
+          <currency-converter {(input)}="formData.amount" {currency}="fundsToUsd" {^output}="formData.price"/>
 
         </div>
       </div>
