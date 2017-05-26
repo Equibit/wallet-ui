@@ -64,10 +64,6 @@ export const ViewModel = DefineMap.extend({
       toAddress: '1QJqB6mwTCELUStpay1zNQEo6mXLFhf7Qs',
       amount: 4,
       price: 100 * 1000,
-      issuance: {
-        companyName: 'Alibaba Group',
-        issuanceName: 'Series A'
-      },
       transactionFee: 0.0023,
       transactionFeePrice: 1.4,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.'

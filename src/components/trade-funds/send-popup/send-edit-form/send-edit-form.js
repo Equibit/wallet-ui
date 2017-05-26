@@ -53,7 +53,7 @@ export const ViewModel = DefineMap.extend({
   },
 
   formatIssuance (issuance) {
-    return `${issuance.companyName}, ${issuance.issuanceName}: ${issuance.marketCap}uBTC`;
+    return `${issuance.companyName}, ${issuance.issuanceName}, ${issuance.marketCap} uBTC`;
   }
 });
 
