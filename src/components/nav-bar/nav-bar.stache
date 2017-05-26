@@ -1,11 +1,12 @@
 <can-import from="~/components/nav-bar/login-buttons.component" />
+<can-import from="~/components/nav-bar/main-nav.component" />
 <can-import from="~/components/nav-bar/search-form.component" />
 
 <nav class="navbar navbar-inverse">
 
     <div class="navbar-header">
 
-      <a class="header-logo" href="{{routeUrl page='home'}}">EDC Web Portfolio</a>
+      <a class="header-logo" href="{{routeUrl page='home'}}">Equibit Portfolio</a>
 
       <ul class="nav navbar-nav add-nav navbar-right">
         {{#if isLoggedIn}}
@@ -57,14 +58,9 @@
         </li>
       </ul>
 
-      <ul class="nav navbar-nav main-nav hidden-xxs">
-        <li class="{{#is page 'research'}}active{{/is}}">
-          <a href="{{routeUrl page='research'}}">Research {{#is page 'research'}}<span class="sr-only">(current)</span>{{/is}}</a>
-        </li>
-        <li class="{{#is page 'issuances'}}active{{/is}}">
-          <a href="{{routeUrl page='issuances'}}">Issuances {{#is page 'issuances'}}<span class="sr-only">(current)</span>{{/is}}</a>
-        </li>
-      </ul>
+      <div class="main-nav-container hidden-xxs">
+        <main-nav />
+      </div>
 
       <div class="login-menu hidden-xs">
         <login-buttons {is-logged-in}="isLoggedIn" {logout}="@logout" />
@@ -85,14 +81,9 @@
     <!-- Toggle Items -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-      <ul class="nav navbar-nav main-nav visible-xxs">
-        <li class="{{#is page 'research'}}active{{/is}}">
-          <a href="{{routeUrl page='research'}}">Research {{#is page 'research'}}<span class="sr-only">(current)</span>{{/is}}</a>
-        </li>
-        <li class="{{#is page 'issuances'}}active{{/is}}">
-          <a href="{{routeUrl page='issuances'}}">Issuances {{#is page 'issuances'}}<span class="sr-only">(current)</span>{{/is}}</a>
-        </li>
-      </ul>
+      <div class="main-nav-container visible-xxs">
+        <main-nav />
+      </div>
 
       <div class="search-container navbar-right hidden-lg">
         <search-form />

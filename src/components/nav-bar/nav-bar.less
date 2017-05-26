@@ -9,10 +9,6 @@
 nav-bar {
   .navbar-inverse {
   	display: block;
-    //height: @global-header-height;
-    @media (max-width: @screen-xs) {
-      //height: @global-header-height-mobile;
-    }
 
     .header-logo {
       margin: @padding-base-vertical @padding-small-horizontal*2 0 0;
@@ -23,15 +19,20 @@ nav-bar {
         .icon-cross {
           .rotate-90;
           transition: 1s;
+          color: @link-color;
         }
         &.collapsed {
           .icon-cross {
             .rotate-45;
             transition: 1s;
+            color: @gray-lighter;
           }
         }
-      }
 
+      }
+      @media (min-width: 1260px) {
+        display: none;
+      }
     }
 
     // Styles the Links in the main navigation
@@ -61,23 +62,34 @@ nav-bar {
             float: none !important;
           }
           > .active > a {
-            border-bottom: 0;
-            border-left: 5px solid #468CD9;
+            &,
+            &:hover,
+            &:focus {
+              border-bottom: 0;
+              border-left: 5px solid #468CD9;
+            }
           }
-          &.hidden-xxs {
-            display: none !important;
-          }
+
+
           &.main-nav{
             float: none;
             margin-right: 0;
             margin-top: @padding-large-vertical;
           }
-
         }
       }
+    }
+
+    // Handles showing and hiddingt the links in the main navigation
+    .main-nav-container {
       @media (min-width: @screen-xxs-max) {
         &.visible-xxs {
           display: none;
+        }
+      }
+      @media (max-width: @screen-xxs) {
+        &.hidden-xxs {
+          display: none !important;
         }
       }
     }
