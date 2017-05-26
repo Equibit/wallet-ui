@@ -9,7 +9,7 @@ import dataCallbacks from 'can-connect/data/callbacks/';
 import realtime from 'can-connect/real-time/';
 import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior';
 
-import feathersClient from '../feathers-client';
+import feathersClient from '~/models/feathers-client';
 import signed from '~/models/feathers-signed';
 
 import DefineMap from 'can-define/map/';
