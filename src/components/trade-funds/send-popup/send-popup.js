@@ -26,11 +26,21 @@ const FormData = DefineMap.extend({
    * ENUM ('SECURITIES', 'FUNDS')
    */
   type: '',
+
   /**
    * @property {String} fundsType
    * ENUM ('EQB', 'BTC')
    */
-  fundsType: 'EQB',
+  fundsType: {
+    type: 'string',
+    value: 'EQB',
+    get (val) {
+      if (this.type === 'SECURITIES') {
+        return 'EQB';
+      }
+      return val;
+    }
+  },
 
   toAddress: 'string',
   amount: {

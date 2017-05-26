@@ -7,8 +7,18 @@
   <div class="modal-header">
     <button ($click)="close()" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h4 class="modal-title">
-      <span class="icon icon-upload"></span> Send<br>
-      <small>Send funds or securities from your account.</small>
+      <span class="icon icon-upload"></span> Send
+      {{#is mode 'confirm'}}
+        {{#is formData.type 'FUNDS'}}
+          Funds
+          <br><small>Send funds from your account.</small>
+        {{else}}
+          Securities
+          <br><small>Send securities from your account.</small>
+        {{/is}}
+      {{else}}
+        <br><small>Send funds or securities from your account.</small>
+      {{/is}}
     </h4>
   </div>
   <div class="modal-body {{#is mode 'edit'}}edit-mode{{/is}}">
