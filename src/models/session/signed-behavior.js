@@ -57,7 +57,7 @@ export default connect.behavior(`data/${name}`, function () {
               })
               .then(response => {
                 response.secret = secret;
-                feathersClient.set('secret', secret);
+                feathersClient.set('secret', secret)
                 return response;
               });
           });

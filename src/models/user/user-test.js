@@ -32,6 +32,10 @@ describe('models/user', function () {
     feathersClient.service('users').create({ email }).then(function () {
       assert.ok('User created');
       done();
+    })
+    .catch(error => {
+      assert(!error, 'this error should not have occurred.');
+      done();
     });
   });
 
@@ -82,7 +86,10 @@ describe('models/user', function () {
         User.signup('ilya@bitovi.com').then(function (data) {
           assert.equal(data.email, 'ilya@bitovi.com');
           done();
-        });
+        })
+        .catch(error => {
+          console.log(error);
+        })
       });
     });
     describe('#forgotPassword', function () {

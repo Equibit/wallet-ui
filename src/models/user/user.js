@@ -163,7 +163,7 @@ const feathersService = feathersClient.service('/users');
 feathersService.hooks({
   before: {
     all: [
-      signed.sign()
+      signed.hooks.sign()
     ]
   }
 });
