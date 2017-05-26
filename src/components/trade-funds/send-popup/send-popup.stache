@@ -1,6 +1,6 @@
 <can-import from="bootstrap-canjs" />
 <can-import from="~/utils/stache-helpers/" />
-<can-import from="~/components/trade-funds/send-popup/send-edit-form/" />
+<can-import from="~/components/trade-funds/send-popup/send-form/" />
 <can-import from="~/components/trade-funds/send-popup/send-confirm-form/" />
 
 <bootstrap-modal-content class="send-funds">
@@ -24,7 +24,7 @@
   <div class="modal-body {{#is mode 'edit'}}edit-mode{{/is}}">
 
     {{#is mode 'edit'}}
-      <send-edit-form {form-data}="formData" {issuances}="issuances" />
+      <send-form {form-data}="formData" {issuances}="issuances" />
     {{else}}
       <send-confirm-form {form-data}="formData" {issuances}="issuances" />
     {{/is}}
