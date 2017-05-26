@@ -1,3 +1,5 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
 send-popup {
 	display: block;
 
@@ -10,6 +12,31 @@ send-popup {
   .modal-footer {
     a.pull-right {
       line-height: 35px;
+    }
+  }
+}
+
+can-search-select {
+  .dropdown-list {
+    max-height: 160px;
+    width: 100%;
+    padding-left: 0px;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid @gray-lighter;
+    border-top: none;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 2px;
+    z-index: 999;
+
+    li {
+      list-style-type: none;
+      padding: 3px 15px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: @gray-lightest;
+      }
     }
   }
 }

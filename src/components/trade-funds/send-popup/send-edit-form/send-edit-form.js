@@ -24,6 +24,10 @@ export const ViewModel = DefineMap.extend({
     type: '*'
   },
 
+  issuances: {
+    type: '*'
+  },
+
   sharesToUsd: {
     // TODO: the rate depends on the selected issuance!
     value: {
@@ -46,6 +50,10 @@ export const ViewModel = DefineMap.extend({
   setFundsType (val, el) {
     this.formData.fundsType = val;
     el.blur();
+  },
+
+  formatIssuance (issuance) {
+    return `${issuance.companyName}, ${issuance.issuanceName}: ${issuance.marketCap}uBTC`;
   }
 });
 

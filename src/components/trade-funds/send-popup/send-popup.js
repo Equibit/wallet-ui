@@ -66,6 +66,14 @@ export const ViewModel = DefineMap.extend({
   mode: {
     value: 'edit'
   },
+  issuances: {
+    get (val, resolve) {
+      if (!val){
+        Issuance.getList().then(resolve);
+      }
+      return val;
+    }
+  },
   next () {
     this.mode = 'confirm';
   },
