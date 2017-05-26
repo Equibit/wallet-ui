@@ -1,26 +1,30 @@
 /**
- * @module {can.Component} wallet-ui/components/trade-funds/send-popup/send-edit-form send-edit-form
+ * @module {can.Component} wallet-ui/components/trade-funds/send-popup/send-form send-form
  * @parent components.portfolio
  *
- * A short description of the send-edit-form component
+ * The 1st form for the Send Popup component
  *
- * @signature `<send-edit-form />`
+ * @signature `<send-form />`
  *
- * @link ../src/wallet-ui/components/trade-funds/send-popup/send-edit-form.html Full Page Demo
+ * @link ../src/wallet-ui/components/trade-funds/send-popup/send-form.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/trade-funds/send-popup/send-edit-form.html
+ * @demo src/wallet-ui/components/trade-funds/send-popup/send-form.html
  */
 
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import './send-edit-form.less';
-import view from './send-edit-form.stache';
+import './send-form.less';
+import view from './send-form.stache';
 import { Currency } from '~/components/trade-funds/currency-converter/';
 
 export const ViewModel = DefineMap.extend({
   formData: {
+    type: '*'
+  },
+
+  issuances: {
     type: '*'
   },
 
@@ -46,11 +50,15 @@ export const ViewModel = DefineMap.extend({
   setFundsType (val, el) {
     this.formData.fundsType = val;
     el.blur();
+  },
+
+  formatIssuance (issuance) {
+    return `${issuance.companyName}, ${issuance.issuanceName}, ${issuance.marketCap} uBTC`;
   }
 });
 
 export default Component.extend({
-  tag: 'send-edit-form',
+  tag: 'send-form',
   ViewModel,
   view
 });
