@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-portfolio/portfolio-toolbar portfolio-toolbar
- * @parent components.common
+ * @parent components.portfolio
  *
  * A short description of the portfolio-toolbar component
  *

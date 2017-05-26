@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-research/latest-issuances latest-issuances
- * @parent components.common
+ * @parent components.issuances
  *
  * A short description of the latest-issuances component
  *

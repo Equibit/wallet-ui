@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/trade-funds/send-popup/send-edit-form send-edit-form
- * @parent components.common
+ * @parent components.portfolio
  *
  * A short description of the send-edit-form component
  *

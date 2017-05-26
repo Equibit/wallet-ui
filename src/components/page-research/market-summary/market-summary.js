@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-research/market-summary market-summary
- * @parent components.common
+ * @parent components.research
  *
  * A short description of the market-summary component
  *

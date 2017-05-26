@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/market-depth market-depth
- * @parent components.common
+ * @parent components.graphs
  *
  * Issuance Details / Market Depth
  *

@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-research/market-capitalization market-capitalization
- * @parent components.common
+ * @parent components.graphs
  *
  * A short description of the market-capitalization component
  *

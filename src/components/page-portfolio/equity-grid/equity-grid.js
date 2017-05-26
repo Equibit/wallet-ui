@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-portfolio/equity-grid equity-grid
- * @parent components.common
+ * @parent components.grids
  *
  * A short description of the equity-grid component
  *

@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/common/barchart bar-chart
- * @parent components.common
+ * @parent components.graphs
  *
  * A short description of the bar-chart component
  *

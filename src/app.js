@@ -1,6 +1,6 @@
 /**
  * @module {can-map} wallet-ui/app AppViewModel
- * @parent wallet-ui
+ * @parent models
  *
  * Application view model.
  *

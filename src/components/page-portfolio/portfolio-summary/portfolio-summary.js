@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-portfolio/portfolio-summary portfolio-summary
- * @parent components.common
+ * @parent components.portfolio
  *
  * A short description of the portfolio-summary component
  *

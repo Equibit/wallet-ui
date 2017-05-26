@@ -1,18 +1,3 @@
-/**
- * @module {can.Component} wallet-ui/components/page-orders page-orders
- * @parent components.common
- *
- * A short description of the page-orders component
- *
- * @signature `<page-orders />`
- *
- * @link ../src/wallet-ui/components/page-orders.html Full Page Demo
- *
- * ## Example
- *
- * @demo src/wallet-ui/components/page-orders.html
- */
-
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './page-orders.less';

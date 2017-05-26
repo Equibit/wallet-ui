@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-research/biggest-movers biggest-movers
- * @parent components.common
+ * @parent components.research
  *
  * A short description of the biggest-movers component
  *
