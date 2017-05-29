@@ -17,10 +17,22 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './receive-popup.less';
 import view from './receive-popup.stache';
+import hub from '~/utils/event-hub';
+import copy from 'copy-to-clipboard';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the receive-popup component'
+  address: {
+    type: 'string',
+    value: '1QJqB6mwTCELUStpay1zNQEo6mXLFhf7Qs'
+  },
+  copy () {
+    copy(this.address);
+    hub.dispatch({
+      'type': 'alert',
+      'kind': 'success',
+      'title': 'Copied to clipboard',
+      'displayInterval': 5000
+    });
   }
 });
 
