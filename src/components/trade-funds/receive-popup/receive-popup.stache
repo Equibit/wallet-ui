@@ -5,18 +5,18 @@
   <div class="modal-header">
     <button ($click)="close()" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h4 class="modal-title">
-      <span class="icon icon-download"></span> Receive<br>
-      <small>Use the a unique address to add funds or securities to your account.</small>
+      <span class="icon icon-download"></span> {{i18n('receive')}}<br>
+      <small>{{i18n('receiveInfo')}}</small>
     </h4>
   </div>
   <div class="modal-body">
 
     <li class="list-group-item">
       <div class="form-group">
-        <label for="">Copy and Share</label>
+        <label for="">{{i18n('copyAndShare')}}</label>
         <div class="input-group">
 
-          <input type="text" class="form-control" placeholder="Paste address" readonly {($value)}="address">
+          <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address">
 
           <span class="input-group-btn">
             <button class="btn btn-default" type="button" ($click)="copy()">
@@ -25,9 +25,13 @@
           </span>
         </div>
 
-        {{!OR <button class="btn btn-default">Scan</button>}}
+        {{!OR Scan}}
       </div>
     </li>
 
+  </div>
+  <div class="modal-footer">
+
+    <button ($click)="close()" type="button" class="btn btn-primary">{{i18n('done')}}</button>
   </div>
 </bootstrap-modal-content>
