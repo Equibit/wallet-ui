@@ -1263,11 +1263,11 @@ can-stache-bindings@^3.0.13, can-stache-bindings@^3.0.14, can-stache-bindings@^3
     can-view-model "^3.0.0"
     can-view-scope "^3.0.0"
 
-can-stache@^3.0.0, can-stache@^3.0.1, can-stache@^3.0.13, can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22:
-  version "3.0.22"
-  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.0.22.tgz#46651e6a246dc10f51ff6750eefec6d41301bbc6"
+can-stache@^3.0.0, can-stache@^3.0.1, can-stache@^3.0.15, can-stache@^3.0.24:
+  version "3.0.25"
+  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.0.25.tgz#1f88d2a2b19795cfc7ff5dbd597349d01067610d"
   dependencies:
-    can-compute "^3.0.8"
+    can-compute "^3.0.10"
     can-namespace "1.0.0"
     can-observation "^3.0.3"
     can-route "^3.0.5"
@@ -1280,11 +1280,11 @@ can-stache@^3.0.0, can-stache@^3.0.1, can-stache@^3.0.13, can-stache@^3.0.15, ca
     can-view-scope "^3.1.1"
     can-view-target "^3.0.4"
 
-can-stache@^3.0.24:
-  version "3.0.25"
-  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.0.25.tgz#1f88d2a2b19795cfc7ff5dbd597349d01067610d"
+can-stache@^3.0.13, can-stache@^3.0.21, can-stache@^3.0.22:
+  version "3.0.22"
+  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.0.22.tgz#46651e6a246dc10f51ff6750eefec6d41301bbc6"
   dependencies:
-    can-compute "^3.0.10"
+    can-compute "^3.0.8"
     can-namespace "1.0.0"
     can-observation "^3.0.3"
     can-route "^3.0.5"
@@ -1314,7 +1314,7 @@ can-types@^1.0.0, can-types@^1.0.1:
   dependencies:
     can-namespace "1.0.0"
 
-can-util@^3.0.0, can-util@^3.0.0-pre.17, can-util@^3.0.1, can-util@^3.1.0, can-util@^3.1.1, can-util@^3.2.0, can-util@^3.2.1, can-util@^3.2.2, can-util@^3.3.0, can-util@^3.3.5, can-util@^3.3.6:
+can-util@^3.0.0, can-util@^3.0.1, can-util@^3.1.0, can-util@^3.1.1, can-util@^3.2.1, can-util@^3.2.2, can-util@^3.3.0, can-util@^3.3.5, can-util@^3.3.6:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/can-util/-/can-util-3.3.7.tgz#09ddcfb9cbb7e14fd76ed2afd82868d5672c8b95"
   dependencies:
@@ -1324,7 +1324,7 @@ can-util@^3.0.0, can-util@^3.0.0-pre.17, can-util@^3.0.1, can-util@^3.1.0, can-u
     can-param "^1.0.0"
     can-types "^1.0.1"
 
-can-util@^3.5.1:
+can-util@^3.0.0-pre.17, can-util@^3.2.0, can-util@^3.5.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/can-util/-/can-util-3.8.1.tgz#1a8ea44c1c4caa3a5ef91c6e7a9fbbb714c881de"
   dependencies:
@@ -1779,6 +1779,12 @@ cookie@0.3.1:
 cookiejar@^2.0.6:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cookiejar/-/cookiejar-2.1.0.tgz#86549689539b6d0e269b6637a304be508194d898"
+
+copy-to-clipboard@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/copy-to-clipboard/-/copy-to-clipboard-3.0.6.tgz#13c09bfea0408a5dc5bb987fee3b3986518c9d69"
+  dependencies:
+    toggle-selection "^1.0.3"
 
 core-js@^0.9.0:
   version "0.9.18"
@@ -6564,6 +6570,10 @@ to-array@0.1.4:
 to-fast-properties@^1.0.0, to-fast-properties@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.2.tgz#f3f5c0c3ba7299a7ef99427e44633257ade43320"
+
+toggle-selection@^1.0.3:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/toggle-selection/-/toggle-selection-1.0.5.tgz#726c703de607193a73c32c7df49cd24950fc574f"
 
 tough-cookie@>=0.12.0, tough-cookie@~2.3.0:
   version "2.3.2"

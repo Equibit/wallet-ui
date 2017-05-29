@@ -1,6 +1,5 @@
 <can-import from="bootstrap-canjs" />
 <can-import from="~/utils/stache-helpers/" />
-<can-import from="~/components/trade-funds/receive-funds/" />
 
 <bootstrap-modal-content class="send-funds">
   <div class="modal-header">
@@ -11,8 +10,24 @@
     </h4>
   </div>
   <div class="modal-body">
-    <div class="well">
-      <receive-funds />
-    </div>
+
+    <li class="list-group-item">
+      <div class="form-group">
+        <label for="">Copy and Share</label>
+        <div class="input-group">
+
+          <input type="text" class="form-control" placeholder="Paste address" readonly {($value)}="address">
+
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ($click)="copy()">
+              <span class="icon icon-copy"></span>
+            </button>
+          </span>
+        </div>
+
+        {{!OR <button class="btn btn-default">Scan</button>}}
+      </div>
+    </li>
+
   </div>
 </bootstrap-modal-content>
