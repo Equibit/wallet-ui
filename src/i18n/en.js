@@ -17,6 +17,9 @@ export default {
   // passwordResetMsg: 'Your password was changed successfully',
   passwordResetMsg: '',
 
+  // Buttons:
+  done: 'Done',
+
   // Pages:
   // - Research
   marketSummary: 'Market Summary',
@@ -52,6 +55,11 @@ export default {
   bonds: 'Bonds',
   send: 'Send',
   receive: 'Receive',
+  // Receive popup:
+  copyAndShare: 'Copy and Share',
+  receiveInfo: 'Use the a unique address to add funds or securities to your account',
+  pasteAddress: 'Paste address',
+  copiedToClipboard: 'Copied to clipboard',
 
   // Common:
   yes: 'Yes',

@@ -19,6 +19,7 @@ import './receive-popup.less';
 import view from './receive-popup.stache';
 import hub from '~/utils/event-hub';
 import copy from 'copy-to-clipboard';
+import { translate } from '~/i18n/i18n';
 
 export const ViewModel = DefineMap.extend({
   address: {
@@ -30,7 +31,7 @@ export const ViewModel = DefineMap.extend({
     hub.dispatch({
       'type': 'alert',
       'kind': 'success',
-      'title': 'Copied to clipboard',
+      'title': translate('copiedToClipboard'),
       'displayInterval': 5000
     });
   }
