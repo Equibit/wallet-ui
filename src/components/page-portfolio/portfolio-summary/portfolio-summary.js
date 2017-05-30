@@ -17,7 +17,7 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './portfolio-summary.less';
 import view from './portfolio-summary.stache';
-import PortfolioSummary from '~/models/portfolio-summary';
+import PortfolioSummary from '~/models/portfolio';
 
 export const ViewModel = DefineMap.extend({
   get dataPromise () {

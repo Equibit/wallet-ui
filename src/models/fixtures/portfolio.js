@@ -1,6 +1,6 @@
 import fixture from 'can-fixture';
 
-fixture('GET /portfolio-summary', function () {
+fixture('GET /portfolios', function () {
   return {
     _id: 1,
     balance: 45.2392,
