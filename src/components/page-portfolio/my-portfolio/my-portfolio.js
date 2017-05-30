@@ -6,11 +6,11 @@
  *
  * @signature `<my-portfolio />`
  *
- * @link ../src/wallet-ui/components/page-portfolio/my-portfolio.html Full Page Demo
+ * @link ../src/components/page-portfolio/my-portfolio.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-portfolio/my-portfolio.html
+ * @demo src/components/page-portfolio/my-portfolio.html
  */
 
 import Component from 'can-component';

@@ -20,6 +20,7 @@
     "build": "npm run remove-build && node build",
     "remove-build": "make remove-build",
     "docs": "documentjs -f -d",
+    "docs:publish": "npm run docs && make docs-publish",
     "lint": "semistandard",
     "lint:fix": "semistandard --fix",
     "test": "npm-run-all lint test:unit",

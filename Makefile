@@ -11,7 +11,7 @@ release-qa:
 	git push
 	git push --tags
 
-publish-docs:
+docs-publish:
 	npm install
 	git checkout -b gh-pages
 	npm run document
