@@ -86,6 +86,101 @@
           </div>
         </div>
       </a>
+
+      <a href="#" class="list-group-item">
+        <div class="row">
+          <div class="col-xs-9">
+            <h4 class="list-group-item-heading order-issuance">Johnson & Johnson, Series 1</h4>
+            <div class="order-issuance-type">Trust Units</div>
+            <span class="order-quantity">200</span>
+            <span class="order-security-price">
+              @30,375
+              <small>μBTC</small>
+            </span>
+          </div>
+
+          <div class="col-xs-3">
+            <div class="order-time-stamp">1:00 pm</div>
+            <div class="order-status">Open</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="list-group-item">
+        <div class="row">
+          <div class="col-xs-9">
+            <h4 class="list-group-item-heading order-issuance">Johnson & Johnson, Series 1</h4>
+            <div class="order-issuance-type">Trust Units</div>
+            <span class="order-quantity">200</span>
+            <span class="order-security-price">
+              @30,375
+              <small>μBTC</small>
+            </span>
+          </div>
+
+          <div class="col-xs-3">
+            <div class="order-time-stamp">1:00 pm</div>
+            <div class="order-status">Open</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="list-group-item">
+        <div class="row">
+          <div class="col-xs-9">
+            <h4 class="list-group-item-heading order-issuance">Johnson & Johnson, Series 1</h4>
+            <div class="order-issuance-type">Trust Units</div>
+            <span class="order-quantity">200</span>
+            <span class="order-security-price">
+              @30,375
+              <small>μBTC</small>
+            </span>
+          </div>
+
+          <div class="col-xs-3">
+            <div class="order-time-stamp">1:00 pm</div>
+            <div class="order-status">Open</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="list-group-item">
+        <div class="row">
+          <div class="col-xs-9">
+            <h4 class="list-group-item-heading order-issuance">Johnson & Johnson, Series 1</h4>
+            <div class="order-issuance-type">Trust Units</div>
+            <span class="order-quantity">200</span>
+            <span class="order-security-price">
+              @30,375
+              <small>μBTC</small>
+            </span>
+          </div>
+
+          <div class="col-xs-3">
+            <div class="order-time-stamp">1:00 pm</div>
+            <div class="order-status">Open</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="list-group-item">
+        <div class="row">
+          <div class="col-xs-9">
+            <h4 class="list-group-item-heading order-issuance">Johnson & Johnson, Series 1</h4>
+            <div class="order-issuance-type">Trust Units</div>
+            <span class="order-quantity">200</span>
+            <span class="order-security-price">
+              @30,375
+              <small>μBTC</small>
+            </span>
+          </div>
+
+          <div class="col-xs-3">
+            <div class="order-time-stamp">1:00 pm</div>
+            <div class="order-status">Open</span>
+          </div>
+        </div>
+      </a>
     </div>
 
 
@@ -122,7 +217,16 @@
     </div>
     -->
 
+  </div>
 
+  <div class="panel-footer">
+    <div class="btn-group pagination" role="group" aria-label="pagination">
+        <button type="button" class="btn btn-default btn-xs disabled">&laquo;</button>
+        <button type="button" class="btn btn-default btn-xs active" >1</button>
+        <button type="button" class="btn btn-default btn-xs" >2</button>
+        <button type="button" class="btn btn-default btn-xs" >3</button>
+        <button type="button" class="btn btn-default btn-xs" >&raquo;</button>
 
+      </div>
   </div>
 </drag-panel>
