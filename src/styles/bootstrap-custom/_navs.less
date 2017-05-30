@@ -15,7 +15,7 @@
 
 .nav-pills {
   font-family: @font-family-bold;
-  margin-bottom: 20px;
+  margin-bottom: @padding-large-vertical*2;
   text-transform: uppercase;
   font-size: @font-size-small;
   > li {
@@ -37,6 +37,18 @@
         &:hover,
         &:focus {
           border-color: @brand-edc;
+        }
+      }
+    }
+  }
+  &.navs-pill-stacked {
+    > li.active {
+      > a {
+        &,
+        &:hover,
+        &:focus {
+          border-left: 3px solid @brand-edc;
+          border-bottom: 1px solid @gray-lighter;
         }
       }
     }
