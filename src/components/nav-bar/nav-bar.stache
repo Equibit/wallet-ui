@@ -51,7 +51,7 @@
         </li>
         {{/if}}
         <li class="more-toggle">
-          <a type="#" class="collapsed icon" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <a href="#" class="collapsed icon" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon icon-cross"></span>
           </a>
