@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/issuance-passports issuance-passports
- * @parent components.common
+ * @parent components.issuances
  *
  * Issuance Passports
  *

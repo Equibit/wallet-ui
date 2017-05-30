@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-portfolio/my-portfolio my-portfolio
- * @parent components.common
+ * @parent components.portfolio
  *
  * A short description of the my-portfolio component
  *

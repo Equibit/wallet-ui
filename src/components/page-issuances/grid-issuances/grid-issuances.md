@@ -1,5 +1,5 @@
 @module {can.Component} components/page-issuances/grid-issuances grid-issuances
-@parent components.common
+@parent components.issuances
 
 A grid with a list of [models/issuance].
 

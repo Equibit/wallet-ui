@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/trade-funds/receive-popup receive-popup
- * @parent components.common
+ * @parent components.portfolio
  *
  * A short description of the receive-popup component
  *

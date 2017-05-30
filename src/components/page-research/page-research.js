@@ -1,16 +1,16 @@
 /**
  * @module {can.Component} wallet-ui/components/page-research page-research
- * @parent components.common
+ * @parent components.pages
  *
  * A short description of the page-research component
  *
  * @signature `<page-research />`
  *
- * @link ../src/components/page-research.html Full Page Demo
+ * @link ../src/components/page-research/page-research.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/components/page-research.html
+ * @demo src/components/page-research/page-research.html
  */
 
 import Component from 'can-component';

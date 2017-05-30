@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/trade-funds/receive-funds receive-funds
- * @parent components.common
+ * @parent components.portfolio
  *
  * A short description of the receive-funds component
  *

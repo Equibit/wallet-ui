@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-portfolio/watch-list watch-list
- * @parent components.common
+ * @parent components.portfolio
  *
  * A short description of the watch-list component
  *

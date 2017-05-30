@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-research/most-active most-active
- * @parent components.common
+ * @parent components.research
  *
  * A short description of the most-active component
  *

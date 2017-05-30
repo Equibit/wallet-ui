@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-portfolio/portfolio-breakdown portfolio-breakdown
- * @parent components.common
+ * @parent components.portfolio
  *
  * A short description of the portfolio-breakdown component
  *

@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-portfolio/bonds-grid bonds-grid
- * @parent components.common
+ * @parent components.grids
  *
  * A short description of the bonds-grid component
  *

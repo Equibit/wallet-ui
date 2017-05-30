@@ -1,4 +1,3 @@
-@page wallet-ui/security Security
-@parent wallet-ui
+@page security Security
 
 Document security here

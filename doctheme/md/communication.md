@@ -1,5 +1,4 @@
-@page wallet-ui/communication Communication
-@parent wallet-ui
+@page communication Communication
 
 Client-server communication info here
 

@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/related-companies related-companies
- * @parent components.common
+ * @parent components.issuances
  *
  * Issuance Details / Related Companies
  *

@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/trade-funds/send-popup/send-form send-form
- * @parent components.common
+ * @parent components.portfolio
  *
  * The 1st form for the Send Popup component
  *
