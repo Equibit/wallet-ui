@@ -9,6 +9,24 @@
 <can-import from="~/components/trade-funds/receive-popup/" />
 
 <drag-panel class="panel panel-default card card-full">
+
+{{^if portfolio}}
+
+  <!-- TODO: Details on #233 -->
+  <div class="panel-body align-center">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="message-box no-border">
+          <div class="message-box-status">Manage your Portfolio</div>
+          <p class="message-box-cause">Get started by receiving funds or securities to your portfolio.</p>
+          <a ($click)="receiveFunds()"><span class="icon icon-download"></span> Receive</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{{else}}
+
   <div class="panel-heading">
     <h1 class="panel-title">{{i18n('myPortfolio')}}</h1>
   </div>
@@ -67,23 +85,9 @@
         </div>
       </div>
     </div>
-
   </div>
 
-    <!-- TODO: Details on #233
-    <div class="panel-body align-center">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="message-box no-border">
-            <div class="message-box-status">Manage your Portfolio</div>
-            <p class="message-box-cause">Get started by receiving funds or securities to your portfolio.</p>
-            <a href="#"><span class="icon icon-download"></span> Receive</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  -->
-
+{{/if}}
 </drag-panel>
 
 {{#if isSendFundsPopup}}
