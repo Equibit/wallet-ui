@@ -1,5 +1,5 @@
 /**
-  * @stylesheet bootstrap-custom/_variables.less Variables Boostrap
+  * @stylesheet bootstrap-custom/_variables.less Color Palette
   * @parent styles.theme
   *
   *
@@ -69,6 +69,8 @@
 // Link hover decoration.
 @link-hover-decoration: underline;
 
+// Background color of selected items
+@active-bg: fade(@brand-primary, 8%);
 
 /**
   * @styles font-family Font Family
@@ -85,6 +87,7 @@
 
 @font-family-sans-serif: "gotham", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 @font-family-serif:       Georgia, "Times New Roman", Times, serif;
+@font-family-bold: "gotham-bold", @font-family-sans-serif;
 
 // Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -480,7 +483,7 @@
 
 //=== Shared nav styles
 @nav-link-padding:                          10px 15px;
-@nav-link-hover-bg:                         @gray-lighter;
+@nav-link-hover-bg:                         @gray-lightest;
 
 @nav-disabled-link-color:                   @gray-light;
 @nav-disabled-link-hover-color:             @gray-light;
@@ -498,9 +501,9 @@
 @nav-tabs-justified-active-link-border-color:     @body-bg;
 
 //== Pills
-@nav-pills-border-radius:                   @border-radius-base;
-@nav-pills-active-link-hover-bg:            @component-active-bg;
-@nav-pills-active-link-hover-color:         @component-active-color;
+@nav-pills-border-radius:                   0;
+@nav-pills-active-link-hover-bg:            transparent;
+@nav-pills-active-link-hover-color:         @gray-dark;
 
 
 //== Pagination
@@ -731,20 +734,20 @@
 // Background color on `.list-group-item`
 @list-group-bg:                 #fff;
 // `.list-group-item` border color
-@list-group-border:             #ddd;
+@list-group-border:             @border-color;
 // List group border radius
-@list-group-border-radius:      @border-radius-base;
+@list-group-border-radius:      0;
 
 // Background color of single list items on hover
-@list-group-hover-bg:           #f5f5f5;
+@list-group-hover-bg:           @gray-lightest;
 // Text color of active list items
-@list-group-active-color:       @component-active-color;
+@list-group-active-color:       @gray;
 // Background color of active list items
-@list-group-active-bg:          @component-active-bg;
+@list-group-active-bg:          @active-bg;
 // Border color of active list elements
-@list-group-active-border:      @list-group-active-bg;
+@list-group-active-border:      @list-group-border;
 // Text color for content within active list items
-@list-group-active-text-color:  lighten(@list-group-active-bg, 40%);
+@list-group-active-text-color:  @gray-dark;
 
 // Text color of disabled list items
 @list-group-disabled-color:      @gray-light;
@@ -753,7 +756,7 @@
 // Text color for content within disabled list items
 @list-group-disabled-text-color: @list-group-disabled-color;
 
-@list-group-link-color:         #555;
+@list-group-link-color:         @gray;
 @list-group-link-hover-color:   @list-group-link-color;
 @list-group-link-heading-color: #333;
 
@@ -770,7 +773,7 @@
 
 // Border color for elements within panels
 @panel-inner-border:          #ddd;
-@panel-footer-bg:             #f5f5f5;
+@panel-footer-bg:             transparent;
 
 @panel-default-text:          @gray-dark;
 @panel-default-border:        #ddd;

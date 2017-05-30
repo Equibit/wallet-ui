@@ -1,6 +1,29 @@
+/**
+  * @stylesheet custom/_helpers.less Helpers
+  * @parent styles.base
+  *
+  * @description
+  * These are a collection of helpers that can be used in conjunction with other styles to get certain effects.
+  *
+**/
+
 @import '_variables';
 @import '../bootstrap-custom/_variables';
 
+/**
+* @styles page-layout Page Layout
+* @parent custom/_helpers.less 0
+*
+* @description
+* Add margins to a page template, in this content is some templates can be kept flushed to the edges.
+*
+* Example:
+* ```css
+*   page-issuances {
+*     .page-layout
+    }
+* ```
+**/
 
 .page-layout {
   padding-left: @page-margin;
@@ -44,4 +67,63 @@
 .align-center {
   align-items: center;
   justify-content: center;
+}
+
+
+/**
+* @styles active-item-indicator Active Item Indicator
+* @parent custom/_helpers.less 1
+*
+* @description
+* Adds a blue bar indicator to the right of the element. Use on a pseudo element.
+*
+* Example:
+* ```css
+*   .item:after {
+        .active-item-indicator;
+    }
+}
+* ```
+**/
+
+.active-item-indicator {
+    background-color: @brand-primary;
+    content: " ";
+    width: 4px;
+    height: 102%;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+}
+
+/**
+  * @styles _rotate Rotate
+  * @parent custom/_helpers.less 2
+  *
+  * @description
+  * Use the following classes to rotate an element for a preset of degrees.
+  *
+  * @demo src/styles/demos/helpers/rotate.html 100
+  *
+**/
+
+.rotate-45 {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  display: inline-block;
+}
+.rotate-90 {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  display: inline-block;
+}
+.rotate-180 {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  display: inline-block;
+}
+.rotate-270 {
+  -webkit-transform: rotate(270deg);
+  transform: rotate(270deg);
+  display: inline-block;
 }

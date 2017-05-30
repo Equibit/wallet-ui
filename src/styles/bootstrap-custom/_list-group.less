@@ -1,0 +1,121 @@
+/**
+  * @stylesheet bootstrap-custom/_list-group.less List Group
+  * @parent styles.base
+  *
+**/
+
+/**
+  * @styles list-group Basic Example
+  * @parent bootstrap-custom/_list-group.less 0
+  *
+  * @demo src/styles/demos/navigation/list-group.html
+  *
+**/
+
+  .list-group-item {
+    font-size: @font-size-small;
+    &.active {
+      &:after {
+      .active-item-indicator;
+      }
+      .list-group-item-heading {
+        color: @gray-dark;
+
+      }
+    }
+    h4 {
+      font-size: @font-size-small;
+      margin-bottom: 0;
+      font-family: @font-family-bold;
+    }
+  }
+
+  a.list-group-item.active {
+    &:hover,
+    &:focus {
+      .list-group-item-heading {
+        color: @gray-dark;
+      }
+    }
+  }
+
+
+/**
+  * @styles list-group-badges Badges
+  * @parent bootstrap-custom/_list-group.less 1
+  *
+  * @demo src/styles/demos/navigation/list-group-badges.html
+  *
+**/
+
+/**
+  * @styles list-group-linked Linked Items
+  * @parent bootstrap-custom/_list-group.less 2
+  *
+  * @demo src/styles/demos/navigation/list-group-linked.html
+  *
+**/
+
+/**
+  * @styles list-group-button Button Items
+  * @parent bootstrap-custom/_list-group.less 3
+  *
+  * @demo src/styles/demos/navigation/list-group-button.html
+  *
+**/
+
+/**
+  * @styles list-group-disabled Disabled Items
+  * @parent bootstrap-custom/_list-group.less 4
+  *
+  * @demo src/styles/demos/navigation/list-group-disabled.html
+  *
+**/
+
+/**
+  * @styles list-group-contextual Contextual Classes
+  * @parent bootstrap-custom/_list-group.less 6
+  *
+  * @demo src/styles/demos/navigation/list-group-contextual.html
+  *
+**/
+
+/**
+  * @styles list-group-custom Custom Content
+  * @parent bootstrap-custom/_list-group.less 7
+  *
+  * @demo src/styles/demos/navigation/list-group-contextual.html
+  *
+**/
+
+/**
+  * @styles list-group-custom Simple List
+  * @parent bootstrap-custom/_list-group.less 8
+  *
+  * @description
+  * Removes the right and left borders and the margins of the container to give a more simple look.
+  *
+  * @demo src/styles/demos/navigation/list-group-simple.html
+  *
+**/
+
+.list-group {
+  &.list-group-simple {
+    border-left: 0;
+    border-right: 0;
+    margin-left: -1em;
+    margin-right: -1em;
+    .list-group-item {
+      &:first-child {
+        border-top: 0;
+        &.active:after {
+          top: 0;
+          height: 101%;
+        }
+      }
+      &.active:after {
+        left: 6px;
+      }
+    }
+  }
+}
