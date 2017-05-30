@@ -6,11 +6,11 @@
  *
  * @signature `<order-details />`
  *
- * @link ../src/wallet-ui/components/page-orders/order-details.html Full Page Demo
+ * @link ../src/components/page-orders/order-details/order-details.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-orders/order-details.html
+ * @demo src/components/page-orders/order-details/order-details.html
  */
 
 import Component from 'can-component';

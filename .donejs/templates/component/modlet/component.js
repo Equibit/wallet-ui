@@ -6,11 +6,11 @@
  *
  * @signature `<<%=tag %> />`
  *
- * @link ../src/<%= module %>.html Full Page Demo
+ * @link ../src/<%= module %>/<%=tag %>.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/<%= module %>.html
+ * @demo src/<%= module %>/<%=tag %>.html
  */
 
 import Component from 'can-component';

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+  <!--####################################################################
+	THIS IS A GENERATED FILE -- ANY CHANGES MADE WILL BE OVERWRITTEN
+
+	INSTEAD CHANGE:
+	source: doctheme/md/glossary.md
+	@page glossary
+######################################################################## -->
+
+<!--[if lt IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8 lt-ie7" lang="en">
+<![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8" lang="en">
+<![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie lt-ie9" lang="en">
+<![endif]-->
+<!--[if IE 9]>
+<html class="no-js ie ie9" lang="en">
+<![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Equibit Wallet UI  - glossary</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+    <link rel="stylesheet" type="text/css" href="./static/bundles/static.css">
+  
+  <link rel="stylesheet" type="text/css" href="./static/styles/logo.css">
+  <!--[if lt IE 9]>
+  <script type="text/javascript" src="static/html5shiv.js"></script>
+  <!--<![endif]-->
+</head>
+
+<body class="docs">
+
+  <header>
+    <nav class="container">
+
+      <div class="logo-menu">
+        <a class="brand" href="./index.html">Equibit Wallet UI</a>
+      </div>
+
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="styles.html">Styles</a></li>
+        <li><a href="components.html">Components</a></li>
+        <li><a href="models.html">Models</a></li>
+        <li><a href="helpers.html">Helpers</a></li>
+        <li><a href="communication.html">Communication</a></li>
+        <li><a href="security.html">Security</a></li>
+      </ul>
+
+      <div class="pull-right">
+        <div class="bitovi-menu">
+          <a href="https://equibit.org/" class="bitovi icon-bits">EDC</a>
+          <ul class="dropdown-menu">
+            <li><a href="https://equibit.org/">Equibit.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+
+<div class="container api">
+
+	
+	<nav class="sidebar">
+		
+		<ul class="api cascading primary-grouping"> 
+	
+		
+		<li class="search-container active parent">
+			<a class="sidebar-title" href="index.html" data-search="Equibit Wallet UI">
+				Equibit Wallet UI
+			</a>
+			
+		</li>
+		
+		
+			
+			<li class="search-container active">
+			<a class="sidebar-title" href="glossary.html" data-search="glossary">
+				glossary
+			</a>
+			
+		</li>
+			
+		
+	
+</ul>
+	</nav>
+	
+	
+	
+	<article class="content docs">
+	
+	
+		
+		<section class="title">
+			<div class="heading">
+<h1>glossary</h1>
+	<ul class="tags">
+		<li>page</li>
+	</ul>
+	
+	
+</div>
+
+<div class="sub-heading">
+	
+	
+	<span class="inherits">&nbsp;</span>
+</div>
+
+<ul class="links">
+	
+	
+	
+	
+</ul>
+<br />
+		</section>
+		
+		
+		
+		<section class="contents">
+		</section>
+		
+		
+		
+
+		
+		<section class="description">
+			<p>https://bitcoin.org/en/glossary</p>
+
+		</section>
+		
+
+		
+			
+		
+		
+		
+		
+
+		
+		<section class="comment">
+			<p><strong>Wallet</strong> - software that stores private keys and monitors the block chain</p>
+<p><strong>HD Protocol</strong> - a protocol that allows all of a wallet’s keys to be created from a single seed.</p>
+<ul>
+<li>The Hierarchical Deterministic (HD) key creation and transfer protocol (BIP32), which allows creating child keys from parent keys in a hierarchy.</li>
+<li>Wallets using the HD protocol are called <strong>HD wallets</strong>.</li>
+</ul>
+<p><strong>Wallet system</strong> consists of 3 parts:</p>
+<ul>
+<li>a public key distribution program,
+<ul>
+<li>In many cases, P2PKH or P2SH hashes will be distributed instead of public keys.</li>
+<li>with the actual public keys only being distributed when the outputs they control are spent.</li>
+</ul></li>
+<li>a signing program,</li>
+<li>and a networked program.</li>
+</ul>
+<p><strong>Private key</strong> - the private portion of a keypair which can create signatures that other people can verify using the public key. 256-bit number.</p>
+<ul>
+<li>The parent private key and parent public key are regular uncompressed 256-bit ECDSA keys.</li>
+<li>In HD wallets, the <em>master chain code</em> and <em>master private key</em> are the two pieces of data derived from the <em>root seed</em>.</li>
+<li>The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key).</li>
+</ul>
+<p><strong>Root seed</strong></p>
+<ul>
+<li>is created from either 128 bits, 256 bits, or 512 bits of random data.</li>
+<li>To make it more convenient to use non-digital backup methods, such as memorization or hand-copying, BIP39 defines a method for creating a 512-bit root seed from a pseudo-sentence (mnemonic) of common natural-language words which was itself created from 128 to 256 bits of entropy and optionally protected by a password.
+<ul>
+<li>12 words -&gt; 128 entropy bits;</li>
+<li>24 words -&gt; 256 entropy bits.</li>
+</ul></li>
+</ul>
+<p><strong>Public key</strong></p>
+<ul>
+<li>is calculated from the private key using <em>elliptic curve multiplication</em>, which is irreversible: <code>K = k * G</code>
+where <code>k</code> is the private key, <code>G</code> is a constant point called the generator point and <code>K</code> is the resulting public key.</li>
+<li>Bitcoin uses a specific elliptic curve and set of mathematical constants, as defined in a standard called <code>secp256k1</code>.</li>
+</ul>
+<p><strong>Bitcoin address</strong></p>
+<ul>
+<li>is derived from the public key through the use of one-way cryptographic hashing.</li>
+<li><code>A = RIPEMD160 ( SHA256 ( K ) )</code>
+<ul>
+<li><em>RIPEMD</em> - RACE Integrity Primitives Evaluation Message Digest.</li>
+<li><em>SHA</em> - Secure Hash Algorithm.</li>
+<li>is called &quot;Double Hash&quot; or &quot;Hash160&quot;.</li>
+</ul></li>
+<li>Bitcoin addresses are almost always presented to users in an encoding called <em>Base58Check</em>, which uses 58 characters (a Base58 number system) and a checksum.
+<ul>
+<li>Base58 is a subset of Base64: a set of lower and capital letters and numbers without the four (0, O, l, I).</li>
+</ul></li>
+</ul>
+<p>Links:</p>
+<ul>
+<li>Bitcoin Developer Guide. Wallets: https://bitcoin.org/en/developer-guide#wallets</li>
+</ul>
+
+		</section>
+		
+		
+
+		
+
+		
+	
+	
+	</article>
+	
+	
+
+</div>
+
+
+
+
+
+
+  <footer>
+    <nav class="container">
+      <a class="brand javascriptmvc" href="index.html"></a>
+    </nav>
+  </footer>
+
+
+<script type="text/javascript">
+  var docObject = {"type":"page","name":"glossary","src":"doctheme/md/glossary.md","description":"https://bitcoin.org/en/glossary","source":"https://github.com/Equibit/wallet-ui","templates":"/Users/ilya/dev/wallet-ui/doctheme/templates","static":"/Users/ilya/dev/wallet-ui/doctheme/static/","glob":{"pattern":"{src,doctheme/md}/**/*.{less,md,js}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/ilya/dev/wallet-ui"},"dest":"/Users/ilya/dev/wallet-ui/docs","forceBuild":true,"debug":true,"generators":["html"],"docConfigDest":"../documentjs.json","project":{}};
+</script>
+
+
+  <script>
+    steal = {
+      instantiated: {
+        "bundles/static.css!$css" : null
+      }
+    }
+  </script>
+  <script type='text/javascript'
+          data-main="static"
+          data-config="./static/config.js"
+          src="./static/steal.production.js"
+          bundles-path="bundles"></script>
+
+</body>
+
+</html>

@@ -6,11 +6,11 @@
  *
  * @signature `<send-confirm-form />`
  *
- * @link ../src/wallet-ui/components/trade-funds/send-popup/send-confirm-form.html Full Page Demo
+ * @link ../src/components/trade-funds/send-popup/send-confirm-form/send-confirm-form.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/trade-funds/send-popup/send-confirm-form.html
+ * @demo src/components/trade-funds/send-popup/send-confirm-form/send-confirm-form.html
  */
 
 import Component from 'can-component';

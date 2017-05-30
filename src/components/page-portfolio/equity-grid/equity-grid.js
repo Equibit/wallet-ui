@@ -6,11 +6,11 @@
  *
  * @signature `<equity-grid />`
  *
- * @link ../src/wallet-ui/components/page-portfolio/equity-grid.html Full Page Demo
+ * @link ../src/components/page-portfolio/equity-grid/equity-grid.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-portfolio/equity-grid.html
+ * @demo src/components/page-portfolio/equity-grid/equity-grid.html
  */
 
 import Component from 'can-component';
