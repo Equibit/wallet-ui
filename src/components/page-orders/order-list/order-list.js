@@ -6,11 +6,11 @@
  *
  * @signature `<order-list />`
  *
- * @link ../src/components/page-orders/order-list.html Full Page Demo
+ * @link ../src/components/page-orders/order-list/order-list.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/components/page-orders/order-list.html
+ * @demo src/components/page-orders/order-list/order-list.html
  */
 
 import Component from 'can-component';
