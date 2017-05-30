@@ -9,7 +9,6 @@
   * @parent bootstrap-custom/_navs.less 0
   *
   * @demo src/styles/demos/navigation/navs-pill.html
-  * @demo src/styles/demos/navigation/navs-pill-stacked.html
   *
 **/
 
@@ -20,7 +19,6 @@
   font-size: @font-size-small;
   > li {
     text-align: center;
-    //float: left;
     border-bottom: 1px solid @gray-lighter;
     + li {
       margin-left: 0;
@@ -31,7 +29,6 @@
     }
     &.active {
       border-color: @brand-edc;
-      //border-width: 3px;
       > a {
         &,
         &:hover,
@@ -41,13 +38,28 @@
       }
     }
   }
-  &.navs-pill-stacked {
+
+}
+
+/**
+  * @styles nav-pills-stacked Nav Pills Stacked
+  * @parent bootstrap-custom/_navs.less 1
+  *
+  * @description
+  *
+  * Add the class `.nav-stacked` to the `.nav-pills` container for an stacked view.
+  * @demo src/styles/demos/navigation/navs-pill-stacked.html
+  *
+**/
+.nav-pills {
+    &.nav-stacked {
     > li.active {
+      border-bottom: 0;
       > a {
         &,
         &:hover,
         &:focus {
-          border-left: 3px solid @brand-edc;
+          border-left: 4px solid @brand-edc;
           border-bottom: 1px solid @gray-lighter;
         }
       }
@@ -57,7 +69,7 @@
 
 /**
   * @styles nav-tabs Nav Tabs
-  * @parent bootstrap-custom/_navs.less 1
+  * @parent bootstrap-custom/_navs.less 2
   *
   * @demo src/styles/demos/navigation/navs-tabs.html
   *
