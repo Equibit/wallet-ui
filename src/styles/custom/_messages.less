@@ -28,6 +28,7 @@
     .icon {
         font-size: 30px;
         display: inline-block;
+        margin-bottom: @padding-large-vertical;
     }
     &.danger .icon {
         color: @brand-danger;
@@ -51,6 +52,15 @@
     .btn {
         margin-top: @padding-large-horizontal;
     }
+
+  &.message-placeholder {
+    background-color: @gray-lightest;
+    color: @gray-light;
+    border-radius: 0;
+    .message-box-cause {
+      color: @gray;
+    }
+  }
 }
 
 .message-box-status {

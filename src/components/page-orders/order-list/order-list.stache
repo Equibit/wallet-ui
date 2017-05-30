@@ -86,9 +86,43 @@
           </div>
         </div>
       </a>
-
-
     </div>
+
+
+    <!--Message for no sell orders
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="message-box no-border message-placeholder">
+          <div class="icon icon-sell-inversed"></div>
+          <p class="message-box-cause">No Sell Orders Found</p>
+        </div>
+      </div>
+    </div>
+    -->
+
+    <!--Message for no buy orders
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="message-box no-border message-placeholder">
+          <div class="icon icon-buy-inversed"></div>
+          <p class="message-box-cause">No Buy Orders Found</p>
+        </div>
+      </div>
+    </div>
+    -->
+
+    <!--Message for no archived orders
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="message-box no-border message-placeholder">
+          <div class="icon icon-folder-open"></div>
+          <p class="message-box-cause">No Archived Orders Found</p>
+        </div>
+      </div>
+    </div>
+    -->
+
+
 
   </div>
 </drag-panel>
