@@ -12,9 +12,8 @@ release-qa:
 	git push --tags
 
 docs-publish:
-	npm install
+	-git branch -D gh-pages
 	git checkout -b gh-pages
-	npm run document
 	git add -f docs/
 	git add -f node_modules/can-*
 	git add -f node_modules/steal
