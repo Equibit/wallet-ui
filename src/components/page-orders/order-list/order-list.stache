@@ -4,7 +4,7 @@
   </div>
   <div class="panel-body">
 
-    <ul class="nav nav-pills">
+    <ul class="nav nav-pills order-tabs">
       <li role="presentation" class="active"><a href="#">Buy</a></li>
       <li role="presentation"><a href="#">Sell</a></li>
       <li role="presentation"><a href="#">Archive</a></li>
