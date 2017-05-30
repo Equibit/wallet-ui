@@ -23,11 +23,11 @@
  *  }
  *  ```
  *
- * @link ../src/wallet-ui/components/trade-funds/currency-converter.html Full Page Demo
+ * @link ../src/components/trade-funds/currency-converter.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/trade-funds/currency-converter.html
+ * @demo src/components/trade-funds/currency-converter.html
  */
 
 import Component from 'can-component';
