@@ -32,6 +32,9 @@
 .blue {
   background-color: #468CD9;
 }
+.blue-light {
+  background-color: rgba(70, 140, 217, 0.08);
+}
 .teal {
   background-color: #3ED2C8;
 }

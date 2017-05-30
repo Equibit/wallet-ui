@@ -1,6 +1,26 @@
+/**
+  * @stylesheet custom/_helpers.less Helpers
+  * @parent styles.base
+  *
+**/
+
 @import '_variables';
 @import '../bootstrap-custom/_variables';
 
+/**
+* @styles page-layout Page Layout
+* @parent custom/_helpers.less 0
+*
+* @description
+* Add margins to a page template, in this content is some templates can be kept flushed to the edges.
+*
+* Example:
+* ```css
+*   page-issuances {
+*     .page-layout
+    }
+* ```
+**/
 
 .page-layout {
   padding-left: @page-margin;
@@ -44,4 +64,31 @@
 .align-center {
   align-items: center;
   justify-content: center;
+}
+
+
+/**
+* @styles active-item-indicator Active Item Indicator
+* @parent custom/_helpers.less 1
+*
+* @description
+* Adds a blue bar indicator to the right of the element. Use on a pseudo element.
+*
+* Example:
+* ```css
+*   .item:after {
+        .active-item-indicator;
+    }
+}
+* ```
+**/
+
+.active-item-indicator {
+    background-color: @brand-primary;
+    content: " ";
+    width: 5px;
+    height: 102%;
+    position: absolute;
+    top: -1px;
+    left: -1px;
 }

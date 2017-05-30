@@ -10,12 +10,85 @@
       <li role="presentation"><a href="#">Archive</a></li>
     </ul>
 
-    <ul class="list-group">
-      <li class="list-group-item">Imperial Brands, Series 1</li>
-      <li class="list-group-item">Johnson & Johnson, Series 1</li>
-      <li class="list-group-item">China Mobile, Series 2</li>
-      <li class="list-group-item">Alibraba Group, Series 1</li>
-      <li class="list-group-item">Procter & Gamble, Series 2</li>
-    </ul>
+    <div class="list-group order-list">
+      <a href="#" class="list-group-item active">
+        <div class="row">
+          <div class="col-xs-10">
+            <h4 class="list-group-item-heading order-issuance">Imperial Brands, Series 1</h4>
+            <div class="order-issuance-type">Common Shares</div>
+            <span class="order-quantity">200</span>
+            <span class="order-security-price">
+              @30,375
+              <small>μBTC</small>
+            </span>
+          </div>
+
+          <div class="col-xs-2">
+            <div class="order-time-stamp">1:00 pm</div>
+            <div class="order-status">Open</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="list-group-item">
+        <div class="row">
+          <div class="col-xs-12 col-sm-10">
+            <h4 class="list-group-item-heading order-issuance">Johnson & Johnson, Series 1</h4>
+            <div class="order-issuance-type">Trust Units</div>
+            <span class="order-quantity">200</span>
+            <span class="order-security-price">
+              @30,375
+              <small>μBTC</small>
+            </span>
+          </div>
+
+          <div class="col-xs-12 col-sm-2">
+            <div class="order-time-stamp">1:00 pm</div>
+            <div class="order-status">Open</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="list-group-item">
+        <div class="row">
+          <div class="col-xs-12 col-sm-10">
+            <h4 class="list-group-item-heading order-issuance">Johnson & Johnson, Series 1</h4>
+            <div class="order-issuance-type">Trust Units</div>
+            <span class="order-quantity">200</span>
+            <span class="order-security-price">
+              @30,375
+              <small>μBTC</small>
+            </span>
+          </div>
+
+          <div class="col-xs-12 col-sm-2">
+            <div class="order-time-stamp">1:00 pm</div>
+            <div class="order-status">Open</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="list-group-item">
+        <div class="row">
+          <div class="col-xs-12 col-sm-10">
+            <h4 class="list-group-item-heading order-issuance">Johnson & Johnson, Series 1</h4>
+            <div class="order-issuance-type">Trust Units</div>
+            <span class="order-quantity">200</span>
+            <span class="order-security-price">
+              @30,375
+              <small>μBTC</small>
+            </span>
+          </div>
+
+          <div class="col-xs-12 col-sm-2">
+            <div class="order-time-stamp">1:00 pm</div>
+            <div class="order-status">Open</span>
+          </div>
+        </div>
+      </a>
+
+
+    </div>
+
   </div>
 </drag-panel>
