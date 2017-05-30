@@ -10,10 +10,10 @@
       <li role="presentation"><a href="#">Archive</a></li>
     </ul>
 
-    <div class="list-group order-list">
+    <div class="list-group list-group-simple order-list">
       <a href="#" class="list-group-item active">
         <div class="row">
-          <div class="col-xs-10">
+          <div class="col-xs-9">
             <h4 class="list-group-item-heading order-issuance">Imperial Brands, Series 1</h4>
             <div class="order-issuance-type">Common Shares</div>
             <span class="order-quantity">200</span>
@@ -23,7 +23,7 @@
             </span>
           </div>
 
-          <div class="col-xs-2">
+          <div class="col-xs-3">
             <div class="order-time-stamp">1:00 pm</div>
             <div class="order-status">Open</span>
           </div>
@@ -32,7 +32,7 @@
 
       <a href="#" class="list-group-item">
         <div class="row">
-          <div class="col-xs-12 col-sm-10">
+          <div class="col-xs-9">
             <h4 class="list-group-item-heading order-issuance">Johnson & Johnson, Series 1</h4>
             <div class="order-issuance-type">Trust Units</div>
             <span class="order-quantity">200</span>
@@ -42,7 +42,7 @@
             </span>
           </div>
 
-          <div class="col-xs-12 col-sm-2">
+          <div class="col-xs-3">
             <div class="order-time-stamp">1:00 pm</div>
             <div class="order-status">Open</span>
           </div>
@@ -51,7 +51,7 @@
 
       <a href="#" class="list-group-item">
         <div class="row">
-          <div class="col-xs-12 col-sm-10">
+          <div class="col-xs-9">
             <h4 class="list-group-item-heading order-issuance">Johnson & Johnson, Series 1</h4>
             <div class="order-issuance-type">Trust Units</div>
             <span class="order-quantity">200</span>
@@ -61,7 +61,7 @@
             </span>
           </div>
 
-          <div class="col-xs-12 col-sm-2">
+          <div class="col-xs-3">
             <div class="order-time-stamp">1:00 pm</div>
             <div class="order-status">Open</span>
           </div>
@@ -70,7 +70,7 @@
 
       <a href="#" class="list-group-item">
         <div class="row">
-          <div class="col-xs-12 col-sm-10">
+          <div class="col-xs-9">
             <h4 class="list-group-item-heading order-issuance">Johnson & Johnson, Series 1</h4>
             <div class="order-issuance-type">Trust Units</div>
             <span class="order-quantity">200</span>
@@ -80,7 +80,7 @@
             </span>
           </div>
 
-          <div class="col-xs-12 col-sm-2">
+          <div class="col-xs-3">
             <div class="order-time-stamp">1:00 pm</div>
             <div class="order-status">Open</span>
           </div>

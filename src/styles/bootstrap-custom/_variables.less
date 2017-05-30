@@ -734,20 +734,20 @@
 // Background color on `.list-group-item`
 @list-group-bg:                 #fff;
 // `.list-group-item` border color
-@list-group-border:             @gray-lighter;
+@list-group-border:             @border-color;
 // List group border radius
 @list-group-border-radius:      0;
 
 // Background color of single list items on hover
 @list-group-hover-bg:           @gray-lightest;
 // Text color of active list items
-@list-group-active-color:       @gray-dark;
+@list-group-active-color:       @gray;
 // Background color of active list items
 @list-group-active-bg:          @active-bg;
 // Border color of active list elements
 @list-group-active-border:      @list-group-border;
 // Text color for content within active list items
-@list-group-active-text-color:  lighten(@list-group-active-bg, 40%);
+@list-group-active-text-color:  @gray-dark;
 
 // Text color of disabled list items
 @list-group-disabled-color:      @gray-light;
@@ -756,7 +756,7 @@
 // Text color for content within disabled list items
 @list-group-disabled-text-color: @list-group-disabled-color;
 
-@list-group-link-color:         #555;
+@list-group-link-color:         @gray;
 @list-group-link-hover-color:   @list-group-link-color;
 @list-group-link-heading-color: #333;
 
