@@ -22,6 +22,9 @@
 .red {
   background-color: #EC2F39;
 }
+.orange {
+  background-color: #FF6600;
+}
 
 .yellow {
   background-color: #FFBC5E;
@@ -36,7 +39,7 @@
   background-color: rgba(70, 140, 217, 0.08);
 }
 .teal {
-  background-color: #3ED2C8;
+  background-color: #37BFB8;
 }
 .brand-edc {
   background-color: #D30E1B;

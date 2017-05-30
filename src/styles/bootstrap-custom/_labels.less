@@ -1,0 +1,91 @@
+/**
+  * @stylesheet bootstrap-custom/_labels.less Labels
+  * @parent styles.base
+  *
+  * @demo src/styles/demos/messages/labels.html
+  *
+**/
+
+.label {
+  border-radius: 0;
+  font-family: @font-family-bold;
+  font-size: 85%;
+}
+
+.label-progress {
+  .label-variant(@brand-progress);
+}
+
+/**
+  * @styles label-condensed Condensed Labels
+  * @parent bootstrap-custom/_labels.less
+  *
+  * @description
+  * Add the class `.label-condensed` to the `.label` for a condensed version of the standard labels.
+  *
+  * @demo src/styles/demos/messages/labels-condensed.html
+  *
+**/
+
+
+.label {
+  position: relative;
+  &.label-condensed {
+    font-size: @font-size-xsmall;
+    color: @gray;
+    background: transparent;
+    margin-left: 10px;
+    &:before {
+      content: "";
+      background-color: @gray;
+      border-radius: 50%;
+      width: 9px;
+      height: 9px;
+      position: absolute;
+      top: 4px;
+      left: -7px;
+    }
+  }
+}
+
+//Variant mixin to set the circle color
+
+.label-condensed-variant(@color) {
+  &:before {
+    background-color: @color;
+  }
+}
+
+// Colors
+
+.label {
+  &.label-condensed {
+    &.label-default {
+      .label-condensed-variant(@label-default-bg);
+    }
+    &.label-primary {
+      .label-condensed-variant(@label-primary-bg);
+    }
+    &.label-success {
+      .label-condensed-variant(@label-success-bg);
+    }
+    &.label-info {
+      .label-condensed-variant(@label-info-bg);
+    }
+    &.label-warning {
+      .label-condensed-variant(@label-warning-bg);
+    }
+    &.label-danger {
+      .label-condensed-variant(@label-danger-bg);
+    }
+    &.label-progress {
+      .label-condensed-variant(@brand-progress);
+    }
+  }
+}
+
+
+
+
+
+
