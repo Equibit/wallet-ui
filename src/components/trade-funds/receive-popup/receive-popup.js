@@ -6,11 +6,11 @@
  *
  * @signature `<receive-popup />`
  *
- * @link ../src/components/trade-funds/receive-popup.html Full Page Demo
+ * @link ../src/components/trade-funds/receive-popup/receive-popup.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/components/trade-funds/receive-popup.html
+ * @demo src/components/trade-funds/receive-popup/receive-popup.html
  */
 
 import Component from 'can-component';

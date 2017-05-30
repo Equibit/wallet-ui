@@ -6,11 +6,11 @@
  *
  * @signature `<watch-list />`
  *
- * @link ../src/components/page-portfolio/watch-list.html Full Page Demo
+ * @link ../src/components/page-portfolio/watch-list/watch-list.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/components/page-portfolio/watch-list.html
+ * @demo src/components/page-portfolio/watch-list/watch-list.html
  */
 
 import Component from 'can-component';
