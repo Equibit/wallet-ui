@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+  <!--####################################################################
+	THIS IS A GENERATED FILE -- ANY CHANGES MADE WILL BE OVERWRITTEN
+
+	INSTEAD CHANGE:
+	source: doctheme/md/private-public-keys.md
+	@page private-public-keys
+######################################################################## -->
+
+<!--[if lt IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8 lt-ie7" lang="en">
+<![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8" lang="en">
+<![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie lt-ie9" lang="en">
+<![endif]-->
+<!--[if IE 9]>
+<html class="no-js ie ie9" lang="en">
+<![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Equibit Wallet UI  - private-public-keys</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+    <link rel="stylesheet" type="text/css" href="./static/bundles/static.css">
+  
+  <link rel="stylesheet" type="text/css" href="./static/styles/logo.css">
+  <!--[if lt IE 9]>
+  <script type="text/javascript" src="static/html5shiv.js"></script>
+  <!--<![endif]-->
+</head>
+
+<body class="docs">
+
+  <header>
+    <nav class="container">
+
+      <div class="logo-menu">
+        <a class="brand" href="./index.html">Equibit Wallet UI</a>
+      </div>
+
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="styles.html">Styles</a></li>
+        <li><a href="components.html">Components</a></li>
+        <li><a href="models.html">Models</a></li>
+        <li><a href="helpers.html">Helpers</a></li>
+        <li><a href="communication.html">Communication</a></li>
+        <li><a href="security.html">Security</a></li>
+      </ul>
+
+      <div class="pull-right">
+        <div class="bitovi-menu">
+          <a href="https://equibit.org/" class="bitovi icon-bits">EDC</a>
+          <ul class="dropdown-menu">
+            <li><a href="https://equibit.org/">Equibit.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+
+<div class="container api">
+
+	
+	<nav class="sidebar">
+		
+		<ul class="api cascading primary-grouping"> 
+	
+		
+		<li class="search-container active parent">
+			<a class="sidebar-title" href="index.html" data-search="Equibit Wallet UI">
+				Equibit Wallet UI
+			</a>
+			
+		</li>
+		
+		
+			
+			<li class="search-container active">
+			<a class="sidebar-title" href="private-public-keys.html" data-search="private-public-keys">
+				private-public-keys
+			</a>
+			
+		</li>
+			
+		
+	
+</ul>
+	</nav>
+	
+	
+	
+	<article class="content docs">
+	
+	
+		
+		<section class="title">
+			<div class="heading">
+<h1>private-public-keys</h1>
+	<ul class="tags">
+		<li>page</li>
+	</ul>
+	
+	
+</div>
+
+<div class="sub-heading">
+	
+	
+	<span class="inherits">&nbsp;</span>
+</div>
+
+<ul class="links">
+	
+	
+	
+	
+</ul>
+<br />
+		</section>
+		
+		
+		
+		<section class="contents">
+		</section>
+		
+		
+		
+
+		
+		<section class="description">
+			<p>To generate a private key:</p>
+<ul>
+<li>generate a 12 word phrase (referred to as &quot;mnemonic&quot; or &quot;mnemonic sentence&quot;);</li>
+<li>converting a mnemonic into a binary seed called <em>root seed</em> (<code>bip39.mnemonicToEntropy</code>):</li>
+</ul>
+
+		</section>
+		
+
+		
+			
+		
+		
+		
+		
+
+		
+		<section class="comment">
+			<ul>
+<li>512bit;</li>
+<li>PBKDF2 with a mnemonic as a password and the string &quot;mnemonic&quot; + passphrase used as the salt;
+<ul>
+<li>hashed 2,048 times using HMAC-SHA512.</li>
+</ul></li>
+<li>generate deterministic wallets using BIP-0032 or similar methods.</li>
+</ul>
+<p>To generate a public key:</p>
+<ul>
+<li><code>point(private_key) == public_key</code></li>
+</ul>
+<h2>Private key -&gt; Public key -&gt; double hashed bitcoin address -&gt; Base58Check</h2>
+<p>Links:</p>
+<ul>
+<li>https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki</li>
+<li>https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki</li>
+</ul>
+
+		</section>
+		
+		
+
+		
+
+		
+	
+	
+	</article>
+	
+	
+
+</div>
+
+
+
+
+
+
+  <footer>
+    <nav class="container">
+      <a class="brand javascriptmvc" href="index.html"></a>
+    </nav>
+  </footer>
+
+
+<script type="text/javascript">
+  var docObject = {"type":"page","name":"private-public-keys","src":"doctheme/md/private-public-keys.md","description":"To generate a private key:\n- generate a 12 word phrase (referred to as \"mnemonic\" or \"mnemonic sentence\");\n- converting a mnemonic into a binary seed called _root seed_ (`bip39.mnemonicToEntropy`):","source":"https://github.com/Equibit/wallet-ui","templates":"/Users/ilya/dev/wallet-ui/doctheme/templates","static":"/Users/ilya/dev/wallet-ui/doctheme/static/","glob":{"pattern":"{src,doctheme/md}/**/*.{less,md,js}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/ilya/dev/wallet-ui"},"dest":"/Users/ilya/dev/wallet-ui/docs","forceBuild":true,"debug":true,"generators":["html"],"docConfigDest":"../documentjs.json","project":{}};
+</script>
+
+
+  <script>
+    steal = {
+      instantiated: {
+        "bundles/static.css!$css" : null
+      }
+    }
+  </script>
+  <script type='text/javascript'
+          data-main="static"
+          data-config="./static/config.js"
+          src="./static/steal.production.js"
+          bundles-path="bundles"></script>
+
+</body>
+
+</html>

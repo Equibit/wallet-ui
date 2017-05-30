@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+  <!--####################################################################
+	THIS IS A GENERATED FILE -- ANY CHANGES MADE WILL BE OVERWRITTEN
+
+	INSTEAD CHANGE:
+	source: src/components/common/panel/panel.md
+	@module components/common/panel
+######################################################################## -->
+
+<!--[if lt IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8 lt-ie7" lang="en">
+<![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8" lang="en">
+<![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie lt-ie9" lang="en">
+<![endif]-->
+<!--[if IE 9]>
+<html class="no-js ie ie9" lang="en">
+<![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Equibit Wallet UI - drag-panel </title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+    <link rel="stylesheet" type="text/css" href="./static/bundles/static.css">
+  
+  <link rel="stylesheet" type="text/css" href="./static/styles/logo.css">
+  <!--[if lt IE 9]>
+  <script type="text/javascript" src="static/html5shiv.js"></script>
+  <!--<![endif]-->
+</head>
+
+<body class="docs">
+
+  <header>
+    <nav class="container">
+
+      <div class="logo-menu">
+        <a class="brand" href="./index.html">Equibit Wallet UI</a>
+      </div>
+
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="styles.html">Styles</a></li>
+        <li><a href="components.html">Components</a></li>
+        <li><a href="models.html">Models</a></li>
+        <li><a href="helpers.html">Helpers</a></li>
+        <li><a href="communication.html">Communication</a></li>
+        <li><a href="security.html">Security</a></li>
+      </ul>
+
+      <div class="pull-right">
+        <div class="bitovi-menu">
+          <a href="https://equibit.org/" class="bitovi icon-bits">EDC</a>
+          <ul class="dropdown-menu">
+            <li><a href="https://equibit.org/">Equibit.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+
+<div class="container api">
+
+	
+	<nav class="sidebar">
+		
+		<ul class="api cascading primary-grouping"> 
+	
+		
+		<li class="search-container active parent">
+			<a class="sidebar-title" href="index.html" data-search="Equibit Wallet UI">
+				Equibit Wallet UI
+			</a>
+			
+		</li>
+		
+		
+			
+			<li class="search-container active">
+			<a class="sidebar-title" href="components.html" data-search="Components">
+				Components
+			</a>
+			
+	<ul>
+		
+			
+				
+					<li class="heading search-container">
+						<span>Generic</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__bit-alerts.html" data-search="bit-alerts">
+						bit-alerts
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container active ">
+					<a class="module" href="components__common__panel.html" data-search="drag-panel">
+						drag-panel
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__nav-bar.html" data-search="nav-bar">
+						nav-bar
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-orders__order-list.html" data-search="order-list">
+						order-list
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__trade-funds__currency-converter.html" data-search="currency-converter">
+						currency-converter
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__trade-funds__dropdown-select.html" data-search="dropdown-select">
+						dropdown-select
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+			
+				
+					<li class="heading search-container">
+						<span>Pages</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-auth.html" data-search="page-auth">
+						page-auth
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-home.html" data-search="page-home">
+						page-home
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-issuances.html" data-search="page-issuance-details">
+						page-issuance-details
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-orders.html" data-search="page-orders">
+						page-orders
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-portfolio.html" data-search="page-portfolio">
+						page-portfolio
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-research.html" data-search="page-research">
+						page-research
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-settings.html" data-search="page-settings">
+						page-settings
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+			
+				
+					<li class="heading search-container">
+						<span>Graphs</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__common__share-performance-chart.html" data-search="share-performance-chart">
+						share-performance-chart
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__market-depth.html" data-search="market-depth">
+						market-depth
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-issuance-details__candlestick-chart.html" data-search="candlestick-chart">
+						candlestick-chart
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__common__barchart.html" data-search="bar-chart">
+						bar-chart
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-research__market-capitalization.html" data-search="market-capitalization">
+						market-capitalization
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+			
+				
+					<li class="heading search-container">
+						<span>Grids</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-portfolio__bonds-grid.html" data-search="bonds-grid">
+						bonds-grid
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-portfolio__equity-grid.html" data-search="equity-grid">
+						equity-grid
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-research__biggest-movers-grid.html" data-search="biggest-movers-grid">
+						biggest-movers-grid
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+			
+				
+					<li class="heading search-container">
+						<span>Authentication</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-auth__change-password.html" data-search="change-password">
+						change-password
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-auth__forgot-password.html" data-search="forgot-password">
+						forgot-password
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-auth__log-in.html" data-search="log-in">
+						log-in
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-auth__password-strength.html" data-search="password-strength">
+						password-strength
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-auth__sign-up.html" data-search="sign-up">
+						sign-up
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+			
+				
+					<li class="heading search-container">
+						<span>Research</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-research__biggest-movers.html" data-search="biggest-movers">
+						biggest-movers
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-research__market-summary.html" data-search="market-summary">
+						market-summary
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-research__most-active.html" data-search="most-active">
+						most-active
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+			
+				
+					<li class="heading search-container">
+						<span>Issuances</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__buy-orders.html" data-search="buy-orders">
+						buy-orders
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__issuance-info.html" data-search="issuance-info">
+						issuance-info
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__issuance-passports.html" data-search="issuance-passports">
+						issuance-passports
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__order-book.html" data-search="order-book">
+						order-book
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-issuances__company-metadata.html" data-search="company-metadata">
+						company-metadata
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-issuances__grid-issuances.html" data-search="grid-issuances">
+						grid-issuances
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__related-companies.html" data-search="related-companies">
+						related-companies
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__sell-orders.html" data-search="sell-orders">
+						sell-orders
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-research__latest-issuances.html" data-search="latest-issuances">
+						latest-issuances
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+			
+				
+					<li class="heading search-container">
+						<span>Portfolio</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-portfolio__my-portfolio.html" data-search="my-portfolio">
+						my-portfolio
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-portfolio__portfolio-breakdown.html" data-search="portfolio-breakdown">
+						portfolio-breakdown
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-portfolio__portfolio-cash.html" data-search="portfolio-cash">
+						portfolio-cash
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-portfolio__portfolio-summary.html" data-search="portfolio-summary">
+						portfolio-summary
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-portfolio__portfolio-toolbar.html" data-search="portfolio-toolbar">
+						portfolio-toolbar
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__page-portfolio__watch-list.html" data-search="watch-list">
+						watch-list
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__trade-funds__receive-popup.html" data-search="receive-popup">
+						receive-popup
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__trade-funds__send-popup.html" data-search="send-popup">
+						send-popup
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__trade-funds__send-popup__send-confirm-form.html" data-search="send-confirm-form">
+						send-confirm-form
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="wallet-ui__components__trade-funds__send-popup__send-form.html" data-search="send-form">
+						send-form
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+			
+				
+					<li class="heading search-container">
+						<span>Buy &amp; Sell</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="components__page-orders__order-list.html" data-search="order-list">
+						order-list
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+	</ul>
+
+		</li>
+			
+		
+	
+</ul>
+	</nav>
+	
+	
+	
+	<article class="content docs">
+	
+	
+		
+		<section class="title">
+			<div class="heading">
+<h1>drag-panel</h1>
+	<ul class="tags">
+		<li>module</li>
+	</ul>
+	
+	
+</div>
+
+<div class="sub-heading">
+	
+	
+		<span class="module">components/common/panel</span>
+	
+	
+	
+	<h2><code>{can.Component}</code></h2>
+	
+	<span class="inherits">&nbsp;</span>
+</div>
+
+<ul class="links">
+	
+		<li><a href="../src/components/common/panel/panel.html">Full Page Demo</a></li>
+	
+	
+	
+	
+</ul>
+<br />
+		</section>
+		
+		
+		
+		<section class="contents">
+		</section>
+		
+		
+		
+
+		
+		<section class="description">
+			<p>A draggable panel with a title.</p>
+
+		</section>
+		
+
+		
+			
+				<section class="signature">
+					<h2 id="sig__lt_drag_panelpanel_title___34_AllIssuances__34__gt_Content_lt__drag_panel_gt_">&lt;drag-panel panel-title=&#34;All Issuances&#34;&gt; Content &lt;/drag-panel&gt;
+</h2>
+<div class="signature-wrapper">
+
+
+
+
+
+
+
+</div>
+
+				</section>
+			
+		
+		
+		
+		
+
+		
+		<section class="comment">
+			<h2>Example</h2>
+<div class='demo_wrapper' data-demo-src='src/components/common/panel/panel.html'></div>
+
+		</section>
+		
+		
+
+		
+
+		
+	
+	
+	</article>
+	
+	
+
+</div>
+
+
+
+
+
+
+  <footer>
+    <nav class="container">
+      <a class="brand javascriptmvc" href="index.html"></a>
+    </nav>
+  </footer>
+
+
+<script type="text/javascript">
+  var docObject = {"type":"module","name":"components/common/panel","src":"src/components/common/panel/panel.md","description":"A draggable panel with a title.","parent":"components.common","title":"drag-panel","types":[{"type":"can.Component"}],"signatures":[{"code":"<drag-panel panel-title=\"All Issuances\"> Content </drag-panel>","description":"","params":[]}],"links":[{"href":"../src/components/common/panel/panel.html","title":"Full Page Demo"}],"source":"https://github.com/Equibit/wallet-ui","templates":"/Users/ilya/dev/wallet-ui/doctheme/templates","static":"/Users/ilya/dev/wallet-ui/doctheme/static/","glob":{"pattern":"{src,doctheme/md}/**/*.{less,md,js}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/ilya/dev/wallet-ui"},"dest":"/Users/ilya/dev/wallet-ui/docs","forceBuild":true,"debug":true,"generators":["html"],"docConfigDest":"../documentjs.json","project":{}};
+</script>
+
+
+  <script>
+    steal = {
+      instantiated: {
+        "bundles/static.css!$css" : null
+      }
+    }
+  </script>
+  <script type='text/javascript'
+          data-main="static"
+          data-config="./static/config.js"
+          src="./static/steal.production.js"
+          bundles-path="bundles"></script>
+
+</body>
+
+</html>
