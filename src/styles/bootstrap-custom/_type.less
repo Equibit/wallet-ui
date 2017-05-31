@@ -34,7 +34,7 @@
   font-size: @font-size-small;
   text-transform: uppercase;
   color: @gray-dark;
-  font-weight: bold;
+  font-family: @font-family-bold;
   padding-bottom: 3px;
   border-bottom: 2px solid @border-color;
   margin: 0;
@@ -76,6 +76,37 @@ dt {
   }
   dd {
     margin-left: @dl-horizontal-offset;
+  }
+}
+
+.dl-stripped {
+  border-top: @border-default;
+  dt, dd {
+    border-bottom: @border-default;
+    padding: 8px;
+    height: 37px;
+    text-align: left;
+  }
+  dd {
+    margin-left: 160px;
+    padding-left: 20px;
+  }
+  &.responsive {
+    @media (max-width: @screen-sm) {
+      dt {
+        float: none;
+        border-bottom: 0;
+        padding-bottom: 0;
+        height: inherit;
+      }
+      dd {
+        margin-left: 0;
+        padding-left: 8px;
+        padding-top: 0;
+        height: inherit;
+        border-bottom: 0;
+      }
+    }
   }
 }
 

@@ -1,0 +1,73 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+order-data {
+	display: block;
+
+  .well {
+    padding: 0;
+    .section {
+      padding: 10px;
+    }
+  }
+
+  .order-date {
+    float: right;
+    text-transform: initial;
+    font-size: @font-size-xsmall;
+    color: @gray;
+    @media (max-width: @screen-xs) {
+      float: none;
+      margin: @padding-small-vertical 0;
+    }
+  }
+
+  .order-header {
+    background-color: @active-bg;
+    border-bottom: @border-default;
+  }
+
+  .order-quantity,
+  .order-ask-price {
+    font-size: @font-size-h3+4;
+    line-height: 0.8em;
+    small {
+      font-size: 50%;
+      color: @gray;
+    }
+  }
+
+  .sub-section {
+
+    @media (min-width: @screen-sm) {
+      border-left: @border-default;
+    }
+  }
+
+  .partial-fill-indicator {
+    margin-top: 13px;
+    font-size: 13px;
+    color: @brand-success;
+    font-family: @font-family-bold;
+    .icon {
+      display: inline-block;
+      background-color: @brand-success;
+      border-radius: 50%;
+      padding: 3px;
+      font-size: 8px;
+      color: @white;
+      width: 14px;
+    }
+  }
+
+  .order-metadata {
+    dl {
+      margin-bottom: 0;
+    }
+  }
+
+  .order-status {
+    .subheading {
+      border-bottom: 0;
+    }
+  }
+}

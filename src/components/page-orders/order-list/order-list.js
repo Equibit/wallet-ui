@@ -1,5 +1,5 @@
 /**
- * @module {can.Component} wallet-ui/components/page-orders/order-list order-list
+ * @module {can.Component} components/page-orders/order-list order-list
  * @parent components.buy-sell
  *
  * This components shows a list of orders.

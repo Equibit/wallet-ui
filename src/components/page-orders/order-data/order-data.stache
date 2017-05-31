@@ -1,0 +1,56 @@
+<can-import from="~/components/common/fillkill-indicator/fillkill-indicator.component" />
+
+<h2 class="subtitle">
+  Sell Order
+  <div class="order-date">Created on 04/28/12 @1:00pm</div>
+</h2>
+
+<div class="well">
+    <div class="order-header section row">
+      <div class="col-xs-12 col-sm-6">
+        <label>Company</label>
+        <a href="">Imperial Brands</a>
+      </div>
+      <div class="col-xs-6 col-sm-3">
+        <label>Issuance Name</label>
+        Series 1
+      </div>
+      <div class="col-xs-6 col-sm-3">
+        <label>Issuance Type</label>
+        Common Shares
+      </div>
+    </div>
+
+    <div class="order-summary section row">
+      <div class="col-xs-6 col-sm-6">
+        <label>Quantity</label>
+        <span class="order-quantity">400</span>
+      </div>
+      <div class="col-xs-6 col-sm-3 sub-section">
+        <label>Ask Price</label>
+        <span class="order-ask-price">30,375 <small>μBTC</small></span>
+      </div>
+      <div class="col-xs-12 col-sm-3 sub-section">
+         <fillkill-indicator />
+      </div>
+    </div>
+
+    <div class="order-metadata section">
+      <dl class="dl-horizontal dl-stripped responsive">
+        <dt>Total Amount</dt>
+        <dd>12,750,000 <small>μBTC</small></dd>
+
+        <dt>Good Until</dt>
+        <dd>April 28, 2017</dd>
+      </dl>
+    </div>
+
+    <div class="order-status section">
+      <h3 class="subheading">Status</h3>
+      <span class="label label-info">Open</span>
+    </div>
+
+    <div class="order-accepted-offers section">
+      (Accepted offers will go here...)
+    </div>
+</div>
