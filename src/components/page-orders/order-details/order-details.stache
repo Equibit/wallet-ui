@@ -16,20 +16,11 @@
       <div class="col-xs-12">
         <div class="row">
           <div class="col-xs-12 col-sm-7 order-data">
-            <h2 class="subtitle">Sell Order
-              <div class="order-date">Created on 04/28/12 @1:00pm</div>
-            </h2>
-            <div class="well">
-             Order Details
-            </div>
+            Order data Component will go here
           </div>
 
           <div class="col-xs-12 col-sm-5 offers-data">
-            <h2 class="subtitle">Buy Offers <span class="badge">2</span>
-            </h2>
-            <div class="well">
-             Offers List
-            </div>
+            Offers Data component will go here
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 /**
- * @module {can.Component} wallet-ui/components/page-orders/order-details order-details
+ * @module {can.Component} components/page-orders/order-details order-details
  * @parent components.buy-sell
  *
  * This component shows the details of an order.
