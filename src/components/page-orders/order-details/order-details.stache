@@ -11,29 +11,43 @@
     </div>
   </nav>
 
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="row">
-        <div class="col-xs-12 col-sm-7 order-data">
-          <h2 class="subtitle">Sell Order
-            <div class="order-date">Created on 04/28/12 @1:00pm</div>
-          </h2>
-          <div class="well">
-           Order Details
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-12 col-sm-7 order-data">
+            <h2 class="subtitle">Sell Order
+              <div class="order-date">Created on 04/28/12 @1:00pm</div>
+            </h2>
+            <div class="well">
+             Order Details
+            </div>
           </div>
-        </div>
 
-        <div class="col-xs-12 col-sm-5 offers-data">
-          <h2 class="subtitle">Buy Offers <span class="badge">2</span>
-          </h2>
-          <div class="well">
-           Offers List
+          <div class="col-xs-12 col-sm-5 offers-data">
+            <h2 class="subtitle">Buy Offers <span class="badge">2</span>
+            </h2>
+            <div class="well">
+             Offers List
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Placeholder message for no orders
+  <div class="panel-body align-center">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="message-box no-border">
+          <div class="message-box-status">Your Order Details Will Show Here</div>
+          <p class="message-box-cause">You can place orders from the issuances page.</p>
+          <a href="/issuances" class="btn btn-primary">Explore Issuances</a>
+        </div>
+      </div>
+    </div>
+  </div>-->
 
 </drag-panel>
 
