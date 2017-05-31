@@ -2,7 +2,7 @@
  * @module {can.Component} components/page-orders/order-list order-list
  * @parent components.buy-sell
  *
- * This component shows the information about an order.
+ * This components shows a list of orders.
  *
  * @signature `<order-list />`
  *

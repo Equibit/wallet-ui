@@ -1,1 +1,47 @@
-<p>{{message}}</p>
+<drag-panel class="page-panel panel panel-default card card-full">
+  <nav class="navbar toolbar">
+    <div class="row">
+      <p class="navbar-text">
+        <span class="order-company">Imperial Brands</span>
+        <span class="order-issuance-name">, Series 1</span>
+      </p>
+      <ul class="nav navbar-nav navbar-right toolbar-actions">
+        <li><a ($click)="sendFunds()"><span class="icon icon-bin"></span> Cancel Order</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-12 col-sm-7 order-data">
+            Order data Component will go here
+          </div>
+
+          <div class="col-xs-12 col-sm-5 offers-data">
+            Offers Data component will go here
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Placeholder message for no orders
+  <div class="panel-body align-center">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="message-box no-border">
+          <div class="message-box-status">Your Order Details Will Show Here</div>
+          <p class="message-box-cause">You can place orders from the issuances page.</p>
+          <a href="/issuances" class="btn btn-primary">Explore Issuances</a>
+        </div>
+      </div>
+    </div>
+  </div>-->
+
+</drag-panel>
+
+
+
+
