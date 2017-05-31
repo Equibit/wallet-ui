@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/common/fillkill-indicator fillkill-indicator
- * @parent components.generic
+ * @parent components.common
  *
  * This components shows the badge for orders that don't allow partial fills.
  *
@@ -12,7 +12,7 @@
 
 <can-component tag="fillkill-indicator">
   <style type="less">
-    @import '../../styles/bootstrap-custom/_variables.less';
+    @import '../../../styles/bootstrap-custom/_variables.less';
 
     margin-top: 13px;
     font-size: 13px;

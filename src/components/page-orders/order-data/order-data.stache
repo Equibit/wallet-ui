@@ -1,3 +1,5 @@
+<can-import from="~/components/common/fillkill-indicator/fillkill-indicator.component" />
+
 <h2 class="subtitle">
   Sell Order
   <div class="order-date">Created on 04/28/12 @1:00pm</div>
@@ -29,10 +31,7 @@
         <span class="order-ask-price">30,375 <small>μBTC</small></span>
       </div>
       <div class="col-xs-12 col-sm-3 sub-section">
-        <div class="partial-fill-indicator">
-          <span class="icon icon-checkmark"></span>
-          Fill or Kill Order
-        </div>
+         <fillkill-indicator />
       </div>
     </div>
 
