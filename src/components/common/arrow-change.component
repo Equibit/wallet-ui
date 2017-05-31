@@ -1,3 +1,14 @@
+/**
+ * @module {can.Component} components/common/arrow-change arrow-change
+ * @parent components.common
+ *
+ * This component shows the conversion used for values that go up or down.
+ *
+ * ## Demo
+ *
+ * @demo src/components/common/arrow-change.html
+ */
+
 <can-component tag="arrow-change">
   <style type="less">
     @import '../../styles/bootstrap-custom/_variables.less';
