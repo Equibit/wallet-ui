@@ -1,0 +1,36 @@
+/**
+ * @module {can.Component} components/common/fillkill-indicator fillkill-indicator
+ * @parent components.generic
+ *
+ * This components shows the badge for orders that don't allow partial fills.
+ *
+ *
+ * ## Demo
+ *
+ * @demo src/components/common/fillkill-indicator/fillkill-indicator.html
+ */
+
+<can-component tag="fillkill-indicator">
+  <style type="less">
+    @import '../../styles/bootstrap-custom/_variables.less';
+
+    margin-top: 13px;
+    font-size: 13px;
+    color: @brand-success;
+    font-family: @font-family-bold;
+
+    .icon {
+      display: inline-block;
+      background-color: @brand-success;
+      border-radius: 50%;
+      padding: 3px;
+      font-size: 8px;
+      color: @white;
+      width: 14px;
+    }
+  </style>
+  <view>
+      <span class="icon icon-checkmark"></span>
+      Fill or Kill Order
+  </view>
+</can-component>
