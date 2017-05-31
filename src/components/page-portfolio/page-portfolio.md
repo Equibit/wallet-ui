@@ -7,5 +7,7 @@ A short description of the page-portfolio component
 
 @body
 
-## Use
+@link ../src/components/page-portfolio/page-portfolio.html Full Page Demo
+
+@demo src/components/page-portfolio/page-portfolio.html
 
