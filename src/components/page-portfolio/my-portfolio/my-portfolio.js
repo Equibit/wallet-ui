@@ -20,13 +20,14 @@ import view from './my-portfolio.stache';
 
 export const ViewModel = DefineMap.extend({
   portfolio: {
-    value: {
-      balance: 22.616393,
-      totalCash: 12.616393,
-      totalSec: 10.00045,
-      unrealizedPL: 0.109,
-      unrealizedPLPercent: 1.2
-    }
+    value: null
+    // value: {
+    //   balance: 22.616393,
+    //   totalCash: 12.616393,
+    //   totalSec: 10.00045,
+    //   unrealizedPL: 0.109,
+    //   unrealizedPLPercent: 1.2
+    // }
   },
   isSendFundsPopup: 'boolean',
   isReceiveFundsPopup: 'boolean',
