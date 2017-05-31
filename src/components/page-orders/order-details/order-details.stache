@@ -1,1 +1,42 @@
-<p>{{message}}</p>
+<drag-panel class="page-panel panel panel-default card card-full">
+  <nav class="navbar toolbar">
+    <div class="row">
+      <p class="navbar-text">
+        <span class="order-company">Imperial Brands</span>
+        <span class="order-issuance-name">, Series 1</span>
+      </p>
+      <ul class="nav navbar-nav navbar-right toolbar-actions">
+        <li><a ($click)="sendFunds()"><span class="icon icon-bin"></span> Cancel Order</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-12 col-sm-7 order-data">
+          <h2 class="subtitle">Sell Order
+            <div class="order-date">Created on 04/28/12 @1:00pm</div>
+          </h2>
+          <div class="well">
+           Order Details
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-5 offers-data">
+          <h2 class="subtitle">Buy Offers <span class="badge">2</span>
+          </h2>
+          <div class="well">
+           Offers List
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</drag-panel>
+
+
+
+
