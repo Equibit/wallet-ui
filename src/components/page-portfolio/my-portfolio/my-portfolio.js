@@ -32,8 +32,8 @@ export const ViewModel = DefineMap.extend({
   isSendFundsPopup: 'boolean',
   isReceiveFundsPopup: 'boolean',
   receiveFunds () {
-    this.receiveFundsPopup = false;
-    this.receiveFundsPopup = true;
+    this.isReceiveFundsPopup = false;
+    this.isReceiveFundsPopup = true;
   }
 });
 
