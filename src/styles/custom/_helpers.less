@@ -75,18 +75,20 @@
 * @parent custom/_helpers.less 1
 *
 * @description
-* Adds a blue bar indicator to the right of the element. Use on a pseudo element.
+* Adds a blue bar indicator to the right of the element using a pseudo element.
+* It requires for the parent to be positioned `position:relative`.
 *
 * Example:
 * ```css
-*   .item:after {
-        .active-item-indicator;
+*   .item {
+      .active-item-indicator;
     }
-}
 * ```
 **/
 
 .active-item-indicator {
+  position: relative;
+  &:after {
     background-color: @brand-primary;
     content: " ";
     width: 4px;
@@ -94,6 +96,7 @@
     position: absolute;
     top: -1px;
     left: -1px;
+  }
 }
 
 /**
