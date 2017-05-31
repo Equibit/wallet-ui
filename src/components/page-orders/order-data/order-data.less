@@ -1,0 +1,16 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+order-data {
+	display: block;
+
+  .order-date {
+    float: right;
+    text-transform: initial;
+    font-size: @font-size-xsmall;
+    color: @gray;
+    @media (max-width: @screen-xs) {
+      float: none;
+      margin: @padding-small-vertical 0;
+    }
+  }
+}

@@ -1,8 +1,8 @@
 /**
- * @module {can.Component} wallet-ui/components/page-orders/order-list order-list
- * @parent components.common
+ * @module {can.Component} components/page-orders/order-list order-list
+ * @parent components.buy-sell
  *
- * A short description of the order-list component
+ * This component shows the information about an order.
  *
  * @signature `<order-list />`
  *
