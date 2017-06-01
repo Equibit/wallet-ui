@@ -17,15 +17,15 @@ import feathersClient from '~/models/feathers-client';
 // });
 
 describe('models/user', function () {
-  it('should generateKeys', function () {
-    let user = new User({});
-    let keys = user.generateKeys();
-    console.log('keys:', keys);
-
-    assert.ok(keys.mnemonic, 'mnemonic');
-    assert.ok(keys.privateKey.keyPair.compressed, 'private key compressed');
-    // assert.ok(keys.publicKey, 'public key');
-  });
+  // it('should generateKeys', function () {
+  //   let user = new User({});
+  //   let keys = user.generateKeys();
+  //   console.log('keys:', keys);
+  //
+  //   assert.ok(keys.mnemonic, 'mnemonic');
+  //   assert.ok(keys.privateKey.keyPair.compressed, 'private key compressed');
+  //   // assert.ok(keys.publicKey, 'public key');
+  // });
 
   it('should handle a new user without id', function (done) {
     let email = 'test@bitovi.com';
