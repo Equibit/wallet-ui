@@ -1,3 +1,6 @@
+<can-import from="~/components/page-orders/order-data/" />
+<can-import from="~/components/page-orders/order-offers-data/" />
+
 <drag-panel class="page-panel panel panel-default card card-full">
   <nav class="navbar toolbar">
     <div class="row">
@@ -16,11 +19,11 @@
       <div class="col-xs-12">
         <div class="row">
           <div class="col-xs-12 col-sm-7 order-data">
-            Order data Component will go here
+            <order-data />
           </div>
 
           <div class="col-xs-12 col-sm-5 offers-data">
-            Offers Data component will go here
+            <order-offers-data />
           </div>
         </div>
       </div>

@@ -1,1 +1,12 @@
-<p>{{message}}</p>
+<can-import from="~/components/page-orders/order-list/" />
+<can-import from="~/components/page-orders/order-details/" />
+
+<div class="row">
+  <div class="col-xs-3">
+    <order-list />
+  </div>
+
+  <div class="col-xs-9">
+    <order-details />
+  </div>
+</div>
