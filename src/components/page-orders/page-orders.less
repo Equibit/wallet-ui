@@ -3,4 +3,22 @@
 page-orders {
 	display: block;
   .page-layout;
+
+  order-details {
+    .order-details-body {
+      flex-grow: 2;
+    }
+  }
+
+  order-data,
+  order-offers-data {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    .well {
+      flex-grow: 2;
+      overflow-y: auto;
+    }
+  }
+
 }
