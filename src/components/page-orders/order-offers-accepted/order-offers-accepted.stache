@@ -1,0 +1,24 @@
+<h3 class="subheading">Accepted Offers</h3>
+
+<div class="accepted-offers">
+  <div class="row accepted-offers-header">
+    <div class="col-xs-2 offer-quantity">Quantity</div>
+    <div class="col-xs-3 offer-accepted-date">Accepted Date</div>
+    <div class="col-xs-5 offer-deal-step">Deal Flow Step</div>
+    <div class="col-xs-2 offer-deal-action"></div>
+  </div>
+
+  <div class="row accepted-offers-status contextual-bg-progress">
+    <div class="col-xs-2 offer-quantity">385</div>
+    <div class="col-xs-3 offer-accepted-date">04/29 @2:30 pm</div>
+    <div class="col-xs-5 offer-deal-step">
+      <span class="icon icon-clock"></span>
+      <span class="deal-step-label">Exchange Assets </span>
+      <span class="deal-step-number">Step 2 of 3</span>
+    </div>
+    <div class="col-xs-2 offer-deal-action">
+      <a href="" class="btn btn-xs btn-default">View</a>
+    </div>
+  </div>
+
+</div>

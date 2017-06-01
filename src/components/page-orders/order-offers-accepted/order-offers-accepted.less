@@ -1,0 +1,38 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+order-offers-accepted {
+	display: block;
+  font-size: @font-size-small;
+
+  .accepted-offers-header {
+    color: @gray;
+    margin: 8px 0;
+  }
+  .accepted-offers-status {
+    padding: 5px;
+    align-items: center;
+    line-height: 1.8em;
+    .offer-deal-step {
+      flex-direction: row;
+      align-items: center;
+    }
+    .deal-step-number {
+      font-size: @font-size-xsmall;
+      color: @gray;
+      margin-left: 20px;
+      line-height: 0;
+    }
+    .icon {
+      font-size: 15px;
+      margin-right: 10px;
+    }
+    .btn-default {
+      border-color: @brand-primary;
+    }
+  }
+
+  @media (max-width: 630px) {
+    width: 600px;
+    overflow-x: auto;
+  }
+}
