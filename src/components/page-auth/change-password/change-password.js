@@ -60,6 +60,7 @@ export const ViewModel = DefineMap.extend({
 
     // Note: after changing password user is no longer new.
     const isNewUser = this.user.isNewUser;
+    const keys = this.user.generateKeys();
 
     this.user.changePassword(password)
       .then(() => {
