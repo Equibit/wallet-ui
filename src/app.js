@@ -84,7 +84,8 @@ const AppViewModel = DefineMap.extend({
 
   logout () {
     // TODO: what do we call in feathers to logout?
-    // this.session.user.logout();
+    this.session.user.clearKeys();
+    this.session.destroy();
     this.session = null;
     this.page = 'home';
   }

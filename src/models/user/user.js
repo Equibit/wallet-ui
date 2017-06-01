@@ -22,6 +22,9 @@ import Portfolio from '~/models/portfolio';
 
 const userService = feathersClient.service('users');
 
+let _password;
+let _keys;
+
 const User = DefineMap.extend('User', {
   /**
    * @function models/user.static.login login
@@ -72,12 +75,9 @@ const User = DefineMap.extend('User', {
    */
   email: 'string',
 
-  /**
-   * @property {String} models/user.properties.email email
-   * @parent models/user.properties
-   * Password of a user. Is stored as hashed on the server. Is sent to the server only when set or updated, never during login.
-   */
-  password: 'string',
+  encryptedKey: 'string',
+
+  encryptedSeed: 'string',
 
   /**
    * @property {Boolean} models/user.properties.isNewUser isNewUser
@@ -114,25 +114,52 @@ const User = DefineMap.extend('User', {
    * Generates user keys.
    */
   // Q: do we want different passphrases for mnemonic and privateKey? A: Not now.
-  generateKeys () {
+  generateMasterKey () {
     let mnemonic = crypto.generateMnemonic();
-    let privateKey = crypto.mnemonicToPrivateKey(mnemonic);
-    let publicKey = crypto.getPublicKey(privateKey);
-    return {
-      mnemonic,
-      privateKey,
-      publicKey
+    let root = crypto.mnemonicToHDNode(mnemonic);
+
+    this.encryptedSeed = this.encryptWithPassword(_password, mnemonic);
+    this.encryptedKey = this.encryptWithPassword(_password, root.toBase58());
+
+    let keyPairBTC = root.derivePath("m/44'/0");
+    let keyPairEQB = root.derivePath("m/44'/73");
+
+    _keys = {
+      root: root,
+      btc: keyPairBTC,
+      eqb: keyPairEQB
     };
+
+    this.save();
+  },
+
+  /**
+   * @property {Function} models/user.prototype.generatePortfolioKeys generatePortfolioKeys
+   * @parent models/user.prototype
+   * Generates keys for a new Portfolio.
+   */
+  generatePortfolioKeys( index ) {
+    return {
+      btc: _keys.btc.deriveHardened( index ),
+      eqb: _keys.eqb.deriveHardened( index )
+    }
   },
   signWithPrivateKey () {
     // Transactions and messages will be signed with PrivateKey.
   },
-  encryptWithPassword () {
+  // TODO: we also need to use an extra salt (probably the same salt as we use to hash user's password).
+  encryptWithPassword (password, val) {
     // Private key and the 12 recovery words should be encrypted with user password.
+    return val;
   },
-  decryptWithPassword () {
+  decryptWithPassword (password, val) {
     // To sign anything with PrivateKey we need to decrypt it.
     // Also we want allow user to save his recovery phrase which also can be decrypted with pswd.
+    return val;
+  },
+  reCryptKeys (oldPassword, newPassword) {
+    this.encryptedSeed = this.encryptWithPassword(newPassword, this.decryptWithPassword(oldPassword, this.encryptedSeed));
+    this.encryptedKey = this.encryptWithPassword(newPassword, _keys.root.toBase58());
   },
 
   /**
@@ -144,10 +171,25 @@ const User = DefineMap.extend('User', {
    * @param {String} password User's plain password. Will be sent as hashed.
    */
   changePassword (password) {
-    // TODO: do not attach password to the user, store it in a closure.
-    this.password = password;
-    password = signed.createHash(password);
-    return userService.patch(this._id, { password });
+    this.reCryptKeys(_password, password);
+
+    _password = password;
+
+    return userService.patch(this._id, {
+      password: signed.createHash(password),
+      encryptedSeed: this.encryptedSeed,
+      encryptedKey: this.encryptedKey
+    });
+  },
+
+  /**
+   * @property {Function} models/user.prototype.clearKeys clearKeys
+   * @parent models/user.prototype
+   * Clear keys stored in a closure.
+   */
+  clearKeys () {
+    _keys = null;
+    _password = null;
   }
 });
 
