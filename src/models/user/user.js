@@ -138,11 +138,11 @@ const User = DefineMap.extend('User', {
    * @parent models/user.prototype
    * Generates keys for a new Portfolio.
    */
-  generatePortfolioKeys( index ) {
+  generatePortfolioKeys (index) {
     return {
-      btc: _keys.btc.deriveHardened( index ),
-      eqb: _keys.eqb.deriveHardened( index )
-    }
+      btc: _keys.btc.deriveHardened(index),
+      eqb: _keys.eqb.deriveHardened(index)
+    };
   },
   signWithPrivateKey () {
     // Transactions and messages will be signed with PrivateKey.
