@@ -19,7 +19,7 @@
         <div class="message-box no-border">
           <div class="message-box-status">Manage your Portfolio</div>
           <p class="message-box-cause">Get started by receiving funds or securities to your portfolio.</p>
-          <a ($click)="receiveFunds()" class="btn btn-primary"><span class="icon icon-download"></span> Receive</a>
+          <a ($click)="receiveFunds()"><span class="icon icon-download"></span> Receive</a>
         </div>
       </div>
     </div>
