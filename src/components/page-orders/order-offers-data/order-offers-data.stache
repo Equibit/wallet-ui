@@ -15,7 +15,11 @@
          </div>
          <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
-               <button class="btn btn-default btn-sm btn-primary btn-accept">Accept</button>
+              <div class="row">
+                <div class="col-xs-12">
+                  <button class="btn btn-default btn-sm btn-primary btn-accept">Accept</button>
+                </div>
+              </div>
             </div>
          </div>
       </div>

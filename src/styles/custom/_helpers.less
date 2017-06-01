@@ -11,7 +11,7 @@
 @import '../bootstrap-custom/_variables';
 
 /**
-* @styles page-layout Page Layout
+* @styles helpers-page-layout Page Layout
 * @parent custom/_helpers.less 0
 *
 * @description
@@ -71,7 +71,7 @@
 
 
 /**
-* @styles active-item-indicator Active Item Indicator
+* @styles helpers-active-item-indicator Active Item Indicator
 * @parent custom/_helpers.less 1
 *
 * @description
@@ -100,7 +100,44 @@
 }
 
 /**
-  * @styles _rotate Rotate
+  * @styles helpers-contextual-background Contextual Background
+  * @parent custom/_helpers.less 2
+  *
+  * @description
+  * Use the following classes to assign a background color and border to an element.
+  * It also adds a padding inside the element.
+  *
+  * @demo src/styles/demos/helpers/contextual-background.html
+  *
+**/
+
+.contextual-bg-variant(@color) {
+  background-color: (fade(@color, 8%));
+  border: 1px solid (fade(@color, 40%));
+  padding: 5px;
+  .icon {
+    color: @color;
+  }
+}
+
+.contextual-bg-success {
+  .contextual-bg-variant(@brand-success);
+}
+
+.contextual-bg-danger {
+  .contextual-bg-variant(@brand-danger);
+}
+
+.contextual-bg-progress {
+  .contextual-bg-variant(@brand-progress);
+}
+
+.contextual-bg-inactive {
+  .contextual-bg-variant(@gray);
+}
+
+/**
+  * @styles helpers-rotate Rotate
   * @parent custom/_helpers.less 2
   *
   * @description
@@ -130,3 +167,24 @@
   transform: rotate(270deg);
   display: inline-block;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

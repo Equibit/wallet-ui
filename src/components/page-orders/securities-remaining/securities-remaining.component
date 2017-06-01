@@ -1,0 +1,50 @@
+/**
+ * @module {can.Component} components/page-orders/securities-remaining securities-remaining
+ * @parent components.buy-sell
+ *
+ * This component shows the number of securities filled and remaining on an order.
+ *
+ *
+ * ## Demo
+ *
+ * @demo src/components/page-orders/securities-remaining/securities-remaining.html
+ */
+
+<can-component tag="securities-remaining">
+  <style type="less">
+    @import '../../../styles/bootstrap-custom/_variables.less';
+    .table {
+      margin-bottom: 0;
+      tbody > tr > {
+        th {
+          text-transform: uppercase;
+          font-size: @font-size-xsmall;
+          color: @gray;
+          vertical-align: middle;
+        }
+        td {
+          font-size: @font-size-base;
+        }
+        &.top-row {
+          td, th {
+            border-top: 0;
+          }
+        }
+      }
+    }
+  </style>
+  <view>
+    <table class="table table-condensed">
+      <tbody>
+        <tr class="top-row">
+          <th>Filled</th>
+          <td class="text-success">385</td>
+        </tr>
+        <tr>
+          <th>Remaining</th>
+          <td class="text-danger">15</td>
+        </tr>
+      </tbody>
+    </table>
+  </view>
+</can-component>

@@ -14,8 +14,7 @@
   <style type="less">
     @import '../../../styles/bootstrap-custom/_variables.less';
 
-    margin-top: 13px;
-    font-size: 13px;
+    font-size: @font-size-small;
     color: @brand-success;
     font-family: @font-family-bold;
 
@@ -27,6 +26,7 @@
       font-size: 8px;
       color: @white;
       width: 14px;
+      margin-right: 2px;
     }
   </style>
   <view>
