@@ -4,11 +4,7 @@
 
   window.c = crypto;
 
-  let mnemonic = crypto.generateMnemonic();
-  let privateKey = crypto.mnemonicToPrivateKey(mnemonic);
-  let publicKey = crypto.getPublicKey(privateKey);
+  let res = crypto.test();
 
-
-  console.log(`mnemonic = ${mnemonic}`);
-
+  console.log(res);
 </script>
