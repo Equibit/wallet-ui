@@ -1,6 +1,6 @@
 import crypto from '@equibit/wallet-crypto/dist/wallet-crypto';
-const bip39 = crypto.bip39;
-const bitcoin = crypto.bitcoin;
+import bip39 from 'bip39';
+import bitcoin from 'bitcoinjs-lib';
 
 function mnemonicToSeed (mnemonic, mnemonicPassword) {
   return bip39.mnemonicToSeed(mnemonic, mnemonicPassword);
@@ -18,5 +18,5 @@ export default {
   generateMnemonic: bip39.generateMnemonic,
   mnemonicToPrivateKey,
   mnemonicToSeed,
-  getPublicKey
+  getPublicKey,
 };
