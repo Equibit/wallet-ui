@@ -84,6 +84,27 @@
   }
 }
 
+/**
+  * @styles label-simple Simple Labels
+  * @parent bootstrap-custom/_labels.less
+  *
+  * @description
+  * Add the class `.label-simple` to the `.label` for a simple version of the standard labels.
+  *
+  * @demo src/styles/demos/messages/labels-simple.html
+  *
+**/
+.label {
+  &.label-simple {
+    font-family: @font-family-base;
+    color: @gray;
+    border: 1px solid @gray-light;
+    padding: 2px;
+    border-radius: @border-radius-small;
+    text-transform: uppercase;
+  }
+}
+
 
 
 
