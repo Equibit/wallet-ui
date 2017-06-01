@@ -9,25 +9,28 @@ order-offers-accepted {
     margin: 8px 0;
   }
   .accepted-offers-status {
-    padding: 5px;
+    padding: @padding-small-vertical;
     align-items: center;
     line-height: 1.8em;
+    margin-bottom: @padding-small-horizontal;
     .offer-deal-step {
       flex-direction: row;
       align-items: center;
     }
-    .deal-step-number {
+    .offer-deal-step-number {
       font-size: @font-size-xsmall;
       color: @gray;
-      margin-left: 20px;
-      line-height: 0;
     }
     .icon {
-      font-size: 15px;
-      margin-right: 10px;
+      font-size: @font-size-base;
+      margin-right: @padding-small-horizontal;
     }
     .btn-default {
       border-color: @brand-primary;
+      align-self: flex-end;
+    }
+    &.contextual-bg-danger .offer-deal-step {
+      font-style: italic;
     }
   }
 

@@ -100,6 +100,43 @@
 }
 
 /**
+  * @styles helpers-contextual-background Contextual Background
+  * @parent custom/_helpers.less 2
+  *
+  * @description
+  * Use the following classes to assign a background color and border to an element.
+  * It also adds a padding inside the element.
+  *
+  * @demo src/styles/demos/helpers/contextual-background.html
+  *
+**/
+
+.contextual-bg-variant(@color) {
+  background-color: (fade(@color, 8%));
+  border: 1px solid (fade(@color, 40%));
+  padding: 5px;
+  .icon {
+    color: @color;
+  }
+}
+
+.contextual-bg-success {
+  .contextual-bg-variant(@brand-success);
+}
+
+.contextual-bg-danger {
+  .contextual-bg-variant(@brand-danger);
+}
+
+.contextual-bg-progress {
+  .contextual-bg-variant(@brand-progress);
+}
+
+.contextual-bg-inactive {
+  .contextual-bg-variant(@gray);
+}
+
+/**
   * @styles helpers-rotate Rotate
   * @parent custom/_helpers.less 2
   *
@@ -131,41 +168,7 @@
   display: inline-block;
 }
 
-/**
-  * @styles helpers-contextual-background Contextual Background
-  * @parent custom/_helpers.less 3
-  *
-  * @description
-  * Use the following classes to assign a background color and border to an element
-  *
-  * @demo src/styles/demos/helpers/contextual-background.html
-  *
-**/
 
-.contextual-bg-variant(@color) {
-  background-color: (fade(@color, 8%));
-  border: 1px solid (fade(@color, 40%));
-  padding: 5px;
-  .icon {
-    color: @color;
-  }
-}
-
-.contextual-bg-success {
-  .contextual-bg-variant(@brand-success);
-}
-
-.contextual-bg-danger {
-  .contextual-bg-variant(@brand-danger);
-}
-
-.contextual-bg-progress {
-  .contextual-bg-variant(@brand-progress);
-}
-
-.contextual-bg-inactive {
-  .contextual-bg-variant(@gray);
-}
 
 
 
