@@ -13,34 +13,38 @@
 <can-component tag="securities-remaining">
   <style type="less">
     @import '../../../styles/bootstrap-custom/_variables.less';
-    .dl-horizontal {
-      dt {
-        text-transform: uppercase;
-        font-size: @font-size-xsmall;
-        width: 95px;
-        display: flex;
-        align-items: center;
-      }
-      dd {
-        margin-left: 95px;
-      }
-    }
-
-    .dl-stripped {
-      border-top: 0;
-      dt, dd {
-        padding: 6px;
-        height: 33px;
+    .table {
+      margin-bottom: 0;
+      tbody > tr > {
+        th {
+          text-transform: uppercase;
+          font-size: @font-size-xsmall;
+          color: @gray;
+          vertical-align: middle;
+        }
+        td {
+          font-size: @font-size-base;
+        }
+        &.top-row {
+          td, th {
+            border-top: 0;
+          }
+        }
       }
     }
   </style>
   <view>
-      <dl class="dl-horizontal dl-stripped responsive">
-        <dt>Filled</dt>
-        <dd class="text-success">385</dd>
-
-        <dt>Remaining</dt>
-        <dd class="text-danger">15</dd>
-      </dl>
+    <table class="table table-condensed">
+      <tbody>
+        <tr class="top-row">
+          <th>Filled</th>
+          <td class="text-success">385</td>
+        </tr>
+        <tr>
+          <th>Remaining</th>
+          <td class="text-danger">15</td>
+        </tr>
+      </tbody>
+    </table>
   </view>
 </can-component>

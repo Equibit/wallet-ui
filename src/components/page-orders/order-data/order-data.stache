@@ -1,4 +1,8 @@
 <can-import from="~/components/common/fillkill-indicator/fillkill-indicator.component" />
+<can-import from="~/components/common/status-badge/" />
+<can-import from="~/components/page-orders/securities-remaining/securities-remaining.component" />
+<can-import from="~/components/page-orders/order-offers-accepted/" />
+
 
 <h2 class="subtitle">
   Sell Order
@@ -22,9 +26,12 @@
     </div>
 
     <div class="order-summary section row">
-      <div class="col-xs-6 col-sm-6">
+      <div class="col-xs-3">
         <label>Quantity</label>
         <span class="order-quantity">400</span>
+      </div>
+      <div class="col-xs-3">
+        <securities-remaining />
       </div>
       <div class="col-xs-6 col-sm-3 sub-section">
         <label>Ask Price</label>
@@ -47,10 +54,10 @@
 
     <div class="order-status section">
       <h3 class="subheading">Status</h3>
-      <span class="label label-info">Open</span>
+      <status-badge />
     </div>
 
     <div class="order-accepted-offers section">
-      (Accepted offers will go here...)
+      <order-offers-accepted></order-offers-accepted>
     </div>
 </div>
