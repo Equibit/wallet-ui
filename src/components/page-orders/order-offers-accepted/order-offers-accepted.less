@@ -3,7 +3,11 @@
 order-offers-accepted {
 	display: block;
   font-size: @font-size-small;
+  overflow-x: auto;
+  .accepted-offers {
 
+    min-width: 600px;
+  }
   .accepted-offers-header {
     color: @gray;
     margin: 8px 0;
@@ -34,8 +38,4 @@ order-offers-accepted {
     }
   }
 
-  @media (max-width: 630px) {
-    width: 600px;
-    overflow-x: auto;
-  }
 }
