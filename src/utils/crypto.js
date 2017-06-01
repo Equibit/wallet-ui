@@ -15,11 +15,11 @@ function test () {
   const seed = bip39.generateMnemonic();
   const root = mnemonicToHDNode(seed);
 
-  const rootBase58 = root.toBase58()
+  const rootBase58 = root.toBase58();
   console.log('toBase58: ' + rootBase58);
 
   let harderedPK = root.derivePath("m/44'/0");
-  console.log('harderedPK ' + harderedPK.toBase58())
+  console.log('harderedPK ' + harderedPK.toBase58());
 
   let root2 = bitcoin.HDNode.fromBase58(rootBase58);
   console.log('root2', root2);
