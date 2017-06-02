@@ -30,9 +30,21 @@ function test () {
   return harderedPK;
 }
 
+function encrypt (stringToEncrypt, key) {
+  var cipher = crypto.createCipher('aes256', key);
+  return cipher.update(stringToEncrypt, 'utf8', 'hex') + cipher.final('hex');
+}
+
+function decrypt (stringToDecrypt, key) {
+  var decipher = crypto.createDecipher('aes256', key);
+  return decipher.update(stringToDecrypt, 'hex', 'utf8') + decipher.final('utf8');
+}
+
 export default {
   generateMnemonic: bip39.generateMnemonic,
   mnemonicToHDNode,
   mnemonicToSeed,
-  test
+  test,
+  encrypt,
+  decrypt
 };

@@ -18,6 +18,13 @@ describe('utils/crypto', function () {
     assert.ok(pk.chainCode instanceof Uint8Array, 'chainCode should be an array of 8-bit unsigned integers');
     assert.ok(pk.keyPair.compressed, 'keyPair should be compressed');
   });
+  it('encrypts and decrypts', function () {
+    const original = 'this is a test';
+    const key = 'my secret key';
+    const encrypted = crypto.encrypt(original, key);
+    const decrypted = crypto.decrypt(encrypted, key);
+    assert(original === decrypted);
+  });
 });
 
 describe('stache-helpers', function () {
