@@ -3,7 +3,10 @@
     <p class="navbar-text"><label>{{i18n('balance')}}</label> <span class="balance">{{balance}} <small>BTC</small></span></p>
 
     <ul class="nav navbar-nav navbar-right toolbar-actions">
-      <li><a ($click)="sendFunds()"><span class="icon icon-upload"></span> {{i18n('send')}}</a></li>
+      <li><a ($click)="sendFunds()">
+        <span class="icon {{#if isSending}}icon-spinner icon-animation-spin{{else}}icon-upload{{/if}}"></span>
+        {{i18n('send')}}
+      </a></li>
       <li><a ($click)="receiveFunds()"><span class="icon icon-download"></span> {{i18n('receive')}}</a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="icon icon-menu no-label"></span></a>

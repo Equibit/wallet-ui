@@ -55,6 +55,8 @@ export default {
   bonds: 'Bonds',
   send: 'Send',
   receive: 'Receive',
+  securitiesSent: 'Securities sent',
+  fundsSent: 'Funds sent',
   // Receive popup:
   copyAndShare: 'Copy and Share',
   receiveInfo: 'Use the a unique address to add funds or securities to your account',
