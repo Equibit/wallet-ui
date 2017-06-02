@@ -1,0 +1,115 @@
+/**
+  * @stylesheet _progress-tracker.less Progress Tracker
+  * @parent styles.navigation
+  *
+  * @description
+  * Adapted from https://github.com/NigelOToole/progress-tracker.
+  * Use the classes `.is-active` and `is.completed` to step the progress step.
+  *
+  * @demo src/styles/demos/navigation/progress-tracker.html
+  *
+**/
+
+// Variables
+
+@color-state-inactive:      @gray-light;
+@color-state-active:        @brand-progress;
+@color-state-completed:     @brand-success;
+
+@marker-size:               23px;
+@marker-size-half:          (@marker-size / 2);
+@marker-spacing:            10px;
+
+@path-height:               3px;
+@path-position:             @marker-size-half - (@path-height / 2);
+
+
+
+
+
+// Container element
+.progress-tracker {
+  display: flex;
+  padding: 0;
+  list-style: none;
+  font-size: @font-size-small;
+}
+
+
+// Step container that creates lines between steps
+.progress-step {
+  flex: 1 1 0%;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+
+  // Path between markers, this is not created for the last step
+  &::after {
+    background-color: @gray-lighter;
+  }
+
+  &:not(:last-child)::after {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: -10;
+    top: @path-position;
+    left: 50%;
+    width: 100%;
+    height: @path-height;
+  }
+
+  .icon {
+    display: none;
+  }
+}
+
+.progress-marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: @marker-size;
+  height: @marker-size;
+  color: #fff;
+  font-weight: 400;
+  border-radius: 50%;
+  .step-number {
+    padding-bottom: 2px; // To align text within the marker
+  }
+}
+
+
+.progress-title {
+  display: block;
+  margin-top: 5px;
+  text-align: center;
+  color: @color-state-inactive;
+}
+
+// Variant mixin to set the state color
+.progress-state-variant (@color) {
+  .progress-marker {
+    background-color: (@color);
+  }
+}
+
+// States
+.progress-step {
+  .progress-state-variant (@color-state-inactive);
+  &.is-active {
+    .progress-state-variant (@color-state-active);
+    .progress-title {
+      color: @color-state-active;
+    }
+  }
+  &.is-complete {
+    .progress-state-variant (@color-state-completed);
+    .icon {
+      display: block;
+    }
+    .step-number {
+      display: none;
+    }
+  }
+}
