@@ -19,6 +19,7 @@ import './send-popup.less';
 import view from './send-popup.stache';
 import Issuance from '~/models/issuance';
 import { toMaxPrecision } from '~/utils/formatter';
+import validators from '~/utils/validators';
 
 const FormData = DefineMap.extend({
   /**
@@ -42,7 +43,15 @@ const FormData = DefineMap.extend({
     }
   },
 
-  toAddress: 'string',
+  toAddress: {
+    type: 'string',
+    set (val) {
+      this.toAddressError = validators.bitcoinAddress(val);
+      return val;
+    }
+  },
+  toAddressError: 'string',
+
   amount: {
     type: 'number',
     set (val) {
@@ -53,21 +62,38 @@ const FormData = DefineMap.extend({
   issuance: Issuance,
   transactionFee: 'number',
   transactionFeePrice: 'number',
-  description: 'string'
+  description: 'string',
+
+  isValid: {
+    get () {
+      return !this.toAddressError;
+    }
+  },
+
+  validate () {
+    if (!this.toAddress && !this.toAddressError) {
+      this.toAddressError = 'Please enter an address';
+    }
+  }
 });
 
 export const ViewModel = DefineMap.extend({
+  portfolio: {
+    type: '*'
+  },
+
   formData: {
-    value: new FormData({
-      type: '',
-      fundsType: 'EQB',
-      toAddress: '1QJqB6mwTCELUStpay1zNQEo6mXLFhf7Qs',
-      amount: 4,
-      price: 100 * 1000,
-      transactionFee: 0.0023,
-      transactionFeePrice: 1.4,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.'
-    })
+    value: new FormData({})
+    // value: new FormData({
+    //   type: '',
+    //   fundsType: 'EQB',
+    //   toAddress: '1QJqB6mwTCELUStpay1zNQEo6mXLFhf7Qs',
+    //   amount: 4,
+    //   price: 100 * 1000,
+    //   transactionFee: 0.0023,
+    //   transactionFeePrice: 1.4,
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.'
+    // })
   },
   mode: {
     value: 'edit'
@@ -81,6 +107,10 @@ export const ViewModel = DefineMap.extend({
     }
   },
   next () {
+    this.formData.validate();
+    if (!this.formData.isValid) {
+      return;
+    }
     this.mode = 'confirm';
   },
   edit () {

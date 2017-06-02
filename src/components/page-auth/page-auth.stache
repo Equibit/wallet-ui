@@ -4,7 +4,7 @@
 <can-import from="./log-in/" />
 <can-import from="./change-password/" />
 <can-import from="./forgot-password/" />
-<can-import from="./validation-message.component" />
+<can-import from="~/components/common/validation-message.component" />
 
 <div class="row center-xs">
   <div class="col-xs-12 col-md-5">
