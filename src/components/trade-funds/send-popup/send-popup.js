@@ -1,5 +1,5 @@
 /**
- * @module {can.Component} wallet-ui/components/trade-funds/send-popup send-popup
+ * @module {can.Component} components/trade-funds/send-popup send-popup
  * @parent components.portfolio
  *
  * A short description of the send-popup component

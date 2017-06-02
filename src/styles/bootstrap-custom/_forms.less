@@ -37,6 +37,17 @@ input[type=search] {
   box-sizing: border-box;
 }
 
+.form-control > {
+  &[disabled] {
+    color: @gray-dark;
+  }
+  &[readonly] {
+    color: @gray-dark;
+    border: 1px solid @input-border;
+  }
+}
+
+
 /**
   * @styles checkboxes_radios Checkboxes & Radios
   * @parent bootstrap-custom/_forms.less 2

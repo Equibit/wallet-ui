@@ -5,7 +5,7 @@
 
 <bootstrap-modal-content class="send-funds">
   <div class="modal-header">
-    <button ($click)="close()" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
     <h4 class="modal-title">
       <span class="icon icon-upload"></span> Send
       {{#is mode 'confirm'}}

@@ -57,7 +57,7 @@ export default {
   receive: 'Receive',
   // Receive popup:
   copyAndShare: 'Copy and Share',
-  receiveInfo: 'Use the a unique address to add funds or securities to your account',
+  receiveInfo: 'Use the a unique address to add funds or securities to your account.',
   pasteAddress: 'Paste address',
   copiedToClipboard: 'Copied to clipboard',
 

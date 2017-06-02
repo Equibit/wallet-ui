@@ -12,7 +12,6 @@
 
 {{^if portfolio}}
 
-  <!-- TODO: Details on #233 -->
   <div class="panel-body align-center">
     <div class="row">
       <div class="col-xs-12">

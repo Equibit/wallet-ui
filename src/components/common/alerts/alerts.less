@@ -1,6 +1,15 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
 .alert-container {
 	z-index: 20000;
-    position: fixed;
-    top: 60px;
-    right: 30px;
+  position: fixed;
+  top: 60px;
+  right: 30px;
+  width: 300px;
+  @media (max-width: @screen-xs) {
+    // Reposition the alert on small devices
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
 }
