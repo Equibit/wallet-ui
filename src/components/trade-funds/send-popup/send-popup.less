@@ -5,26 +5,20 @@ send-popup {
 
 }
 
-.send-funds {
-  .modal-body.edit-mode {
-    height: 70vh;
-  }
-  .modal-footer {
-    a.pull-right {
-      line-height: 35px;
+bootstrap-modal-content {
+  &.modal-full-height {
+    height: 90vh;
+    .modal-body {
+      position: relative;
+      overflow: auto;
+      height: 77vh;
     }
-  }
-}
-
-can-search-select {
-  .dropdown-list {
-    max-height: 160px;
-    border-color: @gray-lighter;
-
-    li {
-      &:hover {
-        background-color: @gray-lightest;
+    @media (max-width: @screen-xs) {
+      height: 96vh;
+      .modal-body {
+        //height: 81vh;
       }
     }
   }
 }
+
