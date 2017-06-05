@@ -1,6 +1,5 @@
 import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 import $ from 'jquery';
-// import { bip39, bitcoin } from '~/utils/crypto';
 
 export function generateHdNode (mnemonic) {
   let seed = bip39.mnemonicToSeed(mnemonic, '');
