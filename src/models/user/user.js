@@ -154,7 +154,7 @@ const User = DefineMap.extend('User', {
     const base58Key = this.decryptWithPassword(_password, this.encryptedKey);
     const root = bitcoin.HDNode.fromBase58(base58Key, _network);
     this.cacheWalletKeys(root);
-  }
+  },
 
   /**
    * @property {Function} models/user.prototype.generatePortfolioKeys generatePortfolioKeys
@@ -211,11 +211,11 @@ const User = DefineMap.extend('User', {
     _password = null;
   },
 
-  //!steal-remove-start
+  //! steal-remove-start
   _testGetCache () {
     return { _keys, _password };
   }
-  //!steal-remove-end
+  //! steal-remove-end
 });
 
 User.List = DefineList.extend('UserList', {
