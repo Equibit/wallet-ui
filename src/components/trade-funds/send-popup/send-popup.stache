@@ -2,11 +2,12 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/trade-funds/send-popup/send-form/" />
 <can-import from="~/components/trade-funds/send-popup/send-confirm-form/" />
+<can-import from="~/components/common/modal.less" />
 
-<bootstrap-modal-content class="send-funds">
+<bootstrap-modal-content class="modal-full-height">
   <div class="modal-header">
-    <button ($click)="close()" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title">
+    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+    <h3 class="modal-title">
       <span class="icon icon-upload"></span> Send
       {{#is mode 'confirm'}}
         {{#is formData.type 'FUNDS'}}
@@ -19,7 +20,7 @@
       {{else}}
         <br><small>Send funds or securities from your account.</small>
       {{/is}}
-    </h4>
+    </h3>
   </div>
   <div class="modal-body {{#is mode 'edit'}}edit-mode{{/is}}">
 

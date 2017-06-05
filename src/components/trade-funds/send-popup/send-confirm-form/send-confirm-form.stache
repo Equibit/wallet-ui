@@ -3,108 +3,102 @@
 <ul class="list-group">
   <li class="list-group-item">
     <div class="form-group to-address">
-      <label for="">To</label>
-      <p class="input-value">{{formData.toAddress}}</p>
+      <label class="">To</label>
+      <p class="input-value break-word"><strong>{{formData.toAddress}}</strong></p>
     </div>
 
-    <div class="form-group securities">
     {{#is formData.type 'SECURITIES'}}
-      <label for="">Securities</label> <br>
-      <span class="input-value">{{formData.issuance.companyName}}</span>
+      <label for="">Securities</label>
+      <div class="row">
+        <div class="col-xs-12 col-sm-5 display-row no-padding-left">
+          <span class="input-value">{{formData.issuance.companyName}}</span>
+          <span class="input-value">, {{formData.issuance.issuanceName}}</span>
+        </div>
 
-      <div class="row small-text">
-        <div class="col-sm-5">
-          <span class="input-value">{{formData.issuance.issuanceName}}</span>
+        <div class="col-xs-6 col-sm-4 form-values no-padding-left">
+          <span>{{formData.amount}} Securities</span>
         </div>
-        <div class="col-sm-4 text-right">
-          <span class="input-value">{{formData.amount}} Shares</span>
-        </div>
-        <div class="col-sm-3 text-right">
-          <span class="input-value">$ {{formData.price}} USD</span>
+
+        <div class="col-xs-6 col-sm-3 form-values">
+          <span>$ {{formData.price}} USD</span>
         </div>
       </div>
 
     {{else}}
 
-      <label for="">Funds</label> <br>
-      <div class="row small-text">
-        <div class="col-sm-5">
-          <span class="input-value">
+      <label for="">Funds</label>
+      <div class="row">
+        <div class="col-xs-12 col-sm-5 display-row no-padding-left">
+          <span>
             {{#is formData.fundsType 'EQB'}}Equibits{{else}}Bitcoins{{/is}}
           </span>
         </div>
-        <div class="col-sm-4 text-right">
-          <span class="input-value">{{formData.amount}} {{#is formData.fundsType 'EQB'}}Blank EQB{{else}}BTC{{/is}}</span>
+        <div class="col-xs-6 col-sm-4 form-values no-padding-left">
+          <span>{{formData.amount}} {{#is formData.fundsType 'EQB'}}Blank EQB{{else}}BTC{{/is}}</span>
         </div>
-        <div class="col-sm-3 text-right">
-          <span class="input-value">$ {{formData.price}} USD</span>
+        <div class="col-xs-6 col-sm-3 form-values">
+          <span>$ {{formData.price}} USD</span>
         </div>
       </div>
 
     {{/is}}
-    </div>
 
-    <div class="form-group transaction-fee">
-      <div class="row small-text">
-        <div class="col-sm-5">
-          <span class="input-value">Transaction Fee</span>
-        </div>
-        <div class="col-sm-4 text-right">
-          <span class="input-value">
-            {{formData.transactionFee}}
-            {{#is formData.fundsType 'BTC'}}BTC{{else}}Blank EQB{{/is}}
-          </span>
-        </div>
-        <div class="col-sm-3 text-right">
-          <span class="input-value">$ {{formData.transactionFeePrice}} USD</span>
-        </div>
+    <div class="row text-muted">
+      <div class="col-xs-12 col-sm-5 display-row no-padding-left">
+        <span>Transaction Fee</span>
+      </div>
+      <div class="col-xs-6 col-sm-4 form-values no-padding-left">
+        <span>
+          {{formData.transactionFee}}
+          {{#is formData.fundsType 'BTC'}}BTC{{else}}Blank EQB{{/is}}
+        </span>
+      </div>
+      <div class="col-xs-6 col-sm-3 form-values">
+        <span>$ {{formData.transactionFeePrice}} USD</span>
       </div>
     </div>
 
     <hr/>
 
-    <div class="form-group to-address">
-      <label for="">From</label> <br>
-      <div class="row">
-        <div class="col-sm-5">
-          <span class="input-value">My Portfolio</span>
-        </div>
-
-        {{#is formData.type 'SECURITIES'}}
-          <div class="col-sm-4 text-right">
-            <span class="input-value small-text">- {{formData.amount}} Shares</span>
-          </div>
-        {{else}}
-          <div class="col-sm-4 text-right">
-            <span class="input-value small-text">- {{formData.transactionFee}}
-              {{#is formData.fundsType 'BTC'}}BTC{{else}}Blank EQB{{/is}}
-            </span>
-          </div>
-          <div class="col-sm-3 text-right">
-            <span class="input-value small-text">$ - {{sum(formData.price, formData.transactionFeePrice)}} USD</span>
-          </div>
-        {{/is}}
-
+    <label for="">From</label>
+    <div class="row">
+      <div class="col-xs-12 col-sm-5 display-row no-padding-left">
+        <span class="input-value"><strong>My Portfolio</strong></span>
       </div>
 
       {{#is formData.type 'SECURITIES'}}
-      <div class="row">
-        <div class="col-sm-4 col-sm-offset-5 text-right">
-          <span class="input-value small-text">- {{formData.transactionFee}} Blank EQB</span>
+        <div class="col-xs-12 col-sm-4 form-values no-padding-left">
+          <span class="text-danger">- {{formData.amount}} Securities</span>
         </div>
-        <div class="col-sm-3 text-right">
-          <span class="input-value small-text">$ - {{sum(formData.price, formData.transactionFeePrice)}} USD</span>
+
+      {{else}}
+        <div class="col-xs-6 col-sm-4 form-values no-padding">
+          <span class="text-danger">- {{formData.transactionFee}}
+            {{#is formData.fundsType 'BTC'}}BTC{{else}}Blank EQB{{/is}}
+          </span>
         </div>
-      </div>
+
+        <div class="col-xs-6 col-sm-3 form-values">
+          <span class="text-danger">$ - {{sum(formData.price, formData.transactionFeePrice)}} USD</span>
+        </div>
       {{/is}}
 
+      {{#is formData.type 'SECURITIES'}}
+      <div class="col-xs-6 col-sm-4 col-sm-offset-5 form-values">
+        <span class="text-danger">- {{formData.transactionFee}} Blank EQB</span>
+      </div>
+
+      <div class="col-xs-6 col-sm-3 form-values">
+        <span class="text-danger">$ - {{sum(formData.price, formData.transactionFeePrice)}} USD</span>
+      </div>
+    {{/is}}
     </div>
   </li>
 
   <li class="list-group-item">
     <div class="form-group">
       <label for="">Description</label>
-      <p class="input-value">{{formData.description}}</p>
+      <p>{{formData.description}}</p>
     </div>
   </li>
 </ul>

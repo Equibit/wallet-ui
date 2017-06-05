@@ -64,10 +64,30 @@
   border: 0;
 }
 
+/**
+* @styles helpers-flex-helpers Flex Helpers
+* @parent custom/_helpers.less 4
+*
+* @description
+* Classes that can be used to adjust the layout of elements using flexbox.
+*
+* ### `.align-center`
+* Aligns a flexbox element in the middle of the container vertically and horizontally.
+*
+* ### `.display-row`
+* Elements inmediatly inside of a `.col-*` will be displayed as a column. Use this class to display as a row.
+**/
+
 .align-center {
   align-items: center;
   justify-content: center;
 }
+
+.display-row {
+  flex-direction: row;
+}
+
+
 
 
 /**
@@ -157,6 +177,11 @@
   transform: rotate(90deg);
   display: inline-block;
 }
+.rotate-135 {
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+  display: inline-block;
+}
 .rotate-180 {
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
@@ -167,6 +192,24 @@
   transform: rotate(270deg);
   display: inline-block;
 }
+
+/**
+  * @styles helpers-break-word Break Word
+  * @parent custom/_helpers.less 3
+  *
+  * @description
+  * Use the class `.break-word` to force long strings of text to wrap, vs overflowing the container.
+  *
+  * @demo src/styles/demos/helpers/break-word.html 100
+  *
+**/
+
+
+.break-word {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
 
 
 

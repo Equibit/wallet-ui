@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="../../../../../dist/bundles/wallet-ui/index.css">
 
 <style>
+    body {
+      background: white;
+    }
     .content {
         padding: 20px;
     }
@@ -27,6 +30,16 @@
       <div class="col-xs-8">
           <div class="form-group">
               <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here" disabled="" value="Disabled input here">
+          </div>
+      </div>
+
+      <div class="col-xs-4">
+          <code>&lt;input readonly&gt;</code>
+      </div>
+
+      <div class="col-xs-8">
+          <div class="form-group">
+              <input class="form-control" id="disabledReadOnly" type="text" placeholder="Disabled input here" readonly="" value="Read only input here">
           </div>
       </div>
 
