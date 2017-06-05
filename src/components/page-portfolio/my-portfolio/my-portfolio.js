@@ -17,6 +17,8 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './my-portfolio.less';
 import view from './my-portfolio.stache';
+import hub from '~/utils/event-hub';
+import { translate } from '~/i18n/';
 
 export const ViewModel = DefineMap.extend({
   portfolio: {
@@ -29,11 +31,36 @@ export const ViewModel = DefineMap.extend({
       unrealizedPLPercent: 1.2
     }
   },
+  isSending: 'boolean',
   isSendFundsPopup: 'boolean',
   isReceiveFundsPopup: 'boolean',
   receiveFunds () {
     this.isReceiveFundsPopup = false;
     this.isReceiveFundsPopup = true;
+  },
+  send (args) {
+    const formData = args[1];
+    console.log('send: ', formData);
+
+    // Show the spinner:
+    this.isSending = true;
+
+    // Close the popup:
+    this.isSendFundsPopup = false;
+
+    // TODO: send request here.
+
+    setTimeout(() => {
+      this.isSending = false;
+
+      const msg = this.type === 'SECURITIES' ? translate('securitiesSent') : translate('fundsSent');
+      hub.dispatch({
+        'type': 'alert',
+        'kind': 'success',
+        'title': msg,
+        'displayInterval': 5000
+      });
+    }, 1000);
   }
 });
 
