@@ -32,6 +32,7 @@ const Session = DefineMap.extend('Session', {
     Type: User
   },
   usingTempPassword: 'boolean',
+  accessToken: 'string',
   secret: 'string',
   get email () {
     return this.user && this.user.email;

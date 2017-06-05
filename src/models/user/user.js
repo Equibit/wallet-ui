@@ -171,12 +171,15 @@ const User = DefineMap.extend('User', {
     // Transactions and messages will be signed with PrivateKey.
   },
   encryptWithPassword (password, val) {
-    return cryptoUtils.encrypt(val, password + this.user.salt);
+    return cryptoUtils.encrypt(val, password + this.salt);
   },
   decryptWithPassword (password, val) {
-    return cryptoUtils.decrypt(val, password + this.user.salt);
+    return cryptoUtils.decrypt(val, password + this.salt);
   },
   reCryptKeys (oldPassword, newPassword) {
+    if (!_keys){
+      return;
+    }
     this.encryptedSeed = this.encryptWithPassword(newPassword, this.decryptWithPassword(oldPassword, this.encryptedSeed));
     this.encryptedKey = this.encryptWithPassword(newPassword, _keys.root.toBase58());
   },
