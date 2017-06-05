@@ -1,24 +1,40 @@
 @import '../../../../styles/bootstrap-custom/_variables.less';
+@import '../../../../styles/custom/animate.less';
+@import '../../../../styles/custom/_helpers.less';
 
 send-form {
 	display: block;
 
-  .input-group-addon {
-    font-size: smaller;
-  }
+  // Styles the issuance selector
+  can-search-select {
+    font-size: @font-size-small;
+    .dropdown-list {
+      max-width: 501px;
+      max-height: 160px;
+      top: 40px;
+      border: 1px solid @gray-lighter;
+      border-radius: @border-radius-base;
 
-  .funds-quantity {
-    width: 250px;
-  }
-  .quantity-usd {
-    width: 180px;
+      li {
+        padding-left: 8px;
+        padding-right: 8px;
+        &:hover {
+          background-color: @gray-lightest;
+        }
+      }
+    }
   }
 
   .rate-arrows {
     font-size: 20px;
-    color: @gray;
-    position: relative;
-    top: 5px;
-    padding: 0 5px;
+    color: @gray-light;
+    align-self: center;
+    margin-bottom: 7px;
+    .rotate-135;
+    @media (min-width: @screen-xs) {
+      margin-top: 7px;
+      .rotate-45;
+    }
   }
+
 }

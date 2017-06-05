@@ -26,6 +26,10 @@ label {
   color: @input-color;
 }
 
+.input-value {
+  font-size: @font-size-base;
+}
+
 /**
   * @styles input-types Input Types
   * @parent bootstrap-custom/_forms.less 1
@@ -36,6 +40,22 @@ label {
 input[type=search] {
   box-sizing: border-box;
 }
+
+.form-control > {
+  &[disabled] {
+    color: @gray-dark;
+  }
+  &[readonly] {
+    color: @gray-dark;
+    border: 1px solid @input-border;
+  }
+}
+
+.input-group-addon {
+  font-size: @font-size-small;
+}
+
+
 
 /**
   * @styles checkboxes_radios Checkboxes & Radios
