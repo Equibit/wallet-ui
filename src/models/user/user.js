@@ -77,6 +77,8 @@ const User = DefineMap.extend('User', {
    */
   email: 'string',
 
+  password: 'string',
+
   encryptedKey: 'string',
 
   encryptedMnemonic: 'string',

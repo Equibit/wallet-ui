@@ -73,8 +73,10 @@ export const ViewModel = DefineMap.extend({
     let user = { email, password };
 
     new Session({ user }).save()
-      .then(({ usingTempPassword, user }) => {
-        this.session = new Session({ usingTempPassword, user });
+      .then((session) => {
+        // To make sure that for our singleton we use an existing instance from instanceStore:
+        this.session = new Session(session.serialize());
+        const usingTempPassword = session.usingTempPassword;
         if (!usingTempPassword) {
           this.session.user.loadWalletKeys();
         }

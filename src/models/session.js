@@ -1,10 +1,11 @@
 import connect from 'can-connect';
+import set from 'can-set';
 import dataParse from 'can-connect/data/parse/';
 import construct from 'can-connect/constructor/';
 import constructStore from 'can-connect/constructor/store/';
 import constructOnce from 'can-connect/constructor/callbacks-once/';
+import constructorHydrate from 'can-connect/can/constructor-hydrate/constructor-hydrate';
 import canMap from 'can-connect/can/map/';
-import canRef from 'can-connect/can/ref/';
 import dataCallbacks from 'can-connect/data/callbacks/';
 import realtime from 'can-connect/real-time/';
 import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior';
@@ -22,7 +23,7 @@ const behaviors = [
   constructStore,
   constructOnce,
   canMap,
-  canRef,
+  constructorHydrate,
   dataCallbacks,
   realtime
 ];
@@ -42,10 +43,17 @@ const Session = DefineMap.extend('Session', {
   }
 });
 
+const algebra = new set.Algebra(
+  set.comparators.id('accessToken')
+);
+
 Session.connection = connect(behaviors, {
   feathersClient,
   Map: Session,
-  utils: signed
+  utils: signed,
+  algebra
 });
+
+Session.algebra = algebra;
 
 export default Session;
