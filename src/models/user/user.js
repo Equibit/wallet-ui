@@ -16,6 +16,7 @@ import signed from '~/models/feathers-signed';
 import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
 import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
+import cryptoUtils from '~/utils/crypto';
 import connect from 'can-connect';
 import login from './login';
 import Portfolio from '~/models/portfolio';
@@ -79,6 +80,8 @@ const User = DefineMap.extend('User', {
   encryptedKey: 'string',
 
   encryptedMnemonic: 'string',
+
+  salt: 'string',
 
   /**
    * @property {Boolean} models/user.properties.isNewUser isNewUser
@@ -151,7 +154,7 @@ const User = DefineMap.extend('User', {
     const base58Key = this.decryptWithPassword(_password, this.encryptedKey);
     const root = bitcoin.HDNode.fromBase58(base58Key, _network);
     this.cacheWalletKeys(root);
-  },
+  }
 
   /**
    * @property {Function} models/user.prototype.generatePortfolioKeys generatePortfolioKeys
@@ -167,15 +170,11 @@ const User = DefineMap.extend('User', {
   signWithPrivateKey () {
     // Transactions and messages will be signed with PrivateKey.
   },
-  // TODO: we also need to use an extra salt (probably the same salt as we use to hash user's password).
   encryptWithPassword (password, val) {
-    // Private key and the 12 recovery words should be encrypted with user password.
-    return val;
+    return cryptoUtils.encrypt(val, password + this.user.salt);
   },
   decryptWithPassword (password, val) {
-    // To sign anything with PrivateKey we need to decrypt it.
-    // Also we want allow user to save his recovery phrase which also can be decrypted with pswd.
-    return val;
+    return cryptoUtils.decrypt(val, password + this.user.salt);
   },
   reCryptKeys (oldPassword, newPassword) {
     this.encryptedSeed = this.encryptWithPassword(newPassword, this.decryptWithPassword(oldPassword, this.encryptedSeed));
@@ -210,7 +209,13 @@ const User = DefineMap.extend('User', {
   clearKeys () {
     _keys = null;
     _password = null;
+  },
+
+  //!steal-remove-start
+  _testGetCache () {
+    return { _keys, _password };
   }
+  //!steal-remove-end
 });
 
 User.List = DefineList.extend('UserList', {
