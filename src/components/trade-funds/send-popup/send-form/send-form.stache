@@ -58,7 +58,7 @@
 
       <div class="row">
         <div class="col-xs-12 no-padding">
-          <label for="">Quantity</label>
+          <label>Quantity</label>
         </div>
 
         <div class="col-sm-5 col-xs-12 no-padding">
@@ -68,7 +68,7 @@
         </div>
 
         <div class="col-sm-2 col-xs-12 no-padding">
-          <span class="rate-arrows icon icon-enlarge rotate-45"></span>
+          <span class="rate-arrows icon icon-enlarge"></span>
         </div>
 
         <div class="col-sm-5 col-xs-12 no-padding">
@@ -83,21 +83,35 @@
 
     {{#is formData.type 'FUNDS'}}
       <br>
-      <div class="form-inline">
-        <div class="form-group">
-          <label for="">Quantity</label>
-          <div class="input-group funds-quantity">
-            <input type="number" class="form-control" {($value)}="formData.amount" aria-describedby="funds-quantity">
-            <span class="input-group-addon" id="funds-quantity">
-              {{#is formData.fundsType 'EQB'}}Blank EQB{{else}}BTC{{/is}}
-            </span>
-          </div>
-          <span class="rate-arrows icon icon-enlarge rotate-45"></span>
+      <div class="row">
 
-          <currency-converter {(input)}="formData.amount" {currency}="fundsToUsd" {^output}="formData.price"/>
-
+        <div class="col-xs-12 no-padding">
+          <label>Quantity</label>
         </div>
+
+        <div class="col-sm-5 col-xs-12 no-padding">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="number" class="form-control" {($value)}="formData.amount" aria-describedby="funds-quantity">
+              <span class="input-group-addon" id="funds-quantity">
+                {{#is formData.fundsType 'EQB'}}Blank EQB{{else}}BTC{{/is}}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-2 col-xs-12 no-padding">
+          <span class="rate-arrows icon icon-enlarge"></span>
+        </div>
+
+        <div class="col-sm-5 col-xs-12 no-padding">
+          <div class="form-group">
+            <currency-converter {(input)}="formData.amount" {currency}="fundsToUsd" {^output}="formData.price"/>
+          </div>
+        </div>
+
       </div>
+
     {{/is}}
 
   </li>
