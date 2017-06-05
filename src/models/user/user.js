@@ -148,7 +148,7 @@ const User = DefineMap.extend('User', {
   /**
    * @property {Function} models/user.prototype.loadWalletKeys loadWalletKeys
    * @parent models/user.prototype
-   * Generate HS node and wallet keys from the encrypted master key.
+   * Generate HD node and wallet keys from the encrypted master key.
    */
   loadWalletKeys () {
     const base58Key = this.decryptWithPassword(_password, this.encryptedKey);
