@@ -7,7 +7,7 @@
 
 <div class="well">
   <div class="row">
-    <div class="col-lg-6 col-xs-12 sell-orders">
+    <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
       <h3 class="subheading">Sell Orders</h3>
 
       <sell-orders limit="10" />
@@ -17,7 +17,7 @@
         <button class="btn btn-link btn-xs" ($click)="showModal()">View All</button>
       </div>
     </div>
-    <div class="col-lg-6 col-xs-12 buy-orders">
+    <div class="col-lg-6 col-xs-12 buy-orders no-padding-right">
       <h3 class="subheading">Buy Orders</h3>
 
       <buy-orders limit="10" />
@@ -31,27 +31,25 @@
 </div>
 
 {{#if isModalShown}}
-  <bootstrap-modal-content class="modal-full-height order-book">
+  <bootstrap-modal-content class="order-book">
     <div class="modal-header">
       <button ($click)="close()" type="button" class="close" aria-label="Close">
         <span class="icon icon-cross rotate-90"></span></button>
-      <div class="row">
-        <div class="col-lg-6 col-xs-12">
-          <h4 class="modal-title">
-            <span class="icon icon-book"></span>
-            Order Book
-          </h4>
-          <small>{{issuance.companyName}}, {{issuance.issuanceName}}</small>
-        </div>
-        <div class="col-lg-6 col-xs-12">
-          <company-value-change {issuance}="issuance" currency="μBTC" />
-        </div>
-      </div>
+        <h4 class="modal-title"><span class="icon icon-book"></span> Order Book</h4>
     </div>
 
     <div class="modal-body">
       <div class="row">
-        <div class="col-lg-6 col-xs-12 sell-orders">
+        <div class="col-sm-6 col-xs-12 no-padding-left">
+          <small>{{issuance.companyName}}, {{issuance.issuanceName}}</small>
+        </div>
+        <div class="col-sm-6 col-xs-12 no-padding-left" >
+          <company-value-change {issuance}="issuance" currency="μBTC" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
           <h3 class="subheading">Sell Orders</h3>
 
           <sell-orders limit="20"/>
@@ -60,7 +58,7 @@
             <button class="btn btn-primary btn-xs">+ Add Sell Order</button>
           </div>
         </div>
-        <div class="col-lg-6 col-xs-12 buy-orders">
+        <div class="col-lg-6 col-xs-12 buy-orders no-padding">
           <h3 class="subheading">Buy Orders</h3>
 
           <buy-orders limit="20" />

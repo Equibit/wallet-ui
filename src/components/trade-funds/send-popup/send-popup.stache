@@ -2,27 +2,25 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/trade-funds/send-popup/send-form/" />
 <can-import from="~/components/trade-funds/send-popup/send-confirm-form/" />
-<can-import from="~/components/common/modal.less" />
+<can-import from="~/components/common/modal/modal.less" />
 
-<bootstrap-modal-content class="modal-full-height">
+<bootstrap-modal-content>
   <div class="modal-header">
     <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
-    <h3 class="modal-title">
-      <span class="icon icon-upload"></span> Send
-      {{#is mode 'confirm'}}
-        {{#is formData.type 'FUNDS'}}
-          Funds
-          <br><small>Send funds from your account.</small>
-        {{else}}
-          Securities
-          <br><small>Send securities from your account.</small>
-        {{/is}}
-      {{else}}
-        <br><small>Send funds or securities from your account.</small>
-      {{/is}}
-    </h3>
-  </div>
+    <h3 class="modal-title"><span class="icon icon-upload"></span> Send</h3></div>
   <div class="modal-body {{#is mode 'edit'}}edit-mode{{/is}}">
+    {{#is mode 'confirm'}}
+      {{#is formData.type 'FUNDS'}}
+        Funds
+        <small>Send funds from your account.</small>
+      {{else}}
+        Securities
+        <small>Send securities from your account.</small>
+      {{/is}}
+    {{else}}
+      <small>Send funds or securities from your account.</small>
+    {{/is}}
+
 
     {{#is mode 'edit'}}
       <send-form {form-data}="formData" {issuances}="issuances" />

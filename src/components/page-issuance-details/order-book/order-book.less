@@ -4,7 +4,7 @@ order-book {
 	display: block;
 
   grid-component {
-    margin-bottom: 10px;
+    margin-bottom: @padding-large-vertical;
     .grid-responsive {
       height: 196px;
       @media (max-width: @screen-sm) {
@@ -57,17 +57,11 @@ order-book,
 }
 
 bootstrap-modal-content.order-book {
-
   company-value-change {
+    margin-bottom: @padding-large-vertical;
     .total, arrow-change {
       display: inline;
     }
   }
-  @media (max-width: 1199px) {
-    &.modal-full-height .modal-body {
-      height: 72vh;
-    }
-  }
-
 }
 

@@ -4,9 +4,9 @@
   </style>
   <view>
     <can-import from="~/utils/stache-helpers/" />
-    <can-import from="~/components/common/modal.less" />
+    <can-import from="~/components/common/modal/modal.less" />
 
-    <bootstrap-modal-content class="modal-full-height terms-and-conditions">
+    <bootstrap-modal-content class="terms-and-conditions">
       <div class="modal-header">
         <button ($click)="close()" type="button" class="close" aria-label="Close">
           <span aria-hidden="true" class="icon icon-cross rotate-90"></span>
