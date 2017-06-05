@@ -15,7 +15,6 @@ import feathersClient from '~/models/feathers-client';
 import signed from '~/models/feathers-signed';
 import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
-import crypto from '~/utils/crypto';
 import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 import connect from 'can-connect';
 import login from './login';
