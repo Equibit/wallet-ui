@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<style>
+  body {
+    padding: 20px;
+    background-color: white !important;
+  }
+  .modal { display: block !important; }
+  bootstrap-modal-content { display: block !important; }
+</style>
+<div id="demo"></div>
+
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+<script type="text/stache" id="demo-html">
+  <can-import from="~/styles/styles.less" />
+  <can-import from="~/components/common/modal/modal.less" />
+
+  <bootstrap-modal>
+    <div tabindex="-1" role="dialog" class="modal fade in">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <bootstrap-modal-content class="modal-with-footer">
+            <div class="modal-header">
+              <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true" class="icon icon-cross rotate-90"></span>
+              </button>
+              <h3 class="modal-title"><span class="icon icon-checkmark"></span> Modal Title</h3>
+            </div>
+            <div class="modal-body">
+              <small>Small explanation of the contents.</small>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a justo quam. In mi dolor, eleifend quis congue interdum, porttitor sed massa. Proin gravida ex purus, quis mattis magna fringilla sed. Sed molestie, ligula elementum finibus tempus, purus dolor scelerisque mi, ac dictum justo lectus non tortor. Sed mauris erat, vulputate ut nibh sit amet, faucibus molestie libero. Morbi rhoncus porttitor nibh a molestie. Nam dignissim malesuada arcu, eu convallis odio faucibus nec. Fusce bibendum mauris eu mauris vehicula, ut vulputate dui auctor. Nulla bibendum mattis suscipit.
+              </p>
+
+              <p>
+               Nulla vel tristique eros, tristique feugiat dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam in commodo magna. Donec dignissim elit ac egestas aliquam. Proin iaculis dui est. Aliquam faucibus tortor ut mauris gravida varius. Vestibulum eu aliquam augue, in suscipit turpis. Donec id leo a justo accumsan fermentum ac in odio. Cras rhoncus nibh et enim molestie, a mollis nulla tristique. Sed eleifend at eros laoreet viverra. In condimentum cursus mi in vestibulum. Donec ultrices ullamcorper magna vitae euismod. Etiam sodales, arcu et suscipit consectetur, metus nunc porta elit, quis suscipit dolor dui nec mi.
+              </p>
+
+              <p>
+               Suspendisse nec mi quis tellus porttitor molestie placerat et ipsum. Proin non risus mollis, elementum libero eu, volutpat risus. Suspendisse gravida dolor massa, sed dictum dolor iaculis pulvinar. Nam venenatis eget erat et rhoncus. Cras ultricies leo libero, mollis convallis ex dignissim hendrerit. Sed lobortis lorem sapien, euismod euismod ex faucibus nec. Donec sit amet ex neque. Curabitur vehicula nisi magna, ac ullamcorper dolor placerat in. Suspendisse ullamcorper arcu et nisl malesuada fringilla. Aenean pulvinar tempus augue, quis gravida ex placerat sit amet. Maecenas lorem turpis, porta at tempus blandit, lobortis ac eros.
+              </p>
+
+              <p>
+                Donec dignissim, mi a faucibus tristique, mi est aliquet sapien, a tempor metus nibh quis nulla. Nulla a malesuada purus. Morbi ullamcorper libero eu egestas interdum. Donec imperdiet feugiat metus, quis venenatis mauris. Cras non tortor et ipsum rutrum commodo eget ac tellus. Etiam eu blandit enim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque maximus, nisi a eleifend bibendum, nisi nisi efficitur eros, sed maximus enim tortor eget purus. Sed libero enim, gravida quis justo id, sodales imperdiet augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in felis et dui porttitor semper. Cras pharetra, massa at convallis porttitor, tellus tortor laoreet leo, ut gravida justo leo ac arcu. Proin nunc turpis, finibus sit amet malesuada eu, vulputate eu diam.
+              </p>
+
+              <p>
+                Donec condimentum ante ac ante fringilla, a varius metus commodo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut cursus, lorem vitae molestie pulvinar, dui orci efficitur sapien, sed dignissim ipsum tortor faucibus justo. Sed commodo aliquam posuere. Pellentesque blandit lorem at metus gravida, a placerat arcu pretium. Donec volutpat, justo et mollis luctus, nulla augue bibendum neque, nec vulputate urna dui eget nisl. In finibus malesuada dolor id aliquet. Mauris in sodales elit.
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </bootstrap-modal-content>
+        </div>
+      </div>
+    </div>
+  </bootstrap-modal>
+
+</script>
+
+<script src="../../../../node_modules/steal/steal.js"
+        main="@empty">
+
+  import $ from 'jquery';
+  import stache from 'can-stache';
+  import reload from 'live-reload';
+  import DefineMap from 'can-define/map/map';
+
+  const vm = new DefineMap({
+    // view model props here
+  });
+
+  // Enable live-reload:
+  stache.async($('#demo-html').html()).then(template => {
+    let render = () => $('#demo').html(template(vm));
+    render();
+    reload(render);
+  });
+</script>

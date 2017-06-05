@@ -1,15 +1,16 @@
 <can-import from="bootstrap-canjs" />
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal/modal.less" />
 
 <bootstrap-modal-content class="send-funds">
   <div class="modal-header">
     <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
     <h3 class="modal-title">
       <span class="icon icon-download"></span> {{i18n('receive')}}
-      <small>{{i18n('receiveInfo')}}</small>
     </h3>
   </div>
   <div class="modal-body">
+    <small>{{i18n('receiveInfo')}}</small>
 
     <li class="list-group-item">
       <div class="form-group">

@@ -1,0 +1,52 @@
+/**
+  * @stylesheet components/common/modal.less Modal Component
+  * @parent components.common
+  *
+  * @link ../src/components/common/modal/modal.html Full Page Demo
+  *
+  * ## Example
+  *
+  * @demo src/components/common/progress-tracker/progress-tracker.html
+  *
+**/
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+@modal-height-header: 45px;
+@modal-height-footer: 51px;
+@modal-height-container: 93vh;
+@modal-height-container-full: 100vh;
+
+bootstrap-modal-content {
+  position: relative;
+  max-height: @modal-height-container;
+
+  .modal-header {
+    height: @modal-height-header;
+  }
+  .modal-footer {
+    height: @modal-height-footer;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  .modal-body {
+    height: auto !important;
+    max-height: calc(~"@{modal-height-container} - "@modal-height-header);
+    overflow-y: auto;
+    padding-bottom: @modal-height-footer;
+
+  }
+
+  // On small devices the modal goes 100% of the screen.
+  @media (max-width: @screen-sm) {
+    height: @modal-height-container-full;
+    max-height: @modal-height-container-full;
+    .modal-body {
+      max-height: calc(~"@{modal-height-container-full} - "@modal-height-header);
+    }
+  }
+
+}
+
+
+
