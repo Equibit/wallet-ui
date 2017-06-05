@@ -2750,9 +2750,9 @@ feathers-authentication-popups@^0.1.2:
     events "^1.1.1"
     feathers-errors "^2.4.0"
 
-feathers-authentication-signed@^2.0.7:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/feathers-authentication-signed/-/feathers-authentication-signed-2.0.7.tgz#044f16f0abef065ded44093a0da669539734ad94"
+feathers-authentication-signed@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/feathers-authentication-signed/-/feathers-authentication-signed-2.0.8.tgz#7c0e9190bd744d49af2a5f9c4ba99ae0791f86bf"
   dependencies:
     debug "^2.6.3"
     feathers-authentication-local "^0.3.3"
@@ -5876,15 +5876,15 @@ source-map@0.5.x, source-map@^0.5.0, source-map@^0.5.6, source-map@~0.5.0, sourc
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
 
-source-map@^0.4.0, source-map@^0.4.2, "source-map@https://github.com/stealjs/source-map/archive/0.4.2-bitovi.1.tar.gz", source-map@~0.4.1:
-  version "0.4.2"
-  resolved "https://github.com/stealjs/source-map/archive/0.4.2-bitovi.1.tar.gz#9db874bdc66676165566379aea17f97b3e437d0f"
+source-map@^0.4.0, source-map@^0.4.4, source-map@~0.4.1:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.4.4.tgz#eba4f5da9c0dc999de68032d8b4f76173652036b"
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@^0.4.4:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.4.4.tgz#eba4f5da9c0dc999de68032d8b4f76173652036b"
+source-map@^0.4.2, "source-map@https://github.com/stealjs/source-map/archive/0.4.2-bitovi.1.tar.gz":
+  version "0.4.2"
+  resolved "https://github.com/stealjs/source-map/archive/0.4.2-bitovi.1.tar.gz#9db874bdc66676165566379aea17f97b3e437d0f"
   dependencies:
     amdefine ">=0.0.4"
 
