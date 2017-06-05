@@ -1,13 +1,13 @@
 <script src="../../../node_modules/steal/steal.js"
         main="@empty">
   import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
-  import { getKeys, generateAddress, sendBlockchainRequest, buildTransaction } from '~/models/user/transaction';
+  import { getHdNode, generateAddress, sendBlockchainRequest, buildTransaction } from '~/models/user/transaction';
 
   // "talent destroy radar dinosaur punch muscle swear diary mango unit gallery bus"
-  let keyPair = getKeys();
+  let hdNode = getHdNode();
 
   // 18jead9RkKmjeFt4BHqisxforrGFxKM1HV
-  let addr = generateAddress(keyPair, 0);
+  let addr = generateAddress(hdNode, 0);
 
   console.log('addr', addr);
 
@@ -16,13 +16,12 @@
 //    .catch(e => console.error(e));
 
   // from: e813b84f2a5634a06fdf77591e228acc79615c98d19e44ca05076d9573e0cc04
-  // to: n4NVusZ9mUb1WkJLsHUsxT848ESN5QQU1Y
+  // to: n4NVusZ9mUb1WkJLsHUsxT848ESN5QQU1YZ
+  // const t = buildTransaction(hdNode.keyPair, 'e813b84f2a5634a06fdf77591e228acc79615c98d19e44ca05076d9573e0cc04', 'n4NVusZ9mUb1WkJLsHUsxT848ESN5QQU1Y');
 
-//  const t = buildTransaction(keyPair, 'e813b84f2a5634a06fdf77591e228acc79615c98d19e44ca05076d9573e0cc04', 'n4NVusZ9mUb1WkJLsHUsxT848ESN5QQU1Y');
+  const t = buildTransaction(hdNode.keyPair, 'e813b84f2a5634a06fdf77591e228acc79615c98d19e44ca05076d9573e0cc04', 'n4NVusZ9mUb1WkJLsHUsxT848ESN5QQU1Y');
 
 
-  var keyPair2 = bitcoin.ECPair.fromWIF('L1uyy5qTuGrVXrmrsvHWHgVzW9kKdrp27wBC7Vs6nZDTF2BRUVwy')
-  const t = buildTransaction(keyPair2, 'aa94ab02c182214f090e99a0d57021caffd0f195a81c24602b1028b130b63e31', '1Gokm82v6DmtwKEB8AiVhm82hyFSsEvBDK');
   console.log('buildTransaction: ' + t);
 
 

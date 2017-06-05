@@ -2,23 +2,23 @@ import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 import $ from 'jquery';
 // import { bip39, bitcoin } from '~/utils/crypto';
 
-export function generateKeys (mnemonic) {
+export function generateHdNode (mnemonic) {
   let seed = bip39.mnemonicToSeed(mnemonic, '');
-  let root = bitcoin.HDNode.fromSeedBuffer( seed, bitcoin.networks.bitcoin );
+  let root = bitcoin.HDNode.fromSeedBuffer(seed, bitcoin.networks.testnet);
 
   return root.derivePath("m/44'/0'/0'");
 }
 
-export function getKeys () {
+export function getHdNode () {
   let mnemonic;
-  if (!localStorage.getItem('test-mnemonic')){
+  if (!window.localStorage.getItem('test-mnemonic')) {
     mnemonic = bip39.generateMnemonic();
-    localStorage.setItem('test-mnemonic', mnemonic);
+    window.localStorage.setItem('test-mnemonic', mnemonic);
   } else {
     console.log('Got mnemonic from cache...');
-    mnemonic = localStorage.getItem('test-mnemonic');
+    mnemonic = window.localStorage.getItem('test-mnemonic');
   }
-  return generateKeys (mnemonic);
+  return generateHdNode(mnemonic);
 }
 
 export function generateAddress (keyPair, index) {
@@ -30,7 +30,7 @@ export function getReceived (addr) {
 }
 
 export function buildTransaction (keyPair, input, output) {
-  const tx = new bitcoin.TransactionBuilder();
+  const tx = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
   tx.addInput(input, 0);
   tx.addOutput(output, 15000);
   tx.sign(0, keyPair);
@@ -38,7 +38,7 @@ export function buildTransaction (keyPair, input, output) {
   return tx.build().toHex();
 }
 
-export function sendBlockchainRequest(method, params = [], server = 'localhost:18332') {
+export function sendBlockchainRequest (method, params = [], server = 'localhost:18332') {
   // --user 'equibit:equibit' -H "Content-Type: application/json"
   return $.ajax(
     'http://' + server, {
@@ -50,7 +50,7 @@ export function sendBlockchainRequest(method, params = [], server = 'localhost:1
       // username: 'equibit',
       // password: 'equibit',
       headers: {
-        Authorization: 'Basic ' + btoa('equibit:equibit'),
+        Authorization: 'Basic ' + window.btoa('equibit:equibit'),
         'Content-Type': 'text/plain'
       }
     }
