@@ -1700,10 +1700,6 @@ connect-injector@^0.4.0:
     stream-buffers "^0.2.3"
     uberproto "^1.1.0"
 
-connect-nocache@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/connect-nocache/-/connect-nocache-1.1.0.tgz#8a0bf66f68c69ecc7a66c25a3e4d38554e3d7fc1"
-
 console-browserify@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-browserify/-/console-browserify-1.1.0.tgz#f0241c45730a9fc6323b206dbf38edc741d0bb10"
@@ -2754,9 +2750,9 @@ feathers-authentication-popups@^0.1.2:
     events "^1.1.1"
     feathers-errors "^2.4.0"
 
-feathers-authentication-signed@^2.0.3:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/feathers-authentication-signed/-/feathers-authentication-signed-2.0.5.tgz#331779c18af290e8bc94a9a93030058305b0a85c"
+feathers-authentication-signed@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/feathers-authentication-signed/-/feathers-authentication-signed-2.0.7.tgz#044f16f0abef065ded44093a0da669539734ad94"
   dependencies:
     debug "^2.6.3"
     feathers-authentication-local "^0.3.3"
@@ -3356,6 +3352,12 @@ grouped-queue@^0.3.0:
 growl@1.9.2:
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.9.2.tgz#0ea7743715db8d8de2c5ede1775e1b45ac85c02f"
+
+grunt-testee@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/grunt-testee/-/grunt-testee-1.0.0.tgz#39d4481b727b71ee3fa4b439d5121786ff23266f"
+  dependencies:
+    testee "^0.5.0"
 
 handle-thing@^1.2.5:
   version "1.2.5"
@@ -4087,6 +4089,17 @@ launchpad@^0.5.1:
     plist "^2.0.1"
     q "^1.4.1"
     restify "^4.0.0"
+    underscore "^1.8.3"
+
+launchpad@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/launchpad/-/launchpad-0.6.0.tgz#6a122deaa3cbd7b9bedc13e7c8dd20a90951aaa3"
+  dependencies:
+    async "^2.0.1"
+    browserstack "^1.2.0"
+    debug "^2.2.0"
+    plist "^2.0.1"
+    q "^1.4.1"
     underscore "^1.8.3"
 
 lazy-cache@^1.0.3:
@@ -5863,15 +5876,15 @@ source-map@0.5.x, source-map@^0.5.0, source-map@^0.5.6, source-map@~0.5.0, sourc
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
 
-source-map@^0.4.0, source-map@^0.4.4, source-map@~0.4.1:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.4.4.tgz#eba4f5da9c0dc999de68032d8b4f76173652036b"
+source-map@^0.4.0, source-map@^0.4.2, "source-map@https://github.com/stealjs/source-map/archive/0.4.2-bitovi.1.tar.gz", source-map@~0.4.1:
+  version "0.4.2"
+  resolved "https://github.com/stealjs/source-map/archive/0.4.2-bitovi.1.tar.gz#9db874bdc66676165566379aea17f97b3e437d0f"
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@^0.4.2, "source-map@https://github.com/stealjs/source-map/archive/0.4.2-bitovi.1.tar.gz":
-  version "0.4.2"
-  resolved "https://github.com/stealjs/source-map/archive/0.4.2-bitovi.1.tar.gz#9db874bdc66676165566379aea17f97b3e437d0f"
+source-map@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.4.4.tgz#eba4f5da9c0dc999de68032d8b4f76173652036b"
   dependencies:
     amdefine ">=0.0.4"
 
@@ -6337,16 +6350,15 @@ testee-client@^0.5.0:
     feathers-rest "^1.5.0"
     superagent "^3.0.0"
 
-testee@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/testee/-/testee-0.4.1.tgz#1b67cf1ff9414f5b273357e085868f43b8f8d25b"
+testee@^0.5.0:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/testee/-/testee-0.5.1.tgz#06009f991aea8f640c777237d49b68c12dc4f6e1"
   dependencies:
     babel-core "^6.24.0"
     babel-plugin-istanbul "^4.1.1"
     body-parser "^1.15.2"
     commander "^2.3.0"
     connect-injector "^0.4.0"
-    connect-nocache "^1.1.0"
     debug "^2.0.0"
     feathers "^2.0.1"
     feathers-memory "^1.0.1"
@@ -6361,6 +6373,32 @@ testee@^0.4.0:
     mocha "^3.2.0"
     path "^0.12.7"
     q "^1.0.1"
+    testee-client "^0.5.0"
+    useragent "^2.0.9"
+
+testee@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/testee/-/testee-0.6.0.tgz#894c9c6070155c5772eb7d784ce6687e4fbb1a1d"
+  dependencies:
+    babel-core "^6.24.0"
+    babel-plugin-istanbul "^4.1.1"
+    body-parser "^1.15.2"
+    commander "^2.3.0"
+    connect-injector "^0.4.0"
+    debug "^2.0.0"
+    feathers "^2.0.1"
+    feathers-memory "^1.0.1"
+    feathers-rest "^1.5.0"
+    feathers-socketio "^1.4.1"
+    grunt-testee "^1.0.0"
+    http-proxy "^1.1.4"
+    istanbul "^0.4.0"
+    launchpad "^0.6.0"
+    lodash "^4.13.1"
+    mime-types "^2.1.6"
+    miner "^0.2.1"
+    mocha "^3.2.0"
+    path "^0.12.7"
     testee-client "^0.5.0"
     useragent "^2.0.9"
 
