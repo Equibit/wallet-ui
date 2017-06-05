@@ -5,25 +5,25 @@
   * @iframe src/styles/demos/modals/modals.html 400
   *
 **/
+
 .modal-content {
   border-radius: @border-radius-medium;
 }
 
 .modal-header {
-  padding-bottom: 8px;
-  small {
-    display: block;
-    color: @gray;
-    font-size: 70%;
-    line-height: 1.3em;
-  }
+  padding-bottom: 0;
 }
 
 .modal-body {
-  padding-top: 8px;
+  padding-top: 0;
   h4:first-of-type {
     margin-top: 0;
-
+  }
+  small {
+    display: block;
+    color: @gray;
+    font-size: @font-size-small;
+    padding-bottom: 10px;
   }
 }
 
@@ -36,3 +36,16 @@
   background-color: @gray-lightest;
   text-align: left;
 }
+
+
+// Removes external margins and modal decoration for small devices
+  @media (max-width: @screen-sm) {
+    .modal-dialog {
+      margin: 0;
+    }
+    .modal-content {
+      border: 0;
+      border-radius: 0;
+    }
+  }
+

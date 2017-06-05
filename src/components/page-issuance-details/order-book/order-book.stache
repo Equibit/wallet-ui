@@ -1,7 +1,7 @@
 <can-import from="~/components/page-issuance-details/sell-orders/" />
 <can-import from="~/components/page-issuance-details/buy-orders/" />
 <can-import from="~/components/page-issuances/company-value-change.component" />
-<can-import from="~/components/common/modal.less" />
+<can-import from="~/components/common/modal/modal.less" />
 
 <h2 class="subtitle">ORDER BOOK</h2>
 
