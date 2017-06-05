@@ -19,6 +19,10 @@ import 'can-route-pushstate';
 import Session from '~/models/session';
 // import '~/models/fixtures/fixtures';
 
+//! steal-remove-start
+window.route = route;
+//! steal-remove-end
+
 var pages = {
   home: 'public',
   loading: 'public',
