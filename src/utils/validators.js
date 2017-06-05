@@ -14,7 +14,7 @@ export default {
     return (!value && 'You need to read and agree to our Terms & Conditions and Privacy Policy') || '';
   },
   bitcoinAddress (string) {
-    if (!string){
+    if (!string) {
       return '';
     }
     try {
