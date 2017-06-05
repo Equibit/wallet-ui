@@ -31,8 +31,9 @@
   </div>
 
   <portfolio-toolbar {balance}="portfolio.balance"
-                       {^send-funds-popup}="isSendFundsPopup"
-                       {^receive-funds-popup}="isReceiveFundsPopup"/>
+                     {is-sending}="isSending"
+                     {^send-funds-popup}="isSendFundsPopup"
+                     {^receive-funds-popup}="isReceiveFundsPopup"/>
 
   <div class="panel-body">
     <div class="row">
@@ -90,7 +91,7 @@
 </drag-panel>
 
 {{#if isSendFundsPopup}}
-  <send-popup />
+  <send-popup {portfolio}="portfolio" (send)="send(%arguments)" />
 {{/if}}
 
 {{#if isReceiveFundsPopup}}

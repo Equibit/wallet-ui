@@ -1,5 +1,6 @@
 <can-import from="~/components/trade-funds/currency-converter/" />
 <can-import from="can-search-select" />
+<can-import from="~/components/common/validation-message.component" />
 
 <ul class="list-group">
   {{!
@@ -15,6 +16,7 @@
       <label for="">To</label>
       <input type="text" class="form-control" placeholder="Paste address" {($value)}="formData.toAddress">
       {{!OR <button class="btn btn-default">Scan</button>}}
+      <validation-message {message}="formData.toAddressError" />
     </div>
   </li>
   <li class="list-group-item">

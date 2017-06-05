@@ -22,6 +22,7 @@ export const ViewModel = DefineMap.extend({
   balance: 'number',
   sendFundsPopup: 'boolean',
   receiveFundsPopup: 'boolean',
+  isSending: 'boolean',
   sendFunds () {
     this.sendFundsPopup = false;
     this.sendFundsPopup = true;
