@@ -29,30 +29,20 @@ export function getReceived (addr) {
 
 }
 
-export function buildTransaction (keyPair, input, output) {
+export function buildTransaction (keyPair, input, output, value) {
   const tx = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
   tx.addInput(input, 0);
-  tx.addOutput(output, 15000);
+  tx.addOutput(output, value);
   tx.sign(0, keyPair);
 
   return tx.build().toHex();
 }
 
-export function sendBlockchainRequest (method, params = [], server = 'localhost:18332') {
-  // --user 'equibit:equibit' -H "Content-Type: application/json"
-  return $.ajax(
-    'http://' + server, {
-      method: 'POST',
-      data: {
-        method,
-        params
-      },
-      // username: 'equibit',
-      // password: 'equibit',
-      headers: {
-        Authorization: 'Basic ' + window.btoa('equibit:equibit'),
-        'Content-Type': 'text/plain'
-      }
+export function sendBlockchainRequest (method, params = []) {
+  return $.get(
+    'http://localhost:3030/proxycore', {
+      method,
+      params
     }
   );
 }
