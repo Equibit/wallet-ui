@@ -121,8 +121,8 @@ const User = DefineMap.extend('User', {
     this.encryptedSeed = this.encryptWithPassword(_password, mnemonic);
     this.encryptedKey = this.encryptWithPassword(_password, root.toBase58());
 
-    let keyPairBTC = root.derivePath("m/44'/0");
-    let keyPairEQB = root.derivePath("m/44'/73");
+    let keyPairBTC = root.derivePath("m/44'/0'");
+    let keyPairEQB = root.derivePath("m/44'/73'");
 
     _keys = {
       root: root,
