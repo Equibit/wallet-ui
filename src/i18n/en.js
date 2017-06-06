@@ -19,18 +19,25 @@ export default {
 
   // Buttons:
   done: 'Done',
+  next: 'Next',
+  cancel: 'Cancel',
 
   // Common:
   yes: 'Yes',
   no: 'No',
 
   bitcoin: 'Bitcoin',
+  bonds: 'Bonds',
   company: 'Company',
   companies: 'Companies',
   equibit: 'Equibit',
+  equity: 'Equity',
+  fillKill: 'Fill or Kill',
   issuanceName: 'Issuance Name',
   issuanceType: 'Issuance Type',
   quantity: 'Quantity',
+  securities: 'Securities',
+
 
   // - Research
   marketSummary: 'Market Summary',
@@ -51,17 +58,12 @@ export default {
   totalCash: 'Total Cash',
   totalSecurities: 'Total Securities',
   unrealizedPL: 'Unrealized P&L',
-
   watchList: 'Watchlist',
   myPortfolio: 'My Portfolio',
   breakdown: 'Breakdown',
   cash: 'Cash',
   currency: 'Currency',
   valuation: 'Valuation',
-
-  securities: 'Securities',
-  equity: 'Equity',
-  bonds: 'Bonds',
   send: 'Send',
   receive: 'Receive',
   securitiesSent: 'Securities sent',
@@ -76,6 +78,15 @@ export default {
   // Trade Funds:
   ask: 'Ask',
   askPrice: 'Ask Price',
+  confirmOrder: 'Please review and confirm your order.',
+  confirmOffer: 'Please review and confirm your offer.',
+  days: 'Days',
+  goodFor: 'Good For',
+  noPartialFills: 'No partial fills allowed.',
   offer: 'Offer',
+  placeSellOrder: 'Place Sell Order',
+  placeSellOffer: 'Place Sell Offer',
+  placeBuyOrder: 'Place Buy Order',
+  placeBuyOffer: 'Place Buy Offer',
   totalPrice: 'Total Price',
 };

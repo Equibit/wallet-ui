@@ -1,25 +1,11 @@
+<can-import from="~/components/common/issuance-summary/issuance-summary.component" />
 <can-import from="~/utils/stache-helpers/" />
 
 <div class="description">{{i18n('confirmOffer')}}</div>
 
 <div class="list-group">
-
   <div class="list-group-item order-header ">
-
-    <div class="row">
-      <div class="col-xs-12 col-sm-4">
-        <label>{{i18n('company')}}</label>
-        <a href="" class="input-value order-value-company">Imperial Brands</a>
-      </div>
-      <div class="col-xs-6 col-sm-4">
-        <label>{{i18n('issuanceName')}}</label>
-        <span class="input-value">Series 1</span>
-      </div>
-      <div class="col-xs-6 col-sm-4">
-        <label>{{i18n('issuanceType')}}</label>
-        <span class="input-value">Common Shares</span>
-      </div>
-    </div>
+    <issuance-summary />
   </div>
 
   <div class="list-group-item order-summary">

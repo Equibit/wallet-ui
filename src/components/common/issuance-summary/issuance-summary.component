@@ -1,0 +1,44 @@
+/**
+ * @module {can.Component} components/common/issuance-summary Issuance Summary
+ * @parent components.common
+ *
+ * This component the summary information of an issuance.
+ *
+ *
+ * ## Demo
+ *
+ * @demo src/components/common/issuance-summary/issuance-summary.html
+ */
+
+<can-component tag="issuance-summary">
+  <style type="less">
+    @import '../../../styles/bootstrap-custom/_variables.less';
+
+    label {
+      margin-bottom: 0;
+    }
+    .order-value-company {
+      @media (max-width: @screen-xs){
+        margin-bottom: @padding-large-vertical;
+      }
+    }
+  </style>
+  <can-import from="~/utils/stache-helpers/" />
+
+  <view>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 no-padding-left">
+        <label>{{i18n('company')}}</label>
+        <a href="" class="input-value order-value-company">Imperial Brands</a>
+      </div>
+      <div class="col-xs-6 col-sm-4 no-padding-left">
+        <label>{{i18n('issuanceName')}}</label>
+        <span class="input-value">Series 1</span>
+      </div>
+      <div class="col-xs-6 col-sm-4 no-padding-rigth">
+        <label>{{i18n('issuanceType')}}</label>
+        <span class="input-value">Common Shares</span>
+      </div>
+    </div>
+  </view>
+</can-component>

@@ -1,3 +1,5 @@
+<can-import from="~/utils/stache-helpers/" />
+
 <div class="form-group">
     <div class="btn-group order-buttons center-block">
         <a href="#" class="btn btn-default btn-sm btn-selected">Sell</a>
@@ -7,19 +9,19 @@
 
 <div class="list-group">
 
-  <div class="list-group-item order-header ">
+  <div class="list-group-item order-header">
 
     <div class="row">
-      <div class="col-xs-12 col-sm-4">
-        <label>Company</label>
+      <div class="col-xs-12 col-sm-4 no-padding-left">
+        <label>{{i18n('company')}}</label>
         <a href="" class="input-value order-value-company">Imperial Brands</a>
       </div>
-      <div class="col-xs-6 col-sm-4">
-        <label>Issuance Name</label>
+      <div class="col-xs-6 col-sm-4 no-padding-left">
+        <label>{{i18n('issuanceName')}}</label>
         <span class="input-value">Series 1</span>
       </div>
-      <div class="col-xs-6 col-sm-4">
-        <label>Issuance Type</label>
+      <div class="col-xs-6 col-sm-4 no-padding-rigth">
+        <label>{{i18n('issuanceType')}}</label>
         <span class="input-value">Common Shares</span>
       </div>
     </div>
@@ -31,7 +33,7 @@
       <div class="form-group">
         <div class="row">
           <div class="col-xs-12 col-sm-3">
-            <label for="inputQuantity" class="control-label">Quantity</label>
+            <label for="inputQuantity" class="control-label">{{i18n('quantity')}}</label>
           </div>
           <div class="col-xs-12 col-sm-9">
             <input type="text" class="form-control" id="inputQuantity">
@@ -42,7 +44,7 @@
       <div class="form-group">
         <div class="row">
           <div class="col-xs-12 col-sm-3">
-            <label for="inputAskPrice" class="control-label">Ask Price</label>
+            <label for="inputAskPrice" class="control-label">{{i18n('askPrice')}}</label>
           </div>
           <div class="col-xs-12 col-sm-9">
             <div class="input-group">
@@ -56,7 +58,7 @@
       <div class="form-group">
         <div class="row">
           <div class="col-xs-12 col-sm-3">
-            <label for="inputTotalAmount" class="control-label">Total Amount</label>
+            <label for="inputTotalAmount" class="control-label">{{i18n('totalPrice')}}</label>
           </div>
           <div class="col-xs-12 col-sm-9">
             <div class="input-group">
@@ -72,7 +74,7 @@
           <div class="col-xs-12 col-sm-offset-3 no-padding">
             <div class="checkbox">
               <label>
-                <input type="checkbox"> <strong>Fill or Kill.</strong> No partial fills will be allowed.
+                <input type="checkbox"> <strong>{{i18n('fillKill')}}</strong> {{i18n('noPartialFills')}}
               </label>
             </div>
           </div>
@@ -87,7 +89,7 @@
       <div class="form-group">
         <div class="row">
           <div class="col-xs-12 col-sm-3">
-            <label class="control-label">Good For</label>
+            <label class="control-label">{{i18n('goodFor')}}</label>
           </div>
           <div class="col-xs-12 col-sm-9 display-row">
             <div class="btn-group">
@@ -99,7 +101,7 @@
                 <a href="#" class="btn btn-default btn-sm">6</a>
                 <a href="#" class="btn btn-default btn-sm">7</a>
             </div>
-            <label class="label-days">Days</label>
+            <label class="label-days">{{i18n('Days')}}</label>
           </div>
         </div>
       </div>
