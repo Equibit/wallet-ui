@@ -179,7 +179,7 @@ const User = DefineMap.extend('User', {
     return cryptoUtils.decrypt(val, password + this.salt);
   },
   reCryptKeys (oldPassword, newPassword) {
-    if (!_keys){
+    if (!_keys) {
       return;
     }
     this.encryptedSeed = this.encryptWithPassword(newPassword, this.decryptWithPassword(oldPassword, this.encryptedSeed));

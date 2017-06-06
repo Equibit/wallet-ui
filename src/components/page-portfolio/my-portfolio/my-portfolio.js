@@ -38,12 +38,18 @@ export const ViewModel = DefineMap.extend({
   receiveFunds () {
     this.isReceiveFundsPopup = false;
     this.isReceiveFundsPopup = true;
-    this.portfolio = new Portfolio();
-    this.portfolio.save().then(portfolio => {
-      const portfolioIndex = portfolio.index;
-      const keys = this.user.generatePortfolioKeys(portfolioIndex);
-      portfolio.keys = keys;
-    });
+  },
+  receiveDone () {
+    this.isReceiveFundsPopup = false;
+    // TODO: portfolio has to be created and keys generated to show the address in the receive popup.
+    if (!this.portfolio) {
+      this.portfolio = new Portfolio();
+    }
+    // this.portfolio.save().then(portfolio => {
+    //   const portfolioIndex = portfolio.index;
+    //   const keys = this.user.generatePortfolioKeys(portfolioIndex);
+    //   portfolio.keys = keys;
+    // });
   },
   send (args) {
     const formData = args[1];
