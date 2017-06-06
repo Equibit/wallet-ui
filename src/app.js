@@ -65,6 +65,7 @@ const AppViewModel = DefineMap.extend({
    * @parent wallet-ui/app.properties
    * A session object that get's created on successful user login.
    */
+  // TODO: consider using Session.current in a getter and do not pass session to other pages via template bindings.
   session: {
     Type: Session
   },

@@ -77,8 +77,6 @@ const User = DefineMap.extend('User', {
    */
   email: 'string',
 
-  password: 'string',
-
   encryptedKey: 'string',
 
   encryptedMnemonic: 'string',
@@ -128,7 +126,10 @@ const User = DefineMap.extend('User', {
     this.encryptedMnemonic = this.encryptWithPassword(_password, mnemonic);
     this.encryptedKey = this.encryptWithPassword(_password, root.toBase58());
 
-    this.save().then(() => this.cacheWalletKeys(root));
+    return userService.patch(this._id, {
+      encryptedMnemonic: this.encryptedMnemonic,
+      encryptedKey: this.encryptedKey
+    }).then(() => this.cacheWalletKeys(root));
   },
 
   /**
@@ -145,6 +146,7 @@ const User = DefineMap.extend('User', {
       btc: keyPairBTC,
       eqb: keyPairEQB
     };
+    return this;
   },
 
   /**
@@ -177,16 +179,27 @@ const User = DefineMap.extend('User', {
     // Transactions and messages will be signed with PrivateKey.
   },
   encryptWithPassword (password, val) {
-    return cryptoUtils.encrypt(val, password + this.salt);
+    return cryptoUtils.encrypt(val, password);// + this.salt);
   },
   decryptWithPassword (password, val) {
-    return cryptoUtils.decrypt(val, password + this.salt);
+    let res;
+    try {
+      res = cryptoUtils.decrypt(val, password);// + this.salt);
+    } catch (err) {
+      console.error('Wallet: was not able to decrypt a string')
+    }
+    return res;
   },
   reCryptKeys (oldPassword, newPassword) {
     if (!_keys) {
       return;
     }
-    this.encryptedSeed = this.encryptWithPassword(newPassword, this.decryptWithPassword(oldPassword, this.encryptedSeed));
+    let decryptedMnemonic = this.decryptWithPassword(oldPassword, this.encryptedMnemonic);
+    if (!decryptedMnemonic) {
+      console.error('Cannot re-crypt keys. Decryption failed');
+      return;
+    }
+    this.encryptedMnemonic = this.encryptWithPassword(newPassword, decryptedMnemonic);
     this.encryptedKey = this.encryptWithPassword(newPassword, _keys.root.toBase58());
   },
 
@@ -199,15 +212,28 @@ const User = DefineMap.extend('User', {
    * @param {String} password User's plain password. Will be sent as hashed.
    */
   changePassword (password) {
-    this.reCryptKeys(_password, password);
+    // Case: user forgot-password flow.
+    if (this.encryptedKey && !_keys) {
+      // this.loadWalletKeys();
+      console.error('Need to restore keys using mnemonic!');
+      return;
+    }
+    if (_keys) {
+      this.reCryptKeys(_password, password);
+    }
 
     _password = password;
 
     return userService.patch(this._id, {
       password: signed.createHash(password),
-      encryptedSeed: this.encryptedSeed,
+      encryptedMnemonic: this.encryptedMnemonic,
       encryptedKey: this.encryptedKey
+    }).then(data => {
+      this.salt = data.salt;
     });
+  },
+  updatePasswordCache (password) {
+    _password = password;
   },
 
   /**
