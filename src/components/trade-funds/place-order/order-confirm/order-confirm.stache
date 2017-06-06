@@ -1,44 +1,33 @@
-<div class="description">Please review and confirm your order.</div>
+<can-import from="~/components/common/issuance-summary/issuance-summary.component" />
+<can-import from="~/utils/stache-helpers/" />
+
+<div class="description">{{i18n('confirmOrder')}}</div>
 
 <div class="list-group">
 
   <div class="list-group-item order-header ">
-
-    <div class="row">
-      <div class="col-xs-12 col-sm-4">
-        <label>Company</label>
-        <a href="" class="input-value order-value-company">Imperial Brands</a>
-      </div>
-      <div class="col-xs-6 col-sm-4">
-        <label>Issuance Name</label>
-        <span class="input-value">Series 1</span>
-      </div>
-      <div class="col-xs-6 col-sm-4">
-        <label>Issuance Type</label>
-        <span class="input-value">Common Shares</span>
-      </div>
-    </div>
+    <issuance-summary />
   </div>
 
   <div class="list-group-item order-summary">
     <dl class="dl-horizontal dl-stripped responsive">
-      <dt>Quantity</dt>
-      <dd class="input-value">400 <small>Securities</small></dd>
+      <dt>{{i18n('quantity')}}</dt>
+      <dd class="input-value">400 <small>{{i18n('securities')}}</small></dd>
 
-      <dt>Ask Price</dt>
+      <dt>{{i18n('askPrice')}}</dt>
       <dd class="input-value">30,375 <small>μBTC</small></dd>
 
-      <dt>Total Amount</dt>
+      <dt>{{i18n('totalPrice')}}</dt>
       <dd class="input-value">12,750,000 <small>μBTC</small></dd>
 
-      <dt>Fill or Kill</dt>
+      <dt>{{i18n('fillKill')}}</dt>
       <dd class="input-value">
         <span class="icon icon-checkmark-inversed"></span>
-        <strong>Yes.</strong>
-        <small>No partial bids will be allowed.</small>
+        <strong>{{i18n('yes')}}.</strong>
+        <small>{{i18n('noPartialFills')}}</small>
       </dd>
 
-      <dt>Good Until</dt>
+      <dt>{{i18n('goodUntil')}}</dt>
       <dd class="input-value">April 28, 2017</dd>
     </dl>
   </div>

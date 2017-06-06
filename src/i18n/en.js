@@ -82,6 +82,7 @@ export default {
   confirmOffer: 'Please review and confirm your offer.',
   days: 'Days',
   goodFor: 'Good For',
+  goodUntil: 'Good Until',
   noPartialFills: 'No partial fills allowed.',
   offer: 'Offer',
   placeSellOrder: 'Place Sell Order',
