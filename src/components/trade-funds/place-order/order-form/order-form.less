@@ -1,0 +1,29 @@
+@import '../../../../styles/bootstrap-custom/_variables.less';
+
+order-form {
+	display: block;
+
+  .place-order-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-transform: uppercase;
+    margin-bottom: -27px;
+    .btn-default {
+      background-color: @white;
+      z-index: 9;
+      min-width: 65px;
+      &.btn-selected {
+        background-color: @brand-primary;
+      }
+    }
+  }
+
+  .order-header {
+    background-color: @active-bg;
+    padding-top: 20px;
+    label {
+      margin-bottom: 0;
+    }
+  }
+}
