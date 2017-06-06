@@ -20,7 +20,18 @@ export default {
   // Buttons:
   done: 'Done',
 
-  // Pages:
+  // Common:
+  yes: 'Yes',
+  no: 'No',
+
+  bitcoin: 'Bitcoin',
+  company: 'Company',
+  companies: 'Companies',
+  equibit: 'Equibit',
+  issuanceName: 'Issuance Name',
+  issuanceType: 'Issuance Type',
+  quantity: 'Quantity',
+
   // - Research
   marketSummary: 'Market Summary',
   last24hours: 'Last 24 hours',
@@ -40,16 +51,14 @@ export default {
   totalCash: 'Total Cash',
   totalSecurities: 'Total Securities',
   unrealizedPL: 'Unrealized P&L',
-  companies: 'Companies',
+
   watchList: 'Watchlist',
   myPortfolio: 'My Portfolio',
   breakdown: 'Breakdown',
   cash: 'Cash',
   currency: 'Currency',
-  quantity: 'Quantity',
   valuation: 'Valuation',
-  bitcoin: 'Bitcoin',
-  equibit: 'Equibit',
+
   securities: 'Securities',
   equity: 'Equity',
   bonds: 'Bonds',
@@ -57,13 +66,16 @@ export default {
   receive: 'Receive',
   securitiesSent: 'Securities sent',
   fundsSent: 'Funds sent',
+
   // Receive popup:
   copyAndShare: 'Copy and Share',
   receiveInfo: 'Use the a unique address to add funds or securities to your account.',
   pasteAddress: 'Paste address',
   copiedToClipboard: 'Copied to clipboard',
 
-  // Common:
-  yes: 'Yes',
-  no: 'No'
+  // Trade Funds:
+  ask: 'Ask',
+  askPrice: 'Ask Price',
+  offer: 'Offer',
+  totalPrice: 'Total Price',
 };

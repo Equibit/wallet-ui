@@ -1,4 +1,6 @@
-<div class="description">Please review and confirm your offer.</div>
+<can-import from="~/utils/stache-helpers/" />
+
+<div class="description">{{i18n('confirmOffer')}}</div>
 
 <div class="list-group">
 
@@ -6,15 +8,15 @@
 
     <div class="row">
       <div class="col-xs-12 col-sm-4">
-        <label>Company</label>
+        <label>{{i18n('company')}}</label>
         <a href="" class="input-value order-value-company">Imperial Brands</a>
       </div>
       <div class="col-xs-6 col-sm-4">
-        <label>Issuance Name</label>
+        <label>{{i18n('issuanceName')}}</label>
         <span class="input-value">Series 1</span>
       </div>
       <div class="col-xs-6 col-sm-4">
-        <label>Issuance Type</label>
+        <label>{{i18n('issuanceType')}}</label>
         <span class="input-value">Common Shares</span>
       </div>
     </div>
@@ -22,13 +24,13 @@
 
   <div class="list-group-item order-summary">
     <dl class="dl-horizontal dl-stripped responsive">
-      <dt>Quantity</dt>
-      <dd class="input-value">400 <small>Securities</small></dd>
+      <dt>{{i18n('quantity')}}</dt>
+      <dd class="input-value">400 <small>{{i18n('securities')}}</small></dd>
 
-      <dt>Ask Price</dt>
+      <dt>{{i18n('askPrice')}}</dt>
       <dd class="input-value">30,375 <small>μBTC</small></dd>
 
-      <dt>Total Price</dt>
+      <dt>{{i18n('totalPrice')}}</dt>
       <dd class="input-value">12,750,000 <small>μBTC</small></dd>
 
     </dl>

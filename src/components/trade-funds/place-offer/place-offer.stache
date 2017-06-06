@@ -11,7 +11,7 @@
 
   <div class="modal-body">
     <offer-form></offer-form>
-    <!--<offer-confirm></offer-confirm>-->
+    <offer-confirm></offer-confirm>-->
 
   </div>
 
