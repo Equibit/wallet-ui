@@ -25,11 +25,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
   _id: 'string',
   name: 'string',
   index: 'number',
-  balance: 'number',
-  totalCash: 'number',
-  totalSecurities: 'number',
-  unrealizedPL: 'number',
-  unrealizedPLPercent: 'number',
+  balance: {type: 'number', value: 0},
+  totalCash: {type: 'number', value: 0},
+  totalSecurities: {type: 'number', value: 0},
+  unrealizedPL: {type: 'number', value: 0},
+  unrealizedPLPercent: {type: 'number', value: 0},
   keys: {
     type: '*',
     serialize: false
