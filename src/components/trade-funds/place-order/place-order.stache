@@ -12,8 +12,8 @@
   </div>
 
   <div class="modal-body">
-    <!--order-form></order-form-->
-    <order-confirm></order-confirm>
+    <order-form></order-form>
+    <!--order-confirm></order-confirm-->
 
   </div>
 
