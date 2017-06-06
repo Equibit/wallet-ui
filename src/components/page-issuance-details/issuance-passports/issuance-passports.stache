@@ -24,10 +24,10 @@
       <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
       <h4 class="modal-title">
         Accepted Trading Passports <br>
-        <small>This issuance is restricted and requires at least one of these passports.</small>
       </h4>
     </div>
     <div class="modal-body">
+      <div class="description">This issuance is restricted and requires at least one of these passports.</div>
       <div class="well">
         <ul class="list-unstyled passport-list">
           {{#each passports}}

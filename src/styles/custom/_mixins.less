@@ -1,0 +1,73 @@
+/**
+  * @stylesheet custom/_mixins.less Mixins
+  * @parent styles.base
+  *
+  * @description
+  * Contains less mixins.
+**/
+
+/**
+* @styles mixins-icon-circle Icon Circle
+*
+* @description
+* Create a circle around an icon that can be filled or empty.
+*
+* Example:
+* ```css
+* .icon-my-icon {
+*   .icon-variant-circle-fill ("\ea3a"; red; @white);
+*   .icon-circle (8px);
+* }
+* ```
+*
+**/
+
+
+.icon-circle (@font-size) {
+  padding: calc(@font-size / 2);
+  border-radius: 50%;
+  font-size: @font-size;
+}
+
+.icon-variant-circle-fill (@content; @background; @color) {
+  background-color: @background;
+  color: @color;
+  display: inline-block;
+  .icon-circle(@font-size-small);
+  &:before {
+    content: @content;
+  }
+}
+
+.icon-variant-circle-empty (@content) {
+  border-style: solid;
+  border-width: 2px;
+  display: inline-block;
+  .icon-circle(@font-size-small);
+  &:before {
+    content: @content;
+  }
+}
+
+/**
+* @styles mixins-contextual-background Contextual Background
+*
+* @description
+* Create elements with a variance in color, border, and icon.
+*
+* Example:
+* ```css
+  .contextual-bg-success {
+    .contextual-bg-variant(@brand-success);
+  }
+* ```
+*
+**/
+.contextual-bg-variant(@color) {
+  background-color: (fade(@color, 8%));
+  border: 1px solid (fade(@color, 40%));
+  padding: 5px;
+  .icon {
+    color: @color;
+  }
+}

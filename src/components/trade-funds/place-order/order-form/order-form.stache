@@ -14,13 +14,13 @@
     <div class="row">
       <div class="col-xs-12 col-sm-4">
         <label>Company</label>
-        <a href="" class="input-value">Imperial Brands</a>
+        <a href="" class="input-value order-value-company">Imperial Brands</a>
       </div>
-      <div class="col-xs-12 col-sm-4">
+      <div class="col-xs-6 col-sm-4">
         <label>Issuance Name</label>
         <span class="input-value">Series 1</span>
       </div>
-      <div class="col-xs-12 col-sm-4">
+      <div class="col-xs-6 col-sm-4">
         <label>Issuance Type</label>
         <span class="input-value">Common Shares</span>
       </div>
@@ -28,7 +28,7 @@
   </div>
 
   <div class="list-group-item order-fields">
-    <form class="form-horizontal">
+    <div class="form-horizontal">
 
       <div class="form-group">
         <div class="row">
@@ -71,7 +71,7 @@
 
       <div class="">
         <div class="row">
-          <div class="col-xs-12 col-xs-offset-3">
+          <div class="col-xs-12 col-sm-offset-3 no-padding">
             <div class="checkbox">
               <label>
                 <input type="checkbox"> <strong>Fill or Kill.</strong> No partial fills will be allowed.
@@ -81,31 +81,34 @@
         </div>
       </div>
 
-    </form>
+    </div>
   </div>
 
   <div class="list-group-item order-expiration">
-    <form class="form-horizontal">
-      <div class="row">
-        <div class="col-xs-12 col-sm-3">
-          <label class="control-label">Good For</label>
-        </div>
-        <div class="col-xs-12 col-sm-6">
-          <div class="btn-group">
-              <a href="#" class="btn btn-default btn-sm">1</a>
-              <a href="#" class="btn btn-default btn-sm">2</a>
-              <a href="#" class="btn btn-default btn-sm">3</a>
-              <a href="#" class="btn btn-default btn-sm">4</a>
-              <a href="#" class="btn btn-default btn-sm">5</a>
-              <a href="#" class="btn btn-default btn-sm">6</a>
-              <a href="#" class="btn btn-default btn-sm">7</a>
+    <div class="form-horizontal">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3">
+            <label class="control-label">Good For</label>
           </div>
-        </div>
-        <div class="col-xs-12 col-sm-3">
-          <label class="control-label label-days">Days</label>
+          <div class="col-xs-12 col-sm-9 display-row">
+            <div class="btn-group">
+                <a href="#" class="btn btn-default btn-sm">1</a>
+                <a href="#" class="btn btn-default btn-sm">2</a>
+                <a href="#" class="btn btn-default btn-sm">3</a>
+                <a href="#" class="btn btn-default btn-sm">4</a>
+                <a href="#" class="btn btn-default btn-sm">5</a>
+                <a href="#" class="btn btn-default btn-sm">6</a>
+                <a href="#" class="btn btn-default btn-sm">7</a>
+            </div>
+            <label class="label-days">Days</label>
+          </div>
+          <!--div class="col-xs-12 col-sm-3">
+            <label class="control-label label-days">Days</label>
+          </div-->
         </div>
       </div>
-    </form>
+    </div>
   </div>
 
 </div>

@@ -1,3 +1,5 @@
+@import (reference) '_mixins.less';
+
 /**
   * @stylesheet _icons.less Iconography
   * @parent styles.theme
@@ -38,6 +40,35 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/**
+* @styles custom-icons Custom Icons
+* @parent _icons.less 0
+*
+* @iframe src/styles/demos/icons/icons-edcicons-custom.html 100
+**/
+
+.icon-sell {
+  .icon-variant-circle-fill ("\ea3a"; @text-color; @white);
+  .rotate-90;
+}
+
+.icon-sell-inversed {
+  .icon-variant-circle-empty ("\ea3a");
+  .rotate-90;
+}
+
+.icon-buy {
+  .icon-variant-circle-fill ("\ea3a"; @text-color; @white);
+  .rotate-270;
+}
+
+.icon-buy-inversed {
+  .icon-variant-circle-empty ("\ea3a");
+  .rotate-270;
+}
+
+
 
 
 /**
@@ -341,6 +372,11 @@
 .icon-checkmark:before {
   content: "\ea10";
 }
+
+.icon-checkmark-inversed {
+  .icon-variant-circle-fill ("\ea10"; @brand-success; @white);
+}
+
 .icon-loop:before {
   content: "\ea2e";
 }
@@ -372,54 +408,3 @@
   content: "\eac9";
 }
 
-/**
-* @styles custom-icons Custom Icons
-* @parent _icons.less 0
-*
-* @iframe src/styles/demos/icons/icons-edcicons-custom.html 100
-**/
-
-//@import '_helpers.less';
-
-.icon-circle {
-  padding: 10px;
-  border-radius: 50%;
-  font-size: 120% !important;
-}
-.icon-sell-inversed {
-  border-style: solid;
-  border-width: 2px;
-  .icon-circle;
-  &:before {
-    content: "\ea3a";
-    .rotate-90;
-  }
-}
-.icon-sell {
-  background-color: @text-color;
-  color: @white;
-  .icon-circle;
-    &:before {
-    content: "\ea3a";
-    .rotate-90;
-  }
-}
-
-.icon-buy-inversed {
-  border-style: solid;
-  border-width: 2px;
-  .icon-circle;
-  &:before {
-    content: "\ea3a";
-    .rotate-270;
-  }
-}
-.icon-buy{
-  background-color: @text-color;
-  color: @white;
-  .icon-circle;
-    &:before {
-    content: "\ea3a";
-    .rotate-270;
-  }
-}

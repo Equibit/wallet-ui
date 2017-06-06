@@ -10,29 +10,30 @@
     </h3>
   </div>
   <div class="modal-body">
-    <small>{{i18n('receiveInfo')}}</small>
+    <div class="description">{{i18n('receiveInfo')}}</div>
 
-    <li class="list-group-item">
-      <div class="form-group">
-        <label for="">{{i18n('copyAndShare')}}</label>
-        <div class="input-group">
+    <div class="list-group">
+      <div class="list-group-item">
+        <div class="form-group">
+          <label for="">{{i18n('copyAndShare')}}</label>
+          <div class="input-group">
 
-          <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address">
+            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address">
 
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ($click)="copy()">
-              <span class="icon icon-copy"></span>
-            </button>
-          </span>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" ($click)="copy()">
+                <span class="icon icon-copy"></span>
+              </button>
+            </span>
+          </div>
+
+          {{!OR Scan}}
         </div>
-
-        {{!OR Scan}}
       </div>
-    </li>
+    </div>
 
   </div>
   <div class="modal-footer">
-
     <button ($click)="close()" type="button" class="btn btn-primary">{{i18n('done')}}</button>
   </div>
 </bootstrap-modal-content>

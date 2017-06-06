@@ -17,15 +17,11 @@ order-form {
         background-color: @brand-primary;
       }
     }
-  }
-
-  .order-header {
-    background-color: @active-bg;
-    padding-top: @padding-xlarge-vertical;
-    label {
-      margin-bottom: 0;
+    @media (max-width: @screen-xs){
+      margin-top: @padding-large-vertical;
     }
   }
+
 
   .order-fields {
     padding-top: @padding-xlarge-vertical;
@@ -39,8 +35,7 @@ order-form {
       min-width: 32px;
     }
     .label-days {
-      text-align: left;
-      margin-left: -37px;
+      margin: 7px;
     }
   }
 }

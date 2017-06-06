@@ -1,6 +1,7 @@
 <can-import from="bootstrap-canjs" />
 <can-import from="~/components/common/modal/modal.less" />
 <can-import from="~/components/trade-funds/place-order/order-form/" />
+<can-import from="~/components/trade-funds/place-order/order-confirm/" />
 
 <bootstrap-modal-content>
   <div class="modal-header">
@@ -9,7 +10,9 @@
   </div>
 
   <div class="modal-body">
-    <order-form></order-form>
+    <!--order-form></order-form-->
+    <order-confirm></order-confirm>
+
   </div>
 
   <div class="modal-footer">
