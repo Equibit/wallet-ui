@@ -1,7 +1,9 @@
 <can-import from="~/components/common/fillkill-indicator/fillkill-indicator.component" />
+<can-import from="~/components/common/issuance-summary/issuance-summary.component" />
 <can-import from="~/components/common/status-badge/" />
 <can-import from="~/components/page-orders/securities-remaining/securities-remaining.component" />
 <can-import from="~/components/page-orders/order-offers-accepted/" />
+<can-import from="~/utils/stache-helpers/" />
 
 
 <h2 class="subtitle">
@@ -10,31 +12,20 @@
 </h2>
 
 <div class="well">
-    <div class="order-header section row">
-      <div class="col-xs-12 col-sm-6">
-        <label>Company</label>
-        <a href="">Imperial Brands</a>
-      </div>
-      <div class="col-xs-6 col-sm-3">
-        <label>Issuance Name</label>
-        Series 1
-      </div>
-      <div class="col-xs-6 col-sm-3">
-        <label>Issuance Type</label>
-        Common Shares
-      </div>
+    <div class="order-header section">
+      <issuance-summary />
     </div>
 
     <div class="order-summary section row">
       <div class="col-xs-6 col-sm-3">
-        <label>Quantity</label>
+        <label>{{i18n('quantity')}}</label>
         <span class="order-quantity">400</span>
       </div>
       <div class="col-xs-6 col-sm-3">
         <securities-remaining />
       </div>
       <div class="col-xs-6 col-sm-3 sub-section">
-        <label>Ask Price</label>
+        <label>{{i18n('askPrice')}}</label>
         <span class="order-ask-price">30,375 <small>μBTC</small></span>
       </div>
       <div class="col-xs-12 col-sm-3 sub-section">
@@ -44,16 +35,16 @@
 
     <div class="order-metadata section">
       <dl class="dl-horizontal dl-stripped responsive">
-        <dt>Total Amount</dt>
+        <dt>{{i18n('totalPrice')}}</dt>
         <dd>12,750,000 <small>μBTC</small></dd>
 
-        <dt>Good Until</dt>
+        <dt>{{i18n('goodUntil')}}</dt>
         <dd>April 28, 2017</dd>
       </dl>
     </div>
 
     <div class="order-status section">
-      <h3 class="subheading">Status</h3>
+      <h3 class="subheading">{{i18n('status')}}</h3>
       <status-badge />
     </div>
 

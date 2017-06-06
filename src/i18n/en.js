@@ -28,6 +28,7 @@ export default {
 
   bitcoin: 'Bitcoin',
   bonds: 'Bonds',
+  buy: 'Buy',
   company: 'Company',
   companies: 'Companies',
   equibit: 'Equibit',
@@ -36,7 +37,9 @@ export default {
   issuanceName: 'Issuance Name',
   issuanceType: 'Issuance Type',
   quantity: 'Quantity',
+  status: 'Status',
   securities: 'Securities',
+  sell: 'sell',
 
 
   // - Research
