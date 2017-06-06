@@ -179,12 +179,12 @@ const User = DefineMap.extend('User', {
     // Transactions and messages will be signed with PrivateKey.
   },
   encryptWithPassword (password, val) {
-    return cryptoUtils.encrypt(val, password);// + this.salt);
+    return cryptoUtils.encrypt(val, password + this.salt);
   },
   decryptWithPassword (password, val) {
     let res;
     try {
-      res = cryptoUtils.decrypt(val, password);// + this.salt);
+      res = cryptoUtils.decrypt(val, password + this.salt);
     } catch (err) {
       console.error('Wallet: was not able to decrypt a string')
     }
