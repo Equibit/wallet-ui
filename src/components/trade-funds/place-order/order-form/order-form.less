@@ -3,7 +3,7 @@
 order-form {
 	display: block;
 
-  .place-order-buttons {
+  .order-buttons {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -21,9 +21,26 @@ order-form {
 
   .order-header {
     background-color: @active-bg;
-    padding-top: 20px;
+    padding-top: @padding-xlarge-vertical;
     label {
       margin-bottom: 0;
+    }
+  }
+
+  .order-fields {
+    padding-top: @padding-xlarge-vertical;
+    strong {
+      color: @gray-dark;
+    }
+  }
+
+  .order-expiration {
+    .btn-sm {
+      min-width: 32px;
+    }
+    .label-days {
+      text-align: left;
+      margin-left: -37px;
     }
   }
 }
