@@ -95,5 +95,5 @@
 {{/if}}
 
 {{#if isReceiveFundsPopup}}
-  <receive-popup />
+  <receive-popup (done)="receiveDone()"/>
 {{/if}}

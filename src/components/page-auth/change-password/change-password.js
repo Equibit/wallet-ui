@@ -63,16 +63,13 @@ export const ViewModel = DefineMap.extend({
 
     this.user.changePassword(password)
       .then(() => {
-        route.data.page = 'portfolio';
-        let title = isNewUser ? i18n.accountCreated : i18n.passwordReset;
-        let msg = isNewUser ? i18n.welcomeMsg : i18n.passwordResetMsg;
-        hub.dispatch({
-          'type': 'alert',
-          'kind': 'success',
-          'title': title,
-          'displayInterval': 5000,
-          'message': msg
-        });
+        if (isNewUser) {
+          // TODO: enable back.
+          // this.user.generateWalletKeys();
+        } else {
+          // this.user.loadWalletKeys();
+        }
+        this.routeWithAlert(isNewUser);
       })
       .catch(e => {
         console.error(e);
@@ -81,6 +78,18 @@ export const ViewModel = DefineMap.extend({
   },
   togglePassword () {
     this.passwordVisible = !this.passwordVisible;
+  },
+  routeWithAlert (isNewUser) {
+    route.data.page = 'portfolio';
+    let title = isNewUser ? i18n.accountCreated : i18n.passwordReset;
+    let msg = isNewUser ? i18n.welcomeMsg : i18n.passwordResetMsg;
+    hub.dispatch({
+      'type': 'alert',
+      'kind': 'success',
+      'title': title,
+      'displayInterval': 5000,
+      'message': msg
+    });
   }
 });
 

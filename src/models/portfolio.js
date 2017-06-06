@@ -23,13 +23,18 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * Id prop
    */
   _id: 'string',
+  index: 'number',
   balance: 'number',
   totalCash: 'number',
-  totalSec: 'number',
+  totalSecurities: 'number',
   unrealizedPL: 'number',
   unrealizedPLPercent: 'number',
   companiesMnt: 'number',
-  tradesMnt: 'number'
+  tradesMnt: 'number',
+  keys: {
+    type: '*',
+    serialize: false
+  }
 });
 
 Portfolio.List = DefineList.extend('PortfolioList', {

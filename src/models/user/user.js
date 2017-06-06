@@ -15,7 +15,8 @@ import feathersClient from '~/models/feathers-client';
 import signed from '~/models/feathers-signed';
 import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
-import crypto from '~/utils/crypto';
+import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
+import cryptoUtils from '~/utils/crypto';
 import connect from 'can-connect';
 import login from './login';
 import Portfolio from '~/models/portfolio';
@@ -24,6 +25,7 @@ const userService = feathersClient.service('users');
 
 let _password;
 let _keys;
+const _network = bitcoin.networks.testnet;
 
 const User = DefineMap.extend('User', {
   /**
@@ -75,9 +77,13 @@ const User = DefineMap.extend('User', {
    */
   email: 'string',
 
+  password: 'string',
+
   encryptedKey: 'string',
 
-  encryptedSeed: 'string',
+  encryptedMnemonic: 'string',
+
+  salt: 'string',
 
   /**
    * @property {Boolean} models/user.properties.isNewUser isNewUser
@@ -109,28 +115,47 @@ const User = DefineMap.extend('User', {
   updatedAt: 'date',
 
   /**
-   * @property {Function} models/user.prototype.generateKeys generateKeys
+   * @property {Function} models/user.prototype.generateWalletKeys generateWalletKeys
    * @parent models/user.prototype
-   * Generates user keys.
+   * Generates keys for a new user account.
    */
   // Q: do we want different passphrases for mnemonic and privateKey? A: Not now.
-  generateMasterKey () {
-    let mnemonic = crypto.generateMnemonic();
-    let root = crypto.mnemonicToHDNode(mnemonic);
+  generateWalletKeys () {
+    const mnemonic = bip39.generateMnemonic();
+    const seed = bip39.mnemonicToSeed(mnemonic, '');
+    const root = bitcoin.HDNode.fromSeedBuffer(seed, _network);
 
-    this.encryptedSeed = this.encryptWithPassword(_password, mnemonic);
+    this.encryptedMnemonic = this.encryptWithPassword(_password, mnemonic);
     this.encryptedKey = this.encryptWithPassword(_password, root.toBase58());
 
-    let keyPairBTC = root.derivePath("m/44'/0");
-    let keyPairEQB = root.derivePath("m/44'/73");
+    this.save().then(() => this.cacheWalletKeys(root));
+  },
+
+  /**
+   * @property {Function} models/user.prototype.generateWalletKeys generateWalletKeys
+   * @parent models/user.prototype
+   * Cache BTC and EQB keys in a closure.
+   */
+  cacheWalletKeys (root) {
+    const keyPairBTC = root.derivePath("m/44'/0'");
+    const keyPairEQB = root.derivePath("m/44'/73'");
 
     _keys = {
       root: root,
       btc: keyPairBTC,
       eqb: keyPairEQB
     };
+  },
 
-    this.save();
+  /**
+   * @property {Function} models/user.prototype.loadWalletKeys loadWalletKeys
+   * @parent models/user.prototype
+   * Generate HD node and wallet keys from the encrypted master key.
+   */
+  loadWalletKeys () {
+    const base58Key = this.decryptWithPassword(_password, this.encryptedKey);
+    const root = bitcoin.HDNode.fromBase58(base58Key, _network);
+    this.cacheWalletKeys(root);
   },
 
   /**
@@ -147,17 +172,16 @@ const User = DefineMap.extend('User', {
   signWithPrivateKey () {
     // Transactions and messages will be signed with PrivateKey.
   },
-  // TODO: we also need to use an extra salt (probably the same salt as we use to hash user's password).
   encryptWithPassword (password, val) {
-    // Private key and the 12 recovery words should be encrypted with user password.
-    return val;
+    return cryptoUtils.encrypt(val, password + this.salt);
   },
   decryptWithPassword (password, val) {
-    // To sign anything with PrivateKey we need to decrypt it.
-    // Also we want allow user to save his recovery phrase which also can be decrypted with pswd.
-    return val;
+    return cryptoUtils.decrypt(val, password + this.salt);
   },
   reCryptKeys (oldPassword, newPassword) {
+    if (!_keys) {
+      return;
+    }
     this.encryptedSeed = this.encryptWithPassword(newPassword, this.decryptWithPassword(oldPassword, this.encryptedSeed));
     this.encryptedKey = this.encryptWithPassword(newPassword, _keys.root.toBase58());
   },
@@ -190,7 +214,13 @@ const User = DefineMap.extend('User', {
   clearKeys () {
     _keys = null;
     _password = null;
+  },
+
+  //! steal-remove-start
+  _testGetCache () {
+    return { _keys, _password };
   }
+  //! steal-remove-end
 });
 
 User.List = DefineList.extend('UserList', {
