@@ -1,0 +1,37 @@
+<script src="../../../node_modules/steal/steal.js"
+        main="@empty">
+  import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
+  import { getHdNode, generateAddress, sendBlockchainRequest, buildTransaction } from '~/models/user/transaction';
+
+  // "talent destroy radar dinosaur punch muscle swear diary mango unit gallery bus"
+  let hdNode = getHdNode();
+
+  // testnet: mkXxyb5pRLGUxh6gLyQkfBsfUx2djUBeF4
+  let addr = generateAddress(hdNode, 0);
+
+  console.log('addr', addr);
+
+  sendBlockchainRequest('getbalance')
+    .then(res => console.log('res', res))
+    .catch(e => console.error(e));
+
+  // from: e813b84f2a5634a06fdf77591e228acc79615c98d19e44ca05076d9573e0cc04
+  // to testnet: n4NVusZ9mUb1WkJLsHUsxT848ESN5QQU1YZ
+  const transaction = buildTransaction(
+    hdNode.keyPair,
+    'e813b84f2a5634a06fdf77591e228acc79615c98d19e44ca05076d9573e0cc04',
+    'n4NVusZ9mUb1WkJLsHUsxT848ESN5QQU1Y',
+    49.998 * 100000000
+  );
+
+  // Possible errors:
+  // "256: absurdly-high-fee"
+  // "16: mandatory-script-verify-flag-failed (Script failed an OP_EQUALVERIFY operation)"
+
+  sendBlockchainRequest('sendrawtransaction', [transaction])
+    .then(res => console.log('res', res))
+    .catch(e => console.error(e));
+
+  console.log('buildTransaction: ' + transaction);
+
+</script>

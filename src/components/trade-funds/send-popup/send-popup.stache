@@ -36,7 +36,7 @@
       <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
     {{/is}}
     {{#is mode 'confirm'}}
-      <button ($click)="send()" type="button" class="btn btn-primary">Send</button>
+      <button ($click)="send(close)" type="button" class="btn btn-primary">Send</button>
       <button ($click)="edit()" type="button" class="btn btn-default" data-dismiss="modal">Edit</button>
     {{/is}}
 

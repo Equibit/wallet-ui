@@ -19,17 +19,18 @@ import './my-portfolio.less';
 import view from './my-portfolio.stache';
 import hub from '~/utils/event-hub';
 import { translate } from '~/i18n/';
+import Portfolio from '~/models/portfolio';
 
 export const ViewModel = DefineMap.extend({
   portfolio: {
-    // value: null
-    value: {
-      balance: 22.616393,
-      totalCash: 12.616393,
-      totalSec: 10.00045,
-      unrealizedPL: 0.109,
-      unrealizedPLPercent: 1.2
-    }
+    value: null
+    // value: {
+    //   balance: 22.616393,
+    //   totalCash: 12.616393,
+    //   totalSec: 10.00045,
+    //   unrealizedPL: 0.109,
+    //   unrealizedPLPercent: 1.2
+    // }
   },
   isSending: 'boolean',
   isSendFundsPopup: 'boolean',
@@ -37,6 +38,18 @@ export const ViewModel = DefineMap.extend({
   receiveFunds () {
     this.isReceiveFundsPopup = false;
     this.isReceiveFundsPopup = true;
+  },
+  receiveDone () {
+    this.isReceiveFundsPopup = false;
+    // TODO: portfolio has to be created and keys generated to show the address in the receive popup.
+    if (!this.portfolio) {
+      this.portfolio = new Portfolio();
+    }
+    // this.portfolio.save().then(portfolio => {
+    //   const portfolioIndex = portfolio.index;
+    //   const keys = this.user.generatePortfolioKeys(portfolioIndex);
+    //   portfolio.keys = keys;
+    // });
   },
   send (args) {
     const formData = args[1];

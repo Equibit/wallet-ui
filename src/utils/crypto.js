@@ -46,5 +46,7 @@ export default {
   mnemonicToSeed,
   test,
   encrypt,
-  decrypt
+  decrypt,
+  bip39,
+  bitcoin
 };

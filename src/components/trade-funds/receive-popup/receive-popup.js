@@ -34,6 +34,10 @@ export const ViewModel = DefineMap.extend({
       'title': translate('copiedToClipboard'),
       'displayInterval': 5000
     });
+  },
+  done (close) {
+    this.dispatch('done');
+    close();
   }
 });
 
