@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/page-orders/order-list order-list
- * @parent components.buy-sell
+ * @parent components.buy-sell 1
  *
  * This components shows a list of orders.
  *

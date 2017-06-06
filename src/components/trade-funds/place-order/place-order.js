@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/trade-funds/place-order place-order
- * @parent components.buy-sell
+ * @parent components.buy-sell 6
  *
  * This component shows the modal with the forms for placing a buy or sell order.
  *

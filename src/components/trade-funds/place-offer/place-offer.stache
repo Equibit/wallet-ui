@@ -1,17 +1,17 @@
 <can-import from="bootstrap-canjs" />
 <can-import from="~/components/common/modal/modal.less" />
-<can-import from="~/components/trade-funds/place-order/order-form/" />
-<can-import from="~/components/trade-funds/place-order/order-confirm/" />
+<can-import from="~/components/trade-funds/place-offer/offer-form/" />
+<can-import from="~/components/trade-funds/place-offer/offer-confirm/" />
 
 <bootstrap-modal-content>
   <div class="modal-header">
     <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
-    <h3 class="modal-title">Place Sell Order</h3>
+    <h3 class="modal-title">Place Sell Offer</h3>
   </div>
 
   <div class="modal-body">
-    <order-form></order-form>
-    <!--order-confirm></order-confirm-->
+    <offer-form></offer-form>
+    <!--offer-confirm></offer-confirm-->
 
   </div>
 

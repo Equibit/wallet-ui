@@ -1,0 +1,49 @@
+<div class="list-group">
+
+  <div class="list-group-item order-header">
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 no-padding-left">
+        <label>Company</label>
+        <a href="" class="input-value order-value-company">Imperial Brands</a>
+      </div>
+      <div class="col-xs-6 col-sm-4">
+        <label>Issuance Name</label>
+        <span class="input-value">Series 1</span>
+      </div>
+      <div class="col-xs-6 col-sm-4 no-padding-rigth">
+        <label>Issuance Type</label>
+        <span class="input-value">Common Shares</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-group-item order-fields">
+    <div class="form-horizontal">
+      <h4>Ask</h4>
+
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-2">
+            <label for="inputQuantity" class="control-label">Quantity</label>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <input type="text" class="form-control" id="inputQuantity">
+          </div>
+
+          <div class="col-xs-12 col-sm-2">
+            <label for="inputQuantity" class="control-label">Ask Price</label>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <div class="input-group">
+              <input type="text" class="form-control" id="inputAskPrice" disabled>
+              <div class="input-group-addon disabled">μBTC</div>
+            </div>
+          </div>
+        </div>
+
+
+    </div>
+  </div>
+
+</div>

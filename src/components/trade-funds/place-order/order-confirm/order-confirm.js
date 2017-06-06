@@ -1,6 +1,6 @@
 /**
- * @module {can.Component} components/trade-funds/place-order/order-confirm order/confirm
- * @parent components.common
+ * @module {can.Component} components/trade-funds/place-order/order-confirm place-order > order-confirm
+ * @parent components.buy-sell 8
  *
  * This component shows the summary of the data entered via the `<order-form>`.
  *
