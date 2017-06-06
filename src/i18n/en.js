@@ -41,7 +41,6 @@ export default {
   securities: 'Securities',
   sell: 'sell',
 
-
   // - Research
   marketSummary: 'Market Summary',
   last24hours: 'Last 24 hours',
@@ -92,5 +91,5 @@ export default {
   placeSellOffer: 'Place Sell Offer',
   placeBuyOrder: 'Place Buy Order',
   placeBuyOffer: 'Place Buy Offer',
-  totalPrice: 'Total Price',
+  totalPrice: 'Total Price'
 };
