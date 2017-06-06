@@ -1,0 +1,98 @@
+<can-import from="~/components/common/issuance-summary/issuance-summary.component" />
+<can-import from="~/utils/stache-helpers/" />
+
+<div class="form-group">
+    <div class="btn-group order-buttons center-block">
+        <a href="#" class="btn btn-default btn-sm btn-selected">{{i18n('sell')}}</a>
+        <a href="#" class="btn btn-default btn-sm">{{i18n('buy')}}</a>
+    </div>
+</div>
+
+<div class="list-group">
+
+  <div class="list-group-item order-header">
+    <issuance-summary />
+  </div>
+
+  <div class="list-group-item order-fields">
+    <div class="form-horizontal">
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-2">
+            <label for="inputQuantity" class="control-label">{{i18n('quantity')}}</label>
+          </div>
+          <div class="col-xs-12 col-sm-9">
+            <input type="text" class="form-control" id="inputQuantity">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-2">
+            <label for="inputAskPrice" class="control-label">{{i18n('askPrice')}}</label>
+          </div>
+          <div class="col-xs-12 col-sm-9">
+            <div class="input-group">
+              <input type="text" class="form-control" id="inputAskPrice">
+              <div class="input-group-addon">μBTC</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-2">
+            <label for="inputTotalAmount" class="control-label">{{i18n('totalPrice')}}</label>
+          </div>
+          <div class="col-xs-12 col-sm-9">
+            <div class="input-group">
+              <input type="text" class="form-control" id="inputTotalAmount" disabled>
+              <div class="input-group-addon disabled">μBTC</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="row">
+          <div class="col-xs-12 col-sm-offset-2 no-padding">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> <strong>{{i18n('fillKill')}}</strong> {{i18n('noPartialFills')}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="list-group-item order-expiration">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-2">
+            <label class="control-label">{{i18n('goodFor')}}</label>
+          </div>
+          <div class="col-xs-12 col-sm-9 display-row">
+            <div class="btn-group">
+                <a href="#" class="btn btn-default btn-sm">1</a>
+                <a href="#" class="btn btn-default btn-sm">2</a>
+                <a href="#" class="btn btn-default btn-sm">3</a>
+                <a href="#" class="btn btn-default btn-sm">4</a>
+                <a href="#" class="btn btn-default btn-sm">5</a>
+                <a href="#" class="btn btn-default btn-sm">6</a>
+                <a href="#" class="btn btn-default btn-sm">7</a>
+            </div>
+            <label class="label-days">{{i18n('Days')}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

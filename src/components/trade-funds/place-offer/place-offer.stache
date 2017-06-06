@@ -1,0 +1,22 @@
+<can-import from="bootstrap-canjs" />
+<can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/components/trade-funds/place-offer/offer-form/" />
+<can-import from="~/components/trade-funds/place-offer/offer-confirm/" />
+<can-import from="~/utils/stache-helpers/" />
+
+<bootstrap-modal-content>
+  <div class="modal-header">
+    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+    <h3 class="modal-title">{{i18n('placeSellOffer')}}</h3>
+  </div>
+
+  <div class="modal-body">
+    <offer-form></offer-form>
+    <!--<offer-confirm></offer-confirm>-->
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary">{{i18n('next')}}</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+  </div>
+</bootstrap-modal-content>

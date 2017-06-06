@@ -1,0 +1,26 @@
+@import '../../../../styles/bootstrap-custom/_variables.less';
+@import (reference) '../../../../styles/custom/_mixins.less';
+
+order-confirm {
+	display: block;
+
+  .order-summary {
+
+    dl {
+      margin-bottom: 0;
+      &:first-child { // Removes the top border of the list
+        border: 0;
+      }
+    }
+
+    dd, dt {
+      &:last-of-type { // Removes the bottom border of the list
+        border: 0;
+      }
+    }
+  }
+  .icon-checkmark-inversed {
+    .icon-circle(8px);
+  }
+
+}

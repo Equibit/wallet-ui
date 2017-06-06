@@ -1,0 +1,29 @@
+@import '../../../../styles/bootstrap-custom/_variables.less';
+
+offer-form {
+	display: block;
+
+  .order-header {
+    margin-top: @padding-xlarge-vertical;
+  }
+
+  .order-fields {
+    h4 {
+      text-transform: uppercase;
+      margin-bottom: @padding-large-vertical;
+    }
+    .form-group {
+      margin-bottom: @padding-small-vertical;
+    }
+    .control-label {
+      @media (max-width: @screen-xs-max) {
+        margin-top: @padding-base-vertical;
+      }
+    }
+  }
+
+  fillkill-indicator {
+    margin-left: @padding-large-vertical;
+    text-transform: initial;
+  }
+}

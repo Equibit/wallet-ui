@@ -1,0 +1,58 @@
+<can-import from="~/components/common/fillkill-indicator/fillkill-indicator.component" />
+<can-import from="~/components/common/issuance-summary/issuance-summary.component" />
+<can-import from="~/utils/stache-helpers/" />
+
+<div class="list-group">
+  <div class="list-group-item order-header">
+    <issuance-summary />
+  </div>
+
+  <div class="list-group-item order-fields">
+    <div class="form-horizontal">
+      <h4>{{i18n('ask')}}</h4>
+      <div class="row form-group">
+        <div class="col-xs-12 col-sm-2">
+          <label for="inputQuantity" class="control-label">{{i18n('quantity')}}</label>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <input type="number" class="form-control" id="inputQuantity" disabled>
+        </div>
+
+        <div class="col-xs-12 col-sm-2">
+          <label for="inputQuantity" class="control-label">{{i18n('askPrice')}}</label>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <div class="input-group">
+            <input type="number" class="form-control" id="inputAskPrice" disabled>
+            <div class="input-group-addon disabled">μBTC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-group-item order-fields">
+    <div class="form-horizontal">
+      <h4>{{i18n('offer')}} <fillkill-indicator /></h4>
+      <div class="row form-group">
+        <div class="col-xs-12 col-sm-2">
+          <label for="inputQuantityOffer" class="control-label">{{i18n('quantity')}}</label>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <input type="number" class="form-control" id="inputQuantityOffer">
+        </div>
+
+        <div class="col-xs-12 col-sm-2">
+          <label for="inputQuantity" class="control-label">{{i18n('totalPrice')}}</label>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <div class="input-group">
+            <input type="number" class="form-control" id="inputAskPrice" disabled>
+            <div class="input-group-addon disabled">μBTC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,41 @@
+@import '../../../../styles/bootstrap-custom/_variables.less';
+
+order-form {
+	display: block;
+
+  .order-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-transform: uppercase;
+    margin-bottom: -27px;
+    .btn-default {
+      background-color: @white;
+      z-index: 9;
+      min-width: 65px;
+      &.btn-selected {
+        background-color: @brand-primary;
+      }
+    }
+    @media (max-width: @screen-xs){
+      margin-top: @padding-large-vertical;
+    }
+  }
+
+
+  .order-fields {
+    padding-top: @padding-xlarge-vertical;
+    strong {
+      color: @gray-dark;
+    }
+  }
+
+  .order-expiration {
+    .btn-sm {
+      min-width: 32px;
+    }
+    .label-days {
+      margin: 7px;
+    }
+  }
+}

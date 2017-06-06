@@ -12,13 +12,13 @@
     {{#is mode 'confirm'}}
       {{#is formData.type 'FUNDS'}}
         Funds
-        <small>Send funds from your account.</small>
+        <div class="description">Send funds from your account.</div>
       {{else}}
         Securities
-        <small>Send securities from your account.</small>
+        <div class="description">Send securities from your account.</div>
       {{/is}}
     {{else}}
-      <small>Send funds or securities from your account.</small>
+      <div class="description">Send funds or securities from your account.</div>
     {{/is}}
 
 

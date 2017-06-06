@@ -19,8 +19,28 @@ export default {
 
   // Buttons:
   done: 'Done',
+  next: 'Next',
+  cancel: 'Cancel',
 
-  // Pages:
+  // Common:
+  yes: 'Yes',
+  no: 'No',
+
+  bitcoin: 'Bitcoin',
+  bonds: 'Bonds',
+  buy: 'Buy',
+  company: 'Company',
+  companies: 'Companies',
+  equibit: 'Equibit',
+  equity: 'Equity',
+  fillKill: 'Fill or Kill',
+  issuanceName: 'Issuance Name',
+  issuanceType: 'Issuance Type',
+  quantity: 'Quantity',
+  status: 'Status',
+  securities: 'Securities',
+  sell: 'sell',
+
   // - Research
   marketSummary: 'Market Summary',
   last24hours: 'Last 24 hours',
@@ -40,30 +60,36 @@ export default {
   totalCash: 'Total Cash',
   totalSecurities: 'Total Securities',
   unrealizedPL: 'Unrealized P&L',
-  companies: 'Companies',
   watchList: 'Watchlist',
   myPortfolio: 'My Portfolio',
   breakdown: 'Breakdown',
   cash: 'Cash',
   currency: 'Currency',
-  quantity: 'Quantity',
   valuation: 'Valuation',
-  bitcoin: 'Bitcoin',
-  equibit: 'Equibit',
-  securities: 'Securities',
-  equity: 'Equity',
-  bonds: 'Bonds',
   send: 'Send',
   receive: 'Receive',
   securitiesSent: 'Securities sent',
   fundsSent: 'Funds sent',
+
   // Receive popup:
   copyAndShare: 'Copy and Share',
   receiveInfo: 'Use the a unique address to add funds or securities to your account.',
   pasteAddress: 'Paste address',
   copiedToClipboard: 'Copied to clipboard',
 
-  // Common:
-  yes: 'Yes',
-  no: 'No'
+  // Trade Funds:
+  ask: 'Ask',
+  askPrice: 'Ask Price',
+  confirmOrder: 'Please review and confirm your order.',
+  confirmOffer: 'Please review and confirm your offer.',
+  days: 'Days',
+  goodFor: 'Good For',
+  goodUntil: 'Good Until',
+  noPartialFills: 'No partial fills allowed.',
+  offer: 'Offer',
+  placeSellOrder: 'Place Sell Order',
+  placeSellOffer: 'Place Sell Offer',
+  placeBuyOrder: 'Place Buy Order',
+  placeBuyOffer: 'Place Buy Offer',
+  totalPrice: 'Total Price'
 };

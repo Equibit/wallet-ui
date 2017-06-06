@@ -7,15 +7,16 @@
   *
 **/
 
-@import '_variables';
-@import '../bootstrap-custom/_variables';
+@import (reference) '../bootstrap-custom/_variables';
+@import (reference) '_variables';
+@import (reference) '_mixins.less';
 
 /**
 * @styles helpers-page-layout Page Layout
 * @parent custom/_helpers.less 0
 *
 * @description
-* Add margins to a page template, in this content is some templates can be kept flushed to the edges.
+* Add margins to a page template, in this way the content in some templates can be kept flushed to the edges.
 *
 * Example:
 * ```css
@@ -88,8 +89,6 @@
 }
 
 
-
-
 /**
 * @styles helpers-active-item-indicator Active Item Indicator
 * @parent custom/_helpers.less 1
@@ -124,21 +123,13 @@
   * @parent custom/_helpers.less 2
   *
   * @description
-  * Use the following classes to assign a background color and border to an element.
+  * Use to assign a background color and border to an element.
   * It also adds a padding inside the element.
   *
   * @demo src/styles/demos/helpers/contextual-background.html
   *
 **/
 
-.contextual-bg-variant(@color) {
-  background-color: (fade(@color, 8%));
-  border: 1px solid (fade(@color, 40%));
-  padding: 5px;
-  .icon {
-    color: @color;
-  }
-}
 
 .contextual-bg-success {
   .contextual-bg-variant(@brand-success);

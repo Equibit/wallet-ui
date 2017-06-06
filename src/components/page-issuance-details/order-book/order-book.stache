@@ -41,7 +41,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-sm-6 col-xs-12 no-padding-left">
-          <small>{{issuance.companyName}}, {{issuance.issuanceName}}</small>
+          <div class="description">{{issuance.companyName}}, {{issuance.issuanceName}}</div>
         </div>
         <div class="col-sm-6 col-xs-12 no-padding-left" >
           <company-value-change {issuance}="issuance" currency="μBTC" />
