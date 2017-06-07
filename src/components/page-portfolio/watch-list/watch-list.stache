@@ -15,7 +15,7 @@
         <div class="message-box no-border">
           <div class="message-box-status">{{i18n('watchlistPlaceholderTitle')}}</div>
           <p class="message-box-cause">{{i18n('watchlistPlaceholderDescription')}}</p>
-          <a class="btn btn-sm btn-primary" href="{{url}}">{{i18n('watchlistPlaceholderButton')}}</a>
+          <a class="btn btn-sm btn-primary" href="{{routeUrl page='issuances'}}">{{i18n('watchlistPlaceholderButton')}}</a>
         </div>
       </div>
     </div>
