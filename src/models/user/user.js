@@ -166,7 +166,7 @@ const User = DefineMap.extend('User', {
    * Generates keys for a new Portfolio.
    */
   generatePortfolioKeys (index) {
-    if (!_keys || !_keys.btc || !_keys.eqb){
+    if (!_keys || !_keys.btc || !_keys.eqb) {
       console.warn('No keys exist. Cannot generate portfolio keys');
       return;
     }
@@ -186,7 +186,7 @@ const User = DefineMap.extend('User', {
     try {
       res = cryptoUtils.decrypt(val, password + this.salt);
     } catch (err) {
-      console.error('Wallet: was not able to decrypt a string')
+      console.error('Wallet: was not able to decrypt a string');
     }
     return res;
   },
