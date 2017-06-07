@@ -8,26 +8,22 @@
     <h3 class="panel-title">{{i18n('watchList')}}</h3>
   </div>
 
+  {{^if rows.length}}
+  <div class="panel-body align-center">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="message-box no-border">
+          <div class="message-box-status">{{i18n('watchlistPlaceholderTitle')}}</div>
+          <p class="message-box-cause">{{i18n('watchlistPlaceholderDescription')}}</p>
+          <a class="btn btn-sm btn-primary" href="{{routeUrl page='issuances'}}">{{i18n('watchlistPlaceholderButton')}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{else}}
+
   <div class="panel-body">
     <div class="row">
-
-      {{^if rows.length}}
-
-        <div class="col-xs-10 col-xs-offset-1 text-center">
-
-          <h3>Add to your Watchlist</h3>
-
-          Add companies you want to watch on the issuance details.
-          <br>
-          <br>
-
-          <div>
-            <a href="{{url}}" class="btn btn-primary">Explore Issuances</a>
-          </div>
-        </div>
-
-      {{else}}
-
       <div class="col-xs-12 no-padding-right">
 
         <grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
@@ -68,19 +64,4 @@
       {{/if}}
     </div>
   </div>
-
-  <!-- TODO: Details on #232
-    <div class="panel-body align-center">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="message-box no-border">
-            <div class="message-box-status">Add to Your Watchlist</div>
-            <p class="message-box-cause">Add companies you want to watch on the issuance details.</p>
-            <a class="btn btn-sm btn-primary"href="{{routeUrl page='issuances'}}">Explore Issuances</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  -->
-
 </drag-panel>
