@@ -10,7 +10,7 @@ export default {
   createPasswordMsg: 'Create a password for your account.',
   changePasswordMsg: 'Create a new password for your account.',
 
-  // - alert messages:
+  // Alert messages:
   accountCreated: 'Account Created',
   passwordReset: 'Password Reset',
   // welcomeMsg: 'Welcome to Equibit! Your account was created successfully!',
@@ -91,5 +91,8 @@ export default {
   placeSellOffer: 'Place Sell Offer',
   placeBuyOrder: 'Place Buy Order',
   placeBuyOffer: 'Place Buy Offer',
-  totalPrice: 'Total Price'
+  totalPrice: 'Total Price',
+
+  // Transactions:
+  transactionsPageTitle: 'All Transactions'
 };

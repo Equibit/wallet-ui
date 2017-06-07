@@ -12,5 +12,6 @@
 @group components.issuances 6 Issuances
 @group components.portfolio 7 Portfolio
 @group components.buy-sell 8 Buy & Sell
+@group components.transactions 9 Transactions
 
 Document components here
