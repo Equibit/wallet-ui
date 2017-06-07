@@ -71,6 +71,11 @@ export default {
   securitiesSent: 'Securities sent',
   fundsSent: 'Funds sent',
 
+  // Watchlist Card:
+  watchlistPlaceholderTitle: 'Add to Your Watchlist',
+  watchlistPlaceholderDescription: 'Add companies you want to watch on the issuance details.',
+  watchlistPlaceholderButton: 'Explore Issuances',
+
   // Receive popup:
   copyAndShare: 'Copy and Share',
   receiveInfo: 'Use the a unique address to add funds or securities to your account.',
