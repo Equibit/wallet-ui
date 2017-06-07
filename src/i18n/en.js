@@ -26,11 +26,15 @@ export default {
   yes: 'Yes',
   no: 'No',
 
+  amount: 'Amount',
   bitcoin: 'Bitcoin',
   bonds: 'Bonds',
+  btc: 'BTC',
   buy: 'Buy',
   company: 'Company',
   companies: 'Companies',
+  date: 'Date',
+  eqb: 'EQB',
   equibit: 'Equibit',
   equity: 'Equity',
   fillKill: 'Fill or Kill',
@@ -39,7 +43,8 @@ export default {
   quantity: 'Quantity',
   status: 'Status',
   securities: 'Securities',
-  sell: 'sell',
+  sell: 'Sell',
+  type: 'Type',
 
   // - Research
   marketSummary: 'Market Summary',

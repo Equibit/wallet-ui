@@ -10,12 +10,12 @@
       <table class="table grid-header table-condensed">
         <thead>
           <tr>
-            <th class="column-date">Date</th>
-            <th class="column-type">Type</th>
-            <th class="column-company">Company</th>
-            <th class="column-issuance">Issuance</th>
-            <th class="column-quantity">Quantity</th>
-            <th class="column-amount">Amount (BTC)</th>
+            <th class="column-date">{{i18n('date')}}</th>
+            <th class="column-type">{{i18n('type')}}</th>
+            <th class="column-company">{{i18n('company')}}</th>
+            <th class="column-issuance">{{i18n('issuanceName')}}</th>
+            <th class="column-quantity">{{i18n('quantity')}}</th>
+            <th class="column-amount">{{i18n('amount')}} ({{i18n('btc')}})</th>
           </tr>
         </thead>
       </table>
