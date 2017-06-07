@@ -1,6 +1,7 @@
 <can-import from="~/components/page-issuances/company-value-change.component" />
 <can-import from="~/components/page-issuances/company-metadata/" />
 
+<div class="well">
 {{#if issuance}}
   <h2 class="issuance-title">{{issuance.companyName}}</h2>
   <div class="issuance-subtitle">{{issuance.issuanceName}}</div>
@@ -15,3 +16,4 @@
 {{else}}
   Select an issuance from the table.
 {{/if}}
+</div>

@@ -1,0 +1,50 @@
+<can-import from="~/components/page-transactions/transaction-status/" />
+<can-import from="~/utils/stache-helpers/" />
+
+<div class="well">
+  <h2 class="title">{{i18n('additionalDetails')}}</h2>
+
+  <div class="section">
+    <label>{{i18n('status')}}</label>
+    <transaction-status></transaction-status>
+  </div>
+
+  <div class="section">
+    <label>{{i18n('dateAndTime')}}</label>
+    <span class="transaction-timestamp">12/11/17 @ 02:61 pm</span>
+  </div>
+
+  <hr />
+
+  <div class="section">
+    <label>{{i18n('to')}}</label>
+    <p class="transaction-to break-word">1BxbH4WFyN1xKDUCMQbTuQrE61dJhBV5vs</p>
+  </div>
+
+  <div class="section">
+    <label>{{i18n('from')}}</label>
+    <span class="transaction-from">My Portfolio</span>
+  </div>
+
+  <hr />
+
+  <div class="section">
+    <div class="row transaction-description">
+      <label>Description</label>
+      <button class="btn btn-link btn-xs">{{i18n('edit')}}</link>
+    </div>
+
+    <p class="transaction-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet</p>
+  </div>
+
+  <hr />
+
+  <div class="section">
+    <label>{{i18n('transactionIds')}}</label>
+    <ul class="list-unstyled">
+      <li><a href="">TxID (EQB) <span class="icon icon-link-external"></span></a></li>
+      <li><a href="">TxID (EQB) <span class="icon icon-link-external"></span></a> </li>
+    </ul>
+  </div>
+
+</div>

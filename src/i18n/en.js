@@ -10,7 +10,7 @@ export default {
   createPasswordMsg: 'Create a password for your account.',
   changePasswordMsg: 'Create a new password for your account.',
 
-  // - alert messages:
+  // Alert messages:
   accountCreated: 'Account Created',
   passwordReset: 'Password Reset',
   // welcomeMsg: 'Welcome to Equibit! Your account was created successfully!',
@@ -19,27 +19,37 @@ export default {
 
   // Buttons:
   done: 'Done',
-  next: 'Next',
   cancel: 'Cancel',
+  edit: 'Edit',
+  next: 'Next',
 
   // Common:
   yes: 'Yes',
   no: 'No',
 
+  additionalDetails: 'Additional Details',
+  amount: 'Amount',
   bitcoin: 'Bitcoin',
   bonds: 'Bonds',
+  btc: 'BTC',
   buy: 'Buy',
   company: 'Company',
   companies: 'Companies',
+  date: 'Date',
+  dateAndTime: 'Date and Time',
+  eqb: 'EQB',
   equibit: 'Equibit',
   equity: 'Equity',
   fillKill: 'Fill or Kill',
+  from: 'From',
   issuanceName: 'Issuance Name',
   issuanceType: 'Issuance Type',
   quantity: 'Quantity',
   status: 'Status',
   securities: 'Securities',
-  sell: 'sell',
+  sell: 'Sell',
+  to: 'To',
+  type: 'Type',
 
   // - Research
   marketSummary: 'Market Summary',
@@ -96,5 +106,9 @@ export default {
   placeSellOffer: 'Place Sell Offer',
   placeBuyOrder: 'Place Buy Order',
   placeBuyOffer: 'Place Buy Offer',
-  totalPrice: 'Total Price'
+  totalPrice: 'Total Price',
+
+  // Transactions:
+  transactionsPageTitle: 'All Transactions',
+  transactionIds: 'Transaction IDs'
 };

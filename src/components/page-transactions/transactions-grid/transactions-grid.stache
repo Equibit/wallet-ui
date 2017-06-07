@@ -1,0 +1,123 @@
+<can-import from="~/components/common/grid/grid.less" />
+<can-import from="grid-component" />
+<can-import from="~/utils/stache-helpers/" />
+
+<grid-component>
+
+  <div class="grid-responsive">
+
+    <div class="grid-header-container">
+      <table class="table grid-header table-condensed">
+        <thead>
+          <tr>
+            <th class="column-date">{{i18n('date')}}</th>
+            <th class="column-type">{{i18n('type')}}</th>
+            <th class="column-company">{{i18n('company')}}</th>
+            <th class="column-issuance">{{i18n('issuanceName')}}</th>
+            <th class="column-quantity">{{i18n('quantity')}}</th>
+            <th class="column-amount">{{i18n('amount')}} ({{i18n('btc')}})</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <div class="grid-body-scroll">
+      <table class="table table-condensed grid-body">
+        <tbody>
+          <tr class="pending">
+            <td class="column-date"><span class="date-value">12/11/17</span></td>
+            <td class="column-type">Buy</td>
+            <td class="column-company"><a href="">Expedian plc</a></td>
+            <td class="column-issuance">Series 1</td>
+            <td class="column-quantity">1,595</td>
+            <td class="column-amount">- 2,178.85</td>
+          </tr>
+          <tr class="pending">
+            <td class="column-date">12/11/17</td>
+            <td class="column-type ">Transfer In</td>
+            <td class="column-company"><a href="">Expedian plc</a></td>
+            <td class="column-issuance">Series 1</td>
+            <td class="column-quantity">1,595</td>
+            <td class="column-amount">- 2,178.85</td>
+          </tr>
+          <tr class="">
+            <td class="column-date">12/11/17</td>
+            <td class="column-type">Buy</td>
+            <td class="column-company"><a href="">Expedian plc</a></td>
+            <td class="column-issuance">Series 1</td>
+            <td class="column-quantity">1,595</td>
+            <td class="column-amount">- 2,178.85</td>
+          </tr>
+          <tr class="">
+            <td class="column-date">12/11/17</td>
+            <td class="column-type">Transfer Out</td>
+            <td class="column-company"><a href="">Expedian plc</a></td>
+            <td class="column-issuance">Series 1</td>
+            <td class="column-quantity">1,595</td>
+            <td class="column-amount">- 2,178.85</td>
+          </tr>
+          <tr class="">
+            <td class="column-date">12/11/17</td>
+            <td class="column-type">Buy</td>
+            <td class="column-company"><a href="">Expedian plc</a></td>
+            <td class="column-issuance">Series 1</td>
+            <td class="column-quantity">1,595</td>
+            <td class="column-amount">- 2,178.85</td>
+          </tr>
+          <tr class="">
+            <td class="column-date">12/11/17</td>
+            <td class="column-type">Buy</td>
+            <td class="column-company"><a href="">Expedian plc</a></td>
+            <td class="column-issuance">Series 1</td>
+            <td class="column-quantity">1,595</td>
+            <td class="column-amount">- 2,178.85</td>
+          </tr>
+          <tr class="">
+            <td class="column-date">12/11/17</td>
+            <td class="column-type">Buy</td>
+            <td class="column-company"><a href="">Expedian plc</a></td>
+            <td class="column-issuance">Series 1</td>
+            <td class="column-quantity">1,595</td>
+            <td class="column-amount">- 2,178.85</td>
+          </tr>
+          <tr class="">
+            <td class="column-date">12/11/17</td>
+            <td class="column-type">Buy</td>
+            <td class="column-company"><a href="">Expedian plc</a></td>
+            <td class="column-issuance">Series 1</td>
+            <td class="column-quantity">1,595</td>
+            <td class="column-amount">- 2,178.85</td>
+          </tr>
+          <tr class="">
+            <td class="column-date">12/11/17</td>
+            <td class="column-type">Buy</td>
+            <td class="column-company"><a href="">Expedian plc</a></td>
+            <td class="column-issuance">Series 1</td>
+            <td class="column-quantity">1,595</td>
+            <td class="column-amount">- 2,178.85</td>
+          </tr>
+          <tr class="">
+            <td class="column-date">12/11/17</td>
+            <td class="column-type">Buy</td>
+            <td class="column-company"><a href="">Expedian plc</a></td>
+            <td class="column-issuance">Series 1</td>
+            <td class="column-quantity">1,595</td>
+            <td class="column-amount">- 2,178.85</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-footer">
+    <div class="btn-group pagination" role="group" aria-label="pagination">
+      <button type="button" class="btn btn-default btn-xs disabled">&laquo;</button>
+      <button type="button" class="btn btn-default btn-xs active" >1</button>
+      <button type="button" class="btn btn-default btn-xs" >2</button>
+      <button type="button" class="btn btn-default btn-xs" >3</button>
+      <button type="button" class="btn btn-default btn-xs" >&raquo;</button>
+    </div>
+    <div class="grid-results">Showing 18 of 50 Results</div>
+  </div>
+
+</grid-component>

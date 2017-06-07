@@ -1,0 +1,40 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+transactions-grid {
+	display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+
+  .column-date {
+    width: 120px;
+  }
+  .column-type {
+    width: 150px;
+  }
+  .column-issuance {
+    width: 150px;
+  }
+  .column-quantity {
+    width: 50px;
+    text-align: right;
+  }
+  .column-amount {
+    width: 150px;
+    text-align: right;
+  }
+  tr {
+    &.pending {
+      background-color: fade(@gray-lightest, 50%);
+      font-style: italic;
+      color: @gray;
+      .date-value {
+        &:after {
+          font-family: 'edc-icons' !important;
+          content: "\e94e";
+          font-style: normal;
+          padding-left: @padding-small-horizontal;
+        }
+      }
+    }
+  }
+}

@@ -2,9 +2,15 @@
 @import '../../styles/custom/_variables.less';
 @import '../../styles/custom/_helpers.less';
 
-page-issuances {
+page-transactions {
 	display: block;
   .page-layout;
+
+  @media (max-width: @screen-md-max) {
+    transactions-details {
+      margin-top: @padding-xlarge-vertical;
+    }
+  }
 
   @media (max-width: @screen-md) {
     grid-component {
@@ -25,12 +31,4 @@ page-issuances {
       }
     }
   }
-
-  @media (min-width: @screen-lg) {
-    .visible-lg {
-      display: flex !important;
-    }
-  }
-
 }
-
