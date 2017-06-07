@@ -20,36 +20,31 @@ import view from './my-portfolio.stache';
 import hub from '~/utils/event-hub';
 import { translate } from '~/i18n/';
 import Portfolio from '~/models/portfolio';
+import Session from '~/models/session';
+
+let portfolio;
 
 export const ViewModel = DefineMap.extend({
-  portfolio: {
-    value: null
-    // value: {
-    //   balance: 22.616393,
-    //   totalCash: 12.616393,
-    //   totalSec: 10.00045,
-    //   unrealizedPL: 0.109,
-    //   unrealizedPLPercent: 1.2
-    // }
-  },
+  portfolio: Portfolio,
   isSending: 'boolean',
   isSendFundsPopup: 'boolean',
   isReceiveFundsPopup: 'boolean',
   receiveFunds () {
     this.isReceiveFundsPopup = false;
     this.isReceiveFundsPopup = true;
+    if (!this.portfolio) {
+      portfolio = new Portfolio({name: 'My Portfolio'});
+      portfolio.save().then(portfolio => {
+        const portfolioIndex = portfolio.index;
+        const keys = Session.current.user.generatePortfolioKeys(portfolioIndex);
+        portfolio.keys = keys;
+      });
+    }
   },
   receiveDone () {
-    this.isReceiveFundsPopup = false;
-    // TODO: portfolio has to be created and keys generated to show the address in the receive popup.
     if (!this.portfolio) {
-      this.portfolio = new Portfolio();
+      this.portfolio = portfolio;
     }
-    // this.portfolio.save().then(portfolio => {
-    //   const portfolioIndex = portfolio.index;
-    //   const keys = this.user.generatePortfolioKeys(portfolioIndex);
-    //   portfolio.keys = keys;
-    // });
   },
   send (args) {
     const formData = args[1];
@@ -58,11 +53,7 @@ export const ViewModel = DefineMap.extend({
     // Show the spinner:
     this.isSending = true;
 
-    // Close the popup:
-    this.isSendFundsPopup = false;
-
     // TODO: send request here.
-
     setTimeout(() => {
       this.isSending = false;
 

@@ -75,11 +75,14 @@ export const ViewModel = DefineMap.extend({
     new Session({ user }).save()
       .then((session) => {
         // To make sure that for our singleton we use an existing instance from instanceStore:
-        this.session = new Session(session.serialize());
+        const sessionData = session.serialize();
+        delete sessionData.user.password;
+        this.session = new Session(sessionData);
+        // TODO: consider moving this all functionality to a User method to avoid `updatePasswordCache` and to simplify this view model.
+        this.session.user.updatePasswordCache(password);
         const usingTempPassword = session.usingTempPassword;
         if (!usingTempPassword) {
-          // TODO: enable back.
-          // this.session.user.loadWalletKeys();
+          this.session.user.loadWalletKeys();
         }
         route.data.page = usingTempPassword ? 'change-password' : 'portfolio';
       })

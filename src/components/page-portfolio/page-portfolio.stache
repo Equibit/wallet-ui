@@ -9,6 +9,6 @@
   </div>
 
   <div class="col-md-8 col-sm-6 col-xs-12">
-    <my-portfolio />
+    <my-portfolio {portfolio}="portfolios.0" />
   </div>
 </div>

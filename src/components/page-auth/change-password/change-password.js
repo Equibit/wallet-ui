@@ -64,10 +64,7 @@ export const ViewModel = DefineMap.extend({
     this.user.changePassword(password)
       .then(() => {
         if (isNewUser) {
-          // TODO: enable back.
-          // this.user.generateWalletKeys();
-        } else {
-          // this.user.loadWalletKeys();
+          this.user.generateWalletKeys();
         }
         this.routeWithAlert(isNewUser);
       })

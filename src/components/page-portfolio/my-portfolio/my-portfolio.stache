@@ -46,7 +46,7 @@
           </div>
           <div class="col-xs-12 summary-section no-padding-right no-padding-left">
             <label>{{i18n('totalSecurities')}}</label>
-            <span>{{portfolio.totalSec}} <small>BTC</small></span>
+            <span>{{portfolio.totalSecurities}} <small>BTC</small></span>
           </div>
           <div class="col-xs-12 summary-section no-padding-right no-padding-left">
             <label>{{i18n('unrealizedPL')}}</label>

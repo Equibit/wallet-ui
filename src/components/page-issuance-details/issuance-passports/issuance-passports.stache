@@ -9,12 +9,12 @@
 <div class="well">
     <ul class="list-unstyled passport-list">
     {{#each visiblePassports}}
-      <li ><a href="#">{{name}} <span class="icon icon-link-external"></span></a></li>
+      <li><a href="#">{{name}} <span class="icon icon-link-external"></span></a></li>
     {{/each}}
 
     {{#if is-gt(passports.length, 8)}}
       <li><button ($click)="showModal()" class="btn btn-default btn-xs">View All</button></li>
-    {{/is-gt}}
+    {{/if}}
     </ul>
 </div>
 
