@@ -14,10 +14,8 @@
           <div class="col-lg-9 col-xs-12">
             <transactions-grid />
           </div>
-          <div class="col-lg-3 col-xs-12 visible-lg">
-            <div class="well">
-              <transactions-details />
-            </div>
+          <div class="col-lg-3 col-xs-12">
+            <transactions-details />
           </div>
         </div>
       </div>
