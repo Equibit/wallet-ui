@@ -1,3 +1,35 @@
+@import '../../styles/bootstrap-custom/_variables.less';
+@import '../../styles/custom/_variables.less';
+@import '../../styles/custom/_helpers.less';
+
 page-transactions {
 	display: block;
+
+.page-layout;
+
+  grid-component {
+    height: 80vh;
+    .grid-responsive {
+      height: 72vh;
+    }
+  }
+  @media (max-width: @screen-md) {
+    grid-component {
+      .grid-responsive {
+        .grid-header-container,
+        .grid-body-scroll {
+          width: 891px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: @screen-xs) {
+    grid-component {
+      height: initial;
+      .grid-responsive {
+        height: initial;
+      }
+    }
+  }
 }
