@@ -2,10 +2,13 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './page-portfolio.less';
 import view from './page-portfolio.stache';
+import Portfolio from '~/models/portfolio';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the page-portfolio component'
+  portfolios: {
+    get (val, resolve) {
+      return Portfolio.getList({}).then(resolve);
+    }
   }
 });
 

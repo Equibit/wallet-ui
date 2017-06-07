@@ -1,7 +1,7 @@
 import fixture from 'can-fixture';
 
 fixture('GET /portfolios', function () {
-  return {
+  return [{
     _id: 1,
     balance: 45.2392,
     totalCash: 14.616393,
@@ -10,5 +10,5 @@ fixture('GET /portfolios', function () {
     unrealizedPLPercent: 2.3,
     companiesMnt: 16,
     tradesMnt: 204
-  };
+  }];
 });

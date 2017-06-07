@@ -4,7 +4,7 @@
 
 <bootstrap-modal-content class="send-funds">
   <div class="modal-header">
-    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+    <button ($click)="done(close)" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
     <h3 class="modal-title">
       <span class="icon icon-download"></span> {{i18n('receive')}}
     </h3>
@@ -34,6 +34,6 @@
 
   </div>
   <div class="modal-footer">
-    <button ($click)="close()" type="button" class="btn btn-primary">{{i18n('done')}}</button>
+    <button ($click)="done(close)" type="button" class="btn btn-primary">{{i18n('done')}}</button>
   </div>
 </bootstrap-modal-content>
