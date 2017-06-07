@@ -22,7 +22,7 @@
 
       <dt>{{i18n('fillKill')}}</dt>
       <dd class="input-value">
-        <span class="icon icon-checkmark-inversed"></span>
+        <span class="icon icon-done"></span>
         <strong>{{i18n('yes')}}.</strong>
         <small>{{i18n('noPartialFills')}}</small>
       </dd>

@@ -1,0 +1,133 @@
+<div class="list-group list-group-simple notifications-list">
+  <a href="#" class="list-group-item">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-sell-open"></span>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Sell Offer Received</h4>
+        <div class="media-description">for Imperial Brands, Series 1</div>
+        <div class="media-cta btn-link">Quantity 385</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="list-group-item">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-buy-progress"></span>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Guarantee Received</h4>
+        <div class="media-description">for Imperial Brands, Series 1</div>
+        <div class="media-cta btn-link">Quantity 385</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="list-group-item read">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-sell-open"></span>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Sell Offer Received</h4>
+        <div class="media-description">for Imperial Brands, Series 1</div>
+        <div class="media-cta btn-link">Quantity 385</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="list-group-item read">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-buy-progress"></span>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Guarante Received</h4>
+        <div class="media-description">for Imperial Brands, Series 1</div>
+        <div class="media-cta btn-link">Quantity 385</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="list-group-item read">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-cancelled"></span>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Buy Offer Cancelled</h4>
+        <div class="media-description">for Imperial Brands, Series 1</div>
+        <div class="media-cta btn-link">Quantity 385</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="list-group-item">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-cancelled"></span>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Buy Offer Cancelled</h4>
+        <div class="media-description">for Imperial Brands, Series 1</div>
+        <div class="media-cta btn-link">Quantity 385</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="list-group-item read">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-rejected"></span>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Buy Offer Rejected</h4>
+        <div class="media-description">for Imperial Brands, Series 1</div>
+        <div class="media-cta btn-link">Quantity 385</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="list-group-item">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-rejected"></span>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Buy Offer Rejected</h4>
+        <div class="media-description">for Imperial Brands, Series 1</div>
+        <div class="media-cta btn-link">Quantity 385</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="list-group-item read">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-done"></span>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Deal Closed</h4>
+        <div class="media-description">for Imperial Brands, Series 1</div>
+        <div class="media-cta btn-link">Quantity 385</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="list-group-item">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-done"></span>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Deal Closed</h4>
+        <div class="media-description">for Imperial Brands, Series 1</div>
+        <div class="media-cta btn-link">Quantity 385</div>
+      </div>
+    </div>
+  </a>
+
+
+</div>
