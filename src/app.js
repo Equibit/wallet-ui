@@ -36,7 +36,8 @@ var pages = {
   'change-password': 'private',
   dashboard: 'private',
   settings: 'private',
-  portfolio: 'private'
+  portfolio: 'private',
+  transactions: 'public'
 };
 
 const AppViewModel = DefineMap.extend({
