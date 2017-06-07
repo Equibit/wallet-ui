@@ -1,3 +1,5 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
 transactions-details {
 	display: flex;
   flex-direction: column;
@@ -5,5 +7,19 @@ transactions-details {
   .well {
     flex-grow: 2;
     overflow-y: auto;
+  }
+  .title {
+    font-size: @font-size-h3;
+    margin-top: 0;
+  }
+  label {
+    display: block;
+    margin-bottom: 0;
+  }
+  .transaction-description {
+    align-items: center;
+    label {
+      flex-grow: 2;
+    }
   }
 }

@@ -19,13 +19,15 @@ export default {
 
   // Buttons:
   done: 'Done',
-  next: 'Next',
   cancel: 'Cancel',
+  edit: 'Edit',
+  next: 'Next',
 
   // Common:
   yes: 'Yes',
   no: 'No',
 
+  additionalDetails: 'Additional Details',
   amount: 'Amount',
   bitcoin: 'Bitcoin',
   bonds: 'Bonds',
@@ -34,16 +36,19 @@ export default {
   company: 'Company',
   companies: 'Companies',
   date: 'Date',
+  dateAndTime: 'Date and Time',
   eqb: 'EQB',
   equibit: 'Equibit',
   equity: 'Equity',
   fillKill: 'Fill or Kill',
+  from: 'From',
   issuanceName: 'Issuance Name',
   issuanceType: 'Issuance Type',
   quantity: 'Quantity',
   status: 'Status',
   securities: 'Securities',
   sell: 'Sell',
+  to: 'To',
   type: 'Type',
 
   // - Research
@@ -99,5 +104,6 @@ export default {
   totalPrice: 'Total Price',
 
   // Transactions:
-  transactionsPageTitle: 'All Transactions'
+  transactionsPageTitle: 'All Transactions',
+  transactionIds: 'Transaction IDs'
 };

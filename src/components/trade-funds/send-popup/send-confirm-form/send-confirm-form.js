@@ -1,5 +1,5 @@
 /**
- * @module {can.Component} wallet-ui/components/trade-funds/send-popup/send-confirm-form send-confirm-form
+ * @module {can.Component} components/trade-funds/send-popup/send-confirm-form send-confirm-form
  * @parent components.portfolio
  *
  * A short description of the send-confirm-form component
