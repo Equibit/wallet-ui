@@ -18,7 +18,7 @@ import algebra from '~/models/algebra';
 
 const Portfolio = DefineMap.extend('Portfolio', {
   '*': {
-    serialize: false,
+    serialize: false
   },
 
   /**
@@ -49,7 +49,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
   createdAt: 'date',
   updatedAt: 'date',
   userId: 'string',
-  keys: {type: '*',}
+  keys: {type: '*'}
 });
 
 Portfolio.List = DefineList.extend('PortfolioList', {
