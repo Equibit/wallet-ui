@@ -12,7 +12,10 @@ notifications-list {
       margin-top: @padding-small-vertical;
     }
     &.read {
-      background-color: @gray-lightest;
+      background-color: fade(@gray-lightest, 80%);
+      .media-heading {
+        color: @gray;
+      }
       .icon {
         background-color: transparent;
         &.icon-buy-open,

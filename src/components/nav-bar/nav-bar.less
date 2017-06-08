@@ -80,7 +80,7 @@ nav-bar {
       }
     }
 
-    // Handles showing and hiddingt the links in the main navigation
+    // Handles showing and hidding the links in the main navigation
     .main-nav-container {
       @media (min-width: @screen-xxs-max) {
         &.visible-xxs {
@@ -161,29 +161,118 @@ nav-bar {
             margin-bottom: @padding-large-vertical;
           }
         }
-        @media (max-width: @screen-lg) {
-          .open .dropdown-menu {
+        .open .dropdown-menu {
+          @media (max-width: @screen-lg) {
             position: absolute;
             float: left;
-            margin: 2px 0 0;
-            background-color: @dropdown-bg;
             border: 1px solid @dropdown-border;
             box-shadow: 0 6px 12px rgba(0,0,0,.175);
             left: auto;
-            right: 0;
-            a {
+            background-color: @white;
+            &.default-menu {
+              margin: 2px 0 0;
+              right: 0;
+              background-color: @dropdown-bg;
+              a {
               color: @link-color;
-              &.btn-selected {
-                color: @white;
+                &.btn-selected {
+                  color: @white;
+                }
+              }
+              > li > a {
+                padding: 3px 20px;
+              }
+              .divider {
+                background-color: @gray-lighter;
               }
             }
-            > li > a {
-              padding: 3px 20px;
-            }
-            .divider {
-              background-color: @gray-lighter;
+          }
+          @media (max-width: @screen-xs){
+            &.notifications-popover {
+              position: fixed;
+              border: 0;
+              border-radius: 0;
             }
           }
+        }
+      }
+    }
+
+    // Styles for the Notifications Popover
+    .notifications-popover {
+      &.popover {
+        max-width: 350px;
+        width: 350px;
+        border-radius: @border-radius-base;
+        &.bottom {
+          margin-top: 60px;
+          right: -50px;
+          left: initial;
+          > .arrow {
+            border-bottom-color: @gray-dark;
+            left: inherit;
+            right: 66px;
+            &:after {
+              border-bottom-color: @gray-dark;
+            }
+          }
+        }
+      }
+      .popover-title {
+        background-color: @gray-dark;
+        color: @white;
+        text-transform: uppercase;
+        font-size: @font-size-small;
+        border-color: @gray-dark;
+        margin: -1px;
+        border-radius: @border-radius-small @border-radius-small 0 0;
+        .icon-cross {
+          font-size: @font-size-large;
+        }
+      }
+      .popover-body {
+        max-height: 84vh;
+        overflow-y: auto;
+      }
+      .dropdown-menu {
+        background-color: @white;
+      }
+      .list-group.list-group-simple {
+        margin: 0;
+      }
+      .list-group-item {
+        border-width: 0 0 1px 0;
+        border-color: @gray-lighter;
+        margin-bottom: 0;
+        .btn-link {
+          color: @link-color;
+          &:hover {
+            color: @link-hover-color;
+          }
+        }
+      }
+      @media (max-width: @screen-xs) {
+        .arrow {
+          display: none;
+        }
+        &.popover {
+          max-width: 100vw;
+          width: 100vw;
+          &.bottom {
+            right: 0;
+            margin-top: 0;
+          }
+        }
+        .popover-title {
+          border-radius: 0;
+        }
+        .popover-body {
+          max-height: 100vh;
+        }
+      }
+      @media (min-width: @screen-xs) {
+        .icon-cross {
+          display: none;
         }
       }
     }
