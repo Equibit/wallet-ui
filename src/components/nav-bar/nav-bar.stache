@@ -2,6 +2,7 @@
 <can-import from="~/components/nav-bar/main-nav.component" />
 <can-import from="~/components/nav-bar/search-form.component" />
 <can-import from="~/components/notifications/notifications-list/" />
+<can-import from="~/components/notifications/notification-counter/notification-counter.component" />
 <can-import from="~/styles/custom/animate.less" />
 
 <nav class="navbar navbar-inverse">
@@ -19,6 +20,8 @@
               role="button"
               aria-haspopup="true"
               aria-expanded="false">
+            <span class="sr-only">Notifications Menu</span>
+            <notification-counter />
           </a>
           <div class="dropdown-menu popover bottom notifications-popover animated fadeIn">
             <span class="arrow"></span>

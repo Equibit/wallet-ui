@@ -1,0 +1,36 @@
+/**
+ * @module {can.Component} components/notifications/notification-counter notification-counter
+ * @parent components.notifications
+ *
+ * Shows a counter with the number of unopened notifications.
+ *
+ *
+ * ## Demo
+ *
+ * @demo src/components/notifications/notification-counter/notification-counter.html
+ */
+
+<can-component tag="notification-counter">
+  <style type="less">
+    @import '../../../styles/bootstrap-custom/_variables.less';
+      display: inline-flex;
+      font-family: @font-family-bold;
+      background: @brand-danger;
+      border-radius: @border-radius-base;
+      color: @white;
+      font-size: @font-size-xsmall;
+      min-width: 14px;
+      max-height: 14px;
+      align-self: auto;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 7px;
+      left: 30px;
+      border: 1px solid @gray-base;
+      padding: 2px;
+  </style>
+  <view>
+      4
+  </view>
+</can-component>
