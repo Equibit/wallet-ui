@@ -1,1 +1,19 @@
-<p>{{message}}</p>
+<can-import from="~/components/notifications/notifications-list/" />
+<can-import from="~/utils/stache-helpers/" />
+
+<li class="dropdown">
+  <a href="#"
+      class="dropdown-toggle icon icon-bell"
+      data-toggle="dropdown"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false">
+  </a>
+  <div class="dropdown-menu popover bottom">
+    <span class="arrow"></span>
+    <div class="popover-title">Notifications</div>
+    <div class="popover-body">
+      <notifications-list></notifications-list>
+    </div>
+  </div>
+</li>
