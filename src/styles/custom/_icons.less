@@ -45,27 +45,54 @@
 * @styles custom-icons Custom Icons
 * @parent _icons.less 0
 *
-* @iframe src/styles/demos/icons/icons-edcicons-custom.html 100
+* @iframe src/styles/demos/icons/icons-edcicons-custom.html 200
 **/
 
 .icon-sell {
-  .icon-variant-circle-fill ("\ea3a"; @text-color; @white);
+  .icon-variant-circle ("\ea3a"; @gray-dark; @gray-dark; @white;);
   .rotate-90;
 }
 
-.icon-sell-inversed {
-  .icon-variant-circle-empty ("\ea3a");
-  .rotate-90;
+.icon-sell-open {
+  .icon-sell;
+  background-color: @brand-info;
+  border-color: @brand-info;
+}
+
+.icon-sell-progress {
+  .icon-sell;
+  background-color: @brand-progress;
+  border-color: @brand-progress;
 }
 
 .icon-buy {
-  .icon-variant-circle-fill ("\ea3a"; @text-color; @white);
+  .icon-variant-circle ("\ea3a"; @gray-dark; @gray-dark; @white;);
   .rotate-270;
 }
 
-.icon-buy-inversed {
-  .icon-variant-circle-empty ("\ea3a");
-  .rotate-270;
+.icon-buy-open {
+  .icon-buy;
+  background-color: @brand-info;
+  border-color: @brand-info;
+}
+
+.icon-buy-progress {
+  .icon-buy;
+  background-color: @brand-progress;
+  border-color: @brand-progress;
+}
+
+.icon-cancelled {
+  .icon-variant-circle ("\e90a"; @brand-danger; @brand-danger; @white;);
+}
+
+.icon-rejected {
+  .icon-variant-circle ("\e909"; @gray-light; @gray-light; @white;);
+  .rotate-180;
+}
+
+.icon-done {
+  .icon-variant-circle ("\ea10"; @brand-success; @brand-success; @white;);
 }
 
 
@@ -372,11 +399,6 @@
 .icon-checkmark:before {
   content: "\ea10";
 }
-
-.icon-checkmark-inversed {
-  .icon-variant-circle-fill ("\ea10"; @brand-success; @white);
-}
-
 .icon-loop:before {
   content: "\ea2e";
 }

@@ -1,0 +1,38 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+notifications-list {
+	display: block;
+
+  .list-group-item {
+    .media-heading {
+      color: @gray-dark;
+      text-transform: uppercase;
+    }
+    .media-cta {
+      margin-top: @padding-small-vertical;
+    }
+    &.read {
+      background-color: fade(@gray-lightest, 80%);
+      .icon {
+        background-color: transparent;
+        &.icon-buy-open,
+        &.icon-sell-open {
+          color: @brand-info;
+        }
+        &.icon-buy-progress,
+        &.icon-buy-progress {
+          color: @brand-progress;
+        }
+        &.icon-cancelled {
+          color: @brand-danger;
+        }
+        &.icon-rejected {
+          color: @gray-light;
+        }
+        &.icon-done {
+          color: @brand-success;
+        }
+      }
+    }
+  }
+}

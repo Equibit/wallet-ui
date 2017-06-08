@@ -13,24 +13,19 @@
 <can-component tag="fillkill-indicator">
   <style type="less">
     @import '../../../styles/bootstrap-custom/_variables.less';
+    @import (reference) '../../../styles/custom/_mixins.less';
+
 
     font-size: @font-size-small;
     color: @brand-success;
     font-family: @font-family-bold;
 
-    .icon {
-      display: inline-block;
-      background-color: @brand-success;
-      border-radius: 50%;
-      padding: 3px;
-      font-size: 8px;
-      color: @white;
-      width: 14px;
-      margin-right: 2px;
+    .icon-done {
+      .icon-circle(8px);
     }
   </style>
   <view>
-      <span class="icon icon-checkmark"></span>
+      <span class="icon icon-done"></span>
       Fill or Kill Order
   </view>
 </can-component>

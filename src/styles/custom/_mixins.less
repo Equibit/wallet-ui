@@ -15,7 +15,7 @@
 * Example:
 * ```css
 * .icon-my-icon {
-*   .icon-variant-circle-fill ("\ea3a"; red; @white);
+*   .icon-variant-circle-fill ("\ea3a"; red; transparent; red;);
 *   .icon-circle (8px);
 * }
 * ```
@@ -24,26 +24,21 @@
 
 
 .icon-circle (@font-size) {
-  padding: calc(@font-size / 2);
+  width: calc(@font-size * 2);
+  height: calc(@font-size * 2);
   border-radius: 50%;
   font-size: @font-size;
 }
 
-.icon-variant-circle-fill (@content; @background; @color) {
+.icon-variant-circle (@content; @background; @border-color; @color;){
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
   background-color: @background;
   color: @color;
-  display: inline-block;
-  .icon-circle(@font-size-small);
-  &:before {
-    content: @content;
-  }
-}
-
-.icon-variant-circle-empty (@content) {
-  border-style: solid;
-  border-width: 2px;
-  display: inline-block;
-  .icon-circle(@font-size-small);
+  border: 1px solid @border-color;
+  .icon-circle(@font-size-base);
   &:before {
     content: @content;
   }
