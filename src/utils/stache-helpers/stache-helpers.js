@@ -4,3 +4,4 @@ import './i18n';
 import './format';
 import './sort-arrow';
 import './yes-no';
+import './bootstrap-toggle';

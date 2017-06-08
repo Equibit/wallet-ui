@@ -1321,7 +1321,7 @@ can-view-autorender@^3.0.3, can-view-autorender@^3.0.4:
     can-util "^3.2.2"
     can-view-model "^3.0.0"
 
-can-view-callbacks@^3.0.0, can-view-callbacks@^3.0.2, can-view-callbacks@^3.0.3:
+can-view-callbacks@^3.0.0, can-view-callbacks@^3.0.2, can-view-callbacks@^3.0.3, can-view-callbacks@^3.0.6:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/can-view-callbacks/-/can-view-callbacks-3.0.6.tgz#3110211d60e5c8aba840467d34b3dbb6f060c7d9"
   dependencies:

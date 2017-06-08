@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<style>
+  body {
+    padding: 20px;
+    background-color: white !important;
+  }
+</style>
+<div id="demo"></div>
+
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+
+<script type="text/stache" can-autorender page="research" id="demo-html">
+  <can-import from="~/styles/styles.less" />
+  <can-import from="bootstrap/dist/js/bootstrap" />
+  <can-import from="~/utils/stache-helpers/" />
+
+  <h3>Tooltips</h3>
+
+  <div class="row">
+    <div class="col-xs-3">
+      <button type="button"
+        class="btn btn-primary"
+        data-toggle="tooltip"
+        title="Tooltip content"
+        data-placement="top" >
+        Tooltip on the top.
+      </button>
+    </div>
+
+    <div class="col-xs-3">
+      <button type="button"
+        class="btn btn-primary"
+        data-toggle="tooltip"
+        title="Tooltip content"
+        data-placement="right" >
+        Tooltip on the right.
+      </button>
+    </div>
+
+    <div class="col-xs-3">
+      <button type="button"
+        class="btn btn-primary"
+        data-toggle="tooltip"
+        title="Tooltip content"
+        data-placement="bottom" >
+        Tooltip on the bottom.
+      </button>
+    </div>
+
+    <div class="col-xs-3">
+      <button type="button"
+        class="btn btn-primary"
+        data-toggle="tooltip"
+        title="Tooltip content"
+        data-placement="left" >
+        Tooltip on the left.
+      </button>
+    </div>
+
+  </div>
+
+  <hr />
+
+  <h3>Popovers</h3>
+  <div class="row">
+    <div class="col-xs-3">
+      <button type="button"
+        class="btn btn-default"
+        data-toggle="popover"
+        title="Popover title"
+        data-content="And here's some amazing content. It's very engaging. Right?"
+        data-placement="top">
+        Popover on the top.
+      </button>
+    </div>
+
+    <div class="col-xs-3">
+      <button type="button"
+        class="btn btn-default"
+        data-toggle="popover"
+        title="Popover title"
+        data-content="And here's some amazing content. It's very engaging. Right?"
+        data-placement="right">
+        Popover on the right.
+      </button>
+    </div>
+
+    <div class="col-xs-3">
+      <button type="button"
+        class="btn btn-default"
+        data-toggle="popover"
+        title="Popover title"
+        data-content="And here's some amazing content. It's very engaging. Right?"
+        data-placement="bottom">
+        Popover on the bottom.
+      </button>
+    </div>
+
+    <div class="col-xs-3">
+      <button type="button"
+        class="btn btn-default"
+        data-toggle="popover"
+        title="Popover title"
+        data-content="And here's some amazing content. It's very engaging. Right?"
+        data-placement="left">
+        Popover on the left.
+      </button>
+    </div>
+</script>
+
+<script src="../../../../node_modules/steal/steal.js"
+        main="can-view-autorender">
+</script>

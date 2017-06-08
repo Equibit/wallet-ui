@@ -1,6 +1,9 @@
 <can-import from="~/components/nav-bar/login-buttons.component" />
 <can-import from="~/components/nav-bar/main-nav.component" />
 <can-import from="~/components/nav-bar/search-form.component" />
+<can-import from="~/components/notifications/notifications-list/" />
+<can-import from="~/components/notifications/notification-counter/notification-counter.component" />
+<can-import from="~/styles/custom/animate.less" />
 
 <nav class="navbar navbar-inverse">
 
@@ -11,15 +14,33 @@
       <ul class="nav navbar-nav add-nav navbar-right">
         {{#if isLoggedIn}}
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle icon icon-bell" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <a href="#"
+              class="dropdown-toggle icon icon-bell"
+              data-toggle="dropdown"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false">
+            <span class="sr-only">Notifications Menu</span>
+            <notification-counter />
           </a>
+          <div class="dropdown-menu popover bottom notifications-popover animated fadeIn">
+            <span class="arrow"></span>
+            <div class="popover-title">
+              Notifications
+              <span class="icon icon-cross pull-right"></span>
+            </div>
+
+            <div class="popover-body">
+              <notifications-list></notifications-list>
+            </div>
+          </div>
         </li>
         {{/if}}
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle icon icon-cog" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
           </a>
-          <ul class="dropdown-menu settings-nav">
+          <ul class="dropdown-menu settings-nav default-menu animated fadeIn">
             <label>Bitcoin Display Unit</label>
             <div class="btn-group">
               <a href="#" class="btn btn-default">Micro</a>
@@ -33,7 +54,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle icon icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
           </a>
-          <ul class="dropdown-menu user-nav">
+          <ul class="dropdown-menu user-nav default-menu animated fadeIn">
             <li><a href="{{routeUrl page='portfolio'}}">My Portfolio</a></li>
             <li><a href="#">My Orders</a></li>
             <li><a href="#">My Offers</a></li>
