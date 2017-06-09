@@ -12,6 +12,7 @@ import DefineList from 'can-define/list/list';
 import feathersClient from '~/models/feathers-client';
 import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
+import Session from '~/models/session';
 
 // TODO: FIXTURES ON!
 // import '~/models/fixtures/portfolio';
@@ -49,7 +50,23 @@ const Portfolio = DefineMap.extend('Portfolio', {
   createdAt: 'date',
   updatedAt: 'date',
   userId: 'string',
-  keys: {type: '*'}
+  keys: {
+    get () {
+      if (Session.current && Session.current.user && typeof this.index !== 'undefined') {
+        return Session.current.user.generatePortfolioKeys(this.index);
+      }
+    }
+  },
+  // "m /44' /0' /portfolio-index' /0 /index"
+  nextAddress: {
+    get () {
+      // TODO: check this.addresses and return the last unused address.
+      return {
+        btc: this.keys.btc.derive(0).derive(0).getAddress(),
+        eqb: this.keys.eqb.derive(0).derive(0).getAddress()
+      }
+    }
+  }
 });
 
 Portfolio.List = DefineList.extend('PortfolioList', {

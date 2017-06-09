@@ -95,5 +95,5 @@
 {{/if}}
 
 {{#if isReceiveFundsPopup}}
-  <receive-popup (done)="receiveDone()"/>
+  <receive-popup {address}="portfolio.nextAddress" (done)="receiveDone()"/>
 {{/if}}

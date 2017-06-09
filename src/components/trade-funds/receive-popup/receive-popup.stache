@@ -15,13 +15,24 @@
     <div class="list-group">
       <div class="list-group-item">
         <div class="form-group">
-          <label for="">{{i18n('copyAndShare')}}</label>
+
+          <label for="">Securities (EQB)</label>
           <div class="input-group">
-
-            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address">
-
+            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address.eqb">
             <span class="input-group-btn">
-              <button class="btn btn-default" type="button" ($click)="copy()">
+              <button class="btn btn-default" type="button" ($click)="copy('eqb')">
+                <span class="icon icon-copy"></span>
+              </button>
+            </span>
+          </div>
+
+          <br>
+
+          <label for="">Funds (BTC)</label>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address.btc">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" ($click)="copy('btc')">
                 <span class="icon icon-copy"></span>
               </button>
             </span>
