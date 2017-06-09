@@ -1,6 +1,8 @@
 <can-import from="~/components/trade-funds/currency-converter/" />
 <can-import from="can-search-select" />
 <can-import from="~/components/common/validation-message.component" />
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="bootstrap/dist/js/bootstrap" />
 
 <ul class="list-group">
   {{!
@@ -121,7 +123,13 @@
   {{#if formData.type}}
     <li class="list-group-item">
       <div class="form-group">
-        <label for="">Description</label>
+        <label for="">Description
+          <span class="icon icon-question"
+            data-toggle="popover"
+            data-content="{{i18n('helpSendDescription')}}"
+            data-placement="right">
+          </span>
+        </label>
         <textarea class="form-control" {($value)}="formData.description" />
         <!--OR <button class="btn btn-default">Scan</button>-->
       </div>

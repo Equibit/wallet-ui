@@ -1,4 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="bootstrap/dist/js/bootstrap" />
+
 
 <ul class="list-group">
   <li class="list-group-item">
@@ -45,7 +47,21 @@
 
     <div class="row text-muted">
       <div class="col-xs-12 col-sm-5 display-row no-padding-left">
-        <span>Transaction Fee</span>
+        <span>Transaction Fee
+          {{#is formData.fundsType 'EQB'}}
+            <span class="icon icon-question"
+              data-toggle="popover"
+              data-content="{{i18n('helpTransactionFeeEquibit')}}"
+              data-placement="right">
+            </span>
+          {{else}}
+            <span class="icon icon-question"
+              data-toggle="popover"
+              data-content="{{i18n('helpTransactionFeeBitcoin')}}"
+              data-placement="right">
+            </span>
+          {{/is}}
+        </span>
       </div>
       <div class="col-xs-6 col-sm-4 form-values no-padding-left">
         <span>

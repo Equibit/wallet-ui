@@ -17,6 +17,11 @@ export default {
   // passwordResetMsg: 'Your password was changed successfully',
   passwordResetMsg: '',
 
+  // Help Messages
+  helpSendDescription: 'Add a description to remind yourself what this transaction is about. This will only be visible to you.',
+  helpTransactionFeeBitcoin: 'Required by Bitcoin miners.',
+  helpTransactionFeeEquibit: 'Required by Equibit miners.',
+
   // Buttons:
   done: 'Done',
   cancel: 'Cancel',

@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/trade-funds/send-popup send-popup
- * @parent components.portfolio
+ * @parent components.portfolio 0
  *
  * A short description of the send-popup component
  *
