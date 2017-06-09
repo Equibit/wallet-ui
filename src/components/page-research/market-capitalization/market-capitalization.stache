@@ -1,5 +1,6 @@
 <can-import from="~/components/common/panel/" />
 <can-import from="wallet-ui/components/common/barchart/" />
+<can-import from="wallet-ui/components/common/loading-indicator/" />
 <can-import from="~/utils/stache-helpers/" />
 
 <drag-panel class="panel panel-default card card-half">
@@ -10,7 +11,7 @@
     <div class="row">
       <div class="col-md-12 col-xs-12">
         {{#if dataPromise.isPending}}
-          <i>Loading...</i>
+          <loading-indicator></loading-indicator>
         {{else}}
           <a href="{{routeUrl page='issuances' sort='asc'}}">
             <bar-chart type="bar" {data-columns}="dataColumns" {axis-x}="labels"></bar-chart>

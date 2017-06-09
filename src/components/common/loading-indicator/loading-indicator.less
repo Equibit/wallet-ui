@@ -1,0 +1,26 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+@import (reference) '../../../styles/custom/_mixins.less';
+
+
+loading-indicator {
+	display: block;
+
+  .icon-loading {
+    font-size: 2.5em;
+    color: @brand-primary;
+  }
+
+  .loading-indicator-container {
+    display: flex;
+    background-color: fade(@white, 70%);
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    z-index: @zindex-modal-background;
+  }
+
+}

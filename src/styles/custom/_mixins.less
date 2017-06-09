@@ -66,3 +66,36 @@
     color: @color;
   }
 }
+
+/**
+* @styles mixins-animate Animate Mixins
+*
+* @description
+* Adds browser prefixes to CSS3 animation properties. Is ordered in the standard CSS3 animation
+* property short hand.
+*
+* Example:
+* ```css
+* .animate(blink, 2s, ease-in, 500ms, 3, reverse);
+* ```
+**/
+.animate(@name; @duration; @timing-func; @delay; @iteration; @direction) {
+    -webkit-animation-name: @name;
+    -webkit-animation-duration: @duration;
+    -webkit-animation-timing-function: @timing-func;
+    -webkit-animation-delay: @delay;
+    -webkit-animation-iteration-count: @iteration;
+    -webkit-animation-direction: @direction;
+    -moz-animation-name: @name;
+    -moz-animation-duration: @duration;
+    -moz-animation-timing-function: @timing-func;
+    -moz-animation-delay: @delay;
+    -moz-animation-iteration-count: @iteration;
+    -moz-animation-direction: @direction;
+    animation-name: @name;
+    animation-duration: @duration;
+    animation-timing-function: @timing-func;
+    animation-delay: @delay;
+    animation-iteration-count: @iteration;
+    animation-direction: @direction;
+}
