@@ -7,20 +7,27 @@
 <bootstrap-modal-content>
   <div class="modal-header">
     <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
-    <h3 class="modal-title"><span class="icon icon-upload"></span> Send</h3></div>
-  <div class="modal-body {{#is mode 'edit'}}edit-mode{{/is}}">
-    {{#is mode 'confirm'}}
-      {{#is formData.type 'FUNDS'}}
-        Funds
-        <div class="description">Send funds from your account.</div>
+
+    {{#is mode 'edit'}}
+      <h3 class="modal-title"><span class="icon icon-upload"></span> {{i18n('send')}}</h3>
       {{else}}
-        Securities
-        <div class="description">Send securities from your account.</div>
-      {{/is}}
-    {{else}}
-      <div class="description">Send funds or securities from your account.</div>
+        {{#is formData.type 'FUNDS'}}
+          <h3 class="modal-title"><span class="icon icon-upload"></span> {{i18n('send')}} {{i18n('funds')}}</h3>
+        {{else}}
+          <h3 class="modal-title"><span class="icon icon-upload"></span> {{i18n('send')}} {{i18n('securities')}}</h3>
+        {{/is}}
     {{/is}}
 
+  </div>
+
+  <div class="modal-body {{#is mode 'edit'}}edit-mode{{/is}}">
+    <div class="description">
+      {{#is mode 'confirm'}}
+        {{i18n('confirmTransaction')}}
+      {{else}}
+        {{i18n('sendModalDescription')}}
+      {{/is}}
+    </div>
 
     {{#is mode 'edit'}}
       <send-form {form-data}="formData" {issuances}="issuances" />
@@ -32,12 +39,12 @@
   <div class="modal-footer">
 
     {{#is mode 'edit'}}
-      <button ($click)="next()" type="button" class="btn btn-primary">Next</button>
-      <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      <button ($click)="next()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
+      <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
     {{/is}}
     {{#is mode 'confirm'}}
-      <button ($click)="send(close)" type="button" class="btn btn-primary">Send</button>
-      <button ($click)="edit()" type="button" class="btn btn-default" data-dismiss="modal">Edit</button>
+      <button ($click)="send(close)" type="button" class="btn btn-primary">{{i18n('send')}}</button>
+      <button ($click)="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('edit')}}</button>
     {{/is}}
 
     <!--<a class="pull-right">Advanced Send</a>-->

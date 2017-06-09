@@ -17,10 +17,6 @@ export default {
   // passwordResetMsg: 'Your password was changed successfully',
   passwordResetMsg: '',
 
-  // Help Messages
-  helpSendDescription: 'Add a description to remind yourself what this transaction is about. This will only be visible to you.',
-  helpTransactionFeeBitcoin: 'Required by Bitcoin miners.',
-  helpTransactionFeeEquibit: 'Required by Equibit miners.',
 
   // Buttons:
   done: 'Done',
@@ -32,88 +28,109 @@ export default {
   yes: 'Yes',
   no: 'No',
 
+  // Alphabetically
+
   additionalDetails: 'Additional Details',
   amount: 'Amount',
+  ask: 'Ask',
+  askPrice: 'Ask Price',
+
+  balance: 'Balance',
   bitcoin: 'Bitcoin',
+  blankEQB: 'Blank EBQ',
   bonds: 'Bonds',
+  breakdown: 'Breakdown',
   btc: 'BTC',
   buy: 'Buy',
+
+  cash: 'Cash',
+  currency: 'Currency',
   company: 'Company',
   companies: 'Companies',
+  confirmOrder: 'Please review and confirm your order.',
+  confirmOffer: 'Please review and confirm your offer.',
+  confirmTransaction: 'Please review and confirm your transaction.',
+  copiedToClipboard: 'Copied to clipboard',
+  copyAndShare: 'Copy and Share',
+
   date: 'Date',
   dateAndTime: 'Date and Time',
+  days: 'Days',
+  description: 'Description',
+
   eqb: 'EQB',
   equibit: 'Equibit',
   equity: 'Equity',
+
   fillKill: 'Fill or Kill',
   from: 'From',
-  issuanceName: 'Issuance Name',
-  issuanceType: 'Issuance Type',
-  quantity: 'Quantity',
-  status: 'Status',
-  securities: 'Securities',
-  sell: 'Sell',
-  to: 'To',
-  type: 'Type',
-
-  // - Research
-  marketSummary: 'Market Summary',
-  last24hours: 'Last 24 hours',
-  newIssuances: 'New Issuances',
-  volume: 'Volume',
-  trades: 'Trades',
-  shareVolume: 'Share Volume',
-  marketCapitalization: 'Market Capitalization',
-
-  // - Terms and conditions:
-  termsAndConditions: 'EDC Terms & Conditions',
-  privacyPolicy: 'EDC Privacy Policy',
-
-  // - Portfolio page:
-  portfolioSummary: 'Portfolio Summary',
-  balance: 'Balance',
-  totalCash: 'Total Cash',
-  totalSecurities: 'Total Securities',
-  unrealizedPL: 'Unrealized P&L',
-  watchList: 'Watchlist',
-  myPortfolio: 'My Portfolio',
-  breakdown: 'Breakdown',
-  cash: 'Cash',
-  currency: 'Currency',
-  valuation: 'Valuation',
-  send: 'Send',
-  receive: 'Receive',
-  securitiesSent: 'Securities sent',
+  funds: 'Funds',
   fundsSent: 'Funds sent',
 
-  // Watchlist Card:
-  watchlistPlaceholderTitle: 'Add to Your Watchlist',
-  watchlistPlaceholderDescription: 'Add companies you want to watch on the issuance details.',
-  watchlistPlaceholderButton: 'Explore Issuances',
-
-  // Receive popup:
-  copyAndShare: 'Copy and Share',
-  receiveInfo: 'Use the a unique address to add funds or securities to your account.',
-  pasteAddress: 'Paste address',
-  copiedToClipboard: 'Copied to clipboard',
-
-  // Trade Funds:
-  ask: 'Ask',
-  askPrice: 'Ask Price',
-  confirmOrder: 'Please review and confirm your order.',
-  confirmOffer: 'Please review and confirm your offer.',
-  days: 'Days',
   goodFor: 'Good For',
   goodUntil: 'Good Until',
+
+  helpSendDescription: 'Add a description to remind yourself what this transaction is about. This will only be visible to you.',
+  helpTransactionFeeBitcoin: 'Required by Bitcoin miners.',
+  helpTransactionFeeEquibit: 'Required by Equibit miners.',
+
+  issuance: 'Issuance',
+  issuanceName: 'Issuance Name',
+  issuanceType: 'Issuance Type',
+
+  last24hours: 'Last 24 hours',
+
+  marketCapitalization: 'Market Capitalization',
+  marketSummary: 'Market Summary',
+  myPortfolio: 'My Portfolio',
+
+  newIssuances: 'New Issuances',
   noPartialFills: 'No partial fills allowed.',
+
   offer: 'Offer',
+
+  pasteAddress: 'Paste address',
   placeSellOrder: 'Place Sell Order',
   placeSellOffer: 'Place Sell Offer',
   placeBuyOrder: 'Place Buy Order',
   placeBuyOffer: 'Place Buy Offer',
-  totalPrice: 'Total Price',
+  privacyPolicy: 'EDC Privacy Policy',
+  portfolioSummary: 'Portfolio Summary',
 
-  // Transactions:
+  quantity: 'Quantity',
+
+  receive: 'Receive',
+  receiveInfo: 'Use the a unique address to add funds or securities to your account.',
+
+  shareVolume: 'Share Volume',
+  status: 'Status',
+  securities: 'Securities',
+  securitiesSent: 'Securities sent',
+  selectType: 'Select Type',
+  send: 'Send',
+  sendModalDescription: 'Send securities or funds from your account.',
+  sell: 'Sell',
+
+  termsAndConditions: 'EDC Terms & Conditions',
+  totalCash: 'Total Cash',
+  totalSecurities: 'Total Securities',
+  trades: 'Trades',
+  transactionFee: 'Transaction Fee',
   transactionsPageTitle: 'All Transactions',
-  transactionIds: 'Transaction IDs'
+  transactionIds: 'Transaction IDs',
+  to: 'To',
+  totalPrice: 'Total Price',
+  type: 'Type',
+
+  unrealizedPL: 'Unrealized P&L',
+  usd: 'USD',
+
+  valuation: 'Valuation',
+  volume: 'Volume',
+
+  watchList: 'Watchlist',
+  watchlistPlaceholderTitle: 'Add to Your Watchlist',
+  watchlistPlaceholderDescription: 'Add companies you want to watch on the issuance details.',
+  watchlistPlaceholderButton: 'Explore Issuances',
+
 };
