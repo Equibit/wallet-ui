@@ -8,30 +8,39 @@ export function generateHdNode (mnemonic) {
   return root.derivePath("m/44'/0'/0'");
 }
 
-export function getHdNode () {
+export function getHdNode (name) {
   let mnemonic;
-  if (!window.localStorage.getItem('test-mnemonic')) {
+  if (!window.localStorage.getItem('test-mnemonic-' + name)) {
     mnemonic = bip39.generateMnemonic();
-    window.localStorage.setItem('test-mnemonic', mnemonic);
+    window.localStorage.setItem('test-mnemonic-' + name, mnemonic);
   } else {
     console.log('Got mnemonic from cache...');
-    mnemonic = window.localStorage.getItem('test-mnemonic');
+    mnemonic = window.localStorage.getItem('test-mnemonic-' + name);
   }
   return generateHdNode(mnemonic);
 }
 
-export function generateAddress (keyPair, index) {
-  return keyPair.derive(index).getAddress();
+// m / purpose' / coin_type' / account' / change / address_index
+
+// "m/44'/0'/0'"  ->  "m/44'/0'/0'/0/index"
+export function generateAddress (hdNode, index) {
+  // change = 0,  external chain
+  const addrhdNode = hdNode.derive(0).derive(index);
+  const address = addrhdNode.getAddress();
+  return {
+    address,
+    hdNode: addrhdNode
+  };
 }
 
 export function getReceived (addr) {
 
 }
 
-export function buildTransaction (keyPair, input, output, value) {
+export function buildTransaction (keyPair, inputId, inputIndex, outputs) {
   const tx = new bitcoin.TransactionBuilder(bitcoin.networks.testnet);
-  tx.addInput(input, 0);
-  tx.addOutput(output, value);
+  tx.addInput(inputId, inputIndex);
+  outputs.forEach(([output, value]) => tx.addOutput(output, value));
   tx.sign(0, keyPair);
 
   return tx.build().toHex();
