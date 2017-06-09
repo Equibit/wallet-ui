@@ -17,7 +17,6 @@ export default {
   // passwordResetMsg: 'Your password was changed successfully',
   passwordResetMsg: '',
 
-
   // Buttons:
   done: 'Done',
   cancel: 'Cancel',
@@ -131,6 +130,6 @@ export default {
   watchList: 'Watchlist',
   watchlistPlaceholderTitle: 'Add to Your Watchlist',
   watchlistPlaceholderDescription: 'Add companies you want to watch on the issuance details.',
-  watchlistPlaceholderButton: 'Explore Issuances',
+  watchlistPlaceholderButton: 'Explore Issuances'
 
 };
