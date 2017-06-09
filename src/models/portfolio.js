@@ -60,8 +60,12 @@ const Portfolio = DefineMap.extend('Portfolio', {
   // TODO: consider to simplify structure using hd path: `{"m'/44'/0/0/0": {used: true}}`
   addresses: {
     // TODO: update when service gets implemented.
-    //serialize: true,
-    type: '*'
+    // serialize: true,
+    type: '*',
+    value: {
+      btc: {},
+      eqb: {}
+    }
   },
 
   index: 'number',
@@ -129,8 +133,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
   }
 });
 
-function getNextAddressIndex (addresses, type=btc) {
-  const addrByType = addresses[type];
+function getNextAddressIndex (addresses = {}, type) {
+  const addrByType = addresses[type] || {};
   return Object.keys(addrByType).reduce((acc, i) => {
     return addrByType[i].used !== true ? {index: Number(i), imported: true} : {index: Number(i) + 1, imported: false};
   }, {index: 0, imported: false});
