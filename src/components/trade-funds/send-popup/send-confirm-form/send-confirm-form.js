@@ -1,16 +1,11 @@
 /**
- * @module {can.Component} components/trade-funds/send-popup/send-confirm-form send-confirm-form
- * @parent components.portfolio
+ * @module {can.Component} components/trade-funds/send-popup/send-confirm-form send-popup > send-confirm-form
+ * @parent components.portfolio 2
  *
  * A short description of the send-confirm-form component
  *
  * @signature `<send-confirm-form />`
  *
- * @link ../src/components/trade-funds/send-popup/send-confirm-form/send-confirm-form.html Full Page Demo
- *
- * ## Example
- *
- * @demo src/components/trade-funds/send-popup/send-confirm-form/send-confirm-form.html
  */
 
 import Component from 'can-component';

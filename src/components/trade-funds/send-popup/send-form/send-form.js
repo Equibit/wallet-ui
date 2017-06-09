@@ -1,16 +1,11 @@
 /**
- * @module {can.Component} wallet-ui/components/trade-funds/send-popup/send-form send-form
- * @parent components.portfolio
+ * @module {can.Component} wallet-ui/components/trade-funds/send-popup/send-form send-popup > send-form
+ * @parent components.portfolio 1
  *
  * The 1st form for the Send Popup component
  *
  * @signature `<send-form />`
  *
- * @link ../src/components/trade-funds/send-popup/send-form/send-form.html Full Page Demo
- *
- * ## Example
- *
- * @demo src/components/trade-funds/send-popup/send-form/send-form.html
  */
 
 import Component from 'can-component';
