@@ -68,6 +68,32 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
   },
 
+  allAddresses: {
+    type: '*'
+  },
+
+  getAllAddresses () {
+    const btc = Object.keys(this.addresses.btc).map(i => this.keys.btc.derive(0).derive(Number(i)).getAddress()) || [];
+    const eqb = Object.keys(this.addresses.eqb).map(i => this.keys.eqb.derive(0).derive(Number(i)).getAddress()) || [];
+    this.allAddresses = btc.concat(eqb);
+    return this.allAddresses;
+  },
+
+  unspentBalance: {
+    get (val, resolve) {
+      const addresses = this.allAddresses;
+      if (addresses && addresses.length) {
+        feathersClient.service('/listunspent').find({
+          query: {addr: addresses}
+        }).then(data => {
+          debugger
+          resolve(data.summary.total)
+        });
+      }
+      return val;
+    }
+  },
+
   index: 'number',
   balance: {type: 'number', value: 0},
   totalCash: {type: 'number', value: 0},
