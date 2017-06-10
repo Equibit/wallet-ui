@@ -14,7 +14,7 @@ Session.current = {
       return {
         btc: hdNode.deriveHardened(index),
         eqb: hdNode.deriveHardened(index)
-      }
+      };
     }
   }
 };

@@ -15,7 +15,6 @@ import cacheRequests from 'can-connect/cache-requests/cache-requests';
 import callbacksCache from 'can-connect/data/callbacks-cache/callbacks-cache';
 
 const superModel = function (options, optionBehaviors = []) {
-
   var cacheConnection = connect([
     memoryCache
   ], { algebra });
