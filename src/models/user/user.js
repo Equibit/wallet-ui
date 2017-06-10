@@ -19,7 +19,7 @@ import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 import cryptoUtils from '~/utils/crypto';
 import connect from 'can-connect';
 import login from './login';
-import Portfolio from '~/models/portfolio';
+// import Portfolio from '~/models/portfolio';
 
 const userService = feathersClient.service('users');
 
@@ -90,13 +90,13 @@ const User = DefineMap.extend('User', {
    */
   isNewUser: 'boolean',
 
-  portfolios: {
-    set (val) {
-      const list = new Portfolio.List(val.data);
-      list.balance = val.balance;
-      return list;
-    }
-  },
+  // portfolios: {
+  //   set (val) {
+  //     const list = new Portfolio.List(val.data);
+  //     list.balance = val.balance;
+  //     return list;
+  //   }
+  // },
 
   /**
    * @property {Date} models/user.properties.createdAt createdAt

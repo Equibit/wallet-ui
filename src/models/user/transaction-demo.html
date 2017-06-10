@@ -30,12 +30,25 @@
 
   // from: 1f561fe1d0174ec3ddd3eec1a4145483d91f7e5907f52f1b65528da3f3a734ab 0
   // to testnet: n2JHNq8XBAUj97MaLXggFWLLoPR7ghuv9K
+  //  const transaction = buildTransaction(
+  //    res1.hdNode.keyPair,
+  //    'a407f25c26d9cd24e24045ce5c272875a65ef5503ccfb711e662a399847e6e2c',
+  //    1,
+  //    [['n2sYZjQFTC7vYLWSqX9Q8fjgtr5kb6GxYH', 3 * 100000000],
+  //     ['mwd7FgMkm9yfPmNTnntsRbugZS7BEZaf32', (3.5 - 3 - 0.00001) * 100000000]]
+  //  );
+  //  console.log('transaction: ' + transaction);
+
+  // from: mp9GiieHrLQvLu4C8nE9bbwxNmXqcC3nVf:
+  // - 2d7a9f0534ddac231ef1978bda388791c32321f7e14e18e7df3bbed261615f54 1
+  // to ilya portfolio 0 address 0:
+  // - mpS2RuNkAEALvMhksCa6fPpLVb5yCPanLu
   const transaction = buildTransaction(
     res1.hdNode.keyPair,
-    'a407f25c26d9cd24e24045ce5c272875a65ef5503ccfb711e662a399847e6e2c',
+    '2d7a9f0534ddac231ef1978bda388791c32321f7e14e18e7df3bbed261615f54',
     1,
-    [['n2sYZjQFTC7vYLWSqX9Q8fjgtr5kb6GxYH', 3 * 100000000],
-     ['mwd7FgMkm9yfPmNTnntsRbugZS7BEZaf32', (3.5 - 3 - 0.00001) * 100000000]]
+    [['mpS2RuNkAEALvMhksCa6fPpLVb5yCPanLu', 1 * 100000000],
+     ['mp9GiieHrLQvLu4C8nE9bbwxNmXqcC3nVf', (2 - 1 - 0.00001) * 100000000]]
   );
   console.log('transaction: ' + transaction);
 

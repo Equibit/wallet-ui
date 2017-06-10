@@ -20,7 +20,6 @@ import view from './my-portfolio.stache';
 import hub from '~/utils/event-hub';
 import { translate } from '~/i18n/';
 import Portfolio from '~/models/portfolio';
-import Session from '~/models/session';
 
 let portfolio;
 
@@ -34,11 +33,7 @@ export const ViewModel = DefineMap.extend({
     this.isReceiveFundsPopup = true;
     if (!this.portfolio) {
       portfolio = new Portfolio({name: 'My Portfolio'});
-      portfolio.save().then(portfolio => {
-        const portfolioIndex = portfolio.index;
-        const keys = Session.current.user.generatePortfolioKeys(portfolioIndex);
-        portfolio.keys = keys;
-      });
+      portfolio.save().then();
     }
   },
   receiveDone () {

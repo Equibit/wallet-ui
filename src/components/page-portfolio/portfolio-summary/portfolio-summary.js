@@ -17,15 +17,20 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './portfolio-summary.less';
 import view from './portfolio-summary.stache';
-import PortfolioSummary from '~/models/portfolio';
+// import PortfolioSummary from '~/models/portfolio';
 
 export const ViewModel = DefineMap.extend({
   get dataPromise () {
-    return PortfolioSummary.get({});
+    // return PortfolioSummary.get({});
   },
   summary: {
     get (val, resolve) {
-      this.dataPromise.then(resolve);
+      // this.dataPromise.then(resolve);
+      return {
+        balance: 54.234,
+        totalCash: 34.123,
+        totalSecurities: 20.111
+      };
     }
   }
 });
