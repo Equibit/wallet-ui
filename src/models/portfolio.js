@@ -46,47 +46,31 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @parent models/portfolio.properties
    * Tracking addresses by index for one-time usage.
    * ```
-   * {
-   *   eqb: {
-   *     0: {used: true},
-   *     1: {used: false}
-   *   },
-   *   btc: {
-   *     0: {used: false}
-   *   }
-   * }
+   * [
+   *   {index: 0, type: 'eqb', used: true},
+   *   {index: 1, type: 'eqb', used: false},
+   *   {index: 0, type: 'btc', used: true},
+   * ]
    * ```
    */
-  // TODO: consider to simplify structure using hd path: `{"m'/44'/0/0/0": {used: true}}`
   addresses: {
-    // TODO: update when service gets implemented.
-    // serialize: true,
-    type: '*',
-    value: {
-      btc: {},
-      eqb: {}
+    serialize: true,
+    Type: DefineList,
+    value: new DefineList([])
+  },
+  addressesFilled: {
+    get () {
+      return this.addresses.map(a => this.keys[a.type].derive(0).derive(a.index).getAddress());
     }
-  },
-
-  allAddresses: {
-    type: '*'
-  },
-
-  getAllAddresses () {
-    const btc = Object.keys(this.addresses.btc).map(i => this.keys.btc.derive(0).derive(Number(i)).getAddress()) || [];
-    const eqb = Object.keys(this.addresses.eqb).map(i => this.keys.eqb.derive(0).derive(Number(i)).getAddress()) || [];
-    this.allAddresses = btc.concat(eqb);
-    return this.allAddresses;
   },
 
   unspentBalance: {
     get (val, resolve) {
-      const addresses = this.allAddresses;
+      const addresses = this.addressesFilled.get();
       if (addresses && addresses.length) {
         feathersClient.service('/listunspent').find({
           query: {addr: addresses}
         }).then(data => {
-          // debugger;
           resolve(data.summary.total);
         });
       }
@@ -123,13 +107,16 @@ const Portfolio = DefineMap.extend('Portfolio', {
         // Import addr as watch-only
         this.importAddr(addr.btc);
         // Mark address as generated/imported but not used yet:
-        this.addresses.btc[btcAddr.index] = {used: false};
+        this.addresses.push({index: 0, type: 'btc', used: false});
       }
       if (eqbAddr.imported === false) {
         // Import addr as watch-only
         this.importAddr(addr.eqb);
         // Mark address as generated/imported but not used yet:
-        this.addresses.eqb[eqbAddr.index] = {used: false};
+        this.addresses.push({index: 0, type: 'eqb', used: false});
+      }
+      if (!eqbAddr.imported || !btcAddr.imported) {
+        this.save();
       }
 
       return addr;
@@ -159,10 +146,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
   }
 });
 
-function getNextAddressIndex (addresses = {}, type) {
-  const addrByType = addresses[type] || {};
-  return Object.keys(addrByType).reduce((acc, i) => {
-    return addrByType[i].used !== true ? {index: Number(i), imported: true} : {index: Number(i) + 1, imported: false};
+function getNextAddressIndex (addresses = [], type) {
+  return addresses.filter(a => a.type === type).reduce((acc, a) => {
+    return a.used !== true ? {index: a.index, imported: true} : {index: a.index + 1, imported: false};
   }, {index: 0, imported: false});
 }
 

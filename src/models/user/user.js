@@ -19,7 +19,7 @@ import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 import cryptoUtils from '~/utils/crypto';
 import connect from 'can-connect';
 import login from './login';
-import Portfolio from '~/models/portfolio';
+// import Portfolio from '~/models/portfolio';
 
 const userService = feathersClient.service('users');
 

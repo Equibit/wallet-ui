@@ -26,6 +26,11 @@ export const ViewModel = DefineMap.extend({
   summary: {
     get (val, resolve) {
       // this.dataPromise.then(resolve);
+      return {
+        balance: 54.234,
+        totalCash: 34.123,
+        totalSecurities: 20.111
+      };
     }
   }
 });
