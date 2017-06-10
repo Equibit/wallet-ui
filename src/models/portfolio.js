@@ -86,8 +86,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
         feathersClient.service('/listunspent').find({
           query: {addr: addresses}
         }).then(data => {
-          debugger
-          resolve(data.summary.total)
+          // debugger;
+          resolve(data.summary.total);
         });
       }
       return val;
