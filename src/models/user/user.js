@@ -90,13 +90,13 @@ const User = DefineMap.extend('User', {
    */
   isNewUser: 'boolean',
 
-  portfolios: {
-    set (val) {
-      const list = new Portfolio.List(val.data);
-      list.balance = val.balance;
-      return list;
-    }
-  },
+  // portfolios: {
+  //   set (val) {
+  //     const list = new Portfolio.List(val.data);
+  //     list.balance = val.balance;
+  //     return list;
+  //   }
+  // },
 
   /**
    * @property {Date} models/user.properties.createdAt createdAt
