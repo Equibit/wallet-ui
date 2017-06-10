@@ -7,7 +7,7 @@ import Portfolio from '~/models/portfolio';
 export const ViewModel = DefineMap.extend({
   portfolios: {
     get (val, resolve) {
-      return Portfolio.getList({}).then(resolve);
+      return Portfolio.getList({$limit: 5, $skip: 0}).then(resolve);
     }
   }
 });
