@@ -20,6 +20,9 @@ import view from './portfolio-summary.stache';
 // import PortfolioSummary from '~/models/portfolio';
 
 export const ViewModel = DefineMap.extend({
+  balance: {
+    type: '*'
+  },
   get dataPromise () {
     // return PortfolioSummary.get({});
   },

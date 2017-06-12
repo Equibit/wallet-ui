@@ -12,7 +12,7 @@ import DefineList from 'can-define/list/list';
 import feathersClient from '~/models/feathers-client';
 import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
-import Session from '~/models/session';
+// import Session from '~/models/session';
 
 // TODO: FIXTURES ON!
 // import '~/models/fixtures/portfolio';
@@ -63,21 +63,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
       return this.addresses.map(a => this.keys[a.type].derive(0).derive(a.index).getAddress());
     }
   },
-
-  unspentBalance: {
-    get (val, resolve) {
-      const addresses = this.addressesFilled.get();
-      if (addresses && addresses.length) {
-        feathersClient.service('/listunspent').find({
-          query: {addr: addresses}
-        }).then(data => {
-          resolve(data.summary.total);
-        });
-      }
-      return val;
-    }
-  },
-
   index: 'number',
   balance: {type: 'number', value: 0},
   totalCash: {type: 'number', value: 0},
@@ -88,11 +73,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
   updatedAt: 'date',
   userId: 'string',
   keys: {
-    get () {
-      if (Session.current && Session.current.user && typeof this.index !== 'undefined') {
-        return Session.current.user.generatePortfolioKeys(this.index);
-      }
-    }
+    type: '*'
   },
   // "m /44' /0' /portfolio-index' /0 /index"
   nextAddress: {

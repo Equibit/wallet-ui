@@ -2,20 +2,17 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './page-portfolio.less';
 import view from './page-portfolio.stache';
-import Portfolio from '~/models/portfolio';
+import Session from '~/models/session';
 
 export const ViewModel = DefineMap.extend({
-  portfoliosPromise: {
+  portfolios: {
     get () {
-      return Portfolio.getList({$limit: 5, $skip: 0});
+      return Session.current.portfolios;
     }
   },
-  portfolios: {
-    get (val, resolve) {
-      if (val) {
-        return val;
-      }
-      this.portfoliosPromise.then(resolve);
+  balance: {
+    get () {
+      return Session.current.balance;
     }
   }
 });

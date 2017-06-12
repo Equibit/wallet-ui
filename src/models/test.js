@@ -2,6 +2,7 @@ import './fixtures/';
 
 import '~/models/user/user-test';
 import '~/models/portfolio-test';
+import '~/models/session-test';
 
 import assert from 'chai/chai';
 import 'steal-mocha';

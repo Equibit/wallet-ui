@@ -1,3 +1,17 @@
+/**
+ * @module {can-map} models/session Session
+ * @parent models
+ *
+ * Session model
+ *
+ * Session is implemented using `feathers-authentication-signed` connection behavior and provides
+ * property `current` that should be use to access current user session.
+ *
+ * `Session.current` contains three main objects: user, a list of user's portfolios and balance.
+ *
+ * @group models/session.properties 0 properties
+ */
+
 import connect from 'can-connect';
 import set from 'can-set';
 import dataParse from 'can-connect/data/parse/';
@@ -15,6 +29,7 @@ import signed from '~/models/feathers-signed';
 
 import DefineMap from 'can-define/map/';
 import User from '~/models/user/user';
+import Portfolio from '~/models/portfolio';
 
 const behaviors = [
   feathersAuthenticationSignedSession,
@@ -30,7 +45,58 @@ const behaviors = [
 
 const Session = DefineMap.extend('Session', {
   user: {
-    Type: User
+    Type: User,
+    set (user) {
+      if (user) {
+        // Load user's portfolios and generate keys for each one of them:
+        Portfolio.getList({$limit: 5, $skip: 0}).then(portfolios => {
+          portfolios.forEach(portfolio => {
+            if (portfolio.index !== 'undefined') {
+              portfolio.keys = user.generatePortfolioKeys(portfolio.index);
+            }
+          });
+          this.portfolios = portfolios;
+        });
+      }
+      return user;
+    }
+  },
+  portfolios: {
+    Type: Portfolio.List,
+    set (val) {
+      if (val && val.length) {
+        // Request unspent balance for all addresses:
+        const addresses = val.reduce((acc, portfolio) => {
+          return acc.concat(portfolio.addressesFilled.get());
+        }, []);
+        if (addresses && addresses.length) {
+          feathersClient.service('/listunspent').find({
+            query: {addr: addresses}
+          }).then(data => {
+            // TODO: populate each portfolio balance here.
+            this.balance = data;
+          });
+        }
+      }
+      return val;
+    }
+  },
+  /**
+   * User balance contains a summary and balance per address.
+   * ```
+   * {
+   *   "summary": {
+   *     "total": 3.34999
+   *   },
+   *   "mpS2RuNkAEALvMhksCa6fPpLVb5yCPanLu": {
+   *     "amount": 2.35,
+   *     "txouts": [...]
+   *   }, { ... }
+   * }
+   * ```
+   */
+  balance: {
+    Type: DefineMap
   },
   usingTempPassword: 'boolean',
   accessToken: 'string',
@@ -55,5 +121,9 @@ Session.connection = connect(behaviors, {
 });
 
 Session.algebra = algebra;
+
+//! steal-remove-start
+window.Session = Session;
+//! steal-remove-end
 
 export default Session;
