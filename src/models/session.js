@@ -132,7 +132,7 @@ const Session = DefineMap.extend('Session', {
   balance: {
     get (val, resolve) {
       if (!val && this.balancePromise) {
-        this.balancePromise.then(resolve)
+        this.balancePromise.then(resolve);
       }
     }
   },
