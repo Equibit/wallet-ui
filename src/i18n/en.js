@@ -18,12 +18,14 @@ export default {
   passwordResetMsg: '',
 
   // Buttons:
+  accept: 'Accept',
   done: 'Done',
   cancel: 'Cancel',
   cancelOrder: 'Cancel Order',
   cancelOffer: 'Cancel Offer',
   edit: 'Edit',
   next: 'Next',
+  view: 'View',
 
   // Common:
   yes: 'Yes',
@@ -32,6 +34,8 @@ export default {
   // Alphabetically
 
   additionalDetails: 'Additional Details',
+  acceptedOffers: 'Accepted Offers',
+  acceptedDate: 'Accepted Date',
   amount: 'Amount',
   archived: 'Archived',
   ask: 'Ask',
@@ -44,7 +48,9 @@ export default {
   breakdown: 'Breakdown',
   btc: 'BTC',
   buy: 'Buy',
+  buyOffers: 'Buy Offers',
 
+  cancelledOn: 'Cancelled on',
   cash: 'Cash',
   currency: 'Currency',
   company: 'Company',
@@ -58,6 +64,10 @@ export default {
   date: 'Date',
   dateAndTime: 'Date and Time',
   days: 'Days',
+  dealFlowStepLabel: 'Deal Flow Step',
+  dealFlowStep1: 'Exchange Guarantees',
+  dealFlowStep2: 'Exchange Assets',
+  dealFlowStep3: 'Close Deal',
   description: 'Description',
 
   eqb: 'EQB',
@@ -89,6 +99,7 @@ export default {
   myPortfolio: 'My Portfolio',
 
   newIssuances: 'New Issuances',
+  notFoundOffers: 'No Offers Found',
   notFoundOffersArchived: 'No Archived Offers Found',
   notFoundOffersBuy: 'No Buy Offers Found',
   notFoundOffersSell: 'No Sell Offers Found',
