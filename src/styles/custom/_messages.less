@@ -29,6 +29,11 @@
         font-size: 30px;
         display: inline-block;
         margin-bottom: @padding-large-vertical;
+        &.icon-sell-inversed,
+        &.icon-buy-inversed {
+          font-size: @font-size-base;
+          display: inline-flex;
+        }
     }
     &.danger .icon {
         color: @brand-danger;
@@ -59,6 +64,10 @@
     border-radius: 0;
     .message-box-cause {
       color: @gray;
+    }
+    .icon {
+      color: @gray;
+      border-color: @gray;
     }
   }
 }

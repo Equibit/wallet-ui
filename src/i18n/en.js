@@ -31,6 +31,7 @@ export default {
 
   additionalDetails: 'Additional Details',
   amount: 'Amount',
+  archived: 'Archived',
   ask: 'Ask',
   askPrice: 'Ask Price',
 
@@ -81,9 +82,17 @@ export default {
 
   marketCapitalization: 'Market Capitalization',
   marketSummary: 'Market Summary',
+  myOffers: 'My Offers',
+  myOrders: 'My Orders',
   myPortfolio: 'My Portfolio',
 
   newIssuances: 'New Issuances',
+  notFoundOffersArchived: 'No Archived Offers Found',
+  notFoundOffersBuy: 'No Buy Offers Found',
+  notFoundOffersSell: 'No Sell Offers Found',
+  notFoundOrdersArchived: 'No Archived Orders Found',
+  notFoundOrdersBuy: 'No Buy Orders Found',
+  notFoundOrdersSell: 'No Sell Orders Found',
   noPartialFills: 'No partial fills allowed.',
 
   offer: 'Offer',
@@ -109,6 +118,11 @@ export default {
   send: 'Send',
   sendModalDescription: 'Send securities or funds from your account.',
   sell: 'Sell',
+  statusCancelled: 'Cancelled',
+  statusClosed: 'Closed',
+  statusOpen: 'Open',
+  statusRejected: 'Rejected',
+  statusTrading: 'Trading',
 
   termsAndConditions: 'EDC Terms & Conditions',
   totalCash: 'Total Cash',

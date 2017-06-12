@@ -2,7 +2,7 @@
 
 <drag-panel class="panel panel-default card card-full">
   <div class="panel-heading">
-    <h3 class="panel-title">{{i18n('myOrders')}}</h3>
+    <h3 class="panel-title">{{i18n('myOffers')}}</h3>
   </div>
   <div class="panel-body">
 
@@ -17,7 +17,7 @@
       <div class="col-xs-12">
         <div class="message-box no-border message-placeholder">
           <div class="icon icon-sell-inversed"></div>
-          <p class="message-box-cause">{{i18n('notFoundOrdersSell')}}</p>
+          <p class="message-box-cause">{{i18n('notFoundOffersSell')}}</p>
         </div>
       </div>
     </div>
@@ -28,18 +28,19 @@
       <div class="col-xs-12">
         <div class="message-box no-border message-placeholder">
           <div class="icon icon-buy-inversed"></div>
-          <p class="message-box-cause">{{i18n('notFoundOrdersBuy')}}</p>
+          <p class="message-box-cause">{{i18n('notFoundOffersBuy')}}</p>
         </div>
       </div>
     </div>
     -->
+
 
     <!--Message for no archived orders
     <div class="row">
       <div class="col-xs-12">
         <div class="message-box no-border message-placeholder">
           <div class="icon icon-folder-open"></div>
-          <p class="message-box-cause">{{i18n('notFoundOrdersArchived')}}</p>
+          <p class="message-box-cause">{{i18n('notFoundOffersArchived')}}</p>
         </div>
       </div>
     </div>
