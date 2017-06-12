@@ -1,6 +1,6 @@
 /**
- * @module {can.Component} components/page-orders/securities-remaining securities-remaining
- * @parent components.buy-sell 5
+ * @module {can.Component} components/page-orders/securities-remaining order-details > securities-remaining
+ * @parent components.buy-sell 9
  *
  * This component shows the number of securities filled and remaining on an order.
  *

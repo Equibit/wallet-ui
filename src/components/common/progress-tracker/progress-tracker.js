@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/common/progress-tracker progress-tracker
- * @parent components.common
+ * @parent components.generic 6
  *
  * This components allows to show the progress of process. Uses the styles from
  * [progress-tracker.less](_progress-tracker.less.html)

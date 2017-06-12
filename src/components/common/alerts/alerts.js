@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/bit-alerts bit-alerts
- * @parent components.common
+ * @parent components.generic 0
  *
  * Floating Alerts
  *

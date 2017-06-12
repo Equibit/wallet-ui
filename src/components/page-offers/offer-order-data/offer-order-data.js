@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/page-offers/offer-order-data offer-details > offer-order-data
- * @parent components.buy-sell 10
+ * @parent components.buy-sell-offers 7
  *
  * Shows the details of an order for an offer.
  *

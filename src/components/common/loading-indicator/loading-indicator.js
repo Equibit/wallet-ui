@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/common/loading-indicator loading-indicator
- * @parent components.common
+ * @parent components.generic 3
  *
  * The loading indicator shows an icon spinner inside an overlay that will show on top of content.
  * To use place place as a first element inside of the content that you wish to overlay with a spinner

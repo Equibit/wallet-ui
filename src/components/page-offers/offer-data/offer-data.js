@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/page-offers/offer-data offer-details > offer-data
- * @parent components.buy-sell 8
+ * @parent components.buy-sell-offers 5
  *
  * A short description of the offer-data component
  *

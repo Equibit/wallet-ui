@@ -1,5 +1,5 @@
 /**
- * @module {can.Component} components/common/issuance-summary Issuance Summary
+ * @module {can.Component} components/common/issuance-summary issuance-summary
  * @parent components.common
  *
  * This component the summary information of an issuance.

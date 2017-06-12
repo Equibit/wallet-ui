@@ -1,4 +1,4 @@
-@parent components.common
+@parent components.generic 1
 @module {can.Component} components/common/panel drag-panel
 
 A draggable panel with a title.

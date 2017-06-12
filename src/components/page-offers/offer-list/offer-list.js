@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/page-offers/offer-list offer-list
- * @parent components.buy-sell 6
+ * @parent components.buy-sell-offers 3
  *
  * This components shows a list of offers.
  *

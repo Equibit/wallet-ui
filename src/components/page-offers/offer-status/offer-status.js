@@ -1,6 +1,6 @@
 /**
- * @module {can.Component} components/page-offers/offer-status offer-status
- * @parent components.buy-sell 9
+ * @module {can.Component} components/page-offers/offer-status offer-details > offer-status
+ * @parent components.buy-sell-offers 6
  *
  * Shows a detailed status for an offer.
  *

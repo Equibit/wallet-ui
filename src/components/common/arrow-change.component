@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/common/arrow-change arrow-change
- * @parent components.common
+ * @parent components.common 0
  *
  * This component shows the conversion used for values that go up or down.
  *
