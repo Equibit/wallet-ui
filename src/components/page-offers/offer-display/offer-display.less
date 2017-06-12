@@ -1,0 +1,42 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+offer-display {
+	display: block;
+
+  .well {
+    padding: 0;
+    .section {
+      padding: @padding-large-vertical;
+    }
+  }
+
+  .offer-date {
+    float: right;
+    text-transform: initial;
+    font-size: @font-size-xsmall;
+    color: @gray;
+    @media (max-width: @screen-xs) {
+      float: none;
+      margin: @padding-small-vertical 0;
+    }
+  }
+
+  .offer-metadata {
+    dl {
+      margin-bottom: 0;
+      &:first-child { // Removes the top border of the list
+        border: 0;
+      }
+    }
+    .offer-bid-quantity {
+      font-size: @font-size-large;
+      font-family: @font-family-bold;
+    }
+  }
+
+  .offer-status {
+    .subheading {
+      border-bottom: 0;
+    }
+  }
+}

@@ -100,6 +100,8 @@ export default {
   offer: 'Offer',
 
   pasteAddress: 'Paste address',
+  placeholderNoOffersTile: 'Your Offer Details Will Show Here',
+  placeholderNoOffersDescription: 'You can place offers from the issuances page.',
   placeholderNoOrdersTile: 'Your Order Details Will Show Here',
   placeholderNoOrdersDescription: 'You can place orders from the issuances page.',
   placeholderNoOrdersCTA: 'Explore Issuances',
@@ -123,6 +125,8 @@ export default {
   send: 'Send',
   sendModalDescription: 'Send securities or funds from your account.',
   sell: 'Sell',
+  sellOffer: 'Sell Offer',
+  sellOrder: 'Sell Order',
   statusCancelled: 'Cancelled',
   statusClosed: 'Closed',
   statusOpen: 'Open',
