@@ -1,6 +1,6 @@
 /**
- * @module {can.Component} components/page-orders/order-data order-data
- * @parent components.buy-sell 2
+ * @module {can.Component} components/page-orders/order-data order-details > order-data
+ * @parent components.buy-sell 6
  *
  * A short description of the order-data component
  *

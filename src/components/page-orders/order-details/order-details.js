@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/page-orders/order-details order-details
- * @parent components.buy-sell 0
+ * @parent components.buy-sell 5
  *
  * This component shows the details of an order.
  *
