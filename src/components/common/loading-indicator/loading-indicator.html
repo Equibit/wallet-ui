@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<style>
+body {
+  padding: 20px;
+  color: white;
+}
+
+
+</style>
+<div id="demo"></div>
+
+<script type="text/stache" id="demo-html">
+  <can-import from="~/styles/styles.less" />
+  <can-import from="wallet-ui/components/common/loading-indicator/" />
+
+
+  <loading-indicator></loading-indicator>
+
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac nulla ligula. Quisque ac hendrerit purus. Vivamus luctus, lectus non rhoncus varius, libero elit vestibulum nulla, efficitur aliquet est lorem et quam. Suspendisse vitae vehicula sapien. Nunc tincidunt augue magna, ac egestas nulla pellentesque at. Maecenas rutrum tincidunt nulla, eget eleifend ex. Nullam luctus eu dui sit amet condimentum. Aliquam dapibus gravida dapibus. Aliquam magna dui, porttitor et scelerisque sed, varius eget libero. Vestibulum vitae arcu at lectus maximus rutrum. Pellentesque non dui eget augue mollis malesuada non ut lectus. Mauris dapibus sed purus at sollicitudin. Donec sagittis magna eget tellus aliquam, ac sagittis nisi laoreet.
+  </p>
+
+  <p>
+    Integer vulputate est a est dignissim, vel eleifend diam commodo. Ut et ante sit amet nisl porttitor sodales. Morbi iaculis varius ipsum, quis mollis mauris posuere quis. Proin sem tellus, auctor eu felis a, porttitor ornare diam. Fusce bibendum enim sed orci tincidunt auctor. Etiam a varius turpis. Etiam ultrices varius eros vel condimentum.
+  </p>
+
+  <p>
+    Vestibulum hendrerit et erat sit amet iaculis. Nunc fringilla rutrum nibh, ullamcorper euismod nibh euismod vel. Maecenas et ultricies massa, ut auctor eros. Donec orci tortor, maximus sed risus et, interdum ornare tellus. Nullam et felis at tortor imperdiet varius ut et lorem. Donec sed metus tellus. Sed vitae nibh eget ante egestas accumsan. Morbi fermentum tincidunt nunc non cursus. Praesent dictum tincidunt ipsum, malesuada imperdiet quam laoreet non. Fusce vitae diam dui. Proin dignissim augue nec fermentum eleifend. Nulla vestibulum dui a libero iaculis pulvinar. Cras auctor metus sed lobortis viverra.
+  </p>
+
+
+  <!--
+  <div class="col-xs-5" style="position: relative;">
+    <loading-indicator></loading-indicator>
+    <p>
+    Integer vulputate est a est dignissim, vel eleifend diam commodo. Ut et ante sit amet nisl porttitor sodales. Morbi iaculis varius ipsum, quis mollis mauris posuere quis. Proin sem tellus, auctor eu felis a, porttitor ornare diam. Fusce bibendum enim sed orci tincidunt auctor. Etiam a varius turpis. Etiam ultrices varius eros vel condimentum.
+    </p>
+
+  </div>
+  -->
+
+
+</script>
+
+<script src="../../../../node_modules/steal/steal.js"
+        main="@empty">
+
+  import $ from 'jquery';
+  import stache from 'can-stache';
+  import reload from 'live-reload';
+  import DefineMap from 'can-define/map/map';
+
+  const vm = new DefineMap({
+    // view model props here
+  });
+
+  // Enable live-reload:
+  stache.async($('#demo-html').html()).then(template => {
+    let render = () => $('#demo').html(template(vm));
+    render();
+    reload(render);
+  });
+</script>

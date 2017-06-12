@@ -95,8 +95,19 @@
   .icon-variant-circle ("\ea10"; @brand-success; @brand-success; @white;);
 }
 
+// Spin Effect
+@keyframes spin {
+  from { transform: scale( 1 ) rotate( 0deg );   }
+  to   { transform: scale( 1 ) rotate( 360deg ); }
+}
 
-
+.icon-loading {
+  display: inline-block;
+  .animate(spin; 1250ms; linear; 0s; infinite; normal);
+  &:before {
+    content: "\e982";
+  }
+}
 
 /**
 * @styles icon-font Icon Font
