@@ -1,23 +1,13 @@
 @import '../../../styles/bootstrap-custom/_variables.less';
 
-order-data {
+
+offer-order-display {
 	display: block;
 
   .well {
     padding: 0;
     .section {
       padding: @padding-large-vertical;
-    }
-  }
-
-  .order-date {
-    float: right;
-    text-transform: initial;
-    font-size: @font-size-xsmall;
-    color: @gray;
-    @media (max-width: @screen-xs) {
-      float: none;
-      margin: @padding-small-vertical 0;
     }
   }
 
@@ -40,21 +30,14 @@ order-data {
     }
   }
 
-  .sub-section {
-    @media (min-width: @screen-sm) {
-      border-left: @border-default;
-    }
-  }
-
   .order-metadata {
     dl {
       margin-bottom: 0;
     }
-  }
-
-  .order-status {
-    .subheading {
-      border-bottom: 0;
+    dd, dt {
+      &:last-of-type { // Removes the bottom border of the list
+        border: 0;
+      }
     }
   }
 

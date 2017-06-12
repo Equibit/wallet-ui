@@ -1,0 +1,36 @@
+<can-import from="~/components/common/fillkill-indicator/fillkill-indicator.component" />
+<can-import from="~/components/common/issuance-summary/issuance-summary.component" />
+<can-import from="~/utils/stache-helpers/" />
+
+
+<h2 class="subtitle">
+  {{i18n('sellOrder')}}
+</h2>
+
+<div class="well">
+  <div class="order-header section">
+    <issuance-summary />
+  </div>
+
+  <div class="order-summary section row">
+    <div class="col-xs-6 col-sm-3">
+      <label>{{i18n('quantity')}}</label>
+      <span class="order-quantity">400</span>
+    </div>
+    <div class="col-xs-6 col-sm-3 sub-section">
+      <label>{{i18n('askPrice')}}</label>
+      <span class="order-ask-price">30,375 <small>μBTC</small></span>
+    </div>
+    <div class="col-xs-12 col-sm-3 sub-section">
+       <fillkill-indicator />
+    </div>
+  </div>
+
+  <div class="order-metadata section">
+    <dl class="dl-horizontal dl-stripped responsive">
+      <dt>{{i18n('goodUntil')}}</dt>
+      <dd>April 28, 2017</dd>
+    </dl>
+  </div>
+
+</div>
