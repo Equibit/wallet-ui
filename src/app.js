@@ -37,7 +37,9 @@ var pages = {
   dashboard: 'private',
   settings: 'private',
   portfolio: 'private',
-  transactions: 'public'
+  transactions: 'public',
+  orders: 'public',
+  offers: 'public'
 };
 
 const AppViewModel = DefineMap.extend({
