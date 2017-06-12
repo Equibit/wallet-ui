@@ -1,5 +1,6 @@
 import assert from 'chai/chai';
 import 'steal-mocha';
+import Session from '~/models/session';
 import User from '~/models/user/user';
 import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 
@@ -21,7 +22,9 @@ describe('models/session', function () {
         assert.equal(session.portfolios.length, 1);
         assert.equal(session.portfolios[0].keys.btc.keyPair.compressed, true);
         assert.equal(session.portfolios[0].keys.eqb.keyPair.compressed, true);
-        assert.ok(session.portfolios[0].keys.eqb);
+        assert.equal(session.portfolios[0].addresses.length, 2);
+        assert.equal(session.portfolios[0].addressesFilled[0], 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA');
+        assert.equal(session.portfolios[0].addressesFilled[1], 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo');
         assert.deepEqual(session.balance.summary.get(), {total: 4.9});
         done();
       });
