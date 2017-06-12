@@ -134,7 +134,7 @@ function getNextAddressIndex (addresses = [], type) {
   }, {index: 0, imported: false});
 }
 
-function poftfolioBalance (balance, addresses) {
+function getPoftfolioBalance (balance, addresses) {
   return addresses.reduce((acc, address) => (balance[address] ? acc + balance[address].amount : acc), 0);
 }
 
@@ -154,7 +154,7 @@ Portfolio.algebra = algebra;
 
 export default Portfolio;
 export { getNextAddressIndex };
-export { poftfolioBalance };
+export { getPoftfolioBalance };
 
 // Import an address to be added as watch-only to the built-in wallet:
 // http://localhost:3030/proxycore?method=importaddress&params[]=mwd7FgMkm9yfPmNTnntsRbugZS7BEZaf32

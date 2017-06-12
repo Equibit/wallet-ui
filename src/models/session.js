@@ -29,7 +29,7 @@ import signed from '~/models/feathers-signed';
 
 import DefineMap from 'can-define/map/';
 import User from '~/models/user/user';
-import Portfolio from '~/models/portfolio';
+import Portfolio, { getPoftfolioBalance } from '~/models/portfolio';
 
 const behaviors = [
   feathersAuthenticationSignedSession,
@@ -132,7 +132,13 @@ const Session = DefineMap.extend('Session', {
   balance: {
     get (val, resolve) {
       if (!val && this.balancePromise) {
-        this.balancePromise.then(resolve);
+        this.balancePromise.then(balance => {
+          // TODO: consider using stream API to avoid mutating promises from here.
+          this.portfolios.forEach(portfolio => {
+            portfolio.balance = getPoftfolioBalance(balance, portfolio.addressesFilled);
+          });
+          resolve(balance);
+        });
       }
     }
   },

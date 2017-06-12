@@ -32,6 +32,7 @@ describe('models/session', function () {
       session.on('balance', function () {
         assert.equal(session.allAddresses.length, 2);
         assert.deepEqual(session.balance.summary, {total: 4.9});
+        assert.equal(session.portfolios[0].balance, 4.9);
         done();
       });
     });

@@ -1,6 +1,6 @@
 import assert from 'chai/chai';
 import 'steal-mocha';
-import { getNextAddressIndex, poftfolioBalance } from './portfolio';
+import { getNextAddressIndex, getPoftfolioBalance } from './portfolio';
 
 describe('models/portfolio', function () {
   describe('getNextAddressIndex', function () {
@@ -16,7 +16,7 @@ describe('models/portfolio', function () {
     });
   });
 
-  describe('poftfolioBalance', function () {
+  describe('getPoftfolioBalance', function () {
     const listunspent = {
       summary: {'total': 4.9},
       n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 1.5 },
@@ -25,7 +25,7 @@ describe('models/portfolio', function () {
     };
     const portfolioAddresses = ['n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'n4iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'empty'];
     it('should calculate portfolio balance by addresses', function () {
-      assert.equal(poftfolioBalance(listunspent, portfolioAddresses), 3.7);
+      assert.equal(getPoftfolioBalance(listunspent, portfolioAddresses), 3.7);
     });
   });
 });
