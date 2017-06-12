@@ -20,6 +20,8 @@ export default {
   // Buttons:
   done: 'Done',
   cancel: 'Cancel',
+  cancelOrder: 'Cancel Order',
+  cancelOffer: 'Cancel Offer',
   edit: 'Edit',
   next: 'Next',
 
@@ -98,6 +100,9 @@ export default {
   offer: 'Offer',
 
   pasteAddress: 'Paste address',
+  placeholderNoOrdersTile: 'Your Order Details Will Show Here',
+  placeholderNoOrdersDescription: 'You can place orders from the issuances page.',
+  placeholderNoOrdersCTA: 'Explore Issuances',
   placeSellOrder: 'Place Sell Order',
   placeSellOffer: 'Place Sell Offer',
   placeBuyOrder: 'Place Buy Order',

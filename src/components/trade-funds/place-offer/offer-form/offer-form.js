@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/trade-funds/place-offer/offer-form place-offer > offer-form
- * @parent components.buy-sell 10
+ * @parent components.buy-sell 13
  *
  * This component shows the forms used to place a buy or sell offer.
  *
