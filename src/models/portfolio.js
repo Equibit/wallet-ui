@@ -58,11 +58,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     Type: DefineList,
     value: new DefineList([])
   },
-  addressesFilled: {
-    get () {
-      return this.addresses.map(a => this.keys[a.type].derive(0).derive(a.index).getAddress());
-    }
-  },
+
   index: 'number',
   balance: {type: 'number', value: 0},
   totalCash: {type: 'number', value: 0},
@@ -74,6 +70,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
   userId: 'string',
   keys: {
     type: '*'
+  },
+  addressesFilled: {
+    get () {
+      return this.addresses.map(a => this.keys[a.type].derive(0).derive(a.index).getAddress());
+    }
   },
   // "m /44' /0' /portfolio-index' /0 /index"
   nextAddress: {
@@ -133,6 +134,10 @@ function getNextAddressIndex (addresses = [], type) {
   }, {index: 0, imported: false});
 }
 
+function poftfolioBalance (balance, addresses) {
+  return addresses.reduce((acc, address) => (balance[address] ? acc + balance[address].amount : acc), 0);
+}
+
 Portfolio.List = DefineList.extend('PortfolioList', {
   '#': Portfolio
 });
@@ -149,6 +154,7 @@ Portfolio.algebra = algebra;
 
 export default Portfolio;
 export { getNextAddressIndex };
+export { poftfolioBalance };
 
 // Import an address to be added as watch-only to the built-in wallet:
 // http://localhost:3030/proxycore?method=importaddress&params[]=mwd7FgMkm9yfPmNTnntsRbugZS7BEZaf32
