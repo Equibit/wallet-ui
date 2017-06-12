@@ -60,9 +60,30 @@ const Portfolio = DefineMap.extend('Portfolio', {
   },
 
   index: 'number',
-  balance: {type: 'number', value: 0},
-  totalCash: {type: 'number', value: 0},
-  totalSecurities: {type: 'number', value: 0},
+
+  /**
+   * @property {String} models/portfolio.properties.balance balance
+   * @parent models/portfolio.properties
+   * Portfolio's balance gets calculated when user's balance is loaded.
+   *
+   * ```
+   * {
+   *   cashBtc: 1,
+   *   cashEqb: 3,
+   *   cash: 4,
+   *   securities: 6,
+   *   total: 10
+   * }
+   * ```
+   */
+  balance: {
+    get () {
+      let cashBtc, cashEqb, cash, securities, total;
+      return { cashBtc, cashEqb, cash, securities, total};
+    }
+  },
+  userBalance: {type: '*'},
+
   unrealizedPL: {type: 'number', value: 0},
   unrealizedPLPercent: {type: 'number', value: 0},
   createdAt: 'date',
@@ -71,11 +92,31 @@ const Portfolio = DefineMap.extend('Portfolio', {
   keys: {
     type: '*'
   },
+
+  /*
+   * A helper list of address objects that includes real addresses.
+   */
   addressesFilled: {
     get () {
-      return this.addresses.map(a => this.keys[a.type].derive(0).derive(a.index).getAddress());
+      return this.addresses.map(a => {
+        return {
+          index: a.index,
+          type: a.type,
+          address: this.keys[a.type].derive(0).derive(a.index).getAddress()
+        }
+      });
     }
   },
+
+  /*
+   * A helper flat list of portfolio addresses to be used for `/listunspent` request.
+   */
+  addressesList: {
+    get () {
+      return this.addressesFilled.map(a => a.address)
+    }
+  },
+
   // "m /44' /0' /portfolio-index' /0 /index"
   nextAddress: {
     get () {

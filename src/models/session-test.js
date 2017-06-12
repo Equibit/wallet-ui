@@ -2,14 +2,10 @@ import assert from 'chai/chai';
 import 'steal-mocha';
 import Session from '~/models/session';
 import User from '~/models/user/user';
-import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 
 import './fixtures/portfolio';
 import './fixtures/listunspent';
-
-const mnemonic = 'fine raw stuff scene actor crowd flag lend wrap pony essay stamp';
-const seed = bip39.mnemonicToSeed(mnemonic, '');
-const hdNode = bitcoin.HDNode.fromSeedBuffer(seed, bitcoin.networks.testnet);
+import hdNode from './fixtures/fixture-keys';
 
 const userMock = new User({});
 userMock.cacheWalletKeys(hdNode);
