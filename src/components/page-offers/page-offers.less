@@ -1,0 +1,48 @@
+@import '../../styles/custom/_helpers.less';
+
+page-offers {
+	display: block;
+  .page-layout;
+
+  // Stretch the parent containers to make the wells inside of them take the available space in
+  // the screen. The overflow will be scrolled.
+  offer-details {
+    .order-details-body {
+      flex-grow: 2;
+    }
+  }
+
+  offer-display,
+  offer-order-display {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    .well {
+      flex-grow: 2;
+      overflow-y: auto;
+    }
+  }
+
+  issuance-summary {
+    .col-sm-4 {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+    .summary-company,
+    .summary-issuance-name {
+      margin-bottom: 10px;
+    }
+    .summary-issuance-type {
+      padding-left: 0;
+    }
+  }
+
+  offer-order-display {
+    .dl-horizontal dt {
+      width: 100px;
+    }
+    .dl-stripped dd {
+      margin-left: 100px;
+    }
+  }
+}

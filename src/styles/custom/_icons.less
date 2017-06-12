@@ -53,6 +53,11 @@
   .rotate-90;
 }
 
+.icon-sell-inversed {
+  .icon-variant-circle ("\ea3a"; transparent; @gray-dark; @text-color;);
+  .rotate-90;
+}
+
 .icon-sell-open {
   .icon-sell;
   background-color: @brand-info;
@@ -67,6 +72,11 @@
 
 .icon-buy {
   .icon-variant-circle ("\ea3a"; @gray-dark; @gray-dark; @white;);
+  .rotate-270;
+}
+
+.icon-buy-inversed {
+  .icon-variant-circle ("\ea3a"; transparent; @gray-dark; @text-color;);
   .rotate-270;
 }
 
@@ -113,7 +123,7 @@
 * @styles icon-font Icon Font
 * @parent _icons.less 1
 *
-* @iframe src/styles/demos/icons/icons-edcicons.html 2000
+* @iframe src/styles/demos/icons/icons-edcicons.html 1500
 **/
 
 .icon-hand-shake:before {

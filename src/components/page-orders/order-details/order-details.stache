@@ -1,15 +1,16 @@
 <can-import from="~/components/page-orders/order-data/" />
 <can-import from="~/components/page-orders/order-offers-data/" />
+<can-import from="~/utils/stache-helpers/" />
 
 <drag-panel class="page-panel panel panel-default card card-full">
   <nav class="navbar toolbar">
     <div class="row">
       <p class="navbar-text">
-        <span class="order-company">Imperial Brands</span>
-        <span class="order-issuance-name">, Series 1</span>
+        <span class="details-company">Imperial Brands</span>
+        <span class="details-issuance-name">, Series 1</span>
       </p>
       <ul class="nav navbar-nav navbar-right toolbar-actions">
-        <li><a ($click)="sendFunds()"><span class="icon icon-bin"></span> Cancel Order</a></li>
+        <li><a ($click)="sendFunds()"><span class="icon icon-bin"></span> {{i18n('cancelOrder')}}</a></li>
       </ul>
     </div>
   </nav>
@@ -31,13 +32,14 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="message-box no-border">
-          <div class="message-box-status">Your Order Details Will Show Here</div>
-          <p class="message-box-cause">You can place orders from the issuances page.</p>
-          <a href="/issuances" class="btn btn-primary">Explore Issuances</a>
+          <div class="message-box-status">{{i18n('placeholderNoOrdersTile')}}</div>
+          <p class="message-box-cause">{{i18n('placeholderNoOrdersDescription')}}</p>
+          <a href="/issuances" class="btn btn-primary">{{i18n('placeholderNoOrdersCTA')}}</a>
         </div>
       </div>
     </div>
-  </div>-->
+  </div>
+  -->
 
 </drag-panel>
 

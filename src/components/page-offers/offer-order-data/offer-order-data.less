@@ -1,0 +1,47 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+
+offer-order-data {
+	display: block;
+
+  .well {
+    padding: 0;
+    .section {
+      padding: @padding-large-vertical;
+    }
+  }
+
+  .order-header {
+    background-color: @active-bg;
+    border-bottom: @border-default;
+  }
+
+  .order-summary {
+    padding-bottom: 0;
+  }
+
+  .order-quantity,
+  .order-ask-price {
+    font-size: @font-size-h3+4;
+    line-height: 0.8em;
+    small {
+      font-size: 50%;
+      color: @gray;
+    }
+  }
+
+  .order-metadata {
+    dl {
+      margin-bottom: 0;
+    }
+    dd, dt {
+      &:last-of-type { // Removes the bottom border of the list
+        border: 0;
+      }
+    }
+  }
+
+  fillkill-indicator {
+    margin-top: 16px;
+  }
+}

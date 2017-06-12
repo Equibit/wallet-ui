@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/trade-funds/currency-converter currency-converter
- * @parent components.common
+ * @parent components.common 3
  *
  * Input field that converts the given input according to the given currency rate.
  *

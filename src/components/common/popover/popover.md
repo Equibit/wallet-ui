@@ -1,5 +1,5 @@
-@page components/common/popover Popovers & Tooltips
-@parent components.common
+@page components/common/popover popovers and tooltips
+@parent components.generic 5
 
 @link ../src/components/common/popover/popover.html Full Page Demo
 

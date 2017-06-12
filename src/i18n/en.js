@@ -18,10 +18,14 @@ export default {
   passwordResetMsg: '',
 
   // Buttons:
+  accept: 'Accept',
   done: 'Done',
   cancel: 'Cancel',
+  cancelOrder: 'Cancel Order',
+  cancelOffer: 'Cancel Offer',
   edit: 'Edit',
   next: 'Next',
+  view: 'View',
 
   // Common:
   yes: 'Yes',
@@ -30,7 +34,10 @@ export default {
   // Alphabetically
 
   additionalDetails: 'Additional Details',
+  acceptedOffers: 'Accepted Offers',
+  acceptedDate: 'Accepted Date',
   amount: 'Amount',
+  archived: 'Archived',
   ask: 'Ask',
   askPrice: 'Ask Price',
 
@@ -41,7 +48,9 @@ export default {
   breakdown: 'Breakdown',
   btc: 'BTC',
   buy: 'Buy',
+  buyOffers: 'Buy Offers',
 
+  cancelledOn: 'Cancelled on',
   cash: 'Cash',
   currency: 'Currency',
   company: 'Company',
@@ -55,6 +64,10 @@ export default {
   date: 'Date',
   dateAndTime: 'Date and Time',
   days: 'Days',
+  dealFlowStepLabel: 'Deal Flow Step',
+  dealFlowStep1: 'Exchange Guarantees',
+  dealFlowStep2: 'Exchange Assets',
+  dealFlowStep3: 'Close Deal',
   description: 'Description',
 
   eqb: 'EQB',
@@ -81,14 +94,28 @@ export default {
 
   marketCapitalization: 'Market Capitalization',
   marketSummary: 'Market Summary',
+  myOffers: 'My Offers',
+  myOrders: 'My Orders',
   myPortfolio: 'My Portfolio',
 
   newIssuances: 'New Issuances',
+  notFoundOffers: 'No Offers Found',
+  notFoundOffersArchived: 'No Archived Offers Found',
+  notFoundOffersBuy: 'No Buy Offers Found',
+  notFoundOffersSell: 'No Sell Offers Found',
+  notFoundOrdersArchived: 'No Archived Orders Found',
+  notFoundOrdersBuy: 'No Buy Orders Found',
+  notFoundOrdersSell: 'No Sell Orders Found',
   noPartialFills: 'No partial fills allowed.',
 
   offer: 'Offer',
 
   pasteAddress: 'Paste address',
+  placeholderNoOffersTile: 'Your Offer Details Will Show Here',
+  placeholderNoOffersDescription: 'You can place offers from the issuances page.',
+  placeholderNoOrdersTile: 'Your Order Details Will Show Here',
+  placeholderNoOrdersDescription: 'You can place orders from the issuances page.',
+  placeholderNoOrdersCTA: 'Explore Issuances',
   placeSellOrder: 'Place Sell Order',
   placeSellOffer: 'Place Sell Offer',
   placeBuyOrder: 'Place Buy Order',
@@ -109,6 +136,13 @@ export default {
   send: 'Send',
   sendModalDescription: 'Send securities or funds from your account.',
   sell: 'Sell',
+  sellOffer: 'Sell Offer',
+  sellOrder: 'Sell Order',
+  statusCancelled: 'Cancelled',
+  statusClosed: 'Closed',
+  statusOpen: 'Open',
+  statusRejected: 'Rejected',
+  statusTrading: 'Trading',
 
   termsAndConditions: 'EDC Terms & Conditions',
   totalCash: 'Total Cash',

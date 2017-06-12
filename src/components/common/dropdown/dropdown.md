@@ -1,5 +1,5 @@
-@page components/common/dropdown Dropdown
-@parent components.common
+@page components/common/dropdown dropdown
+@parent components.generic 2
 
 @link ../src/components/common/dropdown/dropdown.html Full Page Demo
 

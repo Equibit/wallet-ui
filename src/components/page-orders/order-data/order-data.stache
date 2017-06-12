@@ -7,7 +7,7 @@
 
 
 <h2 class="subtitle">
-  Sell Order
+  {{i18n('sellOrder')}}
   <div class="order-date">Created on 04/28/12 @1:00pm</div>
 </h2>
 

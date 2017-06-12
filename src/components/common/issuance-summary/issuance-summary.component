@@ -1,5 +1,5 @@
 /**
- * @module {can.Component} components/common/issuance-summary Issuance Summary
+ * @module {can.Component} components/common/issuance-summary issuance-summary
  * @parent components.common
  *
  * This component the summary information of an issuance.
@@ -27,15 +27,15 @@
 
   <view>
     <div class="row">
-      <div class="col-xs-12 col-sm-4 no-padding-left">
+      <div class="col-xs-12 col-sm-4 no-padding-left summary-company">
         <label>{{i18n('company')}}</label>
         <a href="" class="input-value order-value-company">Imperial Brands</a>
       </div>
-      <div class="col-xs-6 col-sm-4 no-padding-left">
+      <div class="col-xs-6 col-sm-4 no-padding-left summary-issuance-name">
         <label>{{i18n('issuanceName')}}</label>
         <span class="input-value">Series 1</span>
       </div>
-      <div class="col-xs-6 col-sm-4 no-padding-rigth">
+      <div class="col-xs-6 col-sm-4 no-padding-rigth summary-issuance-type">
         <label>{{i18n('issuanceType')}}</label>
         <span class="input-value">Common Shares</span>
       </div>

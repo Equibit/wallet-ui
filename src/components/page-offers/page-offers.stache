@@ -1,0 +1,12 @@
+<can-import from="~/components/page-offers/offer-list/" />
+<can-import from="~/components/page-offers/offer-details/" />
+
+<div class="row">
+  <div class="col-xs-12 col-md-4 col-lg-3">
+    <offer-list />
+  </div>
+
+  <div class="col-xs-12 col-md-8 col-lg-9">
+    <offer-details />
+  </div>
+</div>

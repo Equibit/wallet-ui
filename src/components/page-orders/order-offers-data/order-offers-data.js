@@ -1,6 +1,6 @@
 /**
- * @module {can.Component} wallet-ui/components/page-orders/order-offers-data order-offers-data
- * @parent components.buy-sell 3
+ * @module {can.Component} wallet-ui/components/page-orders/order-offers-data order-details > order-offers-data
+ * @parent components.buy-sell 8
  *
  * This component shows the list of offers available for an order using an accordion style container.
  *

@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/trade-funds/place-offer/offer-confirm place-offer > offer-confirm
- * @parent components.buy-sell 11
+ * @parent components.buy-sell-offers 2
  *
  * This component shows the summary of the data entered via the `<offer-form>`.
  *

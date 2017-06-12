@@ -18,6 +18,8 @@
     <can-import from="~/components/page-issuance-details/" />
     <can-import from="~/components/page-portfolio/" />
     <can-import from="~/components/page-transactions/" />
+    <can-import from="~/components/page-orders/" />
+    <can-import from="~/components/page-offers/" />
     <can-import from="~/components/page-auth/" />
     <can-import from="~/components/page-settings/" />
     <can-import from="~/components/page-four-oh-four.component" />
@@ -58,6 +60,12 @@
       {{/case}}
       {{#case 'transactions'}}
         <page-transactions />
+      {{/case}}
+      {{#case 'orders'}}
+        <page-orders />
+      {{/case}}
+      {{#case 'offers'}}
+        <page-offers />
       {{/case}}
       {{#case 'settings'}}
         <page-settings />

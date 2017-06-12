@@ -1,6 +1,6 @@
 /**
- * @module {can.Component} components/page-orders/order-offers-accepted order-offers-accepted
- * @parent components.buy-sell 4
+ * @module {can.Component} components/page-orders/order-offers-accepted order-details > order-offers-accepted
+ * @parent components.buy-sell 7
  *
  * This component shows accepted offers from an order.
  *

@@ -1,0 +1,48 @@
+<can-import from="~/components/page-offers/offer-data/" />
+<can-import from="~/components/page-offers/offer-order-data/" />
+<can-import from="~/utils/stache-helpers/" />
+
+<drag-panel class="page-panel panel panel-default card card-full">
+  <nav class="navbar toolbar">
+    <div class="row">
+      <p class="navbar-text">
+        <span class="details-company">Imperial Brands</span>
+        <span class="details-issuance-name">, Series 1</span>
+      </p>
+      <ul class="nav navbar-nav navbar-right toolbar-actions">
+        <li><a ($click)="sendFunds()"><span class="icon icon-bin"></span> {{i18n('cancelOffer')}}</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="panel-body">
+    <div class="row order-details-body">
+      <div class="col-xs-12 col-lg-8 order-data">
+        <offer-data></offer-data>
+      </div>
+
+      <div class="col-xs-12 col-lg-4 offers-data">
+        <offer-order-data></offer-order-data>
+      </div>
+    </div>
+  </div>
+
+  <!-- Placeholder message for no orders
+  <div class="panel-body align-center">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="message-box no-border">
+          <div class="message-box-status">{{i18n('placeholderNoOffersTile')}}</div>
+          <p class="message-box-cause">{{i18n('placeholderNoOffersDescription')}}</p>
+          <a href="/issuances" class="btn btn-primary">{{i18n('placeholderNoOrdersCTA')}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+
+</drag-panel>
+
+
+
+
