@@ -1,0 +1,75 @@
+<div class="offer-status-box contextual-bg-progress">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4"><label>Deal Flow Step</label></div>
+    <div class="col-xs-12 col-sm-5 offer-deal-step">
+      <span class="icon icon-clock"></span>
+      <span class="deal-step-label">Exchange Assets </span>
+    </div>
+    <div class="col-xs-12 col-sm-2 offer-deal-step-number">Step 2 of 3</div>
+    <div class="col-xs-12 col-sm-1 offer-deal-action">
+      <a href="" class="btn btn-xs btn-default">View</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-4"><label>Accepted Date</label></div>
+    <div class="col-xs-12 col-sm-8 offer-accepted-date">04/29 @2:30 pm</div>
+  </div>
+</div>
+
+<div class="offer-status-box contextual-bg-success">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4"><label>Deal Flow Step</label></div>
+    <div class="col-xs-12 col-sm-5 offer-deal-step">
+      <span class="icon icon-hand-shake"></span>
+      <span class="deal-step-label">Deal Closed</span>
+    </div>
+    <div class="col-xs-12 col-sm-2 offer-deal-step-number">Step 2 of 3</div>
+    <div class="col-xs-12 col-sm-1 offer-deal-action">
+      <a href="" class="btn btn-xs btn-default">View</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-4"><label>Accepted Date</label></div>
+    <div class="col-xs-12 col-sm-8 offer-accepted-date">04/29 @2:30 pm</div>
+  </div>
+</div>
+
+<div class="offer-status-box contextual-bg-danger">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4"><label>Deal Flow Step</label></div>
+    <div class="col-xs-12 col-sm-5 offer-deal-step">
+      <span class="icon icon-hand-stop"></span>
+      <span class="deal-step-label">Deal Closed</span>
+    </div>
+    <div class="col-xs-12 col-sm-2 offer-deal-step-number">Step 2 of 3</div>
+    <div class="col-xs-12 col-sm-1 offer-deal-action">
+      <a href="" class="btn btn-xs btn-default">View</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-4"><label>Accepted Date</label></div>
+    <div class="col-xs-12 col-sm-8 offer-accepted-date">04/29 @2:30 pm</div>
+  </div>
+</div>
+
+<div class="offer-status-box contextual-bg-inactive">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4"><label>Deal Flow Step</label></div>
+    <div class="col-xs-12 col-sm-5 offer-deal-step">
+      <span class="icon icon-hand rotate-180"></span>
+      <span class="deal-step-label">Deal Closed</span>
+    </div>
+    <div class="col-xs-12 col-sm-2 offer-deal-step-number">Step 2 of 3</div>
+    <div class="col-xs-12 col-sm-1 offer-deal-action">
+      <a href="" class="btn btn-xs btn-default">View</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-4"><label>Accepted Date</label></div>
+    <div class="col-xs-12 col-sm-8 offer-accepted-date">04/29 @2:30 pm</div>
+  </div>
+</div>

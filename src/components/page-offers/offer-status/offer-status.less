@@ -1,0 +1,38 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+//@import (reference) '../../../styles/custom/_mixins.less';
+
+offer-status {
+	display: block;
+  font-size: @font-size-small;
+
+  .offer-status-box {
+     margin-bottom: @padding-large-vertical;
+  }
+  .offer-deal-step {
+    flex-direction: row;
+    align-items: center;
+  }
+  .offer-deal-step-number {
+    font-size: @font-size-xsmall;
+    color: @gray;
+    justify-content: center;
+    @media (max-width: @screen-xs) {
+      margin-top: 3px;
+    }
+  }
+  .icon {
+    font-size: @font-size-base;
+    margin-right: @padding-small-horizontal;
+  }
+  .btn-default {
+    border-color: @brand-primary;
+    align-self: flex-end;
+    @media (max-width: @screen-xs) {
+      align-self: flex-start;
+      margin: 5px 0 10px;
+    }
+  }
+  &.contextual-bg-danger .offer-deal-step {
+    font-style: italic;
+  }
+}

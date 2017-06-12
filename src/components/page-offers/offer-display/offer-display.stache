@@ -1,4 +1,5 @@
 <can-import from="~/components/common/status-badge/" />
+<can-import from="~/components/page-offers/offer-status/" />
 <can-import from="~/utils/stache-helpers/" />
 
 
@@ -24,6 +25,6 @@
     </div>
 
     <div class="offer-status-details section">
-      Status Details Goes here
+      <offer-status></offer-status>
     </div>
 </div>
