@@ -3,7 +3,6 @@ import DefineMap from 'can-define/map/';
 import './page-portfolio.less';
 import view from './page-portfolio.stache';
 import Session from '~/models/session';
-import Portfolio from '~/models/portfolio';
 
 export const ViewModel = DefineMap.extend({
   portfolios: {
