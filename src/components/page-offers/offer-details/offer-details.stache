@@ -1,5 +1,5 @@
-<!--<can-import from="~/components/page-orders/order-data/" />
-<can-import from="~/components/page-orders/order-offers-data/" />-->
+<can-import from="~/components/page-offers/offer-display/" />
+<can-import from="~/components/page-offers/offer-order-display/" />
 <can-import from="~/utils/stache-helpers/" />
 
 <drag-panel class="page-panel panel panel-default card card-full">
@@ -18,11 +18,11 @@
   <div class="panel-body">
     <div class="row order-details-body">
       <div class="col-xs-12 col-lg-8 order-data">
-
+        <offer-display></offer-display>
       </div>
 
       <div class="col-xs-12 col-lg-4 offers-data">
-
+        <offer-order-display></offer-order-display>
       </div>
     </div>
   </div>

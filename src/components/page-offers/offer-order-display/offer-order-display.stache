@@ -13,15 +13,15 @@
   </div>
 
   <div class="order-summary section row">
-    <div class="col-xs-6 col-sm-3">
+    <div class="col-xs-6">
       <label>{{i18n('quantity')}}</label>
       <span class="order-quantity">400</span>
     </div>
-    <div class="col-xs-6 col-sm-3 sub-section">
+    <div class="col-xs-6 sub-section">
       <label>{{i18n('askPrice')}}</label>
       <span class="order-ask-price">30,375 <small>μBTC</small></span>
     </div>
-    <div class="col-xs-12 col-sm-3 sub-section">
+    <div class="col-xs-12 sub-section">
        <fillkill-indicator />
     </div>
   </div>
