@@ -30,7 +30,7 @@
     <h1 class="panel-title">{{i18n('myPortfolio')}}</h1>
   </div>
 
-  <portfolio-toolbar {balance}="portfolio.balance"
+  <portfolio-toolbar {balance}="portfolio.balance.total"
                      {is-sending}="isSending"
                      {^send-funds-popup}="isSendFundsPopup"
                      {^receive-funds-popup}="isReceiveFundsPopup"/>
@@ -62,7 +62,7 @@
       </div>
 
       <div class="col-lg-5 col-xs-12 section">
-        <portfolio-breakdown />
+        <portfolio-breakdown {balance}="portfolio.balance" />
       </div>
 
 
