@@ -1,0 +1,23 @@
+<can-import from="bootstrap-canjs" />
+<can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/utils/stache-helpers/" />
+
+<bootstrap-modal-content>
+  <div class="modal-header">
+    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+    <h3 class="modal-title">{{i18n('cancelorder')}}</h3>
+  </div>
+
+  <div class="modal-body">
+    <h4><span class="icon icon-warning"></span>{{i18n('warning')}}</h4>
+    <p>
+      This action cannot be undone. Any pending trades will be cancelled as well.
+      Are you sure you want to continue?
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary">{{i18n('cancelYes')}}</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancelNo')}}</button>
+  </div>
+</bootstrap-modal-content>
