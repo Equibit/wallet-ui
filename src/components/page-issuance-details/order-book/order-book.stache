@@ -3,7 +3,7 @@
 <can-import from="~/components/page-issuances/company-value-change.component" />
 <can-import from="~/components/common/modal/modal.less" />
 
-<h2 class="subtitle">ORDER BOOK</h2>
+<h2 class="subtitle">Order Book</h2>
 
 <div class="well">
   <div class="row">

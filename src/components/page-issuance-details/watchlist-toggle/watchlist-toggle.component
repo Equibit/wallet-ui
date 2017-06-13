@@ -1,0 +1,28 @@
+/**
+ * @module {can.Component} components/page-issuance-details/watchlist-toggle watchlist-toggle
+ * @parent components.issuances
+ *
+ * Shows a toggle that allows to add to remove a company from the user's watchlist. zsdzsc
+ *
+ *
+ * ## Demo
+ *
+ * @demo src/components/page-issuance-details/watchlist-toggle/watchlist-toggle.html
+ */
+
+<can-component tag="watchlist-toggle">
+  <style type="less">
+    @import '../../../styles/bootstrap-custom/_variables.less';
+
+    .icon-star-full{
+      color: @brand-warning;
+    }
+
+  </style>
+  <view>
+    <ul class="nav navbar-nav navbar-right toolbar-actions">
+      <li><a href=""><span class="icon icon-star-empty"></span> Add to Watchlist</a></li>
+      <!--<li><a href=""><span class="icon icon-star-full"></span> In Watchlist</a></li>-->
+    </ul>
+  </view>
+</can-component>
