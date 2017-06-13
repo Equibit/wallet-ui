@@ -46,15 +46,15 @@ describe('models/portfolio', function () {
       userBalance: listunspent
     });
 
-    it('should populate addressesFilled', function () {
-      const expectedAddressesFilled = [
+    it('should populate addresses', function () {
+      const expectedAddresses = [
         {index: 0, type: 'btc', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'},
         {index: 1, type: 'btc', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA'},
         {index: 0, type: 'eqb', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'},
         {index: 1, type: 'eqb', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'}
       ];
-      console.log(portfolio.addressesFilled.get());
-      assert.deepEqual(portfolio.addressesFilled.get(), expectedAddressesFilled);
+      console.log(portfolio.addresses.get());
+      assert.deepEqual(portfolio.addresses.get(), expectedAddresses);
     });
 
     it('should populate addressesList', function () {
