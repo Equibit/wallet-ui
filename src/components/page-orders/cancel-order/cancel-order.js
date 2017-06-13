@@ -1,16 +1,16 @@
 /**
- * @module {can.Component} wallet-ui/components/page-orders/cancel-order cancel-order
- * @parent components.common
+ * @module {can.Component} components/page-orders/cancel-order cancel-order
+ * @parent components.buy-sell 10
  *
- * A short description of the cancel-order component
+ * Modal shown when wanting to cancel an order.
  *
  * @signature `<cancel-order />`
  *
- * @link ../src/wallet-ui/components/page-orders/cancel-order/cancel-order.html Full Page Demo
+ * @link ../src/components/page-orders/cancel-order/cancel-order.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-orders/cancel-order/cancel-order.html
+ * @demo src/components/page-orders/cancel-order/cancel-order.html
  */
 
 import Component from 'can-component';
