@@ -126,7 +126,7 @@ export default {
   quantity: 'Quantity',
 
   receive: 'Receive',
-  receiveInfo: 'Use the a unique address to add funds or securities to your account.',
+  receiveInfo: 'Use a unique address to add funds or securities to your account.',
 
   shareVolume: 'Share Volume',
   status: 'Status',
