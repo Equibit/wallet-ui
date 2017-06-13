@@ -20,14 +20,19 @@ import './portfolio-breakdown.less';
 import view from './portfolio-breakdown.stache';
 
 export const ViewModel = DefineMap.extend({
+  balance: {
+    type: '*'
+  },
   dataColumns: {
-    value: new DefineList([
-      new DefineList(['Cash', 35]),
-      new DefineList(['Domest. Equity', 10]),
-      new DefineList(['Domest. Bonds', 20]),
-      new DefineList(['Int. Equity', 15]),
-      new DefineList(['Int. Bonds', 20])
-    ])
+    get () {
+      return this.balance && new DefineList([
+        new DefineList(['Cash', this.balance.cashTotal]),
+        new DefineList(['Domest. Equity', this.balance.equityDomest || 0]),
+        new DefineList(['Domest. Bonds', this.balance.bondsDomest || 0]),
+        new DefineList(['Int. Equity', this.balance.equityInt || 0]),
+        new DefineList(['Int. Bonds', this.balance.bondsInt || 0])
+      ]);
+    }
   },
   config: {
     value: {

@@ -44,45 +44,79 @@ const behaviors = [
 ];
 
 const Session = DefineMap.extend('Session', {
+  /**
+   * @property {Function} models/session.prototype.user user
+   * @parent models/session.prototype
+   * User instance.
+   */
   user: {
-    Type: User,
-    set (user) {
-      if (user) {
-        // Load user's portfolios and generate keys for each one of them:
-        Portfolio.getList({$limit: 5, $skip: 0}).then(portfolios => {
-          portfolios.forEach(portfolio => {
-            if (portfolio.index !== 'undefined') {
-              portfolio.keys = user.generatePortfolioKeys(portfolio.index);
-            }
-          });
-          this.portfolios = portfolios;
-        });
-      }
-      return user;
+    Type: User
+  },
+
+  /**
+   * @property {Function} models/session.prototype.portfoliosPromise portfoliosPromise
+   * @parent models/session.prototype
+   * Promise for portfolios.
+   */
+  portfoliosPromise: {
+    get () {
+      return Portfolio.getList({$limit: 5, $skip: 0});
     }
   },
+
+  /**
+   * @property {Function} models/session.prototype.portfolios portfolios
+   * @parent models/session.prototype
+   * List of user's portfolios.
+   */
   portfolios: {
     Type: Portfolio.List,
-    set (val) {
-      if (val && val.length) {
-        // Request unspent balance for all addresses:
-        const addresses = val.reduce((acc, portfolio) => {
-          return acc.concat(portfolio.addressesFilled.get());
-        }, []);
-        if (addresses && addresses.length) {
-          feathersClient.service('/listunspent').find({
-            query: {addr: addresses}
-          }).then(data => {
-            // TODO: populate each portfolio balance here.
-            this.balance = data;
+    get (val, resolved) {
+      if (!val) {
+        this.portfoliosPromise.then(portfolios => {
+          portfolios.forEach(portfolio => {
+            if (portfolio.index !== 'undefined') {
+              portfolio.keys = this.user.generatePortfolioKeys(portfolio.index);
+            }
           });
-        }
+          resolved(portfolios);
+        });
       }
       return val;
     }
   },
+
   /**
+   * @property {Function} models/session.prototype.allAddresses allAddresses
+   * @parent models/session.prototype
+   * List of all addresses for fetching unspent amounts.
+   */
+  allAddresses: {
+    get () {
+      return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
+        return acc.concat(portfolio.addressesList.get());
+      }, []);
+    }
+  },
+
+  /**
+   * @property {Function} models/session.prototype.balancePromise balancePromise
+   * @parent models/session.prototype
+   * Promise for balance.
+   */
+  balancePromise: {
+    get () {
+      return this.allAddresses && feathersClient.service('/listunspent').find({
+        query: { addr: this.allAddresses }
+      });
+    }
+  },
+
+  /**
+   * @property {Function} models/session.prototype.balance balance
+   * @parent models/session.prototype
    * User balance contains a summary and balance per address.
+   *
    * ```
    * {
    *   "summary": {
@@ -96,8 +130,24 @@ const Session = DefineMap.extend('Session', {
    * ```
    */
   balance: {
-    Type: DefineMap
+    // 1. We pass user's balance to each portfolio
+    // 2. Each portfolio calculates its own balance and break it down (equity / bonds / cash)
+    // 3. We calculate summary based on individual portfolio balance and add it to user's balance.
+    get (val, resolve) {
+      if (!val && this.balancePromise) {
+        this.balancePromise.then(balance => {
+          // TODO: consider using stream API to avoid mutating promises from here.
+          this.portfolios.forEach(portfolio => {
+            portfolio.userBalance = balance;
+          });
+          // TODO: fill in some balance info based on individual portfolio balances.
+          balance.summary.securities = 0;
+          resolve(balance);
+        });
+      }
+    }
   },
+
   usingTempPassword: 'boolean',
   accessToken: 'string',
   secret: 'string',

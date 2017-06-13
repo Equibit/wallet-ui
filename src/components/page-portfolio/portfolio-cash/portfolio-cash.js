@@ -19,13 +19,8 @@ import './portfolio-cash.less';
 import view from './portfolio-cash.stache';
 
 export const ViewModel = DefineMap.extend({
-  cash: {
-    value: {
-      btc: 1.245678,
-      btcVal: 1.234567,
-      eqb: 230.4646,
-      eqbVal: 8.3453
-    }
+  balance: {
+    type: '*'
   }
 });
 

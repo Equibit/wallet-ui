@@ -24,7 +24,10 @@ import view from './nav-bar.stache';
 
 export const ViewModel = DefineMap.extend({
   page: 'string',
-  isLoggedIn: 'boolean'
+  isLoggedIn: 'boolean',
+  balance: {
+    type: '*'
+  }
 });
 
 export default Component.extend({
