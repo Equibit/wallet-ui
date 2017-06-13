@@ -94,7 +94,7 @@ const Session = DefineMap.extend('Session', {
   allAddresses: {
     get () {
       return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
-        return acc.concat(portfolio.addressesFilled.get());
+        return acc.concat(portfolio.addressesList.get());
       }, []);
     }
   },
@@ -135,7 +135,8 @@ const Session = DefineMap.extend('Session', {
         this.balancePromise.then(balance => {
           // TODO: consider using stream API to avoid mutating promises from here.
           this.portfolios.forEach(portfolio => {
-            portfolio.balance = getPoftfolioBalance(balance, portfolio.addressesFilled);
+            // portfolio.balance = getPoftfolioBalance(balance, portfolio.addressesFilled);
+            portfolio.userBalance = balance;
           });
           resolve(balance);
         });

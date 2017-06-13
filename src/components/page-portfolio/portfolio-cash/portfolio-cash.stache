@@ -16,13 +16,14 @@
       <tbody>
         <tr>
           <td>{{i18n('Bitcoin')}}</td>
-          <td>{{cash.btc}}</td>
-          <td>{{cash.btcVal}}</td>
+          <td>{{balance.cashBtc}}</td>
+          <td>{{balance.cashBtc}}</td>
         </tr>
         <tr>
           <td>{{i18n('equibit')}}</td>
-          <td>{{cash.eqb}}</td>
-          <td>{{cash.eqbVal}}</td>
+          {{! TODO: change to empty EQB amount }}
+          <td>{{balance.cashEqb}}</td>
+          <td>{{balance.cashEqb}}</td>
         </tr>
       </tbody>
     </table>
