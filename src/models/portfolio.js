@@ -12,7 +12,6 @@ import DefineList from 'can-define/list/list';
 import feathersClient from '~/models/feathers-client';
 import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
-// import Session from '~/models/session';
 
 // TODO: FIXTURES ON!
 // import '~/models/fixtures/portfolio';
@@ -31,6 +30,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     serialize: true,
     type: 'string'
   },
+
   /**
    * @property {String} models/portfolio.properties.name name
    * @parent models/portfolio.properties
@@ -42,7 +42,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
   },
 
   /**
-   * @property {String} models/portfolio.properties.addresses addresses
+   * @property {String} models/portfolio.properties.addressesMeta addressesMeta
    * @parent models/portfolio.properties
    * Tracking addresses by index for one-time usage.
    * ```
@@ -53,13 +53,45 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * ]
    * ```
    */
-  addresses: {
+  addressesMeta: {
     serialize: true,
     Type: DefineList,
     value: new DefineList([])
   },
 
   index: 'number',
+
+  /*
+   * A helper list of address objects that includes real addresses.
+   */
+  addresses: {
+    get () {
+      return this.addressesMeta && this.addressesMeta.map(a => {
+        return {
+          index: a.index,
+          type: a.type,
+          address: this.keys[a.type].derive(0).derive(a.index).getAddress()
+        };
+      }) || [];
+    }
+  },
+
+  /*
+   * A helper flat list of portfolio addresses to be used for `/listunspent` request.
+   */
+  addressesList: {
+    get () {
+      return this.addresses.map(a => a.address);
+    }
+  },
+
+
+  /**
+   * @property {String} models/portfolio.properties.userBalance userBalance
+   * @parent models/portfolio.properties
+   * A reference to user's balance. Portfolio uses it to figure out its own funds in `balance`.
+   */
+  userBalance: {type: '*'},
 
   /**
    * @property {String} models/portfolio.properties.balance balance
@@ -84,7 +116,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
         return;
       }
       const total = this.userBalance.summary.total;
-      const { cashBtc, cashEqb, cashTotal, securities } = this.addressesFilled.reduce((acc, a) => {
+      const { cashBtc, cashEqb, cashTotal, securities } = this.addresses.reduce((acc, a) => {
         if (unspent[a.address]) {
           const amount = unspent[a.address].amount;
           if (a.type === 'btc') {
@@ -99,7 +131,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
       return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total });
     }
   },
-  userBalance: {type: '*'},
 
   unrealizedPL: {type: 'number', value: 0},
   unrealizedPLPercent: {type: 'number', value: 0},
@@ -110,35 +141,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
     type: '*'
   },
 
-  /*
-   * A helper list of address objects that includes real addresses.
-   */
-  addressesFilled: {
-    get () {
-      return this.addresses.map(a => {
-        return {
-          index: a.index,
-          type: a.type,
-          address: this.keys[a.type].derive(0).derive(a.index).getAddress()
-        };
-      });
-    }
-  },
-
-  /*
-   * A helper flat list of portfolio addresses to be used for `/listunspent` request.
-   */
-  addressesList: {
-    get () {
-      return this.addressesFilled.map(a => a.address);
-    }
-  },
-
   // "m /44' /0' /portfolio-index' /0 /index"
   nextAddress: {
     get () {
-      const btcAddr = getNextAddressIndex(this.addresses, 'btc');
-      const eqbAddr = getNextAddressIndex(this.addresses, 'eqb');
+      const btcAddr = getNextAddressIndex(this.addressesMeta, 'btc');
+      const eqbAddr = getNextAddressIndex(this.addressesMeta, 'eqb');
       const addr = {
         btc: this.keys.btc.derive(0).derive(btcAddr.index).getAddress(),
         eqb: this.keys.eqb.derive(0).derive(eqbAddr.index).getAddress()
@@ -147,15 +154,16 @@ const Portfolio = DefineMap.extend('Portfolio', {
         // Import addr as watch-only
         this.importAddr(addr.btc);
         // Mark address as generated/imported but not used yet:
-        this.addresses.push({index: 0, type: 'btc', used: false});
+        this.addressesMeta.push({index: 0, type: 'btc', used: false});
       }
       if (eqbAddr.imported === false) {
         // Import addr as watch-only
         this.importAddr(addr.eqb);
         // Mark address as generated/imported but not used yet:
-        this.addresses.push({index: 0, type: 'eqb', used: false});
+        this.addressesMeta.push({index: 0, type: 'eqb', used: false});
       }
       if (!eqbAddr.imported || !btcAddr.imported) {
+        // Save newly generated addresses to DB:
         this.save();
       }
 

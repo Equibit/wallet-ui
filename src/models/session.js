@@ -95,7 +95,7 @@ const Session = DefineMap.extend('Session', {
     get () {
       return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
         return acc.concat(portfolio.addressesList.get());
-      }, []);
+      }, []) || [];
     }
   },
 
@@ -106,7 +106,7 @@ const Session = DefineMap.extend('Session', {
    */
   balancePromise: {
     get () {
-      return this.allAddresses && feathersClient.service('/listunspent').find({
+      return this.allAddresses.length && feathersClient.service('/listunspent').find({
         query: { addr: this.allAddresses }
       });
     }
