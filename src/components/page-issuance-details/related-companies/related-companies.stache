@@ -1,9 +1,78 @@
-<h3><small>RELATED COMPANIES</small></h3>
+<can-import from="~/components/common/arrow-change.component" />
+<can-import from="~/utils/stache-helpers/" />
+
+<h2 class="subtitle">Related Companies</h2>
 
 <div class="well">
   <div class="row">
-    <div class="col-md-12">
-      Companies here...
+    <div class="col-xs-12">
+      <ul class="list-unstyled related-companies-list">
+        <li>
+          <a href="">
+            <div class="company-name btn-link">Nike</div>
+            <div class="company-security-price">30,429 <small>(μBTC)</small></div>
+            <div class="company-name-value-change">
+              <arrow-change class="change" {change}="issuance.change">
+                <span class="percentage">({{issuance.changePercentage}}%)</span>
+              </arrow-change>
+            </div>
+            <div class="company-market-cap-label">Market Cap</div>
+            <div class="company-market-cap">463 M (BTC)</div>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <div class="company-name btn-link">Apple</div>
+            <div class="company-security-price">31,278 <small>(μBTC)</small></div>
+            <div class="company-name-value-change">
+              <arrow-change class="change" {change}="issuance.change">
+                <span class="percentage">({{issuance.changePercentage}}%)</span>
+              </arrow-change>
+            </div>
+            <div class="company-market-cap-label">Market Cap</div>
+            <div class="company-market-cap">463 M (BTC)</div>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <div class="company-name btn-link">Intel</div>
+            <div class="company-security-price">30,789 <small>(μBTC)</small></div>
+            <div class="company-name-value-change">
+              <arrow-change class="change" {change}="issuance.change">
+                <span class="percentage">({{issuance.changePercentage}}%)</span>
+              </arrow-change>
+            </div>
+            <div class="company-market-cap-label">Market Cap</div>
+            <div class="company-market-cap">463 M (BTC)</div>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <div class="company-name btn-link">IBM</div>
+            <div class="company-security-price">30,984 <small>(μBTC)</small></div>
+            <div class="company-name-value-change">
+              <arrow-change class="change" {change}="issuance.change">
+                <span class="percentage">({{issuance.changePercentage}}%)</span>
+              </arrow-change>
+            </div>
+            <div class="company-market-cap-label">Market Cap</div>
+            <div class="company-market-cap">463 M (BTC)</div>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <div class="company-name btn-link">Pfizer</div>
+            <div class="company-security-price">32,345 <small>(μBTC)</small></div>
+            <div class="company-name-value-change">
+              <arrow-change class="change" {change}="issuance.change">
+                <span class="percentage">({{issuance.changePercentage}}%)</span>
+              </arrow-change>
+            </div>
+            <div class="company-market-cap-label">Market Cap</div>
+            <div class="company-market-cap">463 M (BTC)</div>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

@@ -5,6 +5,7 @@
 <can-import from="~/components/page-issuance-details/market-depth/" />
 <can-import from="~/components/page-issuance-details/order-book/" />
 <can-import from="~/components/page-issuance-details/related-companies/" />
+<can-import from="~/components/page-issuance-details/watchlist-toggle/watchlist-toggle.component" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -19,8 +20,12 @@
               <div class="panel-subtitle">{{issuance.issuanceName}}</div>
           </div>
 
-          <div class="col-sm-7 col-xs-12 column-right">
+          <div class="col-lg-5 col-sm-4 col-xs-12 column-right">
             <company-value-change {issuance}="issuance" currency="μBTC" />
+          </div>
+
+          <div class="col-lg-2 col-sm-3 col-xs-12 no-padding-left">
+            <watchlist-toggle />
           </div>
 
         </div>

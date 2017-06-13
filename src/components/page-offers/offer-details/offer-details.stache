@@ -10,7 +10,7 @@
         <span class="details-issuance-name">, Series 1</span>
       </p>
       <ul class="nav navbar-nav navbar-right toolbar-actions">
-        <li><a ($click)="sendFunds()"><span class="icon icon-bin"></span> {{i18n('cancelOffer')}}</a></li>
+        <li><a href=""><span class="icon icon-bin"></span> {{i18n('cancelOffer')}}</a></li>
       </ul>
     </div>
   </nav>
