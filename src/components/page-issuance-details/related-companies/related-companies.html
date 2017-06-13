@@ -1,6 +1,20 @@
-<script type="text/stache" can-autorender>
+<!DOCTYPE HTML>
+<style>
+body {
+  background-color: white !important;
+  padding: 20px;
+}
+</style>
+<div id="demo"></div>
+
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+<script type="text/stache" id="demo-html" can-autorender>
+  <can-import from="~/styles/styles.less" />
   <can-import from="wallet-ui/components/page-issuance-details/related-companies/" />
+
   <related-companies></related-companies>
+
 </script>
 <script src="../../../../node_modules/steal/steal.js"
         main="can-view-autorender"></script>

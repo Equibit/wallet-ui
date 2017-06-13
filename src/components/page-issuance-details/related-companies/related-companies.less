@@ -1,3 +1,38 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
 related-companies {
 	display: block;
+
+  .well {
+    overflow-x: auto;
+  }
+
+  .related-companies-list {
+    display: flex;
+    margin-bottom: 0;
+    li {
+      flex-basis: 19%;
+      max-width: 19%;
+      display: inline-flex;
+      min-width: 130px;
+
+      a {
+        &:hover {
+          color: @gray;
+          text-decoration: none;
+        }
+      }
+      .company-name {
+        font-size: @font-size-small;
+      }
+      .company-security-price {
+        color: @gray-dark;
+      }
+      .company-market-cap-label,
+      .company-market-cap {
+        color: @gray;
+        font-size: @font-size-xsmall;
+      }
+    }
+  }
 }

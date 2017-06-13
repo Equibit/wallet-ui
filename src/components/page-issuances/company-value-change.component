@@ -1,3 +1,13 @@
+/**
+ * @module {can.Component} components/page-issuances/company-value-change.component company-value-change
+ * @parent components.issuances
+ *
+ *
+ * ## Demo
+ *
+ * @demo src/components/components/page-issuances/company-value-change.html
+ */
+
 <can-component tag="company-value-change">
 
   <style type="less">

@@ -2,7 +2,7 @@
  * @module {can.Component} components/related-companies related-companies
  * @parent components.issuances
  *
- * Issuance Details / Related Companies
+ * Shows companies with similar market an share price to an issuance.
  *
  * @signature `<related-companies />`
  *
