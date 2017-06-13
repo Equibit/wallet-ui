@@ -3,7 +3,7 @@ import 'steal-mocha';
 import Portfolio, { getNextAddressIndex, getPoftfolioBalance } from './portfolio';
 import hdNode from './fixtures/fixture-keys';
 
-const addresses = [
+const addressesMeta = [
   {index: 0, type: 'btc', used: true},
   {index: 1, type: 'btc', used: true},
   {index: 0, type: 'eqb', used: true},
@@ -26,8 +26,8 @@ const portfolioKeys = {
 describe('models/portfolio', function () {
   describe('getNextAddressIndex', function () {
     it('should return next available index', function () {
-      assert.deepEqual(getNextAddressIndex(addresses, 'btc'), {index: 2, imported: false});
-      assert.deepEqual(getNextAddressIndex(addresses, 'eqb'), {index: 1, imported: true});
+      assert.deepEqual(getNextAddressIndex(addressesMeta, 'btc'), {index: 2, imported: false});
+      assert.deepEqual(getNextAddressIndex(addressesMeta, 'eqb'), {index: 1, imported: true});
     });
   });
 
@@ -41,7 +41,7 @@ describe('models/portfolio', function () {
   describe('instance properties', function () {
     const portfolio = new Portfolio({
       index: 0,
-      addresses,
+      addressesMeta,
       keys: portfolioKeys,
       userBalance: listunspent
     });
@@ -53,7 +53,6 @@ describe('models/portfolio', function () {
         {index: 0, type: 'eqb', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'},
         {index: 1, type: 'eqb', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'}
       ];
-      console.log(portfolio.addresses.get());
       assert.deepEqual(portfolio.addresses.get(), expectedAddresses);
     });
 

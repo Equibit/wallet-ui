@@ -9,7 +9,7 @@ fixture('GET /portfolios', function () {
     updatedAt: '2017-06-12T04:31:43.546Z',
     createdAt: '2017-06-07T15:35:30.328Z',
     isBalanceCalculating: true,
-    addresses: [
+    addressesMeta: [
       {'index': 0, 'type': 'btc', 'used': false},
       {'index': 0, 'type': 'eqb', 'used': false}
     ]
