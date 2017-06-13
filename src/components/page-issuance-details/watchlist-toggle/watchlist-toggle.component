@@ -2,7 +2,7 @@
  * @module {can.Component} components/page-issuance-details/watchlist-toggle watchlist-toggle
  * @parent components.issuances
  *
- * Shows a toggle that allows to add to remove a company from the user's watchlist. zsdzsc
+ * Shows a toggle that allows to add to remove a company from the user's watchlist.
  *
  *
  * ## Demo
@@ -19,10 +19,12 @@
     }
 
   </style>
+  <can-import from="~/utils/stache-helpers/" />
+
   <view>
     <ul class="nav navbar-nav navbar-right toolbar-actions">
-      <li><a href=""><span class="icon icon-star-empty"></span> Add to Watchlist</a></li>
-      <!--<li><a href=""><span class="icon icon-star-full"></span> In Watchlist</a></li>-->
+      <li><a href=""><span class="icon icon-star-empty"></span> {{i18n('watchListToggleAdd')}}</a></li>
+      <!--<li><a href=""><span class="icon icon-star-full"></span> {{i18n('watchListToggleRemove')}}</a></li>-->
     </ul>
   </view>
 </can-component>
