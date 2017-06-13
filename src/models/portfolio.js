@@ -70,7 +70,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * {
    *   cashBtc: 1,
    *   cashEqb: 3,
-   *   cash: 4,
+   *   cashTotal: 4,
    *   securities: 6,
    *   total: 10
    * }
@@ -78,8 +78,25 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   balance: {
     get () {
-      let cashBtc, cashEqb, cash, securities, total;
-      return { cashBtc, cashEqb, cash, securities, total};
+      // TODO: figure out how to evaluate securities.
+      const unspent = this.userBalance;
+      if (!unspent) {
+        return;
+      }
+      const total = this.userBalance.summary.total;
+      const { cashBtc, cashEqb, cashTotal, securities } = this.addressesFilled.reduce((acc, a) => {
+        if (unspent[a.address]) {
+          const amount = unspent[a.address].amount;
+          if (a.type === 'btc') {
+            acc.cashBtc += amount;
+          } else {
+            acc.cashEqb += amount;
+          }
+          acc.cashTotal += amount;
+        }
+        return acc;
+      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0});
+      return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total });
     }
   },
   userBalance: {type: '*'},
@@ -103,7 +120,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           index: a.index,
           type: a.type,
           address: this.keys[a.type].derive(0).derive(a.index).getAddress()
-        }
+        };
       });
     }
   },
@@ -113,7 +130,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   addressesList: {
     get () {
-      return this.addressesFilled.map(a => a.address)
+      return this.addressesFilled.map(a => a.address);
     }
   },
 

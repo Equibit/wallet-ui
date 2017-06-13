@@ -11,17 +11,17 @@ const addresses = [
 ];
 
 const listunspent = {
-  summary: {'total': 4.9},
-  n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 1.5 },
-  n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo: { amount: 3.4 },
-  n4iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 2.2 }
+  summary: {'total': 5.4},
+  n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 1.5 }, // btc
+  mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA: { amount: 0.5 }, // btc
+  n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo: { amount: 3.4 }, // eqb
+  n4iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 2.2 }  //
 };
 
 const portfolioKeys = {
   btc: hdNode.derivePath("m/44'/0'/0'"),
   eqb: hdNode.derivePath("m/44'/73'/0'")
 };
-
 
 describe('models/portfolio', function () {
   describe('getNextAddressIndex', function () {
@@ -51,7 +51,7 @@ describe('models/portfolio', function () {
         {index: 0, type: 'btc', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'},
         {index: 1, type: 'btc', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA'},
         {index: 0, type: 'eqb', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'},
-        {index: 1, type: 'eqb', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'},
+        {index: 1, type: 'eqb', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'}
       ];
       console.log(portfolio.addressesFilled.get());
       assert.deepEqual(portfolio.addressesFilled.get(), expectedAddressesFilled);
@@ -65,6 +65,17 @@ describe('models/portfolio', function () {
         'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'
       ];
       assert.deepEqual(portfolio.addressesList.get(), expectedAddressList);
+    });
+
+    it('should populate portfolio balance based on user\'s balance', function () {
+      const expectedBalance = {
+        cashBtc: 2,
+        cashEqb: 3.4,
+        cashTotal: 5.4,
+        securities: 0,
+        total: 5.4
+      };
+      assert.deepEqual(portfolio.balance.get(), expectedBalance);
     });
   });
 });
