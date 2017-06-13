@@ -93,9 +93,9 @@ const Session = DefineMap.extend('Session', {
    */
   allAddresses: {
     get () {
-      return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
+      return (this.portfolios && this.portfolios.reduce((acc, portfolio) => {
         return acc.concat(portfolio.addressesList.get());
-      }, []) || [];
+      }, [])) || [];
     }
   },
 

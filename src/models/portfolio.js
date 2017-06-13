@@ -66,13 +66,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   addresses: {
     get () {
-      return this.addressesMeta && this.addressesMeta.map(a => {
+      return (this.addressesMeta && this.addressesMeta.map(a => {
         return {
           index: a.index,
           type: a.type,
           address: this.keys[a.type].derive(0).derive(a.index).getAddress()
         };
-      }) || [];
+      })) || [];
     }
   },
 
@@ -84,7 +84,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
       return this.addresses.map(a => a.address);
     }
   },
-
 
   /**
    * @property {String} models/portfolio.properties.userBalance userBalance
