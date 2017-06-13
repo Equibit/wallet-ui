@@ -31,7 +31,7 @@ export const ViewModel = DefineMap.extend({
         new DefineList(['Domest. Bonds', this.balance.bondsDomest || 0]),
         new DefineList(['Int. Equity', this.balance.equityInt || 0]),
         new DefineList(['Int. Bonds', this.balance.bondsInt || 0])
-      ])
+      ]);
     }
   },
   config: {
