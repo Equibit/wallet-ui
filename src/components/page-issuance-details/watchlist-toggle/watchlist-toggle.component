@@ -14,6 +14,11 @@
   <style type="less">
     @import '../../../styles/bootstrap-custom/_variables.less';
 
+    display: flex;
+    @media (min-width: @screen-xs-max) {
+      justify-content: flex-end;
+    }
+
     .icon-star-full{
       color: @brand-warning;
     }
