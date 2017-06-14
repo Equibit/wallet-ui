@@ -1,10 +1,16 @@
 <can-component tag="page-four-oh-four">
-  <style type="less">
-    display: block;
+<can-import from="~/utils/stache-helpers/" />
 
-    p { font-weight: bold; }
-  </style>
   <view>
-    <p>404: the page you requested does not exist.</p>
+    <div class="row">
+      <div class="col-xs-12 align-center">
+        <div class="message-box danger">
+          <div class="icon icon-hand-stop"></div>
+          <div class="message-box-status">{{i18n('notFound404Title')}}</div>
+          <p class="message-box-cause">{{i18n('notFound404Description')}}</p>
+          <a href="{{routeUrl page='research'}}" class="btn btn-primary">{{i18n('notFound404cta')}}</button>
+        </div>
+      </div>
+    </div>
   </view>
 </can-component>
