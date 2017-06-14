@@ -1,16 +1,16 @@
 /**
- * @module {can.Component} components/page-preferences/user-autologout user-logout
+ * @module {can.Component} components/page-preferences/user-autologout user-autologout
  * @parent components.user-preferences
  *
- * A short description of the user-logout component
+ * A short description of the user-autologout component
  *
- * @signature `<user-logout />`
+ * @signature `<user-autologout />`
  *
- * @link ../src/components/page-preferences/user-autologout/user-logout.html Full Page Demo
+ * @link ../src/components/page-preferences/user-autologout/user-autologout.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/components/page-preferences/user-autologout/user-logout.html
+ * @demo src/components/page-preferences/user-autologout/user-autologout.html
  */
 
 import Component from 'can-component';
@@ -20,12 +20,12 @@ import view from './user-autologout.stache';
 
 export const ViewModel = DefineMap.extend({
   message: {
-    value: 'This is the user-logout component'
+    value: 'This is the user-autologout component'
   }
 });
 
 export default Component.extend({
-  tag: 'user-logout',
+  tag: 'user-autologout',
   ViewModel,
   view
 });

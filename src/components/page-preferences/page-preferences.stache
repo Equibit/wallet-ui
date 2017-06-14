@@ -1,1 +1,36 @@
-<p>{{message}}</p>
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-preferences/user-email/" />
+<can-import from="~/components/page-preferences/user-password/" />
+<can-import from="~/components/page-preferences/user-phrase/" />
+<can-import from="~/components/page-preferences/user-autologout/" />
+
+
+<div class="row">
+  <div class="col-xs-12">
+    <drag-panel class="panel panel-default card card-full">
+      <div class="panel-heading">
+        <h1 class="panel-title">{{i18n('userPreferences')}}</h1>
+      </div>
+      <div class="panel-body">
+        <div class="row ">
+          <div class="col-md-8 col-xs-12">
+            <user-email></user-email>
+          </div>
+
+          <div class="col-md-8 col-xs-12">
+            <user-password></user-password>
+          </div>
+
+          <div class="col-md-8 col-xs-12">
+            <user-phrase></user-phrase>
+          </div>
+
+          <div class="col-md-8 col-xs-12">
+            <user-autologout></user-autologout>
+          </div>
+
+        </div>
+      </div>
+    </drag-panel>
+  </div>
+</div>

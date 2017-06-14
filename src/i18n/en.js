@@ -39,6 +39,7 @@ export default {
   archived: 'Archived',
   ask: 'Ask',
   askPrice: 'Ask Price',
+  autoLogout: 'Auto Logout',
 
   balance: 'Balance',
   bitcoin: 'Bitcoin',
@@ -75,6 +76,7 @@ export default {
   dealFlowStep3: 'Close Deal',
   description: 'Description',
 
+  email: 'Email',
   eqb: 'EQB',
   equibit: 'Equibit',
   equity: 'Equity',
@@ -96,9 +98,11 @@ export default {
   issuanceType: 'Issuance Type',
 
   last24hours: 'Last 24 hours',
+  lastUpdatedOn: 'Last updated on',
 
   marketCapitalization: 'Market Capitalization',
   marketSummary: 'Market Summary',
+  minutes: 'Minutes',
   myOffers: 'My Offers',
   myOrders: 'My Orders',
   myPortfolio: 'My Portfolio',
@@ -116,6 +120,7 @@ export default {
   offer: 'Offer',
 
   pasteAddress: 'Paste address',
+  password: "Password",
   placeholderNoOffersTile: 'Your Offer Details Will Show Here',
   placeholderNoOffersDescription: 'You can place offers from the issuances page.',
   placeholderNoOrdersTile: 'Your Order Details Will Show Here',
@@ -132,6 +137,7 @@ export default {
 
   receive: 'Receive',
   receiveInfo: 'Use a unique address to add funds or securities to your account.',
+  recoveryPhrase: 'Recovery Phrase',
 
   shareVolume: 'Share Volume',
   status: 'Status',
@@ -145,9 +151,11 @@ export default {
   sellOrder: 'Sell Order',
   statusCancelled: 'Cancelled',
   statusClosed: 'Closed',
+  statusNotSet: 'Not Set',
   statusOpen: 'Open',
   statusRejected: 'Rejected',
   statusTrading: 'Trading',
+  statusVerified: 'Verified',
 
   termsAndConditions: 'EDC Terms & Conditions',
   totalCash: 'Total Cash',
@@ -162,6 +170,7 @@ export default {
 
   unrealizedPL: 'Unrealized P&L',
   usd: 'USD',
+  userPreferences: "User Preferences",
 
   valuation: 'Valuation',
   volume: 'Volume',

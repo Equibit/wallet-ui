@@ -1,3 +1,37 @@
+@import '../../styles/bootstrap-custom/_variables.less';
+
 page-preferences {
 	display: block;
+
+  .well {
+    margin-bottom: 20px;
+    .section {
+      align-items: center;
+      .label {
+        margin-right: 10px;
+      }
+      .icon {
+        margin-right: 10px;
+        align-self: center;
+      }
+      .btn-edit {
+        min-width: 60px;
+      }
+      .section-column {
+        flex-direction: row;
+        @media (max-width: @screen-sm) {
+          margin-top: 10px;
+        }
+      }
+      .section-label {
+        color: @gray;
+      }
+      .section-cta {
+        justify-content: flex-end;
+        @media (max-width: @screen-sm) {
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
 }
