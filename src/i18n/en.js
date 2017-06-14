@@ -12,6 +12,7 @@ export default {
 
   // Alert messages:
   accountCreated: 'Account Created',
+  changesSaved: 'Changes Saved',
   passwordReset: 'Password Reset',
   // welcomeMsg: 'Welcome to Equibit! Your account was created successfully!',
   // passwordResetMsg: 'Your password was changed successfully',
@@ -46,6 +47,8 @@ export default {
   auth2StepDescription: 'Please autenticate to continue.',
   auth2StepMessage: 'Enter the verification code we just sent to your email. <br /> Didn\'t receive it?',
   autoLogout: 'Auto Logout',
+  autoLogoutDescription:'After the selected amount of time of inactivity we will log you out automatically from your account.',
+  autoLogoutLabel: 'Auto Logout Time',
 
   balance: 'Balance',
   bitcoin: 'Bitcoin',

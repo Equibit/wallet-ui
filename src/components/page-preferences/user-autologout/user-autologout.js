@@ -19,8 +19,11 @@ import './user-autologout.less';
 import view from './user-autologout.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the user-autologout component'
+  isModalShown: 'boolean',
+  showModal () {
+    // Note: we need to re-insert the modal content:
+    this.isModalShown = false;
+    this.isModalShown = true;
   }
 });
 
