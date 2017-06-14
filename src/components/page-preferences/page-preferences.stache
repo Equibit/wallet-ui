@@ -4,7 +4,6 @@
 <can-import from="~/components/page-preferences/user-phrase/" />
 <can-import from="~/components/page-preferences/user-autologout/" />
 
-
 <div class="row">
   <div class="col-xs-12">
     <drag-panel class="panel panel-default card card-full">

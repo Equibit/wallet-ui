@@ -64,7 +64,6 @@ export default {
   cancelOrder: 'Cancel Order',
   cancelOffer: 'Cancel Offer',
   cash: 'Cash',
-  currency: 'Currency',
   company: 'Company',
   companies: 'Companies',
   confirmOrder: 'Please review and confirm your order.',
@@ -72,6 +71,7 @@ export default {
   confirmTransaction: 'Please review and confirm your transaction.',
   copiedToClipboard: 'Copied to clipboard',
   copyAndShare: 'Copy and Share',
+  currency: 'Currency',
 
   date: 'Date',
   dateAndTime: 'Date and Time',
@@ -129,7 +129,9 @@ export default {
   offer: 'Offer',
 
   pasteAddress: 'Paste address',
-  password: "Password",
+  password: 'Password',
+  passwordCurrent: 'Current Password',
+  passwordNew: 'New Password',
   placeholderNoOffersTile: 'Your Offer Details Will Show Here',
   placeholderNoOffersDescription: 'You can place offers from the issuances page.',
   placeholderNoOrdersTile: 'Your Order Details Will Show Here',
