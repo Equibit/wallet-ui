@@ -6,6 +6,28 @@
   * Contains less mixins.
 **/
 
+@import (reference) '_variables';
+
+/**
+* @styles helpers-page-layout Page Layout
+*
+* @description
+* Add margins to a page template, in this way the content in some templates can be kept flushed to the edges.
+*
+* Example:
+* ```css
+*   page-issuances {
+*     .page-layout
+    }
+* ```
+**/
+
+.page-layout {
+  padding-left: @page-margin;
+  padding-right: @page-margin;
+}
+
+
 /**
 * @styles mixins-icon-circle Icon Circle
 *
@@ -22,8 +44,6 @@
 * ```
 *
 **/
-
-
 .icon-circle (@font-size) {
   width: calc(@font-size * 2);
   height: calc(@font-size * 2);
