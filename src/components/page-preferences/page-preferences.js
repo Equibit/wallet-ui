@@ -1,16 +1,16 @@
 /**
- * @module {can.Component} wallet-ui/components/page-preferences page-preferences
- * @parent components.common
+ * @module {can.Component} components/page-preferences page-preferences
+ * @parent components.pages
  *
  * A short description of the page-preferences component
  *
  * @signature `<page-preferences />`
  *
- * @link ../src/wallet-ui/components/page-preferences/page-preferences.html Full Page Demo
+ * @link ../src/components/page-preferences/page-preferences.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-preferences/page-preferences.html
+ * @demo src/components/page-preferences/page-preferences.html
  */
 
 import Component from 'can-component';

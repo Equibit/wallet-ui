@@ -1,16 +1,16 @@
 /**
- * @module {can.Component} wallet-ui/components/page-preferences/user-password user-password
- * @parent components.common
+ * @module {can.Component} components/page-preferences/user-password user-password
+ * @parent components.user-preferences
  *
  * A short description of the user-password component
  *
  * @signature `<user-password />`
  *
- * @link ../src/wallet-ui/components/page-preferences/user-password/user-password.html Full Page Demo
+ * @link ../src/components/page-preferences/user-password/user-password.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-preferences/user-password/user-password.html
+ * @demo src/components/page-preferences/user-password/user-password.html
  */
 
 import Component from 'can-component';

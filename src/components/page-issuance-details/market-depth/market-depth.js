@@ -1,6 +1,6 @@
 /**
- * @module {can.Component} components/market-depth market-depth
- * @parent components.graphs
+ * @module {can.Component} components/page-issuance-details/market-depth market-depth
+ * @parent components.issuance-details
  *
  * Issuance Details / Market Depth
  *

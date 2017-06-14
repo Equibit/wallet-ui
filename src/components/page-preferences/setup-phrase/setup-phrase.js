@@ -1,16 +1,16 @@
 /**
- * @module {can.Component} wallet-ui/components/page-preferences/setup-phrase setup-phrase
- * @parent components.common
+ * @module {can.Component} components/page-preferences/setup-phrase setup-phrase
+ * @parent components.user-preferences
  *
  * A short description of the setup-phrase component
  *
  * @signature `<setup-phrase />`
  *
- * @link ../src/wallet-ui/components/page-preferences/setup-phrase/setup-phrase.html Full Page Demo
+ * @link ../src/components/page-preferences/setup-phrase/setup-phrase.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-preferences/setup-phrase/setup-phrase.html
+ * @demo src/components/page-preferences/setup-phrase/setup-phrase.html
  */
 
 import Component from 'can-component';

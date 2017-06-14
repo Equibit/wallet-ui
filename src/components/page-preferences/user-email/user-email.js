@@ -1,16 +1,16 @@
 /**
- * @module {can.Component} wallet-ui/components/page-preferences/user-email user-email
- * @parent components.common
+ * @module {can.Component} components/page-preferences/user-email user-email
+ * @parent components.user-preferences
  *
  * A short description of the user-email component
  *
  * @signature `<user-email />`
  *
- * @link ../src/wallet-ui/components/page-preferences/user-email/user-email.html Full Page Demo
+ * @link ../src/components/page-preferences/user-email/user-email.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/page-preferences/user-email/user-email.html
+ * @demo src/components/page-preferences/user-email/user-email.html
  */
 
 import Component from 'can-component';

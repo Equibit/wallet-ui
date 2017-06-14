@@ -1,16 +1,16 @@
 /**
- * @module {can.Component} wallet-ui/components/common/barchart bar-chart
- * @parent components.graphs
+ * @module {can.Component} components/common/barchart bar-chart
+ * @parent components.generic 1
  *
  * A short description of the bar-chart component
  *
  * @signature `<bar-chart />`
  *
- * @link ../src/components/common/barchart.html Full Page Demo
+ * @link ../src/components/common/barchart/barchart.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/components/common/barchart.html
+ * @demo src/components/common/barchart/barchart.html
  */
 
 import Component from 'can-component';
