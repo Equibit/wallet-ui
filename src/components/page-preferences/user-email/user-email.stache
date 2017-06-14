@@ -7,7 +7,7 @@
     <div class="col-sm-3 col-xs-12 section-column section-label">
       <span class="icon icon-email"></span>{{i18n('email')}}
     </div>
-    <div class="col-sm-7 col-xs-12 section-column">
+    <div class="col-sm-7 col-xs-12 section-column section-values">
       <span class="label label-success">{{i18n('statusVerified')}}</span>
       <span class="input-value">myemail@gmail.com</span>
     </div>

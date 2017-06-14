@@ -24,6 +24,15 @@ page-preferences {
         @media (max-width: @screen-sm) {
           margin-top: @padding-large-vertical;
         }
+        @media (max-width: @screen-xs) {
+          &.section-values {
+            flex-direction: column;
+            .label {
+              align-self: flex-start;
+              margin-bottom: 5px;
+            }
+          }
+        }
       }
       .section-label {
         color: @gray;
