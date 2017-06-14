@@ -16,12 +16,26 @@
 
 .modal-body {
   padding-top: 0;
-  h4:first-of-type {
-    margin-top: 0;
+  h4 {
+    &:first-of-type {
+      margin-top: 0;
+    }
+    &.heading-warning {
+      font-family: @font-family-bold;
+      margin-top: @padding-xlarge-vertical;
+      .icon-warning {
+        color: @brand-warning;
+      }
+    }
   }
+
+  .single-paragraph {
+    margin-bottom: @padding-xlarge-vertical;
+  }
+
   .description {
     color: @gray;
-    padding-bottom: 10px;
+    padding-bottom: @padding-large-vertical;
   }
 }
 
