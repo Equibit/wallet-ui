@@ -161,7 +161,7 @@ const Session = DefineMap.extend('Session', {
     return (this.user && this.user.rates) || {
       btcToUsd: 2725,
       eqbToUsd: 3
-    }
+    };
   }
 });
 
