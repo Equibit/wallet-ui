@@ -3,9 +3,9 @@
 @group components.generic 0 Generic
 @group components.common 1 Common
 
-@group components.pages 2 Pages
-@group components.graphs 3 Graphs
-@group components.grids 4 Grids
+@group components.graphs 2 Graphs
+@group components.grids 3 Grids
+@group components.pages 4 Pages
 
 @group components.auth 5 Authentication
 @group components.research 6 Research
