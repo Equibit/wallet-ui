@@ -1,0 +1,40 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-preferences/code-input/code-input.component" />
+
+<bootstrap-modal-content class="user-email">
+  <div class="modal-header">
+    <button ($click)="close()" type="button" class="close" aria-label="Close">
+      <span class="icon icon-cross rotate-90"></span></button>
+      <h4 class="modal-title"><span class="icon icon-email"></span> {{i18n('email')}}</h4>
+  </div>
+
+  <div class="modal-body">
+    <div class="description">
+      {{i18n('emailDescription')}}
+      <!--TODO: Show once the user clicks continue to verify new email
+      {{i18n('emailNewVerificationDescription')}}
+      -->
+
+    </div>
+    <div class="form-group">
+      <label for="emailUpdate">Email</label>
+      <input type="password" class="form-control" id="emailUpdate">
+    </div>
+    <!--TODO: Show once the user clicks continue to verify new email
+    <p class="single-paragraph">
+      {{i18n('emailNewVerificationMessage')}}
+    </p>
+    <code-input />
+    -->
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary">
+      {{i18n('continue')}}
+      <!--TODO: Show once the user clicks continue to verify new email
+      {{i18n('verify')}}
+      -->
+    </button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+  </div>
+</bootstrap-modal-content>

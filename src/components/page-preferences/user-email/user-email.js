@@ -19,8 +19,11 @@ import './user-email.less';
 import view from './user-email.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the user-email component'
+  isModalShown: 'boolean',
+  showModal () {
+    // Note: we need to re-insert the modal content:
+    this.isModalShown = false;
+    this.isModalShown = true;
   }
 });
 

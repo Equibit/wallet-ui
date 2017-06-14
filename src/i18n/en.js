@@ -23,8 +23,10 @@ export default {
   cancel: 'Cancel',
   cancelNo: 'Yes, Cancel',
   cancelYes: 'No, Don\'t Cancel',
+  continue: 'Continue',
   edit: 'Edit',
   next: 'Next',
+  save: 'Save',
   verify: 'Verify',
   view: 'View',
 
@@ -81,6 +83,9 @@ export default {
   description: 'Description',
 
   email: 'Email',
+  emailDescription: 'Your email address is used to help you access your account and to send you account notifications.',
+  emailNewVerificationDescription: 'New Email Verification',
+  emailNewVerificationMessage: 'Please enter the verification code we just sent to your new email.',
   eqb: 'EQB',
   equibit: 'Equibit',
   equity: 'Equity',
