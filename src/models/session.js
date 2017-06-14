@@ -156,6 +156,12 @@ const Session = DefineMap.extend('Session', {
   },
   get isNewAccount () {
     return this.user && this.user.isNewUser;
+  },
+  get rates () {
+    return (this.user && this.user.rates) || {
+      btcToUsd: 2725,
+      eqbToUsd: 3
+    }
   }
 });
 
