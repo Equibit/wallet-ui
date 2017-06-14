@@ -25,6 +25,7 @@ export default {
   cancelYes: 'No, Don\'t Cancel',
   edit: 'Edit',
   next: 'Next',
+  verify: 'Verify',
   view: 'View',
 
   // Common:
@@ -39,6 +40,9 @@ export default {
   archived: 'Archived',
   ask: 'Ask',
   askPrice: 'Ask Price',
+  auth2StepTitle: '2nd Step Authentication',
+  auth2StepDescription: 'Please autenticate to continue.',
+  auth2StepMessage: 'Enter the verification code we just sent to your email. <br /> Didn\'t receive it?',
   autoLogout: 'Auto Logout',
 
   balance: 'Balance',
@@ -166,6 +170,7 @@ export default {
   transactionIds: 'Transaction IDs',
   to: 'To',
   totalPrice: 'Total Price',
+  tryAgain: 'Try Again.',
   type: 'Type',
 
   unrealizedPL: 'Unrealized P&L',

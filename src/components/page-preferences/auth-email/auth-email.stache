@@ -1,1 +1,26 @@
-<p>{{message}}</p>
+<can-import from="bootstrap-canjs" />
+<can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/utils/stache-helpers/" />
+
+<bootstrap-modal-content>
+  <div class="modal-header">
+    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+    <h3 class="modal-title"><span class="icon icon-locks"></span> {{i18n('auth2StepTitle')}}</h3>
+  </div>
+
+  <div class="modal-body">
+    <span class="description">{{i18n('auth2StepDescription')}}</span>
+    <p class="single-paragraph">
+      {{{i18n('auth2StepMessage')}}} <a href="">{{i18n('tryAgain')}}</a>
+    </p>
+    <div class="form-group">
+      <label for="authCode">Enter Code</label>
+      <input type="password" class="form-control password-input" id="authCode">
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary">{{i18n('verify')}}</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+  </div>
+</bootstrap-modal-content>
