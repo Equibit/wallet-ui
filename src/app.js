@@ -37,6 +37,7 @@ var pages = {
   dashboard: 'private',
   settings: 'private',
   portfolio: 'private',
+  preferences: 'preferences',
   transactions: 'public',
   orders: 'public',
   offers: 'public'

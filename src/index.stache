@@ -21,6 +21,7 @@
     <can-import from="~/components/page-orders/" />
     <can-import from="~/components/page-offers/" />
     <can-import from="~/components/page-auth/" />
+    <can-import from="~/components/page-preferences/" />
     <can-import from="~/components/page-settings/" />
     <can-import from="~/components/page-four-oh-four.component" />
     <can-import from="~/components/page-four-oh-one.component" />
@@ -66,6 +67,9 @@
       {{/case}}
       {{#case 'offers'}}
         <page-offers />
+      {{/case}}
+      {{#case 'preferences'}}
+        <page-preferences />
       {{/case}}
       {{#case 'settings'}}
         <page-settings />

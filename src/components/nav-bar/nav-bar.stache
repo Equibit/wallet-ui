@@ -9,7 +9,7 @@
 
     <div class="navbar-header">
 
-      <a class="header-logo" href="{{routeUrl page='home'}}">Equibit Portfolio</a>
+      <a class="header-logo" href="{{routeUrl page='research'}}">Equibit Portfolio</a>
 
       <ul class="nav navbar-nav add-nav navbar-right">
         {{#if isLoggedIn}}
@@ -61,7 +61,7 @@
             <li><a href="#">My Issuances</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="{{routeUrl page='transactions'}}">Transactions</a></li>
-            <li><a href="#">Preferences</a></li>
+            <li><a href="{{routeUrl page='preferences'}}">Preferences</a></li>
             <li role="separator" class="divider"></li>
             <li>
               <button type="button" class="btn btn-default btn-xs" ($click)="logout()">
