@@ -17,7 +17,6 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './modal-recovery-phrase.less';
 import view from './modal-recovery-phrase.stache';
-import validators from '~/utils/validators';
 
 export const ViewModel = DefineMap.extend({
   mode: {

@@ -27,7 +27,7 @@ export const ViewModel = DefineMap.extend({
   },
   code () {
     this.mode = 'code';
-  },
+  }
 });
 
 export default Component.extend({
