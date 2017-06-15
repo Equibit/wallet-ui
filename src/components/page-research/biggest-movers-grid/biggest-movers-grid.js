@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/page-research/biggest-movers-grid biggest-movers-grid
- * @parent components.grids
+ * @parent components.research
  *
  * A short description of the biggest-movers-grid component
  *

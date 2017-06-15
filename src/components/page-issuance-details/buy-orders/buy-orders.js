@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/buy-orders buy-orders
- * @parent components.issuances
+ * @parent components.issuance-details
  *
  * Issuance Details / Order Book / Buy Orders
  *

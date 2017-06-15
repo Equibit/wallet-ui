@@ -1,0 +1,15 @@
+<can-import from="~/utils/stache-helpers/" />
+
+<div class="well">
+  <div class="row section">
+    <div class="col-sm-3 col-xs-12 section-column section-label">
+      <span class="icon icon-lock"></span>{{i18n('recoveryPhrase')}}
+    </div>
+    <div class="col-sm-7 col-xs-12 section-column">
+      <span class="label label-danger">{{i18n('statusNotSet')}}</span>
+    </div>
+    <div class="col-sm-2 col-xs-12 section-column section-cta">
+      <button class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/page-issuance-details/watchlist-toggle watchlist-toggle
- * @parent components.issuances
+ * @parent components.issuance-details
  *
  * Shows a toggle that allows to add to remove a company from the user's watchlist.
  *
@@ -13,6 +13,11 @@
 <can-component tag="watchlist-toggle">
   <style type="less">
     @import '../../../styles/bootstrap-custom/_variables.less';
+
+    display: flex;
+    @media (min-width: @screen-xs-max) {
+      justify-content: flex-end;
+    }
 
     .icon-star-full{
       color: @brand-warning;

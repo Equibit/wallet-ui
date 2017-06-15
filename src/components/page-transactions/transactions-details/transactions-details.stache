@@ -31,7 +31,7 @@
   <div class="section">
     <div class="row transaction-description">
       <label>Description</label>
-      <button class="btn btn-link btn-xs">{{i18n('edit')}}</link>
+      <button class="btn btn-link btn-xs">{{i18n('edit')}}</button>
     </div>
 
     <p class="transaction-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet</p>

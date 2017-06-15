@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} components/related-companies related-companies
- * @parent components.issuances
+ * @parent components.issuance-details
  *
  * Shows companies with similar market an share price to an issuance.
  *

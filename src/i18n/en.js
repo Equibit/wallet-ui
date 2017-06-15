@@ -12,6 +12,7 @@ export default {
 
   // Alert messages:
   accountCreated: 'Account Created',
+  changesSaved: 'Changes Saved',
   passwordReset: 'Password Reset',
   // welcomeMsg: 'Welcome to Equibit! Your account was created successfully!',
   // passwordResetMsg: 'Your password was changed successfully',
@@ -23,8 +24,11 @@ export default {
   cancel: 'Cancel',
   cancelNo: 'Yes, Cancel',
   cancelYes: 'No, Don\'t Cancel',
+  continue: 'Continue',
   edit: 'Edit',
   next: 'Next',
+  save: 'Save',
+  verify: 'Verify',
   view: 'View',
 
   // Common:
@@ -39,6 +43,12 @@ export default {
   archived: 'Archived',
   ask: 'Ask',
   askPrice: 'Ask Price',
+  auth2StepTitle: '2nd Step Authentication',
+  auth2StepDescription: 'Please autenticate to continue.',
+  auth2StepMessage: 'Enter the verification code we just sent to your email. <br /> Didn\'t receive it?',
+  autoLogout: 'Auto Logout',
+  autoLogoutDescription: 'After the selected amount of time of inactivity we will log you out automatically from your account.',
+  autoLogoutLabel: 'Auto Logout Time',
 
   balance: 'Balance',
   bitcoin: 'Bitcoin',
@@ -57,7 +67,6 @@ export default {
   cancelOrder: 'Cancel Order',
   cancelOffer: 'Cancel Offer',
   cash: 'Cash',
-  currency: 'Currency',
   company: 'Company',
   companies: 'Companies',
   confirmOrder: 'Please review and confirm your order.',
@@ -65,6 +74,7 @@ export default {
   confirmTransaction: 'Please review and confirm your transaction.',
   copiedToClipboard: 'Copied to clipboard',
   copyAndShare: 'Copy and Share',
+  currency: 'Currency',
 
   date: 'Date',
   dateAndTime: 'Date and Time',
@@ -75,6 +85,10 @@ export default {
   dealFlowStep3: 'Close Deal',
   description: 'Description',
 
+  email: 'Email',
+  emailDescription: 'Your email address is used to help you access your account and to send you account notifications.',
+  emailNewVerificationDescription: 'New Email Verification',
+  emailNewVerificationMessage: 'Please enter the verification code we just sent to your new email.',
   eqb: 'EQB',
   equibit: 'Equibit',
   equity: 'Equity',
@@ -96,9 +110,11 @@ export default {
   issuanceType: 'Issuance Type',
 
   last24hours: 'Last 24 hours',
+  lastUpdatedOn: 'Last updated on',
 
   marketCapitalization: 'Market Capitalization',
   marketSummary: 'Market Summary',
+  minutes: 'Minutes',
   myOffers: 'My Offers',
   myOrders: 'My Orders',
   myPortfolio: 'My Portfolio',
@@ -122,6 +138,9 @@ export default {
   offer: 'Offer',
 
   pasteAddress: 'Paste address',
+  password: 'Password',
+  passwordCurrent: 'Current Password',
+  passwordNew: 'New Password',
   placeholderNoOffersTile: 'Your Offer Details Will Show Here',
   placeholderNoOffersDescription: 'You can place offers from the issuances page.',
   placeholderNoOrdersTile: 'Your Order Details Will Show Here',
@@ -138,6 +157,7 @@ export default {
 
   receive: 'Receive',
   receiveInfo: 'Use a unique address to add funds or securities to your account.',
+  recoveryPhrase: 'Recovery Phrase',
 
   shareVolume: 'Share Volume',
   status: 'Status',
@@ -151,9 +171,11 @@ export default {
   sellOrder: 'Sell Order',
   statusCancelled: 'Cancelled',
   statusClosed: 'Closed',
+  statusNotSet: 'Not Set',
   statusOpen: 'Open',
   statusRejected: 'Rejected',
   statusTrading: 'Trading',
+  statusVerified: 'Verified',
 
   termsAndConditions: 'EDC Terms & Conditions',
   totalCash: 'Total Cash',
@@ -164,10 +186,12 @@ export default {
   transactionIds: 'Transaction IDs',
   to: 'To',
   totalPrice: 'Total Price',
+  tryAgain: 'Try Again.',
   type: 'Type',
 
   unrealizedPL: 'Unrealized P&L',
   usd: 'USD',
+  userPreferences: 'User Preferences',
 
   valuation: 'Valuation',
   volume: 'Volume',

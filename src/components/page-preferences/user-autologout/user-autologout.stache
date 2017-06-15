@@ -1,0 +1,48 @@
+<can-import from="~/utils/stache-helpers/" />
+
+<div class="well">
+  <div class="row section">
+    <div class="col-sm-3 col-xs-12 section-column section-label">
+      <span class="icon icon-clock"></span>{{i18n('autoLogout')}}
+    </div>
+    <div class="col-sm-7 col-xs-12 section-column">
+      <span class="input-value">5 {{i18n('minutes')}}</span>
+    </div>
+    <div class="col-sm-2 col-xs-12 section-column section-cta">
+      <button ($click)="showModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+    </div>
+  </div>
+</div>
+
+
+{{#if isModalShown}}
+  <bootstrap-modal-content class="user-autologout">
+    <div class="modal-header">
+      <button ($click)="close()" type="button" class="close" aria-label="Close">
+        <span class="icon icon-cross rotate-90"></span></button>
+        <h4 class="modal-title"><span class="icon icon-key"></span> {{i18n('autoLogout')}}</h4>
+    </div>
+
+    <div class="modal-body">
+      <div class="description">
+        {{i18n('autoLogoutDescription')}}
+      </div>
+      <div class="row">
+        <div class="col-sm-5 col-xs-12 no-padding">
+          <div class="form-group">
+            <label for="autoLogoutTime">{{i18n('autoLogoutLabel')}}</label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="autoLogoutTime">
+              <span class="input-group-addon">{{i18n('minutes')}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary">{{i18n('save')}}</button>
+      <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    </div>
+  </bootstrap-modal-content>
+{{/if}}

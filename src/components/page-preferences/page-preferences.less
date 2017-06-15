@@ -1,0 +1,48 @@
+@import '../../styles/bootstrap-custom/_variables.less';
+@import (reference) '../../styles/custom/_mixins.less';
+
+page-preferences {
+	display: block;
+  .page-layout;
+
+  .well {
+    margin-bottom: @padding-xlarge-vertical;
+    .section {
+      align-items: center;
+      .label {
+        margin-right: @padding-small-horizontal;
+      }
+      .icon {
+        margin-right: @padding-small-horizontal;
+        align-self: center;
+      }
+      .btn-edit {
+        min-width: 60px;
+      }
+      .section-column {
+        flex-direction: row;
+        @media (max-width: @screen-sm) {
+          margin-top: @padding-large-vertical;
+        }
+        @media (max-width: @screen-xs) {
+          &.section-values {
+            flex-direction: column;
+            .label {
+              align-self: flex-start;
+              margin-bottom: 5px;
+            }
+          }
+        }
+      }
+      .section-label {
+        color: @gray;
+      }
+      .section-cta {
+        justify-content: flex-end;
+        @media (max-width: @screen-sm) {
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
+}

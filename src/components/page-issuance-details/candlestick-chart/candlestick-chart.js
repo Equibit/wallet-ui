@@ -1,3 +1,18 @@
+/**
+ * @module {can.Component} components/page-issuance-details/candlestick-chart candlestick-chart
+ * @parent components.issuance-details
+ *
+ * Issuance Details / Market Depth
+ *
+ * @signature `candlestick-chart>`
+ *
+ * @link ../src/components/page-issuance-details/candlestick-chart/candlestick-chart.html Full Page Demo
+ * ## Example
+ *
+ * @demo src/components/page-issuance-details/candlestick-chart/candlestick-chart.html
+ *
+ */
+
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './candlestick-chart.less';
