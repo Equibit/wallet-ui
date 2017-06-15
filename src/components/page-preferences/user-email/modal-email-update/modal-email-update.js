@@ -19,8 +19,14 @@ import './modal-email-update.less';
 import view from './modal-email-update.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the modal-email-update component'
+  mode: {
+    value: 'edit'
+  },
+  edit () {
+    this.mode = 'edit';
+  },
+  code () {
+    this.mode = 'code';
   }
 });
 

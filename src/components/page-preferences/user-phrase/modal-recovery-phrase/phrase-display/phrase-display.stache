@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-sm-3 col-xs-12 word-display">
+    <span class="word-number">1.</span>
+    <div class="well">dog</div>
+  </div>
+  <div class="col-sm-3 col-xs-12 word-display">
+    <span class="word-number">2.</span>
+    <div class="well">car</div>
+  </div>
+  <div class="col-sm-3 col-xs-12 word-display">
+    <span class="word-number">3.</span>
+    <div class="well">flower</div>
+  </div>
+  <div class="col-sm-3 col-xs-12 word-display">
+    <span class="word-number">4.</span>
+    <div class="well">rock</div>
+  </div>
+</div>

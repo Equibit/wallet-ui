@@ -9,32 +9,29 @@
   </div>
 
   <div class="modal-body">
-    <div class="description">
-      {{i18n('emailDescription')}}
-      <!--TODO: Show once the user clicks continue to verify new email
-      {{i18n('emailNewVerificationDescription')}}
-      -->
+    {{#is mode 'edit'}}
+      <div class="description">{{i18n('emailUpdateDescription')}}</div>
+       <p class="single-paragraph">{{i18n('emailUpdateMessage')}}</p>
+      <div class="form-group">
+        <label for="emailUpdate">{{i18n('emailUpdate')}}</label>
+        <input type="password" class="form-control" id="emailUpdate">
+      </div>
+    {{/is}}
 
-    </div>
-    <div class="form-group">
-      <label for="emailUpdate">Email</label>
-      <input type="password" class="form-control" id="emailUpdate">
-    </div>
-    <!--TODO: Show once the user clicks continue to verify new email
-    <p class="single-paragraph">
-      {{i18n('emailNewVerificationMessage')}}
-    </p>
-    <code-input />
-    -->
+    {{#is mode 'code'}}
+      <div class="description">{{i18n('emailNewVerificationDescription')}}</div>
+      <p class="single-paragraph">{{i18n('emailNewVerificationMessage')}}</p>
+      <code-input />
+    {{/is}}
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary">
-      {{i18n('continue')}}
-      <!--TODO: Show once the user clicks continue to verify new email
-      {{i18n('verify')}}
-      -->
-    </button>
-    <button type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    {{#is mode 'edit'}}
+      <button ($click)="code()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
+    {{/is}}
+    {{#is mode 'code'}}
+      <button type="button" class="btn btn-primary">{{i18n('verify')}}</button>
+    {{/is}}
+    <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
   </div>
 </bootstrap-modal-content>

@@ -48,6 +48,18 @@
   background-color: @gray-lightest;
   text-align: left;
   z-index: @zindex-modal-footer;
+  display: flex;
+  align-items: center;
+}
+
+.modal-footer-add-content {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+  .modal-step-indicator {
+    font-size: @font-size-small;
+    color: @gray;
+  }
 }
 
 // Removes external margins and modal decoration for small devices
