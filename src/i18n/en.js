@@ -104,6 +104,12 @@ export default {
   myPortfolio: 'My Portfolio',
 
   newIssuances: 'New Issuances',
+  notFound401Title: 'This Page is Password Protected',
+  notFound401Description: 'Please log in to access it.',
+  notFound401cta: 'Log In',
+  notFound404Title: 'Page Not Found',
+  notFound404Description: 'The page your are looking for was not found. Please check the URL and try again.',
+  notFound404cta: 'Return Home',
   notFoundOffers: 'No Offers Found',
   notFoundOffersArchived: 'No Archived Offers Found',
   notFoundOffersBuy: 'No Buy Offers Found',

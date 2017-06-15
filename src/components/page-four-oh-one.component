@@ -1,10 +1,16 @@
 <can-component tag="page-four-oh-one">
-  <style type="less">
-    display: block;
+<can-import from="~/utils/stache-helpers/" />
 
-    p { font-weight: bold; }
-  </style>
   <view>
-    <p>You need to <a href="{{routeUrl page='login'}}">log in</a> to access this page</p>
+    <div class="row">
+      <div class="col-xs-12 align-center">
+        <div class="message-box info">
+          <div class="icon icon-lock"></div>
+          <div class="message-box-status">{{i18n('notFound401Title')}}</div>
+          <p class="message-box-cause">{{i18n('notFound401Description')}}</p>
+          <a href="{{routeUrl page='login'}}" class="btn btn-primary">{{i18n('notFound401cta')}}</button>
+        </div>
+      </div>
+    </div>
   </view>
 </can-component>
