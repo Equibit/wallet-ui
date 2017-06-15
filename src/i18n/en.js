@@ -86,7 +86,9 @@ export default {
   description: 'Description',
 
   email: 'Email',
-  emailDescription: 'Your email address is used to help you access your account and to send you account notifications.',
+  emailUpdate: 'New Email',
+  emailUpdateDescription: 'Email Update',
+  emailUpdateMessage: 'Your email address is used to help you access your account and to send you account notifications.',
   emailNewVerificationDescription: 'New Email Verification',
   emailNewVerificationMessage: 'Please enter the verification code we just sent to your new email.',
   eqb: 'EQB',

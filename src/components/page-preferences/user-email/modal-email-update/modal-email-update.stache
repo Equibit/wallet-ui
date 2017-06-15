@@ -10,22 +10,25 @@
 
   <div class="modal-body">
     <div class="description">
-      {{i18n('emailDescription')}}
+      {{i18n('emailUpdateDescription')}}
       <!--TODO: Show once the user clicks continue to verify new email
       {{i18n('emailNewVerificationDescription')}}
       -->
-
     </div>
+
+    <p class="single-paragraph">{{i18n('emailUpdateMessage')}}</p>
     <div class="form-group">
-      <label for="emailUpdate">Email</label>
+      <label for="emailUpdate">{{i18n('emailUpdate')}}</label>
       <input type="password" class="form-control" id="emailUpdate">
     </div>
+
     <!--TODO: Show once the user clicks continue to verify new email
     <p class="single-paragraph">
       {{i18n('emailNewVerificationMessage')}}
     </p>
     <code-input />
     -->
+
   </div>
 
   <div class="modal-footer">
