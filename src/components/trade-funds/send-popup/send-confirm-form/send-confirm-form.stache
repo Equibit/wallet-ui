@@ -70,7 +70,7 @@
         </span>
       </div>
       <div class="col-xs-6 col-sm-3 form-values">
-        <span>$ {{formData.transactionFeePrice}} {{i18n('usd')}}</span>
+        <span>$ {{format(formData.transactionFeePrice, '', 2)}} {{i18n('usd')}}</span>
       </div>
     </div>
 
@@ -89,13 +89,13 @@
 
       {{else}}
         <div class="col-xs-6 col-sm-4 form-values no-padding">
-          <span class="text-danger">- {{formData.transactionFee}}
+          <span class="text-danger">- {{format-max(sum(formData.amount, formData.transactionFee), 8)}}
             {{#is formData.fundsType 'BTC'}}{{i18n('btc')}}{{else}}{{i18n('blankEQB')}}{{/is}}
           </span>
         </div>
 
         <div class="col-xs-6 col-sm-3 form-values">
-          <span class="text-danger">$ - {{sum(formData.price, formData.transactionFeePrice)}} {{i18n('usd')}}</span>
+          <span class="text-danger">$ - {{format(sum(formData.price, formData.transactionFeePrice), '', 2)}} {{i18n('usd')}}</span>
         </div>
       {{/is}}
 

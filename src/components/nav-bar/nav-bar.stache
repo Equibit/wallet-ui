@@ -89,7 +89,7 @@
 
       {{#if isLoggedIn}}
       <div class="currency-container hidden-xs">
-        <div class="navbar-text">{{balance.summary.total}}  BTC</div>
+        <div class="navbar-text">{{sum(balance.btc.summary.total, balance.eqb.summary.total)}}  BTC</div>
       </div>
       {{/if}}
 

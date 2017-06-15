@@ -12,7 +12,6 @@ import DefineList from 'can-define/list/list';
 import feathersClient from '~/models/feathers-client';
 import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
-// import Session from '~/models/session';
 
 // TODO: FIXTURES ON!
 // import '~/models/fixtures/portfolio';
@@ -31,6 +30,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     serialize: true,
     type: 'string'
   },
+
   /**
    * @property {String} models/portfolio.properties.name name
    * @parent models/portfolio.properties
@@ -42,24 +42,65 @@ const Portfolio = DefineMap.extend('Portfolio', {
   },
 
   /**
-   * @property {String} models/portfolio.properties.addresses addresses
+   * @property {String} models/portfolio.properties.addressesMeta addressesMeta
    * @parent models/portfolio.properties
    * Tracking addresses by index for one-time usage.
    * ```
    * [
-   *   {index: 0, type: 'eqb', used: true},
-   *   {index: 1, type: 'eqb', used: false},
-   *   {index: 0, type: 'btc', used: true},
+   *   {index: 0, type: 'eqb', isChange: false, used: true},
+   *   {index: 1, type: 'eqb', isChange: false, used: false},
+   *   {index: 0, type: 'btc', isChange: false, used: true},
    * ]
    * ```
    */
-  addresses: {
+  addressesMeta: {
     serialize: true,
-    Type: DefineList,
-    value: new DefineList([])
+    // Type: DefineList,
+    // value: new DefineList([])
+    value: []
   },
 
   index: 'number',
+
+  /**
+   * @property {String} models/portfolio.properties.addresses addresses
+   * @parent models/portfolio.properties
+   * A list of address objects that includes real addresses, amount and txouts.
+   */
+  addresses: {
+    get () {
+      return (this.addressesMeta && this.addressesMeta.map(a => {
+        return {
+          index: a.index,
+          type: a.type,
+          address: this.keys[a.type].derive(a.isChange ? 1 : 0).derive(a.index).getAddress()
+        };
+      })) || [];
+    }
+  },
+
+  /**
+   * @property {String} models/portfolio.properties.addressesList addressesList
+   * @parent models/portfolio.properties
+   * A flat list of portfolio addresses to be used for `/listunspent` request.
+   */
+  addressesBtc: {
+    get () {
+      return this.addresses.filter(a => a.type === 'btc').map(a => a.address);
+    }
+  },
+  addressesEqb: {
+    get () {
+      return this.addresses.filter(a => a.type === 'eqb').map(a => a.address);
+    }
+  },
+
+  /**
+   * @property {String} models/portfolio.properties.userBalance userBalance
+   * @parent models/portfolio.properties
+   * A reference to user's balance. Portfolio uses it to figure out its own funds in `balance`.
+   */
+  userBalance: {type: '*'},
 
   /**
    * @property {String} models/portfolio.properties.balance balance
@@ -72,34 +113,47 @@ const Portfolio = DefineMap.extend('Portfolio', {
    *   cashEqb: 3,
    *   cashTotal: 4,
    *   securities: 6,
-   *   total: 10
+   *   total: 10,
+   *   txouts: {eqb: [], btc: []}
    * }
    * ```
    */
   balance: {
     get () {
-      // TODO: figure out how to evaluate securities.
       const unspent = this.userBalance;
       if (!unspent) {
         return;
       }
-      const total = this.userBalance.summary.total;
-      const { cashBtc, cashEqb, cashTotal, securities } = this.addressesFilled.reduce((acc, a) => {
-        if (unspent[a.address]) {
-          const amount = unspent[a.address].amount;
+
+      // TODO: figure out how to evaluate securities.
+
+      const { cashBtc, cashEqb, cashTotal, securities, txouts } = this.addresses.reduce((acc, a) => {
+        const unspentByType = unspent[a.type];
+        if (unspentByType[a.address]) {
+          const amount = unspentByType[a.address].amount;
+
+          // TODO: mutating addresses here is a bad pattern.
+          // Add amount and txouts:
+          a.amount = amount;
+          a.txouts = unspentByType[a.address].txouts;
+
+          // Calculate summary:
           if (a.type === 'btc') {
             acc.cashBtc += amount;
           } else {
             acc.cashEqb += amount;
           }
           acc.cashTotal += amount;
+          acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType[a.address].txouts);
         }
         return acc;
-      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0});
-      return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total });
+      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, txouts: {eqb: [], btc: []}});
+
+      const total = cashTotal + securities;
+
+      return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total, txouts });
     }
   },
-  userBalance: {type: '*'},
 
   unrealizedPL: {type: 'number', value: 0},
   unrealizedPLPercent: {type: 'number', value: 0},
@@ -110,35 +164,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
     type: '*'
   },
 
-  /*
-   * A helper list of address objects that includes real addresses.
-   */
-  addressesFilled: {
-    get () {
-      return this.addresses.map(a => {
-        return {
-          index: a.index,
-          type: a.type,
-          address: this.keys[a.type].derive(0).derive(a.index).getAddress()
-        };
-      });
-    }
-  },
-
-  /*
-   * A helper flat list of portfolio addresses to be used for `/listunspent` request.
-   */
-  addressesList: {
-    get () {
-      return this.addressesFilled.map(a => a.address);
-    }
-  },
-
   // "m /44' /0' /portfolio-index' /0 /index"
   nextAddress: {
     get () {
-      const btcAddr = getNextAddressIndex(this.addresses, 'btc');
-      const eqbAddr = getNextAddressIndex(this.addresses, 'eqb');
+      const btcAddr = getNextAddressIndex(this.addressesMeta, 'btc');
+      const eqbAddr = getNextAddressIndex(this.addressesMeta, 'eqb');
       const addr = {
         btc: this.keys.btc.derive(0).derive(btcAddr.index).getAddress(),
         eqb: this.keys.eqb.derive(0).derive(eqbAddr.index).getAddress()
@@ -147,15 +177,16 @@ const Portfolio = DefineMap.extend('Portfolio', {
         // Import addr as watch-only
         this.importAddr(addr.btc);
         // Mark address as generated/imported but not used yet:
-        this.addresses.push({index: 0, type: 'btc', used: false});
+        this.addressesMeta.push({index: 0, type: 'btc', used: false});
       }
       if (eqbAddr.imported === false) {
         // Import addr as watch-only
         this.importAddr(addr.eqb);
         // Mark address as generated/imported but not used yet:
-        this.addresses.push({index: 0, type: 'eqb', used: false});
+        this.addressesMeta.push({index: 0, type: 'eqb', used: false});
       }
       if (!eqbAddr.imported || !btcAddr.imported) {
+        // Save newly generated addresses to DB:
         this.save();
       }
 
@@ -183,6 +214,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
         console.error('There was an error when I tried to import your address: ', res);
       }
     });
+  },
+
+  getUnspentOutputForAmount (amount) {
+
   }
 });
 
@@ -195,6 +230,10 @@ function getNextAddressIndex (addresses = [], type) {
 function getPoftfolioBalance (balance, addresses) {
   return addresses.reduce((acc, address) => (balance[address] ? acc + balance[address].amount : acc), 0);
 }
+
+// function getUnspentOutputsForAmount (addresses, amount) {
+//
+// }
 
 Portfolio.List = DefineList.extend('PortfolioList', {
   '#': Portfolio

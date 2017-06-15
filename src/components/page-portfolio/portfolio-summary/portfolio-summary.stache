@@ -19,7 +19,7 @@
           </div>
           <div class="col-xs-12 summary-section">
             <label>{{i18n('totalCash')}}</label>
-            <span>{{balance.summary.total}} <small>BTC</small></span>
+            <span>{{balance.summary.cash}} <small>BTC</small></span>
           </div>
           <div class="col-xs-12 summary-section">
             <label>{{i18n('totalSecurities')}}</label>

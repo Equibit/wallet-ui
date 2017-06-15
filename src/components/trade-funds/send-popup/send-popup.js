@@ -18,6 +18,7 @@ import DefineMap from 'can-define/map/';
 import './send-popup.less';
 import view from './send-popup.stache';
 import Issuance from '~/models/issuance';
+import Session from '~/models/session';
 import { toMaxPrecision } from '~/utils/formatter';
 import validators from '~/utils/validators';
 
@@ -60,9 +61,24 @@ const FormData = DefineMap.extend({
   },
   price: 'number',
   issuance: Issuance,
-  transactionFee: 'number',
-  transactionFeePrice: 'number',
+  transactionFee: {
+    type: 'number',
+    value: 0.00001
+  },
+  get transactionFeePrice () {
+    return this.type === 'FUNDS'
+      ? (this.fundsType === 'BTC' ? this.btcToUsd(this.transactionFee) : this.eqbToUsd(this.transactionFee))
+      : this.eqbToUsd(this.transactionFee);
+  },
   description: 'string',
+
+  btcToUsd (btc) {
+    return btc * Session.current.rates.btcToUsd;
+  },
+
+  eqbToUsd (eqb) {
+    return eqb * Session.current.rates.eqbToUsd;
+  },
 
   isValid: {
     get () {
