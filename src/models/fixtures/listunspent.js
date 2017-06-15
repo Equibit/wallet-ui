@@ -37,6 +37,6 @@ fixture('GET /listunspent', function () {
           solvable: false
         }]
       }
-    },
+    }
   };
 });

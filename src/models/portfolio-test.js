@@ -1,6 +1,6 @@
 import assert from 'chai/chai';
 import 'steal-mocha';
-import Portfolio, { getNextAddressIndex, getPoftfolioBalance } from './portfolio';
+import Portfolio, { getNextAddressIndex } from './portfolio';
 import hdNode from './fixtures/fixture-keys';
 // import portfolioAddresses from './fixtures/portfolio-addresses';
 
@@ -15,7 +15,7 @@ const listunspent = {
   btc: {
     summary: {'total': 2},
     n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 1.5 }, // btc
-    mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA: { amount: 0.5 }, // btc
+    mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA: { amount: 0.5 } // btc
   },
   eqb: {
     summary: {'total': 5.6},
