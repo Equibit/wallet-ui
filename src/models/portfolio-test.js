@@ -2,6 +2,7 @@ import assert from 'chai/chai';
 import 'steal-mocha';
 import Portfolio, { getNextAddressIndex, getPoftfolioBalance } from './portfolio';
 import hdNode from './fixtures/fixture-keys';
+// import portfolioAddresses from './fixtures/portfolio-addresses';
 
 const addressesMeta = [
   {index: 0, type: 'btc', used: true},
@@ -37,6 +38,18 @@ describe('models/portfolio', function () {
       assert.equal(getPoftfolioBalance(listunspent, portfolioAddresses), 3.7);
     });
   });
+
+  // describe('getUnspentOutputsForAmount', function () {
+  //   const portfolioAddresses = [
+  //     {'type': 'btc', 'amount': 1.5}
+  //   ];
+  //   it('should calculate portfolio balance by addresses', function () {
+  //     const addr1 = getUnspentOutputsForAmount(portfolioAddresses, 1);
+  //     const addr2 = getUnspentOutputsForAmount(portfolioAddresses, 2);
+  //     const addr4 = getUnspentOutputsForAmount(portfolioAddresses, 4);
+  //     assert.equal(addr1, 3.7);
+  //   });
+  // });
 
   describe('instance properties', function () {
     const portfolio = new Portfolio({

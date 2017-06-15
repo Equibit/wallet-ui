@@ -47,22 +47,25 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * Tracking addresses by index for one-time usage.
    * ```
    * [
-   *   {index: 0, type: 'eqb', used: true},
-   *   {index: 1, type: 'eqb', used: false},
-   *   {index: 0, type: 'btc', used: true},
+   *   {index: 0, type: 'eqb', isChange: false, used: true},
+   *   {index: 1, type: 'eqb', isChange: false, used: false},
+   *   {index: 0, type: 'btc', isChange: false, used: true},
    * ]
    * ```
    */
   addressesMeta: {
     serialize: true,
-    Type: DefineList,
-    value: new DefineList([])
+    // Type: DefineList,
+    // value: new DefineList([])
+    value: []
   },
 
   index: 'number',
 
-  /*
-   * A helper list of address objects that includes real addresses.
+  /**
+   * @property {String} models/portfolio.properties.addresses addresses
+   * @parent models/portfolio.properties
+   * A list of address objects that includes real addresses, amount and txouts.
    */
   addresses: {
     get () {
@@ -70,18 +73,25 @@ const Portfolio = DefineMap.extend('Portfolio', {
         return {
           index: a.index,
           type: a.type,
-          address: this.keys[a.type].derive(0).derive(a.index).getAddress()
+          address: this.keys[a.type].derive(a.isChange ? 1 : 0).derive(a.index).getAddress()
         };
       })) || [];
     }
   },
 
-  /*
-   * A helper flat list of portfolio addresses to be used for `/listunspent` request.
+  /**
+   * @property {String} models/portfolio.properties.addressesList addressesList
+   * @parent models/portfolio.properties
+   * A flat list of portfolio addresses to be used for `/listunspent` request.
    */
-  addressesList: {
+  addressesBtc: {
     get () {
-      return this.addresses.map(a => a.address);
+      return this.addresses.filter(a => a.type === 'btc').map(a => a.address);
+    }
+  },
+  addressesEqb: {
+    get () {
+      return this.addresses.filter(a => a.type === 'eqb').map(a => a.address);
     }
   },
 
@@ -103,30 +113,41 @@ const Portfolio = DefineMap.extend('Portfolio', {
    *   cashEqb: 3,
    *   cashTotal: 4,
    *   securities: 6,
-   *   total: 10
+   *   total: 10,
+   *   txouts: {eqb: [], btc: []}
    * }
    * ```
    */
   balance: {
     get () {
-      // TODO: figure out how to evaluate securities.
       const unspent = this.userBalance;
       if (!unspent) {
         return;
       }
-      const total = this.userBalance.summary.total;
+      // TODO: figure out how to evaluate securities.
+      const total = this.userBalance.btc.summary.total + this.userBalance.eqb.summary.total;
       const { cashBtc, cashEqb, cashTotal, securities } = this.addresses.reduce((acc, a) => {
-        if (unspent[a.address]) {
-          const amount = unspent[a.address].amount;
+        const unspentByType = unspent[a.type];
+        if (unspentByType[a.address]) {
+          const amount = unspentByType[a.address].amount;
+
+          // TODO: mutating addresses here is a bad pattern.
+          // Add amount and txouts:
+          a.amount = amount;
+          a.txouts = unspentByType[a.address].txouts;
+
+          // Calculate summary:
           if (a.type === 'btc') {
             acc.cashBtc += amount;
           } else {
             acc.cashEqb += amount;
           }
           acc.cashTotal += amount;
+          acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType[a.address].txouts);
         }
         return acc;
-      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0});
+      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, txouts: {eqb: [], btc: []}});
+
       return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total });
     }
   },
@@ -190,6 +211,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
         console.error('There was an error when I tried to import your address: ', res);
       }
     });
+  },
+
+  getUnspentOutputForAmount (amount) {
+
   }
 });
 
@@ -202,6 +227,10 @@ function getNextAddressIndex (addresses = [], type) {
 function getPoftfolioBalance (balance, addresses) {
   return addresses.reduce((acc, address) => (balance[address] ? acc + balance[address].amount : acc), 0);
 }
+
+// function getUnspentOutputsForAmount (addresses, amount) {
+//
+// }
 
 Portfolio.List = DefineList.extend('PortfolioList', {
   '#': Portfolio

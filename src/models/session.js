@@ -93,9 +93,12 @@ const Session = DefineMap.extend('Session', {
    */
   allAddresses: {
     get () {
-      return (this.portfolios && this.portfolios.reduce((acc, portfolio) => {
-        return acc.concat(portfolio.addressesList.get());
-      }, [])) || [];
+      return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
+        return {
+          btc: acc.btc.concat(portfolio.addressesBtc),
+          eqb: acc.eqb.concat(portfolio.addressesEqb)
+        };
+      }, {eqb: [], btc: []});
     }
   },
 
@@ -106,8 +109,13 @@ const Session = DefineMap.extend('Session', {
    */
   balancePromise: {
     get () {
-      return this.allAddresses.length && feathersClient.service('/listunspent').find({
-        query: { addr: this.allAddresses }
+      const hasAddr = this.allAddresses && (this.allAddresses.btc.length || this.allAddresses.eqb.length);
+      return hasAddr && feathersClient.service('/listunspent').find({
+        query: {
+          btc: this.allAddresses.btc,
+          eqb: this.allAddresses.eqb,
+          byaddress: true
+        }
       });
     }
   },
@@ -136,12 +144,14 @@ const Session = DefineMap.extend('Session', {
     get (val, resolve) {
       if (!val && this.balancePromise) {
         this.balancePromise.then(balance => {
-          // TODO: consider using stream API to avoid mutating promises from here.
           this.portfolios.forEach(portfolio => {
             portfolio.userBalance = balance;
           });
-          // TODO: fill in some balance info based on individual portfolio balances.
-          balance.summary.securities = 0;
+          balance.summary = {
+            securities: 0,
+            cash: balance.btc.summary.total + balance.eqb.summary.total
+          };
+          balance.summary.total = balance.summary.securities + balance.summary.cash;
           resolve(balance);
         });
       }
