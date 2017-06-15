@@ -1,8 +1,8 @@
 /**
  * @module {can.Component} wallet-ui/components/page-preferences/user-phrase/modal-recovery-phrase/phrase-display phrase-display
- * @parent components.components.user-preferences
+ * @parent components.user-preferences
  *
- * Shows the recovery phrase
+ * Shows the recovery phrase.
  *
  * @signature `<phrase-display />`
  *
