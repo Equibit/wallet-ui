@@ -1,0 +1,96 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-preferences/user-phrase/modal-recovery-phrase/phrase-display/" />
+<can-import from="~/components/page-preferences/user-phrase/modal-recovery-phrase/phrase-input/" />
+
+
+<bootstrap-modal-content class="user-recovery-phrase">
+  <div class="modal-header">
+    <button ($click)="close()" type="button" class="close" aria-label="Close">
+      <span class="icon icon-cross rotate-90"></span>
+    </button>
+  </div>
+
+  {{#is mode 'intro'}}
+  <div class="modal-body">
+    <div class="heading">
+      <span class="icon icon-lock-enclosed"></span>
+      <h4 class="title">{{i18n('recoveryPhraseSetupTitle')}}</h4>
+    </div>
+    <p>{{i18n('recoveryPhraseSetupIntro1')}}</p>
+    <p>{{i18n('recoveryPhraseSetupIntro2')}}</p>
+    <hr />
+    <p>{{i18n('recoveryPhraseSetupIntro3')}}</p>
+    <a href="" class="btn btn-sm btn-success"><span class="icon icon-printer"></span> {{i18n('recoveryPhraseSetupIntroCTA')}}</a>
+  </div>
+
+  <div class="modal-footer">
+    <button ($click)="view()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
+    <button ($click)="risk()" type="button" class="btn btn-default">{{i18n('skip')}}</button>
+  </div>
+  {{/is}}
+
+  {{#is mode 'risk'}}
+  <div class="modal-body">
+    <div class="heading">
+      <span class="icon icon-unlocked-enclosed"></span>
+      <h4 class="title">{{i18n('recoveryPhraseSetupRiskTitle')}}</h4>
+    </div>
+    <p>{{i18n('recoveryPhraseSetupRiskMessage')}}</p>
+    <p>
+      <div class="heading-warning"><span class="icon icon-warning"></span> {{i18n('warning')}}</div>
+      {{i18n('recoveryPhraseSetupRiskWarning')}}
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button ($click)="close()" type="button" class="btn btn-primary" data-dismiss="modal">{{i18n('gotit')}}</button>
+    <button ($click)="intro()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
+  </div>
+  {{/is}}
+
+  {{#is mode 'view'}}
+  <div class="modal-body">
+    <div class="heading">
+      <span class="icon icon-lock-enclosed"></span>
+      <h4 class="title">{{i18n('recoveryPhraseSetupTitle')}}</h4>
+    </div>
+    <p class="instruction">{{i18n('recoveryPhraseSetupInstruction1')}}</p>
+    <phrase-display></phrase-display>
+  </div>
+
+  <div class="modal-footer">
+    <button ($click)="edit()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
+    <button ($click)="intro()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
+  </div>
+  {{/is}}
+
+  {{#is mode 'edit'}}
+  <div class="modal-body">
+    <div class="heading">
+      <span class="icon icon-lock-enclosed"></span>
+      <h4 class="title">{{i18n('recoveryPhraseSetupTitle')}}</h4>
+    </div>
+    <p class="instruction">{{i18n('recoveryPhraseSetupInstruction2')}}</p>
+    <phrase-input></phrase-input>
+  </div>
+
+  <div class="modal-footer">
+    <button ($click)="end()" type="button" class="btn btn-primary">{{i18n('finish')}}</button>
+    <button ($click)="view()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
+  </div>
+  {{/is}}
+
+  {{#is mode 'end'}}
+  <div class="modal-body">
+    <div class="heading">
+      <span class="icon icon-lock-enclosed"></span>
+      <h4 class="title">{{i18n('recoveryPhraseSetupTitleDone')}}</h4>
+      <p>{{i18n('recoveryPhraseSetupMessageDone')}}</p>
+      <button ($close)="end()" type="button" class="btn btn-primary btn-gotit" data-dismiss="modal">{{i18n('gotit')}}</button>
+    </div>
+  </div>
+  {{/is}}
+
+</bootstrap-modal-content>
+
+

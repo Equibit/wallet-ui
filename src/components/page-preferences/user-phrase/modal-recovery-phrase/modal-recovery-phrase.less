@@ -1,0 +1,34 @@
+@import '../../../../styles/bootstrap-custom/_variables.less';
+@import (reference) '../../../../styles/custom/_mixins.less';
+
+modal-recovery-phrase {
+	display: block;
+
+  .heading {
+    text-align: center;
+    .title {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-family: @font-family-bold;
+    }
+    .icon {
+      .icon-circle(24px);
+      &.icon-lock-enclosed:before {
+        margin-left: 8px;
+      }
+    }
+  }
+  .heading-warning {
+    font-family: @font-family-bold;
+    .icon-warning {
+      color: @brand-warning;
+    }
+  }
+  .instruction {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .btn-gotit {
+    margin: 15px;
+  }
+}
