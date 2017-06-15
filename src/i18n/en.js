@@ -47,7 +47,7 @@ export default {
   auth2StepDescription: 'Please autenticate to continue.',
   auth2StepMessage: 'Enter the verification code we just sent to your email. <br /> Didn\'t receive it?',
   autoLogout: 'Auto Logout',
-  autoLogoutDescription:'After the selected amount of time of inactivity we will log you out automatically from your account.',
+  autoLogoutDescription: 'After the selected amount of time of inactivity we will log you out automatically from your account.',
   autoLogoutLabel: 'Auto Logout Time',
 
   balance: 'Balance',
@@ -185,7 +185,7 @@ export default {
 
   unrealizedPL: 'Unrealized P&L',
   usd: 'USD',
-  userPreferences: "User Preferences",
+  userPreferences: 'User Preferences',
 
   valuation: 'Valuation',
   volume: 'Volume',
