@@ -124,9 +124,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
       if (!unspent) {
         return;
       }
+
       // TODO: figure out how to evaluate securities.
-      const total = this.userBalance.btc.summary.total + this.userBalance.eqb.summary.total;
-      const { cashBtc, cashEqb, cashTotal, securities } = this.addresses.reduce((acc, a) => {
+
+      const { cashBtc, cashEqb, cashTotal, securities, txouts } = this.addresses.reduce((acc, a) => {
         const unspentByType = unspent[a.type];
         if (unspentByType[a.address]) {
           const amount = unspentByType[a.address].amount;
@@ -148,7 +149,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
         return acc;
       }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, txouts: {eqb: [], btc: []}});
 
-      return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total });
+      const total = cashTotal + securities;
+
+      return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total, txouts });
     }
   },
 

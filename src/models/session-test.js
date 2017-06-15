@@ -26,8 +26,9 @@ describe('models/session', function () {
     });
     it('should populate allAddresses and balance', function (done) {
       session.on('balance', function () {
-        assert.equal(session.allAddresses.length, 2);
-        assert.deepEqual(session.balance.summary, {total: 4.9, securities: 0});
+        assert.equal(session.allAddresses.btc.length, 1);
+        assert.equal(session.allAddresses.eqb.length, 1);
+        assert.deepEqual(session.balance.summary, {total: 4.9, cash: 4.9, securities: 0});
         assert.equal(session.portfolios[0].balance.total, 4.9);
         done();
       });

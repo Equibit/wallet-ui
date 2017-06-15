@@ -12,11 +12,16 @@ const addressesMeta = [
 ];
 
 const listunspent = {
-  summary: {'total': 5.4},
-  n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 1.5 }, // btc
-  mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA: { amount: 0.5 }, // btc
-  n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo: { amount: 3.4 }, // eqb
-  n4iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 2.2 }  //
+  btc: {
+    summary: {'total': 2},
+    n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 1.5 }, // btc
+    mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA: { amount: 0.5 }, // btc
+  },
+  eqb: {
+    summary: {'total': 5.6},
+    n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo: { amount: 3.4 }, // eqb
+    n4iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 2.2 }  //
+  }
 };
 
 const portfolioKeys = {
@@ -29,13 +34,6 @@ describe('models/portfolio', function () {
     it('should return next available index', function () {
       assert.deepEqual(getNextAddressIndex(addressesMeta, 'btc'), {index: 2, imported: false});
       assert.deepEqual(getNextAddressIndex(addressesMeta, 'eqb'), {index: 1, imported: true});
-    });
-  });
-
-  describe('getPoftfolioBalance', function () {
-    const portfolioAddresses = ['n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'n4iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'empty'];
-    it('should calculate portfolio balance by addresses', function () {
-      assert.equal(getPoftfolioBalance(listunspent, portfolioAddresses), 3.7);
     });
   });
 
@@ -66,17 +64,14 @@ describe('models/portfolio', function () {
         {index: 0, type: 'eqb', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'},
         {index: 1, type: 'eqb', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'}
       ];
-      assert.deepEqual(portfolio.addresses.get(), expectedAddresses);
+      assert.deepEqual(portfolio.addresses, expectedAddresses);
     });
 
-    it('should populate addressesList', function () {
-      const expectedAddressList = [
-        'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA',
-        'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA',
-        'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo',
-        'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'
-      ];
-      assert.deepEqual(portfolio.addressesList.get(), expectedAddressList);
+    it('should populate addressesBtc and addressesEqb', function () {
+      const expectedAddressesBtc = ['n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA'];
+      const expectedAddressesEqb = ['n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'];
+      assert.deepEqual(portfolio.addressesBtc, expectedAddressesBtc);
+      assert.deepEqual(portfolio.addressesEqb, expectedAddressesEqb);
     });
 
     it('should populate portfolio balance based on user\'s balance', function () {
@@ -85,7 +80,8 @@ describe('models/portfolio', function () {
         cashEqb: 3.4,
         cashTotal: 5.4,
         securities: 0,
-        total: 5.4
+        total: 5.4,
+        txouts: {eqb: [], btc: []}
       };
       assert.deepEqual(portfolio.balance.get(), expectedBalance);
     });
