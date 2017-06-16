@@ -1,0 +1,17 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-auth/recovery-phrase/recovery-phrase-field/" />
+
+<div class="modal-header">
+  <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+  <h3 class="modal-title"> {{i18n('recoveryPhrasePromptTitle')}}</h3>
+</div>
+
+<div class="modal-body">
+  <p class="single-paragraph">{{i18n('recoveryPhrasePromptInstruction')}}</p>
+  <recovery-phrase-field></recovery-phrase-field>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary" type="submit">{{i18n('recoverFunds')}}</button>
+  <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+</div>

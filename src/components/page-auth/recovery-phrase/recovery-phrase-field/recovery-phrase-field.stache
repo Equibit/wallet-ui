@@ -1,0 +1,6 @@
+<can-import from="~/utils/stache-helpers/" />
+
+<div class="form-group">
+  <label for="authRecoveryPhrase">{{i18n('recoveryPhraseLabel')}}</label>
+  <input type="text" class="form-control" id="authRecoveryPhrase">
+</div>
