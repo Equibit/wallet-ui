@@ -1,0 +1,17 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/terms-and-conditions.component" />
+<can-import from="~/components/common/privacy-policy.component" />
+
+<ul class="list-inline list-unstyled">
+  <li><a href="http://equibitgroup.com/" target="_blank">{{i18n('about')}}</a></li>
+  <li><a ($click)="showTerms('policyVisible')">{{i18n('privacyPolicy')}}</a></li>
+  <li><a ($click)="showTerms('termsVisible')">{{i18n('termsAndConditions')}}</a></li>
+  <li>{{i18n('trademark')}}</li>
+</ul>
+
+{{#if termsVisible}}
+  <terms-and-conditions />
+{{/if}}
+{{#if policyVisible}}
+  <privacy-policy />
+{{/if}}

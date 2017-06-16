@@ -10,7 +10,7 @@
 <div class="row">
   <div class="col-xs-12">
 
-    <drag-panel class="page-panel panel panel-default card card-full">
+    <drag-panel class="panel panel-default card card-full">
 
       <div class="panel-heading panel-heading-clear">
         <div class="row">

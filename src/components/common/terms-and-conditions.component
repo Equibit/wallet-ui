@@ -16,7 +16,7 @@
         </h3>
       </div>
       <div class="modal-body">
-        <p>
+        <p class="single-paragraph">
           The following are terms of a legal agreement between you and EDC. By accessing, browsing and/or using this web site, you acknowledge that you have read, understood, and agree, to be bound by these terms and to comply with all applicable laws and regulations, including export and re-export control laws and regulations. EDC is governed by the laws of the Province of Ontario in Canada. If you do not agree to these terms, do not use
           this web site.
         </p>
@@ -75,11 +75,10 @@
 
         <hr />
 
-        <h4>Contact Us</h4>
-        <a href="mailto:info@equibit.org">info@equibit.org</a>
-        <p>This page, the entire EDC site, images / documents are Copyright © 2015 by Equibit Development
-          Corporation. All Rights Reserved.</p>
-        <small>- Revised: Wednesday, July 1, 2015</small>
+        <h4>{{i18n('termsAndConditionsContactTitle')}}</h4>
+        <a href="mailto:{{i18n('emailInfo')}}">{{i18n('emailInfo')}}</a>
+        <p>{{i18n('termsAndConditionsContactMessage')}}</p>
+        <small>{{i18n('termsAndConditionsRevised')}}</small>
       </div>
     </bootstrap-modal-content>
   </view>
