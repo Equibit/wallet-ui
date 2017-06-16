@@ -5,13 +5,14 @@
 <can-import from="./change-password/" />
 <can-import from="./forgot-password/" />
 <can-import from="~/components/common/validation-message.component" />
+<can-import from="~/utils/stache-helpers/" />
 
 <div class="row center-xs">
   <div class="col-xs-12 col-md-5">
     <div class="auth-container">
 
       <div class="auth-header">
-        <a class="header-logo" href="{{routeUrl page='research'}}">EDC Portfolio</a>
+        <a class="header-logo" href="{{routeUrl page='research'}}">{{i18n('equibitAppName')}}</a>
         <div class="auth-tabs">
           {{#is page 'signup'}}<span>Sign Up</span>{{else}}<a href="{{routeUrl page='signup'}}">Sign Up</a>{{/is}}
           {{#is page 'login'}}<span>Log In</span>{{else}}<a href="{{routeUrl page='login'}}">Log In</a>{{/is}}
