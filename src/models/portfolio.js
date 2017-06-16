@@ -224,7 +224,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @returns {*}
    */
   getTxouts (amount, type) {
-    if (!this.balance.txouts || this.balance[type === 'BTC' ? 'cashBtc' : 'cashEqb'] < amount){
+    if (!this.balance.txouts || this.balance[type === 'BTC' ? 'cashBtc' : 'cashEqb'] < amount) {
       return [];
     }
     return getUnspentOutputsForAmount(this.balance.txouts[type.toLowerCase()], amount);
