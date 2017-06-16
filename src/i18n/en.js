@@ -76,6 +76,7 @@ export default {
   createAccount: 'Create an Account',
   createPasswordTitle: 'Create a Password',
   createPasswordMsg: 'Create a password for your account.',
+  codeVerificationLabel: 'Enter Code',
   currency: 'Currency',
 
   date: 'Date',
@@ -162,6 +163,7 @@ export default {
   receive: 'Receive',
   receiveInfo: 'Use a unique address to add funds or securities to your account.',
   recoveryPhrase: 'Recovery Phrase',
+  recoveryPhraseLabel: 'Backup Recovery Phrase',
   recoveryPhraseSetupIntroCTA: 'Recovery Phrase Sheet',
   recoveryPhraseSetupIntro1: 'Your backup recovery phrase will allow you to recover your funds in the case that you forget your password.',
   recoveryPhraseSetupIntro2: 'Be sure to write it down and store it in a private and secure place. Anyone with access to this phrase will have access to your funds.',
