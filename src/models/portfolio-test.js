@@ -38,6 +38,9 @@ describe('models/portfolio', function () {
       assert.deepEqual(getNextAddressIndex(addressesMeta, 'btc'), {index: 2, imported: false});
       assert.deepEqual(getNextAddressIndex(addressesMeta, 'eqb'), {index: 1, imported: true});
     });
+    it('should return next available index for a change address', function () {
+      assert.deepEqual(getNextAddressIndex(addressesMeta, 'btc', true), {index: 1, imported: false});
+    });
   });
 
   describe('getUnspentOutputsForAmount', function () {
@@ -98,6 +101,14 @@ describe('models/portfolio', function () {
         txouts: {eqb: [], btc: []}
       };
       assert.deepEqual(portfolio.balance.get(), expectedBalance);
+    });
+
+    it('should populate nextAddress', function () {
+      const expected = {
+        btc: 'mu2DDd2d9yDzS9PoqZrjD6e1ZnmgJnpv54',
+        eqb: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'
+      };
+      assert.deepEqual(portfolio.nextAddress, expected);
     });
   });
 });

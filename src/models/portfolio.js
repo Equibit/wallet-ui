@@ -181,13 +181,16 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
   },
 
+  // getNextAddress :: Bool -> Object(eqb<String>,btc<String>)
   getNextAddress (isChange = false) {
     const changeIndex = isChange ? 1 : 0;
     const btcAddr = getNextAddressIndex(this.addressesMeta, 'btc', isChange);
     const eqbAddr = getNextAddressIndex(this.addressesMeta, 'eqb', isChange);
+    const btcNode = this.keys.btc.derive(changeIndex).derive(btcAddr.index);
+    const eqbNode = this.keys.eqb.derive(changeIndex).derive(eqbAddr.index);
     const addr = {
-      btc: this.keys.btc.derive(changeIndex).derive(btcAddr.index).getAddress(),
-      eqb: this.keys.eqb.derive(changeIndex).derive(eqbAddr.index).getAddress()
+      btc: btcNode.getAddress(),
+      eqb: eqbNode.getAddress()
     };
     if (btcAddr.imported === false) {
       // Import addr as watch-only
@@ -207,7 +210,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
 
     return addr;
-
   },
 
   // Methods:
@@ -251,10 +253,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
   findAddress (addr) {
     return this.addresses.reduce((acc, a) => a.address === addr ? a : acc);
-  },
-
-  getChangeAddress (type) {
-    return
   }
 });
 
