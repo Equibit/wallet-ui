@@ -164,7 +164,7 @@ export default {
   placeBuyOffer: 'Place Buy Offer',
   privacyPolicy: 'Privacy Policy',
   privacyPolicyChangesTitle: 'Changes to our Privacy Policy',
-  privacyPolicyChangesMessage:'If we decide to change our privacy policy, we will post those changes on this page.',
+  privacyPolicyChangesMessage: 'If we decide to change our privacy policy, we will post those changes on this page.',
   privacyPolicyContactTitle: 'Contacting Us',
   privacyPolicyContactMessage: 'If there are any questions regarding this privacy policy you may contact us using the following e-mail address:',
   privacyPolicyRevised: 'This policy was last modified on: Wednesday, July 1, 2015.',
