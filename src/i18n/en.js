@@ -103,8 +103,8 @@ export default {
   emailNewVerificationMessage: 'Please enter the verification code we just sent to your new email.',
   eqb: 'EQB',
   equibit: 'Equibit',
-  equibitAppName: 'Equibit Portfolio'
-  equibitWebsiteURL: 'https:\//equibitgroup.com\/',
+  equibitAppName: 'Equibit Portfolio',
+  equibitWebsiteURL: 'https:\/\/equibitgroup.com\/',
   equity: 'Equity',
 
   fillKill: 'Fill or Kill',
