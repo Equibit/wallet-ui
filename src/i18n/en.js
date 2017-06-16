@@ -36,9 +36,10 @@ export default {
   no: 'No',
 
   // Alphabetically
-  additionalDetails: 'Additional Details',
+  about: 'About',
   acceptedOffers: 'Accepted Offers',
   acceptedDate: 'Accepted Date',
+  additionalDetails: 'Additional Details',
   amount: 'Amount',
   archived: 'Archived',
   ask: 'Ask',
@@ -161,6 +162,7 @@ export default {
   placeBuyOrder: 'Place Buy Order',
   placeBuyOffer: 'Place Buy Offer',
   privacyPolicy: 'EDC Privacy Policy',
+  privacyPolicyLink: 'Privacy Policy',
   portfolioSummary: 'Portfolio Summary',
 
   quantity: 'Quantity',
@@ -206,10 +208,12 @@ export default {
   statusVerified: 'Verified',
 
   termsAndConditions: 'EDC Terms & Conditions',
+  termsAndConditionsLink: 'Terms & Conditions',
   to: 'To',
   totalCash: 'Total Cash',
   totalPrice: 'Total Price',
   totalSecurities: 'Total Securities',
+  trademark: '© 2017 Equibit Portfolio',
   trades: 'Trades',
   transactionFee: 'Transaction Fee',
   transactionsPageTitle: 'All Transactions',
