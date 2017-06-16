@@ -227,13 +227,27 @@ function getNextAddressIndex (addresses = [], type) {
   }, {index: 0, imported: false});
 }
 
-function getPoftfolioBalance (balance, addresses) {
-  return addresses.reduce((acc, address) => (balance[address] ? acc + balance[address].amount : acc), 0);
-}
-
-// function getUnspentOutputsForAmount (addresses, amount) {
-//
+// function getPoftfolioBalance (balance, addresses) {
+//   return addresses.reduce((acc, address) => (balance[address] ? acc + balance[address].amount : acc), 0);
 // }
+
+function getUnspentOutputsForAmount (txouts, amount) {
+  return txouts.reduce((acc, a) => {
+    if (a.amount >= amount &&
+        (acc.txouts.length > 1 ||
+          (acc.txouts.length === 1 &&
+            (acc.txouts[0].amount < amount || a.amount < acc.txouts[0].amount)))
+    ) {
+      return {sum: a.amount, txouts: [a]};
+    }
+    if (acc.sum >= amount) {
+      return acc;
+    }
+    acc.sum += a.amount;
+    acc.txouts.push(a);
+    return acc;
+  }, {sum: 0, txouts: []}).txouts;
+}
 
 Portfolio.List = DefineList.extend('PortfolioList', {
   '#': Portfolio
@@ -251,7 +265,7 @@ Portfolio.algebra = algebra;
 
 export default Portfolio;
 export { getNextAddressIndex };
-export { getPoftfolioBalance };
+export { getUnspentOutputsForAmount };
 
 // Import an address to be added as watch-only to the built-in wallet:
 // http://localhost:3030/proxycore?method=importaddress&params[]=mwd7FgMkm9yfPmNTnntsRbugZS7BEZaf32

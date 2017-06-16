@@ -1,6 +1,6 @@
 import assert from 'chai/chai';
 import 'steal-mocha';
-import Portfolio, { getNextAddressIndex } from './portfolio';
+import Portfolio, { getNextAddressIndex, getUnspentOutputsForAmount } from './portfolio';
 import hdNode from './fixtures/fixture-keys';
 // import portfolioAddresses from './fixtures/portfolio-addresses';
 
@@ -37,17 +37,26 @@ describe('models/portfolio', function () {
     });
   });
 
-  // describe('getUnspentOutputsForAmount', function () {
-  //   const portfolioAddresses = [
-  //     {'type': 'btc', 'amount': 1.5}
-  //   ];
-  //   it('should calculate portfolio balance by addresses', function () {
-  //     const addr1 = getUnspentOutputsForAmount(portfolioAddresses, 1);
-  //     const addr2 = getUnspentOutputsForAmount(portfolioAddresses, 2);
-  //     const addr4 = getUnspentOutputsForAmount(portfolioAddresses, 4);
-  //     assert.equal(addr1, 3.7);
-  //   });
-  // });
+  describe('getUnspentOutputsForAmount', function () {
+    const txouts = [
+      {'amount': 1},
+      {'amount': 2},
+      {'amount': 3}
+    ];
+    it('should return the 1st tx output', function () {
+      const txouts1 = getUnspentOutputsForAmount(txouts, 1);
+      assert.deepEqual(txouts1, [{'amount': 1}]);
+    });
+    it('should return the 2nd tx output', function () {
+      const txouts2 = getUnspentOutputsForAmount(txouts, 2);
+      assert.deepEqual(txouts2, [{'amount': 2}]);
+    });
+    // TODO: optimize since having 1 and 3 is enough for 4.
+    it('should return all three outputs', function () {
+      const txouts3 = getUnspentOutputsForAmount(txouts, 4);
+      assert.deepEqual(txouts3, [{'amount': 1}, {'amount': 2}, {'amount': 3}]);
+    });
+  });
 
   describe('instance properties', function () {
     const portfolio = new Portfolio({

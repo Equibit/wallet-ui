@@ -145,7 +145,7 @@ const Session = DefineMap.extend('Session', {
       if (!val && !this.balancePromise) {
         return {
           summary: { cash: 0, securities: 0, total: 0, isDefault: true }
-        }
+        };
       }
       if (val && val.isDefault && this.balancePromise) {
         this.balancePromise.then(balance => {
