@@ -1,11 +1,25 @@
 <!DOCTYPE HTML>
-<style>body { padding: 20px }</style>
+<div id="demo"></div>
+<style>
+  body { padding: 20px }
+  .modal { display: block; }
+  bootstrap-modal-content { display: block; }
+</style>
+
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 <div id="demo"></div>
 
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
-  <can-import from="wallet-ui/components/page-auth/recovery-phrase/confirm-funds-modal/" />
-  <confirm-funds-modal></confirm-funds-modal>
+  <can-import from="wallet-ui/components/page-auth/recovery-phrase/modal-recovery-phrase-prompt/" />
+  <div class="modal fade in" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <modal-recovery-phrase-prompt></modal-recovery-phrase-prompt>
+      </div>
+    </div>
+  </div>
+
 </script>
 
 <script src="../../../../../node_modules/steal/steal.js"
