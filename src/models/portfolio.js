@@ -70,10 +70,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
   addresses: {
     get () {
       return (this.addressesMeta && this.addressesMeta.map(a => {
+        const keysNode = this.keys[a.type].derive(a.isChange ? 1 : 0).derive(a.index);
         return {
           index: a.index,
+          isChange: a.isChange,
           type: a.type,
-          address: this.keys[a.type].derive(a.isChange ? 1 : 0).derive(a.index).getAddress()
+          address: keysNode.getAddress(),
+          keyPair: keysNode.keyPair
         };
       })) || [];
     }
@@ -167,31 +170,44 @@ const Portfolio = DefineMap.extend('Portfolio', {
   // "m /44' /0' /portfolio-index' /0 /index"
   nextAddress: {
     get () {
-      const btcAddr = getNextAddressIndex(this.addressesMeta, 'btc');
-      const eqbAddr = getNextAddressIndex(this.addressesMeta, 'eqb');
-      const addr = {
-        btc: this.keys.btc.derive(0).derive(btcAddr.index).getAddress(),
-        eqb: this.keys.eqb.derive(0).derive(eqbAddr.index).getAddress()
-      };
-      if (btcAddr.imported === false) {
-        // Import addr as watch-only
-        this.importAddr(addr.btc);
-        // Mark address as generated/imported but not used yet:
-        this.addressesMeta.push({index: 0, type: 'btc', used: false});
-      }
-      if (eqbAddr.imported === false) {
-        // Import addr as watch-only
-        this.importAddr(addr.eqb);
-        // Mark address as generated/imported but not used yet:
-        this.addressesMeta.push({index: 0, type: 'eqb', used: false});
-      }
-      if (!eqbAddr.imported || !btcAddr.imported) {
-        // Save newly generated addresses to DB:
-        this.save();
-      }
-
-      return addr;
+      return this.getNextAddress(false);
     }
+  },
+
+  // "m /44' /0' /portfolio-index' /1 /index"
+  nextChangeAddress: {
+    get () {
+      return this.getNextAddress(true);
+    }
+  },
+
+  getNextAddress (isChange = false) {
+    const changeIndex = isChange ? 1 : 0;
+    const btcAddr = getNextAddressIndex(this.addressesMeta, 'btc', isChange);
+    const eqbAddr = getNextAddressIndex(this.addressesMeta, 'eqb', isChange);
+    const addr = {
+      btc: this.keys.btc.derive(changeIndex).derive(btcAddr.index).getAddress(),
+      eqb: this.keys.eqb.derive(changeIndex).derive(eqbAddr.index).getAddress()
+    };
+    if (btcAddr.imported === false) {
+      // Import addr as watch-only
+      this.importAddr(addr.btc);
+      // Mark address as generated/imported but not used yet:
+      this.addressesMeta.push({index: 0, type: 'btc', used: false, isChange});
+    }
+    if (eqbAddr.imported === false) {
+      // Import addr as watch-only
+      this.importAddr(addr.eqb);
+      // Mark address as generated/imported but not used yet:
+      this.addressesMeta.push({index: 0, type: 'eqb', used: false, isChange});
+    }
+    if (!eqbAddr.imported || !btcAddr.imported) {
+      // Save newly generated addresses to DB:
+      this.save();
+    }
+
+    return addr;
+
   },
 
   // Methods:
@@ -231,11 +247,19 @@ const Portfolio = DefineMap.extend('Portfolio', {
       return [];
     }
     return getUnspentOutputsForAmount(this.balance.txouts[type.toLowerCase()], amount);
+  },
+
+  findAddress (addr) {
+    return this.addresses.reduce((acc, a) => a.address === addr ? a : acc);
+  },
+
+  getChangeAddress (type) {
+    return
   }
 });
 
-function getNextAddressIndex (addresses = [], type) {
-  return addresses.filter(a => a.type === type).reduce((acc, a) => {
+function getNextAddressIndex (addresses = [], type, isChange = false) {
+  return addresses.filter(a => a.type === type && a.isChange === isChange).reduce((acc, a) => {
     return a.used !== true ? {index: a.index, imported: true} : {index: a.index + 1, imported: false};
   }, {index: 0, imported: false});
 }

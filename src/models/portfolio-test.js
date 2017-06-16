@@ -3,12 +3,15 @@ import 'steal-mocha';
 import Portfolio, { getNextAddressIndex, getUnspentOutputsForAmount } from './portfolio';
 import hdNode from './fixtures/fixture-keys';
 // import portfolioAddresses from './fixtures/portfolio-addresses';
+import { omit } from 'ramda';
 
 const addressesMeta = [
-  {index: 0, type: 'btc', used: true},
-  {index: 1, type: 'btc', used: true},
-  {index: 0, type: 'eqb', used: true},
-  {index: 1, type: 'eqb', used: false}
+  {index: 0, type: 'btc', used: true, isChange: false},
+  {index: 1, type: 'btc', used: true, isChange: false},
+  {index: 0, type: 'eqb', used: true, isChange: false},
+  {index: 1, type: 'eqb', used: false, isChange: false},
+
+  {index: 0, type: 'btc', used: true, isChange: true},
 ];
 
 const listunspent = {
@@ -68,16 +71,18 @@ describe('models/portfolio', function () {
 
     it('should populate addresses', function () {
       const expectedAddresses = [
-        {index: 0, type: 'btc', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'},
-        {index: 1, type: 'btc', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA'},
-        {index: 0, type: 'eqb', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'},
-        {index: 1, type: 'eqb', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'}
+        {index: 0, type: 'btc', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', isChange: false},
+        {index: 1, type: 'btc', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', isChange: false},
+        {index: 0, type: 'eqb', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', isChange: false},
+        {index: 1, type: 'eqb', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU', isChange: false},
+        {index: 0, type: 'btc', address: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', isChange: true}
       ];
-      assert.deepEqual(portfolio.addresses, expectedAddresses);
+      assert.deepEqual(portfolio.addresses.length, 5);
+      assert.deepEqual(omit(['keyPair'], portfolio.addresses[0]), expectedAddresses[0]);
     });
 
     it('should populate addressesBtc and addressesEqb', function () {
-      const expectedAddressesBtc = ['n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA'];
+      const expectedAddressesBtc = ['n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ'];
       const expectedAddressesEqb = ['n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'];
       assert.deepEqual(portfolio.addressesBtc, expectedAddressesBtc);
       assert.deepEqual(portfolio.addressesEqb, expectedAddressesEqb);

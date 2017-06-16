@@ -21,6 +21,8 @@ import hub from '~/utils/event-hub';
 import { translate } from '~/i18n/';
 import Portfolio from '~/models/portfolio';
 import Session from '~/models/session';
+import Transaction from '~/models/transaction';
+import { merge } from 'ramda';
 
 let portfolio;
 
@@ -50,6 +52,17 @@ export const ViewModel = DefineMap.extend({
   send (args) {
     const formData = args[1];
     console.log('send: ', formData);
+
+    const amount = formData.amount;
+    const currencyType = formData.fundsType.toLowerCase();
+    const toAddress = formData.toAddress;
+    const txouts = this.portfolio.getTxouts().map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address)}));
+    const options = {
+      fee: formData.fee,
+      changeAddr: this.portfolio.getChangeAddress(currencyType)
+    };
+    const txHex = Transaction.makeTransaction(amount, toAddress, txouts, options);
+    console.log('txHex: ' + txHex);
 
     // Show the spinner:
     this.isSending = true;
