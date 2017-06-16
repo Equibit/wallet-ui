@@ -122,7 +122,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     get () {
       const unspent = this.userBalance;
       if (!unspent) {
-        return;
+        return {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, total: 0};
       }
 
       // TODO: figure out how to evaluate securities.
