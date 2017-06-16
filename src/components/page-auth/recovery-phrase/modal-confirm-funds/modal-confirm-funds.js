@@ -19,8 +19,14 @@ import './modal-confirm-funds.less';
 import view from './modal-confirm-funds.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the modal-confirm-funds component'
+  mode: {
+    value: 'confirm'
+  },
+  confirm () {
+    this.mode = 'confirm';
+  },
+  prompt () {
+    this.mode = 'prompt';
   }
 });
 

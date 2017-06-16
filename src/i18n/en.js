@@ -19,6 +19,7 @@ export default {
   cancelNo: 'Yes, Cancel',
   cancelYes: 'No, Don\'t Cancel',
   continue: 'Continue',
+  correctYes: 'Yes, This is Correct',
   edit: 'Edit',
   finish: 'Finish',
   gotit: 'Got it!',
@@ -26,6 +27,7 @@ export default {
   recoverFunds: 'Recover Funds',
   save: 'Save',
   skip: 'Skip',
+  tryAgainNo: 'No, Try Again',
   verify: 'Verify',
   view: 'View',
 
@@ -78,6 +80,8 @@ export default {
   createPasswordTitle: 'Create a Password',
   createPasswordMsg: 'Create a password for your account.',
   codeVerificationLabel: 'Enter Code',
+  confirmFunds: 'Confirm Funds',
+  confirmFundsMessage: 'It appears you balance is 0. Is this correct or would you like to try entering your recovery phrase again?',
   currency: 'Currency',
 
   date: 'Date',
