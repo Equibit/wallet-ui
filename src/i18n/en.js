@@ -120,6 +120,7 @@ export default {
   myPortfolio: 'My Portfolio',
 
   newIssuances: 'New Issuances',
+  notEnoughFunds: 'Not enough funds',
   notFound401Title: 'This Page is Password Protected',
   notFound401Description: 'Please log in to access it.',
   notFound401cta: 'Log In',

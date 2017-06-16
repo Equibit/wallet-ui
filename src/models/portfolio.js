@@ -215,6 +215,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }
     });
   },
+  hasEnoughFunds (amount, type) {
+    return amount === 0 || !!this.getTxouts(amount, type).length;
+  },
 
   /**
    * @function getTxouts

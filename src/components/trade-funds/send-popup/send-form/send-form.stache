@@ -102,8 +102,8 @@
               </span>
             </div>
           </div>
-          {{^if portfolio.getTxouts(formData.amount, formData.fundsType).length}}
-            Not enough funds
+          {{^if portfolio.hasEnoughFunds(formData.amount, formData.fundsType)}}
+            <validation-message message="{{i18n('notEnoughFunds')}}" />
           {{/if}}
         </div>
 
