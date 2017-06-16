@@ -108,7 +108,7 @@ export default {
   eqb: 'EQB',
   equibit: 'Equibit',
   equibitAppName: 'Equibit Portfolio',
-  equibitWebsiteURL: 'https:\//equibitgroup.com\/',
+  equibitWebsiteURL: 'https://equibitgroup.com/',
   equity: 'Equity',
 
   fillKill: 'Fill or Kill',
