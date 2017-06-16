@@ -19,8 +19,14 @@ import './recovery-phrase-forgot-password.less';
 import view from './recovery-phrase-forgot-password.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the recovery-phrase-forgot-password component'
+  mode: {
+    value: 'prompt'
+  },
+  prompt () {
+    this.mode = 'prompt';
+  },
+  warning () {
+    this.mode = 'warning';
   }
 });
 
