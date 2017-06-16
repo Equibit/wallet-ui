@@ -75,11 +75,10 @@
 
         <hr />
 
-        <h4>Contact Us</h4>
-        <a href="mailto:info@equibit.org">info@equibit.org</a>
-        <p>This page, the entire EDC site, images / documents are Copyright © 2015 by Equibit Development
-          Corporation. All Rights Reserved.</p>
-        <small>- Revised: Wednesday, July 1, 2015</small>
+        <h4>{{i18n('termsAndConditionsContactTitle')}}</h4>
+        <a href="mailto:{{i18n('emailInfo')}}">{{i18n('emailInfo')}}</a>
+        <p>{{i18n('termsAndConditionsContactMessage')}}</p>
+        <small>{{i18n('termsAndConditionsRevised')}}</small>
       </div>
     </bootstrap-modal-content>
   </view>
