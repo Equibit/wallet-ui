@@ -216,8 +216,18 @@ const Portfolio = DefineMap.extend('Portfolio', {
     });
   },
 
-  getUnspentOutputForAmount (amount) {
-
+  /**
+   * @function getTxouts
+   * Returns txouts that contain enough funds in them.
+   * @param amount
+   * @param type
+   * @returns {*}
+   */
+  getTxouts (amount, type) {
+    if (!this.balance.txouts || this.balance[type === 'BTC' ? 'cashBtc' : 'cashEqb'] < amount){
+      return [];
+    }
+    return getUnspentOutputsForAmount(this.balance.txouts[type.toLowerCase()], amount);
   }
 });
 

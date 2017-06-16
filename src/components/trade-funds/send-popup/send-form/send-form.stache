@@ -102,6 +102,9 @@
               </span>
             </div>
           </div>
+          {{^if portfolio.getTxouts(formData.amount, formData.fundsType).length}}
+            Not enough funds
+          {{/if}}
         </div>
 
         <div class="col-sm-2 col-xs-12 no-padding">

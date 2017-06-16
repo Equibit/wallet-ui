@@ -147,7 +147,7 @@ const Session = DefineMap.extend('Session', {
           summary: { cash: 0, securities: 0, total: 0, isDefault: true }
         };
       }
-      if (val && val.isDefault && this.balancePromise) {
+      if ((!val || val.isDefault) && this.balancePromise) {
         this.balancePromise.then(balance => {
           this.portfolios.forEach(portfolio => {
             portfolio.userBalance = balance;
