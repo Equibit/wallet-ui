@@ -53,7 +53,7 @@ export const ViewModel = DefineMap.extend({
     const formData = args[1];
     console.log('send: ', formData);
 
-    debugger
+    // debugger;
 
     const amount = formData.amount;
     const currencyType = formData.fundsType.toLowerCase();

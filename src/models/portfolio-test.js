@@ -11,7 +11,7 @@ const addressesMeta = [
   {index: 0, type: 'eqb', used: true, isChange: false},
   {index: 1, type: 'eqb', used: false, isChange: false},
 
-  {index: 0, type: 'btc', used: true, isChange: true},
+  {index: 0, type: 'btc', used: true, isChange: true}
 ];
 
 const listunspent = {

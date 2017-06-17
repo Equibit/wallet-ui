@@ -15,6 +15,7 @@ const Transaction = DefineMap.extend('Transaction', {
       {address: toAddress, value: availableAmount - amount - fee}
     ];
     const hex = buildTransaction(inputs, outputs, network);
+    console.log('hex = ' + hex);
   }
 }, {
   _id: 'string',
