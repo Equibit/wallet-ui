@@ -21,6 +21,8 @@ import hub from '~/utils/event-hub';
 import { translate } from '~/i18n/';
 import Portfolio from '~/models/portfolio';
 import Session from '~/models/session';
+import Transaction from '~/models/transaction';
+import { merge } from 'ramda';
 
 let portfolio;
 
@@ -51,11 +53,25 @@ export const ViewModel = DefineMap.extend({
     const formData = args[1];
     console.log('send: ', formData);
 
+    const amount = formData.amount;
+    const currencyType = formData.fundsType.toLowerCase();
+    const toAddress = formData.toAddress;
+    const txouts = this.portfolio
+      .getTxouts(amount, currencyType)
+      .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}));
+    const options = {
+      fee: formData.transactionFee,
+      changeAddr: this.portfolio.nextChangeAddress[currencyType],
+      type: currencyType,
+      description: formData.description
+    };
+    const tx = Transaction.makeTransaction(amount, toAddress, txouts, options);
+    console.log('tx.hex: ' + tx.hex, tx);
+
     // Show the spinner:
     this.isSending = true;
 
-    // TODO: send request here.
-    setTimeout(() => {
+    tx.save().then(() => {
       this.isSending = false;
 
       const msg = this.type === 'SECURITIES' ? translate('securitiesSent') : translate('fundsSent');
@@ -65,7 +81,7 @@ export const ViewModel = DefineMap.extend({
         'title': msg,
         'displayInterval': 5000
       });
-    }, 1000);
+    });
   }
 });
 

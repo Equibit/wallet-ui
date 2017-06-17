@@ -102,6 +102,9 @@
               </span>
             </div>
           </div>
+          {{^if portfolio.hasEnoughFunds(formData.amount, formData.fundsType)}}
+            <validation-message message="{{i18n('notEnoughFunds')}}" />
+          {{/if}}
         </div>
 
         <div class="col-sm-2 col-xs-12 no-padding">

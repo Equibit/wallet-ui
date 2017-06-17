@@ -4,10 +4,31 @@ import feathersClient from '~/models/feathers-client';
 import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
 import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
+import { pick } from 'ramda';
 
 const Transaction = DefineMap.extend('Transaction', {
+  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, description}) {
+    const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']));
+    const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0);
+    const outputs = [
+      {address: changeAddr, value: toSatoshi(amount)},
+      {address: toAddress, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
+    ];
+    const hex = buildTransaction(inputs, outputs, network);
+
+    return new Transaction({
+      address: txouts[0].address,
+      type,
+      amount,
+      description,
+      hex,
+      toAddress
+    });
+  }
+}, {
   _id: 'string',
   address: 'string',
+  toAddress: 'string',
   type: 'string', // enum: [ 'BTC', 'EQB' ]
   companyName: 'string',
   issuanceName: 'string',
@@ -16,10 +37,7 @@ const Transaction = DefineMap.extend('Transaction', {
   description: 'string',
   hex: 'string',
   createdAt: { type: 'date', serialize: false },
-  updatedAt: { type: 'date', serialize: false },
-  buildTransaction (data, balance, keys) {
-
-  }
+  updatedAt: { type: 'date', serialize: false }
 });
 
 /**
@@ -36,6 +54,10 @@ export function buildTransaction (inputs, outputs, network = bitcoin.networks.te
   outputs.forEach(({address, value}) => tx.addOutput(address, value));
   inputs.forEach(({ keyPair }, index) => tx.sign(index, keyPair));
   return tx.build().toHex();
+}
+
+function toSatoshi (val) {
+  return Math.floor(val * 100000000);
 }
 
 Transaction.List = DefineList.extend('TransactionList', {
