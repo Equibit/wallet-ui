@@ -7,19 +7,28 @@ import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 import { pick } from 'ramda';
 
 const Transaction = DefineMap.extend('Transaction', {
-  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network}) {
+  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, description}) {
     const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']));
     const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0);
     const outputs = [
-      {address: changeAddr, value: amount},
-      {address: toAddress, value: availableAmount - amount - fee}
+      {address: changeAddr, value: toSatoshi(amount)},
+      {address: toAddress, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
     ];
     const hex = buildTransaction(inputs, outputs, network);
-    console.log('hex = ' + hex);
+
+    return new Transaction({
+      address: txouts[0].address,
+      type,
+      amount,
+      description,
+      hex,
+      toAddress
+    });
   }
 }, {
   _id: 'string',
   address: 'string',
+  toAddress: 'string',
   type: 'string', // enum: [ 'BTC', 'EQB' ]
   companyName: 'string',
   issuanceName: 'string',
@@ -45,6 +54,10 @@ export function buildTransaction (inputs, outputs, network = bitcoin.networks.te
   outputs.forEach(({address, value}) => tx.addOutput(address, value));
   inputs.forEach(({ keyPair }, index) => tx.sign(index, keyPair));
   return tx.build().toHex();
+}
+
+function toSatoshi (val) {
+  return Math.floor(val * 100000000);
 }
 
 Transaction.List = DefineList.extend('TransactionList', {
