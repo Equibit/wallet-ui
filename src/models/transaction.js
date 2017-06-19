@@ -6,6 +6,7 @@ import algebra from '~/models/algebra';
 import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 import { pick } from 'ramda';
 import i18n from '../i18n/i18n';
+import Session from './session';
 
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, description}) {
@@ -30,17 +31,16 @@ const Transaction = DefineMap.extend('Transaction', {
   _id: 'string',
   address: 'string',
   toAddress: 'string',
-  type: {
-    type: 'string',
-    // enum: [ 'SEND', 'RECEIVE', 'BUY', 'SELL' ]
-    get (val) {
+  type: 'string', // enum: [ 'SEND', 'RECEIVE', 'BUY', 'SELL' ]
+  typeFormatted: {
+    get () {
       const typeString = {
         BUY: i18n['transactionBuy'],
         RECEIVE: i18n['transactionIn'],
         SELL: i18n['transactionSell'],
         SEND: i18n['transactionOut']
       };
-      return typeString[val];
+      return typeString[this.type];
     }
   },
   currencyType: 'string', // enum: [ 'BTC', 'EQB' ]
@@ -48,8 +48,14 @@ const Transaction = DefineMap.extend('Transaction', {
   issuanceName: 'string',
   txnId: 'string',
   amount: 'number',
+  amountBtc: {
+    get () {
+      return (Session.current && Session.current.toBTC(this.amount, this.currencyType)) || this.amount;
+    }
+  },
   description: 'string',
   hex: 'string',
+  isPending: 'boolean',
   createdAt: { type: 'date', serialize: false },
   updatedAt: { type: 'date', serialize: false }
 });

@@ -176,8 +176,14 @@ const Session = DefineMap.extend('Session', {
   get rates () {
     return (this.user && this.user.rates) || {
       btcToUsd: 2725,
-      eqbToUsd: 3
+      eqbToUsd: 3,
+      eqbToBtc: 3 / 2725
     };
+  },
+
+  // TODO: use BTC switch here (uBTC / mBTC / BTC).
+  toBTC (amount, currencyType) {
+    return currencyType === 'EQB' ? amount * this.rates.eqbToBtc : amount;
   }
 });
 

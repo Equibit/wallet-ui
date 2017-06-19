@@ -19,6 +19,8 @@ import './page-transactions.less';
 import view from './page-transactions.stache';
 import Transaction from '../../models/transaction';
 
+import '../../models/fixtures/transactions';
+
 export const ViewModel = DefineMap.extend({
   promise: {
     get () {
