@@ -12,10 +12,10 @@
       <div class="panel-body">
         <div class="row card-row-full">
           <div class="col-lg-9 col-xs-12">
-            <transactions-grid {transactions}="transactions" />
+            <transactions-grid {^rows}="transactions" {^selected-row}="selectedRow" />
           </div>
           <div class="col-lg-3 col-xs-12">
-            <transactions-details />
+            <transactions-details {issuance}="selectedRow" />
           </div>
         </div>
       </div>

@@ -17,10 +17,51 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './transactions-grid.less';
 import view from './transactions-grid.stache';
+import Transaction from '../../../models/transaction';
+import Pagination from '~/models/pagination';
+
+import '../../../models/fixtures/transactions';
 
 export const ViewModel = DefineMap.extend({
-  transactions: {
+  pagination: {
+    value: new Pagination({
+      skip: 0,
+      limit: 50
+    })
+  },
+  rows: {
+    set (value) {
+      if (value && value[0]) {
+        setTimeout(() => {
+          this.selectRowDefault(value[0]);
+        }, 0);
+      }
+      return value;
+    },
+    get (value, resolve) {
+      if (value) {
+        return value;
+      }
+      Transaction.getList(this.queryParams).then(rows => {
+        if (rows.total) {
+          this.pagination.total = rows.total;
+        }
+        resolve(rows);
+        this.selectRowDefault(rows[0]);
+      });
+    }
+  },
+  selectedRow: {
     type: '*'
+  },
+  selectRowDefault (row) {
+    row.selected = true;
+    this.selectedRow = row;
+  },
+  loadPage: function () {
+    Transaction.getList(this.pagination.params).then(items => {
+      this.rows = items;
+    });
   }
 });
 

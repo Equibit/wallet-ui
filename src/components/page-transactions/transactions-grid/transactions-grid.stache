@@ -2,7 +2,9 @@
 <can-import from="grid-component" />
 <can-import from="~/utils/stache-helpers/" />
 
-<grid-component>
+<grid-component {rows}="rows"
+                {pagination}="pagination"
+                {(selected-row)}="selectedRow">
 
   <div class="grid-responsive">
 
@@ -24,14 +26,19 @@
     <div class="grid-body-scroll">
       <table class="table table-condensed grid-body">
         <tbody>
-          {{#each transactions as transaction}}
-          <tr class="{{#if transaction.isPending}}pending{{/if}}">
-            <td class="column-date"><span class="date-value">{{format-date-short(transaction.createdAt)}}</span></td>
-            <td class="column-type">{{transaction.typeFormatted}}</td>
-            <td class="column-company"><a href="">{{transaction.companyName}}</a></td>
-            <td class="column-issuance">{{transaction.issuanceName}}</td>
-            <td class="column-quantity">{{transaction.amount}}</td>
-            <td class="column-amount">{{format-max(transaction.amountBtc, 8))}}</td>
+          {{#each rows as row}}
+          <tr class="{{#if row.isPending}}pending{{/if}} {{#if row.selected}}selected{{/if}}"
+              ($click)="selectRow(row, %element, %event)">
+            <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
+            <td class="column-type">{{row.typeFormatted}}</td>
+            <td class="column-company">
+              <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row.issuanceId}}">
+                {{row.companyName}}
+              </a>
+            </td>
+            <td class="column-issuance">{{row.issuanceName}}</td>
+            <td class="column-quantity">{{row.amount}}</td>
+            <td class="column-amount">{{format-max(row.amountBtc, 8))}}</td>
           </tr>
           {{/each}}
         </tbody>
@@ -40,14 +47,21 @@
   </div>
 
   <div class="grid-footer">
-    <div class="btn-group pagination" role="group" aria-label="pagination">
-      <button type="button" class="btn btn-default btn-xs disabled">&laquo;</button>
-      <button type="button" class="btn btn-default btn-xs active" >1</button>
-      <button type="button" class="btn btn-default btn-xs" >2</button>
-      <button type="button" class="btn btn-default btn-xs" >3</button>
-      <button type="button" class="btn btn-default btn-xs" >&raquo;</button>
-    </div>
-    <div class="grid-results">Showing 18 of 50 Results</div>
+    {{#if hasPages}}
+      <div class="btn-group pagination" role="group" aria-label="pagination">
+        <button type="button" class="btn btn-default btn-xs" ($click)="prev()" {{^if isPrevActive}}disabled{{/if}}>&laquo;</button>
+
+        {{#each pages}}
+          <button type="button" class="btn btn-default btn-xs {{#if isActive}}active{{/if}}"
+                  ($click)=changePage(pageNumber)>
+            {{pageTitle}}
+          </button>
+        {{/each}}
+
+        <button type="button" class="btn btn-default btn-xs" ($click)="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
+      </div>
+    {{/if}}
+    <div class="grid-results">Showing {{rows.length}} of {{pagination.total}} Results</div>
   </div>
 
 </grid-component>

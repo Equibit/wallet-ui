@@ -45,7 +45,9 @@ const Transaction = DefineMap.extend('Transaction', {
   },
   currencyType: 'string', // enum: [ 'BTC', 'EQB' ]
   companyName: 'string',
+  companySlug: 'string',
   issuanceName: 'string',
+  issuanceId: 'string',
   txnId: 'string',
   amount: 'number',
   amountBtc: {
@@ -57,7 +59,13 @@ const Transaction = DefineMap.extend('Transaction', {
   hex: 'string',
   isPending: 'boolean',
   createdAt: { type: 'date', serialize: false },
-  updatedAt: { type: 'date', serialize: false }
+  updatedAt: { type: 'date', serialize: false },
+
+  // Extras:
+  selected: {
+    type: 'boolean',
+    serialize: false
+  }
 });
 
 /**
