@@ -30,7 +30,7 @@
     </div>
 
     {{#is mode 'edit'}}
-      <send-form {form-data}="formData" {issuances}="issuances" />
+      <send-form {form-data}="formData" {portfolio}="portfolio" {issuances}="issuances" />
     {{else}}
       <send-confirm-form {form-data}="formData" {issuances}="issuances" />
     {{/is}}

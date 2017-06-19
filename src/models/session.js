@@ -142,7 +142,12 @@ const Session = DefineMap.extend('Session', {
     // 2. Each portfolio calculates its own balance and break it down (equity / bonds / cash)
     // 3. We calculate summary based on individual portfolio balance and add it to user's balance.
     get (val, resolve) {
-      if (!val && this.balancePromise) {
+      if (!val && !this.balancePromise) {
+        return {
+          summary: { cash: 0, securities: 0, total: 0, isDefault: true }
+        };
+      }
+      if ((!val || val.isDefault) && this.balancePromise) {
         this.balancePromise.then(balance => {
           this.portfolios.forEach(portfolio => {
             portfolio.userBalance = balance;
@@ -155,6 +160,7 @@ const Session = DefineMap.extend('Session', {
           resolve(balance);
         });
       }
+      return val;
     }
   },
 
