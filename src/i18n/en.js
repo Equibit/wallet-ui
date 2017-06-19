@@ -247,7 +247,6 @@ export default {
   transactionIn: 'Transfer In',
   transactionOut: 'Transfer Out',
   transactionSell: 'Sell',
-  transactionsPageTitle: 'All Transactions',
   tryAgain: 'Try Again.',
   type: 'Type',
 
