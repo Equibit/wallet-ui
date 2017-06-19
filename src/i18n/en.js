@@ -53,6 +53,10 @@ export default {
 
   balance: 'Balance',
   bitcoin: 'Bitcoin',
+  bitcoinDisplayUnit: 'Bitcoin Display Unit',
+  bitcoinDisplayUnitMicro: 'Micro',
+  bitcoinDisplayUnitMilli: 'Milli',
+  bitcoinDisplayUnitFull: 'Full',
   blankEQB: 'Blank EBQ',
   bonds: 'Bonds',
   breakdown: 'Breakdown',
@@ -103,6 +107,8 @@ export default {
   emailNewVerificationMessage: 'Please enter the verification code we just sent to your new email.',
   eqb: 'EQB',
   equibit: 'Equibit',
+  equibitAppName: 'Equibit Portfolio',
+  equibitWebsiteURL: 'https://equibitgroup.com/',
   equity: 'Equity',
 
   fillKill: 'Fill or Kill',
@@ -118,15 +124,19 @@ export default {
   helpTransactionFeeEquibit: 'Required by Equibit miners.',
 
   issuance: 'Issuance',
+  issuances: 'Issuances',
   issuanceName: 'Issuance Name',
   issuanceType: 'Issuance Type',
 
   last24hours: 'Last 24 hours',
   lastUpdatedOn: 'Last updated on',
+  login: 'Log In',
+  logout: 'Log Out',
 
   marketCapitalization: 'Market Capitalization',
   marketSummary: 'Market Summary',
   minutes: 'Minutes',
+  myIssuances: 'My Issuances',
   myOffers: 'My Offers',
   myOrders: 'My Orders',
   myPortfolio: 'My Portfolio',
@@ -146,6 +156,7 @@ export default {
   notFoundOrdersArchived: 'No Archived Orders Found',
   notFoundOrdersBuy: 'No Buy Orders Found',
   notFoundOrdersSell: 'No Sell Orders Found',
+  notifications: 'Notifications',
   noPartialFills: 'No partial fills allowed.',
 
   offer: 'Offer',
@@ -193,6 +204,7 @@ export default {
   recoveryPhraseSetupRiskTitle: 'Do You Understand the Risk?',
   recoveryPhraseSetupRiskWarning: 'If you proceed without a backup, and forget your password you will lose access to your funds.',
   recoveryPhraseWarningMessage: 'If you don\'t have a backup recovery phrase, you can still access your account, but your funds won\'t be available.',
+  research: 'Research',
 
   securities: 'Securities',
   securitiesSent: 'Securities sent',
@@ -203,6 +215,7 @@ export default {
   sellOffer: 'Sell Offer',
   sellOrder: 'Sell Order',
   shareVolume: 'Share Volume',
+  signup: 'Sign Up',
   step: 'Step',
   status: 'Status',
   statusCancelled: 'Cancelled',
@@ -218,6 +231,7 @@ export default {
   termsAndConditionsContactMessage: 'This page, the entire EDC site, images / documents are Copyright © 2015 by Equibit Development Corporation. All Rights Reserved.',
   termsAndConditionsRevised: '- Revised: Wednesday, July 1, 2015',
   to: 'To',
+  toggleNavigation: 'Toggle Navigation',
   totalCash: 'Total Cash',
   totalPrice: 'Total Price',
   totalSecurities: 'Total Securities',
@@ -225,6 +239,8 @@ export default {
   trades: 'Trades',
   transactionBuy: 'Buy',
   transactionFee: 'Transaction Fee',
+  transactions: 'Transactions',
+  transactionsPageTitle: 'All Transactions',
   transactionHistory: 'Transaction History',
   transactionHistoryMessage: 'Transactions will show when you trade, or send and receive funds to your portfolios.',
   transactionIds: 'Transaction IDs',
@@ -237,7 +253,7 @@ export default {
 
   unrealizedPL: 'Unrealized P&L',
   usd: 'USD',
-  userPreferences: 'User Preferences',
+  userPreferences: 'Preferences',
 
   valuation: 'Valuation',
   volume: 'Volume',
