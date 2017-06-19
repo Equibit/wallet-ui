@@ -21,6 +21,10 @@ stache.registerHelper('format-time', function (value) {
   return isToday ? m.format('hh:mma') : m.format('MM/DD');
 });
 
+stache.registerHelper('format-date-full', function (value) {
+  return moment(value).format('MM/DD/YY @ hh:mm A');
+});
+
 stache.registerHelper('format-date-short', function (value) {
   return moment(value).format('MM/DD/YY');
 });

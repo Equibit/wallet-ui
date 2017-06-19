@@ -65,6 +65,9 @@ const Transaction = DefineMap.extend('Transaction', {
   selected: {
     type: 'boolean',
     serialize: false
+  },
+  get transactionUrl () {
+    return `http://localhost:3030/proxycore?method=gettransaction&params[]=${this.txnId}`;
   }
 });
 

@@ -15,7 +15,7 @@
             <transactions-grid {^rows}="transactions" {^selected-row}="selectedRow" />
           </div>
           <div class="col-lg-3 col-xs-12">
-            <transactions-details {issuance}="selectedRow" />
+            <transactions-details {transaction}="selectedRow" />
           </div>
         </div>
       </div>
