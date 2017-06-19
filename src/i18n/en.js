@@ -225,6 +225,8 @@ export default {
   trades: 'Trades',
   transactionBuy: 'Buy',
   transactionFee: 'Transaction Fee',
+  transactionHistory: 'Transaction History',
+  transactionHistoryMessage: 'Transactions will show when you trade, or send and receive funds to your portfolios.',
   transactionIds: 'Transaction IDs',
   transactionIn: 'Transfer In',
   transactionOut: 'Transfer Out',

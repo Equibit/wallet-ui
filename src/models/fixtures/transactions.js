@@ -18,7 +18,7 @@ const store = fixture.store(R.times(i => {
     createdAt: Date.now(),
     updatedAt: Date.now()
   };
-}, 4), Transaction.connection.algebra);
+}, 10), Transaction.connection.algebra);
 
 fixture('/transactions/{_id}', store);
 
