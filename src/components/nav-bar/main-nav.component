@@ -2,10 +2,10 @@
   <view>
     <ul class="nav navbar-nav main-nav">
       <li class="{{#is page 'research'}}active{{/is}}">
-        <a href="{{routeUrl page='research'}}">Research {{#is page 'research'}}<span class="sr-only">(current)</span>{{/is}}</a>
+        <a href="{{routeUrl page='research'}}">{{i18n('research')}} {{#is page 'research'}}<span class="sr-only">(current)</span>{{/is}}</a>
       </li>
       <li class="{{#is page 'issuances'}}active{{/is}}">
-        <a href="{{routeUrl page='issuances'}}">Issuances {{#is page 'issuances'}}<span class="sr-only">(current)</span>{{/is}}</a>
+        <a href="{{routeUrl page='issuances'}}">{{i18n('issuances')}} {{#is page 'issuances'}}<span class="sr-only">(current)</span>{{/is}}</a>
       </li>
     </ul>
   </view>

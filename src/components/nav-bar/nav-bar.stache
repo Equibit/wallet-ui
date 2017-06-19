@@ -3,13 +3,14 @@
 <can-import from="~/components/nav-bar/search-form.component" />
 <can-import from="~/components/notifications/notifications-list/" />
 <can-import from="~/components/notifications/notification-counter/notification-counter.component" />
+<can-import from="~/utils/stache-helpers/" />
 <can-import from="~/styles/custom/animate.less" />
 
 <nav class="navbar navbar-inverse">
 
     <div class="navbar-header">
 
-      <a class="header-logo" href="{{routeUrl page='research'}}">Equibit Portfolio</a>
+      <a class="header-logo" href="{{routeUrl page='research'}}">{{i18n('equibitAppName')}}</a>
 
       <ul class="nav navbar-nav add-nav navbar-right">
         {{#if isLoggedIn}}
@@ -20,13 +21,13 @@
               role="button"
               aria-haspopup="true"
               aria-expanded="false">
-            <span class="sr-only">Notifications Menu</span>
+            <span class="sr-only">{{i18n('notifications')}}</span>
             <notification-counter />
           </a>
           <div class="dropdown-menu popover bottom notifications-popover animated fadeIn">
             <span class="arrow"></span>
             <div class="popover-title">
-              Notifications
+              {{i18n('notifications')}}
               <span class="icon icon-cross pull-right"></span>
             </div>
 
@@ -41,11 +42,11 @@
           <a href="#" class="dropdown-toggle icon icon-cog" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
           </a>
           <ul class="dropdown-menu settings-nav default-menu animated fadeIn">
-            <label>Bitcoin Display Unit</label>
+            <label>{{i18n('bitcoinDisplayUnit')}}</label>
             <div class="btn-group">
-              <a href="#" class="btn btn-default">Micro</a>
-              <a href="#" class="btn btn-default btn-selected">Milli</a>
-              <a href="#" class="btn btn-default">Full</a>
+              <a href="#" class="btn btn-default">{{i18n('bitcoinDisplayUnitMicro')}}</a>
+              <a href="#" class="btn btn-default btn-selected">{{i18n('bitcoinDisplayUnitMilli')}}</a>
+              <a href="#" class="btn btn-default">{{i18n('bitcoinDisplayUnitFull')}}</a>
           </div>
           </ul>
         </li>
@@ -55,17 +56,17 @@
           <a href="#" class="dropdown-toggle icon icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
           </a>
           <ul class="dropdown-menu user-nav default-menu animated fadeIn">
-            <li><a href="{{routeUrl page='portfolio'}}">My Portfolio</a></li>
-            <li><a href="{{routeUrl page='orders'}}">My Orders</a></li>
-            <li><a href="{{routeUrl page='offers'}}">My Offers</a></li>
-            <li><a href="#">My Issuances</a></li>
+            <li><a href="{{routeUrl page='portfolio'}}">{{i18n('myPortfolio')}}</a></li>
+            <li><a href="{{routeUrl page='orders'}}">{{i18n('myOrders')}}</a></li>
+            <li><a href="{{routeUrl page='offers'}}">{{i18n('myOffers')}}</a></li>
+            <li><a href="#">{{i18n('myIssuances')}}</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="{{routeUrl page='transactions'}}">Transactions</a></li>
-            <li><a href="{{routeUrl page='preferences'}}">Preferences</a></li>
+            <li><a href="{{routeUrl page='transactions'}}">{{i18n('transactions')}}</a></li>
+            <li><a href="{{routeUrl page='preferences'}}">{{i18n('userPreferences')}}</a></li>
             <li role="separator" class="divider"></li>
             <li>
               <button type="button" class="btn btn-default btn-xs" ($click)="logout()">
-                Log out
+                {{i18n('logout')}}
               </button>
             </li>
           </ul>
@@ -73,7 +74,7 @@
         {{/if}}
         <li class="more-toggle">
           <a href="#" class="collapsed icon" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
+            <span class="sr-only">{{i18n('Toggle Navigation')}}</span>
             <span class="icon icon-cross"></span>
           </a>
         </li>
@@ -89,7 +90,7 @@
 
       {{#if isLoggedIn}}
       <div class="currency-container hidden-xs">
-        <div class="navbar-text">{{balance.summary.total}}  BTC</div>
+        <div class="navbar-text">{{balance.summary.total}}  {{i18n('btc')}}</div>
       </div>
       {{/if}}
 
@@ -112,7 +113,7 @@
 
       {{#if isLoggedIn}}
       <div class="currency-container navbar-right visible-xs">
-        <div class="navbar-text">45.2392  BTC</div>
+        <div class="navbar-text">{{balance.summary.total}}  {{i18n('btc')}}</div>
       </div>
       {{/if}}
 
