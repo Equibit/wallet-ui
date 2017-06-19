@@ -20,7 +20,7 @@ import view from './transactions-grid.stache';
 import Transaction from '../../../models/transaction';
 import Pagination from '~/models/pagination';
 
-import '../../../models/fixtures/transactions';
+// import '../../../models/fixtures/transactions';
 
 export const ViewModel = DefineMap.extend({
   pagination: {

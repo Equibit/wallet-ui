@@ -62,7 +62,8 @@ export const ViewModel = DefineMap.extend({
     const options = {
       fee: formData.transactionFee,
       changeAddr: this.portfolio.nextChangeAddress[currencyType],
-      type: currencyType,
+      type: 'OUT',
+      currencyType,
       description: formData.description
     };
     const tx = Transaction.makeTransaction(amount, toAddress, txouts, options);

@@ -9,7 +9,7 @@ import i18n from '../i18n/i18n';
 import Session from './session';
 
 const Transaction = DefineMap.extend('Transaction', {
-  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, description}) {
+  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description}) {
     const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']));
     const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0);
     const outputs = [
@@ -20,7 +20,10 @@ const Transaction = DefineMap.extend('Transaction', {
 
     return new Transaction({
       address: txouts[0].address,
+      addressTxid: txouts[0].txid,
+      addressVout: txouts[0].vout,
       type,
+      currencyType,
       amount,
       description,
       hex,
@@ -29,16 +32,21 @@ const Transaction = DefineMap.extend('Transaction', {
   }
 }, {
   _id: 'string',
+
   address: 'string',
+  addressTxid: 'string',
+  addressVout: 'number',
+
   toAddress: 'string',
-  type: 'string', // enum: [ 'SEND', 'RECEIVE', 'BUY', 'SELL' ]
+
+  type: 'string', // enum: [ 'IN', 'OUT', 'BUY', 'SELL' ]
   typeFormatted: {
     get () {
       const typeString = {
         BUY: i18n['transactionBuy'],
-        RECEIVE: i18n['transactionIn'],
-        SELL: i18n['transactionSell'],
-        SEND: i18n['transactionOut']
+        IN: i18n['transactionIn'],
+        OUT: i18n['transactionOut'],
+        SELL: i18n['transactionSell']
       };
       return typeString[this.type];
     }
