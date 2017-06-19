@@ -19,8 +19,8 @@ import './transactions-grid.less';
 import view from './transactions-grid.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the transactions-grid component'
+  transactions: {
+    type: '*'
   }
 });
 

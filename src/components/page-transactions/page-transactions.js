@@ -17,10 +17,21 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './page-transactions.less';
 import view from './page-transactions.stache';
+import Transaction from '../../models/transaction';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the page-transactions component'
+  promise: {
+    get () {
+      return Transaction.getList({});
+    }
+  },
+  transactions: {
+    get (val, resolve) {
+      if (!val) {
+        this.promise.then(resolve);
+      }
+      return val;
+    }
   }
 });
 

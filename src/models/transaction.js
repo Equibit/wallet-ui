@@ -5,6 +5,7 @@ import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
 import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 import { pick } from 'ramda';
+import i18n from '../i18n/i18n';
 
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, description}) {
@@ -29,7 +30,20 @@ const Transaction = DefineMap.extend('Transaction', {
   _id: 'string',
   address: 'string',
   toAddress: 'string',
-  type: 'string', // enum: [ 'BTC', 'EQB' ]
+  type: {
+    type: 'string',
+    // enum: [ 'SEND', 'RECEIVE', 'BUY', 'SELL' ]
+    get (val) {
+      const typeString = {
+        BUY: i18n['transactionBuy'],
+        RECEIVE: i18n['transactionIn'],
+        SELL: i18n['transactionSell'],
+        SEND: i18n['transactionOut']
+      };
+      return typeString[val];
+    }
+  },
+  currencyType: 'string', // enum: [ 'BTC', 'EQB' ]
   companyName: 'string',
   issuanceName: 'string',
   txnId: 'string',

@@ -12,7 +12,7 @@
       <div class="panel-body">
         <div class="row card-row-full">
           <div class="col-lg-9 col-xs-12">
-            <transactions-grid />
+            <transactions-grid {transactions}="transactions" />
           </div>
           <div class="col-lg-3 col-xs-12">
             <transactions-details />
