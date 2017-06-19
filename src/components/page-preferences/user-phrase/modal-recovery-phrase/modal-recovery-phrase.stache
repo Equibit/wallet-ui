@@ -20,7 +20,7 @@
     <p>{{i18n('recoveryPhraseSetupIntro2')}}</p>
     <hr />
     <p>{{i18n('recoveryPhraseSetupIntro3')}}</p>
-    <a href="" class="btn btn-sm btn-success"><span class="icon icon-printer"></span> {{i18n('recoveryPhraseSetupIntroCTA')}}</a>
+    <a href="{{i18n('recoveryPhraseSetupPDF')}}" target="_blank" class="btn btn-sm btn-success"><span class="icon icon-printer"></span> {{i18n('recoveryPhraseSetupIntroCTA')}}</a>
   </div>
 
   <div class="modal-footer">
@@ -94,5 +94,3 @@
   {{/is}}
 
 </bootstrap-modal-content>
-
-
