@@ -1,6 +1,8 @@
+<can-import from="~/utils/stache-helpers/" />
+
 <nav class="navbar toolbar">
   <div class="row">
-    <p class="navbar-text"><label>{{i18n('balance')}}</label> <span class="balance">{{balance}} <small>BTC</small></span></p>
+    <p class="navbar-text"><label>{{i18n('balance')}}</label> <span class="balance">{{format-max(balance, 8)}} <small>BTC</small></span></p>
 
     <ul class="nav navbar-nav navbar-right toolbar-actions">
       <li><a ($click)="sendFunds()">
