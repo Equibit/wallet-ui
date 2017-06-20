@@ -19,8 +19,11 @@ import './page-transactions.less';
 import view from './page-transactions.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the page-transactions component'
+  transactions: {
+    type: '*'
+  },
+  selectedRow: {
+    type: '*'
   }
 });
 

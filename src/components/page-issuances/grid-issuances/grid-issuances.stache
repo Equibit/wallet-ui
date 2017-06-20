@@ -32,7 +32,8 @@
       <table class="table table-condensed grid-body">
         <tbody>
         {{#each rows as row}}
-          <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}" ($click)="selectRow(row, %element, %event)">
+          <tr class="even-odd {{#if row.isHidden}}hidden{{/if}} {{#if row.selected}}selected{{/if}}"
+              ($click)="selectRow(row, %element, %event)">
             <td class="column-company truncate">
               <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
             </td>
@@ -58,16 +59,16 @@
         <button type="button" class="btn btn-default btn-xs" ($click)="prev()" {{^if isPrevActive}}disabled{{/if}}>&laquo;</button>
 
         {{#each pages}}
-          <button type="button" class="btn btn-default btn-xs {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
+          <button type="button" class="btn btn-default btn-xs {{#if isActive}}active{{/if}}"
+                  ($click)=changePage(pageNumber)>
+            {{pageTitle}}
+          </button>
         {{/each}}
 
         <button type="button" class="btn btn-default btn-xs" ($click)="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
-
       </div>
     {{/if}}
-
     <div class="grid-results">Showing {{rows.length}} of {{pagination.total}} Results</div>
-
   </div>
 
 </grid-component>

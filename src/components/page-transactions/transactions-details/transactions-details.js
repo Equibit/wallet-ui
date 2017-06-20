@@ -19,8 +19,8 @@ import './transactions-details.less';
 import view from './transactions-details.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the transactions-details component'
+  transaction: {
+    type: '*'
   }
 });
 

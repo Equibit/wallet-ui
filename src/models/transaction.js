@@ -5,9 +5,11 @@ import superModel from '~/models/super-model';
 import algebra from '~/models/algebra';
 import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 import { pick } from 'ramda';
+import i18n from '../i18n/i18n';
+import Session from './session';
 
 const Transaction = DefineMap.extend('Transaction', {
-  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, description}) {
+  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description}) {
     const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']));
     const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0);
     const outputs = [
@@ -18,7 +20,10 @@ const Transaction = DefineMap.extend('Transaction', {
 
     return new Transaction({
       address: txouts[0].address,
+      addressTxid: txouts[0].txid,
+      addressVout: txouts[0].vout,
       type,
+      currencyType,
       amount,
       description,
       hex,
@@ -27,17 +32,51 @@ const Transaction = DefineMap.extend('Transaction', {
   }
 }, {
   _id: 'string',
+
   address: 'string',
+  addressTxid: 'string',
+  addressVout: 'number',
+
   toAddress: 'string',
-  type: 'string', // enum: [ 'BTC', 'EQB' ]
+
+  type: 'string', // enum: [ 'IN', 'OUT', 'BUY', 'SELL' ]
+  typeFormatted: {
+    get () {
+      const typeString = {
+        BUY: i18n['transactionBuy'],
+        IN: i18n['transactionIn'],
+        OUT: i18n['transactionOut'],
+        SELL: i18n['transactionSell']
+      };
+      return typeString[this.type];
+    }
+  },
+  currencyType: 'string', // enum: [ 'BTC', 'EQB' ]
   companyName: 'string',
+  companySlug: 'string',
   issuanceName: 'string',
+  issuanceId: 'string',
   txnId: 'string',
   amount: 'number',
+  amountBtc: {
+    get () {
+      return (Session.current && Session.current.toBTC(this.amount, this.currencyType)) || this.amount;
+    }
+  },
   description: 'string',
   hex: 'string',
+  isPending: 'boolean',
   createdAt: { type: 'date', serialize: false },
-  updatedAt: { type: 'date', serialize: false }
+  updatedAt: { type: 'date', serialize: false },
+
+  // Extras:
+  selected: {
+    type: 'boolean',
+    serialize: false
+  },
+  get transactionUrl () {
+    return `http://localhost:3030/proxycore?method=gettransaction&params[]=${this.txnId}`;
+  }
 });
 
 /**
