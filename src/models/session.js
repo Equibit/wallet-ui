@@ -173,6 +173,8 @@ const Session = DefineMap.extend('Session', {
   get isNewAccount () {
     return this.user && this.user.isNewUser;
   },
+
+  // TODO: add local currency switch support.
   get rates () {
     return (this.user && this.user.rates) || {
       btcToUsd: 2725,
