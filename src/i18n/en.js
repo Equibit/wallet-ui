@@ -142,7 +142,8 @@ export default {
   myPortfolio: 'My Portfolio',
 
   newIssuances: 'New Issuances',
-  notEnoughFunds: 'Not enough funds',
+  notEnoughFunds: 'You don\'t have enough funds to send. Use the total available minus the transaction fee',
+  notEnoughSecurities: 'You don\'t have enough securities to send. Use the total available',
   notFound401Title: 'This Page is Password Protected',
   notFound401Description: 'Please log in to access it.',
   notFound401cta: 'Log In',
@@ -212,6 +213,7 @@ export default {
   selectType: 'Select Type',
   send: 'Send',
   sendModalDescription: 'Send securities or funds from your account.',
+  sendAllFunds: 'Send All Funds',
   sell: 'Sell',
   sellOffer: 'Sell Offer',
   sellOrder: 'Sell Order',

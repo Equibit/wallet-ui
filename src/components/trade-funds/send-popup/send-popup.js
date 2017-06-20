@@ -29,6 +29,10 @@ const FormData = DefineMap.extend({
    */
   type: '',
 
+  portfolio: {
+    type: '*'
+  },
+
   /**
    * @property {String} fundsType
    * ENUM ('EQB', 'BTC')

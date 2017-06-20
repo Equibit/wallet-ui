@@ -24,6 +24,10 @@ export const ViewModel = DefineMap.extend({
     type: '*'
   },
 
+  portfolio: {
+    type: '*'
+  },
+
   sharesToUsd: {
     // TODO: the rate depends on the selected issuance!
     value: {
@@ -39,6 +43,12 @@ export const ViewModel = DefineMap.extend({
     return new Currency(val);
   },
 
+  get availableFunds () {
+    const balance = this.portfolio.balance;
+    const availableFunds = this.formData.fundsType === 'BTC' ? balance.cashBtc : balance.cashEqb;
+    return availableFunds - this.formData.transactionFee;
+  },
+
   setType (val, el) {
     this.formData.type = val;
     el.blur();
@@ -51,6 +61,10 @@ export const ViewModel = DefineMap.extend({
 
   formatIssuance (issuance) {
     return `${issuance.companyName}, ${issuance.issuanceName}, ${issuance.marketCap} uBTC`;
+  },
+
+  sendAllFunds () {
+    this.formData.amount = this.availableFunds;
   }
 });
 
