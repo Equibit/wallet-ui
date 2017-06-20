@@ -78,14 +78,12 @@ export const ViewModel = DefineMap.extend({
   },
   routeWithAlert (isNewUser) {
     route.data.page = 'portfolio';
-    let title = isNewUser ? i18n.accountCreated : i18n.passwordReset;
-    let msg = isNewUser ? i18n.welcomeMsg : i18n.passwordResetMsg;
     hub.dispatch({
       'type': 'alert',
       'kind': 'success',
-      'title': title,
-      'displayInterval': 5000,
-      'message': msg
+      'title': isNewUser ? i18n.accountCreated : i18n.passwordReset,
+      'displayInterval': 10000,
+      'message': isNewUser ? '' : i18n.passwordResetMsg
     });
   }
 });
