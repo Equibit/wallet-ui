@@ -17,10 +17,16 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './portfolio-cash.less';
 import view from './portfolio-cash.stache';
+import Session from '~/models/session';
 
 export const ViewModel = DefineMap.extend({
   balance: {
     type: '*'
+  },
+  cashEqbInBtc: {
+    get () {
+      return this.balance && this.balance.cashEqb * Session.current.rates.eqbToBtc;
+    }
   }
 });
 

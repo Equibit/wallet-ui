@@ -11,6 +11,16 @@ stache.registerHelper('format-max', function (value, precision = 2) {
   return toMaxPrecision(value, precision);
 });
 
+// 1.2345678 BTC => 1234.5678 mBTC
+stache.registerHelper('format-milli', function (value) {
+  return toMaxPrecision(value * 1000, 5);
+});
+
+// 1.2345678 BTC => 1234567.8 uBTC
+stache.registerHelper('format-micro', function (value) {
+  return toMaxPrecision(value * 1000 * 1000, 2);
+});
+
 stache.registerHelper('format-int', function (value) {
   return accounting.formatNumber(value);
 });
