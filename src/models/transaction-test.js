@@ -21,8 +21,8 @@ describe('models/transaction', function () {
         {address: 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6', value: 1},
         {address: 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh', value: 2}
       ];
-      const transactionHex = buildTransaction(inputs, outputs, bitcoin.networks.testnet);
-      assert.equal(transactionHex, expectedHex);
+      const transactionInfo = buildTransaction(inputs, outputs, bitcoin.networks.testnet);
+      assert.equal(transactionInfo.hex, expectedHex);
     });
   });
 });

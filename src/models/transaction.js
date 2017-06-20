@@ -10,13 +10,14 @@ import Session from './session';
 
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description}) {
+    currencyType = currencyType.toUpperCase();
     const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']));
     const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0);
     const outputs = [
-      {address: changeAddr, value: toSatoshi(amount)},
-      {address: toAddress, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
+      {address: toAddress, value: toSatoshi(amount)},
+      {address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
     ];
-    const hex = buildTransaction(inputs, outputs, network);
+    const txInfo = buildTransaction(inputs, outputs, network);
 
     return new Transaction({
       address: txouts[0].address,
@@ -26,7 +27,9 @@ const Transaction = DefineMap.extend('Transaction', {
       currencyType,
       amount,
       description,
-      hex,
+      hex: txInfo.hex,
+      txIdBtc: currencyType === 'BTC' ? txInfo.txId : undefined,
+      txIdEqb: currencyType === 'EQB' ? txInfo.txId : undefined,
       toAddress
     });
   }
@@ -56,7 +59,10 @@ const Transaction = DefineMap.extend('Transaction', {
   companySlug: 'string',
   issuanceName: 'string',
   issuanceId: 'string',
-  txnId: 'string',
+
+  txIdBtc: 'string',
+  txIdEqb: 'string',
+
   amount: 'number',
   amountBtc: {
     get () {
@@ -64,7 +70,10 @@ const Transaction = DefineMap.extend('Transaction', {
     }
   },
   description: 'string',
+
+  // Won't be stored in DB. If a failure occurs the error will be immediately shown to user without creating a DB entry.
   hex: 'string',
+
   isPending: 'boolean',
   createdAt: { type: 'date', serialize: false },
   updatedAt: { type: 'date', serialize: false },
@@ -75,7 +84,8 @@ const Transaction = DefineMap.extend('Transaction', {
     serialize: false
   },
   get transactionUrl () {
-    return `http://localhost:3030/proxycore?method=gettransaction&params[]=${this.txnId}`;
+    const txId = this.txIdBtc || this.txIdEqb;
+    return txId && `http://localhost:3030/proxycore?method=gettransaction&params[]=${txId}&params[]=true`;
   }
 });
 
@@ -92,7 +102,12 @@ export function buildTransaction (inputs, outputs, network = bitcoin.networks.te
   inputs.forEach(({ txid, vout }, index) => tx.addInput(txid, vout));
   outputs.forEach(({address, value}) => tx.addOutput(address, value));
   inputs.forEach(({ keyPair }, index) => tx.sign(index, keyPair));
-  return tx.build().toHex();
+  console.log('- blockchain transaction: ', tx);
+  const builtTx = tx.build();
+  return {
+    txId: builtTx.getId(),
+    hex: builtTx.toHex()
+  };
 }
 
 function toSatoshi (val) {
