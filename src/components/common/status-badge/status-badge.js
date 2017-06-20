@@ -19,8 +19,31 @@ import './status-badge.less';
 import view from './status-badge.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the status-badge component'
+  status: {
+    type: 'string'
+  },
+  statusLabel: {
+    get () {
+      const values = {
+        progress: 'In progress',
+        trading: 'Trading',
+        completed: 'Completed',
+        canceled: 'Canceled',
+        unknown: 'Unknown'
+      };
+      return values[this.status] || values.unknown;
+    }
+  },
+  statusClass: {
+    get () {
+      const values = {
+        progress: 'progress',
+        completed: 'success',
+        canceled: 'warning',
+        unknown: 'default'
+      };
+      return values[this.status] || values.unknown;
+    }
   }
 });
 

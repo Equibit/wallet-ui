@@ -21,6 +21,15 @@ import view from './transactions-details.stache';
 export const ViewModel = DefineMap.extend({
   transaction: {
     type: '*'
+  },
+  // enum: [ 'progress', 'completed', 'canceled' ]
+  status: {
+    get () {
+      // TODO: set status based on the number of confirmations (3 is enough for `completed`).
+      return this.transaction && (this.transaction.type === 'OUT' || this.transaction.type === 'IN')
+        ? 'progress'
+        : 'progress';
+    }
   }
 });
 

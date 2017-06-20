@@ -19,8 +19,12 @@ import './transaction-status.less';
 import view from './transaction-status.stache';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the transaction-status component'
+  // enum: [ 'progress', 'completed', 'canceled' ]
+  status: {
+    value: 'completed'
+  },
+  confirmation: {
+    value: 0
   }
 });
 

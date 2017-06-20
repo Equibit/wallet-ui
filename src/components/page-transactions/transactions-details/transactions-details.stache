@@ -6,7 +6,7 @@
 
   <div class="section">
     <label>{{i18n('status')}}</label>
-    <transaction-status></transaction-status>
+    <transaction-status {status}="status"></transaction-status>
   </div>
 
   <div class="section">
