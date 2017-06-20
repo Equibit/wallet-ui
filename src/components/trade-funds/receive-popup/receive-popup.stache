@@ -16,7 +16,7 @@
       <div class="list-group-item">
         <div class="form-group">
 
-          <label for="">Securities (EQB)</label>
+          <label for="">Securities or Blank EQB</label>
           <div class="input-group">
             <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address.eqb">
             <span class="input-group-btn">
