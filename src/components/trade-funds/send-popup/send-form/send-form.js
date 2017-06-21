@@ -60,6 +60,10 @@ export const ViewModel = DefineMap.extend({
   },
 
   formatIssuance (issuance) {
+    return `<span style="color:red">${issuance.companyName}</span>, ${issuance.issuanceName}, ${issuance.marketCap} uBTC`;
+  },
+
+  formatIssuanceInput (issuance) {
     return `${issuance.companyName}, ${issuance.issuanceName}, ${issuance.marketCap} uBTC`;
   },
 
