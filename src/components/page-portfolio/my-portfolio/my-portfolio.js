@@ -57,7 +57,7 @@ export const ViewModel = DefineMap.extend({
     const currencyType = formData.fundsType.toLowerCase();
     const toAddress = formData.toAddress;
     const txouts = this.portfolio
-      .getTxouts(amount, currencyType)
+      .getTxouts(amount + formData.transactionFee, currencyType)
       .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}));
     const options = {
       fee: formData.transactionFee,
