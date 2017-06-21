@@ -92,7 +92,7 @@ const FormData = DefineMap.extend({
 
   validate () {
     if (!this.toAddress && !this.toAddressError) {
-      this.toAddressError = 'Please enter an address';
+      this.toAddressError = 'Address is missing';
     }
   }
 });
