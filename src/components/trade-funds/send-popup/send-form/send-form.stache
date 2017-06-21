@@ -121,7 +121,9 @@
             <validation-message
               message="{{i18n('notEnoughFunds')}}: {{availableFunds}}" />
           {{/if}}
-          <a ($click)="sendAllFunds()">{{i18n('sendAllFunds')}}</a>
+          <div>
+            <a ($click)="sendAllFunds()">{{i18n('sendAllFunds')}}</a>
+          </div>
         </div>
 
       </div>
