@@ -95,10 +95,10 @@ const Session = DefineMap.extend('Session', {
     get () {
       return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
         return {
-          btc: acc.btc.concat(portfolio.addressesBtc),
-          eqb: acc.eqb.concat(portfolio.addressesEqb)
+          BTC: acc.BTC.concat(portfolio.addressesBtc),
+          EQB: acc.EQB.concat(portfolio.addressesEqb)
         };
-      }, {eqb: [], btc: []});
+      }, {EQB: [], BTC: []});
     }
   },
 
@@ -109,11 +109,11 @@ const Session = DefineMap.extend('Session', {
    */
   balancePromise: {
     get () {
-      const hasAddr = this.allAddresses && (this.allAddresses.btc.length || this.allAddresses.eqb.length);
+      const hasAddr = this.allAddresses && (this.allAddresses.BTC.length || this.allAddresses.EQB.length);
       return hasAddr && feathersClient.service('/listunspent').find({
         query: {
-          btc: this.allAddresses.btc,
-          eqb: this.allAddresses.eqb,
+          BTC: this.allAddresses.BTC,
+          EQB: this.allAddresses.EQB,
           byaddress: true
         }
       });
@@ -154,7 +154,7 @@ const Session = DefineMap.extend('Session', {
           });
           balance.summary = {
             securities: 0,
-            cash: balance.btc.summary.total + balance.eqb.summary.total
+            cash: balance.BTC.summary.total + balance.EQB.summary.total
           };
           balance.summary.total = balance.summary.securities + balance.summary.cash;
           resolve(balance);

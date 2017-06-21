@@ -2,7 +2,7 @@ import fixture from 'can-fixture';
 
 fixture('GET /listunspent', function () {
   return {
-    btc: {
+    BTC: {
       summary: {'total': 1.5},
       n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: {
         amount: 1.5,
@@ -19,7 +19,7 @@ fixture('GET /listunspent', function () {
         }]
       }
     },
-    eqb: {
+    EQB: {
       summary: {
         total: 3.4
       },

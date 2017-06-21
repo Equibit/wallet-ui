@@ -90,7 +90,7 @@
 
       {{#if isLoggedIn}}
       <div class="currency-container hidden-xs">
-        <div class="navbar-text">{{balance.summary.total}}  {{i18n('btc')}}</div>
+        <div class="navbar-text">{{balance.summary.total}}  {{i18n('BTC')}}</div>
       </div>
       {{/if}}
 
@@ -113,7 +113,7 @@
 
       {{#if isLoggedIn}}
       <div class="currency-container navbar-right visible-xs">
-        <div class="navbar-text">{{balance.summary.total}}  {{i18n('btc')}}</div>
+        <div class="navbar-text">{{balance.summary.total}}  {{i18n('BTC')}}</div>
       </div>
       {{/if}}
 

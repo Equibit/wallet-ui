@@ -8,11 +8,11 @@ import portfolio, { addressesMeta } from './mock/mock-portfolio';
 describe('models/portfolio', function () {
   describe('getNextAddressIndex', function () {
     it('should return next available index', function () {
-      assert.deepEqual(getNextAddressIndex(addressesMeta, 'btc'), {index: 2, imported: false});
-      assert.deepEqual(getNextAddressIndex(addressesMeta, 'eqb'), {index: 1, imported: true});
+      assert.deepEqual(getNextAddressIndex(addressesMeta, 'BTC'), {index: 2, imported: false});
+      assert.deepEqual(getNextAddressIndex(addressesMeta, 'EQB'), {index: 1, imported: true});
     });
     it('should return next available index for a change address', function () {
-      assert.deepEqual(getNextAddressIndex(addressesMeta, 'btc', true), {index: 1, imported: false});
+      assert.deepEqual(getNextAddressIndex(addressesMeta, 'BTC', true), {index: 1, imported: false});
     });
   });
 
@@ -40,11 +40,11 @@ describe('models/portfolio', function () {
   describe('instance properties', function () {
     it('should populate addresses', function () {
       const expectedAddresses = [
-        {index: 0, type: 'btc', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', isChange: false},
-        {index: 1, type: 'btc', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', isChange: false},
-        {index: 0, type: 'eqb', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', isChange: false},
-        {index: 1, type: 'eqb', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU', isChange: false},
-        {index: 0, type: 'btc', address: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', isChange: true}
+        {index: 0, type: 'BTC', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', isChange: false},
+        {index: 1, type: 'BTC', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', isChange: false},
+        {index: 0, type: 'EQB', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', isChange: false},
+        {index: 1, type: 'EQB', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU', isChange: false},
+        {index: 0, type: 'BTC', address: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', isChange: true}
       ];
       assert.deepEqual(portfolio.addresses.length, 5);
       assert.deepEqual(omit(['keyPair'], portfolio.addresses[0]), expectedAddresses[0]);
@@ -64,15 +64,15 @@ describe('models/portfolio', function () {
         cashTotal: 5.4,
         securities: 0,
         total: 5.4,
-        txouts: {eqb: [], btc: []}
+        txouts: {EQB: [], BTC: []}
       };
       assert.deepEqual(portfolio.balance.get(), expectedBalance);
     });
 
     it('should populate nextAddress', function () {
       const expected = {
-        btc: 'mu2DDd2d9yDzS9PoqZrjD6e1ZnmgJnpv54',
-        eqb: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'
+        BTC: 'mu2DDd2d9yDzS9PoqZrjD6e1ZnmgJnpv54',
+        EQB: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'
       };
       assert.deepEqual(portfolio.nextAddress, expected);
     });

@@ -17,7 +17,7 @@
             <th class="column-company">{{i18n('company')}}</th>
             <th class="column-issuance">{{i18n('issuanceName')}}</th>
             <th class="column-quantity">{{i18n('quantity')}}</th>
-            <th class="column-amount">{{i18n('amount')}} ({{i18n('btc')}})</th>
+            <th class="column-amount">{{i18n('amount')}} ({{i18n('BTC')}})</th>
           </tr>
         </thead>
       </table>

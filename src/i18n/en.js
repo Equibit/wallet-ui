@@ -60,7 +60,7 @@ export default {
   blankEQB: 'Blank EBQ',
   bonds: 'Bonds',
   breakdown: 'Breakdown',
-  btc: 'BTC',
+  BTC: 'BTC',
   buy: 'Buy',
   buyOffers: 'Buy Offers',
 
@@ -105,7 +105,7 @@ export default {
   emailUpdateMessage: 'Your email address is used to help you access your account and to send you account notifications.',
   emailNewVerificationDescription: 'New Email Verification',
   emailNewVerificationMessage: 'Please enter the verification code we just sent to your new email.',
-  eqb: 'EQB',
+  EQB: 'EQB',
   equibit: 'Equibit',
   equibitAppName: 'Equibit Portfolio',
   equibitWebsiteURL: 'https://equibitgroup.com/',

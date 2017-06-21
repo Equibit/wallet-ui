@@ -47,9 +47,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * Tracking addresses by index for one-time usage.
    * ```
    * [
-   *   {index: 0, type: 'eqb', isChange: false, used: true},
-   *   {index: 1, type: 'eqb', isChange: false, used: false},
-   *   {index: 0, type: 'btc', isChange: false, used: true},
+   *   {index: 0, type: 'EQB', isChange: false, used: true},
+   *   {index: 1, type: 'EQB', isChange: false, used: false},
+   *   {index: 0, type: 'BTC', isChange: false, used: true},
    * ]
    * ```
    */
@@ -89,12 +89,12 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   addressesBtc: {
     get () {
-      return this.addresses.filter(a => a.type === 'btc').map(a => a.address);
+      return this.addresses.filter(a => a.type === 'BTC').map(a => a.address);
     }
   },
   addressesEqb: {
     get () {
-      return this.addresses.filter(a => a.type === 'eqb').map(a => a.address);
+      return this.addresses.filter(a => a.type === 'EQB').map(a => a.address);
     }
   },
 
@@ -117,7 +117,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    *   cashTotal: 4,
    *   securities: 6,
    *   total: 10,
-   *   txouts: {eqb: [], btc: []}
+   *   txouts: {EQB: [], BTC: []}
    * }
    * ```
    */
@@ -141,7 +141,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           a.txouts = unspentByType[a.address].txouts;
 
           // Calculate summary:
-          if (a.type === 'btc') {
+          if (a.type === 'BTC') {
             acc.cashBtc += amount;
           } else {
             acc.cashEqb += amount;
@@ -150,7 +150,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType[a.address].txouts);
         }
         return acc;
-      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, txouts: {eqb: [], btc: []}});
+      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, txouts: {EQB: [], BTC: []}});
 
       const total = cashTotal + securities;
 
@@ -181,28 +181,28 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
   },
 
-  // getNextAddress :: Bool -> Object(eqb<String>,btc<String>)
+  // getNextAddress :: Bool -> Object(EQB<String>,BTC<String>)
   getNextAddress (isChange = false) {
     const changeIndex = isChange ? 1 : 0;
-    const btcAddr = getNextAddressIndex(this.addressesMeta, 'btc', isChange);
-    const eqbAddr = getNextAddressIndex(this.addressesMeta, 'eqb', isChange);
-    const btcNode = this.keys.btc.derive(changeIndex).derive(btcAddr.index);
-    const eqbNode = this.keys.eqb.derive(changeIndex).derive(eqbAddr.index);
+    const btcAddr = getNextAddressIndex(this.addressesMeta, 'BTC', isChange);
+    const eqbAddr = getNextAddressIndex(this.addressesMeta, 'EQB', isChange);
+    const btcNode = this.keys.BTC.derive(changeIndex).derive(btcAddr.index);
+    const eqbNode = this.keys.EQB.derive(changeIndex).derive(eqbAddr.index);
     const addr = {
-      btc: btcNode.getAddress(),
-      eqb: eqbNode.getAddress()
+      BTC: btcNode.getAddress(),
+      EQB: eqbNode.getAddress()
     };
     if (btcAddr.imported === false) {
       // Import addr as watch-only
-      this.importAddr(addr.btc);
+      this.importAddr(addr.BTC);
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: 0, type: 'btc', used: false, isChange});
+      this.addressesMeta.push({index: 0, type: 'BTC', used: false, isChange});
     }
     if (eqbAddr.imported === false) {
       // Import addr as watch-only
-      this.importAddr(addr.eqb);
+      this.importAddr(addr.EQB);
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: 0, type: 'eqb', used: false, isChange});
+      this.addressesMeta.push({index: 0, type: 'EQB', used: false, isChange});
     }
     if (!eqbAddr.imported || !btcAddr.imported) {
       // Save newly generated addresses to DB:
@@ -248,7 +248,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     if (!this.balance.txouts || this.balance[type === 'BTC' ? 'cashBtc' : 'cashEqb'] < amount) {
       return [];
     }
-    return getUnspentOutputsForAmount(this.balance.txouts[type.toLowerCase()], amount);
+    return getUnspentOutputsForAmount(this.balance.txouts[type], amount);
   },
 
   findAddress (addr) {

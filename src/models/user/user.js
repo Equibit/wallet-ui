@@ -90,14 +90,6 @@ const User = DefineMap.extend('User', {
    */
   isNewUser: 'boolean',
 
-  // portfolios: {
-  //   set (val) {
-  //     const list = new Portfolio.List(val.data);
-  //     list.balance = val.balance;
-  //     return list;
-  //   }
-  // },
-
   /**
    * @property {Date} models/user.properties.createdAt createdAt
    * @parent models/user.properties
@@ -143,8 +135,8 @@ const User = DefineMap.extend('User', {
 
     _keys = {
       root: root,
-      btc: keyPairBTC,
-      eqb: keyPairEQB
+      BTC: keyPairBTC,
+      EQB: keyPairEQB
     };
     return this;
   },
@@ -166,13 +158,13 @@ const User = DefineMap.extend('User', {
    * Generates keys for a new Portfolio.
    */
   generatePortfolioKeys (index) {
-    if (!_keys || !_keys.btc || !_keys.eqb) {
+    if (!_keys || !_keys.BTC || !_keys.EQB) {
       console.warn('No keys exist. Cannot generate portfolio keys');
       return;
     }
     return {
-      btc: _keys.btc.deriveHardened(index),
-      eqb: _keys.eqb.deriveHardened(index)
+      BTC: _keys.BTC.deriveHardened(index),
+      EQB: _keys.EQB.deriveHardened(index)
     };
   },
   signWithPrivateKey () {

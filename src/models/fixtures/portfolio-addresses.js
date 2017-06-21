@@ -1,7 +1,7 @@
 export default [
   {
     'index': 0,
-    'type': 'btc',
+    'type': 'BTC',
     'address': 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1',
     'amount': 4.5,
     'txouts': [
@@ -31,7 +31,7 @@ export default [
   },
   {
     'index': 0,
-    'type': 'eqb',
+    'type': 'EQB',
     'address': 'mgth5EtV5wStzrY9ozFsuHChpbMBbK4ZHm',
     'amount': 3.4,
     'txouts': [

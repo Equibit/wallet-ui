@@ -76,12 +76,12 @@ const FormData = DefineMap.extend({
   },
   description: 'string',
 
-  btcToUsd (btc) {
-    return btc * Session.current.rates.btcToUsd;
+  btcToUsd (BTC) {
+    return BTC * Session.current.rates.btcToUsd;
   },
 
-  eqbToUsd (eqb) {
-    return eqb * Session.current.rates.eqbToUsd;
+  eqbToUsd (EQB) {
+    return EQB * Session.current.rates.eqbToUsd;
   },
 
   isValid: {

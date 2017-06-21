@@ -18,9 +18,9 @@
 
           <label for="">Securities or Blank EQB</label>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address.eqb">
+            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address.EQB">
             <span class="input-group-btn">
-              <button class="btn btn-default" type="button" ($click)="copy('eqb')">
+              <button class="btn btn-default" type="button" ($click)="copy('EQB')">
                 <span class="icon icon-copy"></span>
               </button>
             </span>
@@ -30,9 +30,9 @@
 
           <label for="">Funds (BTC)</label>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address.btc">
+            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address.BTC">
             <span class="input-group-btn">
-              <button class="btn btn-default" type="button" ($click)="copy('btc')">
+              <button class="btn btn-default" type="button" ($click)="copy('BTC')">
                 <span class="icon icon-copy"></span>
               </button>
             </span>

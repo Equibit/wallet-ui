@@ -23,7 +23,7 @@ import { translate } from '~/i18n/i18n';
 
 export const ViewModel = DefineMap.extend({
   /**
-   * Object with two portfolio adresses: btc and eqb.
+   * Object with two portfolio adresses: BTC and EQB.
    */
   address: {
     type: '*'

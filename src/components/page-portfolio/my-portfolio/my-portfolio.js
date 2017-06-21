@@ -19,7 +19,7 @@ import './my-portfolio.less';
 import view from './my-portfolio.stache';
 import hub from '~/utils/event-hub';
 import { translate } from '~/i18n/';
-import Portfolio from '~/models/portfolio';
+import Portfolio from '../../../models/portfolio';
 import Session from '~/models/session';
 import Transaction from '~/models/transaction';
 import { merge } from 'ramda';
@@ -74,7 +74,7 @@ export const ViewModel = DefineMap.extend({
 
   prepareTransaction (formData) {
     const amount = formData.amount;
-    const currencyType = formData.fundsType.toLowerCase();
+    const currencyType = formData.fundsType;
     const toAddress = formData.toAddress;
     const txouts = this.portfolio
       .getTxouts(amount + formData.transactionFee, currencyType)

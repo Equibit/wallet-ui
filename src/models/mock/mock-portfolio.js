@@ -2,30 +2,30 @@ import Portfolio from '../portfolio';
 import hdNode from './mock-keys';
 
 const addressesMeta = [
-  {index: 0, type: 'btc', used: true, isChange: false},
-  {index: 1, type: 'btc', used: true, isChange: false},
-  {index: 0, type: 'eqb', used: true, isChange: false},
-  {index: 1, type: 'eqb', used: false, isChange: false},
+  {index: 0, type: 'BTC', used: true, isChange: false},
+  {index: 1, type: 'BTC', used: true, isChange: false},
+  {index: 0, type: 'EQB', used: true, isChange: false},
+  {index: 1, type: 'EQB', used: false, isChange: false},
 
-  {index: 0, type: 'btc', used: true, isChange: true}
+  {index: 0, type: 'BTC', used: true, isChange: true}
 ];
 
 const listunspent = {
-  btc: {
+  BTC: {
     summary: {'total': 2},
-    n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 1.5 }, // btc
-    mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA: { amount: 0.5 } // btc
+    n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 1.5 }, // BTC
+    mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA: { amount: 0.5 } // BTC
   },
-  eqb: {
+  EQB: {
     summary: {'total': 5.6},
-    n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo: { amount: 3.4 }, // eqb
+    n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo: { amount: 3.4 }, // EQB
     n4iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 2.2 }  //
   }
 };
 
 const portfolioKeys = {
-  btc: hdNode.derivePath("m/44'/0'/0'"),
-  eqb: hdNode.derivePath("m/44'/73'/0'")
+  BTC: hdNode.derivePath("m/44'/0'/0'"),
+  EQB: hdNode.derivePath("m/44'/73'/0'")
 };
 
 const portfolio = new Portfolio({
