@@ -154,7 +154,7 @@ const Session = DefineMap.extend('Session', {
           });
           balance.summary = {
             securities: 0,
-            cash: balance.BTC.summary.total + balance.EQB.summary.total
+            cash: balance.btc.summary.total + balance.eqb.summary.total
           };
           balance.summary.total = balance.summary.securities + balance.summary.cash;
           resolve(balance);
