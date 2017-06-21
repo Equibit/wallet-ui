@@ -19,7 +19,7 @@
           <th class="column-quantity">Quantity</th>
           <th class="column-cost">Cost (μBTC)</th>
           <th class="column-price">Price (μBTC)</th>
-          <th class="column-value">Value (μBTC)</th>
+          <th class="column-value">Value ({{local-currency-symbol()}})</th>
           <th class="column-pl">P&L (μBTC)</th>
         </tr>
         </thead>
@@ -38,7 +38,7 @@
             <td class="column-quantity">{{row.quantity}}</td>
             <td class="column-cost">{{format(row.cost, '', 4)}}</td>
             <td class="column-price">{{format(row.price, '', 4)}}</td>
-            <td class="column-value">{{format(row.value, '', 4)}}</td>
+            <td class="column-value">{{local-currency(row.value, 'EQB')}}</td>
             <td class="column-pl">
               <arrow-change class="no-arrow" {change}="row.profitLoss"></arrow-change>
             </td>

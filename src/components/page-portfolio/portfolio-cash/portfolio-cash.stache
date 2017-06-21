@@ -9,21 +9,20 @@
       <thead>
       <tr>
         <th class="column-currency">{{i18n('currency')}}</th>
-        <th class="column-quantity">{{i18n('quantity')}}</th>
-        <th class="column-valuation">{{i18n('valuation')}} (μBTC)</th>
+        <th class="column-quantity text-right">{{i18n('quantity')}}</th>
+        <th class="column-valuation text-right">{{i18n('valuation')}} ({{local-currency-symbol()}})</th>
       </tr>
       </thead>
       <tbody>
         <tr>
           <td>{{i18n('Bitcoin')}}</td>
-          <td>{{format-max(balance.cashBtc, 8)}}</td>
-          <td>{{format-micro(balance.cashBtc)}}</td>
+          <td class="text-right">{{format-max(balance.cashBtc, 8)}}</td>
+          <td class="text-right">{{local-currency(balance.cashBtc, 'BTC')}}</td>
         </tr>
         <tr>
           <td>{{i18n('equibit')}}</td>
-          {{! TODO: change to empty EQB amount }}
-          <td>{{format-max(balance.cashEqb, 8)}}</td>
-          <td>{{format-micro(cashEqbInBtc)}}</td>
+          <td class="text-right">{{format-max(balance.cashEqb, 8)}}</td>
+          <td class="text-right">{{local-currency(cashEqbInBtc, 'EQB')}}</td>
         </tr>
       </tbody>
     </table>

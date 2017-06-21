@@ -4,6 +4,18 @@ import crypto from './crypto';
 import stache from 'can-stache';
 import './stache-helpers/stache-helpers';
 import { toMaxPrecision } from '~/utils/formatter';
+import Session from '~/models/session';
+
+// Mock Session:
+Session.current = new Session({
+  user: {
+    rates: {
+      btcToUsd: 2725,
+      eqbToUsd: 3,
+      eqbToBtc: 3 / 2725
+    }
+  }
+});
 
 describe('utils/crypto', function () {
   it('mnemonicToSeed', function () {
@@ -46,6 +58,22 @@ describe('stache-helpers', function () {
     it('should resolve in false when value is not one-of', function () {
       let frag = stache('{{^if one-of(value, "foo", "bar")}}OK{{/if}}')({value: 'baz'});
       assert.equal(frag.textContent, 'OK');
+    });
+  });
+  describe('local-currency', function () {
+    it('should show BTC in local currency', function () {
+      let frag = stache('{{local-currency(value, "BTC"}}')({value: 1});
+      assert.equal(frag.textContent, '2,725.00');
+    });
+    it('should show EQB in local currency', function () {
+      let frag = stache('{{local-currency(value, "EQB"}}')({value: 2});
+      assert.equal(frag.textContent, '6.00');
+    });
+  });
+  describe('local-currency-symbol', function () {
+    it('should show the local currency symbol', function () {
+      let frag = stache('{{local-currency-symbol(}}')();
+      assert.equal(frag.textContent, 'USD');
     });
   });
 });

@@ -102,9 +102,6 @@
               </span>
             </div>
           </div>
-          {{^if portfolio.hasEnoughFunds(formData.amount, formData.fundsType)}}
-            <validation-message message="{{i18n('notEnoughFunds')}}" />
-          {{/if}}
         </div>
 
         <div class="col-sm-2 col-xs-12 no-padding">
@@ -115,6 +112,14 @@
           <div class="form-group">
             <currency-converter {(input)}="formData.amount" {currency}="fundsToUsd" {^output}="formData.price"/>
           </div>
+        </div>
+
+        <div class="col-sm-12 no-padding">
+          {{^if portfolio.hasEnoughFunds(formData.amount, formData.fundsType)}}
+            <validation-message
+              message="{{i18n('notEnoughFunds')}}: {{availableFunds}}" />
+          {{/if}}
+          <a ($click)="sendAllFunds()">{{i18n('sendAllFunds')}}</a>
         </div>
 
       </div>

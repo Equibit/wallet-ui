@@ -53,20 +53,7 @@ export const ViewModel = DefineMap.extend({
     const formData = args[1];
     console.log('send: ', formData);
 
-    const amount = formData.amount;
-    const currencyType = formData.fundsType.toLowerCase();
-    const toAddress = formData.toAddress;
-    const txouts = this.portfolio
-      .getTxouts(amount, currencyType)
-      .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}));
-    const options = {
-      fee: formData.transactionFee,
-      changeAddr: this.portfolio.nextChangeAddress[currencyType],
-      type: 'OUT',
-      currencyType,
-      description: formData.description
-    };
-    const tx = Transaction.makeTransaction(amount, toAddress, txouts, options);
+    const tx = this.prepareTransaction(formData);
     console.log('tx.hex: ' + tx.hex, tx);
 
     // Show the spinner:
@@ -83,6 +70,23 @@ export const ViewModel = DefineMap.extend({
         'displayInterval': 5000
       });
     });
+  },
+
+  prepareTransaction (formData) {
+    const amount = formData.amount;
+    const currencyType = formData.fundsType.toLowerCase();
+    const toAddress = formData.toAddress;
+    const txouts = this.portfolio
+      .getTxouts(amount + formData.transactionFee, currencyType)
+      .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}));
+    const options = {
+      fee: formData.transactionFee,
+      changeAddr: this.portfolio.nextChangeAddress[currencyType],
+      type: 'OUT',
+      currencyType,
+      description: formData.description
+    };
+    return Transaction.makeTransaction(amount, toAddress, txouts, options);
   }
 });
 

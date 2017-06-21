@@ -1,14 +1,10 @@
 import assert from 'chai/chai';
 import 'steal-mocha';
 import Session from '~/models/session';
-import User from '~/models/user/user';
 
 import './fixtures/portfolio';
 import './fixtures/listunspent';
-import hdNode from './fixtures/fixture-keys';
-
-const userMock = new User({});
-userMock.cacheWalletKeys(hdNode);
+import userMock from './mock/mock-user';
 
 describe('models/session', function () {
   describe('property getters', function () {
