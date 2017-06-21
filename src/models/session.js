@@ -112,8 +112,8 @@ const Session = DefineMap.extend('Session', {
       const hasAddr = this.allAddresses && (this.allAddresses.BTC.length || this.allAddresses.EQB.length);
       return hasAddr && feathersClient.service('/listunspent').find({
         query: {
-          btc: this.allAddresses.BTC,
-          eqb: this.allAddresses.EQB,
+          BTC: this.allAddresses.BTC,
+          EQB: this.allAddresses.EQB,
           byaddress: true
         }
       });
@@ -154,7 +154,7 @@ const Session = DefineMap.extend('Session', {
           });
           balance.summary = {
             securities: 0,
-            cash: balance.btc.summary.total + balance.eqb.summary.total
+            cash: balance.BTC.summary.total + balance.EQB.summary.total
           };
           balance.summary.total = balance.summary.securities + balance.summary.cash;
           resolve(balance);
