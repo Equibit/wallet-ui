@@ -5,7 +5,7 @@ import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 
 import './fixtures/portfolio';
 import './fixtures/listunspent';
-import hdNode from './fixtures/fixture-keys';
+import hdNode from './mock/mock-keys';
 
 describe('models/transaction', function () {
   describe('buildTransaction', function () {
