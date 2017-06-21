@@ -112,8 +112,8 @@ const Session = DefineMap.extend('Session', {
       const hasAddr = this.allAddresses && (this.allAddresses.BTC.length || this.allAddresses.EQB.length);
       return hasAddr && feathersClient.service('/listunspent').find({
         query: {
-          BTC: this.allAddresses.BTC,
-          EQB: this.allAddresses.EQB,
+          btc: this.allAddresses.BTC,
+          eqb: this.allAddresses.EQB,
           byaddress: true
         }
       });
