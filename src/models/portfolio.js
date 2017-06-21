@@ -131,7 +131,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       // TODO: figure out how to evaluate securities.
 
       const { cashBtc, cashEqb, cashTotal, securities, txouts } = this.addresses.reduce((acc, a) => {
-        const unspentByType = unspent[a.type.toLowerCase()];
+        const unspentByType = unspent[a.type];
         if (unspentByType[a.address]) {
           const amount = unspentByType[a.address].amount;
 
