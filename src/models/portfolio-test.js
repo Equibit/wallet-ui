@@ -38,7 +38,6 @@ describe('models/portfolio', function () {
   });
 
   describe('instance properties', function () {
-
     it('should populate addresses', function () {
       const expectedAddresses = [
         {index: 0, type: 'btc', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', isChange: false},

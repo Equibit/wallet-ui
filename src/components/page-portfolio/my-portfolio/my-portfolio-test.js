@@ -8,8 +8,7 @@ describe('wallet-ui/components/page-portfolio/my-portfolio', function () {
     assert.equal(vm.message, 'This is the my-portfolio component');
   });
 
-  describe('prepareTransaction', function () {
-    const vm = new ViewModel()
-
-  });
+  // describe('prepareTransaction', function () {
+  //   const vm = new ViewModel();
+  // });
 });
