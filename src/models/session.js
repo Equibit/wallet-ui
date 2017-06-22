@@ -23,6 +23,7 @@ import canMap from 'can-connect/can/map/';
 import dataCallbacks from 'can-connect/data/callbacks/';
 import realtime from 'can-connect/real-time/';
 import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior';
+import canDefineStream from 'can-define-stream-kefir';
 
 import feathersClient from '~/models/feathers-client';
 import signed from '~/models/feathers-signed';
@@ -108,17 +109,26 @@ const Session = DefineMap.extend('Session', {
    * Promise for balance.
    */
   balancePromise: {
-    get () {
-      const hasAddr = this.allAddresses && (this.allAddresses.BTC.length || this.allAddresses.EQB.length);
-      return hasAddr && feathersClient.service('/listunspent').find({
-        // GET query params are lower cased:
-        query: {
-          btc: this.allAddresses.BTC,
-          eqb: this.allAddresses.EQB,
-          byaddress: true
-        }
+    stream: function () {
+      const addrStream = this.toStream('.allAddresses').skipWhile(a => !a || !(a.BTC.length || a.EQB.length));
+      return addrStream.merge(this.toStream('refresh')).map(() => {
+        return this.fetchBalance();
       });
     }
+  },
+  fetchBalance () {
+    const addr = this.allAddresses;
+    return feathersClient.service('/listunspent').find({
+      // GET query params are lower cased:
+      query: {
+        btc: addr.BTC,
+        eqb: addr.EQB,
+        byaddress: true
+      }
+    });
+  },
+  refreshBalance: function () {
+    this.dispatch('refresh');
   },
 
   /**
@@ -189,6 +199,8 @@ const Session = DefineMap.extend('Session', {
     return currencyType === 'EQB' ? amount * this.rates.eqbToBtc : amount;
   }
 });
+
+canDefineStream(Session);
 
 const algebra = new set.Algebra(
   set.comparators.id('accessToken')

@@ -69,6 +69,7 @@ export const ViewModel = DefineMap.extend({
         'title': msg,
         'displayInterval': 5000
       });
+      Session.current.refreshBalance();
     });
   },
 

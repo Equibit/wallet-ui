@@ -1079,6 +1079,18 @@ can-control@^3.0.4:
     can-types "^1.0.1"
     can-util "^3.2.2"
 
+can-define-stream-kefir@^0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/can-define-stream-kefir/-/can-define-stream-kefir-0.0.11.tgz#00544c37f1f4284f7103851e52eec8381cd579e8"
+  dependencies:
+    can-compute "^3.0.0"
+    can-define "^1.0.0"
+    can-define-stream "^0.1.0"
+    can-observation "^3.0.0"
+    can-stream-kefir "^0.2.1"
+    can-util "^3.0.0"
+    kefir "^3.5.1"
+
 can-define-stream@^0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/can-define-stream/-/can-define-stream-0.0.7.tgz#0b17b36bf5ccde3e2db88f4fabb34c722dfcd8f4"
@@ -1087,6 +1099,17 @@ can-define-stream@^0.0.7:
     can-define "^1.0.0"
     can-observation "^3.0.0"
     can-stream "^0.0.5"
+    can-util "^3.0.0"
+    kefir "^3.5.1"
+
+can-define-stream@^0.1.0:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/can-define-stream/-/can-define-stream-0.1.2.tgz#d4cdf3d103186ccd2f0b703a6f272e189081b3bf"
+  dependencies:
+    can-compute "^3.0.0"
+    can-define "^1.0.0"
+    can-observation "^3.0.0"
+    can-stream "^0.2.1"
     can-util "^3.0.0"
     kefir "^3.5.1"
 
@@ -1277,6 +1300,17 @@ can-stache@^3.0.0, can-stache@^3.0.1, can-stache@^3.0.13, can-stache@^3.0.15, ca
     can-view-scope "^3.1.1"
     can-view-target "^3.0.4"
 
+can-stream-kefir@^0.2.1:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/can-stream-kefir/-/can-stream-kefir-0.2.3.tgz#d179966d8813cc924eaa628f1c0e1c9dade3a1ae"
+  dependencies:
+    can-compute "^3.0.0"
+    can-event "^3.0.0"
+    can-observation "^3.0.0"
+    can-stream "^0.2.1"
+    can-util "^3.0.0"
+    kefir "^3.5.1"
+
 can-stream@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/can-stream/-/can-stream-0.0.5.tgz#d1193bea632a1d2eeb5b51165ce4e308cd845fd7"
@@ -1288,7 +1322,19 @@ can-stream@^0.0.5:
     can-util "^3.0.0"
     kefir "^3.5.1"
 
-can-types@^1.0.0, can-types@^1.0.1:
+can-stream@^0.2.1:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/can-stream/-/can-stream-0.2.3.tgz#9cb0bff33887a436a11a395ecc3cf1d1187d4615"
+  dependencies:
+    can-compute "^3.0.0"
+    can-define "^1.0.0"
+    can-event "^3.0.0"
+    can-observation "^3.0.0"
+    can-types "^1.0.4"
+    can-util "^3.0.0"
+    kefir "^3.5.1"
+
+can-types@^1.0.0, can-types@^1.0.1, can-types@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/can-types/-/can-types-1.0.4.tgz#9ff109e0aa2ce85050ce63d09bd2e91a249f942b"
   dependencies:
