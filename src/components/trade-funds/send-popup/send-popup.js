@@ -21,6 +21,7 @@ import Issuance from '~/models/issuance';
 import Session from '~/models/session';
 import { toMaxPrecision } from '~/utils/formatter';
 import validators from '~/utils/validators';
+import { translate } from '~/i18n/i18n';
 
 const FormData = DefineMap.extend({
   /**
@@ -92,7 +93,7 @@ const FormData = DefineMap.extend({
 
   validate () {
     if (!this.toAddress && !this.toAddressError) {
-      this.toAddressError = 'Please enter an address';
+      this.toAddressError = translate('missingAddress');
     }
   }
 });

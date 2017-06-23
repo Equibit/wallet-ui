@@ -136,6 +136,7 @@ export default {
   marketCapitalization: 'Market Capitalization',
   marketSummary: 'Market Summary',
   minutes: 'Minutes',
+  missingAddress: 'Address is missing',
   myIssuances: 'My Issuances',
   myOffers: 'My Offers',
   myOrders: 'My Orders',
