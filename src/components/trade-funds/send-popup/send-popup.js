@@ -138,7 +138,7 @@ export const ViewModel = DefineMap.extend({
     this.mode = 'edit';
   },
   send (close) {
-    this.dispatch('send', this.formData);
+    this.dispatch('send', [this.formData]);
     close();
   }
 });

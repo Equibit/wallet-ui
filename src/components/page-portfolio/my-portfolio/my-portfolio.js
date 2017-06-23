@@ -52,6 +52,10 @@ export const ViewModel = DefineMap.extend({
   send (args) {
     const formData = args[1];
     console.log('send: ', formData);
+    if (!formData) {
+      console.error('Error: received no form data');
+      return;
+    }
 
     const tx = this.prepareTransaction(formData);
     console.log('tx.hex: ' + tx.hex, tx);
