@@ -32,7 +32,7 @@
     "release:qa:major": "npm test && npm run build && npm version major && make release-qa",
     "deps-bundle": "steal-tools bundle --deps"
   },
-  "main": "wallet-ui/index.stache!done-autorender",
+  "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
   "files": [
     "src"
   ],
@@ -52,7 +52,7 @@
     ]
   },
   "steal": {
-    "main": "wallet-ui/index.stache!done-autorender",
+    "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
     "directories": {
       "lib": "src"
     },
@@ -116,11 +116,10 @@
     "can-stream": "^0.0.5",
     "can-view-autorender": "^3.0.3",
     "can-view-callbacks": "^3.0.6",
-    "can-zone": "^0.6.0",
     "candlestick-volume-chart": "0.1.18",
     "copy-to-clipboard": "^3.0.6",
     "core-js": "^2.4.1",
-    "done-autorender": "^1.0.0-alpha.0",
+    "done-autorender": "git://github.com/donejs/autorender.git#43095d5e028d2ddcfdd604c5d17d3c1271331cfa",
     "done-component": "^1.0.0",
     "done-css": "^3.0.0",
     "done-serve": "^1.2.0",

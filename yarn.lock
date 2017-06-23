@@ -2190,9 +2190,9 @@ domain-browser@~1.1.2:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
 
-done-autorender@^1.0.0-alpha.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/done-autorender/-/done-autorender-1.0.0.tgz#5a15da7f150bdac2d25e0ca8f185da6526ba9e6d"
+"done-autorender@git://github.com/donejs/autorender.git#43095d5e028d2ddcfdd604c5d17d3c1271331cfa":
+  version "1.1.0"
+  resolved "git://github.com/donejs/autorender.git#43095d5e028d2ddcfdd604c5d17d3c1271331cfa"
   dependencies:
     can-route "^3.0.5"
     can-stache "^3.0.15"
