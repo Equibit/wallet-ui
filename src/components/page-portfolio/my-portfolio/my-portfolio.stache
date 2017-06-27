@@ -13,14 +13,10 @@
 {{^if portfolio}}
 
   <div class="panel-body align-center">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="message-box no-border">
-          <div class="message-box-status">Manage your Portfolio</div>
-          <p class="message-box-cause">Get started by receiving funds or securities to your portfolio.</p>
-          <a class="btn btn-primary"($click)="receiveFunds()"><span class="icon icon-download"></span> Receive</a>
-        </div>
-      </div>
+    <div class="message-box no-border">
+      <div class="message-box-status">Manage your Portfolio</div>
+      <p class="message-box-cause">Get started by receiving funds or securities to your portfolio.</p>
+      <a class="btn btn-primary"($click)="receiveFunds()"><span class="icon icon-download"></span> Receive</a>
     </div>
   </div>
 
