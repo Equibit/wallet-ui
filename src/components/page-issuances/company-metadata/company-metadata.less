@@ -9,35 +9,12 @@ company-metadata {
   .group {
     margin-bottom: @padding-large-vertical*2;
   }
-  .column {
-    border-left: @border-default;
-    padding: 0 1rem;
-    line-height: 1.8rem;
-
-    .sub {
-      font-size: @font-size-small - 1;
-    }
-  }
-
-  &.narrow {
-    .column {
-      border-left: none;
-      margin-bottom: @padding-large-vertical;
-      flex-basis: 50%;
-      max-width: 50%;
-      padding-left: 0;
-    }
-    dl.dl-horizontal {
-      column-count: 1;
-    }
-  }
 
   // Styles the issuance details
   dl {
     font-size: @font-size-small;
     margin-bottom: 0;
       &.dl-horizontal {
-        column-count: 2;
         @media (max-width: @screen-lg) {
           column-count: 1;
         }
@@ -51,11 +28,6 @@ company-metadata {
       }
 
 
-  }
-
-  // Responsiveness
-  @media (max-width: @screen-sm) {
-    .narrow;
   }
 
 }

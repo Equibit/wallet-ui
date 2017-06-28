@@ -1,34 +1,18 @@
 <can-import from="~/utils/stache-helpers/" />
 
-<div class="group">
-  <div class="row">
-    <div class="column col-xs-6 col-sm-4">
-      <small>Domicile</small>
-      {{issuance.domicile}}
-    </div>
-    <div class="column col-xs-6 col-sm-4">
-      <small>24h Volume</small>
-      <span class="value">
-        {{format(issuance.volume24h,'')}}
-        <span class="sub">(BTC)</span>
-      <span>
-    </div>
-    <div class="column col-xs-6 col-sm-4">
-      <small>Restriction Level</small>
-      <span class="value">
-        {{issuance.restriction}}
-        <span class="sub">(Passport Required)</span>
-      </span>
-    </div>
-  </div>
-</div>
-
 <div class="group issuance-details">
 
   <div class="subtitle">{{issuance.issuanceType}}</div>
     <div class="well">
 
-      <dl class="dl-horizontal">
+      <dl class="dl-horizontal dl-stripped no-top-border no-bottom-border">
+
+        <dt>Domicile</dt>
+        <dd>{{issuance.domicile}}</dd>
+
+        <dt>Restriction</dt>
+        <dd>Level {{issuance.restriction}}</dd>
+
 
         <dt>Authorized</dt>
         <dd>{{format(issuance.sharesAuthorized,'')}}</dd>
