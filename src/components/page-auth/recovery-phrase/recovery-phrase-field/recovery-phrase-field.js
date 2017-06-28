@@ -17,11 +17,17 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import './recovery-phrase-field.less';
 import view from './recovery-phrase-field.stache';
+import validate from '../../../../utils/validators';
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the recovery-phrase-field component'
-  }
+  mnemonic: {
+    type: 'string',
+    set (value) {
+      this.error = validate.mnemonic(value);
+      return value;
+    }
+  },
+  error: 'string'
 });
 
 export default Component.extend({

@@ -105,13 +105,12 @@ const User = DefineMap.extend('User', {
   updatedAt: 'date',
 
   /**
-   * @property {Function} models/user.prototype.generateWalletKeys generateWalletKeys
+   * @function models/user.prototype.generateWalletKeys generateWalletKeys
    * @parent models/user.prototype
-   * Generates keys for a new user account.
+   * Generates keys from a seed.
    */
   // Q: do we want different passphrases for mnemonic and privateKey? A: Not now.
-  generateWalletKeys () {
-    const mnemonic = bip39.generateMnemonic();
+  generateWalletKeys (mnemonic = bip39.generateMnemonic()) {
     const seed = bip39.mnemonicToSeed(mnemonic, '');
     const root = bitcoin.HDNode.fromSeedBuffer(seed, _network);
 
@@ -125,7 +124,7 @@ const User = DefineMap.extend('User', {
   },
 
   /**
-   * @property {Function} models/user.prototype.generateWalletKeys generateWalletKeys
+   * @function models/user.prototype.generateWalletKeys generateWalletKeys
    * @parent models/user.prototype
    * Cache BTC and EQB keys in a closure.
    */
@@ -142,7 +141,7 @@ const User = DefineMap.extend('User', {
   },
 
   /**
-   * @property {Function} models/user.prototype.loadWalletKeys loadWalletKeys
+   * @function models/user.prototype.loadWalletKeys loadWalletKeys
    * @parent models/user.prototype
    * Generate HD node and wallet keys from the encrypted master key.
    */
@@ -153,7 +152,7 @@ const User = DefineMap.extend('User', {
   },
 
   /**
-   * @property {Function} models/user.prototype.generatePortfolioKeys generatePortfolioKeys
+   * @function models/user.prototype.generatePortfolioKeys generatePortfolioKeys
    * @parent models/user.prototype
    * Generates keys for a new Portfolio.
    */
@@ -198,44 +197,44 @@ const User = DefineMap.extend('User', {
   /**
    * @function models/user.prototype.changePassword changePassword
    * @parent models/user.prototype
-   * Updates user password.
+   * Updates user password and recrypts keys
    *
    * @signature `user.changePassword( password )`
    * @param {String} password User's plain password. Will be sent as hashed.
    */
   changePassword (password) {
-    // Case: user forgot-password flow.
-    if (this.encryptedKey && !_keys) {
-      // this.loadWalletKeys();
-      console.error('Need to restore keys using mnemonic!');
-      return;
-    }
+    const hashedPassword = signed.createHash(password);
+    const params = {
+      password: hashedPassword
+    };
+
+    // Case: user is already logged in, keys were loaded, need to re-crypt keys.
+    // Otherwise: user is new or forgot his password (in which case `generateWalletKeys` should be used).
     if (_keys) {
       this.reCryptKeys(_password, password);
+      params.encryptedMnemonic = this.encryptedMnemonic;
+      params.encryptedKey = this.encryptedKey;
     }
 
     _password = password;
 
-    return userService.patch(this._id, {
-      password: signed.createHash(password),
-      encryptedMnemonic: this.encryptedMnemonic,
-      encryptedKey: this.encryptedKey
-    }).then(data => {
+    return userService.patch(this._id, params).then(data => {
       this.salt = data.salt;
     });
   },
-  updatePasswordCache (password) {
-    _password = password;
-  },
 
   /**
-   * @property {Function} models/user.prototype.clearKeys clearKeys
+   * @function models/user.prototype.clearKeys clearKeys
    * @parent models/user.prototype
    * Clear keys stored in a closure.
    */
   clearKeys () {
     _keys = null;
     _password = null;
+  },
+
+  updatePasswordCache (password) {
+    _password = password;
   },
 
   //! steal-remove-start

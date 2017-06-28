@@ -4,6 +4,7 @@
 <can-import from="./log-in/" />
 <can-import from="./change-password/" />
 <can-import from="./forgot-password/" />
+<can-import from="./recovery-phrase/" />
 <can-import from="~/components/common/validation-message.component" />
 <can-import from="~/utils/stache-helpers/" />
 
@@ -33,6 +34,9 @@
             {{/case}}
             {{#case 'forgot-password'}}
               <forgot-password {(email)}="email" />
+            {{/case}}
+            {{#case 'recovery-phrase'}}
+              <recovery-phrase {user}="session.user" />
             {{/case}}
           {{/switch}}
         </div>

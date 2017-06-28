@@ -65,8 +65,10 @@ export const ViewModel = DefineMap.extend({
       .then(() => {
         if (isNewUser) {
           this.user.generateWalletKeys();
+          this.routeWithAlert(isNewUser);
+          return;
         }
-        this.routeWithAlert(isNewUser);
+        route.data.page = 'recovery-phrase';
       })
       .catch(e => {
         console.error(e);

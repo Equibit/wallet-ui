@@ -35,7 +35,7 @@
     <bootstrap-modal></bootstrap-modal>
 
     {{! if used within switch/case then component gets re-rendered and we cannot share email between cases. }}
-    {{#if one-of(displayedPage, 'signup', 'login', 'forgot-password', 'change-password')}}
+    {{#if one-of(displayedPage, 'signup', 'login', 'forgot-password', 'change-password', 'recovery-phrase')}}
       <page-auth {(session)}="session" {page}="displayedPage" />
     {{else}}
       <nav-bar {page}="page" {logout}="@logout" {is-logged-in}="isLoggedIn" {balance}="session.balance" />
