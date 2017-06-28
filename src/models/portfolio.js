@@ -132,7 +132,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
       const { cashBtc, cashEqb, cashTotal, securities, txouts } = this.addresses.reduce((acc, a) => {
         const unspentByType = unspent[a.type];
-        if (unspentByType[a.address]) {
+        if (unspentByType && unspentByType[a.address]) {
           const amount = unspentByType[a.address].amount;
 
           // TODO: mutating addresses here is a bad pattern.
