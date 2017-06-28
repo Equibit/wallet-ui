@@ -30,7 +30,7 @@ const Transaction = DefineMap.extend('Transaction', {
       hex: txInfo.hex,
       txIdBtc: currencyType === 'BTC' ? txInfo.txId : undefined,
       txIdEqb: currencyType === 'EQB' ? txInfo.txId : undefined,
-      toAddress
+      otherAddress: toAddress
     });
   }
 }, {
@@ -40,7 +40,7 @@ const Transaction = DefineMap.extend('Transaction', {
   addressTxid: 'string',
   addressVout: 'number',
 
-  toAddress: 'string',
+  otherAddress: 'string',
 
   type: 'string', // enum: [ 'IN', 'OUT', 'BUY', 'SELL' ]
   typeFormatted: {
