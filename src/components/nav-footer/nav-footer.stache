@@ -4,8 +4,8 @@
 
 <ul class="list-inline list-unstyled">
   <li><a href="{{i18n('equibitWebsiteURL')}}" target="_blank">{{i18n('about')}}</a></li>
-  <li><a ($click)="showTerms('policyVisible')">{{i18n('privacyPolicy')}}</a></li>
-  <li><a ($click)="showTerms('termsVisible')">{{i18n('termsAndConditions')}}</a></li>
+  <li><a href="" ($click)="showTerms('policyVisible')">{{i18n('privacyPolicy')}}</a></li>
+  <li><a href="" ($click)="showTerms('termsVisible')">{{i18n('termsAndConditions')}}</a></li>
   <li>{{i18n('trademark')}}</li>
 </ul>
 
