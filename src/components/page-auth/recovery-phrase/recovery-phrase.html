@@ -11,7 +11,7 @@
   <can-import from="~/styles/styles.less" />
   <can-import from="wallet-ui/components/page-auth/recovery-phrase/" />
 
-  <recovery-phrase></recovery-phrase>
+  <recovery-phrase {user}="user"></recovery-phrase>
 
 </script>
 
@@ -24,7 +24,9 @@
   import DefineMap from 'can-define/map/map';
 
   const vm = new DefineMap({
-    // view model props here
+    user: {
+      generateWalletKeys () {}
+    }
   });
 
   // Enable live-reload:

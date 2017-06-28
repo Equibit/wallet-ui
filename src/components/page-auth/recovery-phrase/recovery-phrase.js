@@ -18,13 +18,14 @@ import DefineMap from 'can-define/map/';
 import view from './recovery-phrase.stache';
 import route from 'can-route';
 import hub from '~/utils/event-hub';
-import i18n from '~/i18n/';
+import i18n from '../../../i18n/i18n';
 
 export const ViewModel = DefineMap.extend({
   user: {
     type: '*'
   },
   mnemonic: 'string',
+  error: 'string',
   mode: {
     value: 'prompt',
     set (val) {
@@ -38,7 +39,14 @@ export const ViewModel = DefineMap.extend({
   switch (val) {
     this.mode = val;
   },
-  recoverFunds () {
+  recoverFunds (ev) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    if (!this.mnemonic) {
+      this.error = i18n.validationMnemonicEmpty;
+      return;
+    }
     this.user.generateWalletKeys(this.mnemonic);
   },
   confirmNoPhrase () {
