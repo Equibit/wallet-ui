@@ -105,6 +105,16 @@ const User = DefineMap.extend('User', {
   updatedAt: 'date',
 
   /**
+   * @property {Date} models/user.properties.isNewUser isRecovered
+   * @parent models/user.properties
+   * Indicates whether user keys were recovered from a seed.
+   */
+  isRecovered: {
+    type: 'boolean',
+    serialize: false
+  },
+
+  /**
    * @function models/user.prototype.generateWalletKeys generateWalletKeys
    * @parent models/user.prototype
    * Generates keys from a seed.

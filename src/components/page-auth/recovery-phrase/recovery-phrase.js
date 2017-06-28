@@ -17,7 +17,6 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import view from './recovery-phrase.stache';
 import route from 'can-route';
-import hub from '~/utils/event-hub';
 import i18n from '../../../i18n/i18n';
 
 export const ViewModel = DefineMap.extend({
@@ -47,21 +46,17 @@ export const ViewModel = DefineMap.extend({
       this.error = i18n.validationMnemonicEmpty;
       return;
     }
-    this.user.generateWalletKeys(this.mnemonic);
+    this.user.generateWalletKeys(this.mnemonic)
+      .then(() => {
+        this.user.isRecovered = true;
+        route.data.page = 'portfolio';
+      });
   },
   confirmNoPhrase () {
-    this.user.generateWalletKeys();
-    this.routeWithAlert();
-  },
-  routeWithAlert (isNewUser = true) {
-    route.data.page = 'portfolio';
-    hub.dispatch({
-      'type': 'alert',
-      'kind': 'success',
-      'title': isNewUser ? i18n.accountCreated : i18n.passwordReset,
-      'displayInterval': 10000,
-      'message': isNewUser ? '' : i18n.passwordResetMsg
-    });
+    this.user.generateWalletKeys()
+      .then(() => {
+        route.data.page = 'portfolio';
+      });
   }
 });
 
