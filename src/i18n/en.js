@@ -260,6 +260,9 @@ export default {
 
   valuation: 'Valuation',
   volume: 'Volume',
+  validationMnemonicEmpty: 'Please enter a seed phrase',
+  validationMnemonicInvalidChecksum: 'Checksum is invalid. Possibly the mnemonic was generated in a different app',
+  validationMnemonicTooShort: 'The mnemonic phrase should contain at least 12 words',
 
   warning: 'Warning',
   watchList: 'Watchlist',

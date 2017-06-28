@@ -75,9 +75,10 @@ export const ViewModel = DefineMap.extend({
     new Session({ user }).save()
       .then(() => {
         this.session = Session.current;
-        this.session.user.updatePasswordCache(password);
+        const user = this.session.user;
+        user.updatePasswordCache(password);
         if (!this.session.usingTempPassword) {
-          this.session.user.loadWalletKeys();
+          user.loadWalletKeys();
         }
         route.data.page = this.session.usingTempPassword ? 'change-password' : 'portfolio';
       })

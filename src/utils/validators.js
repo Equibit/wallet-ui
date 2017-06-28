@@ -1,4 +1,5 @@
-import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
+import { bitcoin, bip39 } from '@equibit/wallet-crypto/dist/wallet-crypto';
+import { translate } from '../i18n/i18n';
 
 const emailRegex = /.+@.+\..+/i;
 
@@ -23,5 +24,14 @@ export default {
       return 'Invalid address';
     }
     return '';
+  },
+  mnemonic (value) {
+    if (!value) {
+      return '';
+    }
+    if (value.trim().split(/\s+/g).length < 12) {
+      return translate('validationMnemonicTooShort');
+    }
+    return bip39.validateMnemonic(value) ? '' : translate('validationMnemonicInvalidChecksum');
   }
 };

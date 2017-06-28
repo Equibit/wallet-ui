@@ -34,6 +34,7 @@ var pages = {
   'four-oh-one': 'public',
   'forgot-password': 'public',
   'change-password': 'private',
+  'recovery-phrase': 'private',
   dashboard: 'private',
   settings: 'private',
   portfolio: 'private',

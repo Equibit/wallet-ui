@@ -1,0 +1,22 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-auth/recovery-phrase/recovery-phrase-field/" />
+
+{{#is mode 'prompt'}}
+  <form ($submit)="recoverFunds(%event)">
+    <h2>{{i18n('recoveryPhrasePromptTitle')}}</h2>
+    <p>{{i18n('recoveryPhrasePromptInstruction')}}</p>
+    <recovery-phrase-field {^mnemonic}="mnemonic"
+                           {(error)}="error"></recovery-phrase-field>
+
+    <button class="btn btn-primary" type="submit">{{i18n('recoverFunds')}}</button>
+    <button ($click)="switch('warning')" class="btn btn-link pull-right">{{i18n('recoveryPhrasePromptNot')}}</button>
+  </form>
+{{/is}}
+
+{{#is mode 'warning'}}
+  <h2><span class="icon icon-warning text-warning"></span> {{i18n('warning')}}</h2>
+  <p>{{i18n('recoveryPhraseWarningMessage')}}</p>
+
+  <button ($click)="confirmNoPhrase()" class="btn btn-primary">{{i18n('continue')}}</button>
+  <button ($click)="switch('prompt')" class="btn btn-default">{{i18n('back')}}</button>
+{{/is}}

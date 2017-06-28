@@ -1,6 +1,8 @@
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/validation-message.component" />
 
 <div class="form-group">
   <label for="authRecoveryPhrase">{{i18n('recoveryPhraseLabel')}}</label>
-  <input type="text" class="form-control" id="authRecoveryPhrase">
+  <input {($value)}="mnemonic" type="text" class="form-control" id="authRecoveryPhrase">
+  <validation-message {message}="error" />
 </div>
