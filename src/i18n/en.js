@@ -30,6 +30,7 @@ export default {
   tryAgainNo: 'No, Try Again',
   verify: 'Verify',
   view: 'View',
+  viewDetails: 'View Details',
 
   // Common:
   yes: 'Yes',
@@ -47,6 +48,7 @@ export default {
   auth2StepDescription: 'Please autenticate to continue.',
   auth2StepMessage: 'Enter the verification code we just sent to your email. <br /> Didn\'t receive it?',
   auth2StepTitle: '2nd Step Authentication',
+  authorized: 'Authorized',
   autoLogout: 'Auto Logout',
   autoLogoutDescription: 'After the selected amount of time of inactivity we will log you out automatically from your account.',
   autoLogoutLabel: 'Auto Logout Time',
@@ -97,6 +99,8 @@ export default {
   dealFlowStep2: 'Exchange Assets',
   dealFlowStep3: 'Close Deal',
   description: 'Description',
+  dividendYield: 'Dividend Yield',
+  domicile: 'Domicile',
 
   email: 'Email',
   emailInfo: 'info@equibitgroup.com',
@@ -127,9 +131,11 @@ export default {
   issuances: 'Issuances',
   issuanceName: 'Issuance Name',
   issuanceType: 'Issuance Type',
+  issued: 'Issued',
 
   last24hours: 'Last 24 hours',
   lastUpdatedOn: 'Last updated on',
+  level: 'Level',
   login: 'Log In',
   logout: 'Log Out',
 
@@ -208,6 +214,7 @@ export default {
   recoveryPhraseSetupRiskWarning: 'If you proceed without a backup, and forget your password you will lose access to your funds.',
   recoveryPhraseWarningMessage: 'If you don\'t have a backup recovery phrase, you can still access your account, but your funds won\'t be available.',
   research: 'Research',
+  restriction: 'Restriction',
 
   securities: 'Securities',
   securitiesSent: 'Securities sent',

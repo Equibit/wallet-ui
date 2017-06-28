@@ -6,7 +6,7 @@ company-metadata {
   small {
     color: @gray;
   }
-  .group {
+  .well {
     margin-bottom: @padding-large-vertical*2;
   }
 
@@ -14,20 +14,18 @@ company-metadata {
   dl {
     font-size: @font-size-small;
     margin-bottom: 0;
-      &.dl-horizontal {
-        @media (max-width: @screen-lg) {
-          column-count: 1;
-        }
-        dt {
-          text-align: left;
-          width: 110px;
-        }
-        dd {
-          margin-left: 110px;
-        }
+    &.dl-horizontal {
+      @media (max-width: @screen-lg) {
+        column-count: 1;
       }
-
-
+      dt {
+        text-align: left;
+        width: 110px;
+      }
+      dd {
+        margin-left: 110px;
+      }
+    }
   }
 
 }

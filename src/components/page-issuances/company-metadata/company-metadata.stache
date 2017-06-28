@@ -3,40 +3,28 @@
 <div class="group issuance-details">
 
   <div class="subtitle">{{issuance.issuanceType}}</div>
-    <div class="well">
+  <div class="well">
+    <dl class="dl-horizontal dl-stripped no-top-border no-bottom-border">
+      <dt>{{i18n('domicile')}}</dt>
+      <dd>{{issuance.domicile}}</dd>
 
-      <dl class="dl-horizontal dl-stripped no-top-border no-bottom-border">
+      <dt>{{i18n('restriction')}}</dt>
+      <dd>Level {{issuance.restriction}}</dd>
 
-        <dt>Domicile</dt>
-        <dd>{{issuance.domicile}}</dd>
+      <dt>{{i18n('authorized')}}</dt>
+      <dd>{{format(issuance.sharesAuthorized,'')}}</dd>
 
-        <dt>Restriction</dt>
-        <dd>Level {{issuance.restriction}}</dd>
+      <dt>{{i18n('issued')}}</dt>
+      <dd>{{format(issuance.sharesIssued,'')}}</dd>
 
-
-        <dt>Authorized</dt>
-        <dd>{{format(issuance.sharesAuthorized,'')}}</dd>
-
-        <dt>Issued</dt>
-        <dd>{{format(issuance.sharesIssued,'')}}</dd>
-
-        <dt>Dividend/Share</dt>
-        <dd>
-          <span class="value">
-            {{issuance.sharesDividend}}
-            <span class="sub">({{currency}})</span>
-          </span>
-        </dd>
-
-        <dt>Dividend Yield</dt>
-        <dd>
-          <span class="value">
-            {{issuance.sharesDividendYield}}
-            <span class="sub">%</span>
-          </span>
-        </dd>
-      </dl>
-
+      <dt>{{i18n('dividendYield')}}</dt>
+      <dd>
+        <span class="value">
+          {{issuance.sharesDividendYield}}
+          <span class="sub">%</span>
+        </span>
+      </dd>
+    </dl>
   </div>
 
 </div>
