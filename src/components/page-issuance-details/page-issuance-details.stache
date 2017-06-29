@@ -17,7 +17,7 @@
             <h1 class="panel-title">{{issuance.companyName}}</h1>
             <div class="panel-subtitle">{{issuance.issuanceName}}</div>
           </div>
-          <div class="panel-body no-padding-top">
+          <div class="panel-body no-padding-top no-padding-bottom">
             <div class="card-row-full">
               <company-value-change {issuance}="issuance" currency="μBTC" />
               <company-metadata class="wide" {issuance}="issuance" currency="μBTC" />
@@ -26,7 +26,7 @@
           </div>
         </div>
 
-        <div class="col-lg-9 col-sm-8 col-xs-12 no-padding-left">
+        <div class="col-lg-9 col-sm-8 col-xs-12">
           <div class="panel-heading panel-heading-clear actions-bar">
             <watchlist-toggle />
           </div>
