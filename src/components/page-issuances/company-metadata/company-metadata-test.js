@@ -20,6 +20,6 @@ describe('components/page-issuances/company-metadata', function () {
     };
     let template = stache('<company-metadata {issuance}="issuance" currency="μBTC" />');
     let frag = template(data);
-    assert.equal(frag.querySelector('#issuance-domicile').wholeText.trim(), 'Canada');
+    assert.equal(frag.querySelector('.column').firstChild.wholeText.trim(), 'Canada');
   });
 });
