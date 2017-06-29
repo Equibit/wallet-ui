@@ -1,7 +1,7 @@
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/list';
 import feathersClient from '~/models/feathers-client';
-import superModel from '~/models/super-model';
+import { superModelNoCache } from '~/models/super-model';
 import algebra from '~/models/algebra';
 import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
 import { pick } from 'ramda';
@@ -118,7 +118,7 @@ Transaction.List = DefineList.extend('TransactionList', {
   '#': Transaction
 });
 
-Transaction.connection = superModel({
+Transaction.connection = superModelNoCache({
   Map: Transaction,
   List: Transaction.List,
   feathersService: feathersClient.service('/transactions'),
