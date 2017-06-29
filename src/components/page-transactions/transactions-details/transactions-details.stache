@@ -18,12 +18,12 @@
 
   <div class="section">
     <label>{{i18n('to')}}</label>
-    <p class="transaction-to break-word">{{transaction.toAddress}}</p>
+    <p class="transaction-to break-word">{{to}}</p>
   </div>
 
   <div class="section">
     <label>{{i18n('from')}}</label>
-    <span class="transaction-from">{{transaction.portfolioName}}</span>
+    <span class="transaction-from">{{from}}</span>
   </div>
 
   <hr />

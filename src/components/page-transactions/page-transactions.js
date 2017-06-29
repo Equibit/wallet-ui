@@ -24,6 +24,9 @@ export const ViewModel = DefineMap.extend({
   },
   selectedRow: {
     type: '*'
+  },
+  portfolios: {
+    type: '*'
   }
 });
 

@@ -61,7 +61,7 @@
         <page-portfolio />
       {{/case}}
       {{#case 'transactions'}}
-        <page-transactions {addresses}="session.allAddresses" />
+        <page-transactions {addresses}="session.allAddresses" {portfolios}="session.portfolios" />
       {{/case}}
       {{#case 'orders'}}
         <page-orders />

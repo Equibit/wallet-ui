@@ -1,10 +1,24 @@
 import assert from 'chai/chai';
 import 'steal-mocha';
 import { ViewModel } from './transactions-details';
+import Portfolio from '../../../models/portfolio';
+import portfolio from '../../../models/mock/mock-portfolio';
 
-describe('wallet-ui/components/page-transactions/transactions-details', function () {
-  it('should have message', function () {
-    var vm = new ViewModel();
-    assert.equal(vm.message, 'This is the transaction-details component');
+describe('components/page-transactions/transactions-details', function () {
+  const portfolios = new Portfolio.List([portfolio]);
+  const transaction = {
+    type: 'IN',
+    address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA',
+    otherAddress: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA'
+  };
+  var vm = new ViewModel({
+    portfolios,
+    transaction
+  });
+  it('should define `to`', function () {
+    assert.equal(vm.to, 'My Portfolio');
+  });
+  it('should define `from`', function () {
+    assert.equal(vm.from, 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA');
   });
 });

@@ -251,8 +251,14 @@ const Portfolio = DefineMap.extend('Portfolio', {
     return getUnspentOutputsForAmount(this.balance.txouts[type], amount);
   },
 
+  /**
+   * @function findAddress
+   * Returns address info.
+   * @param addr
+   * @returns {*}
+   */
   findAddress (addr) {
-    return this.addresses.reduce((acc, a) => a.address === addr ? a : acc);
+    return this.addresses.reduce((acc, a) => (a.address === addr ? a : acc), null);
   }
 });
 
@@ -285,7 +291,12 @@ function getUnspentOutputsForAmount (txouts, amount) {
 }
 
 Portfolio.List = DefineList.extend('PortfolioList', {
-  '#': Portfolio
+  '#': Portfolio,
+  findByAddress (addr) {
+    return this.reduce((acc, portfolio) => {
+      return acc || (portfolio.findAddress(addr) && portfolio);
+    }, null);
+  }
 });
 
 Portfolio.connection = superModel({

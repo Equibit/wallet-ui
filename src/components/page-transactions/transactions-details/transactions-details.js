@@ -30,6 +30,25 @@ export const ViewModel = DefineMap.extend({
         ? 'progress'
         : 'progress';
     }
+  },
+  to: {
+    get () {
+      return this.transaction.type === 'IN' ? this.portfolioName : this.transaction.otherAddress;
+    }
+  },
+  from: {
+    get () {
+      return this.transaction.type === 'OUT' ? this.portfolioName : this.transaction.otherAddress;
+    }
+  },
+  portfolios: {
+    type: '*'
+  },
+  portfolioName: {
+    get () {
+      const portfolio = this.portfolios && this.portfolios.findByAddress(this.transaction.address);
+      return (portfolio && portfolio.name) || this.transaction.address;
+    }
   }
 });
 

@@ -1,6 +1,6 @@
 import assert from 'chai/chai';
 import 'steal-mocha';
-import { getNextAddressIndex, getUnspentOutputsForAmount } from './portfolio';
+import Portfolio, { getNextAddressIndex, getUnspentOutputsForAmount } from './portfolio';
 // import portfolioAddresses from './fixtures/portfolio-addresses';
 import { omit } from 'ramda';
 import portfolio, { addressesMeta } from './mock/mock-portfolio';
@@ -75,6 +75,14 @@ describe('models/portfolio', function () {
         EQB: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'
       };
       assert.deepEqual(portfolio.nextAddress, expected);
+    });
+  });
+
+  describe('PortfolioList', function () {
+    const portfolios = new Portfolio.List([portfolio]);
+    it('should findByAddress', function () {
+      const p = portfolios.findByAddress('n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA');
+      assert.equal(p && p.name, 'My Portfolio');
     });
   });
 });

@@ -25,7 +25,7 @@
           </div>
           {{#if selectedRow}}
           <div class="col-lg-3 col-xs-12">
-            <transactions-details {transaction}="selectedRow" />
+            <transactions-details {transaction}="selectedRow" {portfolios}="portfolios"/>
           </div>
           {{/if}}
         </div>

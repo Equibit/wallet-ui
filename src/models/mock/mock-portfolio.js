@@ -30,6 +30,7 @@ const portfolioKeys = {
 
 const portfolio = new Portfolio({
   index: 0,
+  name: 'My Portfolio',
   addressesMeta,
   keys: portfolioKeys,
   userBalance: listunspent

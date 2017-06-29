@@ -2,7 +2,7 @@ import assert from 'chai/chai';
 import 'steal-mocha';
 import { ViewModel } from './currency-converter';
 
-describe('wallet-ui/components/trade-funds/currency-converter', function () {
+describe('components/trade-funds/currency-converter', function () {
   var vm = new ViewModel({
     input: 10,
     currency: {
