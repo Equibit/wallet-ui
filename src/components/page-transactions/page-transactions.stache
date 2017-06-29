@@ -21,7 +21,7 @@
       <div class="panel-body">
         <div class="row card-row-full">
           <div class="col-lg-9 col-xs-12">
-            <transactions-grid {^rows}="transactions" {^selected-row}="selectedRow" />
+            <transactions-grid {^rows}="transactions" {^selected-row}="selectedRow" {addresses}="addresses" />
           </div>
           {{#if selectedRow}}
           <div class="col-lg-3 col-xs-12">

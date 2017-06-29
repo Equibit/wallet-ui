@@ -15,6 +15,7 @@
 
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
+import DefineList from 'can-define/list/';
 import './transactions-grid.less';
 import view from './transactions-grid.stache';
 import Transaction from '../../../models/transaction';
@@ -28,6 +29,23 @@ export const ViewModel = DefineMap.extend({
       skip: 0,
       limit: 50
     })
+  },
+  addresses: {
+    type: '*',
+    get (val) {
+      if (!val || !(val.BTC || val.EQB)) {
+        return new DefineList([]);
+      }
+      return (val.BTC || new DefineList([])).concat(val.EQB);
+    }
+  },
+  queryParams: {
+    get () {
+      return Object.assign({},
+        this.pagination.params,
+        {address: {'$in': this.addresses.get()}}
+      );
+    }
   },
   rows: {
     set (value) {
