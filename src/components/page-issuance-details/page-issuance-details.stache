@@ -37,7 +37,7 @@
             <order-book {issuance}="issuance" />
             <!--market-depth /-->
             <related-companies />
-            <small class="fineprint">{{disclaimerPriceData}}</small>
+            <small class="fineprint">{{i18n('disclaimerPriceData')}}</small>
           </div>
         </div>
       </div>

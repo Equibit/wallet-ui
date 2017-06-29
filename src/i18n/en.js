@@ -99,6 +99,7 @@ export default {
   dealFlowStep2: 'Exchange Assets',
   dealFlowStep3: 'Close Deal',
   description: 'Description',
+  disclaimerPriceData: 'Price and data does not include trades outside of the Equibit network.',
   dividendYield: 'Dividend Yield',
   dividendShare: 'Dividend/Share',
   domicile: 'Domicile',
