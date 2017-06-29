@@ -15,4 +15,4 @@ export default {
   // Common:
   yes: 'OUI',
   no: 'NON'
-};
+}

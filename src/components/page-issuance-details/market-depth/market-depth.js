@@ -13,11 +13,11 @@
  *
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './market-depth.less';
-import view from './market-depth.stache';
-import MarketDepth from '~/models/market-depth';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './market-depth.less'
+import view from './market-depth.stache'
+import MarketDepth from '~/models/market-depth'
 
 export const ViewModel = DefineMap.extend({
   dataPromise: {
@@ -30,13 +30,13 @@ export const ViewModel = DefineMap.extend({
           x: 'x',
           type: 'area-spline',
           columns: data.c3Data
-        });
-      });
+        })
+      })
     }
   },
   config: {
     get () {
-      return Object.assign({}, this.configOpt, { data: this.chartData });
+      return Object.assign({}, this.configOpt, { data: this.chartData })
     }
   },
   configOpt: {
@@ -86,17 +86,17 @@ export const ViewModel = DefineMap.extend({
       },
       tooltip: {
         position: function (data, width, height, element) {
-          let top = data.length > 1 ? 25 - height : -height;
-          let left = parseInt(element.getAttribute('x')) - 30;
-          return { top, left };
+          let top = data.length > 1 ? 25 - height : -height
+          let left = parseInt(element.getAttribute('x')) - 30
+          return { top, left }
         }
       }
     }
   }
-});
+})
 
 export default Component.extend({
   tag: 'market-depth',
   ViewModel,
   view
-});
+})

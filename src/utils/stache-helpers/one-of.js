@@ -1,10 +1,10 @@
-import stache from 'can-stache';
+import stache from 'can-stache'
 
 stache.registerHelper('one-of', function () {
-  var [input, ...args] = arguments;
+  var [input, ...args] = arguments
   // Get rid of options that are passed as the last argument to a helper:
-  args.pop();
+  args.pop()
   return [...args].reduce((sum, operand) => {
-    return !!sum || input === operand;
-  }, false) ? input : false;
-});
+    return !!sum || input === operand
+  }, false) ? input : false
+})

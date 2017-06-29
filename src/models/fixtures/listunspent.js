@@ -1,4 +1,4 @@
-import fixture from 'can-fixture';
+import fixture from 'can-fixture'
 
 fixture('GET /listunspent', function () {
   return {
@@ -38,5 +38,5 @@ fixture('GET /listunspent', function () {
         }]
       }
     }
-  };
-});
+  }
+})

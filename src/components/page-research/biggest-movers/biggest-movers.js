@@ -13,16 +13,16 @@
  * @demo src/components/page-research/biggest-movers.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './biggest-movers.less';
-import view from './biggest-movers.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './biggest-movers.less'
+import view from './biggest-movers.stache'
 
 export const ViewModel = DefineMap.extend({
-});
+})
 
 export default Component.extend({
   tag: 'biggest-movers',
   ViewModel,
   view
-});
+})

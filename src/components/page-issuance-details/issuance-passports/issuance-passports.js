@@ -13,12 +13,12 @@
  *
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/map';
-import DefineList from 'can-define/list/list';
-import './issuance-passports.less';
-import view from './issuance-passports.stache';
-import _ from 'lodash';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/map'
+import DefineList from 'can-define/list/list'
+import './issuance-passports.less'
+import view from './issuance-passports.stache'
+import _ from 'lodash'
 
 export const ViewModel = DefineMap.extend({
   passports: {
@@ -39,17 +39,17 @@ export const ViewModel = DefineMap.extend({
   },
   isModalShown: 'boolean',
   get visiblePassports () {
-    return this.passports.length > 8 ? _.take(this.passports, 7) : this.passports;
+    return this.passports.length > 8 ? _.take(this.passports, 7) : this.passports
   },
   showModal () {
     // Note: we need to re-insert the modal content:
-    this.isModalShown = false;
-    this.isModalShown = true;
+    this.isModalShown = false
+    this.isModalShown = true
   }
-});
+})
 
 export default Component.extend({
   tag: 'issuance-passports',
   ViewModel,
   view
-});
+})

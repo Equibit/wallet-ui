@@ -28,21 +28,21 @@
  *
 **/
 
-import Kefir from 'kefir';
-import canStream from 'can-stream';
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import 'can-define-stream';
-import view from './alerts.stache';
-import hub from '~/utils/event-hub';
-import CID from 'can-cid';
+import Kefir from 'kefir'
+import canStream from 'can-stream'
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import 'can-define-stream'
+import view from './alerts.stache'
+import hub from '~/utils/event-hub'
+import CID from 'can-cid'
 
 var hubStream = canStream.toStream(hub, 'alert').map(ev => {
   return Object.assign({
     id: CID(ev),
     kind: 'warning'
-  }, ev);
-});
+  }, ev)
+})
 
 export const ViewModel = DefineMap.extend({
   autoHideStream: {
@@ -53,10 +53,10 @@ export const ViewModel = DefineMap.extend({
           return Kefir.later(alert.displayInterval, {
             type: 'remove',
             id: alert.id
-          });
+          })
         }
-        return Kefir.constant({ type: 'no-op' });
-      });
+        return Kefir.constant({ type: 'no-op' })
+      })
     }
   },
   alerts: {
@@ -67,24 +67,24 @@ export const ViewModel = DefineMap.extend({
         .scan((alerts, ev) => {
           switch (ev.type) {
             case 'alert':
-              return [ev, ...alerts.slice()];
+              return [ev, ...alerts.slice()]
 
             case 'remove':
-              return alerts.filter(item => item.id !== ev.id);
+              return alerts.filter(item => item.id !== ev.id)
 
             default:
-              return alerts;
+              return alerts
           }
-        }, []);
+        }, [])
     }
   },
   removeAlert (alert) {
-    this.dispatch({ type: 'remove', id: alert.id });
+    this.dispatch({ type: 'remove', id: alert.id })
   }
-});
+})
 
 export default Component.extend({
   tag: 'bit-alerts',
   ViewModel,
   view
-});
+})

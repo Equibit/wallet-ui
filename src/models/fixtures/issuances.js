@@ -1,11 +1,11 @@
-import fixture from 'can-fixture';
-import Issuance from '~/models/issuance';
-import _ from 'lodash';
+import fixture from 'can-fixture'
+import Issuance from '~/models/issuance'
+import _ from 'lodash'
 
 const companies = [
   'Imperial Brands', 'Allianz SE', 'Kingfisher plc', 'Deutsche Telekom', 'Experian plc',
   'Propanc Health', 'Marks And Spencer', 'Cool Technologies', 'The Pulse Beverages'
-];
+]
 const store = fixture.store(_.times(90, function (i) {
   return {
     _id: i,
@@ -31,9 +31,9 @@ const store = fixture.store(_.times(90, function (i) {
     sharesDividendYield: 2.6,
 
     tradesNum: [40, 25, 54, 300][i % 4]
-  };
-}), Issuance.connection.algebra);
+  }
+}), Issuance.connection.algebra)
 
-fixture('/issuances/{_id}', store);
+fixture('/issuances/{_id}', store)
 
-export default store;
+export default store

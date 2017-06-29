@@ -13,19 +13,19 @@
  * @demo src/components/page-orders/order-offers-accepted/order-offers-accepted.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './order-offers-accepted.less';
-import view from './order-offers-accepted.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './order-offers-accepted.less'
+import view from './order-offers-accepted.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the order-offers-accepted component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'order-offers-accepted',
   ViewModel,
   view
-});
+})

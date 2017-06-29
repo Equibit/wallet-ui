@@ -13,22 +13,22 @@
  * @demo src/components/page-preferences/user-autologout/user-autologout.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './user-autologout.less';
-import view from './user-autologout.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './user-autologout.less'
+import view from './user-autologout.stache'
 
 export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
   showModal () {
     // Note: we need to re-insert the modal content:
-    this.isModalShown = false;
-    this.isModalShown = true;
+    this.isModalShown = false
+    this.isModalShown = true
   }
-});
+})
 
 export default Component.extend({
   tag: 'user-autologout',
   ViewModel,
   view
-});
+})

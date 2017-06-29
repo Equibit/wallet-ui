@@ -1,4 +1,4 @@
-import DefineMap from 'can-define/map/map';
+import DefineMap from 'can-define/map/map'
 
 export default DefineMap.extend({
   skip: 'number',
@@ -8,6 +8,6 @@ export default DefineMap.extend({
     return {
       '$skip': this.skip,
       '$limit': this.limit
-    };
+    }
   }
-});
+})

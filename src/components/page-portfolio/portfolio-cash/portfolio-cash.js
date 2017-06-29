@@ -13,11 +13,11 @@
  * @demo src/components/page-portfolio/portfolio-cash/portfolio-cash.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './portfolio-cash.less';
-import view from './portfolio-cash.stache';
-import Session from '~/models/session';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './portfolio-cash.less'
+import view from './portfolio-cash.stache'
+import Session from '~/models/session'
 
 export const ViewModel = DefineMap.extend({
   balance: {
@@ -25,13 +25,13 @@ export const ViewModel = DefineMap.extend({
   },
   cashEqbInBtc: {
     get () {
-      return this.balance && this.balance.cashEqb * Session.current.rates.eqbToBtc;
+      return this.balance && this.balance.cashEqb * Session.current.rates.eqbToBtc
     }
   }
-});
+})
 
 export default Component.extend({
   tag: 'portfolio-cash',
   ViewModel,
   view
-});
+})

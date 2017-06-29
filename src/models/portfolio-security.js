@@ -7,11 +7,11 @@
  * @group models/PortfolioSecurity.properties 0 properties
  */
 
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
-import feathersClient from '~/models/feathers-client';
-import superModel from '~/models/super-model';
-import algebra from '~/models/algebra';
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/list'
+import feathersClient from '~/models/feathers-client'
+import superModel from '~/models/super-model'
+import algebra from '~/models/algebra'
 
 const PortfolioSecurity = DefineMap.extend('PortfolioSecurity', {
   _id: 'string',
@@ -25,11 +25,11 @@ const PortfolioSecurity = DefineMap.extend('PortfolioSecurity', {
   price: 'number',
   value: 'number',
   profitLoss: 'number'
-});
+})
 
 PortfolioSecurity.List = DefineList.extend('PortfolioSecurityList', {
   '#': PortfolioSecurity
-});
+})
 
 PortfolioSecurity.connection = superModel({
   Map: PortfolioSecurity,
@@ -37,8 +37,8 @@ PortfolioSecurity.connection = superModel({
   feathersService: feathersClient.service('/portfolio-securities'),
   name: 'portfoliosecurities',
   algebra
-});
+})
 
-PortfolioSecurity.algebra = algebra;
+PortfolioSecurity.algebra = algebra
 
-export default PortfolioSecurity;
+export default PortfolioSecurity

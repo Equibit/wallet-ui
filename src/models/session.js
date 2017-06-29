@@ -12,25 +12,25 @@
  * @group models/session.properties 0 properties
  */
 
-import connect from 'can-connect';
-import set from 'can-set';
-import dataParse from 'can-connect/data/parse/';
-import construct from 'can-connect/constructor/';
-import constructStore from 'can-connect/constructor/store/';
-import constructOnce from 'can-connect/constructor/callbacks-once/';
-import constructorHydrate from 'can-connect/can/constructor-hydrate/constructor-hydrate';
-import canMap from 'can-connect/can/map/';
-import dataCallbacks from 'can-connect/data/callbacks/';
-import realtime from 'can-connect/real-time/';
-import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior';
-import canDefineStream from 'can-define-stream-kefir';
+import connect from 'can-connect'
+import set from 'can-set'
+import dataParse from 'can-connect/data/parse/'
+import construct from 'can-connect/constructor/'
+import constructStore from 'can-connect/constructor/store/'
+import constructOnce from 'can-connect/constructor/callbacks-once/'
+import constructorHydrate from 'can-connect/can/constructor-hydrate/constructor-hydrate'
+import canMap from 'can-connect/can/map/'
+import dataCallbacks from 'can-connect/data/callbacks/'
+import realtime from 'can-connect/real-time/'
+import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior'
+import canDefineStream from 'can-define-stream-kefir'
 
-import feathersClient from '~/models/feathers-client';
-import signed from '~/models/feathers-signed';
+import feathersClient from '~/models/feathers-client'
+import signed from '~/models/feathers-signed'
 
-import DefineMap from 'can-define/map/';
-import User from '~/models/user/user';
-import Portfolio from '~/models/portfolio';
+import DefineMap from 'can-define/map/'
+import User from '~/models/user/user'
+import Portfolio from '~/models/portfolio'
 
 const behaviors = [
   feathersAuthenticationSignedSession,
@@ -42,7 +42,7 @@ const behaviors = [
   constructorHydrate,
   dataCallbacks,
   realtime
-];
+]
 
 const Session = DefineMap.extend('Session', {
   /**
@@ -61,7 +61,7 @@ const Session = DefineMap.extend('Session', {
    */
   portfoliosPromise: {
     get () {
-      return Portfolio.getList({$limit: 5, $skip: 0});
+      return Portfolio.getList({$limit: 5, $skip: 0})
     }
   },
 
@@ -77,13 +77,13 @@ const Session = DefineMap.extend('Session', {
         this.portfoliosPromise.then(portfolios => {
           portfolios.forEach(portfolio => {
             if (portfolio.index !== 'undefined') {
-              portfolio.keys = this.user.generatePortfolioKeys(portfolio.index);
+              portfolio.keys = this.user.generatePortfolioKeys(portfolio.index)
             }
-          });
-          resolved(portfolios);
-        });
+          })
+          resolved(portfolios)
+        })
       }
-      return val;
+      return val
     }
   },
 
@@ -98,8 +98,8 @@ const Session = DefineMap.extend('Session', {
         return {
           BTC: acc.BTC.concat(portfolio.addressesBtc),
           EQB: acc.EQB.concat(portfolio.addressesEqb)
-        };
-      }, {EQB: [], BTC: []});
+        }
+      }, {EQB: [], BTC: []})
     }
   },
 
@@ -110,14 +110,14 @@ const Session = DefineMap.extend('Session', {
    */
   balancePromise: {
     stream: function () {
-      const addrStream = this.toStream('.allAddresses').skipWhile(a => !a || !(a.BTC.length || a.EQB.length));
+      const addrStream = this.toStream('.allAddresses').skipWhile(a => !a || !(a.BTC.length || a.EQB.length))
       return addrStream.merge(this.toStream('refresh')).map(() => {
-        return this.fetchBalance();
-      });
+        return this.fetchBalance()
+      })
     }
   },
   fetchBalance () {
-    const addr = this.allAddresses;
+    const addr = this.allAddresses
     return feathersClient.service('/listunspent').find({
       // GET query params are lower cased:
       query: {
@@ -125,10 +125,10 @@ const Session = DefineMap.extend('Session', {
         eqb: addr.EQB,
         byaddress: true
       }
-    });
+    })
   },
   refreshBalance: function () {
-    this.dispatch('refresh');
+    this.dispatch('refresh')
   },
 
   /**
@@ -156,22 +156,22 @@ const Session = DefineMap.extend('Session', {
       if (!val && !this.balancePromise) {
         return {
           summary: { cash: 0, securities: 0, total: 0, isDefault: true }
-        };
+        }
       }
       if ((!val || val.isDefault) && this.balancePromise) {
         this.balancePromise.then(balance => {
           this.portfolios.forEach(portfolio => {
-            portfolio.userBalance = balance;
-          });
+            portfolio.userBalance = balance
+          })
           balance.summary = {
             securities: 0,
             cash: balance.BTC.summary.total + balance.EQB.summary.total
-          };
-          balance.summary.total = balance.summary.securities + balance.summary.cash;
-          resolve(balance);
-        });
+          }
+          balance.summary.total = balance.summary.securities + balance.summary.cash
+          resolve(balance)
+        })
       }
-      return val;
+      return val
     }
   },
 
@@ -179,10 +179,10 @@ const Session = DefineMap.extend('Session', {
   accessToken: 'string',
   secret: 'string',
   get email () {
-    return this.user && this.user.email;
+    return this.user && this.user.email
   },
   get isNewAccount () {
-    return this.user && this.user.isNewUser;
+    return this.user && this.user.isNewUser
   },
 
   // TODO: add local currency switch support.
@@ -191,32 +191,32 @@ const Session = DefineMap.extend('Session', {
       btcToUsd: 2725,
       eqbToUsd: 3,
       eqbToBtc: 3 / 2725
-    };
+    }
   },
 
   // TODO: use BTC switch here (uBTC / mBTC / BTC).
   toBTC (amount, currencyType) {
-    return currencyType === 'EQB' ? amount * this.rates.eqbToBtc : amount;
+    return currencyType === 'EQB' ? amount * this.rates.eqbToBtc : amount
   }
-});
+})
 
-canDefineStream(Session);
+canDefineStream(Session)
 
 const algebra = new set.Algebra(
   set.comparators.id('accessToken')
-);
+)
 
 Session.connection = connect(behaviors, {
   feathersClient,
   Map: Session,
   utils: signed,
   algebra
-});
+})
 
-Session.algebra = algebra;
+Session.algebra = algebra
 
 //! steal-remove-start
-window.Session = Session;
+window.Session = Session
 //! steal-remove-end
 
-export default Session;
+export default Session

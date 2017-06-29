@@ -1,7 +1,7 @@
-import 'core-js/client/core';
-import '~/models/test';
-import '~/utils/test';
-import '~/components/test';
+import 'core-js/client/core'
+import '~/models/test'
+import '~/utils/test'
+import '~/components/test'
 
 // import 'wallet-ui/components/page-auth/page-auth-test';
 // import 'wallet-ui/components/page-home/page-home-test';

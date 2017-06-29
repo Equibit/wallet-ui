@@ -7,14 +7,14 @@
  * @group models/marketDepth.properties 0 properties
  */
 
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
-import feathersClient from '~/models/feathers-client';
-import superModel from '~/models/super-model';
-import algebra from '~/models/algebra';
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/list'
+import feathersClient from '~/models/feathers-client'
+import superModel from '~/models/super-model'
+import algebra from '~/models/algebra'
 
 // TODO: FIXTURES ON!
-import '~/models/fixtures/market-depth';
+import '~/models/fixtures/market-depth'
 
 const MarketDepth = DefineMap.extend('MarketDepth', {
   /**
@@ -46,13 +46,13 @@ const MarketDepth = DefineMap.extend('MarketDepth', {
       ['x'].concat(this.cats),
       ['asks'].concat(this.asks),
       ['bids'].concat(this.bids)
-    ];
+    ]
   }
-});
+})
 
 MarketDepth.List = DefineList.extend('MarketDepthList', {
   '#': MarketDepth
-});
+})
 
 MarketDepth.connection = superModel({
   Map: MarketDepth,
@@ -60,8 +60,8 @@ MarketDepth.connection = superModel({
   feathersService: feathersClient.service('/market-depth'),
   name: 'marketdepth',
   algebra
-});
+})
 
-MarketDepth.algebra = algebra;
+MarketDepth.algebra = algebra
 
-export default MarketDepth;
+export default MarketDepth

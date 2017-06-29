@@ -13,14 +13,14 @@
  *
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './sell-orders.less';
-import view from './sell-orders.stache';
-import SellOrder from '~/models/sell-order';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './sell-orders.less'
+import view from './sell-orders.stache'
+import SellOrder from '~/models/sell-order'
 
 // TODO: turn FIXTURES OFF
-import '~/models/fixtures/sell-order';
+import '~/models/fixtures/sell-order'
 
 export const ViewModel = DefineMap.extend({
   limit: 'number',
@@ -29,19 +29,19 @@ export const ViewModel = DefineMap.extend({
       let params = this.limit ? {
         $limit: this.limit,
         $skip: 0
-      } : {};
-      return SellOrder.getList(params);
+      } : {}
+      return SellOrder.getList(params)
     }
   },
   rows: {
     get (lastVal, resolve) {
-      this.rowsPromise.then(resolve);
+      this.rowsPromise.then(resolve)
     }
   }
-});
+})
 
 export default Component.extend({
   tag: 'sell-orders',
   ViewModel,
   view
-});
+})

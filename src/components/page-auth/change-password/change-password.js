@@ -15,14 +15,14 @@
  *
 **/
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './change-password.less';
-import view from './change-password.stache';
-import validate from '~/utils/validators';
-import route from 'can-route';
-import hub from '~/utils/event-hub';
-import i18n from '~/i18n/';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './change-password.less'
+import view from './change-password.stache'
+import validate from '~/utils/validators'
+import route from 'can-route'
+import hub from '~/utils/event-hub'
+import i18n from '~/i18n/'
 
 export const ViewModel = DefineMap.extend({
   email: {
@@ -31,8 +31,8 @@ export const ViewModel = DefineMap.extend({
   password: {
     type: 'string',
     set (value) {
-      this.passwordError = validate.password(value, {allowEmpty: 1});
-      return value;
+      this.passwordError = validate.password(value, {allowEmpty: 1})
+      return value
     }
   },
   passwordVisible: {
@@ -44,54 +44,54 @@ export const ViewModel = DefineMap.extend({
   passwordError: 'string',
   generalError: 'string',
   get isPasswordValid () {
-    this.passwordError = validate.password(this.password, {allowEmpty: 0});
-    return !this.passwordError;
+    this.passwordError = validate.password(this.password, {allowEmpty: 0})
+    return !this.passwordError
   },
 
   // Methods:
   updatePassword (el) {
-    this.password = el.value;
+    this.password = el.value
   },
   handlePasswordChange (event, password) {
-    event.preventDefault();
+    event.preventDefault()
     if (!this.isPasswordValid) {
-      return false;
+      return false
     }
 
     // Note: after changing password user is no longer new.
-    const isNewUser = this.user.isNewUser;
+    const isNewUser = this.user.isNewUser
 
     this.user.changePassword(password)
       .then(() => {
         if (isNewUser) {
-          this.user.generateWalletKeys();
-          this.routeWithAlert(isNewUser);
-          return;
+          this.user.generateWalletKeys()
+          this.routeWithAlert(isNewUser)
+          return
         }
-        route.data.page = 'recovery-phrase';
+        route.data.page = 'recovery-phrase'
       })
       .catch(e => {
-        console.error(e);
-        this.generalError = JSON.stringify(e);
-      });
+        console.error(e)
+        this.generalError = JSON.stringify(e)
+      })
   },
   togglePassword () {
-    this.passwordVisible = !this.passwordVisible;
+    this.passwordVisible = !this.passwordVisible
   },
   routeWithAlert (isNewUser) {
-    route.data.page = 'portfolio';
+    route.data.page = 'portfolio'
     hub.dispatch({
       'type': 'alert',
       'kind': 'success',
       'title': isNewUser ? i18n.accountCreated : i18n.passwordReset,
       'displayInterval': 10000,
       'message': isNewUser ? '' : i18n.passwordResetMsg
-    });
+    })
   }
-});
+})
 
 export default Component.extend({
   tag: 'change-password',
   ViewModel,
   view
-});
+})

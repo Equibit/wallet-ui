@@ -13,11 +13,11 @@
  * @demo src/components/page-research/latest-issuances.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './latest-issuances.less';
-import view from './latest-issuances.stache';
-import Issuance from '~/models/issuance';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './latest-issuances.less'
+import view from './latest-issuances.stache'
+import Issuance from '~/models/issuance'
 
 export const ViewModel = DefineMap.extend({
   rowsPromise: {
@@ -26,15 +26,15 @@ export const ViewModel = DefineMap.extend({
   rows: {
     get (val, resolve) {
       if (val) {
-        return val;
+        return val
       }
-      this.rowsPromise = Issuance.getList({$limit: 10, $skip: 0}).then(resolve);
+      this.rowsPromise = Issuance.getList({$limit: 10, $skip: 0}).then(resolve)
     }
   }
-});
+})
 
 export default Component.extend({
   tag: 'latest-issuances',
   ViewModel,
   view
-});
+})

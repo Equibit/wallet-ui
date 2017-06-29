@@ -1,6 +1,6 @@
-import fixture from 'can-fixture';
-import Transaction from '../transaction';
-import R from 'ramda';
+import fixture from 'can-fixture'
+import Transaction from '../transaction'
+import R from 'ramda'
 
 const store = fixture.store(R.times(i => {
   return {
@@ -17,9 +17,9 @@ const store = fixture.store(R.times(i => {
     isPending: i % 2,
     createdAt: Date.now(),
     updatedAt: Date.now()
-  };
-}, 10), Transaction.connection.algebra);
+  }
+}, 10), Transaction.connection.algebra)
 
-fixture('/transactions/{_id}', store);
+fixture('/transactions/{_id}', store)
 
-export default store;
+export default store

@@ -1,14 +1,14 @@
-import fixture from 'can-fixture';
-import _ from 'lodash';
+import fixture from 'can-fixture'
+import _ from 'lodash'
 
-const asksMnt = 61;
-const bidsMnt = 40;
-const maxVal = 800;
+const asksMnt = 61
+const bidsMnt = 40
+const maxVal = 800
 // Should be an odd number:
-const totalMnt = asksMnt + bidsMnt;
+const totalMnt = asksMnt + bidsMnt
 
-let asksVal = maxVal;
-let bidsVal = 0;
+let asksVal = maxVal
+let bidsVal = 0
 
 /*eslint-disable */
 fixture('GET /market-depth', function () {

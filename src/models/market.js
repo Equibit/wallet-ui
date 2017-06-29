@@ -7,14 +7,14 @@
  * @group models/market.properties 0 properties
  */
 
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
-import feathersClient from '~/models/feathers-client';
-import superModel from '~/models/super-model';
-import algebra from '~/models/algebra';
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/list'
+import feathersClient from '~/models/feathers-client'
+import superModel from '~/models/super-model'
+import algebra from '~/models/algebra'
 
 // TODO: FIXTURES ON!
-import '~/models/fixtures/market';
+import '~/models/fixtures/market'
 
 const Market = DefineMap.extend('Market', {
   _id: 'string',
@@ -42,11 +42,11 @@ const Market = DefineMap.extend('Market', {
    * Volume of shares in EQB
    */
   shareVolume: 'number'
-});
+})
 
 Market.List = DefineList.extend('MarketList', {
   '#': Market
-});
+})
 
 Market.connection = superModel({
   Map: Market,
@@ -54,8 +54,8 @@ Market.connection = superModel({
   feathersService: feathersClient.service('/market'),
   name: 'market',
   algebra
-});
+})
 
-Market.algebra = algebra;
+Market.algebra = algebra
 
-export default Market;
+export default Market

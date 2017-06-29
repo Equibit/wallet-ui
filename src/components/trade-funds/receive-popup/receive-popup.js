@@ -13,13 +13,13 @@
  * @demo src/components/trade-funds/receive-popup/receive-popup.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './receive-popup.less';
-import view from './receive-popup.stache';
-import hub from '~/utils/event-hub';
-import copy from 'copy-to-clipboard';
-import { translate } from '~/i18n/i18n';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './receive-popup.less'
+import view from './receive-popup.stache'
+import hub from '~/utils/event-hub'
+import copy from 'copy-to-clipboard'
+import { translate } from '~/i18n/i18n'
 
 export const ViewModel = DefineMap.extend({
   /**
@@ -29,22 +29,22 @@ export const ViewModel = DefineMap.extend({
     type: '*'
   },
   copy (type) {
-    copy(this.address[type]);
+    copy(this.address[type])
     hub.dispatch({
       'type': 'alert',
       'kind': 'success',
       'title': translate('copiedToClipboard'),
       'displayInterval': 5000
-    });
+    })
   },
   done (close) {
-    this.dispatch('done');
-    close();
+    this.dispatch('done')
+    close()
   }
-});
+})
 
 export default Component.extend({
   tag: 'receive-popup',
   ViewModel,
   view
-});
+})

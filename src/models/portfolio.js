@@ -7,11 +7,11 @@
  * @group models/portfolio.properties 0 properties
  */
 
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
-import feathersClient from '~/models/feathers-client';
-import superModel from '~/models/super-model';
-import algebra from '~/models/algebra';
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/list'
+import feathersClient from '~/models/feathers-client'
+import superModel from '~/models/super-model'
+import algebra from '~/models/algebra'
 
 // TODO: FIXTURES ON!
 // import '~/models/fixtures/portfolio';
@@ -70,15 +70,15 @@ const Portfolio = DefineMap.extend('Portfolio', {
   addresses: {
     get () {
       return (this.addressesMeta && this.addressesMeta.map(a => {
-        const keysNode = this.keys[a.type].derive(a.isChange ? 1 : 0).derive(a.index);
+        const keysNode = this.keys[a.type].derive(a.isChange ? 1 : 0).derive(a.index)
         return {
           index: a.index,
           isChange: a.isChange,
           type: a.type,
           address: keysNode.getAddress(),
           keyPair: keysNode.keyPair
-        };
-      })) || [];
+        }
+      })) || []
     }
   },
 
@@ -89,12 +89,12 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   addressesBtc: {
     get () {
-      return this.addresses.filter(a => a.type === 'BTC').map(a => a.address);
+      return this.addresses.filter(a => a.type === 'BTC').map(a => a.address)
     }
   },
   addressesEqb: {
     get () {
-      return this.addresses.filter(a => a.type === 'EQB').map(a => a.address);
+      return this.addresses.filter(a => a.type === 'EQB').map(a => a.address)
     }
   },
 
@@ -123,38 +123,38 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   balance: {
     get () {
-      const unspent = this.userBalance;
+      const unspent = this.userBalance
       if (!unspent) {
-        return {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, total: 0};
+        return {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, total: 0}
       }
 
       // TODO: figure out how to evaluate securities.
 
       const { cashBtc, cashEqb, cashTotal, securities, txouts } = this.addresses.reduce((acc, a) => {
-        const unspentByType = unspent[a.type];
+        const unspentByType = unspent[a.type]
         if (unspentByType && unspentByType[a.address]) {
-          const amount = unspentByType[a.address].amount;
+          const amount = unspentByType[a.address].amount
 
           // TODO: mutating addresses here is a bad pattern.
           // Add amount and txouts:
-          a.amount = amount;
-          a.txouts = unspentByType[a.address].txouts;
+          a.amount = amount
+          a.txouts = unspentByType[a.address].txouts
 
           // Calculate summary:
           if (a.type === 'BTC') {
-            acc.cashBtc += amount;
+            acc.cashBtc += amount
           } else {
-            acc.cashEqb += amount;
+            acc.cashEqb += amount
           }
-          acc.cashTotal += amount;
-          acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType[a.address].txouts);
+          acc.cashTotal += amount
+          acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType[a.address].txouts)
         }
-        return acc;
-      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, txouts: {EQB: [], BTC: []}});
+        return acc
+      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, txouts: {EQB: [], BTC: []}})
 
-      const total = cashTotal + securities;
+      const total = cashTotal + securities
 
-      return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total, txouts });
+      return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total, txouts })
     }
   },
 
@@ -170,46 +170,46 @@ const Portfolio = DefineMap.extend('Portfolio', {
   // "m /44' /0' /portfolio-index' /0 /index"
   nextAddress: {
     get () {
-      return this.getNextAddress(false);
+      return this.getNextAddress(false)
     }
   },
 
   // "m /44' /0' /portfolio-index' /1 /index"
   nextChangeAddress: {
     get () {
-      return this.getNextAddress(true);
+      return this.getNextAddress(true)
     }
   },
 
   // getNextAddress :: Bool -> Object(EQB<String>,BTC<String>)
   getNextAddress (isChange = false) {
-    const changeIndex = isChange ? 1 : 0;
-    const btcAddr = getNextAddressIndex(this.addressesMeta, 'BTC', isChange);
-    const eqbAddr = getNextAddressIndex(this.addressesMeta, 'EQB', isChange);
-    const btcNode = this.keys.BTC.derive(changeIndex).derive(btcAddr.index);
-    const eqbNode = this.keys.EQB.derive(changeIndex).derive(eqbAddr.index);
+    const changeIndex = isChange ? 1 : 0
+    const btcAddr = getNextAddressIndex(this.addressesMeta, 'BTC', isChange)
+    const eqbAddr = getNextAddressIndex(this.addressesMeta, 'EQB', isChange)
+    const btcNode = this.keys.BTC.derive(changeIndex).derive(btcAddr.index)
+    const eqbNode = this.keys.EQB.derive(changeIndex).derive(eqbAddr.index)
     const addr = {
       BTC: btcNode.getAddress(),
       EQB: eqbNode.getAddress()
-    };
+    }
     if (btcAddr.imported === false) {
       // Import addr as watch-only
-      this.importAddr(addr.BTC);
+      this.importAddr(addr.BTC)
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: 0, type: 'BTC', used: false, isChange});
+      this.addressesMeta.push({index: 0, type: 'BTC', used: false, isChange})
     }
     if (eqbAddr.imported === false) {
       // Import addr as watch-only
-      this.importAddr(addr.EQB);
+      this.importAddr(addr.EQB)
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: 0, type: 'EQB', used: false, isChange});
+      this.addressesMeta.push({index: 0, type: 'EQB', used: false, isChange})
     }
     if (!eqbAddr.imported || !btcAddr.imported) {
       // Save newly generated addresses to DB:
-      this.save();
+      this.save()
     }
 
-    return addr;
+    return addr
   },
 
   // Methods:
@@ -227,14 +227,14 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }
     }).then(res => {
       if (!res.error) {
-        console.log('The address was imported successfully', res);
+        console.log('The address was imported successfully', res)
       } else {
-        console.error('There was an error when I tried to import your address: ', res);
+        console.error('There was an error when I tried to import your address: ', res)
       }
-    });
+    })
   },
   hasEnoughFunds (amount, type) {
-    return amount === 0 || !!this.getTxouts(amount, type).length;
+    return amount === 0 || !!this.getTxouts(amount, type).length
   },
 
   /**
@@ -246,9 +246,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   getTxouts (amount, type) {
     if (!this.balance.txouts || this.balance[type === 'BTC' ? 'cashBtc' : 'cashEqb'] < amount) {
-      return [];
+      return []
     }
-    return getUnspentOutputsForAmount(this.balance.txouts[type], amount);
+    return getUnspentOutputsForAmount(this.balance.txouts[type], amount)
   },
 
   /**
@@ -258,14 +258,14 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @returns {*}
    */
   findAddress (addr) {
-    return this.addresses.reduce((acc, a) => (a.address === addr ? a : acc), null);
+    return this.addresses.reduce((acc, a) => (a.address === addr ? a : acc), null)
   }
-});
+})
 
 function getNextAddressIndex (addresses = [], type, isChange = false) {
   return addresses.filter(a => a.type === type && a.isChange === isChange).reduce((acc, a) => {
-    return a.used !== true ? {index: a.index, imported: true} : {index: a.index + 1, imported: false};
-  }, {index: 0, imported: false});
+    return a.used !== true ? {index: a.index, imported: true} : {index: a.index + 1, imported: false}
+  }, {index: 0, imported: false})
 }
 
 // function getPoftfolioBalance (balance, addresses) {
@@ -279,25 +279,25 @@ function getUnspentOutputsForAmount (txouts, amount) {
           (acc.txouts.length === 1 &&
             (acc.txouts[0].amount < amount || a.amount < acc.txouts[0].amount)))
     ) {
-      return {sum: a.amount, txouts: [a]};
+      return {sum: a.amount, txouts: [a]}
     }
     if (acc.sum >= amount) {
-      return acc;
+      return acc
     }
-    acc.sum += a.amount;
-    acc.txouts.push(a);
-    return acc;
-  }, {sum: 0, txouts: []}).txouts;
+    acc.sum += a.amount
+    acc.txouts.push(a)
+    return acc
+  }, {sum: 0, txouts: []}).txouts
 }
 
 Portfolio.List = DefineList.extend('PortfolioList', {
   '#': Portfolio,
   findByAddress (addr) {
     return this.reduce((acc, portfolio) => {
-      return acc || (portfolio.findAddress(addr) && portfolio);
-    }, null);
+      return acc || (portfolio.findAddress(addr) && portfolio)
+    }, null)
   }
-});
+})
 
 Portfolio.connection = superModel({
   Map: Portfolio,
@@ -305,13 +305,13 @@ Portfolio.connection = superModel({
   feathersService: feathersClient.service('/portfolios'),
   name: 'portfolio',
   algebra
-});
+})
 
-Portfolio.algebra = algebra;
+Portfolio.algebra = algebra
 
-export default Portfolio;
-export { getNextAddressIndex };
-export { getUnspentOutputsForAmount };
+export default Portfolio
+export { getNextAddressIndex }
+export { getUnspentOutputsForAmount }
 
 // Import an address to be added as watch-only to the built-in wallet:
 // http://localhost:3030/proxycore?method=importaddress&params[]=mwd7FgMkm9yfPmNTnntsRbugZS7BEZaf32

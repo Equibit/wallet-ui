@@ -38,50 +38,50 @@
  * ```
  */
 
-import DefineMap from 'can-define/map/map';
-import en from './en';
-import fr from './fr';
-import moment from 'moment';
-import canBatch from 'can-event/batch/batch';
+import DefineMap from 'can-define/map/map'
+import en from './en'
+import fr from './fr'
+import moment from 'moment'
+import canBatch from 'can-event/batch/batch'
 
 // Don't forget to load supported locales!
-import 'moment/locale/fr';
+import 'moment/locale/fr'
 
-let i18n = new DefineMap(en);
-const localStorage = window.localStorage;
+let i18n = new DefineMap(en)
+const localStorage = window.localStorage
 
-let userLang = typeof localStorage !== 'undefined' && localStorage.getItem('locale');
+let userLang = typeof localStorage !== 'undefined' && localStorage.getItem('locale')
 if (userLang) {
-  setLang(userLang);
+  setLang(userLang)
 }
 
 function setLang (lang) {
-  let langOptions;
+  let langOptions
   switch (lang) {
     case 'fr':
-      langOptions = fr;
-      break;
+      langOptions = fr
+      break
     default:
-      langOptions = en;
+      langOptions = en
   }
-  canBatch.start();
+  canBatch.start()
 
-  i18n.set(Object.assign({}, en, langOptions));
+  i18n.set(Object.assign({}, en, langOptions))
 
   // tell momentjs about new locale:
-  moment.locale(lang);
+  moment.locale(lang)
 
-  canBatch.stop();
+  canBatch.stop()
 
-  if (typeof localStorage !== 'undefined') localStorage.setItem('locale', lang);
+  if (typeof localStorage !== 'undefined') localStorage.setItem('locale', lang)
 }
 
 function translate (term, silent) {
-  return i18n[term] || term + (silent ? '' : ' (!i18n!)');
+  return i18n[term] || term + (silent ? '' : ' (!i18n!)')
 }
 
-window.setLang = setLang;
+window.setLang = setLang
 
-export default i18n;
-export { setLang };
-export { translate };
+export default i18n
+export { setLang }
+export { translate }

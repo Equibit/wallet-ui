@@ -13,15 +13,15 @@
  * @demo src/components/trade-funds/send-popup/send-popup.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './send-popup.less';
-import view from './send-popup.stache';
-import Issuance from '~/models/issuance';
-import Session from '~/models/session';
-import { toMaxPrecision } from '~/utils/formatter';
-import validators from '~/utils/validators';
-import { translate } from '~/i18n/i18n';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './send-popup.less'
+import view from './send-popup.stache'
+import Issuance from '~/models/issuance'
+import Session from '~/models/session'
+import { toMaxPrecision } from '~/utils/formatter'
+import validators from '~/utils/validators'
+import { translate } from '~/i18n/i18n'
 
 const FormData = DefineMap.extend({
   /**
@@ -43,17 +43,17 @@ const FormData = DefineMap.extend({
     value: 'EQB',
     get (val) {
       if (this.type === 'SECURITIES') {
-        return 'EQB';
+        return 'EQB'
       }
-      return val;
+      return val
     }
   },
 
   toAddress: {
     type: 'string',
     set (val) {
-      this.toAddressError = validators.bitcoinAddress(val);
-      return val;
+      this.toAddressError = validators.bitcoinAddress(val)
+      return val
     }
   },
   toAddressError: 'string',
@@ -61,7 +61,7 @@ const FormData = DefineMap.extend({
   amount: {
     type: 'number',
     set (val) {
-      return toMaxPrecision(val, 8);
+      return toMaxPrecision(val, 8)
     }
   },
   price: 'number',
@@ -73,30 +73,30 @@ const FormData = DefineMap.extend({
   get transactionFeePrice () {
     return this.type === 'FUNDS'
       ? (this.fundsType === 'BTC' ? this.btcToUsd(this.transactionFee) : this.eqbToUsd(this.transactionFee))
-      : this.eqbToUsd(this.transactionFee);
+      : this.eqbToUsd(this.transactionFee)
   },
   description: 'string',
 
   btcToUsd (BTC) {
-    return BTC * Session.current.rates.btcToUsd;
+    return BTC * Session.current.rates.btcToUsd
   },
 
   eqbToUsd (EQB) {
-    return EQB * Session.current.rates.eqbToUsd;
+    return EQB * Session.current.rates.eqbToUsd
   },
 
   isValid: {
     get () {
-      return !this.toAddressError;
+      return !this.toAddressError
     }
   },
 
   validate () {
     if (!this.toAddress && !this.toAddressError) {
-      this.toAddressError = translate('missingAddress');
+      this.toAddressError = translate('missingAddress')
     }
   }
-});
+})
 
 export const ViewModel = DefineMap.extend({
   portfolio: {
@@ -122,29 +122,29 @@ export const ViewModel = DefineMap.extend({
   issuances: {
     get (val, resolve) {
       if (!val) {
-        Issuance.getList().then(resolve);
+        Issuance.getList().then(resolve)
       }
-      return val;
+      return val
     }
   },
   next () {
-    this.formData.validate();
+    this.formData.validate()
     if (!this.formData.isValid) {
-      return;
+      return
     }
-    this.mode = 'confirm';
+    this.mode = 'confirm'
   },
   edit () {
-    this.mode = 'edit';
+    this.mode = 'edit'
   },
   send (close) {
-    this.dispatch('send', [this.formData]);
-    close();
+    this.dispatch('send', [this.formData])
+    close()
   }
-});
+})
 
 export default Component.extend({
   tag: 'send-popup',
   ViewModel,
   view
-});
+})

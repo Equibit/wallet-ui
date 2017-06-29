@@ -282,4 +282,4 @@ export default {
   watchlistPlaceholderDescription: 'Add companies you want to watch on the issuance details.',
   watchlistPlaceholderButton: 'Explore Issuances'
 
-};
+}

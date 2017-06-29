@@ -13,10 +13,10 @@
  * @demo src/components/page-transactions/transactions-details/transactions-details.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './transactions-details.less';
-import view from './transactions-details.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './transactions-details.less'
+import view from './transactions-details.stache'
 
 export const ViewModel = DefineMap.extend({
   transaction: {
@@ -28,17 +28,17 @@ export const ViewModel = DefineMap.extend({
       // TODO: set status based on the number of confirmations (3 is enough for `completed`).
       return this.transaction && (this.transaction.type === 'OUT' || this.transaction.type === 'IN')
         ? 'progress'
-        : 'progress';
+        : 'progress'
     }
   },
   to: {
     get () {
-      return this.transaction.type === 'IN' ? this.portfolioName : this.transaction.otherAddress;
+      return this.transaction.type === 'IN' ? this.portfolioName : this.transaction.otherAddress
     }
   },
   from: {
     get () {
-      return this.transaction.type === 'OUT' ? this.portfolioName : this.transaction.otherAddress;
+      return this.transaction.type === 'OUT' ? this.portfolioName : this.transaction.otherAddress
     }
   },
   portfolios: {
@@ -46,14 +46,14 @@ export const ViewModel = DefineMap.extend({
   },
   portfolioName: {
     get () {
-      const portfolio = this.portfolios && this.portfolios.findByAddress(this.transaction.address);
-      return (portfolio && portfolio.name) || this.transaction.address;
+      const portfolio = this.portfolios && this.portfolios.findByAddress(this.transaction.address)
+      return (portfolio && portfolio.name) || this.transaction.address
     }
   }
-});
+})
 
 export default Component.extend({
   tag: 'transactions-details',
   ViewModel,
   view
-});
+})

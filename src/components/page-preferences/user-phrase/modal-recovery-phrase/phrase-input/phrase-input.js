@@ -13,19 +13,19 @@
  * @demo src/wallet-ui/components/page-preferences/user-phrase/modal-recovery-phrase/phrase-input/phrase-input.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './phrase-input.less';
-import view from './phrase-input.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './phrase-input.less'
+import view from './phrase-input.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the phrase-input component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'phrase-input',
   ViewModel,
   view
-});
+})

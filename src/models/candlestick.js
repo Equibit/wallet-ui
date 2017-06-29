@@ -9,14 +9,14 @@
  * @group models/candlestick.static 2 static
  */
 
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
-import superModel from '~/models/super-model';
-import feathersClient from '~/models/feathers-client';
-import algebra from '~/models/algebra';
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/list'
+import superModel from '~/models/super-model'
+import feathersClient from '~/models/feathers-client'
+import algebra from '~/models/algebra'
 
 // FIXTURES!!!
-import '~/models/fixtures/candlestick';
+import '~/models/fixtures/candlestick'
 
 const Candlestick = DefineMap.extend('Candlestick', {
   /**
@@ -32,11 +32,11 @@ const Candlestick = DefineMap.extend('Candlestick', {
   'volume': 'number',
   'quoteVolume': 'number',
   'weightedAverage': 'number'
-});
+})
 
 Candlestick.List = DefineList.extend('CandlestickList', {
   '#': Candlestick
-});
+})
 
 Candlestick.connection = superModel({
   Map: Candlestick,
@@ -44,8 +44,8 @@ Candlestick.connection = superModel({
   feathersService: feathersClient.service('/candlestick'),
   name: 'users',
   algebra
-});
+})
 
-Candlestick.algebra = algebra;
+Candlestick.algebra = algebra
 
-export default Candlestick;
+export default Candlestick

@@ -13,13 +13,13 @@
  * @demo src/components/page-research/biggest-movers-grid.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/map';
-import './biggest-movers-grid.less';
-import view from './biggest-movers-grid.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/map'
+import './biggest-movers-grid.less'
+import view from './biggest-movers-grid.stache'
 
 // TODO: turn OFF the FIXTURES
-import '~/models/fixtures/biggest-movers';
+import '~/models/fixtures/biggest-movers'
 
 export const ViewModel = DefineMap.extend({
   model: {
@@ -32,7 +32,7 @@ export const ViewModel = DefineMap.extend({
   rows: {
     get (val, resolve) {
       if (val) {
-        return val;
+        return val
       }
       // Note: `this.model` can be set later than `this.rows`.
       if (this.model) {
@@ -40,14 +40,14 @@ export const ViewModel = DefineMap.extend({
           $sort: { change: (this.sort === 'asc' ? '1' : -1) },
           $limit: 5,
           $skip: 0
-        }).then(resolve);
+        }).then(resolve)
       }
     }
   }
-});
+})
 
 export default Component.extend({
   tag: 'biggest-movers-grid',
   ViewModel,
   view
-});
+})

@@ -13,25 +13,25 @@
  * @demo src/components/page-auth/recovery-phrase/recovery-phrase-field/recovery-phrase-field.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './recovery-phrase-field.less';
-import view from './recovery-phrase-field.stache';
-import validate from '../../../../utils/validators';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './recovery-phrase-field.less'
+import view from './recovery-phrase-field.stache'
+import validate from '../../../../utils/validators'
 
 export const ViewModel = DefineMap.extend({
   mnemonic: {
     type: 'string',
     set (value) {
-      this.error = validate.mnemonic(value);
-      return value;
+      this.error = validate.mnemonic(value)
+      return value
     }
   },
   error: 'string'
-});
+})
 
 export default Component.extend({
   tag: 'recovery-phrase-field',
   ViewModel,
   view
-});
+})

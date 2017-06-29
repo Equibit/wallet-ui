@@ -9,23 +9,23 @@
  * @group models/user.static 2 static
  */
 
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
-import feathersClient from '~/models/feathers-client';
-import signed from '~/models/feathers-signed';
-import superModel from '~/models/super-model';
-import algebra from '~/models/algebra';
-import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
-import cryptoUtils from '~/utils/crypto';
-import connect from 'can-connect';
-import login from './login';
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/list'
+import feathersClient from '~/models/feathers-client'
+import signed from '~/models/feathers-signed'
+import superModel from '~/models/super-model'
+import algebra from '~/models/algebra'
+import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import cryptoUtils from '~/utils/crypto'
+import connect from 'can-connect'
+import login from './login'
 // import Portfolio from '~/models/portfolio';
 
-const userService = feathersClient.service('users');
+const userService = feathersClient.service('users')
 
-let _password;
-let _keys;
-const _network = bitcoin.networks.testnet;
+let _password
+let _keys
+const _network = bitcoin.networks.testnet
 
 const User = DefineMap.extend('User', {
   /**
@@ -48,7 +48,7 @@ const User = DefineMap.extend('User', {
    * @param {String} email User's email.
    */
   signup (email) {
-    return feathersClient.service('users').create({ email });
+    return feathersClient.service('users').create({ email })
   },
 
   /**
@@ -60,7 +60,7 @@ const User = DefineMap.extend('User', {
    * @param {String} email User's email.
    */
   forgotPassword (email) {
-    return feathersClient.service('forgot-password').create({email});
+    return feathersClient.service('forgot-password').create({email})
   }
 }, {
   /**
@@ -121,16 +121,16 @@ const User = DefineMap.extend('User', {
    */
   // Q: do we want different passphrases for mnemonic and privateKey? A: Not now.
   generateWalletKeys (mnemonic = bip39.generateMnemonic()) {
-    const seed = bip39.mnemonicToSeed(mnemonic, '');
-    const root = bitcoin.HDNode.fromSeedBuffer(seed, _network);
+    const seed = bip39.mnemonicToSeed(mnemonic, '')
+    const root = bitcoin.HDNode.fromSeedBuffer(seed, _network)
 
-    this.encryptedMnemonic = this.encryptWithPassword(_password, mnemonic);
-    this.encryptedKey = this.encryptWithPassword(_password, root.toBase58());
+    this.encryptedMnemonic = this.encryptWithPassword(_password, mnemonic)
+    this.encryptedKey = this.encryptWithPassword(_password, root.toBase58())
 
     return userService.patch(this._id, {
       encryptedMnemonic: this.encryptedMnemonic,
       encryptedKey: this.encryptedKey
-    }).then(() => this.cacheWalletKeys(root));
+    }).then(() => this.cacheWalletKeys(root))
   },
 
   /**
@@ -139,15 +139,15 @@ const User = DefineMap.extend('User', {
    * Cache BTC and EQB keys in a closure.
    */
   cacheWalletKeys (root) {
-    const keyPairBTC = root.derivePath("m/44'/0'");
-    const keyPairEQB = root.derivePath("m/44'/73'");
+    const keyPairBTC = root.derivePath("m/44'/0'")
+    const keyPairEQB = root.derivePath("m/44'/73'")
 
     _keys = {
       root: root,
       BTC: keyPairBTC,
       EQB: keyPairEQB
-    };
-    return this;
+    }
+    return this
   },
 
   /**
@@ -156,9 +156,9 @@ const User = DefineMap.extend('User', {
    * Generate HD node and wallet keys from the encrypted master key.
    */
   loadWalletKeys () {
-    const base58Key = this.decryptWithPassword(_password, this.encryptedKey);
-    const root = bitcoin.HDNode.fromBase58(base58Key, _network);
-    this.cacheWalletKeys(root);
+    const base58Key = this.decryptWithPassword(_password, this.encryptedKey)
+    const root = bitcoin.HDNode.fromBase58(base58Key, _network)
+    this.cacheWalletKeys(root)
   },
 
   /**
@@ -168,40 +168,40 @@ const User = DefineMap.extend('User', {
    */
   generatePortfolioKeys (index) {
     if (!_keys || !_keys.BTC || !_keys.EQB) {
-      console.warn('No keys exist. Cannot generate portfolio keys');
-      return;
+      console.warn('No keys exist. Cannot generate portfolio keys')
+      return
     }
     return {
       BTC: _keys.BTC.deriveHardened(index),
       EQB: _keys.EQB.deriveHardened(index)
-    };
+    }
   },
   signWithPrivateKey () {
     // Transactions and messages will be signed with PrivateKey.
   },
   encryptWithPassword (password, val) {
-    return cryptoUtils.encrypt(val, password + this.salt);
+    return cryptoUtils.encrypt(val, password + this.salt)
   },
   decryptWithPassword (password, val) {
-    let res;
+    let res
     try {
-      res = cryptoUtils.decrypt(val, password + this.salt);
+      res = cryptoUtils.decrypt(val, password + this.salt)
     } catch (err) {
-      console.error('Wallet: was not able to decrypt a string');
+      console.error('Wallet: was not able to decrypt a string')
     }
-    return res;
+    return res
   },
   reCryptKeys (oldPassword, newPassword) {
     if (!_keys) {
-      return;
+      return
     }
-    let decryptedMnemonic = this.decryptWithPassword(oldPassword, this.encryptedMnemonic);
+    let decryptedMnemonic = this.decryptWithPassword(oldPassword, this.encryptedMnemonic)
     if (!decryptedMnemonic) {
-      console.error('Cannot re-crypt keys. Decryption failed');
-      return;
+      console.error('Cannot re-crypt keys. Decryption failed')
+      return
     }
-    this.encryptedMnemonic = this.encryptWithPassword(newPassword, decryptedMnemonic);
-    this.encryptedKey = this.encryptWithPassword(newPassword, _keys.root.toBase58());
+    this.encryptedMnemonic = this.encryptWithPassword(newPassword, decryptedMnemonic)
+    this.encryptedKey = this.encryptWithPassword(newPassword, _keys.root.toBase58())
   },
 
   /**
@@ -213,24 +213,24 @@ const User = DefineMap.extend('User', {
    * @param {String} password User's plain password. Will be sent as hashed.
    */
   changePassword (password) {
-    const hashedPassword = signed.createHash(password);
+    const hashedPassword = signed.createHash(password)
     const params = {
       password: hashedPassword
-    };
+    }
 
     // Case: user is already logged in, keys were loaded, need to re-crypt keys.
     // Otherwise: user is new or forgot his password (in which case `generateWalletKeys` should be used).
     if (_keys) {
-      this.reCryptKeys(_password, password);
-      params.encryptedMnemonic = this.encryptedMnemonic;
-      params.encryptedKey = this.encryptedKey;
+      this.reCryptKeys(_password, password)
+      params.encryptedMnemonic = this.encryptedMnemonic
+      params.encryptedKey = this.encryptedKey
     }
 
-    _password = password;
+    _password = password
 
     return userService.patch(this._id, params).then(data => {
-      this.salt = data.salt;
-    });
+      this.salt = data.salt
+    })
   },
 
   /**
@@ -239,24 +239,24 @@ const User = DefineMap.extend('User', {
    * Clear keys stored in a closure.
    */
   clearKeys () {
-    _keys = null;
-    _password = null;
+    _keys = null
+    _password = null
   },
 
   updatePasswordCache (password) {
-    _password = password;
+    _password = password
   },
 
   //! steal-remove-start
   _testGetCache () {
-    return { _keys, _password };
+    return { _keys, _password }
   }
   //! steal-remove-end
-});
+})
 
 User.List = DefineList.extend('UserList', {
   '#': User
-});
+})
 
 // During signup server does not return us an id because we don't trust user at this stage
 // so we ignore regular behaviors (real-time) in this case.
@@ -264,13 +264,13 @@ const ignoreUserNoIdBehavior = connect.behavior('user-ignore-no-id', function (b
   return {
     createInstance: function (data) {
       if (data._id) {
-        return baseConnection.createInstance.apply(this, arguments);
+        return baseConnection.createInstance.apply(this, arguments)
       }
     }
-  };
-});
+  }
+})
 
-const feathersService = feathersClient.service('/users');
+const feathersService = feathersClient.service('/users')
 
 feathersService.hooks({
   before: {
@@ -278,7 +278,7 @@ feathersService.hooks({
       signed.hooks.sign()
     ]
   }
-});
+})
 
 User.connection = superModel({
   Map: User,
@@ -286,9 +286,9 @@ User.connection = superModel({
   feathersService,
   name: 'users',
   algebra
-}, [ignoreUserNoIdBehavior]);
+}, [ignoreUserNoIdBehavior])
 
-User.algebra = algebra;
+User.algebra = algebra
 
-export default User;
-window.User = User;
+export default User
+window.User = User
