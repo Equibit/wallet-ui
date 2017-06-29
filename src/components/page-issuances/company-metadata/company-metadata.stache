@@ -6,7 +6,7 @@
   <div class="well">
     <dl class="dl-horizontal dl-stripped no-top-border no-bottom-border">
       <dt>{{i18n('domicile')}}</dt>
-      <dd>{{issuance.domicile}}</dd>
+      <dd id="issuance-domicile">{{issuance.domicile}}</dd>
 
       <dt>{{i18n('restriction')}}</dt>
       <dd>Level {{issuance.restriction}}</dd>
