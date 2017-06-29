@@ -13,19 +13,19 @@
  * @demo src/components/trade-funds/place-offer/offer-confirm/offer-confirm.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './offer-confirm.less';
-import view from './offer-confirm.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './offer-confirm.less'
+import view from './offer-confirm.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the offer-confirm component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'offer-confirm',
   ViewModel,
   view
-});
+})

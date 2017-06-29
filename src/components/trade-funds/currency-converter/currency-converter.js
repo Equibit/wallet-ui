@@ -30,11 +30,11 @@
  * @demo src/components/trade-funds/currency-converter/currency-converter.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './currency-converter.less';
-import view from './currency-converter.stache';
-import accounting from 'accounting';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './currency-converter.less'
+import view from './currency-converter.stache'
+import accounting from 'accounting'
 
 const Currency = DefineMap.extend({
   rate: 'number',
@@ -43,7 +43,7 @@ const Currency = DefineMap.extend({
     value: 2
   },
   symbol: 'string'
-});
+})
 
 export const ViewModel = DefineMap.extend({
   currency: Currency,
@@ -53,22 +53,22 @@ export const ViewModel = DefineMap.extend({
   outputFormatted: {
     type: '*',
     set (val) {
-      this.input = accounting.unformat(val) / this.currency.rate;
-      return val;
+      this.input = accounting.unformat(val) / this.currency.rate
+      return val
     },
     get () {
-      return accounting.formatMoney(this.input * this.currency.rate, '', this.precision);
+      return accounting.formatMoney(this.input * this.currency.rate, '', this.precision)
     }
   },
   get output () {
-    return accounting.unformat(this.outputFormatted);
+    return accounting.unformat(this.outputFormatted)
   }
-});
+})
 
 export default Component.extend({
   tag: 'currency-converter',
   ViewModel,
   view
-});
+})
 
-export { Currency };
+export { Currency }

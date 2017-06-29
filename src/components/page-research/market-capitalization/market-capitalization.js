@@ -13,38 +13,38 @@
  * @demo src/components/page-research/market-capitalization.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './market-capitalization.less';
-import view from './market-capitalization.stache';
-import MarketCap from '~/models/market-cap';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './market-capitalization.less'
+import view from './market-capitalization.stache'
+import MarketCap from '~/models/market-cap'
 
 export const ViewModel = DefineMap.extend({
   dataPromise: {
     get () {
       return MarketCap.getList({}).then(a => {
-        return a.barChart;
-      });
+        return a.barChart
+      })
     }
   },
   dataColumns: {
     get (lastVal, resolve) {
       this.dataPromise.then(a => {
-        resolve(a.values);
-      });
+        resolve(a.values)
+      })
     }
   },
   labels: {
     get (lastVal, resolve) {
       this.dataPromise.then(a => {
-        resolve(a.labels);
-      });
+        resolve(a.labels)
+      })
     }
   }
-});
+})
 
 export default Component.extend({
   tag: 'market-capitalization',
   ViewModel,
   view
-});
+})

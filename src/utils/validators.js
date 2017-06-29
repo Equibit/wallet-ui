@@ -1,37 +1,37 @@
-import { bitcoin, bip39 } from '@equibit/wallet-crypto/dist/wallet-crypto';
-import { translate } from '../i18n/i18n';
+import { bitcoin, bip39 } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { translate } from '../i18n/i18n'
 
-const emailRegex = /.+@.+\..+/i;
+const emailRegex = /.+@.+\..+/i
 
 export default {
   email (value, { allowEmpty }) {
     return (!allowEmpty && !value && 'Email is missing') ||
-      (value && !emailRegex.test(value) && 'Enter a valid email address') || '';
+      (value && !emailRegex.test(value) && 'Enter a valid email address') || ''
   },
   password (value, { allowEmpty }) {
-    return (!allowEmpty && !value && 'Password is missing') || '';
+    return (!allowEmpty && !value && 'Password is missing') || ''
   },
   terms (value) {
-    return (!value && 'You need to read and agree to our Terms & Conditions and Privacy Policy') || '';
+    return (!value && 'You need to read and agree to our Terms & Conditions and Privacy Policy') || ''
   },
   bitcoinAddress (string) {
     if (!string) {
-      return '';
+      return ''
     }
     try {
-      bitcoin.address.fromBase58Check(string);
+      bitcoin.address.fromBase58Check(string)
     } catch (e) {
-      return 'Invalid address';
+      return 'Invalid address'
     }
-    return '';
+    return ''
   },
   mnemonic (value) {
     if (!value) {
-      return '';
+      return ''
     }
     if (value.trim().split(/\s+/g).length < 12) {
-      return translate('validationMnemonicTooShort');
+      return translate('validationMnemonicTooShort')
     }
-    return bip39.validateMnemonic(value) ? '' : translate('validationMnemonicInvalidChecksum');
+    return bip39.validateMnemonic(value) ? '' : translate('validationMnemonicInvalidChecksum')
   }
-};
+}

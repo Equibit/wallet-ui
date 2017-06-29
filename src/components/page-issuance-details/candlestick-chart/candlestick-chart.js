@@ -13,11 +13,11 @@
  *
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './candlestick-chart.less';
-import view from './candlestick-chart.stache';
-import Candlestick from '~/models/candlestick';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './candlestick-chart.less'
+import view from './candlestick-chart.stache'
+import Candlestick from '~/models/candlestick'
 
 export const ViewModel = DefineMap.extend({
   chartData: {
@@ -30,25 +30,25 @@ export const ViewModel = DefineMap.extend({
     value: 1200,
     set (val) {
       setTimeout(() => {
-        this.loadData(val);
-      }, 0);
-      return val;
+        this.loadData(val)
+      }, 0)
+      return val
     }
   },
   zoomStart: {
     value: 0.6
   },
   loadData (candlestickSize) {
-    console.log(`loadData(${candlestickSize})`);
+    console.log(`loadData(${candlestickSize})`)
     Candlestick.getList().then(chartData => {
-      console.log(`loadedData(${chartData.length})`);
-      this.chartData = chartData;
-    });
+      console.log(`loadedData(${chartData.length})`)
+      this.chartData = chartData
+    })
   }
-});
+})
 
 export default Component.extend({
   tag: 'candlestick-chart',
   ViewModel,
   view
-});
+})

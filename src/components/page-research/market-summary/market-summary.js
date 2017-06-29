@@ -13,11 +13,11 @@
  * @demo src/components/page-research/market-summary.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './market-summary.less';
-import view from './market-summary.stache';
-import Market from '~/models/market';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './market-summary.less'
+import view from './market-summary.stache'
+import Market from '~/models/market'
 
 export const ViewModel = DefineMap.extend({
   marketPromise: {
@@ -26,15 +26,15 @@ export const ViewModel = DefineMap.extend({
   market: {
     get (val, resolve) {
       if (val) {
-        return val;
+        return val
       }
-      this.marketPromise = Market.get().then(resolve);
+      this.marketPromise = Market.get().then(resolve)
     }
   }
-});
+})
 
 export default Component.extend({
   tag: 'market-summary',
   ViewModel,
   view
-});
+})

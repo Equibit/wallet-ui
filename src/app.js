@@ -12,15 +12,15 @@
  * @group wallet-ui/app.properties 0 properties
  */
 
-import 'core-js/client/core';
-import DefineMap from 'can-define/map/';
-import route from 'can-route';
-import 'can-route-pushstate';
-import Session from '~/models/session';
+import 'core-js/client/core'
+import DefineMap from 'can-define/map/'
+import route from 'can-route'
+import 'can-route-pushstate'
+import Session from '~/models/session'
 // import '~/models/fixtures/fixtures';
 
 //! steal-remove-start
-window.route = route;
+window.route = route
 //! steal-remove-end
 
 var pages = {
@@ -42,7 +42,7 @@ var pages = {
   transactions: 'private',
   orders: 'public',
   offers: 'public'
-};
+}
 
 const AppViewModel = DefineMap.extend({
   '*': {
@@ -75,7 +75,7 @@ const AppViewModel = DefineMap.extend({
     Type: Session
   },
   get isLoggedIn () {
-    return !!(this.session && this.session.user);
+    return !!(this.session && this.session.user)
   },
 
   /**
@@ -83,27 +83,27 @@ const AppViewModel = DefineMap.extend({
    */
   displayedPage: {
     get () {
-      let page = this.page;
+      let page = this.page
 
       if (!this.session) {
-        page = pages[page] === 'private' ? 'four-oh-one' : page;
+        page = pages[page] === 'private' ? 'four-oh-one' : page
       }
-      return pages[page] ? page : 'four-oh-four';
+      return pages[page] ? page : 'four-oh-four'
     }
   },
 
   logout () {
     // TODO: what do we call in feathers to logout?
-    this.session.user.clearKeys();
-    this.session.destroy();
-    this.session = null;
-    this.page = 'home';
-    window.location.reload();
+    this.session.user.clearKeys()
+    this.session.destroy()
+    this.session = null
+    this.page = 'home'
+    window.location.reload()
   }
-});
+})
 
-route('issuances/sort/{sort}', {page: 'issuances'});
-route('issuances/{companySlug}/{issuanceId}', {page: 'issuance-details'});
-route('{page}', {page: 'research'});
+route('issuances/sort/{sort}', {page: 'issuances'})
+route('issuances/{companySlug}/{issuanceId}', {page: 'issuance-details'})
+route('{page}', {page: 'research'})
 
-export default AppViewModel;
+export default AppViewModel

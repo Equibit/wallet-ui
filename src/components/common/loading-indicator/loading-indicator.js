@@ -15,19 +15,19 @@
  * @demo src/components/common/loading-indicator/loading-indicator.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './loading-indicator.less';
-import view from './loading-indicator.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './loading-indicator.less'
+import view from './loading-indicator.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the loading-indicator component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'loading-indicator',
   ViewModel,
   view
-});
+})

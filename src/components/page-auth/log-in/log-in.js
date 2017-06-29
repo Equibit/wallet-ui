@@ -16,27 +16,27 @@
  *
 **/
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './log-in.less';
-import view from './log-in.stache';
-import Session from '~/models/session';
-import validate from '~/utils/validators';
-import route from 'can-route';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './log-in.less'
+import view from './log-in.stache'
+import Session from '~/models/session'
+import validate from '~/utils/validators'
+import route from 'can-route'
 
 export const ViewModel = DefineMap.extend({
   email: {
     type: 'string',
     set (value) {
-      this.emailError = validate.email(value, {allowEmpty: 1});
-      return value;
+      this.emailError = validate.email(value, {allowEmpty: 1})
+      return value
     }
   },
   password: {
     type: 'string',
     set (value) {
-      this.passwordError = validate.password(value, {allowEmpty: 1});
-      return value;
+      this.passwordError = validate.password(value, {allowEmpty: 1})
+      return value
     }
   },
   session: {
@@ -58,42 +58,42 @@ export const ViewModel = DefineMap.extend({
   emailError: 'string',
   passwordError: 'string',
   get hasErrors () {
-    this.emailError = validate.email(this.email, {allowEmpty: 0});
-    this.passwordError = validate.password(this.password, {allowEmpty: 0});
-    return this.emailError || this.passwordError;
+    this.emailError = validate.email(this.email, {allowEmpty: 0})
+    this.passwordError = validate.password(this.password, {allowEmpty: 0})
+    return this.emailError || this.passwordError
   },
 
   // Methods:
   handleLogin (event, email, password) {
-    this.loginError = false;
-    event.preventDefault();
+    this.loginError = false
+    event.preventDefault()
     if (this.hasErrors) {
-      return false;
+      return false
     }
-    let user = { email, password };
+    let user = { email, password }
 
     new Session({ user }).save()
       .then(() => {
-        this.session = Session.current;
-        const user = this.session.user;
-        user.updatePasswordCache(password);
+        this.session = Session.current
+        const user = this.session.user
+        user.updatePasswordCache(password)
         if (!this.session.usingTempPassword) {
-          user.loadWalletKeys();
+          user.loadWalletKeys()
         }
-        route.data.page = this.session.usingTempPassword ? 'change-password' : 'portfolio';
+        route.data.page = this.session.usingTempPassword ? 'change-password' : 'portfolio'
       })
       .catch(error => {
-        console.log(error);
-        this.loginError = true;
-      });
+        console.log(error)
+        this.loginError = true
+      })
   },
   togglePassword () {
-    this.passwordVisible = !this.passwordVisible;
+    this.passwordVisible = !this.passwordVisible
   }
-});
+})
 
 export default Component.extend({
   tag: 'log-in',
   ViewModel,
   view
-});
+})

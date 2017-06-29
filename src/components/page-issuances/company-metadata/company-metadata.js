@@ -9,10 +9,10 @@
  *
 **/
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './company-metadata.less';
-import view from './company-metadata.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './company-metadata.less'
+import view from './company-metadata.stache'
 
 export const ViewModel = DefineMap.extend({
   issuance: {
@@ -20,10 +20,10 @@ export const ViewModel = DefineMap.extend({
     value: {}
   },
   currency: 'string'
-});
+})
 
 export default Component.extend({
   tag: 'company-metadata',
   ViewModel,
   view
-});
+})

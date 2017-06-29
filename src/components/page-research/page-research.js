@@ -13,19 +13,19 @@
  * @demo src/components/page-research/page-research.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './page-research.less';
-import view from './page-research.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './page-research.less'
+import view from './page-research.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the page-research component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'page-research',
   ViewModel,
   view
-});
+})

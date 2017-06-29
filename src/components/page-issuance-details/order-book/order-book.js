@@ -13,10 +13,10 @@
  *
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './order-book.less';
-import view from './order-book.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './order-book.less'
+import view from './order-book.stache'
 
 export const ViewModel = DefineMap.extend({
   issuance: {
@@ -25,13 +25,13 @@ export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
   showModal () {
     // Note: we need to re-insert the modal content:
-    this.isModalShown = false;
-    this.isModalShown = true;
+    this.isModalShown = false
+    this.isModalShown = true
   }
-});
+})
 
 export default Component.extend({
   tag: 'order-book',
   ViewModel,
   view
-});
+})

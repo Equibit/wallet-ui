@@ -21,8 +21,8 @@
     "remove-build": "make remove-build",
     "docs": "documentjs -f -d",
     "docs:publish": "npm run build && npm run docs && make docs-publish",
-    "lint": "semistandard",
-    "lint:fix": "semistandard --fix",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
     "test": "npm-run-all lint test:unit",
     "test:funcunit": "testee test/test-funcunit.html --browsers firefox --reporter Spec",
     "test:unit": "testee test/test.html --browsers firefox --reporter Spec",
@@ -43,7 +43,7 @@
     "blockchain",
     "wallet"
   ],
-  "semistandard": {
+  "standard": {
     "env": [
       "mocha"
     ],
@@ -151,7 +151,7 @@
     "funcunit": "^3.3.0",
     "mocha": "^3.2.0",
     "npm-run-all": "^4.0.2",
-    "semistandard": "^10.0.0",
+    "standard": "^10.0.2",
     "steal": "^1.5.1",
     "steal-less": "^1.2.0",
     "steal-mocha": "^1.0.0",

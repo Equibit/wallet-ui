@@ -13,10 +13,10 @@
  * @demo src/components/page-transactions/page-transactions.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './page-transactions.less';
-import view from './page-transactions.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './page-transactions.less'
+import view from './page-transactions.stache'
 
 export const ViewModel = DefineMap.extend({
   transactions: {
@@ -28,10 +28,10 @@ export const ViewModel = DefineMap.extend({
   portfolios: {
     type: '*'
   }
-});
+})
 
 export default Component.extend({
   tag: 'page-transactions',
   ViewModel,
   view
-});
+})

@@ -19,19 +19,19 @@
  * @demo src/components/common/flow-message/flow-message.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './flow-message.less';
-import view from './flow-message.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './flow-message.less'
+import view from './flow-message.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the flow-message component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'flow-message',
   ViewModel,
   view
-});
+})

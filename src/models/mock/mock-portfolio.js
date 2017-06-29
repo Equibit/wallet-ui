@@ -1,5 +1,5 @@
-import Portfolio from '../portfolio';
-import hdNode from './mock-keys';
+import Portfolio from '../portfolio'
+import hdNode from './mock-keys'
 
 const addressesMeta = [
   {index: 0, type: 'BTC', used: true, isChange: false},
@@ -8,7 +8,7 @@ const addressesMeta = [
   {index: 1, type: 'EQB', used: false, isChange: false},
 
   {index: 0, type: 'BTC', used: true, isChange: true}
-];
+]
 
 const listunspent = {
   BTC: {
@@ -21,12 +21,12 @@ const listunspent = {
     n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo: { amount: 3.4 }, // EQB
     n4iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 2.2 }  //
   }
-};
+}
 
 const portfolioKeys = {
   BTC: hdNode.derivePath("m/44'/0'/0'"),
   EQB: hdNode.derivePath("m/44'/73'/0'")
-};
+}
 
 const portfolio = new Portfolio({
   index: 0,
@@ -34,7 +34,7 @@ const portfolio = new Portfolio({
   addressesMeta,
   keys: portfolioKeys,
   userBalance: listunspent
-});
+})
 
-export default portfolio;
-export { addressesMeta };
+export default portfolio
+export { addressesMeta }

@@ -1,8 +1,8 @@
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
-import feathersClient from '~/models/feathers-client';
-import superModel from '~/models/super-model';
-import algebra from '~/models/algebra';
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/list'
+import feathersClient from '~/models/feathers-client'
+import superModel from '~/models/super-model'
+import algebra from '~/models/algebra'
 
 const Issuance = DefineMap.extend('Issuance', {
   _id: 'string',
@@ -37,11 +37,11 @@ const Issuance = DefineMap.extend('Issuance', {
     type: 'boolean',
     serialize: false
   }
-});
+})
 
 Issuance.List = DefineList.extend('IssuanceList', {
   '#': Issuance
-});
+})
 
 Issuance.connection = superModel({
   Map: Issuance,
@@ -49,8 +49,8 @@ Issuance.connection = superModel({
   feathersService: feathersClient.service('/issuances'),
   name: 'issuances',
   algebra
-});
+})
 
-Issuance.algebra = algebra;
+Issuance.algebra = algebra
 
-export default Issuance;
+export default Issuance

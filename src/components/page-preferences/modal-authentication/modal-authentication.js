@@ -13,19 +13,19 @@
  * @demo src/components/page-preferences/modal-authentication/modal-authentication.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './modal-authentication.less';
-import view from './modal-authentication.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './modal-authentication.less'
+import view from './modal-authentication.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the modal-authentication component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'modal-authentication',
   ViewModel,
   view
-});
+})

@@ -1,23 +1,23 @@
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
-import feathersClient from '~/models/feathers-client';
-import { superModelNoCache } from '~/models/super-model';
-import algebra from '~/models/algebra';
-import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
-import { pick } from 'ramda';
-import i18n from '../i18n/i18n';
-import Session from './session';
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/list'
+import feathersClient from '~/models/feathers-client'
+import { superModelNoCache } from '~/models/super-model'
+import algebra from '~/models/algebra'
+import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { pick } from 'ramda'
+import i18n from '../i18n/i18n'
+import Session from './session'
 
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description}) {
-    currencyType = currencyType.toUpperCase();
-    const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']));
-    const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0);
+    currencyType = currencyType.toUpperCase()
+    const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']))
+    const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0)
     const outputs = [
       {address: toAddress, value: toSatoshi(amount)},
       {address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
-    ];
-    const txInfo = buildTransaction(inputs, outputs, network);
+    ]
+    const txInfo = buildTransaction(inputs, outputs, network)
 
     return new Transaction({
       address: txouts[0].address,
@@ -31,7 +31,7 @@ const Transaction = DefineMap.extend('Transaction', {
       txIdBtc: currencyType === 'BTC' ? txInfo.txId : undefined,
       txIdEqb: currencyType === 'EQB' ? txInfo.txId : undefined,
       otherAddress: toAddress
-    });
+    })
   }
 }, {
   _id: 'string',
@@ -50,8 +50,8 @@ const Transaction = DefineMap.extend('Transaction', {
         IN: i18n['transactionIn'],
         OUT: i18n['transactionOut'],
         SELL: i18n['transactionSell']
-      };
-      return typeString[this.type];
+      }
+      return typeString[this.type]
     }
   },
   currencyType: 'string', // enum: [ 'BTC', 'EQB' ]
@@ -66,7 +66,7 @@ const Transaction = DefineMap.extend('Transaction', {
   amount: 'number',
   amountBtc: {
     get () {
-      return (Session.current && Session.current.toBTC(this.amount, this.currencyType)) || this.amount;
+      return (Session.current && Session.current.toBTC(this.amount, this.currencyType)) || this.amount
     }
   },
   description: 'string',
@@ -84,10 +84,10 @@ const Transaction = DefineMap.extend('Transaction', {
     serialize: false
   },
   get transactionUrl () {
-    const txId = this.txIdBtc || this.txIdEqb;
-    return txId && `http://localhost:3030/proxycore?method=gettransaction&params[]=${txId}&params[]=true`;
+    const txId = this.txIdBtc || this.txIdEqb
+    return txId && `http://localhost:3030/proxycore?method=gettransaction&params[]=${txId}&params[]=true`
   }
-});
+})
 
 /**
  * @function buildTransaction
@@ -98,25 +98,25 @@ const Transaction = DefineMap.extend('Transaction', {
  * @returns {String} A HEX code of the signed transaction
  */
 export function buildTransaction (inputs, outputs, network = bitcoin.networks.testnet) {
-  const tx = new bitcoin.TransactionBuilder(network);
-  inputs.forEach(({ txid, vout }, index) => tx.addInput(txid, vout));
-  outputs.forEach(({address, value}) => tx.addOutput(address, value));
-  inputs.forEach(({ keyPair }, index) => tx.sign(index, keyPair));
-  console.log('- blockchain transaction: ', tx);
-  const builtTx = tx.build();
+  const tx = new bitcoin.TransactionBuilder(network)
+  inputs.forEach(({ txid, vout }, index) => tx.addInput(txid, vout))
+  outputs.forEach(({address, value}) => tx.addOutput(address, value))
+  inputs.forEach(({ keyPair }, index) => tx.sign(index, keyPair))
+  console.log('- blockchain transaction: ', tx)
+  const builtTx = tx.build()
   return {
     txId: builtTx.getId(),
     hex: builtTx.toHex()
-  };
+  }
 }
 
 function toSatoshi (val) {
-  return Math.floor(val * 100000000);
+  return Math.floor(val * 100000000)
 }
 
 Transaction.List = DefineList.extend('TransactionList', {
   '#': Transaction
-});
+})
 
 Transaction.connection = superModelNoCache({
   Map: Transaction,
@@ -124,8 +124,8 @@ Transaction.connection = superModelNoCache({
   feathersService: feathersClient.service('/transactions'),
   name: 'transactions',
   algebra
-});
+})
 
-Transaction.algebra = algebra;
+Transaction.algebra = algebra
 
-export default Transaction;
+export default Transaction

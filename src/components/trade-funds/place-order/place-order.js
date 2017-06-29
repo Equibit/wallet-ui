@@ -13,19 +13,19 @@
  * @demo src/components/trade-funds/place-order/place-order.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './place-order.less';
-import view from './place-order.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './place-order.less'
+import view from './place-order.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the place-order component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'place-order',
   ViewModel,
   view
-});
+})

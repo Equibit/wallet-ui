@@ -8,19 +8,19 @@
  *
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './send-confirm-form.less';
-import view from './send-confirm-form.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './send-confirm-form.less'
+import view from './send-confirm-form.stache'
 
 export const ViewModel = DefineMap.extend({
   formData: {
     type: '*'
   }
-});
+})
 
 export default Component.extend({
   tag: 'send-confirm-form',
   ViewModel,
   view
-});
+})

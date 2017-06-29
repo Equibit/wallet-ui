@@ -7,11 +7,11 @@
  * @group models/sellOrder.properties 0 properties
  */
 
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
-import feathersClient from '~/models/feathers-client';
-import superModel from '~/models/super-model';
-import algebra from '~/models/algebra';
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/list'
+import feathersClient from '~/models/feathers-client'
+import superModel from '~/models/super-model'
+import algebra from '~/models/algebra'
 
 const SellOrder = DefineMap.extend('SellOrder', {
   /**
@@ -44,11 +44,11 @@ const SellOrder = DefineMap.extend('SellOrder', {
    * Whether the order allows partial fills
    */
   partial: 'boolean'
-});
+})
 
 SellOrder.List = DefineList.extend('SellOrderList', {
   '#': SellOrder
-});
+})
 
 SellOrder.connection = superModel({
   Map: SellOrder,
@@ -56,8 +56,8 @@ SellOrder.connection = superModel({
   feathersService: feathersClient.service('/sell-order'),
   name: 'sellOrder',
   algebra
-});
+})
 
-SellOrder.algebra = algebra;
+SellOrder.algebra = algebra
 
-export default SellOrder;
+export default SellOrder

@@ -13,19 +13,19 @@
  * @demo src/components/page-orders/order-details/order-details.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './order-details.less';
-import view from './order-details.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './order-details.less'
+import view from './order-details.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the order-details component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'order-details',
   ViewModel,
   view
-});
+})

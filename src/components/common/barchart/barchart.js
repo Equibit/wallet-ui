@@ -13,10 +13,10 @@
  * @demo src/components/common/barchart/barchart.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './barchart.less';
-import view from './barchart.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './barchart.less'
+import view from './barchart.stache'
 
 export const ViewModel = DefineMap.extend({
   dataColumns: {
@@ -55,10 +55,10 @@ export const ViewModel = DefineMap.extend({
   axisX: {
     type: '*'
   }
-});
+})
 
 export default Component.extend({
   tag: 'bar-chart',
   ViewModel,
   view
-});
+})

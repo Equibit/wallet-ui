@@ -1,8 +1,8 @@
-import signed from 'feathers-authentication-signed/client';
-import crypto from '@equibit/wallet-crypto/dist/wallet-crypto';
+import signed from 'feathers-authentication-signed/client'
+import crypto from '@equibit/wallet-crypto/dist/wallet-crypto'
 
 const options = {
   ...crypto
-};
+}
 
-export default signed(options);
+export default signed(options)

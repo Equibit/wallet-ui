@@ -13,19 +13,19 @@
  * @demo src/components/trade-funds/place-offer/place-offer.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './place-offer.less';
-import view from './place-offer.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './place-offer.less'
+import view from './place-offer.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the place-offer component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'place-offer',
   ViewModel,
   view
-});
+})

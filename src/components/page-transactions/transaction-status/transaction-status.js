@@ -13,10 +13,10 @@
  * @demo src/components/page-transactions/transaction-status/transaction-status.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './transaction-status.less';
-import view from './transaction-status.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './transaction-status.less'
+import view from './transaction-status.stache'
 
 export const ViewModel = DefineMap.extend({
   // enum: [ 'progress', 'completed', 'canceled' ]
@@ -26,10 +26,10 @@ export const ViewModel = DefineMap.extend({
   confirmation: {
     value: 0
   }
-});
+})
 
 export default Component.extend({
   tag: 'transaction-status',
   ViewModel,
   view
-});
+})

@@ -13,13 +13,13 @@
  * @demo src/components/page-transactions/transactions-grid/transactions-grid.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
-import './transactions-grid.less';
-import view from './transactions-grid.stache';
-import Transaction from '../../../models/transaction';
-import Pagination from '~/models/pagination';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/'
+import './transactions-grid.less'
+import view from './transactions-grid.stache'
+import Transaction from '../../../models/transaction'
+import Pagination from '~/models/pagination'
 
 // import '../../../models/fixtures/transactions';
 
@@ -34,9 +34,9 @@ export const ViewModel = DefineMap.extend({
     type: '*',
     get (val) {
       if (!val || !(val.BTC || val.EQB)) {
-        return new DefineList([]);
+        return new DefineList([])
       }
-      return (val.BTC || new DefineList([])).concat(val.EQB);
+      return (val.BTC || new DefineList([])).concat(val.EQB)
     }
   },
   queryParams: {
@@ -44,49 +44,49 @@ export const ViewModel = DefineMap.extend({
       return Object.assign({},
         this.pagination.params,
         {address: {'$in': this.addresses.get()}}
-      );
+      )
     }
   },
   rows: {
     set (value) {
       if (value && value[0]) {
         setTimeout(() => {
-          this.selectRowDefault(value[0]);
-        }, 0);
+          this.selectRowDefault(value[0])
+        }, 0)
       }
-      return value;
+      return value
     },
     get (value, resolve) {
       if (value) {
-        return value;
+        return value
       }
       Transaction.getList(this.queryParams).then(rows => {
         if (rows.total) {
-          this.pagination.total = rows.total;
+          this.pagination.total = rows.total
         }
-        resolve(rows);
+        resolve(rows)
         if (rows && rows[0]) {
-          this.selectRowDefault(rows[0]);
+          this.selectRowDefault(rows[0])
         }
-      });
+      })
     }
   },
   selectedRow: {
     type: '*'
   },
   selectRowDefault (row) {
-    row.selected = true;
-    this.selectedRow = row;
+    row.selected = true
+    this.selectedRow = row
   },
   loadPage: function () {
     Transaction.getList(this.pagination.params).then(items => {
-      this.rows = items;
-    });
+      this.rows = items
+    })
   }
-});
+})
 
 export default Component.extend({
   tag: 'transactions-grid',
   ViewModel,
   view
-});
+})

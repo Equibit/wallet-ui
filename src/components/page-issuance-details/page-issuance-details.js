@@ -13,29 +13,29 @@
  *
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './page-issuance-details.less';
-import view from './page-issuance-details.stache';
-import Issuance from '~/models/issuance';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './page-issuance-details.less'
+import view from './page-issuance-details.stache'
+import Issuance from '~/models/issuance'
 
 export const ViewModel = DefineMap.extend({
   issuanceId: {
     type: 'string',
     set (val) {
       Issuance.get(val).then(issuance => {
-        this.issuance = issuance;
-      });
-      return val;
+        this.issuance = issuance
+      })
+      return val
     }
   },
   issuance: {
     type: '*'
   }
-});
+})
 
 export default Component.extend({
   tag: 'page-issuance-details',
   ViewModel,
   view
-});
+})

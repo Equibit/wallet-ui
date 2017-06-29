@@ -13,10 +13,10 @@
  * @demo src/components/page-portfolio/portfolio-toolbar/portfolio-toolbar.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './portfolio-toolbar.less';
-import view from './portfolio-toolbar.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './portfolio-toolbar.less'
+import view from './portfolio-toolbar.stache'
 
 export const ViewModel = DefineMap.extend({
   balance: 'number',
@@ -24,17 +24,17 @@ export const ViewModel = DefineMap.extend({
   receiveFundsPopup: 'boolean',
   isSending: 'boolean',
   sendFunds () {
-    this.sendFundsPopup = false;
-    this.sendFundsPopup = true;
+    this.sendFundsPopup = false
+    this.sendFundsPopup = true
   },
   receiveFunds () {
-    this.receiveFundsPopup = false;
-    this.receiveFundsPopup = true;
+    this.receiveFundsPopup = false
+    this.receiveFundsPopup = true
   }
-});
+})
 
 export default Component.extend({
   tag: 'portfolio-toolbar',
   ViewModel,
   view
-});
+})

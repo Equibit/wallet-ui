@@ -1,4 +1,4 @@
-import fixture from 'can-fixture';
+import fixture from 'can-fixture'
 
 fixture('GET /market', function () {
   return {
@@ -6,5 +6,5 @@ fixture('GET /market', function () {
     volume: 34058,
     tradesNum: 4931,
     shareVolume: 63 * 1000
-  };
-});
+  }
+})

@@ -15,26 +15,26 @@
  *
 **/
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './sign-up.less';
-import view from './sign-up.stache';
-import User from '~/models/user/user';
-import validate from '~/utils/validators';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './sign-up.less'
+import view from './sign-up.stache'
+import User from '~/models/user/user'
+import validate from '~/utils/validators'
 
 export const ViewModel = DefineMap.extend({
   email: {
     type: 'string',
     set (value) {
-      this.emailError = validate.email(value, {allowEmpty: 1});
-      return value;
+      this.emailError = validate.email(value, {allowEmpty: 1})
+      return value
     }
   },
   agreedToTerms: {
     type: 'boolean',
     set (value) {
-      this.termsError = '';
-      return value;
+      this.termsError = ''
+      return value
     }
   },
   isAccountCreated: 'boolean',
@@ -47,38 +47,38 @@ export const ViewModel = DefineMap.extend({
   passwordError: 'string',
   termsError: 'string',
   get isSignupValid () {
-    this.emailError = validate.email(this.email, {allowEmpty: 0});
-    this.termsError = validate.terms(this.agreedToTerms);
-    return !this.emailError && !this.termsError;
+    this.emailError = validate.email(this.email, {allowEmpty: 0})
+    this.termsError = validate.terms(this.agreedToTerms)
+    return !this.emailError && !this.termsError
   },
 
   // Methods:
   handleSignup (event, email) {
-    this.signupError = false;
-    event.preventDefault();
+    this.signupError = false
+    event.preventDefault()
     if (!this.isSignupValid) {
-      return false;
+      return false
     }
     User.signup(email)
       .then(() => {
-        this.isAccountCreated = true;
+        this.isAccountCreated = true
       })
       .catch(e => {
-        console.error(e);
-        this.signupError = true;
-      });
+        console.error(e)
+        this.signupError = true
+      })
   },
   clearAccountCreated () {
-    this.isAccountCreated = false;
+    this.isAccountCreated = false
   },
   showTerms (popupFlag) {
-    this[popupFlag] = false;
-    this[popupFlag] = true;
+    this[popupFlag] = false
+    this[popupFlag] = true
   }
-});
+})
 
 export default Component.extend({
   tag: 'sign-up',
   ViewModel,
   view
-});
+})

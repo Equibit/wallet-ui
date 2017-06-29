@@ -1,8 +1,8 @@
-import assert from 'chai/chai';
-import 'steal-mocha';
-import stache from 'can-stache';
-import 'can-view-import';
-import './company-metadata';
+import assert from 'chai/chai'
+import 'steal-mocha'
+import stache from 'can-stache'
+import 'can-view-import'
+import './company-metadata'
 
 describe('components/page-issuances/company-metadata', function () {
   it('should render issuance domicile', function () {
@@ -19,9 +19,9 @@ describe('components/page-issuances/company-metadata', function () {
         sharesDividend: 764,
         sharesDividendYield: 2.6
       }
-    };
-    let template = stache('<company-metadata {issuance}="issuance" currency="μBTC" />');
-    let frag = template(data);
-    assert.equal(frag.querySelector('.column dd').firstChild.wholeText.trim(), 'Canada');
-  });
-});
+    }
+    let template = stache('<company-metadata {issuance}="issuance" currency="μBTC" />')
+    let frag = template(data)
+    assert.equal(frag.querySelector('.column dd').firstChild.wholeText.trim(), 'Canada')
+  })
+})

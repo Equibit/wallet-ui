@@ -1,4 +1,4 @@
-import fixture from 'can-fixture';
+import fixture from 'can-fixture'
 
 fixture('GET /portfolios', function () {
   return [{
@@ -13,5 +13,5 @@ fixture('GET /portfolios', function () {
       {'index': 0, 'type': 'BTC', 'used': false},
       {'index': 0, 'type': 'EQB', 'used': false}
     ]
-  }];
-});
+  }]
+})

@@ -13,19 +13,19 @@
  * @demo src/components/page-auth/recovery-phrase/recovery-phrase-prompt/recovery-phrase-prompt.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './recovery-phrase-prompt.less';
-import view from './recovery-phrase-prompt.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './recovery-phrase-prompt.less'
+import view from './recovery-phrase-prompt.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the recovery-phrase-prompt component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'recovery-phrase-prompt',
   ViewModel,
   view
-});
+})

@@ -13,25 +13,25 @@
  * @demo src/components/page-auth/recovery-phrase/modal-confirm-funds/modal-confirm-funds.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './modal-confirm-funds.less';
-import view from './modal-confirm-funds.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './modal-confirm-funds.less'
+import view from './modal-confirm-funds.stache'
 
 export const ViewModel = DefineMap.extend({
   mode: {
     value: 'confirm'
   },
   confirm () {
-    this.mode = 'confirm';
+    this.mode = 'confirm'
   },
   prompt () {
-    this.mode = 'prompt';
+    this.mode = 'prompt'
   }
-});
+})
 
 export default Component.extend({
   tag: 'modal-confirm-funds',
   ViewModel,
   view
-});
+})

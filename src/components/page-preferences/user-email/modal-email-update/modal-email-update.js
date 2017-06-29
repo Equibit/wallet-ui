@@ -13,25 +13,25 @@
  * @demo src/components/page-preferences/user-email/modal-email-update/modal-email-update.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './modal-email-update.less';
-import view from './modal-email-update.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './modal-email-update.less'
+import view from './modal-email-update.stache'
 
 export const ViewModel = DefineMap.extend({
   mode: {
     value: 'edit'
   },
   edit () {
-    this.mode = 'edit';
+    this.mode = 'edit'
   },
   code () {
-    this.mode = 'code';
+    this.mode = 'code'
   }
-});
+})
 
 export default Component.extend({
   tag: 'modal-email-update',
   ViewModel,
   view
-});
+})

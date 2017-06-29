@@ -13,11 +13,11 @@
  * @demo src/components/page-portfolio/portfolio-breakdown/portfolio-breakdown.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/map';
-import DefineList from 'can-define/list/list';
-import './portfolio-breakdown.less';
-import view from './portfolio-breakdown.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/map'
+import DefineList from 'can-define/list/list'
+import './portfolio-breakdown.less'
+import view from './portfolio-breakdown.stache'
 
 export const ViewModel = DefineMap.extend({
   balance: {
@@ -31,7 +31,7 @@ export const ViewModel = DefineMap.extend({
         new DefineList(['Domest. Bonds', this.balance.bondsDomest || 0]),
         new DefineList(['Int. Equity', this.balance.equityInt || 0]),
         new DefineList(['Int. Bonds', this.balance.bondsInt || 0])
-      ]);
+      ])
     }
   },
   config: {
@@ -52,15 +52,15 @@ export const ViewModel = DefineMap.extend({
       },
       onrendered: () => {
         // Manually reposition chart and legend:
-        document.querySelector('portfolio-breakdown .c3-chart-arcs').setAttribute('transform', 'translate(60,58)');
-        document.querySelectorAll('portfolio-breakdown svg .c3-legend-item').forEach(a => a.setAttribute('transform', 'translate(20,0)'));
+        document.querySelector('portfolio-breakdown .c3-chart-arcs').setAttribute('transform', 'translate(60,58)')
+        document.querySelectorAll('portfolio-breakdown svg .c3-legend-item').forEach(a => a.setAttribute('transform', 'translate(20,0)'))
       }
     }
   }
-});
+})
 
 export default Component.extend({
   tag: 'portfolio-breakdown',
   ViewModel,
   view
-});
+})

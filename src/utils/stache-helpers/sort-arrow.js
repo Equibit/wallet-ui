@@ -1,19 +1,19 @@
-import stache from 'can-stache';
+import stache from 'can-stache'
 
 stache.registerHelper('sort-arrow', function (value) {
-  let className = '';
+  let className = ''
   switch (value) {
     case undefined:
     case null:
-      className = 'icon-sort';
-      break;
+      className = 'icon-sort'
+      break
     case 1:
     case 'asc':
     case true:
-      className = 'icon-arrow';
-      break;
+      className = 'icon-arrow'
+      break
     default:
-      className = 'icon-arrow rotate-180';
+      className = 'icon-arrow rotate-180'
   }
-  return `<span class="icon ${className}"></span>`;
-});
+  return `<span class="icon ${className}"></span>`
+})

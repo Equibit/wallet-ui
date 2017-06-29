@@ -13,19 +13,19 @@
  * @demo src/components/page-offers/offer-status/offer-status.html
  */
 
-import Component from 'can-component';
-import DefineMap from 'can-define/map/';
-import './offer-status.less';
-import view from './offer-status.stache';
+import Component from 'can-component'
+import DefineMap from 'can-define/map/'
+import './offer-status.less'
+import view from './offer-status.stache'
 
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the offer-status component'
   }
-});
+})
 
 export default Component.extend({
   tag: 'offer-status',
   ViewModel,
   view
-});
+})

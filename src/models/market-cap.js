@@ -7,14 +7,14 @@
  * @group models/marketCap.properties 0 properties
  */
 
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/list';
-import feathersClient from '~/models/feathers-client';
-import superModel from '~/models/super-model';
-import algebra from '~/models/algebra';
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/list'
+import feathersClient from '~/models/feathers-client'
+import superModel from '~/models/super-model'
+import algebra from '~/models/algebra'
 
 // TODO: FIXTURES ON!
-import '~/models/fixtures/market-cap';
+import '~/models/fixtures/market-cap'
 
 const MarketCap = DefineMap.extend('MarketCap', {
   /**
@@ -30,7 +30,7 @@ const MarketCap = DefineMap.extend('MarketCap', {
    */
   companyName: 'string',
   get companyNameDisplay () {
-    return this.companyName.length > 15 ? this.companyName.substr(0, 12) + '...' : this.companyName;
+    return this.companyName.length > 15 ? this.companyName.substr(0, 12) + '...' : this.companyName
   },
   /**
    * @property {Number} models/marketCap.properties.price price
@@ -38,21 +38,21 @@ const MarketCap = DefineMap.extend('MarketCap', {
    * Price
    */
   price: 'number'
-});
+})
 
 MarketCap.List = DefineList.extend('MarketCapList', {
   '#': MarketCap,
   get barChart () {
     if (!this.length) {
-      return;
+      return
     }
     return [].reduce.call(this, (acc, el) => {
-      acc.labels.push(el.companyNameDisplay);
-      acc.values[0].push(el.price);
-      return acc;
-    }, {labels: ['x'], values: [['MarketCap']]});
+      acc.labels.push(el.companyNameDisplay)
+      acc.values[0].push(el.price)
+      return acc
+    }, {labels: ['x'], values: [['MarketCap']]})
   }
-});
+})
 
 MarketCap.connection = superModel({
   Map: MarketCap,
@@ -60,8 +60,8 @@ MarketCap.connection = superModel({
   feathersService: feathersClient.service('/market-cap'),
   name: 'marketcap',
   algebra
-});
+})
 
-MarketCap.algebra = algebra;
+MarketCap.algebra = algebra
 
-export default MarketCap;
+export default MarketCap

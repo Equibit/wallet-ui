@@ -1,5 +1,5 @@
-import fixture from 'can-fixture';
-import User from '~/models/user/user';
+import fixture from 'can-fixture'
+import User from '~/models/user/user'
 
 const store = fixture.store([{
   _id: 0,
@@ -7,11 +7,11 @@ const store = fixture.store([{
 }, {
   _id: 1,
   description: 'Second item'
-}], User.connection.algebra);
+}], User.connection.algebra)
 
-fixture('/users/{_id}', store);
+fixture('/users/{_id}', store)
 fixture('POST /users', function (request, response) {
-  response(request.data);
-});
+  response(request.data)
+})
 
-export default store;
+export default store
