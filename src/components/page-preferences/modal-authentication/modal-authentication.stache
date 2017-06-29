@@ -13,12 +13,12 @@
     <p class="single-paragraph">
       {{{i18n('auth2StepMessage')}}} <a href="">{{i18n('tryAgain')}}</a>
     </p>
-    <code-input />
+    <code-input {^code}="../secondFactorCode" />
 
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary">{{i18n('verify')}}</button>
+    <button ($click)="verify(@close)" type="button" class="btn btn-primary">{{i18n('verify')}}</button>
     <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
   </div>
 </bootstrap-modal-content>
