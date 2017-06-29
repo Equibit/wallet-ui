@@ -1,4 +1,5 @@
 <can-import from="~/components/common/panel/" />
+<can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-issuances/company-metadata/" />
 <can-import from="~/components/page-issuance-details/candlestick-chart/" />
 <can-import from="~/components/page-issuance-details/issuance-passports/" />
@@ -36,7 +37,7 @@
             <order-book {issuance}="issuance" />
             <!--market-depth /-->
             <related-companies />
-            <small class="fineprint">Price and data does not include trades outside of the Equibit network.</small>
+            <small class="fineprint">{{disclaimerPriceData}}</small>
           </div>
         </div>
       </div>
