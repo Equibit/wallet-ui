@@ -1,24 +1,35 @@
+<!DOCTYPE HTML>
+
 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 <div id="demo"></div>
 
 <script type="text/stache" id="demo-html">
+<can-import from="bootstrap/dist/js/bootstrap" />
+<can-import from="bootstrap-canjs" />
 <can-import from="~/styles/styles.less" />
 <can-import from="~/components/nav-bar/" />
 <can-import from="~/components/page-issuance-details/" />
 
 <nav-bar page="issuances" />
-<page-issuance-details></page-issuance-details>
+<page-issuance-details {company-slug}="companySlug" {issuance-id}="issuanceId"></page-issuance-details>
 </script>
 
 <script src="../../../node_modules/steal/steal.js"
         main="@empty">
-  import '~/models/fixtures/issuances';
+
   import $ from 'jquery';
   import stache from 'can-stache';
   import reload from 'live-reload';
+  import DefineMap from 'can-define/map/map';
+  import '~/models/fixtures/issuances';
+
+  const vm = new DefineMap({
+    companySlug: 'imperial-brands',
+    issuanceId: '0'
+  });
 
   stache.async($('#demo-html').html()).then(template => {
-    let render = () => $('#demo').html(template({}));
+    let render = () => $('#demo').html(template(vm));
     render();
     reload(render);
   });
