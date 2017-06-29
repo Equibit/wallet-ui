@@ -100,6 +100,7 @@ export default {
   dealFlowStep3: 'Close Deal',
   description: 'Description',
   dividendYield: 'Dividend Yield',
+  dividendShare: 'Dividend/Share',
   domicile: 'Domicile',
 
   email: 'Email',
@@ -267,6 +268,7 @@ export default {
 
   valuation: 'Valuation',
   volume: 'Volume',
+  volume24Hour: '24h Volume',
   validationMnemonicEmpty: 'Please enter a seed phrase',
   validationMnemonicInvalidChecksum: 'Checksum is invalid. Possibly the mnemonic was generated in a different app',
   validationMnemonicTooShort: 'The mnemonic phrase should contain at least 12 words',

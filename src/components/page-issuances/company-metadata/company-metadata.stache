@@ -8,6 +8,9 @@
       <dt>{{i18n('domicile')}}</dt>
       <dd>{{issuance.domicile}}</dd>
 
+      <dt>{{i18n('volume24Hour')}}</dt>
+      <dd>{{format(issuance.volume24h,'')}} <span class="sub">(BTC)</span></dd>
+
       <dt>{{i18n('restriction')}}</dt>
       <dd>Level {{issuance.restriction}}</dd>
 
@@ -17,11 +20,13 @@
       <dt>{{i18n('issued')}}</dt>
       <dd>{{format(issuance.sharesIssued,'')}}</dd>
 
+      <dt>{{i18n('dividendShare')}}</dt>
+      <dd>{{issuance.sharesDividend}} <span class="sub">({{currency}})</span></dd>
+
       <dt>{{i18n('dividendYield')}}</dt>
       <dd>
         <span class="value">
-          {{issuance.sharesDividendYield}}
-          <span class="sub">%</span>
+          {{issuance.sharesDividendYield}} <span class="sub">%</span>
         </span>
       </dd>
     </dl>
