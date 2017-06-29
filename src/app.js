@@ -98,6 +98,7 @@ const AppViewModel = DefineMap.extend({
     this.session.destroy();
     this.session = null;
     this.page = 'home';
+    window.location.reload();
   }
 });
 
