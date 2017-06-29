@@ -65,7 +65,9 @@ export const ViewModel = DefineMap.extend({
           this.pagination.total = rows.total;
         }
         resolve(rows);
-        this.selectRowDefault(rows[0]);
+        if (rows && rows[0]) {
+          this.selectRowDefault(rows[0]);
+        }
       });
     }
   },

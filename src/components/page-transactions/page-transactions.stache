@@ -15,10 +15,10 @@
 
       {{/if}}
 
-      <div class="panel-heading {{^if transaction.length}}hidden{{/if}}">
+      <div class="panel-heading {{^if transactions.length}}hidden{{/if}}">
         <h1 class="panel-title">{{i18n('transactionsPageTitle')}}</h1>
       </div>
-      <div class="panel-body">
+      <div class="panel-body {{^if transactions.length}}hidden{{/if}}">
         <div class="row card-row-full">
           <div class="col-lg-9 col-xs-12">
             <transactions-grid {^rows}="transactions" {^selected-row}="selectedRow" {addresses}="addresses" />
