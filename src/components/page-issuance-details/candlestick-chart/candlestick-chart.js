@@ -24,16 +24,19 @@ export const ViewModel = DefineMap.extend({
     type: '*'
   },
   chartHeight: {
-    value: 224
+    value: 350
   },
   candlestickSize: {
-    value: 7200,
+    value: 1200,
     set (val) {
       setTimeout(() => {
         this.loadData(val);
       }, 0);
       return val;
     }
+  },
+  zoomStart: {
+    value: 0.6
   },
   loadData (candlestickSize) {
     console.log(`loadData(${candlestickSize})`);

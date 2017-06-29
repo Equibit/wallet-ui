@@ -1,5 +1,6 @@
 <can-import from="~/components/page-issuances/company-value-change.component" />
 <can-import from="~/components/page-issuances/company-metadata/" />
+<can-import from="~/utils/stache-helpers/" />
 
 <div class="well">
 {{#if issuance}}
@@ -10,10 +11,9 @@
 
   <company-metadata {issuance}="issuance" currency="μBTC" class="narrow" />
 
-  <div class="container-fluid">
-    <a href="{{routeUrl page='issuance-details' companySlug=issuance.companySlug issuanceId=issuance._id }}" class="btn btn-default">View Details</a>
-  </div>
+  <a href="{{routeUrl page='issuance-details' companySlug=issuance.companySlug issuanceId=issuance._id }}" class="btn btn-primary btn-sm">{{i18n('viewDetails')}}</a>
+
 {{else}}
-  Select an issuance from the table.
+  Select an Issuance.
 {{/if}}
 </div>

@@ -9,7 +9,8 @@
       {{#if chartData}}
         <candlestick-volume-chart {chart-data}="chartData"
                                   {(candlestick-size)}="candlestickSize"
-                                  {chart-height}="chartHeight" />
+                                  {chart-height}="chartHeight"
+                                  {zoom-start}="zoomStart" />
 
       {{/if}}
     {{/if}}

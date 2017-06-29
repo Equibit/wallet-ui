@@ -1,58 +1,35 @@
 <can-import from="~/utils/stache-helpers/" />
 
-<div class="group">
-  <div class="row">
-    <div class="column col-xs-6 col-sm-4">
-      <small>Domicile</small>
-      {{issuance.domicile}}
-    </div>
-    <div class="column col-xs-6 col-sm-4">
-      <small>24h Volume</small>
-      <span class="value">
-        {{format(issuance.volume24h,'')}}
-        <span class="sub">(BTC)</span>
-      <span>
-    </div>
-    <div class="column col-xs-6 col-sm-4">
-      <small>Restriction Level</small>
-      <span class="value">
-        {{issuance.restriction}}
-        <span class="sub">(Passport Required)</span>
-      </span>
-    </div>
-  </div>
-</div>
-
 <div class="group issuance-details">
 
   <div class="subtitle">{{issuance.issuanceType}}</div>
-    <div class="well">
+  <div class="well">
+    <dl class="dl-horizontal dl-stripped no-top-border no-bottom-border column">
+      <dt>{{i18n('domicile')}}</dt>
+      <dd>{{issuance.domicile}}</dd>
 
-      <dl class="dl-horizontal">
+      <dt>{{i18n('volume24Hour')}}</dt>
+      <dd>{{format(issuance.volume24h,'')}} <span class="sub">(BTC)</span></dd>
 
-        <dt>Authorized</dt>
-        <dd>{{format(issuance.sharesAuthorized,'')}}</dd>
+      <dt>{{i18n('restriction')}}</dt>
+      <dd>Level {{issuance.restriction}}</dd>
 
-        <dt>Issued</dt>
-        <dd>{{format(issuance.sharesIssued,'')}}</dd>
+      <dt>{{i18n('authorized')}}</dt>
+      <dd>{{format(issuance.sharesAuthorized,'')}}</dd>
 
-        <dt>Dividend/Share</dt>
-        <dd>
-          <span class="value">
-            {{issuance.sharesDividend}}
-            <span class="sub">({{currency}})</span>
-          </span>
-        </dd>
+      <dt>{{i18n('issued')}}</dt>
+      <dd>{{format(issuance.sharesIssued,'')}}</dd>
 
-        <dt>Dividend Yield</dt>
-        <dd>
-          <span class="value">
-            {{issuance.sharesDividendYield}}
-            <span class="sub">%</span>
-          </span>
-        </dd>
-      </dl>
+      <dt>{{i18n('dividendShare')}}</dt>
+      <dd>{{issuance.sharesDividend}} <span class="sub">({{currency}})</span></dd>
 
+      <dt>{{i18n('dividendYield')}}</dt>
+      <dd>
+        <span class="value">
+          {{issuance.sharesDividendYield}} <span class="sub">%</span>
+        </span>
+      </dd>
+    </dl>
   </div>
 
 </div>

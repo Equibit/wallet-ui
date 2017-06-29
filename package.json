@@ -116,7 +116,7 @@
     "can-stream": "^0.0.5",
     "can-view-autorender": "^3.0.3",
     "can-view-callbacks": "^3.0.6",
-    "candlestick-volume-chart": "0.1.18",
+    "candlestick-volume-chart": "0.2.3",
     "copy-to-clipboard": "^3.0.6",
     "core-js": "^2.4.1",
     "done-autorender": "git://github.com/donejs/autorender.git#43095d5e028d2ddcfdd604c5d17d3c1271331cfa",

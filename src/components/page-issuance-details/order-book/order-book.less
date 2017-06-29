@@ -8,14 +8,36 @@ order-book {
 
   grid-component {
     margin-bottom: @padding-large-vertical;
-    .grid-responsive {
-      height: 196px;
+		tr:hover {
+			background-color: @active-bg;
+			.btn {
+				background-color: @brand-primary;
+				border-color: @brand-primary;
+				color: @white;
+			}
+		}
+		.grid-responsive {
+      height: 450px;
       @media (max-width: @screen-sm) {
         height: initial;
       }
     }
   }
-
+	.table-condensed {
+		> tbody,
+		> thead {
+			> tr {
+				td, th {
+					padding: 2px;
+					border-top: 0;
+					.btn {
+						font-size: @font-size-xsmall;
+						padding: 1px 5px;
+					}
+				}
+			}
+		}
+	}
 }
 
 order-book,
@@ -42,21 +64,41 @@ order-book,
   grid-component {
      // Column widths
     .column-quantity {
-      width: 66px;
+      //width: 66px;
     }
     .column-price {
-      width: 50px;
+      width: 100px;
     }
     .column-datetime {
-      //width: 77px;
+      width: 100px;
     }
     .column-action-buttons {
-      width: 46px;
+      width: 44px;
     }
     .column-partial {
-      width: 30px;
+      width: 50px;
     }
   }
+
+	sell-orders {
+		grid-component {
+			th, td {
+				text-align: right;
+			}
+			.column-action-buttons {
+				text-align: left;
+			}
+		}
+	}
+
+	buy-orders {
+		grid-component {
+
+			.column-action-buttons {
+				text-align: right;
+			}
+		}
+	}
 }
 
 bootstrap-modal-content.order-book {
@@ -67,4 +109,3 @@ bootstrap-modal-content.order-book {
     }
   }
 }
-

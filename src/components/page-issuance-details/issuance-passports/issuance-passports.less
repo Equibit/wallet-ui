@@ -6,15 +6,11 @@ issuance-passports {
 
 issuance-passports,
 .issuance-passports {
-  .well {
-    @media (min-width: @screen-sm){
-      column-count: 2;
-    }
-  }
+
   .passport-list {
     font-size: @font-size-small;
     li {
-      margin: 2px 0;
+      margin: @padding-base-vertical 0;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -25,4 +21,3 @@ issuance-passports,
     }
   }
 }
-

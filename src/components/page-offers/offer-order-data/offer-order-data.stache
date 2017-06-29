@@ -27,7 +27,7 @@
   </div>
 
   <div class="order-metadata section">
-    <dl class="dl-horizontal dl-stripped responsive">
+    <dl class="dl-horizontal dl-stripped no-bottom-border responsive ">
       <dt>{{i18n('goodUntil')}}</dt>
       <dd>April 28, 2017</dd>
     </dl>

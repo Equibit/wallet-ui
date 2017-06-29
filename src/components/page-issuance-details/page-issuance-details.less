@@ -5,51 +5,26 @@ page-issuance-details {
 	display: block;
   .page-layout;
 
-  .panel {
-
-    .panel-heading {
-      company-value-change {
-        color: @gray-dark;
-        @media (min-width: @screen-sm) {
-          margin-left: @padding-small-horizontal;
-          border-left: @border-default;
-          padding-left: @padding-small-horizontal;
-        }
-
-        .total, arrow-change {
-          display: inline;
-        }
-      }
-    }
-  }
-
   .panel-title {
     font-size: @font-size-h3 + 2;
   }
+	.panel-heading {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+	.card .panel-body {
+		overflow-x: hidden;
+	}
+	.well {
+		margin-bottom: @padding-xlarge-vertical;
+	}
+	.actions-bar {
+		border-bottom: @border-default;
+	}
 
-  .column-right {
-    @media (max-width: @screen-md) {
-      padding: 0;
-    }
-  }
-  market-depth {
-    padding-bottom: @padding-large-vertical*2;
-  }
-
-  issuance-passports,
-  market-depth {
-    .well {
-      height: 119px;
-    }
-  }
-
-  @media (max-width: @screen-sm-max){
-     issuance-passports .well {
-      height: initial;
-      margin-bottom: @padding-large-vertical*2;
-     }
-  }
-
-  small.fineprint {
-    margin: @padding-large-vertical * 2 0;  }
+	candlestick-chart {
+		.well {
+			min-height: 485px;
+		}
+	}
 }

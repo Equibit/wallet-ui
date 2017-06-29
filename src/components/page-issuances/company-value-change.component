@@ -15,14 +15,14 @@
     display: block;
 
     .total {
-      display: block;
+      display: inline-block;
       font-size: @font-size-h4;
       .currency {
         font-size: smaller;
       }
     }
     .change {
-      display: block;
+      display: inline-block;
     }
     .percentage {
       font-size: smaller;
@@ -40,17 +40,19 @@
     <can-import from="~/utils/stache-helpers/" />
     <can-import from="~/components/common/arrow-change.component" />
 
-    <span class="total">
-      {{format(issuance.marketCap, '')}}
-      <span class="currency">({{currency}})</span>
-    </span>
-    <arrow-change class="change" {change}="issuance.change">
-      <span class="percentage">({{issuance.changePercentage}}%)</span>
-    </arrow-change>
-    <span class="bid">
-      <span class="hbid">{{format(issuance.highestBid, '')}}</span> / <span class="ask">{{format(issuance.lowestAsk, '')}}</span>
-      <span class="shares">({{issuance.highestNumShares}} / {{issuance.lowestNumShares}})</span>
-    </span>
+    <div class="well">
+      <span class="total">
+        {{format(issuance.marketCap, '')}}
+        <span class="currency">({{currency}})</span>
+      </span>
+      <arrow-change class="change" {change}="issuance.change">
+        <span class="percentage">({{issuance.changePercentage}}%)</span>
+      </arrow-change>
+      <span class="bid">
+        <span class="hbid">{{format(issuance.highestBid, '')}}</span> / <span class="ask">{{format(issuance.lowestAsk, '')}}</span>
+        <span class="shares">({{issuance.highestNumShares}} / {{issuance.lowestNumShares}})</span>
+      </span>
+    </div>
   </view>
   <script type="view-model">
     import DefineMap from 'can-define/map/';

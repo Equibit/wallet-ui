@@ -1,4 +1,5 @@
 <can-import from="~/components/common/panel/" />
+<can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-issuances/company-metadata/" />
 <can-import from="~/components/page-issuance-details/candlestick-chart/" />
 <can-import from="~/components/page-issuance-details/issuance-passports/" />
@@ -11,63 +12,36 @@
   <div class="col-xs-12">
 
     <drag-panel class="panel panel-default card card-full">
-
-      <div class="panel-heading panel-heading-clear">
-        <div class="row">
-
-          <div class="col-sm-5 col-xs-12 no-padding">
-              <h1 class="panel-title">{{issuance.companyName}}</h1>
-              <div class="panel-subtitle">{{issuance.issuanceName}}</div>
+      <div class="row">
+        <div class="col-lg-3 col-sm-4 col-xs-12">
+          <div class="panel-heading panel-heading-clear">
+            <h1 class="panel-title">{{issuance.companyName}}</h1>
+            <div class="panel-subtitle">{{issuance.issuanceName}}</div>
           </div>
-
-          <div class="col-lg-5 col-sm-4 col-xs-12 column-right">
-            <company-value-change {issuance}="issuance" currency="μBTC" />
+          <div class="panel-body no-padding-top no-padding-bottom">
+            <div class="card-row-full">
+              <company-value-change {issuance}="issuance" currency="μBTC" />
+              <company-metadata class="wide" {issuance}="issuance" currency="μBTC" />
+              <issuance-passports />
+            </div>
           </div>
+        </div>
 
-          <div class="col-lg-2 col-sm-3 col-xs-12 no-padding-left">
+        <div class="col-lg-9 col-sm-8 col-xs-12">
+          <div class="panel-heading panel-heading-clear actions-bar">
             <watchlist-toggle />
           </div>
 
-        </div>
-      </div>
-
-      <div class="panel-body">
-        <div class="row card-row-full">
-
-          <div class="col-md-5 col-xs-12">
-            <company-metadata class="wide" {issuance}="issuance" currency="μBTC" />
+          <div class="panel-body">
             <candlestick-chart />
+            <order-book {issuance}="issuance" />
+            <!--market-depth /-->
+            <related-companies />
+            <small class="fineprint">{{i18n('disclaimerPriceData')}}</small>
           </div>
-
-          <div class="col-md-7 col-xs-12 column-right">
-
-            <div class="row">
-              <div class="col-md-8 col-xs-12">
-                <issuance-passports />
-              </div>
-
-              <div class="col-md-4 col-xs-12">
-                <market-depth />
-              </div>
-
-              <div class="col-xs-12">
-                <order-book {issuance}="issuance" />
-              </div>
-
-              <div class="col-xs-12">
-                <related-companies />
-              </div>
-
-              <div class="col-xs-12">
-                <small class="fineprint">Price and data does not include trades outside of the Equibit network.</small>
-              </div>
-
-            </div>
-
-          </div>
-
         </div>
       </div>
+
     </drag-panel>
   </div>
 </div>

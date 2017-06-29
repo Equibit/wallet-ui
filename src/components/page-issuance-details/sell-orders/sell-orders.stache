@@ -8,11 +8,11 @@
       <table class="table table-condensed grid-header">
         <thead>
           <tr>
-            <th class="column-quantity">Quantity</th>
-            <th class="column-price truncate">Ask Price</th>
-            <th class="column-datetime">Date/Time</th>
-            <th class="column-partial">Partial</th>
             <th class="column-action-buttons"></th>
+            <th class="column-partial">Partial</th>
+            <th class="column-datetime">Date/Time</th>
+            <th class="column-quantity">Quantity</th>
+            <th class="column-price">Ask Price</th>
           </tr>
         </thead>
       </table>
@@ -23,11 +23,11 @@
         <tbody>
         {{#each rows as row}}
           <tr class="">
+            <td class="column-action-buttons"><button class="btn btn-default btn-xs">Buy</button></td>
+            <td class="column-partial">{{yes-no(row.partial)}}</td>
+            <td class="column-datetime">{{format-time(row.date)}}</td>
             <td class="column-quantity">{{row.quantity}}</td>
             <td class="column-price">{{row.price}}</td>
-            <td class="column-datetime truncate">{{format-time(row.date)}}</td>
-            <td class="column-partial">{{yes-no(row.partial)}}</td>
-            <td class="column-action-buttons"><button class="btn btn-default btn-xs">Buy</button></td>
           </tr>
         {{/each}}
         </tbody>
