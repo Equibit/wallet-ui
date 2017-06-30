@@ -24,7 +24,7 @@ export const ViewModel = DefineMap.extend({
   },
   correct: {
     get () {
-      return true;
+      return true
     }
   }
 })
