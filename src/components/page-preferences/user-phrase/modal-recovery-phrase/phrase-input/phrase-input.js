@@ -19,8 +19,13 @@ import './phrase-input.less'
 import view from './phrase-input.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the phrase-input component'
+  phrase: {
+    type: '*'
+  },
+  correct: {
+    get () {
+      return true;
+    }
   }
 })
 
