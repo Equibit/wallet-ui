@@ -14,6 +14,7 @@ import './send-form.less'
 import view from './send-form.stache'
 import { Currency } from '~/components/trade-funds/currency-converter/'
 import Session from '~/models/session'
+import { toMaxPrecision } from '../../../../utils/formatter'
 
 export const ViewModel = DefineMap.extend({
   formData: {
@@ -45,8 +46,9 @@ export const ViewModel = DefineMap.extend({
 
   get availableFunds () {
     const balance = this.portfolio.balance
-    const availableFunds = this.formData.fundsType === 'BTC' ? balance.cashBtc : balance.cashEqb
-    return availableFunds - this.formData.transactionFee
+    const funds = this.formData.fundsType === 'BTC' ? balance.cashBtc : balance.cashEqb
+    const availableFunds = toMaxPrecision(funds - this.formData.transactionFee, 8)
+    return availableFunds < 0 ? 0 : availableFunds
   },
 
   setType (val, el) {
