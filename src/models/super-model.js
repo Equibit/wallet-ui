@@ -48,7 +48,6 @@ const superModelNoCache = function (options, optionBehaviors = []) {
     constructOnce,
     canMap,
     realtime,
-    callbacksCache,
     dataCallbacks,
     ...optionBehaviors
   ]

@@ -64,6 +64,13 @@ const FormData = DefineMap.extend({
       return toMaxPrecision(val, 8)
     }
   },
+
+  hasEnoughFunds: {
+    get () {
+      return this.portfolio.hasEnoughFunds(this.amount, this.fundsType)
+    }
+  },
+
   price: 'number',
   issuance: Issuance,
   transactionFee: {
@@ -87,7 +94,7 @@ const FormData = DefineMap.extend({
 
   isValid: {
     get () {
-      return !this.toAddressError
+      return !this.toAddressError && this.hasEnoughFunds
     }
   },
 
@@ -104,17 +111,14 @@ export const ViewModel = DefineMap.extend({
   },
 
   formData: {
-    value: new FormData({})
-    // value: new FormData({
-    //   type: '',
-    //   fundsType: 'EQB',
-    //   toAddress: '1QJqB6mwTCELUStpay1zNQEo6mXLFhf7Qs',
-    //   amount: 4,
-    //   price: 100 * 1000,
-    //   transactionFee: 0.0023,
-    //   transactionFeePrice: 1.4,
-    //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.'
-    // })
+    get (val) {
+      if (val) {
+        return val
+      }
+      return new FormData({
+        portfolio: this.portfolio
+      })
+    }
   },
   mode: {
     value: 'edit'
