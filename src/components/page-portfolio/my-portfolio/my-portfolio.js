@@ -48,6 +48,7 @@ export const ViewModel = DefineMap.extend({
     if (!this.portfolio) {
       this.portfolio = portfolio
     }
+    this.isReceiveFundsPopup = false
   },
   send (args) {
     const formData = args[1]

@@ -71,6 +71,10 @@ export const ViewModel = DefineMap.extend({
 
   sendAllFunds () {
     this.formData.amount = this.availableFunds
+  },
+
+  openReceiveForm () {
+    this.dispatch('receiveform')
   }
 })
 

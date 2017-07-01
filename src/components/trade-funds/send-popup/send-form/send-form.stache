@@ -84,10 +84,18 @@
         </div>
       </div>
 
-
     {{/is}}
 
     {{#is formData.type 'FUNDS'}}
+      {{^if formData.hasFunds}}
+
+        <div class="alert alert-danger">
+          You don't have {{#is formData.fundsType 'BTC'}}Bitcoins{{else}}Equibits{{/is}} to send funds.
+          <br>
+          Transfer funds first using the <a href="#" ($click)="openReceiveForm()">Receive Form</a>.
+        </div>
+
+      {{else}}
       <br>
       <div class="row">
 
@@ -128,6 +136,7 @@
 
       </div>
 
+      {{/if}}
     {{/is}}
 
   </div>
