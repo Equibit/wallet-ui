@@ -22,6 +22,10 @@ export const ViewModel = DefineMap.extend({
   secondFactorCode: 'string',
   verify (close) {
     this.dispatch('verified', [this.secondFactorCode])
+    this.doClose(close)
+  },
+  doClose (close) {
+    this.dispatch('close')
     close()
   }
 })

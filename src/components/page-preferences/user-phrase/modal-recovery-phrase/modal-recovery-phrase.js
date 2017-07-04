@@ -68,6 +68,13 @@ export const ViewModel = DefineMap.extend({
   },
   risk () {
     this.mode = 'risk'
+  },
+  intro () {
+    this.mode = 'intro'
+  },
+  doClose (close) {
+    this.dispatch('close')
+    close()
   }
 })
 

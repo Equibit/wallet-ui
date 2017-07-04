@@ -17,9 +17,10 @@
 </div>
 
 {{#if isAuthModalShown}}
-  <modal-authentication (verified)="codeVerified(%arguments)"></modal-authentication>
+  <modal-authentication (verified)="codeVerified(%arguments)"
+                        (close)="onClose('isAuthModalShown')"></modal-authentication>
 {{/if}}
 
 {{#if isPhraseModalShown}}
-  <modal-recovery-phrase></modal-recovery-phrase>
+  <modal-recovery-phrase (close)="onClose('isPhraseModalShown')"></modal-recovery-phrase>
 {{/if}}

@@ -27,14 +27,13 @@ export const ViewModel = DefineMap.extend({
     const code = args[1]
     console.log('codeVerified!!! ' + code)
     this.secondFactorCode = code
-
-    this.isPhraseModalShown = false
     this.isPhraseModalShown = true
   },
   showAuthModal () {
-    // Note: we need to re-insert the modal content:
-    this.isAuthModalShown = false
     this.isAuthModalShown = true
+  },
+  onClose (prop) {
+    this[prop] = false
   }
 })
 
