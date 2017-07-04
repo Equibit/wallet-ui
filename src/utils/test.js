@@ -8,6 +8,7 @@ import './stache-helpers/stache-helpers'
 import { toMaxPrecision } from './formatter'
 import validators from './validators'
 import '~/models/mock/mock-session'
+import './random-elements-test'
 
 describe('utils/crypto', function () {
   it('mnemonicToSeed', function () {
