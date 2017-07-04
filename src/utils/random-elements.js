@@ -1,15 +1,15 @@
 import { zip } from 'ramda'
 
 /**
- * Returns a zipped array of random indexes of the list with the corresponding values
+ * Returns an object with random indexes of the list and the corresponding values
  * @param {Array|DefineList} list
  * @param {Number} howMany
- * @returns {Object<index, value>}
+ * @returns {Object<indexes, values>}
  */
 function randomElements(list, howMany) {
-  const indexes = shuffle(Array.from(new Array(list.length), (a, i) => i))
-  const picked = pickFromList(indexes.slice(0, howMany), list)
-  return zip(indexes, picked)
+  const indexes = shuffle(Array.from(new Array(list.length), (a, i) => i)).slice(0, howMany)
+  const values = pickFromList(indexes, list)
+  return { indexes, values }
 }
 
 /**

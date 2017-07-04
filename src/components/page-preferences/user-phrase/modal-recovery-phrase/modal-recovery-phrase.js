@@ -46,6 +46,7 @@ export const ViewModel = DefineMap.extend({
       return val
     }
   },
+  isCorrect: 'boolean',
   view () {
     this.mode = 'view'
   },

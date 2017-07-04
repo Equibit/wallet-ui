@@ -72,7 +72,7 @@
       <h4 class="title">{{i18n('recoveryPhraseSetupTitle')}}</h4>
     </div>
     <p class="instruction">{{i18n('recoveryPhraseSetupInstruction2')}}</p>
-    <phrase-input {phrase}="phrase" {^correct}="correct"></phrase-input>
+    <phrase-input {phrase}="phrase" {^is-correct}="../isCorrect"></phrase-input>
   </div>
 
   <div class="modal-footer">

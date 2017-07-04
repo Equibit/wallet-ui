@@ -15,19 +15,42 @@
 
 import Component from 'can-component'
 import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/'
 import './phrase-input.less'
 import view from './phrase-input.stache'
+import randomElements from '../../../../../utils/random-elements'
+import canDefineStream from 'can-define-stream-kefir'
 
 export const ViewModel = DefineMap.extend({
   phrase: {
     type: '*'
   },
-  correct: {
+  phraseArray: {
     get () {
-      return true
+      return this.phrase.split(' ')
+    }
+  },
+  checkWords: {
+    stream: function () {
+      return this.toStream('.phrase').map(() => {
+        return randomElements(this.phraseArray, 4)
+      })
+    }
+  },
+  enteredWords: {
+    type: '*',
+    value: new DefineList([])
+  },
+  isCorrect: {
+    get () {
+      return this.enteredWords && this.enteredWords.length === 4 && this.checkWords.values.reduce((acc, word, index) => {
+        return acc && word === this.enteredWords[index]
+      }, true)
     }
   }
 })
+
+canDefineStream(ViewModel)
 
 export default Component.extend({
   tag: 'phrase-input',
