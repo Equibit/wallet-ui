@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/canjs/can-fixture-socket.png?branch=master)](https://travis-ci.org/canjs/can-fixture-socket)
+[![Build Status](https://travis-ci.org/Equibit/wallet-ui.png?branch=development)](https://travis-ci.org/Equibit/wallet-ui)
 
 # Equibit Wallet UI
 
