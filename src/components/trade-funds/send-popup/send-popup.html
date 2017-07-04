@@ -16,7 +16,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
 
-        <send-popup></send-popup>
+        <send-popup {portfolio}="portfolio"></send-popup>
 
       </div>
     </div>
@@ -28,10 +28,20 @@
   import $ from 'jquery';
   import stache from 'can-stache';
   import reload from 'live-reload';
+  import DefineMap from 'can-define/map/map';
+  import '~/models/mock/mock-session'
+  // import mockPortfolio from '~/models/mock/mock-portfolio'
+  import { portfolioBtc } from '~/models/mock/mock-portfolio'
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
+
+  const vm = new DefineMap({
+    portfolio: portfolioBtc
+  });
 
   // Enable live-reload:
   stache.async($('#demo-html').html()).then(template => {
-    let render = () => $('#demo').html(template({}));
+    let render = () => $('#demo').html(template(vm));
     render();
     reload(render);
   });

@@ -87,9 +87,12 @@
 </drag-panel>
 
 {{#if isSendFundsPopup}}
-  <send-popup {portfolio}="portfolio" (send)="send(%arguments)" />
+  <send-popup (send)="send(%arguments)"
+              (receiveform)="receiveFunds()"
+              {portfolio}="portfolio" />
 {{/if}}
 
 {{#if isReceiveFundsPopup}}
-  <receive-popup {address}="portfolio.nextAddress" (done)="receiveDone()"/>
+  <receive-popup (done)="receiveDone()"
+                 {address}="portfolio.nextAddress" />
 {{/if}}

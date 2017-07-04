@@ -65,9 +65,15 @@ const FormData = DefineMap.extend({
     }
   },
 
+  hasFunds: {
+    get () {
+      return (this.portfolio.balance[this.fundsType === 'BTC' ? 'cashBtc' : 'cashEqb'] - this.transactionFee) > 0
+    }
+  },
+
   hasEnoughFunds: {
     get () {
-      return this.portfolio.hasEnoughFunds(this.amount, this.fundsType)
+      return this.portfolio.hasEnoughFunds(this.amount + this.transactionFee, this.fundsType)
     }
   },
 
@@ -94,7 +100,7 @@ const FormData = DefineMap.extend({
 
   isValid: {
     get () {
-      return !this.toAddressError && this.hasEnoughFunds
+      return !this.toAddressError && this.hasEnoughFunds && this.amount > 0
     }
   },
 
@@ -143,6 +149,11 @@ export const ViewModel = DefineMap.extend({
   },
   send (close) {
     this.dispatch('send', [this.formData])
+    close()
+  },
+
+  openReceiveForm (close) {
+    this.dispatch('receiveform')
     close()
   }
 })

@@ -93,7 +93,7 @@
 
       {{#if isLoggedIn}}
       <div class="currency-container hidden-xs">
-        <div class="navbar-text">{{balance.summary.total}}  {{i18n('BTC')}}</div>
+        <div class="navbar-text">{{format-max(balance.summary.total, 8)}} {{i18n('BTC')}}</div>
       </div>
       {{/if}}
 

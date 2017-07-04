@@ -1,24 +1,13 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import stache from 'can-stache'
-import Session from '~/models/session'
 import { translate } from '../i18n/i18n'
 
 import crypto from './crypto'
 import './stache-helpers/stache-helpers'
 import { toMaxPrecision } from './formatter'
 import validators from './validators'
-
-// Mock Session:
-Session.current = new Session({
-  user: {
-    rates: {
-      btcToUsd: 2725,
-      eqbToUsd: 3,
-      eqbToBtc: 3 / 2725
-    }
-  }
-})
+import '~/models/mock/mock-session'
 
 describe('utils/crypto', function () {
   it('mnemonicToSeed', function () {

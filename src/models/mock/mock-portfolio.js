@@ -1,5 +1,6 @@
 import Portfolio from '../portfolio'
 import hdNode from './mock-keys'
+import listunspent, { listunspentZero, listunspentBtc } from './mock-listunspent'
 
 const addressesMeta = [
   {index: 0, type: 'BTC', used: true, isChange: false},
@@ -9,19 +10,6 @@ const addressesMeta = [
 
   {index: 0, type: 'BTC', used: true, isChange: true}
 ]
-
-const listunspent = {
-  BTC: {
-    summary: {'total': 2},
-    n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 1.5 }, // BTC
-    mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA: { amount: 0.5 } // BTC
-  },
-  EQB: {
-    summary: {'total': 5.6},
-    n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo: { amount: 3.4 }, // EQB
-    n4iN6cGkFEctaS3uiQf57xmiidA72S7QdA: { amount: 2.2 }  //
-  }
-}
 
 const portfolioKeys = {
   BTC: hdNode.derivePath("m/44'/0'/0'"),
@@ -36,5 +24,23 @@ const portfolio = new Portfolio({
   userBalance: listunspent
 })
 
+const portfolioZero = new Portfolio({
+  index: 0,
+  name: 'My Portfolio Empty',
+  addressesMeta,
+  keys: portfolioKeys,
+  userBalance: listunspentZero
+})
+
+const portfolioBtc = new Portfolio({
+  index: 0,
+  name: 'My Portfolio Empty',
+  addressesMeta,
+  keys: portfolioKeys,
+  userBalance: listunspentBtc
+})
+
 export default portfolio
+export { portfolioZero }
+export { portfolioBtc }
 export { addressesMeta }

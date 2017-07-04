@@ -63,10 +63,9 @@ describe('models/portfolio', function () {
         cashEqb: 3.4,
         cashTotal: 5.4,
         securities: 0,
-        total: 5.4,
-        txouts: {EQB: [], BTC: []}
+        total: 5.4
       }
-      assert.deepEqual(portfolio.balance.get(), expectedBalance)
+      assert.deepEqual(omit(['txouts'], portfolio.balance.get()), expectedBalance)
     })
 
     it('should populate nextAddress', function () {
