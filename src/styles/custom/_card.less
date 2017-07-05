@@ -6,6 +6,7 @@
     -ms-overflow-style: -ms-autohiding-scrollbar;
     display: flex;
     flex-direction: column;
+    flex-basis: auto; // This needs to be explicit to avoid the div collpasing to "height:0" on ie.
     padding: 1em 0.5em;
   }
 }
