@@ -43,10 +43,12 @@ bootstrap-modal-content {
     max-height: @modal-height-container-full;
     .modal-body {
       max-height: calc(~"@{modal-height-container-full} - "@modal-height-header);
+      padding-bottom: 120px;
+    }
+    .modal-footer {
+      height: 120px;
+      align-items: flex-start;
     }
   }
 
 }
-
-
-
