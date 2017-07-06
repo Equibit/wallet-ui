@@ -53,7 +53,7 @@ export const ViewModel = DefineMap.extend({
   },
   send (args) {
     const formData = args[1]
-    const currencyType = formData.fundsType
+    // const currencyType = formData.fundsType
     console.log('send: ', formData)
     if (!formData) {
       console.error('Error: received no form data')
@@ -79,7 +79,7 @@ export const ViewModel = DefineMap.extend({
       Session.current.refreshBalance()
 
       // mark change address as used
-      this.portfolio.nextChangeAddress[currencyType]
+      // this.portfolio.nextChangeAddress[currencyType]
     })
   },
 

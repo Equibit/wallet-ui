@@ -9,7 +9,7 @@ import environment from '~/environment'
 
 const { api } = environment
 
-const transport = 'socketio';
+const transport = 'socketio'
 // const transport = 'rest'
 const feathersClient = feathers()
 

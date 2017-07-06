@@ -17,7 +17,7 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './equity-grid.less'
 import view from './equity-grid.stache'
-import PortfolioSecurity from '~/models/portfolio-security'
+// import PortfolioSecurity from '~/models/portfolio-security'
 import Pagination from '~/models/pagination'
 
 // TODO: turn fixtures off
