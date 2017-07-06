@@ -61,6 +61,7 @@ const Session = DefineMap.extend('Session', {
    */
   portfoliosPromise: {
     get () {
+      console.log('[session.portfoliosPromise.get] ...')
       return Portfolio.getList({$limit: 5, $skip: 0})
     }
   },
@@ -73,13 +74,16 @@ const Session = DefineMap.extend('Session', {
   portfolios: {
     Type: Portfolio.List,
     get (val, resolved) {
+      console.log('[session.portfolios.get] ...')
       if (!val) {
         this.portfoliosPromise.then(portfolios => {
           portfolios.forEach(portfolio => {
             if (portfolio.index !== 'undefined') {
+              // TODO: Mutates portfolio adding keys. Use getter that checks Session.current.user and generates keys.
               portfolio.keys = this.user.generatePortfolioKeys(portfolio.index)
             }
           })
+          console.log('[session.portfolios.get -> resolve] length=' + portfolios.length)
           resolved(portfolios)
         })
       }
@@ -161,6 +165,7 @@ const Session = DefineMap.extend('Session', {
       if ((!val || val.isDefault) && this.balancePromise) {
         this.balancePromise.then(balance => {
           this.portfolios.forEach(portfolio => {
+            // TODO: Mutates portfolio updating userBalance. Use getter that checks Session.current.balance
             portfolio.userBalance = balance
           })
           balance.summary = {

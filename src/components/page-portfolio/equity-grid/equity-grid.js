@@ -32,12 +32,12 @@ export const ViewModel = DefineMap.extend({
   },
   rows: {
     get (value, resolve) {
-      PortfolioSecurity.getList(this.queryParams).then(rows => {
-        if (rows.total || rows.count) {
-          this.pagination.total = rows.total || rows.count
-        }
-        resolve(rows)
-      })
+      // PortfolioSecurity.getList(this.queryParams).then(rows => {
+      //   if (rows.total || rows.count) {
+      //     this.pagination.total = rows.total || rows.count
+      //   }
+      //   resolve(rows)
+      // })
     }
   },
   queryParams: {

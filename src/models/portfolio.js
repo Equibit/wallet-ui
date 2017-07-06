@@ -196,13 +196,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
       // Import addr as watch-only
       this.importAddr(addr.BTC)
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: 0, type: 'BTC', used: false, isChange})
+      this.addressesMeta.push({index: btcAddr.index, type: 'BTC', used: false, isChange})
     }
     if (eqbAddr.imported === false) {
       // Import addr as watch-only
       this.importAddr(addr.EQB)
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: 0, type: 'EQB', used: false, isChange})
+      this.addressesMeta.push({index: eqbAddr.index, type: 'EQB', used: false, isChange})
     }
     if (!eqbAddr.imported || !btcAddr.imported) {
       // Save newly generated addresses to DB:

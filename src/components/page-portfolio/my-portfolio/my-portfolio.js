@@ -38,6 +38,7 @@ export const ViewModel = DefineMap.extend({
       portfolio.save().then(portfolio => {
         portfolio.keys = Session.current.user.generatePortfolioKeys(portfolio.index)
         this.portfolio = portfolio
+        Session.current.portfolios.push(portfolio)
         this.isReceiveFundsPopup = true
       })
     } else {
@@ -52,6 +53,7 @@ export const ViewModel = DefineMap.extend({
   },
   send (args) {
     const formData = args[1]
+    const currencyType = formData.fundsType
     console.log('send: ', formData)
     if (!formData) {
       console.error('Error: received no form data')
@@ -75,6 +77,9 @@ export const ViewModel = DefineMap.extend({
         'displayInterval': 5000
       })
       Session.current.refreshBalance()
+
+      // mark change address as used
+      this.portfolio.nextChangeAddress[currencyType]
     })
   },
 

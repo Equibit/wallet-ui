@@ -9,15 +9,15 @@ import environment from '~/environment'
 
 const { api } = environment
 
-// const transport = 'socketio';
-const transport = 'rest'
+const transport = 'socketio';
+// const transport = 'rest'
 const feathersClient = feathers()
 
 if (transport === 'socketio') {
   var socket = io(api, {
     transports: ['websocket']
   })
-  feathersClient.configure(socketio(socket))
+  feathersClient.configure(socketio(socket, {timeout: 60000}))
 }
 if (transport === 'rest') {
   feathersClient.configure(rest(api).jquery(jQuery))
