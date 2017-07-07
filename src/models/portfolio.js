@@ -281,7 +281,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     if (addressItem.meta.isUsed) {
       console.warn(`*** The following address was already used! ${addr}, ${currencyType}, isChange=${isChange}`)
     } else {
-      console.log(`[portfolio.markAsUsed] ${addr}, ${currencyType}, isChange=${isChange}`);
+      console.log(`[portfolio.markAsUsed] ${addr}, ${currencyType}, isChange=${isChange}`)
       addressItem.meta.isUsed = true
       this.save()
     }
