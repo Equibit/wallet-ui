@@ -61,6 +61,7 @@ export const ViewModel = DefineMap.extend({
 
     const currencyType = formData.fundsType
     const changeAddr = this.portfolio.nextChangeAddress[currencyType]
+
     const tx = this.prepareTransaction(formData, changeAddr)
     console.log('tx.hex: ' + tx.hex, tx)
 
@@ -68,6 +69,7 @@ export const ViewModel = DefineMap.extend({
     this.isSending = true
 
     tx.save().then(() => {
+      console.log('[my-portfolio.send] transaction was saved')
       this.isSending = false
 
       const msg = this.type === 'SECURITIES' ? translate('securitiesSent') : translate('fundsSent')
@@ -81,7 +83,8 @@ export const ViewModel = DefineMap.extend({
 
       // mark change address as used
       // this.portfolio.nextChangeAddress[currencyType]
-      this.portfolio.markAsUsed(changeAddr, currencyType)
+      console.log('[my-portfolio.send] marking change address as used ...')
+      this.portfolio.markAsUsed(changeAddr, currencyType, true)
     })
   },
 

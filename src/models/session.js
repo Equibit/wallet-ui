@@ -116,6 +116,7 @@ const Session = DefineMap.extend('Session', {
     stream: function () {
       const addrStream = this.toStream('.allAddresses').skipWhile(a => !a || !(a.BTC.length || a.EQB.length))
       return addrStream.merge(this.toStream('refresh')).map(() => {
+        console.log('*** [portfolio.balancePromise] fetching balance...')
         return this.fetchBalance()
       })
     }
@@ -162,10 +163,12 @@ const Session = DefineMap.extend('Session', {
           summary: { cash: 0, securities: 0, total: 0, isDefault: true }
         }
       }
+      // TODO: fix incorrect using val which only receives a value when balance gets explicitly set.
       if ((!val || val.isDefault) && this.balancePromise) {
         this.balancePromise.then(balance => {
           this.portfolios.forEach(portfolio => {
             // TODO: Mutates portfolio updating userBalance. Use getter that checks Session.current.balance
+            console.log('[portfolio.balance] updating portfolio.userBalance ...')
             portfolio.userBalance = balance
           })
           balance.summary = {

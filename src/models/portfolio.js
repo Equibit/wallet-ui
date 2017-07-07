@@ -139,6 +139,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           const amount = unspentByType[a.address].amount
 
           // TODO: mutating addresses here is a bad pattern.
+          console.log('*** [portfolio.balance] Updating addresses with amount ant txouts...')
           // Add amount and txouts:
           a.amount = amount
           a.txouts = unspentByType[a.address].txouts
@@ -272,15 +273,16 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @param {Boolean} isChange
    * @returns {*}
    */
-  markAsUsed (changeAddr, currencyType, isChange) {
-    const addr = this.findAddress(changeAddr)
-    if (addr.type !== currencyType) {
-      console.warn(`*** The address is used for a different currencyType of ${addr.type}! ${changeAddr}, ${currencyType}, isChange=${isChange}`)
+  markAsUsed (addr, currencyType, isChange) {
+    const addressItem = this.findAddress(addr)
+    if (addressItem.type !== currencyType) {
+      console.warn(`*** The address is used for a different currencyType of ${addressItem.type}! ${addr}, ${currencyType}, isChange=${isChange}`)
     }
-    if (addr.meta.isUsed) {
-      console.warn(`*** The following address was already used! ${changeAddr}, ${currencyType}, isChange=${isChange}`)
+    if (addressItem.meta.isUsed) {
+      console.warn(`*** The following address was already used! ${addr}, ${currencyType}, isChange=${isChange}`)
     } else {
-      addr.meta.isUsed = true
+      console.log(`[portfolio.markAsUsed] ${addr}, ${currencyType}, isChange=${isChange}`);
+      addressItem.meta.isUsed = true
       this.save()
     }
   }
@@ -288,7 +290,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
 function getNextAddressIndex (addresses = [], type, isChange = false) {
   return addresses.filter(a => a.type === type && a.isChange === isChange).reduce((acc, a) => {
-    return a.used !== true ? {index: a.index, imported: true} : {index: a.index + 1, imported: false}
+    return a.isUsed !== true ? {index: a.index, imported: true} : {index: a.index + 1, imported: false}
   }, {index: 0, imported: false})
 }
 
