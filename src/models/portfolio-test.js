@@ -47,7 +47,7 @@ describe('models/portfolio', function () {
         {index: 0, type: 'BTC', address: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', isChange: true}
       ]
       assert.deepEqual(portfolio.addresses.length, 5)
-      assert.deepEqual(omit(['keyPair'], portfolio.addresses[0]), expectedAddresses[0])
+      assert.deepEqual(omit(['keyPair', 'meta'], portfolio.addresses[0]), expectedAddresses[0])
     })
 
     it('should populate addressesBtc and addressesEqb', function () {
