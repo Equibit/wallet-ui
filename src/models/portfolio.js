@@ -69,14 +69,17 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   addresses: {
     get () {
-      return (this.addressesMeta && this.addressesMeta.map(a => {
-        const keysNode = this.keys[a.type].derive(a.isChange ? 1 : 0).derive(a.index)
+      // TODO: make sure this getter is cached (maybe change to a stream derived from addressesMeta).
+      return (this.addressesMeta && this.addressesMeta.map(meta => {
+        console.log('[portfolio.addresses] deriving addr...')
+        const keysNode = this.keys[meta.type].derive(meta.isChange ? 1 : 0).derive(meta.index)
         return {
-          index: a.index,
-          isChange: a.isChange,
-          type: a.type,
+          index: meta.index,
+          isChange: meta.isChange,
+          type: meta.type,
           address: keysNode.getAddress(),
-          keyPair: keysNode.keyPair
+          keyPair: keysNode.keyPair,
+          meta: meta
         }
       })) || []
     }
@@ -259,6 +262,27 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   findAddress (addr) {
     return this.addresses.reduce((acc, a) => (a.address === addr ? a : acc), null)
+  },
+
+  /**
+   * @function markAsUsed
+   * Updates addressesMeta item as used and saves the portfolio.
+   * @param {String} changeAddr
+   * @param {String} currencyType
+   * @param {Boolean} isChange
+   * @returns {*}
+   */
+  markAsUsed (changeAddr, currencyType, isChange) {
+    const addr = this.findAddress(changeAddr)
+    if (addr.type !== currencyType) {
+      console.warn(`*** The address is used for a different currencyType of ${addr.type}! ${changeAddr}, ${currencyType}, isChange=${isChange}`)
+    }
+    if (addr.meta.isUsed) {
+      console.warn(`*** The following address was already used! ${changeAddr}, ${currencyType}, isChange=${isChange}`)
+    } else {
+      addr.meta.isUsed = true
+      this.save()
+    }
   }
 })
 

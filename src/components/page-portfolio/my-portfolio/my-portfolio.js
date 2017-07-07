@@ -53,14 +53,15 @@ export const ViewModel = DefineMap.extend({
   },
   send (args) {
     const formData = args[1]
-    // const currencyType = formData.fundsType
     console.log('send: ', formData)
     if (!formData) {
       console.error('Error: received no form data')
       return
     }
 
-    const tx = this.prepareTransaction(formData)
+    const currencyType = formData.fundsType
+    const changeAddr = this.portfolio.nextChangeAddress[currencyType]
+    const tx = this.prepareTransaction(formData, changeAddr)
     console.log('tx.hex: ' + tx.hex, tx)
 
     // Show the spinner:
@@ -80,10 +81,11 @@ export const ViewModel = DefineMap.extend({
 
       // mark change address as used
       // this.portfolio.nextChangeAddress[currencyType]
+      this.portfolio.markAsUsed(changeAddr, currencyType)
     })
   },
 
-  prepareTransaction (formData) {
+  prepareTransaction (formData, changeAddr) {
     const amount = formData.amount
     const currencyType = formData.fundsType
     const toAddress = formData.toAddress
@@ -92,7 +94,7 @@ export const ViewModel = DefineMap.extend({
       .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
     const options = {
       fee: formData.transactionFee,
-      changeAddr: this.portfolio.nextChangeAddress[currencyType],
+      changeAddr,
       type: 'OUT',
       currencyType,
       description: formData.description
