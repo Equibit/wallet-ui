@@ -1,10 +1,10 @@
 <can-import from="grid-component" />
 <can-import from="~/components/common/grid/grid.less" />
-
+<can-import from="~/utils/stache-helpers/" />
 
 <drag-panel class="panel panel-default card card-half">
   <div class="panel-heading">
-    <h3 class="panel-title">Latest Issuances <small>Last 24 hours</small></h3>
+    <h3 class="panel-title">{{i18n('lastestIssuances')}} <small>{{i18n('last24hours')}}</small></h3>
   </div>
   <div class="panel-body">
     <div class="row">
@@ -14,10 +14,10 @@
             <table class="table table-condensed grid-header">
               <thead>
                 <tr>
-                  <th class="column-company">Company</th>
-                  <th class="column-domicile">Domicile</th>
-                  <th class="column-issuance">Issuance</th>
-                  <th class="column-issuance-type">Issuance Type</th>
+                  <th class="column-company">{{i18n('company')}}</th>
+                  <th class="column-domicile">{{i18n('domicile')}}</th>
+                  <th class="column-issuance">{{i18n('Issuance')}}</th>
+                  <th class="column-issuance-type">{{i18n('issuanceType')}}</th>
                   <!--<th class="column-restriction">Restriction</th>-->
                 </tr>
               </thead>
@@ -43,11 +43,10 @@
           </div>
 
           <div class="grid-footer">
-            <a href="{{routeUrl page='issuances'}}" class="btn btn-default btn-sm">View All</a>
+            <a href="{{routeUrl page='issuances'}}" class="btn btn-default btn-sm">{{i18n('viewAll')}}</a>
           </div>
         </grid-component>
       </div>
     </div>
   </div>
 </drag-panel>
-

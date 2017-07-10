@@ -5,7 +5,7 @@
 
 <drag-panel class="panel panel-default card card-half">
   <div class="panel-heading">
-    <h3 class="panel-title">Market Capitalization <small>Last 24 hours</small></h3>
+    <h3 class="panel-title">{{i18n('marketCapitalization')}} <small>{{i18n('last24hours')}}</small></h3>
   </div>
   <div class="panel-body">
     <div class="row">

@@ -33,6 +33,7 @@ export default {
   tryAgainNo: 'No, Try Again',
   verify: 'Verify',
   view: 'View',
+  viewAll: 'View All',
   viewDetails: 'View Details',
   viewTransaction: 'View Transaction',
 
@@ -58,6 +59,7 @@ export default {
   autoLogoutLabel: 'Auto Logout Time',
 
   balance: 'Balance',
+  biggestMovers: 'Biggest Movers',
   bitcoin: 'Bitcoin',
   bitcoinDisplayUnit: 'Bitcoin Display Unit',
   bitcoinDisplayUnitMicro: 'Micro',
@@ -169,6 +171,7 @@ export default {
   issuanceType: 'Issuance Type',
   issued: 'Issued',
 
+  lastestIssuances: 'Latest Issuances',
   last24hours: 'Last 24 hours',
   lastUpdatedOn: 'Last updated on',
   level: 'Level',
@@ -179,6 +182,7 @@ export default {
   marketSummary: 'Market Summary',
   minutes: 'Minutes',
   missingAddress: 'Address is missing',
+  mostActive: 'Most Active',
   myIssuances: 'My Issuances',
   myOffers: 'My Offers',
   myOrders: 'My Orders',
