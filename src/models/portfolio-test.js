@@ -68,12 +68,15 @@ describe('models/portfolio', function () {
       assert.deepEqual(omit(['txouts'], portfolio.balance.get()), expectedBalance)
     })
 
-    it('should populate nextAddress', function () {
+    it('should populate nextAddress', function (done) {
       const expected = {
         BTC: 'mu2DDd2d9yDzS9PoqZrjD6e1ZnmgJnpv54',
         EQB: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU'
       }
-      assert.deepEqual(portfolio.nextAddress, expected)
+      portfolio.nextAddress().then(function (nextAddress) {
+        assert.deepEqual(nextAddress, expected)
+        done()
+      })
     })
   })
 
@@ -84,4 +87,18 @@ describe('models/portfolio', function () {
       assert.equal(p && p.name, 'My Portfolio')
     })
   })
+})
+
+import set from 'can-set'
+
+describe('Pagination can-set algebra', function () {
+  const algebra = new set.Algebra(
+    set.comparators.id('_id'),
+    set.props.offsetLimit('$skip', '$limit')
+  )
+
+  const set = {$limit: 5, $skip: 0}
+  const props = {_id: "595e5c58711b9e358f567edc", name: "My Portfolio"}
+  set.has(set, props, algebra)
+
 })

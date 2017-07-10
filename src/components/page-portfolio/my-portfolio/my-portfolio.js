@@ -60,15 +60,18 @@ export const ViewModel = DefineMap.extend({
     }
 
     const currencyType = formData.fundsType
-    const changeAddr = this.portfolio.nextChangeAddress[currencyType]
+    this.portfolio.nextChangeAddress().then(addrObj => {
+      return addrObj[currencyType]
+    }).then(changeAddr => {
+      const tx = this.prepareTransaction(formData, changeAddr)
+      console.log('tx.hex: ' + tx.hex, tx)
 
-    const tx = this.prepareTransaction(formData, changeAddr)
-    console.log('tx.hex: ' + tx.hex, tx)
+      // Show the spinner:
+      this.isSending = true
 
-    // Show the spinner:
-    this.isSending = true
+      return tx.save().then(() => changeAddr)
 
-    tx.save().then(() => {
+    }).then(changeAddr => {
       console.log('[my-portfolio.send] transaction was saved')
       this.isSending = false
 

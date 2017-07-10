@@ -9,9 +9,11 @@
 
 import DefineMap from 'can-define/map/'
 import DefineList from 'can-define/list/list'
-import feathersClient from '~/models/feathers-client'
-import superModel from '~/models/super-model'
+import feathersClient from './feathers-client'
+import { superModelNoCache } from './super-model'
 import algebra from '~/models/algebra'
+
+const portfolioService = feathersClient.service('portfolios')
 
 // TODO: FIXTURES ON!
 // import '~/models/fixtures/portfolio';
@@ -171,18 +173,19 @@ const Portfolio = DefineMap.extend('Portfolio', {
     type: '*'
   },
 
+  /**
+   * @function {String} models/portfolio.properties.nextAddress nextAddress
+   * @parent models/portfolio.methods
+   * Returns next available address wrapped into a Promise (because addr has to be imported and saved).
+   */
   // "m /44' /0' /portfolio-index' /0 /index"
-  nextAddress: {
-    get () {
-      return this.getNextAddress(false)
-    }
+  nextAddress () {
+    return this.getNextAddress(false)
   },
 
   // "m /44' /0' /portfolio-index' /1 /index"
-  nextChangeAddress: {
-    get () {
-      return this.getNextAddress(true)
-    }
+  nextChangeAddress () {
+    return this.getNextAddress(true)
   },
 
   // getNextAddress :: Bool -> Object(EQB<String>,BTC<String>)
@@ -210,10 +213,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
     if (!eqbAddr.imported || !btcAddr.imported) {
       // Save newly generated addresses to DB:
-      this.save()
+      console.log('[portfolio.getNextAddress] patching portfolio with updated addressesMeta ...')
+      return this.patch({
+        addressesMeta: this.addressesMeta
+      }).then(() => addr)
+    } else {
+      return Promise.resolve(addr)
     }
-
-    return addr
   },
 
   // Methods:
@@ -283,8 +289,14 @@ const Portfolio = DefineMap.extend('Portfolio', {
     } else {
       console.log(`[portfolio.markAsUsed] ${addr}, ${currencyType}, isChange=${isChange}`)
       addressItem.meta.isUsed = true
-      this.save()
+      console.log('[portfolio.markAsUsed] patching portfolio with updated addressesMeta ...')
+      return this.patch({
+        addressesMeta: this.addressesMeta
+      })
     }
+  },
+  patch (data) {
+    return portfolioService.patch(this._id, data)
   }
 })
 
@@ -325,7 +337,7 @@ Portfolio.List = DefineList.extend('PortfolioList', {
   }
 })
 
-Portfolio.connection = superModel({
+Portfolio.connection = superModelNoCache({
   Map: Portfolio,
   List: Portfolio.List,
   feathersService: feathersClient.service('/portfolios'),
