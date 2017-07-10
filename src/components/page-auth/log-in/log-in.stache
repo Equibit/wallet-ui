@@ -1,19 +1,20 @@
+<can-import from="~/utils/stache-helpers/" />
 <form class="form-signin" ($submit)="handleLogin(%event, email, password)">
-  <h2 class="form-signin-heading">Log In</h2>
+  <h2 class="form-signin-heading">{{i18n('login')}}</h2>
 
   {{#if loginError}}
-    <div class="alert alert-danger">Invalid login. Try again, or <a href="{{routeUrl page='forgot-password'}}">reset your password</a>.</div>
+    <div class="alert alert-danger">{{i18n('errorMessageInvalidLogin1')}} <a href="{{routeUrl page='forgot-password'}}">{{i18n('errorMessageInvalidLogin2')}}</a>.</div>
   {{/if}}
 
   <div class="form-group">
-    <label for="inputEmail">Email</label>
+    <label for="inputEmail">{{i18n('email')}}</label>
     <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
            {($value)}="email" autofocus novalidate>
     <validation-message {message}="emailError" />
   </div>
 
   <div class="form-group">
-    <label for="inputPassword">Password</label>
+    <label for="inputPassword">{{i18n('password')}}</label>
     <span class="show-password icon icon-eye{{#if passwordVisible}}-blocked{{/if}}"
           ($click)="togglePassword()"></span>
     <input type="{{#if passwordVisible}}text{{else}}password{{/if}}" class="form-control" id="inputPassword" aria-describedby="emailHelp"
@@ -23,7 +24,7 @@
 
   <button class="btn btn-primary" type="submit">
     <span class="icon icon-lock"></span>
-    Log In
+    {{i18n('login')}}
   </button>
-  <a href="{{routeUrl page='forgot-password'}}" class="btn btn-link pull-right">Forgot password?</a>
+  <a href="{{routeUrl page='forgot-password'}}" class="btn btn-link pull-right">{{i18n('passwordForgotPassword')}}</a>
 </form>

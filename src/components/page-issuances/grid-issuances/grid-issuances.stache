@@ -15,14 +15,14 @@
       <table class="table grid-header table-condensed">
         <thead>
           <tr>
-            <th class="column-company">Company</th>
-            <th class="column-domicile">Domicile</th>
-            <th class="column-issuance">Issuance</th>
-            <th class="column-issuance-type">Issuance Type</th>
-            <th class="column-restriction">Restriction</th>
-            <th class="column-market-cap">Market Cap (μBTC)</th>
-            <th ($click)="changeSort()" class="column-change-price sort">Change (μBTC) {{{sort-arrow(../sort)}}}</th>
-            <th class="column-change-percentage">Change (%)</th>
+            <th class="column-company">{{i18n('company')}}</th>
+            <th class="column-domicile">{{i18n('domicile')}}</th>
+            <th class="column-issuance">{{i18n('issuance')}}</th>
+            <th class="column-issuance-type">{{i18n('issuanceType')}}</th>
+            <th class="column-restriction">{{i18n('restriction')}}</th>
+            <th class="column-market-cap">{{i18n('marketCap')}} (μBTC)</th>
+            <th ($click)="changeSort()" class="column-change-price sort">{{i18n('change')}} (μBTC) {{{sort-arrow(../sort)}}}</th>
+            <th class="column-change-percentage">{{i18n('change')}} (%)</th>
           </tr>
         </thead>
       </table>

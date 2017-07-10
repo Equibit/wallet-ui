@@ -12,13 +12,13 @@
       <table class="table grid-header">
         <thead>
         <tr>
-          <th class="column-company">Company</th>
-          <th class="column-issuance">Issuance</th>
-          <th class="column-quantity">Quantity (BTC)</th>
-          <th class="column-cost">Cost (μBTC)</th>
-          <th class="column-price">Price (μBTC)</th>
-          <th class="column-value">Value ({{local-currency-symbol()}})</th>
-          <th class="column-pl">P&L (μBTC)</th>
+          <th class="column-company">{{i18n('company')}}</th>
+          <th class="column-issuance">{{i18n('issuance')}}</th>
+          <th class="column-quantity">{{i18n('quantity')}} (BTC)</th>
+          <th class="column-cost">{{i18n('cost')}} (μBTC)</th>
+          <th class="column-price">{{i18n('price')}} (μBTC)</th>
+          <th class="column-value">{{i18n('value')}} ({{local-currency-symbol()}})</th>
+          <th class="column-pl">{{i18n('profitandLoss')}} (μBTC)</th>
         </tr>
         </thead>
       </table>

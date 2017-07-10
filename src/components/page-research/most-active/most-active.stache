@@ -1,10 +1,11 @@
 <can-import from="grid-component" />
 <can-import from="~/components/common/grid/grid.less" />
 <can-import from="~/components/common/panel/" />
+<can-import from="~/utils/stache-helpers/" />
 
 <drag-panel class="panel panel-default card card-half">
   <div class="panel-heading">
-    <h3 class="panel-title">Most Active <small>Last 24 hours</small></h3>
+    <h3 class="panel-title">{{i18n('mostActive')}} <small>{{i18n('last24hours')}}</small></h3>
   </div>
   <div class="panel-body">
     <div class="row">
@@ -15,10 +16,10 @@
             <table class="table table-condensed grid-header">
               <thead>
               <tr>
-                <th class="column-company">Company</th>
-                <th class="column-issuance">Issuance</th>
-                <th class="column-trades"># Trades</th>
-                <th class="column-volume">Volume (μBTC)</th>
+                <th class="column-company">{{i18n('company')}}</th>
+                <th class="column-issuance">{{i18n('Issuance')}}</th>
+                <th class="column-trades"># {{i18n('trades')}}</th>
+                <th class="column-volume">{{i18n('volume')}} (μBTC)</th>
               </tr>
               </thead>
             </table>
