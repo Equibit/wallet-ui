@@ -15,3 +15,7 @@ fixture('GET /portfolios', function () {
     ]
   }]
 })
+
+fixture('PATCH /portfolios/{id}', function (params) {
+  return params && params.data || {}
+})
