@@ -6,13 +6,13 @@
   <h2 class="form-signin-heading">{{i18n('createAccount')}}</h2>
 
   {{#if signupError}}
-    <div class="alert alert-danger">Sorry, unexpected error happened. Please, try again later.</div>
+    <div class="alert alert-danger">{{i18n('errorMessageUnexpectedError')}}</div>
   {{/if}}
 
   {{^if isAccountCreated}}
 
     <div class="form-group">
-      <label for="inputEmail">Email</label>
+      <label for="inputEmail">{{i18n('email')}}</label>
       <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
              {($value)}="email" autofocus>
       <validation-message {message}="emailError" />
@@ -22,8 +22,8 @@
       <div class="checkbox">
         <label>
           <input type="checkbox" {($checked)}="agreedToTerms">
-          I agree to the <a ($click)="showTerms('termsVisible')">Terms & Conditions</a>
-          and <a ($click)="showTerms('policyVisible')">Privacy Policy</a>.
+          {{i18n('signupAgreeToTerms1')}} <a ($click)="showTerms('termsVisible')">{{i18n('signupAgreeToTerms2')}}s</a>
+          {{i18n('signupAgreeToTerms3')}} <a ($click)="showTerms('policyVisible')">{{i18n('signupAgreeToTerms4')}}</a>.
         </label>
       </div>
       <validation-message {message}="termsError" />
@@ -39,7 +39,7 @@
     <div class="message-box">
       <div class="icon icon-email"></div>
       <p class="message-box-cause">
-        Check your email to continue, and then head to <a href="{{routeUrl page='login'}}" ($click)="clearAccountCreated()">login</a>.
+        {{i18n('passwordForgotMessageContinue1')}} <a href="{{routeUrl page='login'}}" ($click)="clearAccountCreated()">{{i18n('passwordForgotMessageContinue2')}}</a>.
       </p>
     </div>
 
