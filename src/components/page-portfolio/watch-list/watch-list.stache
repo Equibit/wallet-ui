@@ -27,9 +27,9 @@
             <table class="table table-condensed grid-header">
               <thead>
               <tr>
-                <th class="column-company">Company</th>
-                <th class="column-change">Change (μBTC)</th>
-                <th class="column-changepercent">Change (%)</th>
+                <th class="column-company">{{i18n('company')}}</th>
+                <th class="column-change">{{i18n('change')}} (μBTC)</th>
+                <th class="column-changepercent">{{i18n('change')}} (%)</th>
               </tr>
               </thead>
             </table>

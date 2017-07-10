@@ -14,9 +14,9 @@
 
   <div class="panel-body align-center">
     <div class="message-box no-border">
-      <div class="message-box-status">Manage your Portfolio</div>
-      <p class="message-box-cause">Get started by receiving funds or securities to your portfolio.</p>
-      <a class="btn btn-primary"($click)="receiveFunds()"><span class="icon icon-download"></span> Receive</a>
+      <div class="message-box-status">{{i18n('placeholderPortfolioNoFundsTitle')}}</div>
+      <p class="message-box-cause">{{i18n('placeholderPortfolioNoFundsDescription')}}</p>
+      <a class="btn btn-primary"($click)="receiveFunds()"><span class="icon icon-download"></span> {{i18n('receive')}}</a>
     </div>
   </div>
 
