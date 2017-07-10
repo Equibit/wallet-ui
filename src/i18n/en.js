@@ -167,6 +167,7 @@ export default {
 
   issuance: 'Issuance',
   issuances: 'Issuances',
+  issuancesAll: 'All Issuances',
   issuanceName: 'Issuance Name',
   issuanceType: 'Issuance Type',
   issued: 'Issued',
@@ -178,6 +179,7 @@ export default {
   login: 'Log In',
   logout: 'Log Out',
 
+  marketCap: 'Market Cap',
   marketCapitalization: 'Market Capitalization',
   marketSummary: 'Market Summary',
   minutes: 'Minutes',

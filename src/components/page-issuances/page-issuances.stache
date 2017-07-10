@@ -1,12 +1,13 @@
 <can-import from="~/components/common/panel/" />
 <can-import from="~/components/page-issuances/grid-issuances/" />
 <can-import from="~/components/page-issuances/issuance-info/" />
+<can-import from="~/utils/stache-helpers/" />
 
 <div class="row">
   <div class="col-xs-12">
     <drag-panel class="panel panel-default card card-full">
       <div class="panel-heading">
-        <h1 class="panel-title">All Issuances</h1>
+        <h1 class="panel-title">{{i18n('issuancesAll')}}</h1>
       </div>
       <div class="panel-body">
         <div class="row card-row-full">
