@@ -1,10 +1,9 @@
 <can-import from="candlestick-volume-chart/dist/candlestick-volume-chart" />
+<can-import from="~/utils/stache-helpers/" />
 
-<h2 class="subtitle">Share Performance</h2>
+<h2 class="subtitle">{{i18n('sharePerformance')}}</h2>
 
 <div class="well">
-  <!-- div class="row"-->
-    <!-- div class="col-md-5 col-xs-12" -->
     {{#if candlestickSize}}
       {{#if chartData}}
         <candlestick-volume-chart {chart-data}="chartData"
@@ -14,6 +13,4 @@
 
       {{/if}}
     {{/if}}
-    <!--/div-->
-  <!--/div -->
 </div>

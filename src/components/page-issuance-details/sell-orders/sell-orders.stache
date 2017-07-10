@@ -9,10 +9,10 @@
         <thead>
           <tr>
             <th class="column-action-buttons"></th>
-            <th class="column-partial">Partial</th>
-            <th class="column-datetime">Date/Time</th>
-            <th class="column-quantity">Quantity</th>
-            <th class="column-price">Ask Price</th>
+            <th class="column-partial">{{i18n('partial')}}</th>
+            <th class="column-datetime">{{i18n('dateAndTime2')}}</th>
+            <th class="column-quantity">{{i18n('quantity')}}</th>
+            <th class="column-price">{{i18n('askPrice')}}</th>
           </tr>
         </thead>
       </table>
@@ -23,7 +23,7 @@
         <tbody>
         {{#each rows as row}}
           <tr class="">
-            <td class="column-action-buttons"><button class="btn btn-default btn-xs">Buy</button></td>
+            <td class="column-action-buttons"><button class="btn btn-default btn-xs">{{i18n('buy')}}</button></td>
             <td class="column-partial">{{yes-no(row.partial)}}</td>
             <td class="column-datetime">{{format-time(row.date)}}</td>
             <td class="column-quantity">{{row.quantity}}</td>

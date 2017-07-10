@@ -8,10 +8,10 @@
       <table class="table table-condensed grid-header">
         <thead>
         <tr>
-          <th class="column-price">Bid Price</th>
-          <th class="column-quantity">Quantity</th>
-          <th class="column-datetime">Date/Time</th>
-          <th class="column-partial">Partial</th>
+          <th class="column-price">{{i18n('bidPrice')}}</th>
+          <th class="column-quantity">{{i18n('quantity')}}</th>
+          <th class="column-datetime">{{i18n('dateAndTime2')}}</th>
+          <th class="column-partial">{{i18n('partial')}}</th>
           <th class="column-action-buttons"></th>
         </tr>
         </thead>
@@ -27,7 +27,7 @@
             <td class="column-quantity">{{row.quantity}}</td>
             <td class="column-datetime">{{format-time(row.date)}}</td>
             <td class="column-partial">{{yes-no(row.partial)}}</td>
-            <td class="column-action-buttons"><button class="btn btn-default btn-xs" ($click)="sell(row.id)">Sell</button></td>
+            <td class="column-action-buttons"><button class="btn btn-default btn-xs" ($click)="sell(row.id)">{{i18n('sell')}}</button></td>
           </tr>
         {{/each}}
         </tbody>

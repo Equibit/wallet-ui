@@ -2,28 +2,29 @@
 <can-import from="~/components/page-issuance-details/buy-orders/" />
 <can-import from="~/components/page-issuances/company-value-change.component" />
 <can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/utils/stache-helpers/" />
 
-<h2 class="subtitle">Order Book</h2>
+<h2 class="subtitle">{{i18n('orderBook')}}</h2>
 
 <div class="well">
   <div class="row">
     <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
-      <h3 class="subheading">Sell Orders</h3>
+      <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
       <sell-orders limit="10" />
 
       <div>
-        <button class="btn btn-primary btn-xs">+ Add Sell Order</button>
+        <button class="btn btn-primary btn-xs">{{i18n('addSellOrder')}}</button>
         <button class="btn btn-link btn-xs" ($click)="showModal()">View All</button>
       </div>
     </div>
     <div class="col-lg-6 col-xs-12 buy-orders no-padding-right">
-      <h3 class="subheading">Buy Orders</h3>
+      <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
       <buy-orders limit="15" />
 
       <div>
-        <button class="btn btn-primary btn-xs">+ Add Buy Order</button>
+        <button class="btn btn-primary btn-xs">{{i18n('addBuyOrder')}}</button>
         <button class="btn btn-link btn-xs" ($click)="showModal()">View All</button>
       </div>
     </div>
@@ -35,7 +36,7 @@
     <div class="modal-header">
       <button ($click)="close()" type="button" class="close" aria-label="Close">
         <span class="icon icon-cross rotate-90"></span></button>
-        <h4 class="modal-title"><span class="icon icon-book"></span> Order Book</h4>
+        <h4 class="modal-title"><span class="icon icon-book"></span> {{i18n('orderBook')}}</h4>
     </div>
 
     <div class="modal-body">
@@ -50,21 +51,21 @@
 
       <div class="row">
         <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
-          <h3 class="subheading">Sell Orders</h3>
+          <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
           <sell-orders limit="15"/>
 
           <div>
-            <button class="btn btn-primary btn-xs">+ Add Sell Order</button>
+            <button class="btn btn-primary btn-xs">{{i18n('addSellOrder')}}</button>
           </div>
         </div>
         <div class="col-lg-6 col-xs-12 buy-orders no-padding">
-          <h3 class="subheading">Buy Orders</h3>
+          <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
           <buy-orders limit="20" />
 
           <div>
-            <button class="btn btn-primary btn-xs">+ Add Buy Order</button>
+            <button class="btn btn-primary btn-xs">{{i18n('addBuyOrder')}}</button>
           </div>
         </div>
       </div>

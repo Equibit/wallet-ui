@@ -12,6 +12,8 @@ export default {
   passwordResetMsg: '',
 
   // Buttons:
+  addBuyOrder: '+ Add Buy Order',
+  addSellOrder: '+ Add Sell Order',
   accept: 'Accept',
   done: 'Done',
   back: 'Back',
@@ -59,6 +61,7 @@ export default {
   autoLogoutLabel: 'Auto Logout Time',
 
   balance: 'Balance',
+  bidPrice: 'Bid Price',
   biggestMovers: 'Biggest Movers',
   bitcoin: 'Bitcoin',
   bitcoinDisplayUnit: 'Bitcoin Display Unit',
@@ -71,6 +74,7 @@ export default {
   BTC: 'BTC',
   buy: 'Buy',
   buyOffers: 'Buy Offers',
+  buyOrders: 'Buy Orders',
 
   cancelDeal: 'Cancel Deal',
   cancelledOn: 'Cancelled on',
@@ -101,6 +105,7 @@ export default {
 
   date: 'Date',
   dateAndTime: 'Date and Time',
+  dateAndTime2: 'Date/Time',
   days: 'Days',
   dealFlowMessageContentAvailabilityBuyer: 'This can take some time, depending on the buyer availability.',
   dealFlowMessageContentAvailabilitySeller: 'This can take some time, depending on the seller availability.',
@@ -211,7 +216,9 @@ export default {
 
   offer: 'Offer',
   order: 'Order',
+  orderBook: 'Order Book',
 
+  partial: 'Partial',
   pasteAddress: 'Paste address',
   password: 'Password',
   passwordCurrent: 'Current Password',
@@ -265,6 +272,7 @@ export default {
   recoveryPhraseSetupRiskTitle: 'Do You Understand the Risk?',
   recoveryPhraseSetupRiskWarning: 'If you proceed without a backup, and forget your password you will lose access to your funds.',
   recoveryPhraseWarningMessage: 'If you don\'t have a backup recovery phrase, you can still access your account, but your funds won\'t be available.',
+  relatedCompanies: 'Related Companies',
   research: 'Research',
   restriction: 'Restriction',
 
@@ -277,7 +285,9 @@ export default {
   sell: 'Sell',
   sellOffer: 'Sell Offer',
   sellOrder: 'Sell Order',
+  sellOrders: 'Sell Orders',
   shareVolume: 'Share Volume',
+  sharePerformance: 'Share Performance',
   signup: 'Sign Up',
   signupAgreeToTerms1: 'I agree to the',
   signupAgreeToTerms2: 'Terms & Conditions',
@@ -303,6 +313,8 @@ export default {
   totalPrice: 'Total Price',
   totalSecurities: 'Total Securities',
   trademark: '© 2017 Equibit Group Ltd.',
+  tradingPassportsAccepted: 'Accepted Trading Passports',
+  tradingPassportsAcceptedMessage: 'This issuance is restricted and requires at least one of these passports.',
   trades: 'Trades',
   transactionBuy: 'Buy',
   transactionFee: 'Transaction Fee',
