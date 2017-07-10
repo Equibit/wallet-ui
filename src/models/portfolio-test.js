@@ -88,17 +88,3 @@ describe('models/portfolio', function () {
     })
   })
 })
-
-import set from 'can-set'
-
-describe('Pagination can-set algebra', function () {
-  const algebra = new set.Algebra(
-    set.comparators.id('_id'),
-    set.props.offsetLimit('$skip', '$limit')
-  )
-
-  const set = {$limit: 5, $skip: 0}
-  const props = {_id: "595e5c58711b9e358f567edc", name: "My Portfolio"}
-  set.has(set, props, algebra)
-
-})

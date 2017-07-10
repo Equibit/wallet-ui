@@ -70,7 +70,6 @@ export const ViewModel = DefineMap.extend({
       this.isSending = true
 
       return tx.save().then(() => changeAddr)
-
     }).then(changeAddr => {
       console.log('[my-portfolio.send] transaction was saved')
       this.isSending = false
