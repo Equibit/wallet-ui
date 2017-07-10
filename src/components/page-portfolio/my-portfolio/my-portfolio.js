@@ -105,6 +105,15 @@ export const ViewModel = DefineMap.extend({
       description: formData.description
     }
     return Transaction.makeTransaction(amount, toAddress, txouts, options)
+  },
+
+  nextAddress: {
+    get (val, resolve) {
+      if (val) {
+        return val
+      }
+      this.portfolio.nextAddress().then(resolve)
+    }
   }
 })
 
