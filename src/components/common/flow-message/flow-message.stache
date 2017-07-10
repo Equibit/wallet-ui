@@ -1,12 +1,14 @@
+<can-import from="~/utils/stache-helpers/" />
+
 <p class="message-flow">
-  <span class="message-flow-title"><span class="icon icon-checkmark"></span> Securities Sent</span>
+  <span class="message-flow-title"><span class="icon icon-checkmark"></span> {{i18n('dealFlowMessageTitleSecuritiesSent')}}</span>
 </p>
 
 <p class="message-flow">
-  <span class="message-flow-title"><span class="icon icon-clock"></span> Awaiting Confirmation from Buyer</span>
+  <span class="message-flow-title"><span class="icon icon-clock"></span> {{i18n('dealFlowMessageTitleConfirmDealBuyer')}}</span>
   <span class="message-flow-description">
-    This can take some time, depending on the buyer availability.
-    We will notify you when you can continue.
+    {{i18n('dealFlowMessageContentAvailabilityBuyer')}}
+    {{i18n('dealFlowMessageContentNotifyContinue')}}
   </span>
 </p>
 
@@ -14,55 +16,46 @@
 
 <hr />
 
-
 <p class="message-flow">
-  <span class="message-flow-title"><span class="icon icon-checkmark"></span> Securities Received</span>
+  <span class="message-flow-title"><span class="icon icon-checkmark"></span> {{i18n('dealFlowMessageTitleSecuritiesReceived')}}</span>
 </p>
 
 <p class="message-flow">
-  <span class="message-flow-title"><span class="icon icon-warning"></span> Confirm the Deal to Unlock the Securities</span>
-  <span class="message-flow-description">
-    The seller can revoke the securities in 48 hours.
-  </span>
+  <span class="message-flow-title"><span class="icon icon-warning"></span> {{i18n('dealFlowMessageTitleAwaitingConfirmationBuyer')}}</span>
+  <span class="message-flow-description">{{i18n('dealFlowMessageContentRevokeSeller')}}</span>
 </p>
 
 <hr />
 
 <p class="message-flow">
-  <span class="message-flow-title"><span class="icon icon-hand-shake"></span>Deal Confirmed</span>
-  <span class="message-flow-description">
-    on 05/07/2016 @3:01 pm.
-  </span>
+  <span class="message-flow-title"><span class="icon icon-hand-shake"></span>{{i18n('dealFlowMessageTitleDealConfirmed')}}</span>
+  <span class="message-flow-description">  on 05/07/2016 @3:01 pm.</span>
 </p>
-<a href="#" class="btn btn-default btn-sm">View Transaction</a>
+<a href="#" class="btn btn-default btn-sm">{{i18n('viewTransaction')}}</a>
 
 <hr />
 
 <p class="message-flow">
-  <span class="message-flow-title"><span class="icon icon-checkmark"></span> Guarantee Received</span>
+  <span class="message-flow-title"><span class="icon icon-checkmark"></span> {{i18n('dealFlowMessageTitleGuaranteeReceived')}}</span>
 </p>
 
 <p class="message-flow">
-  <span class="message-flow-title">You can now send the payment:</span>
+  <span class="message-flow-title">{{i18n('dealFlowMessageContentSendPayment')}}</span>
 </p>
 
 <div class="well message-exchange">
   <div class="row">
     <div class="col-xs-6 no-padding">
       <div class="deal-quantity">
-        <label>Quantity</label>
+        <label>{{i18n('quantity')}}</label>
         <span class="label-value">385</span>
       </div>
     </div>
     <div class="col-xs-6 no-padding">
       <div class="deal-price">
-        <label>Price</label>
+        <label>{{i18n('price')}}</label>
         <span class="label-value">0,355 <small>μBTC</small></span>
       </div>
     </div>
   </div>
 </div>
-
-
-
-

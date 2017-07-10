@@ -11,6 +11,7 @@
  */
 
 <can-component tag="fillkill-indicator">
+  <can-import from="~/utils/stache-helpers/" />
   <style type="less">
     @import '../../../styles/bootstrap-custom/_variables.less';
     @import (reference) '../../../styles/custom/_mixins.less';
@@ -26,6 +27,6 @@
   </style>
   <view>
       <span class="icon icon-done"></span>
-      Fill or Kill Order
+      {{i18n('fillKill')}} {{i18n('order')}}
   </view>
 </can-component>
