@@ -9,9 +9,11 @@
 
 import DefineMap from 'can-define/map/'
 import DefineList from 'can-define/list/list'
-import feathersClient from '~/models/feathers-client'
-import superModel from '~/models/super-model'
+import feathersClient from './feathers-client'
+import { superModelNoCache } from './super-model'
 import algebra from '~/models/algebra'
+
+const portfolioService = feathersClient.service('portfolios')
 
 // TODO: FIXTURES ON!
 // import '~/models/fixtures/portfolio';
@@ -47,7 +49,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * Tracking addresses by index for one-time usage.
    * ```
    * [
-   *   {index: 0, type: 'EQB', isChange: false, used: true},
+   *   {index: 0, type: 'EQB', isChange: false, isUsed: true},
    *   {index: 1, type: 'EQB', isChange: false, used: false},
    *   {index: 0, type: 'BTC', isChange: false, used: true},
    * ]
@@ -69,14 +71,17 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   addresses: {
     get () {
-      return (this.addressesMeta && this.addressesMeta.map(a => {
-        const keysNode = this.keys[a.type].derive(a.isChange ? 1 : 0).derive(a.index)
+      // TODO: make sure this getter is cached (maybe change to a stream derived from addressesMeta).
+      return (this.addressesMeta && this.addressesMeta.map(meta => {
+        console.log('[portfolio.addresses] deriving addr...')
+        const keysNode = this.keys[meta.type].derive(meta.isChange ? 1 : 0).derive(meta.index)
         return {
-          index: a.index,
-          isChange: a.isChange,
-          type: a.type,
+          index: meta.index,
+          isChange: meta.isChange,
+          type: meta.type,
           address: keysNode.getAddress(),
-          keyPair: keysNode.keyPair
+          keyPair: keysNode.keyPair,
+          meta: meta
         }
       })) || []
     }
@@ -136,6 +141,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           const amount = unspentByType[a.address].amount
 
           // TODO: mutating addresses here is a bad pattern.
+          console.log('*** [portfolio.balance] Updating addresses with amount ant txouts...')
           // Add amount and txouts:
           a.amount = amount
           a.txouts = unspentByType[a.address].txouts
@@ -167,18 +173,19 @@ const Portfolio = DefineMap.extend('Portfolio', {
     type: '*'
   },
 
+  /**
+   * @function {String} models/portfolio.properties.nextAddress nextAddress
+   * @parent models/portfolio.methods
+   * Returns next available address wrapped into a Promise (because addr has to be imported and saved).
+   */
   // "m /44' /0' /portfolio-index' /0 /index"
-  nextAddress: {
-    get () {
-      return this.getNextAddress(false)
-    }
+  nextAddress () {
+    return this.getNextAddress(false)
   },
 
   // "m /44' /0' /portfolio-index' /1 /index"
-  nextChangeAddress: {
-    get () {
-      return this.getNextAddress(true)
-    }
+  nextChangeAddress () {
+    return this.getNextAddress(true)
   },
 
   // getNextAddress :: Bool -> Object(EQB<String>,BTC<String>)
@@ -196,20 +203,23 @@ const Portfolio = DefineMap.extend('Portfolio', {
       // Import addr as watch-only
       this.importAddr(addr.BTC)
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: 0, type: 'BTC', used: false, isChange})
+      this.addressesMeta.push({index: btcAddr.index, type: 'BTC', isUsed: false, isChange})
     }
     if (eqbAddr.imported === false) {
       // Import addr as watch-only
       this.importAddr(addr.EQB)
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: 0, type: 'EQB', used: false, isChange})
+      this.addressesMeta.push({index: eqbAddr.index, type: 'EQB', isUsed: false, isChange})
     }
     if (!eqbAddr.imported || !btcAddr.imported) {
       // Save newly generated addresses to DB:
-      this.save()
+      console.log('[portfolio.getNextAddress] patching portfolio with updated addressesMeta ...')
+      return this.patch({
+        addressesMeta: this.addressesMeta
+      }).then(() => addr)
+    } else {
+      return Promise.resolve(addr)
     }
-
-    return addr
   },
 
   // Methods:
@@ -259,12 +269,40 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   findAddress (addr) {
     return this.addresses.reduce((acc, a) => (a.address === addr ? a : acc), null)
+  },
+
+  /**
+   * @function markAsUsed
+   * Updates addressesMeta item as used and saves the portfolio.
+   * @param {String} changeAddr
+   * @param {String} currencyType
+   * @param {Boolean} isChange
+   * @returns {*}
+   */
+  markAsUsed (addr, currencyType, isChange) {
+    const addressItem = this.findAddress(addr)
+    if (addressItem.type !== currencyType) {
+      console.warn(`*** The address is used for a different currencyType of ${addressItem.type}! ${addr}, ${currencyType}, isChange=${isChange}`)
+    }
+    if (addressItem.meta.isUsed) {
+      console.warn(`*** The following address was already used! ${addr}, ${currencyType}, isChange=${isChange}`)
+    } else {
+      console.log(`[portfolio.markAsUsed] ${addr}, ${currencyType}, isChange=${isChange}`)
+      addressItem.meta.isUsed = true
+      console.log('[portfolio.markAsUsed] patching portfolio with updated addressesMeta ...')
+      return this.patch({
+        addressesMeta: this.addressesMeta
+      })
+    }
+  },
+  patch (data) {
+    return portfolioService.patch(this._id, data)
   }
 })
 
 function getNextAddressIndex (addresses = [], type, isChange = false) {
   return addresses.filter(a => a.type === type && a.isChange === isChange).reduce((acc, a) => {
-    return a.used !== true ? {index: a.index, imported: true} : {index: a.index + 1, imported: false}
+    return a.isUsed !== true ? {index: a.index, imported: true} : {index: a.index + 1, imported: false}
   }, {index: 0, imported: false})
 }
 
@@ -299,7 +337,7 @@ Portfolio.List = DefineList.extend('PortfolioList', {
   }
 })
 
-Portfolio.connection = superModel({
+Portfolio.connection = superModelNoCache({
   Map: Portfolio,
   List: Portfolio.List,
   feathersService: feathersClient.service('/portfolios'),

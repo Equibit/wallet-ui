@@ -3,12 +3,12 @@ import hdNode from './mock-keys'
 import listunspent, { listunspentZero, listunspentBtc } from './mock-listunspent'
 
 const addressesMeta = [
-  {index: 0, type: 'BTC', used: true, isChange: false},
-  {index: 1, type: 'BTC', used: true, isChange: false},
-  {index: 0, type: 'EQB', used: true, isChange: false},
-  {index: 1, type: 'EQB', used: false, isChange: false},
+  {index: 0, type: 'BTC', isUsed: true, isChange: false},
+  {index: 1, type: 'BTC', isUsed: true, isChange: false},
+  {index: 0, type: 'EQB', isUsed: true, isChange: false},
+  {index: 1, type: 'EQB', isUsed: false, isChange: false},
 
-  {index: 0, type: 'BTC', used: true, isChange: true}
+  {index: 0, type: 'BTC', isUsed: true, isChange: true}
 ]
 
 const portfolioKeys = {
@@ -17,6 +17,7 @@ const portfolioKeys = {
 }
 
 const portfolio = new Portfolio({
+  _id: '595e5c58711b9e358f567edc',
   index: 0,
   name: 'My Portfolio',
   addressesMeta,

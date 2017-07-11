@@ -38,6 +38,7 @@ export const ViewModel = DefineMap.extend({
       portfolio.save().then(portfolio => {
         portfolio.keys = Session.current.user.generatePortfolioKeys(portfolio.index)
         this.portfolio = portfolio
+        Session.current.portfolios.push(portfolio)
         this.isReceiveFundsPopup = true
       })
     } else {
@@ -58,13 +59,19 @@ export const ViewModel = DefineMap.extend({
       return
     }
 
-    const tx = this.prepareTransaction(formData)
-    console.log('tx.hex: ' + tx.hex, tx)
+    const currencyType = formData.fundsType
+    this.portfolio.nextChangeAddress().then(addrObj => {
+      return addrObj[currencyType]
+    }).then(changeAddr => {
+      const tx = this.prepareTransaction(formData, changeAddr)
+      console.log('tx.hex: ' + tx.hex, tx)
 
-    // Show the spinner:
-    this.isSending = true
+      // Show the spinner:
+      this.isSending = true
 
-    tx.save().then(() => {
+      return tx.save().then(() => changeAddr)
+    }).then(changeAddr => {
+      console.log('[my-portfolio.send] transaction was saved')
       this.isSending = false
 
       const msg = this.type === 'SECURITIES' ? translate('securitiesSent') : translate('fundsSent')
@@ -75,10 +82,15 @@ export const ViewModel = DefineMap.extend({
         'displayInterval': 5000
       })
       Session.current.refreshBalance()
+
+      // mark change address as used
+      // this.portfolio.nextChangeAddress[currencyType]
+      console.log('[my-portfolio.send] marking change address as used ...')
+      this.portfolio.markAsUsed(changeAddr, currencyType, true)
     })
   },
 
-  prepareTransaction (formData) {
+  prepareTransaction (formData, changeAddr) {
     const amount = formData.amount
     const currencyType = formData.fundsType
     const toAddress = formData.toAddress
@@ -87,12 +99,21 @@ export const ViewModel = DefineMap.extend({
       .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
     const options = {
       fee: formData.transactionFee,
-      changeAddr: this.portfolio.nextChangeAddress[currencyType],
+      changeAddr,
       type: 'OUT',
       currencyType,
       description: formData.description
     }
     return Transaction.makeTransaction(amount, toAddress, txouts, options)
+  },
+
+  nextAddress: {
+    get (val, resolve) {
+      if (val) {
+        return val
+      }
+      this.portfolio.nextAddress().then(resolve)
+    }
   }
 })
 

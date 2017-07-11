@@ -20,13 +20,20 @@ import view from './receive-popup.stache'
 import hub from '~/utils/event-hub'
 import copy from 'copy-to-clipboard'
 import { translate } from '~/i18n/i18n'
+import feathersClient from '~/models/feathers-client'
 
 export const ViewModel = DefineMap.extend({
   /**
    * Object with two portfolio adresses: BTC and EQB.
    */
   address: {
-    type: '*'
+    type: '*',
+    set (val) {
+      val && val.BTC && feathersClient.service('/subscribe').create({
+        addresses: [val.BTC]
+      })
+      return val
+    }
   },
   copy (type) {
     copy(this.address[type])

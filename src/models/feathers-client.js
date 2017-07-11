@@ -7,17 +7,18 @@ import auth from 'feathers-authentication-client'
 import hooks from 'feathers-hooks'
 import environment from '~/environment'
 
-const { api } = environment
+const { api, useXhrTransport } = environment
 
-// const transport = 'socketio';
-const transport = 'rest'
+// const transport = 'socketio'
+// const transport = 'rest'
+const transport = useXhrTransport ? 'rest' : 'socketio'
 const feathersClient = feathers()
 
 if (transport === 'socketio') {
   var socket = io(api, {
     transports: ['websocket']
   })
-  feathersClient.configure(socketio(socket))
+  feathersClient.configure(socketio(socket, {timeout: 60000}))
 }
 if (transport === 'rest') {
   feathersClient.configure(rest(api).jquery(jQuery))
