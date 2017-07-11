@@ -18,7 +18,7 @@
 
   <div class="section">
     <label>{{i18n('to')}}</label>
-    <p class="transaction-to break-word">{{to}}</p>
+    <p class="transaction-to">{{to}}</p>
   </div>
 
   <div class="section">
