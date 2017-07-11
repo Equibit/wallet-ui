@@ -72,8 +72,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
   addresses: {
     get () {
       // TODO: make sure this getter is cached (maybe change to a stream derived from addressesMeta).
-      return (this.addressesMeta && this.addressesMeta.map(meta => {
-        console.log('[portfolio.addresses] deriving addr...')
+      return (this.keys && this.addressesMeta && this.addressesMeta.map(meta => {
+        console.log('[portfolio.addresses] deriving addr...', meta)
         const keysNode = this.keys[meta.type].derive(meta.isChange ? 1 : 0).derive(meta.index)
         return {
           index: meta.index,
