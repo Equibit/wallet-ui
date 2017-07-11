@@ -6,7 +6,7 @@
     -ms-overflow-style: -ms-autohiding-scrollbar;
     display: flex;
     flex-direction: column;
-    flex-basis: auto; // This needs to be explicit to avoid the div collpasing to "height:0" on ie.
+    flex-basis: auto; // This needs to be explicit to avoid the div collapsing to "height:0" on ie.
     padding: 1em 0.5em;
   }
 }
@@ -29,6 +29,6 @@
 @media (max-width: @screen-md), (max-height: 700px) {
   .card-full,
   .card-half {
-    height: inherit;
+    height: initial;
   }
 }

@@ -13,16 +13,18 @@
         <grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
           <div class="grid-responsive">
 
-            <table class="table table-condensed grid-header">
-              <thead>
-              <tr>
-                <th class="column-company">{{i18n('company')}}</th>
-                <th class="column-issuance">{{i18n('Issuance')}}</th>
-                <th class="column-trades"># {{i18n('trades')}}</th>
-                <th class="column-volume">{{i18n('volume')}} (μBTC)</th>
-              </tr>
-              </thead>
-            </table>
+            <div class="grid-header-container">
+              <table class="table table-condensed grid-header">
+                <thead>
+                  <tr>
+                    <th class="column-company">{{i18n('company')}}</th>
+                    <th class="column-issuance">{{i18n('Issuance')}}</th>
+                    <th class="column-trades"># {{i18n('trades')}}</th>
+                    <th class="column-volume">{{i18n('volume')}} (μBTC)</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
 
             <div class="grid-body-scroll">
               <table class="table table-condensed grid-body">
