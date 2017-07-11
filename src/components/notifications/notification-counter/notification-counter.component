@@ -29,6 +29,7 @@
       left: 30px;
       border: 1px solid @gray-base;
       padding: 2px;
+      line-height: 0.8rem;
   </style>
   <view>
       4
