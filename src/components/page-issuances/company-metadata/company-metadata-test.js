@@ -12,11 +12,9 @@ describe('components/page-issuances/company-metadata', function () {
         issuanceType: 'Common Shares',
         domicile: 'Canada',
         restriction: '1',
-        volume24h: 1541,
 
         sharesAuthorized: 10000,
         sharesIssued: 8459,
-        sharesDividend: 764,
         sharesDividendYield: 2.6
       }
     }
