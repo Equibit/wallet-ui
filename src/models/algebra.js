@@ -5,7 +5,12 @@ import helpers from 'can-set/src/helpers'
 export default new set.Algebra(
   set.comparators.id('_id'),
   set.props.offsetLimit('$skip', '$limit'),
-  set.comparators.sort('$sort', mongoSort)
+  set.comparators.sort('$sort', mongoSort),
+  {
+    address: function() {
+      return true
+    }
+  }
   // set.comparators.sort('$sort', function ($sort, cm1, cm2) {
   //   if ($sort.date) {
   //     if (parseInt($sort.date, 10) === 1) {
