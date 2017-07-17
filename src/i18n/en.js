@@ -196,6 +196,7 @@ export default {
   myPortfolio: 'My Portfolio',
 
   newIssuances: 'New Issuances',
+  note: 'Note',
   notEnoughFunds: 'You don\'t have enough funds to send. Use the total available minus the transaction fee',
   notEnoughSecurities: 'You don\'t have enough securities to send. Use the total available',
   notFound401Title: 'This Page is Password Protected',

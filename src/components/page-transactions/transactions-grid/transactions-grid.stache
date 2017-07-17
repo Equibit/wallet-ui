@@ -14,10 +14,11 @@
           <tr>
             <th class="column-date">{{i18n('date')}}</th>
             <th class="column-type">{{i18n('type')}}</th>
-            <th class="column-company">{{i18n('company')}}</th>
-            <th class="column-issuance">{{i18n('issuanceName')}}</th>
-            <th class="column-quantity">{{i18n('quantity')}}</th>
-            <th class="column-amount">{{i18n('amount')}} ({{i18n('BTC')}})</th>
+            <th class="column-description">{{i18n('description')}}</th>
+            <th class="column-securities">{{i18n('securities')}}</th>
+            <th class="column-cash">{{i18n('cash')}} ({{i18n('BTC')}})</th>
+            <th class="column-cash">{{i18n('cash')}} ({{i18n('EQB')}})</th>
+
           </tr>
         </thead>
       </table>
@@ -31,14 +32,15 @@
               ($click)="selectRow(row, %element, %event)">
             <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
             <td class="column-type">{{row.typeFormatted}}</td>
-            <td class="column-company">
+            <td class="column-description">
+              <span class="transaction-subject"></span> from
               <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row.issuanceId}}">
-                {{row.companyName}}
+                {{row.companyName}}, {{row.issuanceName}}
               </a>
             </td>
-            <td class="column-issuance">{{row.issuanceName}}</td>
-            <td class="column-quantity">{{row.amount}}</td>
-            <td class="column-amount">{{format-max(row.amountBtc, 8))}}</td>
+            <td class="column-securities">1,596 Shares</td>
+            <td class="column-cash">{{format-max(row.amountBtc, 8))}}</td>
+            <td class="column-cash"></td>
           </tr>
           {{/each}}
         </tbody>

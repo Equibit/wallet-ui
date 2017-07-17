@@ -11,17 +11,15 @@ transactions-grid {
   .column-type {
     width: 150px;
   }
-  .column-issuance {
-    width: 150px;
-  }
-  .column-quantity {
-    width: 50px;
-    text-align: right;
-  }
-  .column-amount {
+  .column-securities,
+	.column-cash {
+		font-family: @font-family-numeric;
     width: 150px;
     text-align: right;
   }
+	.transaction-subject {
+		font-family: @font-family-bold;
+	}
   tr {
     &.pending {
       background-color: fade(@gray-lightest, 50%);
