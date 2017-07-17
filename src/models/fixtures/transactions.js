@@ -9,7 +9,7 @@ const store = fixture.store(R.times(i => {
     toAddress: '1BxbH4WFyN1xKDUCMQbTuQrE61dJhBV5vs',
     type: ['BUY', 'BUY', 'SELL', 'IN', 'OUT'][i % 5],
     currencyType: ['BTC', 'EQB'][i % 2],
-    companyName: ['Imperial Brands', 'IBM', 'EQB', 'Amazon', 'Marks & Spencer', 'General Electric,', '' ][i % 7],
+    companyName: ['Imperial Brands', 'IBM', 'EQB', 'Amazon', 'Marks & Spencer', 'General Electric', '' ][i % 7],
     issuanceName: ['Series 1', 'Series 2'][i % 2],
     issuanceType: ['Common Shares','Bonds', 'Equibit', 'Preferred Shares', 'Partnership Units', 'Trust Units', 'Bitcoin'][i % 7],
     issuanceUnit: ['Shares', 'BTC', '-', 'Shares', 'Units', 'Units',  '-'][i % 7],
