@@ -29,11 +29,43 @@
   <hr />
 
   <div class="section">
-    <div class="row transaction-description">
-      <label>Description</label>
+    <label>{{i18n('transaction')}}</label>
+    <div class="row">
+      <div class="col-xs-6">{{i18n('securities')}}</div>
+      <div class="col-xs-6 transaction-value">1,595 Shares</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6">{{i18n('cash')}}</div>
+      <div class="col-xs-6 transaction-value">- 1.00992814  BTC</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6">{{i18n('transactionFee')}}</div>
+      <div class="col-xs-6 transaction-value">- 0.00000023  BTC</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <label>{{i18n('valuation')}}</label>
+    <div class="row">
+      <div class="col-xs-6">{{i18n('now')}}</div>
+      <div class="col-xs-6 transaction-value">$ 2,385.15  USD</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6">{{i18n('then')}}</div>
+      <div class="col-xs-6 transaction-value">$ 2,385.15  USD</div>
+    </div>
+
+  </div>
+
+  <div class="section">
+    <div class="row transaction-note">
+      <label>{{i18n('note')}}</label>
       <button class="btn btn-link btn-xs">{{i18n('edit')}}</button>
     </div>
-    <p class="transaction-description">{{transaction.description}}</p>
+    <p class="transaction-note">{{transaction.description}}</p>
   </div>
 
   <hr />
