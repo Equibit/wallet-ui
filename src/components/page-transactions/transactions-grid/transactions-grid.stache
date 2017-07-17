@@ -18,7 +18,6 @@
             <th class="column-securities">{{i18n('securities')}}</th>
             <th class="column-cash">{{i18n('cash')}} ({{i18n('BTC')}})</th>
             <th class="column-cash">{{i18n('cash')}} ({{i18n('EQB')}})</th>
-
           </tr>
         </thead>
       </table>
@@ -33,14 +32,14 @@
             <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
             <td class="column-type">{{row.typeFormatted}}</td>
             <td class="column-description">
-              <span class="transaction-subject"></span> from
+              <span class="transaction-subject">{{row.issuanceType}}</span> from
               <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row.issuanceId}}">
                 {{row.companyName}}, {{row.issuanceName}}
               </a>
             </td>
-            <td class="column-securities">1,596 Shares</td>
+            <td class="column-securities">{{row.issuanceUnitQuantity}} {{row.issuanceUnit}}</td>
             <td class="column-cash">{{format-max(row.amountBtc, 8))}}</td>
-            <td class="column-cash"></td>
+            <td class="column-cash">{{format-max(row.amountEQB, 8))}}</td>
           </tr>
           {{/each}}
         </tbody>

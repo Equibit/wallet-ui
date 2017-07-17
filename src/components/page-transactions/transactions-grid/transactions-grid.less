@@ -6,17 +6,25 @@ transactions-grid {
   flex-grow: 2;
 
   .column-date {
-    width: 120px;
+    width: 100px;
   }
   .column-type {
-    width: 150px;
+    width: 100px;
   }
-  .column-securities,
+  .column-securities {
+		width: 140px;
+		text-align: right;
+	}
 	.column-cash {
-		font-family: @font-family-numeric;
-    width: 150px;
+    width: 110px;
     text-align: right;
   }
+	td {
+		&.column-securities,
+		&.column-cash {
+					font-family: @font-family-numeric;
+		}
+	}
 	.transaction-subject {
 		font-family: @font-family-bold;
 	}
