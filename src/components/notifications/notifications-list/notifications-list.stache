@@ -1,4 +1,23 @@
 <div class="list-group list-group-simple notifications-list">
+
+  {{#each notifications}}
+  <a href="#" class="list-group-item">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-sell-open"></span>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{title(type)}}</h4>
+        <div class="media-description">for {{for(address)}}</div>
+        <div class="media-cta btn-link">Amount {{amount}} {{currencyType}}</div>
+      </div>
+    </div>
+  </a>
+  {{else}}
+    No notifications
+  {{/each}}
+
+  <!--
   <a href="#" class="list-group-item">
     <div class="media">
       <div class="media-left">
@@ -127,7 +146,7 @@
         <div class="media-cta btn-link">Quantity 385</div>
       </div>
     </div>
-  </a>
+  </a>-->
 
 
 </div>

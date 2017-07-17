@@ -17,10 +17,21 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './notifications-list.less'
 import view from './notifications-list.stache'
+import Notification from '../../../models/notification'
+import Session from '../../../models/session'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the notifications-list component'
+  notifications: {
+    Type: Notification.List
+  },
+  title (type) {
+    return ({
+      'IN': 'Transfer Received'
+    })[type] || ('Unknown Type ' + type)
+  },
+  for (addr) {
+    const portfolio = Session.current && Session.current.portfolios && Session.current.portfolios.findByAddress(addr)
+    return (portfolio && portfolio.name) || addr
   }
 })
 

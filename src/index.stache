@@ -42,6 +42,7 @@
                {logout}="@logout"
                {refresh}="@refresh"
                {is-logged-in}="isLoggedIn"
+               {notifications}="session.notifications"
                {balance}="session.balance"/>
     {{/if}}
 

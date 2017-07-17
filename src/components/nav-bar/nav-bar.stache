@@ -27,7 +27,7 @@
               aria-haspopup="true"
               aria-expanded="false">
             <span class="sr-only">{{i18n('notifications')}}</span>
-            <notification-counter />
+            <notification-counter {count}="notifications.length" />
           </a>
           <div class="dropdown-menu popover bottom notifications-popover animated fadeIn">
             <span class="arrow"></span>
@@ -37,7 +37,7 @@
             </div>
 
             <div class="popover-body">
-              <notifications-list></notifications-list>
+              <notifications-list {notifications}="notifications" />
             </div>
           </div>
         </li>

@@ -17,6 +17,7 @@ import DefineMap from 'can-define/map/'
 import route from 'can-route'
 import 'can-route-pushstate'
 import Session from '~/models/session'
+import Transaction from '~/models/transaction'
 // import '~/models/fixtures/fixtures';
 
 //! steal-remove-start
@@ -72,7 +73,11 @@ const AppViewModel = DefineMap.extend({
    */
   // TODO: consider using Session.current in a getter and do not pass session to other pages via template bindings.
   session: {
-    Type: Session
+    Type: Session,
+    set (val) {
+      this.subcribeToEvents()
+      return val
+    }
   },
   get isLoggedIn () {
     return !!(this.session && this.session.user)
@@ -98,11 +103,24 @@ const AppViewModel = DefineMap.extend({
     this.session.destroy()
     this.session = null
     this.page = 'home'
+    Transaction.unSubscribe()
     window.location.reload()
   },
 
   refresh () {
     this.session.refreshBalance()
+  },
+
+  subcribeToEvents () {
+    Transaction.subscribe(data => {
+      console.log('vm.subcribeToEvents', data)
+      this.session.notifications.push({
+        type: data.type,
+        address: data.address,
+        amount: data.amount,
+        currencyType: data.currencyType
+      })
+    })
   }
 })
 

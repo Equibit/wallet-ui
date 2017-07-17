@@ -24,6 +24,7 @@ import dataCallbacks from 'can-connect/data/callbacks/'
 import realtime from 'can-connect/real-time/'
 import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior'
 import canDefineStream from 'can-define-stream-kefir'
+import Notification from './notification'
 
 import feathersClient from '~/models/feathers-client'
 import signed from '~/models/feathers-signed'
@@ -205,6 +206,11 @@ const Session = DefineMap.extend('Session', {
   // TODO: use BTC switch here (uBTC / mBTC / BTC).
   toBTC (amount, currencyType) {
     return currencyType === 'EQB' ? amount * this.rates.eqbToBtc : amount
+  },
+
+  notifications: {
+    Type: Notification.List,
+    value: new Notification.List([])
   }
 })
 
