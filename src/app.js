@@ -99,6 +99,10 @@ const AppViewModel = DefineMap.extend({
     this.session = null
     this.page = 'home'
     window.location.reload()
+  },
+
+  refresh () {
+    this.session.refreshBalance()
   }
 })
 

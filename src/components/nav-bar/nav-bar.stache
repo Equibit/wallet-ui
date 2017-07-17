@@ -14,7 +14,9 @@
 
       <ul class="nav navbar-nav add-nav navbar-right">
 
-        <li><a href="#" class="icon icon-refresh" role="button"></a></li>
+        <li>
+          <a href="#" class="icon icon-refresh" role="button" ($click)="refresh()"></a>
+        </li>
 
         {{#if isLoggedIn}}
         <li class="dropdown">
