@@ -30,19 +30,21 @@
 
   <div class="section">
     <label>{{i18n('transaction')}}</label>
+    {{#if isSecurities}}
     <div class="row">
       <div class="col-xs-6">{{i18n('securities')}}</div>
-      <div class="col-xs-6 transaction-value">1,595 Shares</div>
+      <div class="col-xs-6 transaction-value">{{transaction.amount}} Shares</div>
     </div>
+    {{/if}}
 
     <div class="row">
       <div class="col-xs-6">{{i18n('cash')}}</div>
-      <div class="col-xs-6 transaction-value">- 1.00992814  BTC</div>
+      <div class="col-xs-6 transaction-value">{{transaction.amount}} {{transaction.currencyType}}</div>
     </div>
 
     <div class="row">
       <div class="col-xs-6">{{i18n('transactionFee')}}</div>
-      <div class="col-xs-6 transaction-value">- 0.00000023  BTC</div>
+      <div class="col-xs-6 transaction-value">- {{transaction.fee}} {{transaction.currencyType}}</div>
     </div>
   </div>
 

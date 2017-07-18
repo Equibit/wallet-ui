@@ -23,6 +23,7 @@ const Transaction = DefineMap.extend('Transaction', {
       address: txouts[0].address,
       addressTxid: txouts[0].txid,
       addressVout: txouts[0].vout,
+      fee,
       type,
       currencyType,
       amount,
@@ -69,6 +70,7 @@ const Transaction = DefineMap.extend('Transaction', {
       return (Session.current && Session.current.toBTC(this.amount, this.currencyType)) || this.amount
     }
   },
+  fee: 'number',
   description: 'string',
 
   // Won't be stored in DB. If a failure occurs the error will be immediately shown to user without creating a DB entry.
