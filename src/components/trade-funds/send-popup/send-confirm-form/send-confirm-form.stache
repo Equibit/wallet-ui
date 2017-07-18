@@ -28,17 +28,17 @@
 
     {{else}}
 
-      <label for="">{{i18n('funds')}}</label>
+      <label for="">{{#is formData.fundsType 'EQB'}}{{i18n('equibit')}}{{else}}{{i18n('bitcoin')}}{{/is}}</label>
       <div class="row">
-        <div class="col-xs-12 col-sm-5 display-row no-padding-left">
+        <div class="col-xs-12 col-sm-4 display-row no-padding-left">
           <span>
-            {{#is formData.fundsType 'EQB'}}{{i18n('equibit')}}{{else}}{{i18n('bitcoin')}}{{/is}}
+            {{i18n('quantity')}}
           </span>
         </div>
-        <div class="col-xs-6 col-sm-4 form-values no-padding-left">
-          <span>{{formData.amount}} {{#is formData.fundsType 'EQB'}}{{i18n('blankEQB')}}{{else}}{{i18n('BTC')}}{{/is}}</span>
+        <div class="col-xs-6 col-sm-4 form-values no-padding">
+          <span>{{formData.amount}} {{#is formData.fundsType 'EQB'}}{{i18n('EQB')}}{{else}}{{i18n('BTC')}}{{/is}}</span>
         </div>
-        <div class="col-xs-6 col-sm-3 form-values">
+        <div class="col-xs-6 col-sm-4 form-values no-padding">
           <span>$ {{formData.price}} {{i18n('usd')}}</span>
         </div>
       </div>
@@ -46,7 +46,7 @@
     {{/is}}
 
     <div class="row text-muted">
-      <div class="col-xs-12 col-sm-5 display-row no-padding-left">
+      <div class="col-xs-12 col-sm-4 display-row no-padding-left">
         <span>{{i18n('transactionFee')}}
           {{#is formData.fundsType 'EQB'}}
             <span class="icon icon-question"
@@ -63,13 +63,13 @@
           {{/is}}
         </span>
       </div>
-      <div class="col-xs-6 col-sm-4 form-values no-padding-left">
+      <div class="col-xs-6 col-sm-4 form-values no-padding">
         <span>
           {{formData.transactionFee}}
-          {{#is formData.fundsType 'BTC'}}{{i18n('BTC')}}{{else}}{{i18n('blankEQB')}}{{/is}}
+          {{#is formData.fundsType 'BTC'}}{{i18n('BTC')}}{{else}}{{i18n('EQB')}}{{/is}}
         </span>
       </div>
-      <div class="col-xs-6 col-sm-3 form-values">
+      <div class="col-xs-6 col-sm-4 form-values no-padding">
         <span>$ {{format(formData.transactionFeePrice, '', 2)}} {{i18n('usd')}}</span>
       </div>
     </div>
@@ -78,33 +78,33 @@
 
     <label for="">From</label>
     <div class="row">
-      <div class="col-xs-12 col-sm-5 display-row no-padding-left">
+      <div class="col-xs-12 col-sm-4 display-row no-padding-left">
         <span class="input-value"><strong>{{i18n('myPortfolio')}}</strong></span>
       </div>
 
       {{#is formData.type 'SECURITIES'}}
-        <div class="col-xs-12 col-sm-4 form-values no-padding-left">
+        <div class="col-xs-12 col-sm-4 form-values no-padding">
           <span class="text-danger">- {{formData.amount}} {{i18n('securities')}}</span>
         </div>
 
       {{else}}
         <div class="col-xs-6 col-sm-4 form-values no-padding">
           <span class="text-danger">- {{format-max(sum(formData.amount, formData.transactionFee), 8)}}
-            {{#is formData.fundsType 'BTC'}}{{i18n('BTC')}}{{else}}{{i18n('blankEQB')}}{{/is}}
+            {{#is formData.fundsType 'BTC'}}{{i18n('BTC')}}{{else}}{{i18n('EQB')}}{{/is}}
           </span>
         </div>
 
-        <div class="col-xs-6 col-sm-3 form-values">
+        <div class="col-xs-6 col-sm-4 form-values no-padding">
           <span class="text-danger">$ - {{format(sum(formData.price, formData.transactionFeePrice), '', 2)}} {{i18n('usd')}}</span>
         </div>
       {{/is}}
 
       {{#is formData.type 'SECURITIES'}}
-      <div class="col-xs-6 col-sm-4 col-sm-offset-5 form-values">
-        <span class="text-danger">- {{formData.transactionFee}} {{i18n('blankEQB')}}</span>
+      <div class="col-xs-6 col-sm-4 col-sm-offset-4 form-values no-padding">
+        <span class="text-danger">- {{formData.transactionFee}} {{i18n('EQB')}}</span>
       </div>
 
-      <div class="col-xs-6 col-sm-3 form-values">
+      <div class="col-xs-6 col-sm-4 form-values no-padding">
         <span class="text-danger">$ - {{sum(formData.price, formData.transactionFeePrice)}} {{i18n('usd')}}</span>
       </div>
     {{/is}}
@@ -113,7 +113,7 @@
 
   <div class="list-group-item">
     <div class="form-group">
-      <label for="">{{i18n('description')}}</label>
+      <label for="">{{i18n('note')}}</label>
       <p>{{formData.description}}</p>
     </div>
   </div>
