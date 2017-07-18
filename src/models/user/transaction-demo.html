@@ -2,6 +2,8 @@
         main="@empty">
   import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto';
   import { getHdNode, generateAddress, sendBlockchainRequest, buildTransaction } from '~/models/user/transaction';
+  import OPS from 'bitcoin-ops'
+  import { Buffer } from 'buffer'
 
   // "talent destroy radar dinosaur punch muscle swear diary mango unit gallery bus"
   let hdNode1 = getHdNode('one');
@@ -31,9 +33,9 @@
   console.log('addr', res1.address);
   console.log('addr', res2.address);
 
-//  sendBlockchainRequest('getbalance')
-//    .then(res => console.log('res', res))
-//    .catch(e => console.error(e));
+  //  sendBlockchainRequest('getbalance')
+  //    .then(res => console.log('res', res))
+  //    .catch(e => console.error(e));
 
   // from: 1f561fe1d0174ec3ddd3eec1a4145483d91f7e5907f52f1b65528da3f3a734ab 0
   // to testnet: n2JHNq8XBAUj97MaLXggFWLLoPR7ghuv9K
@@ -55,7 +57,7 @@
     '2d7a9f0534ddac231ef1978bda388791c32321f7e14e18e7df3bbed261615f54',
     1,
     [['mpS2RuNkAEALvMhksCa6fPpLVb5yCPanLu', 1 * 100000000],
-     ['mp9GiieHrLQvLu4C8nE9bbwxNmXqcC3nVf', (2 - 1 - 0.00001) * 100000000]]
+      ['mp9GiieHrLQvLu4C8nE9bbwxNmXqcC3nVf', (2 - 1 - 0.00001) * 100000000]]
   );
   console.log('transaction: ' + transaction);
 
@@ -70,4 +72,25 @@
 
   console.log('buildTransaction: ' + transaction);
 
+
+  // OP_RETURN
+  const data = new Buffer("hello one two three four five six seven eith nine ten evelen.")
+  console.log('data buffer: ', data)
+
+  const tx = new bitcoin.TransactionBuilder(bitcoin.networks.bitcoin)
+  tx.addInput("aa94ab02c182214f090e99a0d57021caffd0f195a81c24602b1028b130b63e31", 0)
+//  tx.addOutput("mffc8qHoYst2F7iFwa7AW6DBoxFi2s8KzD", 15000)
+  const ret = bitcoin.script.compile([
+    OPS.OP_RETURN,
+    data
+  ])
+  tx.addOutput(ret, 0)
+  const key = bitcoin.ECPair.fromWIF("L1uyy5qTuGrVXrmrsvHWHgVzW9kKdrp27wBC7Vs6nZDTF2BRUVwy")
+  tx.sign(0, key)
+  console.log('OP_RETURN transaction:', tx.build().toHex())
+
+
+  const compiledData = Buffer.from('68656c6c6f206f6e652074776f20746872656520666f757220666976652073697820736576656e2065697468206e696e652074656e206576656c656e2e')
+  const deCompiled = bitcoin.script.decompile(compiledData)
+  console.log('deCompiled ', deCompiled);
 </script>
