@@ -288,6 +288,7 @@ export default {
   sellOrders: 'Sell Orders',
   shareVolume: 'Share Volume',
   sharePerformance: 'Share Performance',
+  shares: 'Shares',
   signup: 'Sign Up',
   signupAgreeToTerms1: 'I agree to the',
   signupAgreeToTerms2: 'Terms & Conditions',
