@@ -10,18 +10,22 @@
     </div>
 
     {{#is formData.type 'SECURITIES'}}
-      <label for="">{{i18n('securities')}}</label>
       <div class="row">
-        <div class="col-xs-12 col-sm-5 display-row no-padding-left">
-          <span class="input-value">{{formData.issuance.companyName}}</span>
-          <span class="input-value">, {{formData.issuance.issuanceName}}</span>
+        <div class="col-xs-12 no-padding">
+          <label for="">{{formData.issuance.issuanceType}} {{i18n('from')}}</label>
+          <span class="input-value">{{formData.issuance.companyName}}, {{formData.issuance.issuanceName}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 display-row no-padding-left">
+          {{i18n('quantity')}}
         </div>
 
-        <div class="col-xs-6 col-sm-4 form-values no-padding-left">
+        <div class="col-xs-6 col-sm-4 form-values no-padding">
           <span>{{formData.amount}} {{i18n('securities')}}</span>
         </div>
 
-        <div class="col-xs-6 col-sm-3 form-values">
+        <div class="col-xs-6 col-sm-4 form-values no-padding">
           <span>$ {{formData.price}} {{i18n('usd')}}</span>
         </div>
       </div>

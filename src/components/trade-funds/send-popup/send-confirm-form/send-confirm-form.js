@@ -6,7 +6,6 @@
  *
  * @signature `<send-confirm-form />`
  *
- * @demo src/components/trade-funds/send-popup/send-confirm-form/send-confirm-form.html
  *
  */
 
