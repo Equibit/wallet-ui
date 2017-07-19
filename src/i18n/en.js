@@ -196,6 +196,7 @@ export default {
   myPortfolio: 'My Portfolio',
 
   newIssuances: 'New Issuances',
+  note: 'Note',
   notEnoughFunds: 'You don\'t have enough funds to send. Use the total available minus the transaction fee',
   notEnoughSecurities: 'You don\'t have enough securities to send. Use the total available',
   notFound401Title: 'This Page is Password Protected',
@@ -213,6 +214,7 @@ export default {
   notFoundOrdersSell: 'No Sell Orders Found',
   notifications: 'Notifications',
   noPartialFills: 'No partial fills allowed.',
+  now: 'Now',
 
   offer: 'Offer',
   order: 'Order',
@@ -307,6 +309,7 @@ export default {
   termsAndConditionsContactTitle: 'Contact Us',
   termsAndConditionsContactMessage: 'This page, the entire EDC site, images / documents are Copyright © 2015 by Equibit Development Corporation. All Rights Reserved.',
   termsAndConditionsRevised: '- Revised: Wednesday, July 1, 2015',
+  then: 'Then',
   to: 'To',
   toggleNavigation: 'Toggle Navigation',
   totalCash: 'Total Cash',
@@ -318,6 +321,7 @@ export default {
   trades: 'Trades',
   transactionBuy: 'Buy',
   transactionFee: 'Transaction Fee',
+  transaction: 'Transaction',
   transactions: 'Transactions',
   transactionsPageTitle: 'All Transactions',
   transactionHistory: 'Transaction History',

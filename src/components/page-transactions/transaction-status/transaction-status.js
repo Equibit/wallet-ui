@@ -18,12 +18,14 @@ import DefineMap from 'can-define/map/'
 import './transaction-status.less'
 import view from './transaction-status.stache'
 
+// TODO: consider showing the number of confirmations for Buy/Sell only for the `completed` status,
+// TODO: which means the transaction is in Blockchain.
 export const ViewModel = DefineMap.extend({
   // enum: [ 'progress', 'completed', 'canceled' ]
   status: {
     value: 'completed'
   },
-  confirmation: {
+  confirmations: {
     value: 0
   }
 })

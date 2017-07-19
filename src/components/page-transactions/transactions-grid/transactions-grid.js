@@ -19,7 +19,7 @@ import DefineList from 'can-define/list/'
 import './transactions-grid.less'
 import view from './transactions-grid.stache'
 import Transaction from '../../../models/transaction'
-import Pagination from '~/models/pagination'
+import Pagination from '../../../models/pagination'
 
 // import '../../../models/fixtures/transactions';
 

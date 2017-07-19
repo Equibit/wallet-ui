@@ -10,7 +10,7 @@
     </div>
 
     {{#is formData.type 'SECURITIES'}}
-      <label for="">{{i18n('securities')}}</label>
+      <label for="">{{formData.issuance.issuanceType}} from</label>
       <div class="row">
         <div class="col-xs-12 col-sm-5 display-row no-padding-left">
           <span class="input-value">{{formData.issuance.companyName}}</span>
