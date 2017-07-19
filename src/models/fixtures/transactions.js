@@ -20,6 +20,7 @@ const store = fixture.store(R.times(i => {
     amount: [1.00992837, 0.00470023][i % 2],
     amountEQB: [ 0.00987145, 3.37894092][i % 2],
     fee: 0.0000023,
+    confirmations: i % 5,
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     isPending: i < 2,
     createdAt: Date.now(),

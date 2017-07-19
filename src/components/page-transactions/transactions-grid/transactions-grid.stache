@@ -34,10 +34,10 @@
             <td class="column-description">
               <span class="transaction-subject">{{row.issuanceType}}</span>
               {{#if companyName}}
-              from
-              <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row.issuanceId}}">
-                {{row.companyName}}, {{row.issuanceName}}
-              </a>
+                from
+                <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row.issuanceId}}">
+                  {{row.companyName}}, {{row.issuanceName}}
+                </a>
               {{/if}}
             </td>
             <td class="column-securities">{{row.issuanceUnitQuantity}} {{row.issuanceUnit}}</td>

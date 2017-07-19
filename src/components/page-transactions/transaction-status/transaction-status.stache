@@ -3,8 +3,8 @@
 
 <status-badge {status}="status"></status-badge>
 
-{{#if confirmation}}
-  <small>{{confirmation}} Confirmations</small>
+{{#if confirmations}}
+  <small>{{confirmations}} Confirmations</small>
 {{else}}
   <small>0 Confirmations</small>
 {{/if}}

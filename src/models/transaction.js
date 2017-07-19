@@ -56,6 +56,7 @@ const Transaction = DefineMap.extend('Transaction', {
     }
   },
   currencyType: 'string', // enum: [ 'BTC', 'EQB' ]
+  confirmations: 'number',
   companyName: 'string',
   companySlug: 'string',
   issuanceName: 'string',
