@@ -7,7 +7,7 @@ export default new set.Algebra(
   set.props.offsetLimit('$skip', '$limit'),
   set.comparators.sort('$sort', mongoSort),
   {
-    address: function() {
+    address: function () {
       return true
     }
   }
