@@ -1,20 +1,27 @@
 <div class="list-group list-group-simple notifications-list">
 
-  {{#each notifications}}
-  <a href="#" class="list-group-item">
-    <div class="media">
-      <div class="media-left">
-        <span class="media-object icon icon-sell-open"></span>
+  {{#each notifications as notification}}
+    <a href="#" class="list-group-item {{#if notification.isRead}}read{{/if}}">
+      <div class="media">
+        <div class="media-left">
+          <span class="media-object icon icon-sell-open"></span>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{title(notification.type)}}</h4>
+          <div class="media-description">for {{for(notification.address)}}</div>
+          <div class="media-cta btn-link"
+               ($click)="read(notification, notification.transactionId)">
+            Amount {{notification.amount}} {{notification.currencyType}}
+          </div>
+        </div>
       </div>
-      <div class="media-body">
-        <h4 class="media-heading">{{title(type)}}</h4>
-        <div class="media-description">for {{for(address)}}</div>
-        <div class="media-cta btn-link">Amount {{amount}} {{currencyType}}</div>
-      </div>
-    </div>
-  </a>
+    </a>
+
   {{else}}
-    No notifications
+
+    <a href="#" class="list-group-item no-link">
+      No notifications
+    </a>
   {{/each}}
 
   <!--

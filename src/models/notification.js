@@ -6,7 +6,9 @@ const Notification = DefineMap.extend('Notification', {
   type: 'string',
   address: 'string',
   currencyType: 'string',
-  amount: 'number'
+  amount: 'number',
+  isRead: 'boolean',
+  transactionId: 'string'
 })
 
 Notification.List = DefineList.extend('NotificationList', {

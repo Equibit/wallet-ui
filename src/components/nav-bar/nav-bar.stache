@@ -9,11 +9,8 @@
 <nav class="navbar navbar-inverse">
 
     <div class="navbar-header">
-
       <a class="header-logo" href="{{routeUrl page='research'}}">{{i18n('equibitAppName')}}</a>
-
       <ul class="nav navbar-nav add-nav navbar-right">
-
         <li>
           <a href="#" class="icon icon-refresh" role="button" ($click)="refresh()"></a>
         </li>
@@ -27,7 +24,10 @@
               aria-haspopup="true"
               aria-expanded="false">
             <span class="sr-only">{{i18n('notifications')}}</span>
-            <notification-counter {count}="notifications.length" />
+
+            {{#if notifications.length}}
+              <notification-counter {count}="notifications.length" />
+            {{/if}}
           </a>
           <div class="dropdown-menu popover bottom notifications-popover animated fadeIn">
             <span class="arrow"></span>

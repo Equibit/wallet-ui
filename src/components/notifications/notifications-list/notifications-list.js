@@ -19,6 +19,7 @@ import './notifications-list.less'
 import view from './notifications-list.stache'
 import Notification from '../../../models/notification'
 import Session from '../../../models/session'
+import route from 'can-route'
 
 export const ViewModel = DefineMap.extend({
   notifications: {
@@ -32,6 +33,13 @@ export const ViewModel = DefineMap.extend({
   for (addr) {
     const portfolio = Session.current && Session.current.portfolios && Session.current.portfolios.findByAddress(addr)
     return (portfolio && portfolio.name) || addr
+  },
+  read (notification, transactionId) {
+    notification.isRead = true
+    route.data = {
+      page: 'transactions',
+      id: transactionId
+    }
   }
 })
 
