@@ -40,7 +40,13 @@
                 </a>
               {{/if}}
             </td>
-            <td class="column-securities">{{row.issuanceUnitQuantity}} {{row.issuanceUnit}}</td>
+            <td class="column-securities">
+              {{#if row.isSecurity}}
+                {{row.issuanceUnitQuantity}} {{row.issuanceUnit}}
+              {{else}}
+                - -
+              {{/if}}
+            </td>
             <td class="column-cash">{{format-max(row.amountBtc, 8))}}</td>
             <td class="column-cash">{{format-max(row.amountEQB, 8))}}</td>
           </tr>

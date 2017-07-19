@@ -49,12 +49,6 @@ export const ViewModel = DefineMap.extend({
       const portfolio = this.portfolios && this.portfolios.findByAddress(this.transaction.address)
       return (portfolio && portfolio.name) || this.transaction.address
     }
-  },
-  isSecurities: {
-    get () {
-      // TODO: this info can be assumed from the metadata data of a transaction
-      return this.transaction.currencyType === 'EQB' && this.transaction.companyName
-    }
   }
 })
 

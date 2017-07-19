@@ -89,6 +89,12 @@ const Transaction = DefineMap.extend('Transaction', {
   get transactionUrl () {
     const txId = this.txIdBtc || this.txIdEqb
     return txId && `http://localhost:3030/proxycore?method=gettransaction&params[]=${txId}&params[]=true`
+  },
+  isSecurity: {
+    get () {
+      // TODO: this info can be assumed from the metadata data of a raw transaction
+      return this.currencyType === 'EQB' && this.companyName
+    }
   }
 })
 
