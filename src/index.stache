@@ -60,7 +60,7 @@
         <page-issuances />
       {{/case}}
       {{#case 'issuance-details'}}
-        <page-issuance-details {company-slug}="companySlug" {issuance-id}="issuanceId" />
+        <page-issuance-details {company-slug}="companySlug" {issuance-id}="itemId" />
       {{/case}}
       {{#case 'portfolio'}}
         <page-portfolio />

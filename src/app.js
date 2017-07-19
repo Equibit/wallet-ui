@@ -59,7 +59,7 @@ const AppViewModel = DefineMap.extend({
   companySlug: {
     serialize: true
   },
-  issuanceId: {
+  itemId: {
     serialize: true
   },
   sort: {
@@ -118,14 +118,17 @@ const AppViewModel = DefineMap.extend({
         type: data.type,
         address: data.address,
         amount: data.amount,
-        currencyType: data.currencyType
+        currencyType: data.currencyType,
+        transactionId: data._id
       })
+      this.session.refreshBalance()
     })
   }
 })
 
 route('issuances/sort/{sort}', {page: 'issuances'})
-route('issuances/{companySlug}/{issuanceId}', {page: 'issuance-details'})
+route('issuances/{companySlug}/{itemId}', {page: 'issuance-details'})
+route('{page}/{itemId}')
 route('{page}', {page: 'research'})
 
 export default AppViewModel

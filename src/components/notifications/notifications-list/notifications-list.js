@@ -34,12 +34,8 @@ export const ViewModel = DefineMap.extend({
     const portfolio = Session.current && Session.current.portfolios && Session.current.portfolios.findByAddress(addr)
     return (portfolio && portfolio.name) || addr
   },
-  read (notification, transactionId) {
+  read (notification) {
     notification.isRead = true
-    route.data = {
-      page: 'transactions',
-      id: transactionId
-    }
   }
 })
 

@@ -1,7 +1,9 @@
 <div class="list-group list-group-simple notifications-list">
 
   {{#each notifications as notification}}
-    <a href="#" class="list-group-item {{#if notification.isRead}}read{{/if}}">
+    <a href="{{routeUrl page='transactions' itemId=notification.transactionId}}"
+       class="list-group-item {{#if notification.isRead}}read{{/if}}"
+       ($click)="read(notification)">
       <div class="media">
         <div class="media-left">
           <span class="media-object icon icon-sell-open"></span>
@@ -9,8 +11,7 @@
         <div class="media-body">
           <h4 class="media-heading">{{title(notification.type)}}</h4>
           <div class="media-description">for {{for(notification.address)}}</div>
-          <div class="media-cta btn-link"
-               ($click)="read(notification, notification.transactionId)">
+          <div class="media-cta btn-link">
             Amount {{notification.amount}} {{notification.currencyType}}
           </div>
         </div>
