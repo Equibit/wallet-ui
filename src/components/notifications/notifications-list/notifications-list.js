@@ -19,7 +19,6 @@ import './notifications-list.less'
 import view from './notifications-list.stache'
 import Notification from '../../../models/notification'
 import Session from '../../../models/session'
-import route from 'can-route'
 
 export const ViewModel = DefineMap.extend({
   notifications: {
