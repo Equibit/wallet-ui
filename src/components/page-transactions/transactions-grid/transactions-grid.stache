@@ -35,7 +35,7 @@
               <span class="transaction-subject">{{row.issuanceType}}</span>
               {{#if companyName}}
                 from
-                <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row.issuanceId}}">
+                <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug itemId=row.issuanceId}}">
                   {{row.companyName}}, {{row.issuanceName}}
                 </a>
               {{/if}}

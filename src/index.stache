@@ -38,7 +38,12 @@
     {{#if one-of(displayedPage, 'signup', 'login', 'forgot-password', 'change-password', 'recovery-phrase')}}
       <page-auth {(session)}="session" {page}="displayedPage" />
     {{else}}
-      <nav-bar {page}="page" {logout}="@logout" {is-logged-in}="isLoggedIn" {balance}="session.balance" />
+      <nav-bar {page}="page"
+               {logout}="@logout"
+               {refresh}="@refresh"
+               {is-logged-in}="isLoggedIn"
+               {notifications}="session.notifications"
+               {balance}="session.balance"/>
     {{/if}}
 
     {{#switch displayedPage}}
@@ -55,7 +60,7 @@
         <page-issuances />
       {{/case}}
       {{#case 'issuance-details'}}
-        <page-issuance-details {company-slug}="companySlug" {issuance-id}="issuanceId" />
+        <page-issuance-details {company-slug}="companySlug" {issuance-id}="itemId" />
       {{/case}}
       {{#case 'portfolio'}}
         <page-portfolio />

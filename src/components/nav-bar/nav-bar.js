@@ -27,6 +27,9 @@ export const ViewModel = DefineMap.extend({
   isLoggedIn: 'boolean',
   balance: {
     type: '*'
+  },
+  notifications: {
+    type: '*'
   }
 })
 

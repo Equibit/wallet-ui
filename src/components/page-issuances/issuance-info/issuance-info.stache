@@ -11,7 +11,7 @@
 
   <company-metadata {issuance}="issuance" currency="μBTC" class="narrow" />
 
-  <a href="{{routeUrl page='issuance-details' companySlug=issuance.companySlug issuanceId=issuance._id }}" class="btn btn-primary btn-sm">{{i18n('viewDetails')}}</a>
+  <a href="{{routeUrl page='issuance-details' companySlug=issuance.companySlug itemId=issuance._id }}" class="btn btn-primary btn-sm">{{i18n('viewDetails')}}</a>
 
 {{else}}
   Select an Issuance.

@@ -33,6 +33,15 @@ const Transaction = DefineMap.extend('Transaction', {
       txIdEqb: currencyType === 'EQB' ? txInfo.txId : undefined,
       otherAddress: toAddress
     })
+  },
+  subscribe (cb) {
+    feathersClient.service('/transactions').on('created', (data) => {
+      console.log('subscribe', arguments)
+      cb(data)
+    })
+  },
+  unSubscribe () {
+    feathersClient.service('/transactions').removeListener('created')
   }
 }, {
   _id: 'string',
