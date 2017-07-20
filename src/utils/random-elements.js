@@ -1,4 +1,4 @@
-import { zip } from 'ramda'
+// import { zip } from 'ramda'
 
 /**
  * Returns an object with random indexes of the list and the corresponding values
@@ -6,7 +6,7 @@ import { zip } from 'ramda'
  * @param {Number} howMany
  * @returns {Object<indexes, values>}
  */
-function randomElements(list, howMany) {
+function randomElements (list, howMany) {
   const indexes = shuffle(Array.from(new Array(list.length), (a, i) => i)).slice(0, howMany)
   const values = pickFromList(indexes, list)
   return { indexes, values }
@@ -31,21 +31,21 @@ function pickFromList (indexes, list) {
  * @returns {Array}
  */
 function shuffle (array) {
-  var m = array.length, t, i;
+  let remained = array.length
+  let temp, index
 
   // While there remain elements to shuffle…
-  while (m) {
-
+  while (remained) {
     // Pick a remaining element
-    i = Math.floor(Math.random() * m--);
+    index = Math.floor(Math.random() * remained--)
 
     // And swap it with the current element.
-    t = array[m];
-    array[m] = array[i];
-    array[i] = t;
+    temp = array[remained]
+    array[remained] = array[index]
+    array[index] = temp
   }
 
-  return array;
+  return array
 }
 
 export default randomElements

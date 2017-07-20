@@ -1,6 +1,6 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
-import canDefineList from 'can-define/list/list'
+import DefineList from 'can-define/list/list'
 import randomElements, { shuffle, pickFromList } from './random-elements'
 
 import './stache-helpers/stache-helpers'
@@ -8,7 +8,7 @@ import '~/models/mock/mock-session'
 
 describe('utils/random-elements', function () {
   describe('shuffle', function () {
-    const arr = [1,2,3,4,5]
+    const arr = [1, 2, 3, 4, 5]
     const shuffled = shuffle(arr.slice())
     const sum = (acc, a) => acc + a
     console.log('shuffle ', arr, shuffled)
@@ -21,17 +21,17 @@ describe('utils/random-elements', function () {
   })
   describe('pickFromList', function () {
     const indexes = [1, 2, 4]
-    const array = [1,2,3,4,5]
+    const array = [1, 2, 3, 4, 5]
     it('should pick elements', function () {
-      assert.deepEqual(pickFromList(indexes, array), [2,3,5])
+      assert.deepEqual(pickFromList(indexes, array), [2, 3, 5])
     })
-    it('should pick elements of canDefineList', function () {
-      const list = new canDefineList(array)
-      assert.deepEqual(pickFromList(indexes, list.slice()).get(), [2,3,5])
+    it('should pick elements of DefineList', function () {
+      const list = new DefineList(array)
+      assert.deepEqual(pickFromList(indexes, list.slice()).get(), [2, 3, 5])
     })
   })
   describe('randomElements', function () {
-    const list = new canDefineList([1, 2, 3, 4, 5])
+    const list = new DefineList([1, 2, 3, 4, 5])
     const randomZip = randomElements(list, 3)
     console.log('randomElements', list, randomZip)
     it('should contain the desired number of elements', function () {
