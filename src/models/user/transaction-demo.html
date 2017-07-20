@@ -54,8 +54,7 @@
   // - mpS2RuNkAEALvMhksCa6fPpLVb5yCPanLu
   const transaction = buildTransaction(
     res1.hdNode.keyPair,
-    '2d7a9f0534ddac231ef1978bda388791c32321f7e14e18e7df3bbed261615f54',
-    1,
+    [['2d7a9f0534ddac231ef1978bda388791c32321f7e14e18e7df3bbed261615f54', 1]],
     [['mpS2RuNkAEALvMhksCa6fPpLVb5yCPanLu', 1 * 100000000],
       ['mp9GiieHrLQvLu4C8nE9bbwxNmXqcC3nVf', (2 - 1 - 0.00001) * 100000000]]
   );
@@ -77,20 +76,32 @@
   const data = new Buffer("hello one two three four five six seven eith nine ten evelen.")
   console.log('data buffer: ', data)
 
-  const tx = new bitcoin.TransactionBuilder(bitcoin.networks.bitcoin)
-  tx.addInput("aa94ab02c182214f090e99a0d57021caffd0f195a81c24602b1028b130b63e31", 0)
+//  const tx = new bitcoin.TransactionBuilder(bitcoin.networks.bitcoin)
+//  tx.addInput("aa94ab02c182214f090e99a0d57021caffd0f195a81c24602b1028b130b63e31", 0)
 //  tx.addOutput("mffc8qHoYst2F7iFwa7AW6DBoxFi2s8KzD", 15000)
   const ret = bitcoin.script.compile([
     OPS.OP_RETURN,
     data
   ])
-  tx.addOutput(ret, 0)
-  const key = bitcoin.ECPair.fromWIF("L1uyy5qTuGrVXrmrsvHWHgVzW9kKdrp27wBC7Vs6nZDTF2BRUVwy")
-  tx.sign(0, key)
-  console.log('OP_RETURN transaction:', tx.build().toHex())
+  const transactionWithOpReturn = buildTransaction(
+    res1.hdNode.keyPair,
+    [
+      ['2d7a9f0534ddac231ef1978bda388791c32321f7e14e18e7df3bbed261615f54', 0]
+    ],
+    [
+      [ret, 0],
+      ['mpS2RuNkAEALvMhksCa6fPpLVb5yCPanLu', 1 * 100000000]
+    ]
+  );
+//  tx.addOutput(ret, 0)
+//  const key = bitcoin.ECPair.fromWIF("L1uyy5qTuGrVXrmrsvHWHgVzW9kKdrp27wBC7Vs6nZDTF2BRUVwy")
+//  tx.sign(0, key)
+  console.log('OP_RETURN transaction:', transactionWithOpReturn)
+
+  console.log('res1.hdNode.keyPair.toWIF(): ', res1.hdNode.keyPair.toWIF())
 
 
-  const compiledData = Buffer.from('68656c6c6f206f6e652074776f20746872656520666f757220666976652073697820736576656e2065697468206e696e652074656e206576656c656e2e')
-  const deCompiled = bitcoin.script.decompile(compiledData)
-  console.log('deCompiled ', deCompiled);
+//  const compiledData = Buffer.from('68656c6c6f206f6e652074776f20746872656520666f757220666976652073697820736576656e2065697468206e696e652074656e206576656c656e2e')
+//  const deCompiled = bitcoin.script.decompile(compiledData)
+//  console.log('deCompiled ', deCompiled);
 </script>

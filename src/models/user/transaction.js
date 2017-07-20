@@ -37,12 +37,11 @@ export function getReceived (addr) {
 
 }
 
-export function buildTransaction (keyPair, inputId, inputIndex, outputs) {
+export function buildTransaction (keyPair, inputs, outputs) {
   const tx = new bitcoin.TransactionBuilder(bitcoin.networks.testnet)
-  tx.addInput(inputId, inputIndex)
+  inputs.forEach(([inputId, inputIndex]) => tx.addInput(inputId, inputIndex))
   outputs.forEach(([output, value]) => tx.addOutput(output, value))
   tx.sign(0, keyPair)
-
   return tx.build().toHex()
 }
 
