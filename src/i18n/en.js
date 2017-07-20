@@ -194,6 +194,11 @@ export default {
   myOrders: 'My Orders',
   myPortfolio: 'My Portfolio',
 
+  myIssuancesCreateIssuance: 'Create an Issuance',
+  myIssuancesEmptyMessage: 'Raise capital for your company by issuing securities.',
+  myIssuancesPageTitle: 'My Issuances',
+  myIssuancesAddIssuance: 'Add Issuance',
+
   newIssuances: 'New Issuances',
   note: 'Note',
   notEnoughFunds: 'You don\'t have enough funds to send. Use the total available minus the transaction fee',

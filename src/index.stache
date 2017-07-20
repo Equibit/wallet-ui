@@ -18,6 +18,7 @@
     <can-import from="~/components/page-issuance-details/" />
     <can-import from="~/components/page-portfolio/" />
     <can-import from="~/components/page-transactions/" />
+    <can-import from="~/components/page-my-issuances/" />
     <can-import from="~/components/page-orders/" />
     <can-import from="~/components/page-offers/" />
     <can-import from="~/components/page-auth/" />
@@ -67,6 +68,9 @@
       {{/case}}
       {{#case 'transactions'}}
         <page-transactions {addresses}="session.allAddresses" {portfolios}="session.portfolios" />
+      {{/case}}
+      {{#case 'my-issuances'}}
+        <page-my-issuances {issuances}="session.issuances" />
       {{/case}}
       {{#case 'orders'}}
         <page-orders />

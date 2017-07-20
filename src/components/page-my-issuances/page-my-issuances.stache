@@ -1,0 +1,32 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/models/fixtures/issuances">
+
+
+<div class="row">
+  <div class="col-xs-12">
+    <drag-panel class="panel panel-default card card-full">
+
+      {{^if issuances.length}}
+        <div class="panel-body align-center">
+          <div class="message-box no-border">
+            <div class="message-box-status">{{i18n('myIssuancesCreateIssuance')}}</div>
+            <p class="message-box-cause">{{i18n('myIssuancesEmptyMessage')}}</p>
+            <button class="btn btn-primary">+ {{i18n('myIssuancesAddIssuance')}}</button>
+          </div>
+        </div>
+      {{/if}}
+
+      <div class="panel-heading {{^if issuances.length}}hidden{{/if}}">
+        <h1 class="panel-title">{{i18n('myIssuancesPageTitle')}}</h1>
+      </div>
+      <div class="panel-body {{^if issuances.length}}hidden{{/if}}">
+        <div class="row card-row-full">
+          <div class="col-lg-9 col-xs-12">
+            <issuance-list {(rows)}="issuances" />
+          </div>
+        </div>
+      </div>
+
+    </drag-panel>
+  </div>
+</div>
