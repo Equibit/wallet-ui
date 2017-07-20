@@ -100,7 +100,7 @@ const FormData = DefineMap.extend({
 
   isValid: {
     get () {
-      return !this.toAddressError && this.hasEnoughFunds && this.amount > 0
+      return !this.toAddressError && (this.hasEnoughFunds || this.type === 'SECURITIES') && this.amount > 0
     }
   },
 

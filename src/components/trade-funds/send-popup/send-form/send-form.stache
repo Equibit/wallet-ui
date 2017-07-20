@@ -144,7 +144,7 @@
   {{#if formData.type}}
     <div class="list-group-item">
       <div class="form-group">
-        <label for="">{{i18n('description')}}
+        <label for="">{{i18n('note')}}
           <span class="icon icon-question"
             data-toggle="popover"
             data-content="{{i18n('helpSendDescription')}}"

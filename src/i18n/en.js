@@ -68,7 +68,6 @@ export default {
   bitcoinDisplayUnitMicro: 'Micro',
   bitcoinDisplayUnitMilli: 'Milli',
   bitcoinDisplayUnitFull: 'Full',
-  blankEQB: 'Blank EBQ',
   bonds: 'Bonds',
   breakdown: 'Breakdown',
   BTC: 'BTC',
@@ -166,7 +165,7 @@ export default {
   goodFor: 'Good For',
   goodUntil: 'Good Until',
 
-  helpSendDescription: 'Add a description to remind yourself what this transaction is about. This will only be visible to you.',
+  helpSendDescription: 'Add a note to remind yourself what this transaction is about. This will only be visible to you.',
   helpTransactionFeeBitcoin: 'Required by Bitcoin miners.',
   helpTransactionFeeEquibit: 'Required by Equibit miners.',
 
@@ -290,6 +289,7 @@ export default {
   sellOrders: 'Sell Orders',
   shareVolume: 'Share Volume',
   sharePerformance: 'Share Performance',
+  shares: 'Shares',
   signup: 'Sign Up',
   signupAgreeToTerms1: 'I agree to the',
   signupAgreeToTerms2: 'Terms & Conditions',

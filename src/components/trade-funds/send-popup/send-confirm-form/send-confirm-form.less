@@ -3,9 +3,15 @@
 send-confirm-form {
 	display: block;
 
-  .form-values {
-    @media (min-width: @screen-xs-max) {
-      text-align: right;
-    }
-  }
+	.column-digital-currency-type {
+		width: 60px;
+	}
+	.column-local-currency-type {
+		width: 30px;
+	}
+	.column-digital-currency-value,
+	.column-local-currency-value {
+		width: 100px;
+		text-align: right;
+	}
 }

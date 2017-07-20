@@ -7,6 +7,7 @@
 
 .table {
   font-size: @font-size-small;
+  margin-bottom: 0;
 
   > thead > tr > th {
     vertical-align: bottom;
@@ -17,5 +18,12 @@
 
   > tfoot > tr > td {
     padding: 0;
+  }
+
+  &.table-simple {
+    > tbody > tr > td {
+      border-top: 0;
+      padding: 0 5px 0 0;
+    }
   }
 }
