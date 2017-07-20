@@ -23,6 +23,7 @@ const Transaction = DefineMap.extend('Transaction', {
       address: txouts[0].address,
       addressTxid: txouts[0].txid,
       addressVout: txouts[0].vout,
+      fee,
       type,
       currencyType,
       amount,
@@ -32,6 +33,15 @@ const Transaction = DefineMap.extend('Transaction', {
       txIdEqb: currencyType === 'EQB' ? txInfo.txId : undefined,
       otherAddress: toAddress
     })
+  },
+  subscribe (cb) {
+    feathersClient.service('/transactions').on('created', (data) => {
+      console.log('subscribe', arguments)
+      cb(data)
+    })
+  },
+  unSubscribe () {
+    feathersClient.service('/transactions').removeListener('created')
   }
 }, {
   _id: 'string',
@@ -55,6 +65,7 @@ const Transaction = DefineMap.extend('Transaction', {
     }
   },
   currencyType: 'string', // enum: [ 'BTC', 'EQB' ]
+  confirmations: 'number',
   companyName: 'string',
   companySlug: 'string',
   issuanceName: 'string',
@@ -69,6 +80,7 @@ const Transaction = DefineMap.extend('Transaction', {
       return (Session.current && Session.current.toBTC(this.amount, this.currencyType)) || this.amount
     }
   },
+  fee: 'number',
   description: 'string',
 
   // Won't be stored in DB. If a failure occurs the error will be immediately shown to user without creating a DB entry.
@@ -86,6 +98,12 @@ const Transaction = DefineMap.extend('Transaction', {
   get transactionUrl () {
     const txId = this.txIdBtc || this.txIdEqb
     return txId && `http://localhost:3030/proxycore?method=gettransaction&params[]=${txId}&params[]=true`
+  },
+  isSecurity: {
+    get () {
+      // TODO: this info can be assumed from the metadata data of a raw transaction
+      return this.currencyType === 'EQB' && this.companyName
+    }
   }
 })
 

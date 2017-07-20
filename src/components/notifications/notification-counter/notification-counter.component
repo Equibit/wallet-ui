@@ -32,6 +32,6 @@
       line-height: 0.8rem;
   </style>
   <view>
-      4
+      {{count}}
   </view>
 </can-component>

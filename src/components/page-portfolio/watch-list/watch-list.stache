@@ -40,7 +40,7 @@
                 {{#each rows as row}}
                   <tr>
                     <td class="column-company">
-                      <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug issuanceId=row._id}}">{{row.companyName}}</a>
+                      <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug itemId=row._id}}">{{row.companyName}}</a>
                     </td>
                     <td class="column-change">
                       <arrow-change class="no-arrow" {change}="row.change"></arrow-change>

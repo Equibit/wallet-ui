@@ -17,6 +17,7 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './page-transactions.less'
 import view from './page-transactions.stache'
+import Portfolio from '../../models/portfolio'
 
 export const ViewModel = DefineMap.extend({
   transactions: {
@@ -26,7 +27,7 @@ export const ViewModel = DefineMap.extend({
     type: '*'
   },
   portfolios: {
-    type: '*'
+    Type: Portfolio.List
   }
 })
 

@@ -16,10 +16,11 @@
 import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import DefineList from 'can-define/list/'
+import route from 'can-route'
 import './transactions-grid.less'
 import view from './transactions-grid.stache'
 import Transaction from '../../../models/transaction'
-import Pagination from '~/models/pagination'
+import Pagination from '../../../models/pagination'
 
 // import '../../../models/fixtures/transactions';
 
@@ -75,6 +76,15 @@ export const ViewModel = DefineMap.extend({
     type: '*'
   },
   selectRowDefault (row) {
+    if (route.data.itemId) {
+      const found = this.rows.filter(a => a._id === route.data.itemId)
+      if (found && found[0]) {
+        row = found[0]
+      }
+    }
+    if (this.selectedRow) {
+      this.selectedRow.selected = false
+    }
     row.selected = true
     this.selectedRow = row
   },
