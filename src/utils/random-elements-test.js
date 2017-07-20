@@ -32,14 +32,15 @@ describe('utils/random-elements', function () {
   })
   describe('randomElements', function () {
     const list = new DefineList([1, 2, 3, 4, 5])
-    const randomZip = randomElements(list, 3)
-    console.log('randomElements', list, randomZip)
-    it('should contain the desired number of elements', function () {
-      assert.equal(randomZip.length, 3)
+    const randomized = randomElements(list, 3)
+    console.log('randomized', list, randomized)
+    it('should contain the desired number of elements of indexes and values', function () {
+      assert.equal(randomized.indexes.length, 3)
+      assert.equal(randomized.values.length, 3)
     })
     it('should return the correct 1st value', function () {
-      const index = randomZip[0][0]
-      const value = randomZip[0][1]
+      const index = randomized.indexes[0]
+      const value = randomized.values[0]
       assert.equal(value, list[index])
     })
   })
