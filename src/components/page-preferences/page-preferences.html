@@ -5,8 +5,13 @@
 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
 <script type="text/stache" id="demo-html">
+  <can-import from="bootstrap/dist/js/bootstrap" />
+  <can-import from="bootstrap-canjs" />
+  <can-import from="bootstrap-canjs/modal/modal.less" />
   <can-import from="~/styles/styles.less" />
-  <can-import from="wallet-ui/components/page-preferences/" />
+  <can-import from="~/components/page-preferences/" />
+
+  <bootstrap-modal></bootstrap-modal>
   <page-preferences></page-preferences>
 </script>
 
@@ -17,6 +22,8 @@
   import stache from 'can-stache';
   import reload from 'live-reload';
   import DefineMap from 'can-define/map/map';
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
 
   const vm = new DefineMap({
     // view model props here

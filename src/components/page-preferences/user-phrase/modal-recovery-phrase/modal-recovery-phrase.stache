@@ -5,7 +5,7 @@
 
 <bootstrap-modal-content class="user-recovery-phrase">
   <div class="modal-header">
-    <button ($click)="close()" type="button" class="close" aria-label="Close">
+    <button ($click)="doClose(@close)" type="button" class="close" aria-label="Close">
       <span class="icon icon-cross rotate-90"></span>
     </button>
   </div>
@@ -43,7 +43,7 @@
   </div>
 
   <div class="modal-footer">
-    <button ($click)="close()" type="button" class="btn btn-primary" data-dismiss="modal">{{i18n('gotit')}}</button>
+    <button ($click)="doClose(@close)" type="button" class="btn btn-primary" data-dismiss="modal">{{i18n('gotit')}}</button>
     <button ($click)="intro()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
   </div>
   {{/is}}
@@ -55,13 +55,13 @@
       <h4 class="title">{{i18n('recoveryPhraseSetupTitle')}}</h4>
     </div>
     <p class="instruction">{{i18n('recoveryPhraseSetupInstruction1')}}</p>
-    <phrase-display></phrase-display>
+    <phrase-display {words}="currentWords" {step}="step"></phrase-display>
   </div>
 
   <div class="modal-footer">
-    <button ($click)="edit()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
-    <button ($click)="intro()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
-    <div class="modal-footer-add-content"><span class="modal-step-indicator">Step 1 of 4</span></div>
+    <button ($click)="continue()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
+    <button ($click)="back()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
+    <div class="modal-footer-add-content"><span class="modal-step-indicator">Step {{step}} of 4</span></div>
   </div>
   {{/is}}
 
@@ -72,7 +72,7 @@
       <h4 class="title">{{i18n('recoveryPhraseSetupTitle')}}</h4>
     </div>
     <p class="instruction">{{i18n('recoveryPhraseSetupInstruction2')}}</p>
-    <phrase-input></phrase-input>
+    <phrase-input {phrase}="phrase" {^is-correct}="../isCorrect"></phrase-input>
   </div>
 
   <div class="modal-footer">
@@ -88,7 +88,7 @@
       <span class="icon icon-lock-enclosed icon-with-check"></span>
       <h4 class="title">{{i18n('recoveryPhraseSetupTitleDone')}}</h4>
       <p>{{i18n('recoveryPhraseSetupMessageDone')}}</p>
-      <button ($close)="end()" type="button" class="btn btn-primary btn-gotit" data-dismiss="modal">{{i18n('gotit')}}</button>
+      <button ($close)="end(@close)" type="button" class="btn btn-primary btn-gotit" data-dismiss="modal">{{i18n('gotit')}}</button>
     </div>
   </div>
   {{/is}}

@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-preferences/modal-authentication/" />
+<can-import from="~/components/page-preferences/user-phrase/modal-recovery-phrase/" />
 
 <div class="well">
   <div class="row section">
@@ -10,11 +11,16 @@
       <span class="label label-danger">{{i18n('statusNotSet')}}</span>
     </div>
     <div class="col-sm-2 col-xs-12 section-column section-cta">
-      <button ($click)="showModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+      <button ($click)="showAuthModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
     </div>
   </div>
 </div>
 
-{{#if isModalShown}}
-  <modal-authentication></modal-authentication>
+{{#if isAuthModalShown}}
+  <modal-authentication (verified)="codeVerified(%arguments)"
+                        (close)="onClose('isAuthModalShown')"></modal-authentication>
+{{/if}}
+
+{{#if isPhraseModalShown}}
+  <modal-recovery-phrase (close)="onClose('isPhraseModalShown')"></modal-recovery-phrase>
 {{/if}}

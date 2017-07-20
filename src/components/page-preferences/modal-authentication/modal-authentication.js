@@ -19,8 +19,14 @@ import './modal-authentication.less'
 import view from './modal-authentication.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the modal-authentication component'
+  secondFactorCode: 'string',
+  verify (close) {
+    this.dispatch('verified', [this.secondFactorCode])
+    this.doClose(close)
+  },
+  doClose (close) {
+    this.dispatch('close')
+    close()
   }
 })
 

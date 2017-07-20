@@ -19,8 +19,12 @@ import './phrase-display.less'
 import view from './phrase-display.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the phrase-display component'
+  words: {
+    type: '*'
+  },
+  step: 'number',
+  wordIndex (index) {
+    return (this.step - 1) * 4 + index + 1
   }
 })
 

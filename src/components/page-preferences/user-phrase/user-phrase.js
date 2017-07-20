@@ -19,11 +19,21 @@ import './user-phrase.less'
 import view from './user-phrase.stache'
 
 export const ViewModel = DefineMap.extend({
-  isModalShown: 'boolean',
-  showModal () {
-    // Note: we need to re-insert the modal content:
-    this.isModalShown = false
-    this.isModalShown = true
+  secondFactorCode: 'string',
+  isAuthModalShown: 'boolean',
+  isPhraseModalShown: 'boolean',
+
+  codeVerified (args) {
+    const code = args[1]
+    console.log('codeVerified!!! ' + code)
+    this.secondFactorCode = code
+    this.isPhraseModalShown = true
+  },
+  showAuthModal () {
+    this.isAuthModalShown = true
+  },
+  onClose (prop) {
+    this[prop] = false
   }
 })
 
