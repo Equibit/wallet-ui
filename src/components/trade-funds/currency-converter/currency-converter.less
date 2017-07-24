@@ -1,3 +1,19 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+@import '../../../styles/custom/animate.less';
+@import '../../../styles/custom/_helpers.less';
+
 currency-converter {
 	//display: block;
+}
+
+.rate-arrows {
+  font-size: 20px;
+  color: @gray-light;
+  align-self: center;
+  margin-bottom: 7px;
+  .rotate-135;
+  @media (min-width: @screen-xs) {
+    margin-top: 7px;
+    .rotate-45;
+  }
 }

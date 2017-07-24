@@ -1,1 +1,43 @@
-<p>{{message}}</p>
+<can-import from="bootstrap-canjs" />
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-my-issuances/create-issuance/issuance-form/" />
+<can-import from="~/components/page-my-issuances/create-issuance/issuance-confirm/" />
+<can-import from="~/components/common/modal/modal.less" />
+
+<bootstrap-modal-content>
+  <div class="modal-header">
+    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+    <h3 class="modal-title">{{i18n('issuanceModalTitle')}}</h3>
+  </div>
+
+  <div class="modal-body {{#is mode 'edit'}}edit-mode{{/is}}">
+    <div class="description">
+      {{#is mode 'confirm'}}
+        {{i18n('issuanceModalConfirm')}}
+      {{/is}}
+    </div>
+
+    {{#is mode 'edit'}}
+      <issuance-form (receiveform)="openReceiveForm(@close)"
+                 {form-data}="formData"
+                 {portfolio}="portfolio"
+                 {issuances}="issuances" />
+    {{else}}
+      <issuance-confirm {form-data}="formData" {issuances}="issuances" />
+    {{/is}}
+
+  </div>
+  <div class="modal-footer">
+
+    {{#is mode 'edit'}}
+      <button ($click)="next()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
+      <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    {{/is}}
+    {{#is mode 'confirm'}}
+      <button ($click)="send(@close)" type="button" class="btn btn-primary">{{i18n('send')}}</button>
+      <button ($click)="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('edit')}}</button>
+    {{/is}}
+
+    <!--<a class="pull-right">Advanced Send</a>-->
+  </div>
+</bootstrap-modal-content>

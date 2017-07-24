@@ -1,1 +1,123 @@
-<p>{{message}}</p>
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/trade-funds/currency-converter/" />
+
+<div class="list-group">
+  <div class="list-group-item item-company">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3">
+            <label for="inputQuantity" class="control-label">{{i18n('company')}}</label>
+          </div>
+          <div class="col-xs-12 col-sm-9">
+            <div>
+              <button ($click)="createCompany()" type="button" class="btn btn-primary btn-sm">{{i18n('addNew')}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-group-item order-fields">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3">
+            <label for="issuanceName" class="control-label">{{i18n('issuanceName')}}</label>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <input type="text" class="form-control" id="issuanceName">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-group-item order-fields">
+    <div class="form-horizontal">
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3">
+            <label for="issuanceType" class="control-label">{{i18n('issuanceType')}}</label>
+          </div>
+          <div class="btn-group col-xs-12 col-sm-6">
+            <button type="button" aria-haspopup="true" aria-expanded="false"
+                    class="btn btn-default btn-sm dropdown-toggle text-left"
+                    data-toggle="dropdown">
+              {{i18n('select')}} <span class="caret pull-right"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Common Shares</a></li>
+              <li><a href="#">Preferred Shares</a></li>
+              <li><a href="#">Trust Units</a></li>
+              <li><a href="#">Partnership Units</a></li>
+              <li><a href="#">Bonds</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-group-item order-fields">
+    <div class="form-horizontal">
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3">
+            <label for="inputTotalAmount" class="control-label">{{i18n('authorize')}}</label>
+          </div>
+          <div class="col-xs-12 col-sm-9">
+            <div class="row">
+              <div class="col-sm-6 col-xs-12 no-padding">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="number" class="form-control" aria-describedby="funds-quantity"
+                           {($value)}="issuance.sharesAuthorized">
+                    <span class="input-group-addon" id="funds-quantity">{{i18n('shares')}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-2 col-xs-12 no-padding">
+                <span class="rate-arrows icon icon-enlarge"></span>
+              </div>
+              <div class="col-sm-3 col-xs-12 no-padding">
+                <div class="form-group">
+                  <currency-converter {(input)}="issuance.sharesAuthorized"
+                                      precision="2"
+                                      {currency}="sharesToEqb"/>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-group-item order-fields">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3">
+            <label for="issuanceName" class="control-label">{{i18n('restrictionLevel')}}</label>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                <b>{{i18n('noRestriction')}}</b>
+                <br>
+                {{i18n('noRestrictionInfo')}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -19,9 +19,19 @@ import './create-issuance.less'
 import view from './create-issuance.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the create-issuance component'
-  }
+  mode: {
+    value: 'edit'
+  },
+  next () {
+    this.mode = 'confirm'
+  },
+  edit () {
+    this.mode = 'edit'
+  },
+  send (close) {
+    this.dispatch('send', [this.formData])
+    close()
+  },
 })
 
 export default Component.extend({

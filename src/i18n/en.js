@@ -13,6 +13,7 @@ export default {
 
   // Buttons:
   addBuyOrder: '+ Add Buy Order',
+  addNew: 'Add New',
   addSellOrder: '+ Add Sell Order',
   accept: 'Accept',
   done: 'Done',
@@ -32,6 +33,7 @@ export default {
   saveandLogIn: 'Save & Log In',
   sendIntructions: 'Send Instructions',
   skip: 'Skip',
+  select: 'Select',
   tryAgainNo: 'No, Try Again',
   verify: 'Verify',
   view: 'View',
@@ -59,6 +61,7 @@ export default {
   autoLogout: 'Auto Logout',
   autoLogoutDescription: 'After the selected amount of time of inactivity we will log you out automatically from your account.',
   autoLogoutLabel: 'Auto Logout Time',
+  authorize: 'Authorize',
 
   balance: 'Balance',
   bidPrice: 'Bid Price',
@@ -176,6 +179,9 @@ export default {
   issuanceType: 'Issuance Type',
   issued: 'Issued',
 
+  issuanceModalTitle: 'Create an Issuance',
+  issuanceModalConfirm: 'Please review and confirm your issuance',
+
   lastestIssuances: 'Latest Issuances',
   last24hours: 'Last 24 hours',
   lastUpdatedOn: 'Last updated on',
@@ -218,6 +224,8 @@ export default {
   notFoundOrdersSell: 'No Sell Orders Found',
   notifications: 'Notifications',
   noPartialFills: 'No partial fills allowed.',
+  noRestriction: 'No restriction',
+  noRestrictionInfo: 'Securities can trade freely',
   now: 'Now',
 
   offer: 'Offer',
@@ -281,6 +289,7 @@ export default {
   relatedCompanies: 'Related Companies',
   research: 'Research',
   restriction: 'Restriction',
+  restrictionLevel: 'Restriction Level',
 
   securities: 'Securities',
   securitiesSent: 'Securities sent',

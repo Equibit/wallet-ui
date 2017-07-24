@@ -1,11 +1,25 @@
 <!DOCTYPE HTML>
-<style>body { padding: 20px }</style>
+<style>
+  body { padding: 20px }
+  #demo .modal { display: block; }
+  #demo bootstrap-modal-content { display: block; }
+</style>
 <div id="demo"></div>
 
 <script type="text/stache" id="demo-html">
+  <can-import from="bootstrap/dist/js/bootstrap" />
   <can-import from="~/styles/styles.less" />
-  <can-import from="wallet-ui/components/page-my-issuances/create-issuance/" />
-  <create-issuance></create-issuance>
+  <can-import from="~/components/page-my-issuances/create-issuance/" />
+
+  <div class="modal fade in" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <create-issuance></create-issuance>
+
+      </div>
+    </div>
+  </div>
 </script>
 
 <script src="../../../../node_modules/steal/steal.js"
