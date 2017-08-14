@@ -98,7 +98,7 @@ export default {
   copyAndShare: 'Copy and Share',
   cost: 'Cost',
   createAccount: 'Create an Account',
-  createIssuance: 'Create the Issuance',
+  createIssuance: 'Create Issuance',
   createIssuanceConfirmWarning: 'The information below cannot be changed once the issuance is created, so verify that everything is correct.',
   createPasswordTitle: 'Create a Password',
   createPasswordMsg: 'Create a password for your account.',

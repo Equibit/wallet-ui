@@ -1,3 +1,50 @@
+@import '../../../../styles/bootstrap-custom/_variables.less';
+
 issuance-confirm {
 	display: block;
+
+	.well {
+		margin-bottom: @padding-xlarge-vertical;
+		.dl-stripped {
+			margin-bottom: 0;
+		}
+	}
+	small {
+		color: @gray;
+	}
+	.restriction-levels {
+		border-bottom: 0;
+		font-size: @font-size-small;
+		margin-top: @padding-small-vertical;
+		.icon {
+			float: left;
+			font-size: 24px;
+			margin-right: 10px;
+		}
+		.restriction-info {
+			color: @gray;
+
+		}
+	}
+	hr {
+		border-top: @border-default;
+	}
+
+	.transaction-details {
+		padding: 4px;
+		label {
+			display: block;
+			margin-bottom: 0;
+		}
+		td {
+			text-align: right;
+			&.border-bottom {
+				border-bottom: @border-default;
+			}
+			&.column-label {
+				text-align: left;
+			}
+		}
+
+	}
 }
