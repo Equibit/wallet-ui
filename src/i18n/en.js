@@ -291,6 +291,12 @@ export default {
   research: 'Research',
   restriction: 'Restriction',
   restrictionLevel: 'Restriction Level',
+  restrictionLevel1Name: 'Level 1',
+  restrictionLevel1Description: 'Equibit can be transferred to an address that is two or less degrees of trust separation from you.',
+  restrictionLevel2Name: 'Level 2',
+  restrictionLevel2Description: 'Equibit can be transferred to an address that is one degree of trust separation from the issuer.',
+  restrictionLevel3Name: 'Level 3',
+  restrictionLevel3Description: 'No exceptions. Equibit can only be returned to the issuer.',
 
   securities: 'Securities',
   securitiesSent: 'Securities sent',

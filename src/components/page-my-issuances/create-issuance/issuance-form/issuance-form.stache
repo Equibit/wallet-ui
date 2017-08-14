@@ -101,15 +101,55 @@
           <div class="col-xs-12 col-sm-3">
             <label for="issuanceName" class="control-label">{{i18n('restrictionLevel')}}</label>
           </div>
-          <div class="col-xs-12 col-sm-6">
-            <div class="radio">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                <b>{{i18n('noRestriction')}}</b>
-                <br>
-                {{i18n('noRestrictionInfo')}}
-              </label>
+          <div class="col-xs-12 col-sm-9 restriction-levels">
+
+            <div class="list-group">
+              <div class="list-group-item">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadios">
+                    <strong>{{i18n('noRestriction')}}</strong>
+                    {{i18n('noRestrictionInfo')}}
+                  </label>
+                  <span class="icon icon-passport-level-0 pull-right"></span>
+                </div>
+              </div>
+
+              <div class="list-group-item">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadios">
+                    <strong>{{i18n('restrictionLevel1Name')}}</strong>
+                    {{i18n('restrictionLevel1Description')}}
+                  </label>
+                  <span class="icon icon-passport-level-1 pull-right"></span>
+                </div>
+              </div>
+
+              <div class="list-group-item">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadios">
+                    <strong>{{i18n('restrictionLevel2Name')}}</strong>
+                    {{i18n('restrictionLevel2Description')}}
+                  </label>
+                  <span class="icon icon-passport-level-2 pull-right"></span>
+                </div>
+              </div>
+
+              <div class="list-group-item">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadios">
+                    <strong>{{i18n('restrictionLevel3Name')}}</strong>
+                    {{i18n('restrictionLevel3Description')}}
+                  </label>
+                  <span class="icon icon-passport-level-3 pull-right"></span>
+                </div>
+              </div>
+
             </div>
+
           </div>
         </div>
       </div>
