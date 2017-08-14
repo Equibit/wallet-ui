@@ -98,6 +98,7 @@ export default {
   copyAndShare: 'Copy and Share',
   cost: 'Cost',
   createAccount: 'Create an Account',
+  createIssuance: 'Create the Issuance',
   createPasswordTitle: 'Create a Password',
   createPasswordMsg: 'Create a password for your account.',
   codeVerificationLabel: 'Enter Code',

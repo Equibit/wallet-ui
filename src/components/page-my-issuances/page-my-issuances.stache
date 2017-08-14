@@ -33,5 +33,5 @@
 </div>
 
 {{#if isIssuacePopupVisible}}
-  <create-issuance (create)="create(%arguments)" />
+  <create-issuance (create)="createIssuance(%arguments)" />
 {{/if}}

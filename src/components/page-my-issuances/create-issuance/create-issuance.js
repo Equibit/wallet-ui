@@ -28,8 +28,8 @@ export const ViewModel = DefineMap.extend({
   edit () {
     this.mode = 'edit'
   },
-  send (close) {
-    this.dispatch('send', [this.formData])
+  create (close) {
+    this.dispatch('create', [{}])
     close()
   },
 })
