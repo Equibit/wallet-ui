@@ -1,1 +1,9 @@
-<p>{{message}}</p>
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/entity-info/" />
+
+<div class="alert alert-warning" role="alert">
+  <strong>{{i18n('warning')}}!</strong> {{i18n('createIssuanceConfirmWarning')}}</a>
+</div>
+
+<h3 class="subtitle">Company</h3>
+<entity-info></entity-info>
