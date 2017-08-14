@@ -6,7 +6,7 @@
  *
  * @signature `<create-issuance />`
  *
- * @link ../src/wallet-ui/components/page-my-issuances/create-issuance/create-issuance.html Full Page Demo
+ * @link ../src/components/page-my-issuances/create-issuance/create-issuance.html Full Page Demo
  *
  * ## Example
  *
