@@ -28,7 +28,7 @@ export const ViewModel = DefineMap.extend({
     this.isIssuacePopupVisible = false
     this.isIssuacePopupVisible = true
   },
-  createIssuance (data={}) {
+  createIssuance (data = {}) {
     this.issuances.push(data)
     this.isIssuacePopupVisible = false
   }

@@ -31,7 +31,7 @@ export const ViewModel = DefineMap.extend({
   create (close) {
     this.dispatch('create', [{}])
     close()
-  },
+  }
 })
 
 export default Component.extend({
