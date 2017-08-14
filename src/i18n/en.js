@@ -202,6 +202,7 @@ export default {
   marketSummary: 'Market Summary',
   minutes: 'Minutes',
   missingAddress: 'Address is missing',
+  more: 'More',
   mostActive: 'Most Active',
   myIssuances: 'My Issuances',
   myOffers: 'My Offers',
@@ -213,6 +214,7 @@ export default {
   myIssuancesPageTitle: 'My Issuances',
   myIssuancesAddIssuance: 'Add Issuance',
 
+  name: 'Name',
   newIssuances: 'New Issuances',
   note: 'Note',
   notEnoughFunds: 'You don\'t have enough funds to send. Use the total available minus the transaction fee',

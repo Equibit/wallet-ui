@@ -1,0 +1,139 @@
+<can-import from="~/utils/stache-helpers/" />
+
+<div class="well">
+	<div class="row">
+		<div class="col-xs-12 col-sm-3 col-md-2 company-info">
+			<div class="company-name"><strong>Imperial Brands<strong></div>
+			<div class="company-domicile">USA</div>
+			<a class="company-more-info" href="">{{i18n('more')}}</a>
+		</div>
+
+		<div class="col-xs-12 col-sm-9 col-md-10 issuances-info">
+			<h2 class="subheading">{{i18n('equity')}}</h2>
+			<div class="container-table-responsive">
+				<table class="table table-condensed">
+				<thead>
+					<tr>
+						<th class="column-name">{{i18n('name')}}</th>
+						<th class="column-type">{{i18n('type')}}</th>
+						<th class="column-restriction">{{i18n('restriction')}}</th>
+						<th class="column-price">{{i18n('price')}} (uBTC)</th>
+						<th class="column-authorized">{{i18n('authorized')}}</th>
+						<th class="column-issued">{{i18n('issued')}}</th>
+						<th class="column-action"></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td class="column-name">Series 1</td>
+						<td class="column-type">Common Shares</td>
+						<td class="column-restriction">Level 1</td>
+						<td class="column-price font-numeric">7.714</td>
+						<td class="column-authorized font-numeric">10,000</td>
+						<td class="column-issued font-numeric">7,900</td>
+						<td class="column-action"><button class="btn btn-default btn-xs">Manage</button></td>
+					</tr>
+					<tr>
+						<td class="column-name">Series 1</td>
+						<td class="column-type">Common Shares</td>
+						<td class="column-restriction">Level 3</td>
+						<td class="column-price font-numeric">8.356</td>
+						<td class="column-authorized font-numeric">50,000</td>
+						<td class="column-issued font-numeric">13,290</td>
+						<td class="column-action"><button class="btn btn-default btn-xs">Manage</button></td>
+					</tr>
+					<tr>
+						<td class="column-name">Series 1</td>
+						<td class="column-type">Common Shares</td>
+						<td class="column-restriction">None</td>
+						<td class="column-price font-numeric">5.903</td>
+						<td class="column-authorized font-numeric">10,000</td>
+						<td class="column-issued font-numeric">7,900</td>
+						<td class="column-action"><button class="btn btn-default btn-xs">Manage</button></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+
+			<h2 class="subheading">{{i18n('bonds')}}</h2>
+			<div class="container-table-responsive">
+				<table class="table table-condensed">
+				<thead>
+					<tr>
+						<th class="column-name">{{i18n('name')}}</th>
+						<th class="column-type">{{i18n('type')}}</th>
+						<th class="column-restriction">{{i18n('restriction')}}</th>
+						<th class="column-price">Price (%)</th>
+						<th class="column-authorized">{{i18n('authorized')}} (BTC)</th>
+						<th class="column-issued">{{i18n('issued')}} (BTC)</th>
+						<th class="column-action"></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td class="column-name">Series 1</td>
+						<td class="column-type">Common Shares</td>
+						<td class="column-restriction">Level 1</td>
+						<td class="column-price font-numeric">7.714</td>
+						<td class="column-authorized font-numeric">10,000</td>
+						<td class="column-issued font-numeric">7,900</td>
+						<td class="column-action"><button class="btn btn-default btn-xs">Manage</button></td>
+					</tr>
+					<tr>
+						<td class="column-name">Series 1</td>
+						<td class="column-type">Common Shares</td>
+						<td class="column-restriction">Level 3</td>
+						<td class="column-price font-numeric">8.356</td>
+						<td class="column-authorized font-numeric">50,000</td>
+						<td class="column-issued font-numeric">13,290</td>
+						<td class="column-action"><button class="btn btn-default btn-xs">Manage</button></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="well">
+	<div class="row">
+		<div class="col-xs-12 col-sm-2 company-info">
+			<div class="company-name"><strong>Imperial Brands<strong></div>
+			<div class="company-domicile">USA</div>
+			<a class="company-more-info" href="">{{i18n('more')}}</a>
+		</div>
+
+		<div class="col-xs-12 col-sm-10 issuances-info">
+			<h2 class="subheading">{{i18n('equity')}}</h2>
+			<div class="container-table-responsive">
+				<table class="table table-condensed table-responsive">
+				<thead>
+					<tr>
+						<th class="column-name">{{i18n('name')}}</th>
+						<th class="column-type">{{i18n('type')}}</th>
+						<th class="column-restriction">{{i18n('restriction')}}</th>
+						<th class="column-price">{{i18n('price')}} (uBTC)</th>
+						<th class="column-authorized">{{i18n('authorized')}}</th>
+						<th class="column-issued">{{i18n('issued')}}</th>
+						<th class="column-action"></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td class="column-name">Series 1</td>
+						<td class="column-type">Common Shares</td>
+						<td class="column-restriction">Level 1</td>
+						<td class="column-price font-numeric">7.714</td>
+						<td class="column-authorized font-numeric">10,000</td>
+						<td class="column-issued font-numeric">7,900</td>
+						<td class="column-action"><button class="btn btn-default btn-xs">Manage</button></td>
+					</tr>
+				</tbody>
+			</table>
+		  </div>
+		</div>
+	</div>
+</div>

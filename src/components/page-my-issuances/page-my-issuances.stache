@@ -1,6 +1,7 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/models/fixtures/issuances" />
 <can-import from="~/components/page-my-issuances/create-issuance/" />
+<can-import from="~/components/page-my-issuances/issuance-list/" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -15,18 +16,22 @@
                     ($click)="addIssuance()">+ {{i18n('myIssuancesAddIssuance')}}</button>
           </div>
         </div>
-      {{/if}}
 
-      <div class="panel-heading {{^if issuances.length}}hidden{{/if}}">
+      {{else}}
+      
+      <div class="panel-heading">
         <h1 class="panel-title">{{i18n('myIssuancesPageTitle')}}</h1>
+        <button ($click)="addIssuance()" class="btn btn-primary btn-sm">+ {{i18n('myIssuancesAddIssuance')}}</button>
       </div>
-      <div class="panel-body {{^if issuances.length}}hidden{{/if}}">
+      <div class="panel-body">
         <div class="row card-row-full">
-          <div class="col-lg-9 col-xs-12">
-            <issuance-list {(rows)}="issuances" />
+          <div class="col-xs-12">
+            <issuance-list></issuance-list>
           </div>
         </div>
       </div>
+
+      {{/if}}
 
     </drag-panel>
   </div>

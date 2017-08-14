@@ -16,6 +16,17 @@
     font-size: @font-size-xsmall;
   }
 
+  > tbody > tr {
+    > td {
+      border-top: 0;
+      border-bottom: @border-default;
+    }
+    &:last-of-type td {
+      border-bottom: 0;
+    }
+  }
+
+
   > tfoot > tr > td {
     padding: 0;
   }

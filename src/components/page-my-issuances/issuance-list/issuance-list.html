@@ -1,23 +1,14 @@
 <!DOCTYPE HTML>
-<style>
-  body { padding: 20px }
-</style>
-<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+<style>body { padding: 20px }</style>
 <div id="demo"></div>
 
 <script type="text/stache" id="demo-html">
-  <can-import from="bootstrap-canjs" />
-  <can-import from="bootstrap-canjs/modal/modal.less" />
-  <can-import from="bootstrap/dist/js/bootstrap" />
-
   <can-import from="~/styles/styles.less" />
-  <can-import from="~/components/page-my-issuances/" />
-
-  <page-my-issuances {issuances}="issuances"></page-my-issuances>
-  <bootstrap-modal></bootstrap-modal>
+  <can-import from="wallet-ui/components/page-my-issuances/issuance-list/" />
+  <issuance-list></issuance-list>
 </script>
 
-<script src="../../../node_modules/steal/steal.js"
+<script src="../../../../node_modules/steal/steal.js"
         main="@empty">
 
   import $ from 'jquery'
@@ -26,11 +17,9 @@
   import DefineMap from 'can-define/map/map'
   import canViewModel from 'can-view-model'
   window.canViewModel = canViewModel
-  import Issuance from '~/models/issuance'
 
   const vm = new DefineMap({
-    issuances: new Issuance.List([])
-    // issuances: new Issuance.List([{_id:1}])
+    // view model props here
   })
   window.vm = vm
 
