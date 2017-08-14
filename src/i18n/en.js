@@ -89,7 +89,9 @@ export default {
   change: 'Change',
   changePasswordMsg: 'Create a new password for your account.',
   changePasswordTitle: 'Reset Password',
+  city: 'City',
   company: 'Company',
+  companyAdd: 'Add a Company',
   companies: 'Companies',
   confirmOrder: 'Please review and confirm your order.',
   confirmOffer: 'Please review and confirm your offer.',
@@ -105,6 +107,8 @@ export default {
   codeVerificationLabel: 'Enter Code',
   confirmFunds: 'Confirm Funds',
   confirmFundsMessage: 'It appears you balance is 0. Is this correct or would you like to try entering your recovery phrase again?',
+  contact: 'Contact',
+  country: 'Country',
   currency: 'Currency',
 
   date: 'Date',
@@ -177,6 +181,7 @@ export default {
   issuance: 'Issuance',
   issuances: 'Issuances',
   issuancesAll: 'All Issuances',
+  issuanceAuthorization: 'Issuance Authorization',
   issuanceName: 'Issuance Name',
   issuanceType: 'Issuance Type',
   issued: 'Issued',
@@ -187,6 +192,7 @@ export default {
   lastestIssuances: 'Latest Issuances',
   last24hours: 'Last 24 hours',
   lastUpdatedOn: 'Last updated on',
+  legalName: 'Legal Name',
   level: 'Level',
   login: 'Log In',
   logout: 'Log Out',
@@ -233,6 +239,7 @@ export default {
   offer: 'Offer',
   order: 'Order',
   orderBook: 'Order Book',
+  optional: 'Optional',
 
   partial: 'Partial',
   pasteAddress: 'Paste address',
@@ -244,6 +251,7 @@ export default {
   passwordForgotMessageContinue1: 'Check your email to continue, and then head to',
   passwordForgotMessageContinue2: 'login',
   passwordForgotTitle: 'Forgot Password',
+  phone: 'Phone',
   placeholderNoOffersTile: 'Your Offer Details Will Show Here',
   placeholderNoOffersDescription: 'You can place offers from the issuances page.',
   placeholderNoOrdersTile: 'Your Order Details Will Show Here',
@@ -299,6 +307,7 @@ export default {
   restrictionLevel3Name: 'Level 3',
   restrictionLevel3Description: 'No exceptions. Equibit can only be returned to the issuer.',
 
+  state: 'State / Province / Region',
   securities: 'Securities',
   securitiesSent: 'Securities sent',
   selectType: 'Select Type',
@@ -326,6 +335,9 @@ export default {
   statusRejected: 'Rejected',
   statusTrading: 'Trading',
   statusVerified: 'Verified',
+  streetAddress: 'Street Address',
+  streetAddressPlaceholder1: 'Street and number, P.O. box, c/o.',
+  streetAddressPlaceholder2: 'Suite, unit, building, floor, etc.',
 
   termsAndConditions: 'Terms & Conditions',
   termsAndConditionsContactTitle: 'Contact Us',
@@ -373,6 +385,8 @@ export default {
   watchListToggleRemove: 'In Watchlist',
   watchlistPlaceholderTitle: 'Add to Your Watchlist',
   watchlistPlaceholderDescription: 'Add companies you want to watch on the issuance details.',
-  watchlistPlaceholderButton: 'Explore Issuances'
+  watchlistPlaceholderButton: 'Explore Issuances',
+  website: 'Website',
 
+  zipcode: 'Zip Code / Postal Code'
 }

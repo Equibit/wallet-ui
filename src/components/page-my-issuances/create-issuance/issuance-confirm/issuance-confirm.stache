@@ -1,11 +1,14 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/common/entity-info/" />
 
+<div class="description">
+  {{i18n('issuanceModalConfirm')}}
+</div>
 <div class="alert alert-warning" role="alert">
   <strong>{{i18n('warning')}}!</strong> {{i18n('createIssuanceConfirmWarning')}}</a>
 </div>
 
-<h3 class="subtitle">Company</h3>
+<h3 class="subtitle">{{i18n('company')}}</h3>
 <entity-info></entity-info>
 
 <h3 class="subtitle">Issuance</h3>
@@ -18,24 +21,24 @@
     <dd>Common Shares</dd>
 
     <dt>{{i18n('authorize')}}</dt>
-    <dd>100,000,000 <small>Shares</small> &#x2194 1 <small>EQB</small></dd>
+    <dd>100,000,000 <small>{{i18n('shares')}}</small> &#x2194 1 <small>EQB</small></dd>
   </dl>
 
   <div class="transaction-details">
-    <label for="">From</label>
+    <label for="">{{i18n('from')}}</label>
     <strong>{{i18n('myPortfolio')}}</strong>
     <div class="table-responsive">
       <table class="table table-simple">
         <tbody>
           <tr>
-              <td class="column-label">Issuance Authorization</td>
+              <td class="column-label">{{i18n('issuanceAuthorization')}}</td>
               <td class="column-digital-currency-value font-numeric">- 1.000000</td>
               <td class="column-digital-currency-type font-numeric">{{i18n('EQB')}}</td>
               <td class="column-local-currency-value font-numeric">- $2,350.69</td>
               <td class="column-local-currency-type font-numeric">{{i18n('usd')}}</td>
           </tr>
           <tr>
-              <td class="column-label text-muted">Transaction Fee</td>
+              <td class="column-label text-muted">{{i18n('transactionFee')}}</td>
               <td class="column-digital-currency-value font-numeric text-muted border-bottom">- 0.000023</td>
               <td class="column-digital-currency-type font-numeric text-muted border-bottom">{{i18n('EQB')}}</td>
               <td class="column-local-currency-value font-numeric text-muted border-bottom">- $1.40</td>

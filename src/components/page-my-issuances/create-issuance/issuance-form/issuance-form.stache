@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/trade-funds/currency-converter/" />
+<can-import from="~/components/page-my-issuances/create-issuance/create-company/" />
 
 <div class="list-group">
   <div class="list-group-item item-company">
@@ -7,11 +8,11 @@
       <div class="form-group">
         <div class="row">
           <div class="col-xs-12 col-sm-3">
-            <label for="inputQuantity" class="control-label">{{i18n('company')}}</label>
+            <label class="control-label">{{i18n('company')}}</label>
           </div>
           <div class="col-xs-12 col-sm-9">
             <div>
-              <button ($click)="createCompany()" type="button" class="btn btn-primary btn-sm">{{i18n('addNew')}}</button>
+              <button ($click)="company()" type="button" class="btn btn-primary btn-sm">{{i18n('addNew')}}</button>
             </div>
           </div>
         </div>

@@ -28,6 +28,9 @@ export const ViewModel = DefineMap.extend({
   edit () {
     this.mode = 'edit'
   },
+  company () {
+    this.mode = 'company'
+  },
   create (close) {
     this.dispatch('create', [{}])
     close()
