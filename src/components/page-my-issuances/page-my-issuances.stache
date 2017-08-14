@@ -1,6 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
-<can-import from="~/models/fixtures/issuances">
-
+<can-import from="~/models/fixtures/issuances" />
+<can-import from="~/components/page-my-issuances/create-issuance/" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -11,7 +11,8 @@
           <div class="message-box no-border">
             <div class="message-box-status">{{i18n('myIssuancesCreateIssuance')}}</div>
             <p class="message-box-cause">{{i18n('myIssuancesEmptyMessage')}}</p>
-            <button class="btn btn-primary">+ {{i18n('myIssuancesAddIssuance')}}</button>
+            <button class="btn btn-primary"
+                    ($click)="addIssuance()">+ {{i18n('myIssuancesAddIssuance')}}</button>
           </div>
         </div>
       {{/if}}
@@ -30,3 +31,7 @@
     </drag-panel>
   </div>
 </div>
+
+{{#if isIssuacePopupVisible}}
+  <create-issuance (create)="create(%arguments)" />
+{{/if}}

@@ -20,8 +20,17 @@ import view from './page-my-issuances.stache'
 import Issuance from '../../models/issuance'
 
 export const ViewModel = DefineMap.extend({
+  isIssuacePopupVisible: 'boolean',
   issuances: {
     Type: Issuance.List
+  },
+  addIssuance () {
+    this.isIssuacePopupVisible = false
+    this.isIssuacePopupVisible = true
+  },
+  createIssuance (data={}) {
+    this.issuances.push(data)
+    this.isIssuacePopupVisible = false
   }
 })
 

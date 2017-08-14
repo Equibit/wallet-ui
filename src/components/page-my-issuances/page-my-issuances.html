@@ -1,11 +1,19 @@
 <!DOCTYPE HTML>
-<style>body { padding: 20px }</style>
+<style>
+  body { padding: 20px }
+</style>
 <div id="demo"></div>
 
 <script type="text/stache" id="demo-html">
+  <can-import from="bootstrap-canjs" />
+  <can-import from="bootstrap-canjs/modal/modal.less" />
+  <can-import from="bootstrap/dist/js/bootstrap" />
+
   <can-import from="~/styles/styles.less" />
   <can-import from="~/components/page-my-issuances/" />
+
   <page-my-issuances {issuances}="issuances"></page-my-issuances>
+  <bootstrap-modal></bootstrap-modal>
 </script>
 
 <script src="../../../node_modules/steal/steal.js"
@@ -21,6 +29,7 @@
 
   const vm = new DefineMap({
     issuances: new Issuance.List([])
+    // issuances: new Issuance.List([{_id:1}])
   })
   window.vm = vm
 
