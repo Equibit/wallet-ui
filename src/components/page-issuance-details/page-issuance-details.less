@@ -33,4 +33,27 @@ page-issuance-details {
 			height: inherit;
 		}
 	}
+
+	// Style for the bar shown for admin users
+	.admin-actions {
+		border-bottom: 0;
+		overflow-x: scroll;
+		.nav-pills {
+			margin-bottom: 0;
+			border-bottom: @border-default;
+			min-width: 633px;
+			> li {
+				margin-bottom: -1px;
+			}
+		}
+		.additional-actions {
+			font-size: @font-size-small;
+			float: right;
+			margin-top: -35px;
+			@media (max-width: 1200px) {
+				float: none;
+				margin-top: 10px;
+			}
+		}
+	}
 }

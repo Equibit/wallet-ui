@@ -28,8 +28,25 @@
         </div>
 
         <div class="col-lg-9 col-sm-8 col-xs-12">
-          <div class="panel-heading panel-heading-clear actions-bar">
+          <div class="panel-heading panel-heading-clear actions-bar admin-actions">
+            <ul class="nav nav-pills">
+              <li role="presentation" class="active"><a href="">Market</a></li>
+              <li role="presentation"><a href="">Distributions</a></li>
+              <li role="presentation"><a href="">Messages</a></li>
+              <li role="presentation"><a href="">Polls</a></li>
+              <li role="presentation"><a href="">History</a></li>
+              <li role="presentation"><a href="">Shareholders</a></li>
+            </ul>
+
+            <div class="additional-actions">
+              <a class="btn-link">Switch to Public View &#x2192;</a>
+            </div>
+
+
+
+            <!--If not an admin
             <watchlist-toggle />
+            -->
           </div>
 
           <div class="panel-body">
