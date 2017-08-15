@@ -37,12 +37,12 @@
             {{else}}
 
             <ul class="nav nav-pills">
-              <li role="presentation" class="active"><a href="">Market</a></li>
-              <li role="presentation"><a href="">Distributions</a></li>
-              <li role="presentation"><a href="">Messages</a></li>
-              <li role="presentation"><a href="">Polls</a></li>
-              <li role="presentation"><a href="">History</a></li>
-              <li role="presentation"><a href="">Shareholders</a></li>
+              <li role="presentation" class="active"><a href="">{{i18n('market')}}</a></li>
+              <li role="presentation"><a href="">{{i18n('distributions')}}</a></li>
+              <li role="presentation"><a href="">{{i18n('messages')}}</a></li>
+              <li role="presentation"><a href="">{{i18n('polls')}}</a></li>
+              <li role="presentation"><a href="">{{i18n('history')}}</a></li>
+              <li role="presentation"><a href="">{{i18n('shareholders')}}</a></li>
             </ul>
 
             <div class="additional-actions">

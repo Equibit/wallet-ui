@@ -19,8 +19,10 @@ import './issuance-list.less'
 import view from './issuance-list.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the issuance-list component'
+  isModalShown: 'boolean',
+  showModal () {
+    this.isModalShown = false
+    this.isModalShown = true
   }
 })
 

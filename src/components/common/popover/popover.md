@@ -7,7 +7,7 @@ This component uses Bootrap [tooltip.js](http://getbootstrap.com/javascript/#too
 
 Use the following attributes on a control:
   <ul>
-    <li><code>data-toggle</code> to set the display as a <code>tooltip</code> or a `popover</code>.</li>
+    <li><code>data-toggle</code> to set the display as a <code>tooltip</code> or a <code>popover</code>.</li>
     <li><code>title</code> to pass the message inside of your tooltip. or a title in a popover.</li>
     <li><code>data-placement</code> to set the tooltip display to <code>top | bottom | left | right | auto</code>.</li>
     <li><code>data-content</code> to pass the message on a popover.
