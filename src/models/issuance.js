@@ -35,6 +35,11 @@ const Issuance = DefineMap.extend('Issuance', {
   // ENUM ('Common Shares' | '')
   type: 'string',
 
+  /**
+   * Id of the user who created the issuance
+   */
+  userId: 'string',
+
   // extras:
   selected: {
     type: 'boolean',

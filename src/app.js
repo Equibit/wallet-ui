@@ -41,6 +41,7 @@ var pages = {
   portfolio: 'private',
   preferences: 'private',
   transactions: 'private',
+  'my-issuances': 'private',
   orders: 'public',
   offers: 'public'
 }

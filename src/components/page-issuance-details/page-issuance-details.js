@@ -31,6 +31,15 @@ export const ViewModel = DefineMap.extend({
   },
   issuance: {
     type: '*'
+  },
+  mode: {
+    value: 'investor'
+  },
+  investor () {
+    this.mode = 'investor'
+  },
+  admin () {
+    this.mode = 'admin'
   }
 })
 

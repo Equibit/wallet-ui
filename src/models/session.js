@@ -32,6 +32,7 @@ import signed from '~/models/feathers-signed'
 import DefineMap from 'can-define/map/'
 import User from '~/models/user/user'
 import Portfolio from '~/models/portfolio'
+import Issuance from '../models/issuance'
 
 const behaviors = [
   feathersAuthenticationSignedSession,
@@ -211,6 +212,20 @@ const Session = DefineMap.extend('Session', {
   notifications: {
     Type: Notification.List,
     value: new Notification.List([])
+  },
+
+  issuancesPromise: {
+    get () {
+      return this.user && Issuance.getList({userId: this.user._id})
+    }
+  },
+  issuances: {
+    get (val, resolve) {
+      if (this.issuancesPromise) {
+        this.issuancesPromise.then(resolve)
+      }
+      return val
+    }
   }
 })
 

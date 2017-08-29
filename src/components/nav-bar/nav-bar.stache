@@ -64,7 +64,7 @@
             <li><a href="{{routeUrl page='portfolio'}}">{{i18n('myPortfolio')}}</a></li>
             <li><a href="{{routeUrl page='orders'}}">{{i18n('myOrders')}}</a></li>
             <li><a href="{{routeUrl page='offers'}}">{{i18n('myOffers')}}</a></li>
-            <li><a href="#">{{i18n('myIssuances')}}</a></li>
+            <li><a href="{{routeUrl page='my-issuances'}}">{{i18n('myIssuances')}}</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="{{routeUrl page='transactions'}}">{{i18n('transactions')}}</a></li>
             <li><a href="{{routeUrl page='preferences'}}">{{i18n('userPreferences')}}</a></li>

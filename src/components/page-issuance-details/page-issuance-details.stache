@@ -6,7 +6,6 @@
 <can-import from="~/components/page-issuance-details/market-depth/" />
 <can-import from="~/components/page-issuance-details/order-book/" />
 <can-import from="~/components/page-issuance-details/related-companies/" />
-<can-import from="~/components/page-issuance-details/watchlist-toggle/watchlist-toggle.component" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -28,8 +27,28 @@
         </div>
 
         <div class="col-lg-9 col-sm-8 col-xs-12">
-          <div class="panel-heading panel-heading-clear actions-bar">
-            <watchlist-toggle />
+          <div class="panel-heading panel-heading-clear actions-bar {{#is mode 'admin'}}admin-actions{{/is}}">
+            {{#is mode 'investor'}}
+            <ul class="nav navbar-nav navbar-right toolbar-actions">
+              <li><button class="btn btn-link"><span class="icon icon-star-empty"></span> {{i18n('watchListToggleAdd')}}</button>
+              <!--<button class="btn btn-link"><span class="icon icon-star-full"></span> {{i18n('watchListToggleRemove')}}</button>--></li>
+              <li><button ($click)="admin()" class="btn btn-link"><span class="icon icon-edit"></span>Manage</button></li>
+            </ul>
+            {{else}}
+
+            <ul class="nav nav-pills">
+              <li role="presentation" class="active"><a href="">{{i18n('market')}}</a></li>
+              <li role="presentation"><a href="">{{i18n('distributions')}}</a></li>
+              <li role="presentation"><a href="">{{i18n('messages')}}</a></li>
+              <li role="presentation"><a href="">{{i18n('polls')}}</a></li>
+              <li role="presentation"><a href="">{{i18n('history')}}</a></li>
+              <li role="presentation"><a href="">{{i18n('shareholders')}}</a></li>
+            </ul>
+
+            <div class="additional-actions">
+              <button class="btn btn-link btn-sm" ($click)="investor()">Switch to Public View &#x2192;</button>
+            </div>
+            {{/is}}
           </div>
 
           <div class="panel-body">

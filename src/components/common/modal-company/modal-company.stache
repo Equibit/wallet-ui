@@ -1,0 +1,17 @@
+<can-import from="bootstrap-canjs" />
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/entity-info/" />
+
+<bootstrap-modal-content class="modal-company">
+  <div class="modal-header">
+    <button ($click)="close()" type="button" class="close" aria-label="Close">
+			<span class="icon icon-cross rotate-90"></span>
+	  </button>
+		<h3 class="modal-title">{{i18n('companyInformation')}}</h3>
+ 	</div>
+
+	<div class="modal-body">
+		<entity-info></entity-info>
+  </div>
+
+</bootstrap-modal-content>

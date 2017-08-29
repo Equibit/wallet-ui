@@ -1,0 +1,42 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/models/fixtures/issuances" />
+<can-import from="~/components/page-my-issuances/create-issuance/" />
+<can-import from="~/components/page-my-issuances/issuance-list/" />
+
+<div class="row">
+  <div class="col-xs-12">
+    <drag-panel class="panel panel-default card card-full">
+
+      {{^if issuances.length}}
+        <div class="panel-body align-center">
+          <div class="message-box no-border">
+            <div class="message-box-status">{{i18n('myIssuancesCreateIssuance')}}</div>
+            <p class="message-box-cause">{{i18n('myIssuancesEmptyMessage')}}</p>
+            <button class="btn btn-primary"
+                    ($click)="addIssuance()">+ {{i18n('myIssuancesAddIssuance')}}</button>
+          </div>
+        </div>
+
+      {{else}}
+
+      <div class="panel-heading">
+        <h1 class="panel-title">{{i18n('myIssuancesPageTitle')}}</h1>
+        <button ($click)="addIssuance()" class="btn btn-primary btn-sm">+ {{i18n('myIssuancesAddIssuance')}}</button>
+      </div>
+      <div class="panel-body">
+        <div class="row card-row-full">
+          <div class="col-xs-12">
+            <issuance-list></issuance-list>
+          </div>
+        </div>
+      </div>
+
+      {{/if}}
+
+    </drag-panel>
+  </div>
+</div>
+
+{{#if isIssuacePopupVisible}}
+  <create-issuance (create)="createIssuance(%arguments)" />
+{{/if}}

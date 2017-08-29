@@ -1,0 +1,31 @@
+@import '../../../../styles/bootstrap-custom/_variables.less';
+
+issuance-form {
+	margin-top: @padding-large-vertical;
+	display: block;
+	.form-group {
+		margin-bottom: 0;
+	}
+	.restriction-levels {
+		strong {
+			display: block;
+			color: @gray-base;
+		}
+		.radio {
+			padding-top: 0;
+			display: flex;
+			justify-content: space-between;
+			label {
+				max-width: 300px;
+			}
+			.icon {
+				align-self: center;
+			}
+		}
+	}
+	@media (max-width: @screen-xs) {
+		.rate-arrows {
+			 margin-top: 10px;
+		}
+	}
+}

@@ -1,0 +1,52 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+issuance-list {
+	display: block;
+	.well {
+		padding: 0;
+		margin-bottom: @padding-xlarge-vertical;
+		background-color: @active-bg;
+		.company-info,
+		.issuances-info {
+			padding: @padding-large-horizontal;
+		}
+		.company-domicile,
+		.company-more-info {
+			font-size: @font-size-small;
+		}
+		.issuances-info {
+			background-color: @white;
+			border-left: @border-default;
+			@media (max-width: @screen-sm) {
+				border-left: 0;
+				border-top: @border-default;
+			}
+		}
+	}
+	.table {
+		min-width: 567px;
+		margin-bottom: @padding-xlarge-vertical;
+		.column-issued,
+		.column-authorized,
+		.column-price {
+			width: 120px;
+			text-align: right;
+		}
+
+		.column-action {
+			width: 90px;
+			text-align: right;
+		}
+		.column-restriction {
+			width: 80px;
+		}
+		.column-name,
+		.column-type {
+			min-width: 130px;
+		}
+	}
+	.container-table-responsive {
+		overflow-x: scroll;
+	}
+
+}

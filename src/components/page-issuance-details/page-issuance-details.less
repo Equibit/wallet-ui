@@ -15,12 +15,12 @@ page-issuance-details {
 	.card .panel-body {
 		overflow-x: hidden;
 		height: calc(~"100vh - "200px);
+		@media (max-width: @screen-xs) {
+			height: inherit;
+		}
 	}
 	.well {
 		margin-bottom: @padding-xlarge-vertical;
-	}
-	.actions-bar {
-		border-bottom: @border-default;
 	}
 
 	candlestick-chart {
@@ -28,9 +28,53 @@ page-issuance-details {
 			min-height: 485px;
 		}
 	}
-	@media (max-width: @screen-xs) {
-		.card .panel-body {
-			height: inherit;
+
+	// Actions brand-primary
+	.toolbar-actions {
+		button {
+			padding: 5px 15px;
+			display: flex;
+			&:hover {
+				text-decoration: none;
+			}
+			.icon {
+				font-size: 19px;
+				margin-right: 10px;
+			}
+		}
+	}
+
+	.actions-bar {
+		border-bottom: @border-default;
+	}
+
+	// Watchlist toggle
+	.icon-star-full{
+		color: @brand-warning;
+	}
+
+	// Style for the bar shown for admin users
+	.admin-actions {
+		border-bottom: 0;
+		overflow-x: scroll;
+		.nav-pills {
+			margin-bottom: 0;
+			border-bottom: @border-default;
+			min-width: 633px;
+			> li {
+				margin-bottom: -1px;
+			}
+		}
+		.additional-actions {
+			float: right;
+			margin-top: -40px;
+			button:hover {
+				text-decoration: none;
+			}
+			@media (max-width: 1200px) {
+				float: none;
+				margin-top: 10px;
+			}
 		}
 	}
 }
