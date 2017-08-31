@@ -3,7 +3,7 @@ import DefineList from 'can-define/list/list'
 import feathersClient from '~/models/feathers-client'
 import { superModelNoCache } from '~/models/super-model'
 import algebra from '~/models/algebra'
-import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { bitcoin, eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { pick } from 'ramda'
 import i18n from '../i18n/i18n'
 import Session from './session'
@@ -17,7 +17,7 @@ const Transaction = DefineMap.extend('Transaction', {
       {address: toAddress, value: toSatoshi(amount)},
       {address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
     ]
-    const txInfo = buildTransaction(inputs, outputs, network)
+    const txInfo = buildTransaction(currencyType)(inputs, outputs, network)
 
     return new Transaction({
       address: txouts[0].address,
@@ -107,15 +107,19 @@ const Transaction = DefineMap.extend('Transaction', {
   }
 })
 
+export const buildTransaction = currencyType => {
+  return currencyType === 'BTC' ? buildTransactionBtc : buildTransactionEqb
+}
+
 /**
- * @function buildTransaction
+ * @function buildTransactionBtc
  * Builds a signed transaction.
  *
  * @param {Array<Object(txid, vout, keyPair)>} inputs
  * @param {Array<Object(address, value)>} outputs
  * @returns {String} A HEX code of the signed transaction
  */
-export function buildTransaction (inputs, outputs, network = bitcoin.networks.testnet) {
+export const buildTransactionBtc = (inputs, outputs, network = bitcoin.networks.testnet) => {
   const tx = new bitcoin.TransactionBuilder(network)
   inputs.forEach(({ txid, vout }, index) => tx.addInput(txid, vout))
   outputs.forEach(({address, value}) => tx.addOutput(address, value))
@@ -125,6 +129,33 @@ export function buildTransaction (inputs, outputs, network = bitcoin.networks.te
   return {
     txId: builtTx.getId(),
     hex: builtTx.toHex()
+  }
+}
+
+export const buildTransactionEqb = (inputs, outputs, network = bitcoin.networks.testnet) => {
+  const vout = outputs.each(vout => {
+    vout.equibit = {
+      // TODO: pass payment currency type here.
+      payment_currency: 0,
+      payment_tx_id: '',
+      issuance_tx_id: '0000000000000000000000000000000000000000000000000000000000000000',
+      payload: ''
+    }
+  })
+  const tx = {
+    version: 2,
+    locktime: 0,
+    vin: inputs,
+    vout
+  }
+  const bufferTx = buildTxEqb(tx)
+  console.log(`[buildTransactionEqb] bufferTx = ${bufferTx.toString('hex')}`)
+
+  debugger
+
+  return {
+    txId: tx,
+    hex: bufferTx.toString('hex')
   }
 }
 
