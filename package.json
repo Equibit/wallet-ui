@@ -91,7 +91,7 @@
     }
   },
   "dependencies": {
-    "@equibit/wallet-crypto": "^0.2.0",
+    "@equibit/wallet-crypto": "^0.4.2",
     "accounting": "^0.4.1",
     "bip39": "^2.3.1",
     "bit-c3": "^0.2.3",
@@ -138,6 +138,7 @@
     "moment": "^2.18.1",
     "ramda": "^0.24.1",
     "tether": "^1.4.0",
+    "tx-builder-equibit": "https://github.com/Equibit/tx-decoder.git",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {

@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@equibit/wallet-crypto@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@equibit/wallet-crypto/-/wallet-crypto-0.2.0.tgz#3957a19db35241e019d5ca69ac6067ebc5410a22"
+"@equibit/wallet-crypto@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@equibit/wallet-crypto/-/wallet-crypto-0.4.2.tgz#b99dbac3b53d9daad5b3918003cdc2f9451786ee"
   dependencies:
     bip39 "^2.3.0"
     bitcoinjs-lib "^2.3.0"
@@ -12,6 +12,7 @@
     create-hmac "^1.1.4"
     crypto-browserify "^3.11.0"
     pbkdf2 "^3.0.9"
+    tx-builder-equibit "https://github.com/Equibit/tx-decoder.git"
 
 "@types/express-serve-static-core@*":
   version "4.0.45"
@@ -726,6 +727,25 @@ bitcoinjs-lib@^3.0.3:
     merkle-lib "^2.0.10"
     pushdata-bitcoin "^1.0.1"
     randombytes "^2.0.1"
+    typeforce "^1.8.7"
+    varuint-bitcoin "^1.0.4"
+    wif "^2.0.1"
+
+bitcoinjs-lib@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/bitcoinjs-lib/-/bitcoinjs-lib-3.1.1.tgz#c2b1efe455992be88f6be70b5f6fe1a93b9abd90"
+  dependencies:
+    bigi "^1.4.0"
+    bip66 "^1.1.0"
+    bitcoin-ops "^1.3.0"
+    bs58check "^2.0.0"
+    create-hash "^1.1.0"
+    create-hmac "^1.1.3"
+    ecurve "^1.0.0"
+    merkle-lib "^2.0.10"
+    pushdata-bitcoin "^1.0.1"
+    randombytes "^2.0.1"
+    safe-buffer "^5.0.1"
     typeforce "^1.8.7"
     varuint-bitcoin "^1.0.4"
     wif "^2.0.1"
@@ -1973,9 +1993,9 @@ debug-log@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/debug-log/-/debug-log-1.0.1.tgz#2307632d4c04382b8df8a32f70b895046d52745f"
 
-debug@2, debug@2.6.7, debug@^2.0.0, debug@^2.1.0, debug@^2.1.1, debug@^2.2.0, debug@^2.6.0, debug@^2.6.3:
-  version "2.6.7"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.7.tgz#92bad1f6d05bbb6bba22cca88bcd0ec894c2861e"
+debug@2, debug@^2.6.8:
+  version "2.6.8"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
   dependencies:
     ms "2.0.0"
 
@@ -1997,9 +2017,9 @@ debug@2.6.0:
   dependencies:
     ms "0.7.2"
 
-debug@^2.6.8:
-  version "2.6.8"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
+debug@2.6.7, debug@^2.0.0, debug@^2.1.0, debug@^2.1.1, debug@^2.2.0, debug@^2.6.0, debug@^2.6.3:
+  version "2.6.7"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.7.tgz#92bad1f6d05bbb6bba22cca88bcd0ec894c2861e"
   dependencies:
     ms "2.0.0"
 
@@ -5751,6 +5771,10 @@ safe-buffer@^5.0.1, safe-buffer@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
 
+safe-buffer@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
+
 safe-json-stringify@~1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/safe-json-stringify/-/safe-json-stringify-1.0.4.tgz#81a098f447e4bbc3ff3312a243521bc060ef5911"
@@ -6685,6 +6709,24 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
 
+"tx-builder-equibit@git+https://github.com/Equibit/tx-decoder.git", "tx-builder-equibit@https://github.com/Equibit/tx-decoder.git":
+  version "0.1.0"
+  resolved "git+https://github.com/Equibit/tx-decoder.git#c31a06068ee7652fe80fcb01f57442f2f8f3cec0"
+  dependencies:
+    tx-builder "0.4.5"
+    typeforce "^1.11.4"
+
+tx-builder@0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/tx-builder/-/tx-builder-0.4.5.tgz#1e1d4c6a3ad09153a67c608d619e25df53411744"
+  dependencies:
+    bip39 "^2.3.1"
+    bitcoinjs-lib "^3.1.1"
+    ramda "^0.24.1"
+    safe-buffer "^5.1.1"
+    typeforce "^1.11.1"
+    varuint-bitcoin "^1.0.4"
+
 type-check@~0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/type-check/-/type-check-0.3.2.tgz#5884cab512cf1d355e3fb784f30804b2b520db72"
@@ -6716,9 +6758,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typeforce@^1.6.2, typeforce@^1.8.7:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/typeforce/-/typeforce-1.11.1.tgz#ab66f3b094856d00ed0c8913b0742d3dabfafe62"
+typeforce@^1.11.1, typeforce@^1.11.4, typeforce@^1.6.2, typeforce@^1.8.7:
+  version "1.11.4"
+  resolved "https://registry.yarnpkg.com/typeforce/-/typeforce-1.11.4.tgz#07ce3abcce836761243ae483dce5bc609786205c"
   dependencies:
     inherits "^2.0.1"
 
