@@ -133,14 +133,15 @@ export const buildTransactionBtc = (inputs, outputs, network = bitcoin.networks.
 }
 
 export const buildTransactionEqb = (inputs, outputs, network = bitcoin.networks.testnet) => {
-  const vout = outputs.each(vout => {
+  const vout = outputs.map(vout => {
     vout.equibit = {
       // TODO: pass payment currency type here.
       payment_currency: 0,
       payment_tx_id: '',
       issuance_tx_id: '0000000000000000000000000000000000000000000000000000000000000000',
-      payload: ''
+      issuance_json: ''
     }
+    return vout
   })
   const tx = {
     version: 2,
@@ -148,14 +149,14 @@ export const buildTransactionEqb = (inputs, outputs, network = bitcoin.networks.
     vin: inputs,
     vout
   }
-  const bufferTx = buildTxEqb(tx)
-  console.log(`[buildTransactionEqb] bufferTx = ${bufferTx.toString('hex')}`)
-
-  debugger
+  const bufferTx = eqbTxBuilder.builder.buildTx(tx)
+  const hex = bufferTx.toString('hex')
+  const txId = eqbTxBuilder.getTxId(bufferTx)
+  console.log(`[buildTransactionEqb] hex = ${hex}, \ntxid = ${txId}`)
 
   return {
-    txId: tx,
-    hex: bufferTx.toString('hex')
+    txId,
+    hex
   }
 }
 

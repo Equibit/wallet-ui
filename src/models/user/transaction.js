@@ -42,6 +42,7 @@ export function buildTransaction (keyPair, inputId, inputIndex, outputs) {
   tx.addInput(inputId, inputIndex)
   outputs.forEach(([output, value]) => tx.addOutput(output, value))
   tx.sign(0, keyPair)
+  debugger
 
   return tx.build().toHex()
 }

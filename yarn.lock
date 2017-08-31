@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@equibit/wallet-crypto@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@equibit/wallet-crypto/-/wallet-crypto-0.4.2.tgz#b99dbac3b53d9daad5b3918003cdc2f9451786ee"
+"@equibit/wallet-crypto@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@equibit/wallet-crypto/-/wallet-crypto-0.6.1.tgz#a749cca0823d82a44787a677287d3230062d7bac"
   dependencies:
     bip39 "^2.3.0"
     bitcoinjs-lib "^2.3.0"
