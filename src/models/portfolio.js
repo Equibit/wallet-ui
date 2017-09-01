@@ -203,13 +203,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
     if (btcAddr.imported === false) {
       // Import addr as watch-only
-      this.importAddr(addr.BTC)
+      this.importAddr(addr.BTC, 'btc')
       // Mark address as generated/imported but not used yet:
       this.addressesMeta.push({index: btcAddr.index, type: 'BTC', isUsed: false, isChange})
     }
     if (eqbAddr.imported === false) {
       // Import addr as watch-only
-      this.importAddr(addr.EQB)
+      this.importAddr(addr.EQB, 'eqb')
       // Mark address as generated/imported but not used yet:
       this.addressesMeta.push({index: eqbAddr.index, type: 'EQB', isUsed: false, isChange})
     }
@@ -230,10 +230,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @parent models/portfolio.properties
    * Imports the given address to the built-in wallet (to become watch-only for registering transactions).
    */
-  importAddr (addr) {
+  importAddr (addr, currencyType) {
     // TODO: replace with a specific service (e.g. /import-address).
     feathersClient.service('proxycore').find({
       query: {
+        node: currencyType.toLowerCase(),
         method: 'importaddress',
         params: [addr]
       }
