@@ -22,7 +22,7 @@
         <tr>
           <td>{{i18n('equibit')}}</td>
           <td class="text-right">{{format-max(balance.cashEqb, 8)}}</td>
-          <td class="text-right">{{local-currency(cashEqbInBtc, 'EQB')}}</td>
+          <td class="text-right">{{local-currency(balance.cashEqb, 'EQB')}}</td>
         </tr>
       </tbody>
     </table>

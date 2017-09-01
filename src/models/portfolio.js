@@ -12,6 +12,7 @@ import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
 import algebra from '~/models/algebra'
+import Session from '~/models/session'
 
 const portfolioService = feathersClient.service('portfolios')
 
@@ -149,10 +150,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
           // Calculate summary:
           if (a.type === 'BTC') {
             acc.cashBtc += amount
+            acc.cashTotal += amount
           } else {
             acc.cashEqb += amount
+            acc.cashTotal += Session.current.rates.eqbToBtc * amount
           }
-          acc.cashTotal += amount
           acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType[a.address].txouts)
         }
         return acc
