@@ -64,7 +64,8 @@ const Session = DefineMap.extend('Session', {
   portfoliosPromise: {
     get () {
       console.log('[session.portfoliosPromise.get] ...')
-      return Portfolio.getList({$limit: 5, $skip: 0})
+      // TODO: report that portfolio.patch breaks Portfolio.connection.listStore if a set different from `{}` is used.
+      return Portfolio.getList({})
     }
   },
 
