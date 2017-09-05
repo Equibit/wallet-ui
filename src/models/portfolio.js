@@ -113,7 +113,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
   rates: {
     get (val) {
-      return val || Session.current && Session.current.rates || Session.defaultRates
+      return val || (Session.current && Session.current.rates) || Session.defaultRates
     }
   },
 

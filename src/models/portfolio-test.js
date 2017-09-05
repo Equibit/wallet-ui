@@ -4,7 +4,6 @@ import Portfolio, { getNextAddressIndex, getUnspentOutputsForAmount } from './po
 // import portfolioAddresses from './fixtures/portfolio-addresses';
 import { omit } from 'ramda'
 import portfolio, { addressesMeta } from './mock/mock-portfolio'
-import Session from './session'
 
 describe('models/portfolio', function () {
   describe('getNextAddressIndex', function () {
@@ -62,9 +61,7 @@ describe('models/portfolio', function () {
       var expectedBalance = {
         cashBtc: 2,
         cashEqb: 3.4,
-        // cashTotal: this.cashBtc + this.cashEqb * portfolio.rates.eqbToBtc,
-        securities: 0,
-        total: this.cashTotal + this.securities
+        securities: 0
       }
       expectedBalance.cashTotal = expectedBalance.cashBtc + expectedBalance.cashEqb * portfolio.rates.eqbToBtc
       expectedBalance.total = expectedBalance.cashTotal + expectedBalance.securities
