@@ -18,6 +18,13 @@ transactions-grid {
 	.column-cash {
     width: 110px;
     text-align: right;
+
+    &.tx-IN {
+      color: @brand-success
+    }
+    &.tx-OUT span:before {
+      content: "- "
+    }
   }
 	td {
 		&.column-securities,
