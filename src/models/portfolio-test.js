@@ -4,6 +4,7 @@ import Portfolio, { getNextAddressIndex, getUnspentOutputsForAmount } from './po
 // import portfolioAddresses from './fixtures/portfolio-addresses';
 import { omit } from 'ramda'
 import portfolio, { addressesMeta } from './mock/mock-portfolio'
+import Session from './session'
 
 describe('models/portfolio', function () {
   describe('getNextAddressIndex', function () {
@@ -58,14 +59,17 @@ describe('models/portfolio', function () {
     })
 
     it('should populate portfolio balance based on user\'s balance', function () {
-      const expectedBalance = {
+      var expectedBalance = {
         cashBtc: 2,
         cashEqb: 3.4,
-        cashTotal: 5.4,
+        // cashTotal: this.cashBtc + this.cashEqb * portfolio.rates.eqbToBtc,
         securities: 0,
-        total: 5.4
+        total: this.cashTotal + this.securities
       }
-      assert.deepEqual(omit(['txouts'], portfolio.balance.get()), expectedBalance)
+      expectedBalance.cashTotal = expectedBalance.cashBtc + expectedBalance.cashEqb * portfolio.rates.eqbToBtc
+      expectedBalance.total = expectedBalance.cashTotal + expectedBalance.securities
+      const balance = portfolio.balance.get()
+      assert.deepEqual(omit(['txouts'], balance), expectedBalance)
     })
 
     it('should populate nextAddress', function (done) {

@@ -111,6 +111,12 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   userBalance: {type: '*'},
 
+  rates: {
+    get (val) {
+      return val || Session.current && Session.current.rates || Session.defaultRates
+    }
+  },
+
   /**
    * @property {String} models/portfolio.properties.balance balance
    * @parent models/portfolio.properties
@@ -153,7 +159,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
             acc.cashTotal += amount
           } else {
             acc.cashEqb += amount
-            acc.cashTotal += Session.current.rates.eqbToBtc * amount
+            acc.cashTotal += this.rates.eqbToBtc * amount
           }
           acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType.addresses[a.address].txouts)
         }

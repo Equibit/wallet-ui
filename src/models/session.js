@@ -197,11 +197,9 @@ const Session = DefineMap.extend('Session', {
   },
 
   // TODO: add local currency switch support.
-  get rates () {
-    return (this.user && this.user.rates) || {
-      btcToUsd: 4725,
-      eqbToUsd: 3,
-      eqbToBtc: 3 / 4725
+  rates: {
+    get () {
+      return (this.user && this.user.rates) || Session.defaultRates
     }
   },
 
@@ -229,6 +227,12 @@ const Session = DefineMap.extend('Session', {
     }
   }
 })
+
+Session.defaultRates = {
+  btcToUsd: 4725,
+  eqbToUsd: 3,
+  eqbToBtc: 3 / 4725
+}
 
 canDefineStream(Session)
 
