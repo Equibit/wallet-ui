@@ -64,7 +64,8 @@ const Session = DefineMap.extend('Session', {
   portfoliosPromise: {
     get () {
       console.log('[session.portfoliosPromise.get] ...')
-      return Portfolio.getList({$limit: 5, $skip: 0})
+      // TODO: report that portfolio.patch breaks Portfolio.connection.listStore if a set different from `{}` is used.
+      return Portfolio.getList({})
     }
   },
 
@@ -175,7 +176,7 @@ const Session = DefineMap.extend('Session', {
           })
           balance.summary = {
             securities: 0,
-            cash: balance.BTC.summary.total + balance.EQB.summary.total
+            cash: balance.BTC.summary.total + (balance.EQB.summary.total) * this.rates.eqbToBtc
           }
           balance.summary.total = balance.summary.securities + balance.summary.cash
           resolve(balance)
@@ -196,11 +197,9 @@ const Session = DefineMap.extend('Session', {
   },
 
   // TODO: add local currency switch support.
-  get rates () {
-    return (this.user && this.user.rates) || {
-      btcToUsd: 2725,
-      eqbToUsd: 3,
-      eqbToBtc: 3 / 2725
+  rates: {
+    get () {
+      return (this.user && this.user.rates) || Session.defaultRates
     }
   },
 
@@ -228,6 +227,12 @@ const Session = DefineMap.extend('Session', {
     }
   }
 })
+
+Session.defaultRates = {
+  btcToUsd: 4725,
+  eqbToUsd: 3,
+  eqbToBtc: 3 / 4725
+}
 
 canDefineStream(Session)
 

@@ -24,8 +24,13 @@ describe('models/session', function () {
       session.on('balance', function () {
         assert.equal(session.allAddresses.BTC.length, 1)
         assert.equal(session.allAddresses.EQB.length, 1)
-        assert.deepEqual(session.balance.summary, {total: 4.9, cash: 4.9, securities: 0})
-        assert.equal(session.portfolios[0].balance.total, 4.9)
+        const totalInBtc = 1.5 + 3.4 * session.rates.eqbToBtc
+        assert.deepEqual(session.balance.summary, {
+          total: totalInBtc,
+          cash: totalInBtc,
+          securities: 0
+        })
+        assert.equal(session.portfolios[0].balance.total, totalInBtc)
         done()
       })
     })

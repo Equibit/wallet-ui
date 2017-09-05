@@ -32,6 +32,9 @@ export const ViewModel = DefineMap.extend({
       val && val.BTC && feathersClient.service('/subscribe').create({
         addresses: [val.BTC]
       })
+      val && val.EQB && feathersClient.service('/subscribe').create({
+        addresses: [val.EQB]
+      })
       return val
     }
   },

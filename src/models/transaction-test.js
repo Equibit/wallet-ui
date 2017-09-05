@@ -1,6 +1,6 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
-import { buildTransaction } from '~/models/transaction'
+import { buildTransaction } from './transaction'
 import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
 
 import './fixtures/portfolio'
@@ -21,7 +21,7 @@ describe('models/transaction', function () {
         {address: 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6', value: 1},
         {address: 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh', value: 2}
       ]
-      const transactionInfo = buildTransaction(inputs, outputs, bitcoin.networks.testnet)
+      const transactionInfo = buildTransaction('BTC')(inputs, outputs, bitcoin.networks.testnet)
       assert.equal(transactionInfo.hex, expectedHex)
     })
   })

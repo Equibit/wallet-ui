@@ -12,6 +12,7 @@ import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
 import algebra from '~/models/algebra'
+import Session from '~/models/session'
 
 const portfolioService = feathersClient.service('portfolios')
 
@@ -110,6 +111,12 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   userBalance: {type: '*'},
 
+  rates: {
+    get (val) {
+      return val || (Session.current && Session.current.rates) || Session.defaultRates
+    }
+  },
+
   /**
    * @property {String} models/portfolio.properties.balance balance
    * @parent models/portfolio.properties
@@ -137,23 +144,24 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
       const { cashBtc, cashEqb, cashTotal, securities, txouts } = this.addresses.reduce((acc, a) => {
         const unspentByType = unspent[a.type]
-        if (unspentByType && unspentByType[a.address]) {
-          const amount = unspentByType[a.address].amount
+        if (unspentByType && unspentByType.addresses[a.address]) {
+          const amount = unspentByType.addresses[a.address].amount
 
           // TODO: mutating addresses here is a bad pattern.
           console.log('*** [portfolio.balance] Updating addresses with amount ant txouts...')
           // Add amount and txouts:
           a.amount = amount
-          a.txouts = unspentByType[a.address].txouts
+          a.txouts = unspentByType.addresses[a.address].txouts
 
           // Calculate summary:
           if (a.type === 'BTC') {
             acc.cashBtc += amount
+            acc.cashTotal += amount
           } else {
             acc.cashEqb += amount
+            acc.cashTotal += this.rates.eqbToBtc * amount
           }
-          acc.cashTotal += amount
-          acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType[a.address].txouts)
+          acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType.addresses[a.address].txouts)
         }
         return acc
       }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, txouts: {EQB: [], BTC: []}})
@@ -201,13 +209,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
     if (btcAddr.imported === false) {
       // Import addr as watch-only
-      this.importAddr(addr.BTC)
+      this.importAddr(addr.BTC, 'btc')
       // Mark address as generated/imported but not used yet:
       this.addressesMeta.push({index: btcAddr.index, type: 'BTC', isUsed: false, isChange})
     }
     if (eqbAddr.imported === false) {
       // Import addr as watch-only
-      this.importAddr(addr.EQB)
+      this.importAddr(addr.EQB, 'eqb')
       // Mark address as generated/imported but not used yet:
       this.addressesMeta.push({index: eqbAddr.index, type: 'EQB', isUsed: false, isChange})
     }
@@ -228,10 +236,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @parent models/portfolio.properties
    * Imports the given address to the built-in wallet (to become watch-only for registering transactions).
    */
-  importAddr (addr) {
+  importAddr (addr, currencyType) {
     // TODO: replace with a specific service (e.g. /import-address).
     feathersClient.service('proxycore').find({
       query: {
+        node: currencyType.toLowerCase(),
         method: 'importaddress',
         params: [addr]
       }
