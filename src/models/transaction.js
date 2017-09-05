@@ -6,7 +6,7 @@ import algebra from '~/models/algebra'
 import { bitcoin, eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { pick } from 'ramda'
 import i18n from '../i18n/i18n'
-import Session from './session'
+// import Session from './session'
 
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description}) {
@@ -118,7 +118,7 @@ const Transaction = DefineMap.extend('Transaction', {
   },
   get valuationThen () {
     return this.amount
-  },
+  }
 })
 
 export const buildTransaction = currencyType => {
