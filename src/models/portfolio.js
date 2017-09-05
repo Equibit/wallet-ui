@@ -138,14 +138,14 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
       const { cashBtc, cashEqb, cashTotal, securities, txouts } = this.addresses.reduce((acc, a) => {
         const unspentByType = unspent[a.type]
-        if (unspentByType && unspentByType[a.address]) {
-          const amount = unspentByType[a.address].amount
+        if (unspentByType && unspentByType.addresses[a.address]) {
+          const amount = unspentByType.addresses[a.address].amount
 
           // TODO: mutating addresses here is a bad pattern.
           console.log('*** [portfolio.balance] Updating addresses with amount ant txouts...')
           // Add amount and txouts:
           a.amount = amount
-          a.txouts = unspentByType[a.address].txouts
+          a.txouts = unspentByType.addresses[a.address].txouts
 
           // Calculate summary:
           if (a.type === 'BTC') {
@@ -155,7 +155,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
             acc.cashEqb += amount
             acc.cashTotal += Session.current.rates.eqbToBtc * amount
           }
-          acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType[a.address].txouts)
+          acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType.addresses[a.address].txouts)
         }
         return acc
       }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, txouts: {EQB: [], BTC: []}})
