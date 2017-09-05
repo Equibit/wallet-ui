@@ -4,6 +4,7 @@
 
 Welcome to the wallet-ui DoneJS application!
 
+
 ## Getting started
 
 To install all dependencies, (e.g. after cloning it from a Git repository) run
