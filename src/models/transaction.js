@@ -111,7 +111,14 @@ const Transaction = DefineMap.extend('Transaction', {
   },
   get amountPlusFee () {
     return this.type === 'OUT' ? this.amount + this.fee : this.amount
-  }
+  },
+  // TODO: valuate issuance.
+  get valuationNow () {
+    return this.amount
+  },
+  get valuationThen () {
+    return this.amount
+  },
 })
 
 export const buildTransaction = currencyType => {
