@@ -6,7 +6,7 @@ import algebra from '~/models/algebra'
 import { bitcoin, eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { pick } from 'ramda'
 import i18n from '../i18n/i18n'
-import Session from './session'
+// import Session from './session'
 
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description}) {
@@ -66,20 +66,23 @@ const Transaction = DefineMap.extend('Transaction', {
   },
   currencyType: 'string', // enum: [ 'BTC', 'EQB' ]
   confirmations: 'number',
+
   companyName: 'string',
   companySlug: 'string',
-  issuanceName: 'string',
   issuanceId: 'string',
+  issuanceName: 'string',
+  issuanceType: 'string', // ['Common Shares', 'Bonds', 'Equibit', 'Preferred Shares', 'Partnership Units', 'Trust Units', 'Bitcoin']
+  issuanceUnit: 'string', // ['Shares', 'BTC', 'Units']
 
   txIdBtc: 'string',
   txIdEqb: 'string',
 
   amount: 'number',
-  amountBtc: {
-    get () {
-      return (Session.current && Session.current.toBTC(this.amount, this.currencyType)) || this.amount
-    }
-  },
+  // amountBtc: {
+  //   get () {
+  //     return (Session.current && Session.current.toBTC(this.amount, this.currencyType)) || this.amount
+  //   }
+  // },
   fee: 'number',
   description: 'string',
 
@@ -105,6 +108,16 @@ const Transaction = DefineMap.extend('Transaction', {
       // TODO: this info can be assumed from the metadata data of a raw transaction
       return this.currencyType === 'EQB' && this.companyName
     }
+  },
+  get amountPlusFee () {
+    return this.type === 'OUT' ? this.amount + this.fee : this.amount
+  },
+  // TODO: valuate issuance.
+  get valuationNow () {
+    return this.amount
+  },
+  get valuationThen () {
+    return this.amount
   }
 })
 
