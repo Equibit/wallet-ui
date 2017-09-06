@@ -12,6 +12,8 @@
  * @group models/session.properties 0 properties
  */
 
+import DefineMap from 'can-define/map/'
+import DefineList from 'can-define/list/list'
 import connect from 'can-connect'
 import set from 'can-set'
 import dataParse from 'can-connect/data/parse/'
@@ -25,11 +27,8 @@ import realtime from 'can-connect/real-time/'
 import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior'
 import canDefineStream from 'can-define-stream-kefir'
 import Notification from './notification'
-
 import feathersClient from '~/models/feathers-client'
 import signed from '~/models/feathers-signed'
-
-import DefineMap from 'can-define/map/'
 import User from '~/models/user/user'
 import Portfolio from '~/models/portfolio'
 import Issuance from '../models/issuance'
@@ -240,9 +239,14 @@ const algebra = new set.Algebra(
   set.comparators.id('accessToken')
 )
 
+Session.List = DefineList.extend('SessionList', {
+  '#': Session
+})
+
 Session.connection = connect(behaviors, {
   feathersClient,
   Map: Session,
+  List: Session.List,
   utils: signed,
   algebra
 })

@@ -2,6 +2,9 @@ import Portfolio from '../portfolio'
 import hdNode from './mock-keys'
 import listunspent, { listunspentZero, listunspentBtc } from './mock-listunspent'
 
+import feathersClient from '../feathers-client'
+feathersClient.service('portfolios').patch = () => Promise.resolve()
+
 const addressesMeta = [
   {index: 0, type: 'BTC', isUsed: true, isChange: false},
   {index: 1, type: 'BTC', isUsed: true, isChange: false},
@@ -24,6 +27,9 @@ const portfolio = new Portfolio({
   keys: portfolioKeys,
   userBalance: listunspent
 })
+// Note: `portfolio.nextAddress()` makes a request and connection's real-time behavior requires the instance to be
+// in the instanceStore, thus adding a reference to keep it there.
+portfolio.constructor.connection.addInstanceReference(portfolio)
 
 const portfolioZero = new Portfolio({
   index: 0,
