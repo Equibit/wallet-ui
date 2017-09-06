@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Equibit/wallet-ui.png?branch=development)](https://travis-ci.org/Equibit/wallet-ui)
+[![Build Status](https://travis-ci.com/Equibit/wallet-ui.png?branch=development)](https://travis-ci.com/Equibit/wallet-ui)
 
 # Equibit Wallet UI
 
