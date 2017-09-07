@@ -17,10 +17,24 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './create-issuance.less'
 import view from './create-issuance.stache'
+import Company from '../../../models/company'
+import Session from '../../../models/session'
 
 export const ViewModel = DefineMap.extend({
   mode: {
+    type: 'string',
     value: 'edit'
+  },
+  companies: {
+    get (val, resolve) {
+      Company.getList({userId: Session.current.user._id}).then(resolve)
+    }
+  },
+  newCompany: {
+    type: '*'
+  },
+  selectedCompany: {
+    type: '*'
   },
   next () {
     this.mode = 'confirm'
@@ -28,12 +42,16 @@ export const ViewModel = DefineMap.extend({
   edit () {
     this.mode = 'edit'
   },
-  company () {
-    this.mode = 'company'
-  },
   create (close) {
     this.dispatch('create', [{}])
     close()
+  },
+  saveCompany () {
+    this.newCompany.validateAndSave().then(() => {
+      this.mode = 'edit'
+      this.companies.push(this.newCompany)
+      this.selectedCompany = this.newCompany
+    })
   }
 })
 

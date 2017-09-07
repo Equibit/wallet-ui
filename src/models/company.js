@@ -5,6 +5,8 @@ import superModel from '~/models/super-model'
 import algebra from '~/models/algebra'
 
 const Company = DefineMap.extend('Company', {
+  requiredFields: ['companyName', 'domicile', 'streetAddress', 'city', 'state', 'postalCode']
+},{
   _id: 'string',
   userId: 'string',
 
@@ -20,7 +22,31 @@ const Company = DefineMap.extend('Company', {
 
   contactEmail: 'string',
   website: 'string',
-  phoneNumber: 'string'
+  phoneNumber: 'string',
+
+  error: {
+    type: 'string',
+    serialize: false
+  },
+
+  validateAndSave () {
+    this.error = ''
+    if (this.hasErrors()) {
+      this.error = this.validationError
+      return Promise.reject()
+    }
+    return this.save()
+  },
+
+  hasErrors () {
+    return Company.requiredFields.reduce((acc, prop) => (acc || !this[prop]), false)
+  },
+
+  validationError: {
+    get () {
+      return Company.requiredFields.reduce((acc, prop) => (acc || !this[prop] && `${prop} is required`), '')
+    }
+  }
 })
 
 Company.List = DefineList.extend('CompanyList', {

@@ -14,8 +14,11 @@
   <div class="modal-body">
     {{#is mode 'edit'}}
       <issuance-form (receiveform)="openReceiveForm(@close)"
+                 {(mode)}="mode"
                  {form-data}="formData"
                  {portfolio}="portfolio"
+                 {companies}="companies"
+                 {(selected-company)}="selectedCompany"
                  {issuances}="issuances" />
     {{/is}}
 
@@ -24,7 +27,7 @@
     {{/is}}
 
     {{#is mode 'company'}}
-      <create-company></create-company>
+      <create-company {(company)}="newCompany"></create-company>
     {{/is}}
 
   </div>
@@ -41,7 +44,9 @@
     {{/is}}
 
     {{#is mode 'company'}}
-      <button ($click)="edit()" type="button" class="btn btn-primary">Save Company</button>
+      {{#if newCompany}}
+        <button ($click)="saveCompany()" type="button" class="btn btn-primary">Save Company</button>
+      {{/if}}
       <button ($click)="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
     {{/is}}
 

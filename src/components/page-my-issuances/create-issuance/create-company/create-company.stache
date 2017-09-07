@@ -1,10 +1,17 @@
 <can-import from="~/utils/stache-helpers/" />
 <h4 class="subtitle">{{i18n('companyAdd')}}</h4>
+
+{{#if company.error}}
+<div class="alert alert-warning" role="alert">
+  <strong>{{i18n('error')}}!</strong> {{i18n(company.error)}}</a>
+</div>
+{{/if}}
+
 <div class="list-group">
 	<div class="list-group-item">
 		<div class="form-group">
 			<label for="inputLegalName">{{i18n('legalName')}}</label>
-			<input type="text" class="form-control" id="inputLegalName">
+			<input type="text" class="form-control" id="inputLegalName" {($value)}="company.companyName">
 		</div>
 	</div>
 
@@ -12,30 +19,37 @@
 		<h5 class="subheading">{{i18n('domicile')}}</h5>
 		<div class="form-group">
 			<label for="inputCountry">{{i18n('country')}}</label>
-			<input type="text" class="form-control" id="inputCountry">
+			<input type="text" class="form-control" id="inputCountry" {($value)}="company.domicile">
 		</div>
 		<div class="form-group">
 			<label for="inputAddressLine1">{{i18n('streetAddress')}}</label>
-			<input type="text" class="form-control" id="inputAddressLine1" placeholder="{{i18n('streetAddressPlaceholder1')}}">
+			<input type="text" class="form-control" id="inputAddressLine1"
+             placeholder="{{i18n('streetAddressPlaceholder1')}}"
+             {($value)}="company.streetAddress">
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" id="inputAddressLine2" placeholder="{{i18n('streetAddressPlaceholder2')}}">
+			<input type="text" class="form-control" id="inputAddressLine2"
+             placeholder="{{i18n('streetAddressPlaceholder2')}}"
+             {($value)}="company.streetAddress2">
 		</div>
 		<div class="form-group">
 			<label for="inputCity">{{i18n('city')}}</label>
-			<input type="text" class="form-control" id="inputCity">
+			<input type="text" class="form-control" id="inputCity"
+             {($value)}="company.city">
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-md-6 no-padding-left">
 				<div class="form-group">
 					<label for="inputState">{{i18n('state')}}</label>
-					<input type="text" class="form-control" id="inputState">
+					<input type="text" class="form-control" id="inputState"
+                 {($value)}="company.state">
 				</div>
 			</div>
 			<div class="col-xs-12 col-md-6 no-padding-right">
 				<div class="form-group">
 					<label for="inputZipcode">{{i18n('zipcode')}}</label>
-					<input type="text" class="form-control" id="inputZipcode">
+					<input type="text" class="form-control" id="inputZipcode"
+                 {($value)}="company.postalCode">
 				</div>
 			</div>
 		</div>
@@ -46,19 +60,22 @@
 		<div class="form-group">
 			<label for="inputWebsite">{{i18n('website')}}</label>
 			<div class="optional-field">{{i18n('optional')}}</div>
-			<input type="text" class="form-control" id="inputWebsite">
+			<input type="text" class="form-control" id="inputWebsite"
+             {($value)}="company.website">
 		</div>
 
 		<div class="form-group">
 			<label for="inputEmail">{{i18n('email')}}</label>
 			<div class="optional-field">{{i18n('optional')}}</div>
-			<input type="email" class="form-control" id="inputEmail">
+			<input type="email" class="form-control" id="inputEmail"
+             {($value)}="company.contactEmail">
 		</div>
 
 		<div class="form-group">
 			<label for="inputPhone">{{i18n('phone')}}</label>
 			<div class="optional-field">{{i18n('optional')}}</div>
-			<input type="number" class="form-control" id="inputPhone">
+			<input type="number" class="form-control" id="inputPhone"
+             {($value)}="company.phoneNumber">
 		</div>
 	</div>
 

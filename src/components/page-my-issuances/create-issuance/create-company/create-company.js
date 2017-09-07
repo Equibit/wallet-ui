@@ -17,10 +17,15 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './create-company.less'
 import view from './create-company.stache'
+import Company from '../../../../models/company'
+import Session from '../../../../models/session'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the create-company component'
+  company: {
+    Type: Company,
+    value: new Company({
+      userId: Session.current.user._id
+    })
   }
 })
 
