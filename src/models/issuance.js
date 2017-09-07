@@ -47,6 +47,14 @@ const Issuance = DefineMap.extend('Issuance', {
   }
 })
 
+Issuance.types = new DefineList([
+  { name: 'Common Shares' },
+  { name: 'Preferred Shares' },
+  { name: 'Trust Units' },
+  { name: 'Partnership Units' },
+  { name: 'Bonds' },
+])
+
 Issuance.List = DefineList.extend('IssuanceList', {
   '#': Issuance
 })

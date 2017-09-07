@@ -20,19 +20,22 @@ import view from './issuance-form.stache'
 import Issuance from '../../../../models/issuance'
 
 export const ViewModel = DefineMap.extend({
+  formData: {
+    type: '*'
+  },
   mode: {
     type: '*'
   },
   companies: {
     type: '*'
   },
-  selectedCompany: {
-    type: '*'
-  },
   issuance: {
     value: new Issuance({
       sharesAuthorized: 100 * 1000 * 1000
     })
+  },
+  issuanceTypes: {
+    value: Issuance.types
   },
   sharesToEqb: {
     get () {

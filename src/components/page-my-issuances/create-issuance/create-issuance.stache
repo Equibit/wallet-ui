@@ -18,7 +18,6 @@
                  {form-data}="formData"
                  {portfolio}="portfolio"
                  {companies}="companies"
-                 {(selected-company)}="selectedCompany"
                  {issuances}="issuances" />
     {{/is}}
 
