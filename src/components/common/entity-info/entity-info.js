@@ -19,8 +19,8 @@ import './entity-info.less'
 import view from './entity-info.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the entity-info component'
+  entity: {
+    type: '*'
   }
 })
 

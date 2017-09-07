@@ -9,7 +9,7 @@
 </div>
 
 <h3 class="subtitle">{{i18n('company')}}</h3>
-<entity-info></entity-info>
+<entity-info {entity}="company"></entity-info>
 
 <h3 class="subtitle">Issuance</h3>
 <div class="well">
@@ -18,10 +18,10 @@
     <dd>Series 1</dd>
 
     <dt>{{i18n('issuanceType')}}</dt>
-    <dd>Common Shares</dd>
+    <dd>{{issuance.issuanceType.name}}</dd>
 
     <dt>{{i18n('authorize')}}</dt>
-    <dd>100,000,000 <small>{{i18n('shares')}}</small> &#x2194 1 <small>EQB</small></dd>
+    <dd>{{format(issuance.sharesAuthorized, '', 0)}} <small>{{i18n('shares')}}</small> &#x2194 1 <small>EQB</small></dd>
   </dl>
 
   <div class="transaction-details">

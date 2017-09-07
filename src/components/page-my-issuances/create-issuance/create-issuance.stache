@@ -15,14 +15,15 @@
     {{#is mode 'edit'}}
       <issuance-form (receiveform)="openReceiveForm(@close)"
                  {(mode)}="mode"
-                 {form-data}="formData"
+                 {issuance}="issuance"
+                 {selected-company}="selectedCompany"
                  {portfolio}="portfolio"
                  {companies}="companies"
                  {issuances}="issuances" />
     {{/is}}
 
     {{#is mode 'confirm'}}
-      <issuance-confirm {form-data}="formData" {issuances}="issuances" />
+      <issuance-confirm {issuance}="issuance" {issuances}="issuances" {company}="selectedCompany" />
     {{/is}}
 
     {{#is mode 'company'}}

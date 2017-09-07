@@ -17,38 +17,27 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './create-issuance.less'
 import view from './create-issuance.stache'
+import Issuance from '../../../models/issuance'
 import Company from '../../../models/company'
 import Session from '../../../models/session'
-
-const FormData = DefineMap.extend({
-  company: {
-    Type: Company
-  },
-  issuanceType: {
-    type: '*'
-  },
-})
 
 export const ViewModel = DefineMap.extend({
   mode: {
     type: 'string',
     value: 'edit'
   },
-  formData: {
-    Type: FormData,
-    value: new FormData({})
+  issuance: {
+    value: new Issuance({
+      sharesAuthorized: 100 * 1000 * 1000
+    })
   },
+  selectedCompany: '*',
 
+  newCompany: '*',
   companies: {
     get (val, resolve) {
       Company.getList({userId: Session.current.user._id}).then(resolve)
     }
-  },
-  newCompany: {
-    type: '*'
-  },
-  selectedCompany: {
-    type: '*'
   },
   next () {
     this.mode = 'confirm'
@@ -64,7 +53,7 @@ export const ViewModel = DefineMap.extend({
     this.newCompany.validateAndSave().then(() => {
       this.mode = 'edit'
       this.companies.push(this.newCompany)
-      this.formData.company = this.newCompany
+      this.selectedCompany = this.newCompany
     })
   }
 })

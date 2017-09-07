@@ -19,9 +19,7 @@ import './issuance-confirm.less'
 import view from './issuance-confirm.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the issuance-confirm component'
-  }
+  issuance: '*'
 })
 
 export default Component.extend({
