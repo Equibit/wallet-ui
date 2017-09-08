@@ -17,59 +17,23 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './create-issuance.less'
 import view from './create-issuance.stache'
-import Issuance from '../../../models/issuance'
-import Company from '../../../models/company'
-import Session from '../../../models/session'
-import { toMaxPrecision } from '../../../utils/formatter'
 
 export const ViewModel = DefineMap.extend({
   mode: {
     type: 'string',
     value: 'edit'
   },
-  issuance: {
-    value: new Issuance({
-      sharesAuthorized: 100 * 1000 * 1000
-    })
-  },
-  amountInEqb: {
-    get () {
-      return this.issuance.sharesAuthorized / 100000000
-    }
-  },
-  selectedCompany: '*',
-  newCompany: '*',
-  companies: {
-    get (val, resolve) {
-      Company.getList({userId: Session.current.user._id}).then(resolve)
-    }
-  },
-
-  // Transaction related:
   portfolio: '*',
-  get availableFunds () {
-    const balance = this.portfolio.balance
-    const availableFunds = toMaxPrecision(balance.cashEqb - this.transactionFee, 8)
-    return availableFunds < 0 ? 0 : availableFunds
-  },
-  hasFunds: {
+  formData: {
     get () {
-      return (this.portfolio.balance['cashEqb'] - this.transactionFee) > 0
+      if (this.portfolio) {
+        new FormData({
+          portfolio: this.portfolio
+        })
+      }
     }
   },
-  hasEnoughFunds: {
-    get () {
-      return this.portfolio.hasEnoughFunds(this.amountInEqb + this.transactionFee, 'EQB')
-    }
-  },
-  price: 'number',
-  transactionFee: {
-    type: 'number',
-    value: 0.00001
-  },
-  get transactionFeePrice () {
-    return toMaxPrecision(this.eqbToUsd(this.transactionFee), 2)
-  },
+  newCompany: '*',
 
   // Methods:
   next () {
@@ -85,12 +49,9 @@ export const ViewModel = DefineMap.extend({
   saveCompany () {
     this.newCompany.validateAndSave().then(() => {
       this.mode = 'edit'
-      this.companies.push(this.newCompany)
-      this.selectedCompany = this.newCompany
+      this.formData.companies.push(this.newCompany)
+      this.formData.selectedCompany = this.newCompany
     })
-  },
-  eqbToUsd (EQB) {
-    return EQB * Session.current.rates.eqbToUsd
   }
 })
 

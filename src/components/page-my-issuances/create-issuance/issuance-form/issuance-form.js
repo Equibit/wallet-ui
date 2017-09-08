@@ -21,9 +21,10 @@ import Issuance from '../../../../models/issuance'
 
 export const ViewModel = DefineMap.extend({
   mode: '*',
-  companies: '*',
-  issuance: '*',
-  selectedCompany: '*',
+  formData: '*',
+  get issuance () {
+    return this.formData.issuance
+  },
   issuanceTypes: {
     value: Issuance.types
   },
@@ -37,9 +38,7 @@ export const ViewModel = DefineMap.extend({
   },
   company () {
     this.mode = 'company'
-  },
-  hasEnoughFunds: '*',
-  availableFunds: '*'
+  }
 })
 
 export default Component.extend({
