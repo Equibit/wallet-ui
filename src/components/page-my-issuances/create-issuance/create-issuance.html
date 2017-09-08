@@ -16,7 +16,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
 
-        <create-issuance></create-issuance>
+        <create-issuance {portfolio}="portfolio"></create-issuance>
 
       </div>
     </div>
@@ -35,9 +35,10 @@
   window.canViewModel = canViewModel
   import '~/models/fixtures/companies'
   import '~/models/mock/mock-session'
+  import { portfolioBtc } from '~/models/mock/mock-portfolio'
 
   const vm = new DefineMap({
-    // view model props here
+    portfolio: portfolioBtc
   })
   window.vm = vm
 

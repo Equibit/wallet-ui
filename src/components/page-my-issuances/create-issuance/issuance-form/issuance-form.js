@@ -37,7 +37,9 @@ export const ViewModel = DefineMap.extend({
   },
   company () {
     this.mode = 'company'
-  }
+  },
+  hasEnoughFunds: '*',
+  availableFunds: '*'
 })
 
 export default Component.extend({

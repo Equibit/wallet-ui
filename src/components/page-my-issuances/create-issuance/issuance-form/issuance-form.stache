@@ -2,6 +2,7 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/trade-funds/currency-converter/" />
 <can-import from="~/components/page-my-issuances/create-issuance/create-company/" />
+<can-import from="~/components/common/validation-message.component" />
 <!--<can-import from="~/models/issuance" {^value.default}="*Issuance" />-->
 
 <div class="list-group">
@@ -64,14 +65,11 @@
 
   <div class="list-group-item order-fields">
     <div class="form-horizontal">
-
       <div class="form-group">
         <div class="row">
-
           <div class="col-xs-12 col-sm-3">
             <label for="inputTotalAmount" class="control-label">{{i18n('authorize')}}</label>
           </div>
-
           <div class="col-xs-12 col-sm-5">
             <div class="input-group shares-authorized">
               <input type="number" class="form-control" aria-describedby="funds-quantity"
@@ -79,17 +77,20 @@
               <span class="input-group-addon" id="funds-quantity">{{i18n('shares')}}</span>
             </div>
           </div>
-
           <div class="col-xs-12 col-sm-1">
             <span class="rate-arrows icon icon-enlarge"></span>
           </div>
-
           <div class="col-xs-12 col-sm-3">
               <currency-converter {(input)}="issuance.sharesAuthorized"
                                   precision="2"
                                   {currency}="sharesToEqb"/>
           </div>
-
+          <div class="col-sm-12">
+            {{^if hasEnoughFunds}}
+              <validation-message
+                message="{{i18n('notEnoughEqbIssuance')}}: {{availableFunds}}" />
+            {{/if}}
+          </div>
         </div>
       </div>
     </div>

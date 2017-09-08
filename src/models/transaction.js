@@ -42,6 +42,10 @@ const Transaction = DefineMap.extend('Transaction', {
   },
   unSubscribe () {
     feathersClient.service('/transactions').removeListener('created')
+  },
+  calculateFee (tx) {
+    // TODO: calculate based on the number of inputs/outputs and JSON size for eqb if applied.
+    return 10000
   }
 }, {
   _id: 'string',

@@ -12,6 +12,12 @@
   </div>
 
   <div class="modal-body">
+    {{^if hasFunds}}
+      <div class="alert alert-warning" role="alert">
+        <strong>{{i18n('warning')}}!</strong> {{i18n('notEnoughEqb')}}</a>
+      </div>
+    {{/if}}
+
     {{#is mode 'edit'}}
       <issuance-form (receiveform)="openReceiveForm(@close)"
                  {(mode)}="mode"
@@ -19,6 +25,8 @@
                  {selected-company}="selectedCompany"
                  {portfolio}="portfolio"
                  {companies}="companies"
+                 {hasEnoughFunds}="hasEnoughFunds"
+                 {availableFunds}="availableFunds"
                  {issuances}="issuances" />
     {{/is}}
 
