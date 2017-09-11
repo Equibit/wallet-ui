@@ -17,6 +17,7 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './create-issuance.less'
 import view from './create-issuance.stache'
+import FormData from './form-data'
 
 export const ViewModel = DefineMap.extend({
   mode: {
@@ -27,7 +28,7 @@ export const ViewModel = DefineMap.extend({
   formData: {
     get () {
       if (this.portfolio) {
-        new FormData({
+        return new FormData({
           portfolio: this.portfolio
         })
       }

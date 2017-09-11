@@ -11,8 +11,9 @@
     <h3 class="modal-title">{{i18n('issuanceModalTitle')}}</h3>
   </div>
 
+  {{#if formData}}
   <div class="modal-body">
-    {{^if hasFunds}}
+    {{^if formData.hasFunds}}
       <div class="alert alert-warning" role="alert">
         <strong>{{i18n('warning')}}!</strong> {{i18n('notEnoughEqb')}}</a>
       </div>
@@ -52,7 +53,7 @@
       {{/if}}
       <button ($click)="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
     {{/is}}
-
-
   </div>
+
+  {{/if}}
 </bootstrap-modal-content>

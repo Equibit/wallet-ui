@@ -44,6 +44,11 @@ const Issuance = DefineMap.extend('Issuance', {
   selected: {
     type: 'boolean',
     serialize: false
+  },
+  // helper prop for selected item of the dropdown list of Issuance.types
+  issuanceTypeItem: {
+    type: '*',
+    serialize: false
   }
 })
 
