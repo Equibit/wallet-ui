@@ -9,7 +9,7 @@
 </div>
 
 <h3 class="subtitle">{{i18n('company')}}</h3>
-<entity-info {entity}="formData.selectedCompany"></entity-info>
+<entity-info {entity}="company"></entity-info>
 
 <h3 class="subtitle">Issuance</h3>
 <div class="well">

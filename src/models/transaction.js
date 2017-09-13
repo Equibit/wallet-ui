@@ -9,7 +9,7 @@ import i18n from '../i18n/i18n'
 // import Session from './session'
 
 const Transaction = DefineMap.extend('Transaction', {
-  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description}) {
+  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description, issuanceJson}) {
     currencyType = currencyType.toUpperCase()
     const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']))
     const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0)
@@ -17,7 +17,7 @@ const Transaction = DefineMap.extend('Transaction', {
       {address: toAddress, value: toSatoshi(amount)},
       {address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
     ]
-    const txInfo = buildTransaction(currencyType)(inputs, outputs, network)
+    const txInfo = buildTransaction(currencyType)(inputs, outputs, network, { issuanceJson })
 
     return new Transaction({
       address: txouts[0].address,
@@ -150,14 +150,15 @@ export const buildTransactionBtc = (inputs, outputs, network = bitcoin.networks.
   }
 }
 
-export const buildTransactionEqb = (inputs, outputs, network = bitcoin.networks.testnet) => {
+export const buildTransactionEqb = (inputs, outputs, network = bitcoin.networks.testnet, { issuanceJson }) => {
+  console.log('[buildTransactionEqb] issuanceJson=', issuanceJson)
   const vout = outputs.map(vout => {
     vout.equibit = {
       // TODO: pass payment currency type here.
       payment_currency: 0,
       payment_tx_id: '',
       issuance_tx_id: '0000000000000000000000000000000000000000000000000000000000000000',
-      issuance_json: ''
+      issuance_json: JSON.stringify(issuanceJson)
     }
     return vout
   })

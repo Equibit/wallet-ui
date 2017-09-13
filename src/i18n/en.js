@@ -190,6 +190,7 @@ export default {
   issuanceType: 'Issuance Type',
   issued: 'Issued',
 
+  issuanceAuthorized: 'A new issuance was authorized successfully',
   issuanceModalTitle: 'Create an Issuance',
   issuanceModalConfirm: 'Please review and confirm your issuance',
 

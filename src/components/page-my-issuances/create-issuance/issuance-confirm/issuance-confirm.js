@@ -22,6 +22,9 @@ export const ViewModel = DefineMap.extend({
   formData: '*',
   get issuance () {
     return this.formData.issuance
+  },
+  get company () {
+    return this.issuance.selectedCompany
   }
 })
 

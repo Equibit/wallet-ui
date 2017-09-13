@@ -15,7 +15,6 @@ const FormData = DefineMap({
       return this.issuance.sharesAuthorized / 100000000
     }
   },
-  selectedCompany: '*',
   companies: {
     get (val, resolve) {
       Company.getList({userId: Session.current.user._id}).then(resolve)
