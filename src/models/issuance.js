@@ -12,6 +12,7 @@ const Issuance = DefineMap.extend('Issuance', {
   domicile: 'string',
   issuanceName: 'string',
   issuanceType: 'string',
+  issuanceUnit: 'string',   // ['SHARES', 'BTC', 'UNITS'] ?
   restriction: 'string',
   marketCap: 'number',
   change: 'number',
@@ -61,8 +62,8 @@ const Issuance = DefineMap.extend('Issuance', {
     set (company) {
       if (company && company.type) {
         this.companyId = company._id
-        this.companyName = company.companyName
-        this.companySlug = company.companySlug
+        this.companyName = company.name
+        this.companySlug = company.slug
         this.domicile = company.domicile
       }
       return company
@@ -75,7 +76,7 @@ const Issuance = DefineMap.extend('Issuance', {
         registration_number: (company.registrationNumber || 'no-registration-number'),
         jurisdiction_country: company.domicile,
         jurisdiction_state_or_province: company.state,
-        legal_name: company.companyName,
+        legal_name: company.name,
         address: company.streetAddress + ' ' + company.streetAddress2,
         city: company.city,
         state_or_province: company.state,

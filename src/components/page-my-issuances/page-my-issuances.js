@@ -20,6 +20,11 @@ import view from './page-my-issuances.stache'
 import Issuance from '../../models/issuance'
 
 export const ViewModel = DefineMap.extend({
+  portfolio: {
+    get () {
+      return Session.current && Session.current.portfolios[0]
+    }
+  },
   isIssuacePopupVisible: 'boolean',
   issuances: {
     Type: Issuance.List

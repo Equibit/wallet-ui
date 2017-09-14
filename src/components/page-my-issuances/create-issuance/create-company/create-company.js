@@ -22,9 +22,8 @@ import Session from '../../../../models/session'
 
 export const ViewModel = DefineMap.extend({
   company: {
-    Type: Company,
     value: new Company({
-      userId: Session.current.user._id
+      userId: (Session.current && Session.current.user._id)
     })
   }
 })

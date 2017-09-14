@@ -16,7 +16,7 @@
           {{#if formData.companies.length}}
             <div class="col-xs-12 col-sm-6">
               <can-select {items}="formData.companies"
-                          display-prop-name="companyName"
+                          display-prop-name="name"
                           {(selected-item)}="formData.issuance.selectedCompany" />
             </div>
           {{/if}}

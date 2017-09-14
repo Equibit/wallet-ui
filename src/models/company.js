@@ -1,17 +1,18 @@
 import DefineMap from 'can-define/map/'
 import DefineList from 'can-define/list/list'
-import feathersClient from '~/models/feathers-client'
-import superModel from '~/models/super-model'
-import algebra from '~/models/algebra'
+import feathersClient from './feathers-client'
+import superModel from './super-model'
+import algebra from './algebra'
+import Session from './session'
 
 const Company = DefineMap.extend('Company', {
-  requiredFields: ['companyName', 'domicile', 'streetAddress', 'city', 'state', 'postalCode']
+  requiredFields: ['name', 'domicile', 'streetAddress', 'city', 'state', 'postalCode']
 },{
   _id: 'string',
   userId: 'string',
 
-  companyName: 'string',
-  companySlug: 'string',
+  name: 'string',
+  slug: 'string',
   domicile: 'string',
 
   streetAddress: 'string',
@@ -31,6 +32,9 @@ const Company = DefineMap.extend('Company', {
 
   validateAndSave () {
     this.error = ''
+    if (!this.userId && Session.current && Session.current.user) {
+      this.userId = Session.current.user._id
+    }
     if (this.hasErrors()) {
       this.error = this.validationError
       return Promise.reject()

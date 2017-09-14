@@ -38,5 +38,6 @@
 </div>
 
 {{#if isIssuacePopupVisible}}
-  <create-issuance (create)="createIssuance(%arguments)" />
+  <create-issuance (create)="createIssuance(%arguments)"
+                   {portfolio}="portfolio" />
 {{/if}}

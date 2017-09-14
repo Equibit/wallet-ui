@@ -9,7 +9,7 @@ import i18n from '../i18n/i18n'
 // import Session from './session'
 
 const Transaction = DefineMap.extend('Transaction', {
-  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description, issuanceJson}) {
+  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuance}) {
     currencyType = currencyType.toUpperCase()
     const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']))
     const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0)
@@ -17,9 +17,12 @@ const Transaction = DefineMap.extend('Transaction', {
       {address: toAddress, value: toSatoshi(amount)},
       {address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
     ]
-    const txInfo = buildTransaction(currencyType)(inputs, outputs, network, { issuanceJson })
+    if (issuanceJson) {
+      outputs[0].issuanceJson = issuanceJson
+    }
+    const txInfo = buildTransaction(currencyType)(inputs, outputs, network)
 
-    return new Transaction({
+    const txData = {
       address: txouts[0].address,
       addressTxid: txouts[0].txid,
       addressVout: txouts[0].vout,
@@ -32,7 +35,18 @@ const Transaction = DefineMap.extend('Transaction', {
       txIdBtc: currencyType === 'BTC' ? txInfo.txId : undefined,
       txIdEqb: currencyType === 'EQB' ? txInfo.txId : undefined,
       otherAddress: toAddress
-    })
+    }
+
+    // add issuance details:
+    if (issuance) {
+      txData.companyName = issuance.companyName
+      txData.companySlug = issuance.companySlug
+      txData.issuanceId = issuance._id
+      txData.issuanceName = issuance.issuanceName
+      txData.issuanceUnit = issuance.issuanceUnit
+    }
+
+    return new Transaction(txData)
   },
   subscribe (cb) {
     feathersClient.service('/transactions').on('created', (data) => {
@@ -150,16 +164,16 @@ export const buildTransactionBtc = (inputs, outputs, network = bitcoin.networks.
   }
 }
 
-export const buildTransactionEqb = (inputs, outputs, network = bitcoin.networks.testnet, { issuanceJson }) => {
-  console.log('[buildTransactionEqb] issuanceJson=', issuanceJson)
+export const buildTransactionEqb = (inputs, outputs, network = bitcoin.networks.testnet) => {
   const vout = outputs.map(vout => {
     vout.equibit = {
       // TODO: pass payment currency type here.
       payment_currency: 0,
       payment_tx_id: '',
       issuance_tx_id: '0000000000000000000000000000000000000000000000000000000000000000',
-      issuance_json: JSON.stringify(issuanceJson)
+      issuance_json: (vout.issuanceJson ? JSON.stringify(vout.issuanceJson) : '')
     }
+    delete vout.issuanceJson
     return vout
   })
   const tx = {

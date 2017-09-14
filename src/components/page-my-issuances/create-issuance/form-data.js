@@ -7,7 +7,8 @@ import { toMaxPrecision } from '../../../utils/formatter'
 const FormData = DefineMap({
   issuance: {
     value: new Issuance({
-      sharesAuthorized: 100 * 1000 * 1000
+      sharesAuthorized: 100 * 1000 * 1000,
+      issuanceUnit: 'SHARES'
     })
   },
   amount: {

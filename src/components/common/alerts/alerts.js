@@ -29,7 +29,7 @@
 **/
 
 import Kefir from 'kefir'
-import canStream from 'can-stream'
+import canStream from 'can-stream-kefir'
 import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import 'can-define-stream'

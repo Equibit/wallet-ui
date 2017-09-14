@@ -11,7 +11,7 @@
 	<div class="list-group-item">
 		<div class="form-group">
 			<label for="inputLegalName">{{i18n('legalName')}}</label>
-			<input type="text" class="form-control" id="inputLegalName" {($value)}="company.companyName">
+			<input type="text" class="form-control" id="inputLegalName" {($value)}="company.name">
 		</div>
 	</div>
 

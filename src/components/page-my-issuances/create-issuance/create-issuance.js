@@ -20,6 +20,7 @@ import './create-issuance.less'
 import view from './create-issuance.stache'
 import FormData from './form-data'
 import Transaction from '../../../models/transaction'
+import { translate } from '../../../i18n/'
 
 export const ViewModel = DefineMap.extend({
   mode: {
@@ -120,6 +121,7 @@ export const ViewModel = DefineMap.extend({
       type: 'AUTH', // for Authorization
       currencyType,
       issuanceJson,
+      issuance,
       description: 'Authorizing a new Issuance'
     }
     return Transaction.makeTransaction(amount, toAddress, txouts, options)
