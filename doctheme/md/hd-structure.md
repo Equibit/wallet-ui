@@ -1,10 +1,23 @@
 ## HD Structure
 
-This describes how BIP44 is used for Equibit portfolios, companies, including transactions of type:
+This describes how BIP44 is used for Equibit portfolios, companies, including the following transaction types:
 - sending/receiving Empty EQB;
 - authorizing securities (issuances);
+- canceling securities;
 - trading securities;
 - sending/receiving securities.
+
+The whole idea to use BIP44 for everything is to simplify xpub crawling and thus the import process.
+
+### Transaction artefacts
+
+Portfolio accounts can store:
+- cash (BTC, empty EQB)
+- trading securities (EQB)
+- received securities (EQB)
+
+Company accounts can store:
+- authorized securities (with issuance_json) (EQB)
 
 ### BIP-44
 
@@ -19,19 +32,9 @@ Example: Bitcoin keys
 
 The `account` level can be used for both portfolios and companies.
 
-### Transaction artefacts
-
-Portfolio accounts can store:
-- cash (BTC, empty EQB)
-- trading securities (EQB)
-- received securities (EQB)
-
-Company accounts can store:
-- authorized securities (with issuance_json) (EQB)
-
 ### Portfolios with cash and securities:
 
-```text
+```
 Bitcoin:
 /m /0'  /<portfolio>'           - BTC portfolio XPUB
                       /0 /<i>   - BTC ADDR to receive BTC
