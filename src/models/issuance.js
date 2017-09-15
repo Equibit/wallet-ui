@@ -6,6 +6,10 @@ import algebra from '~/models/algebra'
 
 const Issuance = DefineMap.extend('Issuance', {
   _id: 'string',
+
+  // todo: tmp
+  userId: 'string',
+
   companyId: 'string',
   companyName: 'string',
   companySlug: 'string',
@@ -60,7 +64,7 @@ const Issuance = DefineMap.extend('Issuance', {
   selectedCompany: {
     serialize: false,
     set (company) {
-      if (company && company.type) {
+      if (company) {
         this.companyId = company._id
         this.companyName = company.name
         this.companySlug = company.slug

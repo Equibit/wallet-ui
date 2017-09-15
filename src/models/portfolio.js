@@ -290,6 +290,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   markAsUsed (addr, currencyType, isChange) {
     const addressItem = this.findAddress(addr)
+    if (!addressItem) {
+      console.warn(`*** The address is not in the list of this portfolio: ${addr}, ${currencyType}, isChange=${isChange}`)
+      return
+    }
     if (addressItem.type !== currencyType) {
       console.warn(`*** The address is used for a different currencyType of ${addressItem.type}! ${addr}, ${currencyType}, isChange=${isChange}`)
     }

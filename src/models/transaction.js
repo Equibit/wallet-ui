@@ -77,7 +77,8 @@ const Transaction = DefineMap.extend('Transaction', {
         BUY: i18n['transactionBuy'],
         IN: i18n['transactionIn'],
         OUT: i18n['transactionOut'],
-        SELL: i18n['transactionSell']
+        SELL: i18n['transactionSell'],
+        AUTH: i18n['transactionAuth']
       }
       return typeString[this.type]
     }

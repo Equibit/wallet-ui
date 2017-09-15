@@ -27,14 +27,21 @@ export const ViewModel = DefineMap.extend({
   },
   isIssuacePopupVisible: 'boolean',
   issuances: {
-    Type: Issuance.List
+    Type: Issuance.List,
+    get (val, resolve) {
+      if (val){
+        return val
+      }
+      Issuance.getList({userId: Session.current.user._id}).then(resolve)
+    }
   },
   addIssuance () {
     this.isIssuacePopupVisible = false
     this.isIssuacePopupVisible = true
   },
-  createIssuance (data = {}) {
-    this.issuances.push(data)
+  createIssuance (issuance = {}) {
+    console.log('Issuance created', issuance)
+    this.issuances.push(issuance)
     this.isIssuacePopupVisible = false
   }
 })

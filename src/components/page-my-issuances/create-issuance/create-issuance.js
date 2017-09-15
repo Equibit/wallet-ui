@@ -21,6 +21,7 @@ import view from './create-issuance.stache'
 import FormData from './form-data'
 import Transaction from '../../../models/transaction'
 import { translate } from '../../../i18n/'
+import hub from '~/utils/event-hub'
 
 export const ViewModel = DefineMap.extend({
   mode: {
@@ -80,7 +81,6 @@ export const ViewModel = DefineMap.extend({
     }).then(([toAddress, changeAddr]) => {
       console.log(`toAddress=${toAddress}, changeAddr=${changeAddr}`)
       const tx = this.prepareTransaction(formData, issuance, toAddress, changeAddr)
-      console.log('tx.hex: ' + tx.hex, tx)
 
       // Show the spinner:
       //this.isSending = true

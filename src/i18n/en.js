@@ -365,6 +365,7 @@ export default {
   tradingPassportsAccepted: 'Accepted Trading Passports',
   tradingPassportsAcceptedMessage: 'This issuance is restricted and requires at least one of these passports.',
   trades: 'Trades',
+  transactionAuth: 'Authorization',
   transactionBuy: 'Buy',
   transactionFee: 'Transaction Fee',
   transaction: 'Transaction',
