@@ -1,4 +1,4 @@
-## HD Structure
+## HD Wallet Structure
 
 This describes how BIP44 is used for Equibit portfolios, companies, including the following transaction types:
 - sending/receiving Empty EQB;
@@ -36,12 +36,12 @@ The `account` level can be used for both portfolios and companies.
 
 ```
 Bitcoin:
-/m /0'  /<portfolio>'           - BTC portfolio XPUB
+/m /44' /0' /<portfolio>'       - BTC portfolio XPUB
                       /0 /<i>   - BTC ADDR to receive BTC
                       /1 /<i>   - BTC change addresses
 
 Equibit:
-/m /72' /<portfolio>'           - EQB portfolio XPUB
+/m /44' /72' /<portfolio>'      - EQB portfolio XPUB
                       /0
                           /0    - Trading address (to receive trading issuances EQB)
                           /1    - Holding address (to move traded issuances EQB to)
@@ -52,8 +52,8 @@ Equibit:
 
 ### Companies and authorized Issuances (Equibit blockchain only)
 ```
-/m /0'  /<company>'   /0
-                          /<issuance> - EQB address for authorized EQB (with JSON)
-                          /...
-                      /1              - N/A, no usage of change addresses
+/m /44' /0'  /<company>' /0
+                            /<issuance> - EQB address for authorized EQB (with JSON)
+                            /...
+                         /1             - N/A, no usage of change addresses
 ```
