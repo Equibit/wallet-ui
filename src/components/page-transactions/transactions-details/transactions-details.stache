@@ -33,7 +33,7 @@
     {{#if transaction.isSecurity}}
     <div class="row">
       <div class="col-xs-6">{{i18n('securities')}}</div>
-      <div class="col-xs-6 transaction-value">{{transaction.amount}}&nbsp;Shares</div>
+      <div class="col-xs-6 transaction-value">{{format(transaction.issuanceUnitQuantity, '', 0)}}&nbsp;Shares</div>
     </div>
     {{/if}}
 

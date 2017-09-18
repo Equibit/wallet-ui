@@ -20,6 +20,7 @@ import './create-issuance.less'
 import view from './create-issuance.stache'
 import FormData from './form-data'
 import Transaction from '../../../models/transaction'
+import Session from '../../../models/session'
 import { translate } from '../../../i18n/'
 import hub from '~/utils/event-hub'
 
@@ -70,7 +71,7 @@ export const ViewModel = DefineMap.extend({
     console.log('createIssuance: ', formData, issuance)
     if (!formData) {
       console.error('Error: received no form data')
-      return Promise.reject()
+      return Promise.reject(new Error('No form data provided'))
     }
 
     return Promise.all([
@@ -83,12 +84,12 @@ export const ViewModel = DefineMap.extend({
       const tx = this.prepareTransaction(formData, issuance, toAddress, changeAddr)
 
       // Show the spinner:
-      //this.isSending = true
+      // this.isSending = true
 
       return tx.save().then(() => [toAddress, changeAddr])
     }).then(([toAddress, changeAddr]) => {
       console.log('[createIssuance] transaction was saved')
-      //this.isSending = false
+      // this.isSending = false
 
       // mark change address as used
       // this.portfolio.nextChangeAddress[currencyType]

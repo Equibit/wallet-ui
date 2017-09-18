@@ -7,7 +7,7 @@ import Session from './session'
 
 const Company = DefineMap.extend('Company', {
   requiredFields: ['name', 'domicile', 'streetAddress', 'city', 'state', 'postalCode']
-},{
+}, {
   _id: 'string',
   userId: 'string',
 
@@ -37,7 +37,7 @@ const Company = DefineMap.extend('Company', {
     }
     if (this.hasErrors()) {
       this.error = this.validationError
-      return Promise.reject()
+      return Promise.reject(new Error(this.error))
     }
     return this.save()
   },
@@ -48,7 +48,7 @@ const Company = DefineMap.extend('Company', {
 
   validationError: {
     get () {
-      return Company.requiredFields.reduce((acc, prop) => (acc || !this[prop] && `${prop} is required`), '')
+      return Company.requiredFields.reduce((acc, prop) => (acc || (!this[prop] && `${prop} is required`)), '')
     }
   }
 })

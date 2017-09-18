@@ -43,6 +43,7 @@ const Transaction = DefineMap.extend('Transaction', {
       txData.companySlug = issuance.companySlug
       txData.issuanceId = issuance._id
       txData.issuanceName = issuance.issuanceName
+      txData.issuanceType = issuance.issuanceType
       txData.issuanceUnit = issuance.issuanceUnit
     }
 
@@ -129,7 +130,7 @@ const Transaction = DefineMap.extend('Transaction', {
     }
   },
   get amountPlusFee () {
-    return this.type === 'OUT' ? this.amount + this.fee : this.amount
+    return (this.type === 'OUT' || this.type === 'AUTH') ? this.amount + this.fee : this.amount
   },
   // TODO: valuate issuance.
   get valuationNow () {
@@ -137,6 +138,12 @@ const Transaction = DefineMap.extend('Transaction', {
   },
   get valuationThen () {
     return this.amount
+  },
+  get issuanceUnitQuantity () {
+    return this.amount * 100000000
+  },
+  get issuanceTypeDisplay () {
+    return this.issuanceType === 'common_shares' ? 'Common Shares' : this.issuanceType
   }
 })
 

@@ -7,7 +7,9 @@ import algebra from '~/models/algebra'
 const Issuance = DefineMap.extend('Issuance', {
   _id: 'string',
 
-  // todo: tmp
+  /**
+   * Id of the user who created the issuance
+   */
   userId: 'string',
 
   companyId: 'string',
@@ -39,11 +41,6 @@ const Issuance = DefineMap.extend('Issuance', {
 
   // ENUM ('Common Shares' | '')
   type: 'string',
-
-  /**
-   * Id of the user who created the issuance
-   */
-  userId: 'string',
 
   // extras:
   selected: {
@@ -108,7 +105,7 @@ Issuance.types = new DefineList([
   { name: 'Preferred Shares', type: 'preferred_shares' },
   { name: 'Trust Units', type: 'trust_units' },
   { name: 'Partnership Units', type: 'fund_units' },   // <<< TODO ??? check type/name
-  { name: 'Bonds', type: 'bonds' },
+  { name: 'Bonds', type: 'bonds' }
 ])
 
 Issuance.List = DefineList.extend('IssuanceList', {

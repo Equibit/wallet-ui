@@ -18,6 +18,7 @@ import DefineMap from 'can-define/map/'
 import './page-my-issuances.less'
 import view from './page-my-issuances.stache'
 import Issuance from '../../models/issuance'
+import Session from '../../models/session'
 
 export const ViewModel = DefineMap.extend({
   portfolio: {
@@ -29,7 +30,7 @@ export const ViewModel = DefineMap.extend({
   issuances: {
     Type: Issuance.List,
     get (val, resolve) {
-      if (val){
+      if (val) {
         return val
       }
       Issuance.getList({userId: Session.current.user._id}).then(resolve)

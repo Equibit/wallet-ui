@@ -101,6 +101,7 @@
 -->
 
 {{#each issuances as issuance}}
+  {{#if issuance.issuanceName}}
 <div class="well">
 	<div class="row">
 		<div class="col-xs-12 col-sm-2 company-info">
@@ -129,8 +130,8 @@
 					<tr>
 						<td class="column-name">{{issuance.issuanceName}}</td>
 						<td class="column-type">{{issuance.issuanceType}}</td>
-						<td class="column-restriction">Level {{issuance.restriction}}</td>
-						<td class="column-price font-numeric">7.714</td>
+						<td class="column-restriction">Level 0{{issuance.restriction}}</td>
+						<td class="column-price font-numeric">- -</td>
 						<td class="column-authorized font-numeric">{{format(issuance.sharesAuthorized, '', 0)}}</td>
 						<td class="column-issued font-numeric">0</td>
 						<td class="column-action"><button class="btn btn-default btn-xs">Manage</button></td>
@@ -141,6 +142,7 @@
 		</div>
 	</div>
 </div>
+  {{/if}}
 {{/each}}
 
 {{#if isModalShown}}
