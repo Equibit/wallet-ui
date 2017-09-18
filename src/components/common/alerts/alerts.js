@@ -82,7 +82,7 @@ export const ViewModel = DefineMap.extend({
     this.dispatch({ type: 'remove', id: alert.id })
   }
 })
-canDefineStreamKefir(ViewModel);
+canDefineStreamKefir(ViewModel)
 
 export default Component.extend({
   tag: 'bit-alerts',
