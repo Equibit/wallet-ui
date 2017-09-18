@@ -20,6 +20,7 @@ import view from './issuance-list.stache'
 
 export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
+  issuances: '*',
   showModal () {
     this.isModalShown = false
     this.isModalShown = true

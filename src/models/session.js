@@ -228,9 +228,9 @@ const Session = DefineMap.extend('Session', {
 })
 
 Session.defaultRates = {
-  btcToUsd: 4725,
-  eqbToUsd: 3,
-  eqbToBtc: 3 / 4725
+  btcToUsd: 5000,
+  eqbToUsd: 100,
+  eqbToBtc: 100 / 5000
 }
 
 canDefineStream(Session)

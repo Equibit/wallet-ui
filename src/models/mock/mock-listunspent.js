@@ -54,7 +54,8 @@ const listunspentZero = {
 
 const listunspentBtc = {
   BTC: listunspent.BTC,
-  EQB: { summary: {'total': 0}, addresses: {} }
+  // EQB: { summary: {'total': 0}, addresses: {} }
+  EQB: listunspent.EQB
 }
 
 export default listunspent

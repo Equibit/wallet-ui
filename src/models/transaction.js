@@ -9,7 +9,7 @@ import i18n from '../i18n/i18n'
 // import Session from './session'
 
 const Transaction = DefineMap.extend('Transaction', {
-  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description}) {
+  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuance}) {
     currencyType = currencyType.toUpperCase()
     const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']))
     const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0)
@@ -17,9 +17,12 @@ const Transaction = DefineMap.extend('Transaction', {
       {address: toAddress, value: toSatoshi(amount)},
       {address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
     ]
+    if (issuanceJson) {
+      outputs[0].issuanceJson = issuanceJson
+    }
     const txInfo = buildTransaction(currencyType)(inputs, outputs, network)
 
-    return new Transaction({
+    const txData = {
       address: txouts[0].address,
       addressTxid: txouts[0].txid,
       addressVout: txouts[0].vout,
@@ -32,7 +35,19 @@ const Transaction = DefineMap.extend('Transaction', {
       txIdBtc: currencyType === 'BTC' ? txInfo.txId : undefined,
       txIdEqb: currencyType === 'EQB' ? txInfo.txId : undefined,
       otherAddress: toAddress
-    })
+    }
+
+    // add issuance details:
+    if (issuance) {
+      txData.companyName = issuance.companyName
+      txData.companySlug = issuance.companySlug
+      txData.issuanceId = issuance._id
+      txData.issuanceName = issuance.issuanceName
+      txData.issuanceType = issuance.issuanceType
+      txData.issuanceUnit = issuance.issuanceUnit
+    }
+
+    return new Transaction(txData)
   },
   subscribe (cb) {
     feathersClient.service('/transactions').on('created', (data) => {
@@ -42,6 +57,10 @@ const Transaction = DefineMap.extend('Transaction', {
   },
   unSubscribe () {
     feathersClient.service('/transactions').removeListener('created')
+  },
+  calculateFee (tx) {
+    // TODO: calculate based on the number of inputs/outputs and JSON size for eqb if applied.
+    return 10000
   }
 }, {
   _id: 'string',
@@ -59,7 +78,8 @@ const Transaction = DefineMap.extend('Transaction', {
         BUY: i18n['transactionBuy'],
         IN: i18n['transactionIn'],
         OUT: i18n['transactionOut'],
-        SELL: i18n['transactionSell']
+        SELL: i18n['transactionSell'],
+        AUTH: i18n['transactionAuth']
       }
       return typeString[this.type]
     }
@@ -110,7 +130,7 @@ const Transaction = DefineMap.extend('Transaction', {
     }
   },
   get amountPlusFee () {
-    return this.type === 'OUT' ? this.amount + this.fee : this.amount
+    return (this.type === 'OUT' || this.type === 'AUTH') ? this.amount + this.fee : this.amount
   },
   // TODO: valuate issuance.
   get valuationNow () {
@@ -118,6 +138,12 @@ const Transaction = DefineMap.extend('Transaction', {
   },
   get valuationThen () {
     return this.amount
+  },
+  get issuanceUnitQuantity () {
+    return this.amount * 100000000
+  },
+  get issuanceTypeDisplay () {
+    return this.issuanceType === 'common_shares' ? 'Common Shares' : this.issuanceType
   }
 })
 
@@ -153,8 +179,9 @@ export const buildTransactionEqb = (inputs, outputs, network = bitcoin.networks.
       payment_currency: 0,
       payment_tx_id: '',
       issuance_tx_id: '0000000000000000000000000000000000000000000000000000000000000000',
-      issuance_json: ''
+      issuance_json: (vout.issuanceJson ? JSON.stringify(vout.issuanceJson) : '')
     }
+    delete vout.issuanceJson
     return vout
   })
   const tx = {

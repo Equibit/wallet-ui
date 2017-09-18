@@ -29,15 +29,15 @@
 **/
 
 import Kefir from 'kefir'
-import canStream from 'can-stream'
+import canStream from 'can-stream-kefir'
 import Component from 'can-component'
 import DefineMap from 'can-define/map/'
-import 'can-define-stream'
+import canDefineStreamKefir from 'can-define-stream-kefir'
 import view from './alerts.stache'
 import hub from '~/utils/event-hub'
 import CID from 'can-cid'
 
-var hubStream = canStream.toStream(hub, 'alert').map(ev => {
+const hubStream = canStream.toStream(hub, 'alert').map(ev => {
   return Object.assign({
     id: CID(ev),
     kind: 'warning'
@@ -82,6 +82,7 @@ export const ViewModel = DefineMap.extend({
     this.dispatch({ type: 'remove', id: alert.id })
   }
 })
+canDefineStreamKefir(ViewModel)
 
 export default Component.extend({
   tag: 'bit-alerts',

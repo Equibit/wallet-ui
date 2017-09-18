@@ -190,6 +190,7 @@ export default {
   issuanceType: 'Issuance Type',
   issued: 'Issued',
 
+  issuanceAuthorized: 'A new issuance was authorized successfully',
   issuanceModalTitle: 'Create an Issuance',
   issuanceModalConfirm: 'Please review and confirm your issuance',
 
@@ -223,6 +224,7 @@ export default {
   name: 'Name',
   newIssuances: 'New Issuances',
   note: 'Note',
+  notEnoughEqbIssuance: 'You don\'t have enough EQB to create an issuance',
   notEnoughFunds: 'You don\'t have enough funds to send. Use the total available minus the transaction fee',
   notEnoughSecurities: 'You don\'t have enough securities to send. Use the total available',
   notFound401Title: 'This Page is Password Protected',
@@ -363,6 +365,7 @@ export default {
   tradingPassportsAccepted: 'Accepted Trading Passports',
   tradingPassportsAcceptedMessage: 'This issuance is restricted and requires at least one of these passports.',
   trades: 'Trades',
+  transactionAuth: 'Authorization',
   transactionBuy: 'Buy',
   transactionFee: 'Transaction Fee',
   transaction: 'Transaction',

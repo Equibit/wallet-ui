@@ -9,6 +9,7 @@ const companies = [
 const store = fixture.store(times(function (i) {
   return {
     _id: i,
+    userId: 0,
     companyName: companies[i % 9],
     companySlug: companies[i % 9].toLowerCase().split(' ').join('-'),
     domicile: ['USA', 'UK', 'Poland', 'Sweden', 'France'][i % 5],

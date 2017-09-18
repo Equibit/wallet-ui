@@ -74,7 +74,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     get () {
       // TODO: make sure this getter is cached (maybe change to a stream derived from addressesMeta).
       return (this.keys && this.addressesMeta && this.addressesMeta.map(meta => {
-        console.log('[portfolio.addresses] deriving addr...', meta)
+        // console.log('[portfolio.addresses] deriving addr...', meta)
         const keysNode = this.keys[meta.type].derive(meta.isChange ? 1 : 0).derive(meta.index)
         return {
           index: meta.index,
@@ -290,6 +290,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   markAsUsed (addr, currencyType, isChange) {
     const addressItem = this.findAddress(addr)
+    if (!addressItem) {
+      console.warn(`*** The address is not in the list of this portfolio: ${addr}, ${currencyType}, isChange=${isChange}`)
+      return
+    }
     if (addressItem.type !== currencyType) {
       console.warn(`*** The address is used for a different currencyType of ${addressItem.type}! ${addr}, ${currencyType}, isChange=${isChange}`)
     }

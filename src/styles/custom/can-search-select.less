@@ -1,0 +1,42 @@
+@import '../bootstrap-custom/_variables.less';
+@import './animate.less';
+@import './_helpers.less';
+
+// Styles the issuance selector
+can-search-select, can-select {
+  font-size: @font-size-small;
+  ul.dropdown-list {
+    max-width: 501px;
+    max-height: 195px;
+    top: 40px;
+    border: 1px solid @gray-lighter;
+    border-radius: @border-radius-base;
+
+    li {
+      padding-left: 12px;
+      padding-right: 12px;
+      float: left;
+      width: 100%;
+      cursor: pointer;
+      &:hover {
+        background-color: @gray-lightest;
+      }
+      .issuance {
+        display: block;
+        float: left;
+        &.issuance-company {
+          width: 40%;
+        }
+        &.issuance-name {
+          width: 30%;
+          color: @gray-light;
+        }
+        &.issuance-quantity {
+          width: 30%;
+          color: @gray-light;
+          text-align: right;
+        }
+      }
+    }
+  }
+}

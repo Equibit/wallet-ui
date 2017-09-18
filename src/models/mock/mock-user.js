@@ -2,6 +2,7 @@ import User from '../user/user'
 import hdNode from './mock-keys'
 
 const userMock = new User({
+  _id: 0,
   rates: {
     btcToUsd: 4000,
     eqbToUsd: 3,

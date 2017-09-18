@@ -9,19 +9,19 @@
 </div>
 
 <h3 class="subtitle">{{i18n('company')}}</h3>
-<entity-info></entity-info>
+<entity-info {entity}="company"></entity-info>
 
 <h3 class="subtitle">Issuance</h3>
 <div class="well">
   <dl class="dl-horizontal dl-stripped responsive no-top-border">
     <dt>{{i18n('issuanceName')}}</dt>
-    <dd>Series 1</dd>
+    <dd>{{issuance.issuanceName}}</dd>
 
     <dt>{{i18n('issuanceType')}}</dt>
-    <dd>Common Shares</dd>
+    <dd>{{issuance.issuanceTypeItem.name}}</dd>
 
     <dt>{{i18n('authorize')}}</dt>
-    <dd>100,000,000 <small>{{i18n('shares')}}</small> &#x2194 1 <small>EQB</small></dd>
+    <dd>{{format(issuance.sharesAuthorized, '', 0)}} <small>{{i18n('shares')}}</small> &#x2194 {{format(formData.amount, '', 2)}} <small>EQB</small></dd>
   </dl>
 
   <div class="transaction-details">
@@ -32,23 +32,23 @@
         <tbody>
           <tr>
               <td class="column-label">{{i18n('issuanceAuthorization')}}</td>
-              <td class="column-digital-currency-value font-numeric">- 1.000000</td>
+              <td class="column-digital-currency-value font-numeric">- {{format(formData.amount, '', 8)}}</td>
               <td class="column-digital-currency-type font-numeric">{{i18n('EQB')}}</td>
-              <td class="column-local-currency-value font-numeric">- $2,350.69</td>
+              <td class="column-local-currency-value font-numeric">- {{format(formData.amountPrice, '$', 2)}}</td>
               <td class="column-local-currency-type font-numeric">{{i18n('usd')}}</td>
           </tr>
           <tr>
               <td class="column-label text-muted">{{i18n('transactionFee')}}</td>
-              <td class="column-digital-currency-value font-numeric text-muted border-bottom">- 0.000023</td>
+              <td class="column-digital-currency-value font-numeric text-muted border-bottom">- {{format(formData.transactionFee, '', 8)}}</td>
               <td class="column-digital-currency-type font-numeric text-muted border-bottom">{{i18n('EQB')}}</td>
-              <td class="column-local-currency-value font-numeric text-muted border-bottom">- $1.40</td>
+              <td class="column-local-currency-value font-numeric text-muted border-bottom">- {{format(formData.transactionFeePrice, '$', 2)}}</td>
               <td class="column-local-currency-type font-numeric text-muted border-bottom">{{i18n('usd')}}</td>
           </tr>
           <tr>
               <td class="column-label"></td>
-              <td class="column-digital-currency-value font-numeric text-danger ">- 1.000023</td>
+              <td class="column-digital-currency-value font-numeric text-danger ">- {{format(formData.totalAmount, '', 8)}}</td>
               <td class="column-digital-currency-type font-numeric text-danger">{{i18n('EQB')}}</td>
-              <td class="column-local-currency-value font-numeric text-danger">- $2,352.09</td>
+              <td class="column-local-currency-value font-numeric text-danger">- {{format(formData.totalPrice, '$', 2)}}</td>
               <td class="column-local-currency-type font-numeric text-danger">{{i18n('usd')}}</td>
           </tr>
 

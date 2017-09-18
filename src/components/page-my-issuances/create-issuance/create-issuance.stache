@@ -11,20 +11,27 @@
     <h3 class="modal-title">{{i18n('issuanceModalTitle')}}</h3>
   </div>
 
+  {{#if formData}}
   <div class="modal-body">
+    {{^if formData.hasFunds}}
+      <div class="alert alert-warning" role="alert">
+        <strong>{{i18n('warning')}}!</strong> {{i18n('notEnoughEqb')}}</a>
+      </div>
+    {{/if}}
+
     {{#is mode 'edit'}}
       <issuance-form (receiveform)="openReceiveForm(@close)"
-                 {form-data}="formData"
-                 {portfolio}="portfolio"
-                 {issuances}="issuances" />
+                 {(mode)}="mode"
+                 {formData}="formData"
+      />
     {{/is}}
 
     {{#is mode 'confirm'}}
-      <issuance-confirm {form-data}="formData" {issuances}="issuances" />
+      <issuance-confirm {formData}="formData" />
     {{/is}}
 
     {{#is mode 'company'}}
-      <create-company></create-company>
+      <create-company {(company)}="newCompany"></create-company>
     {{/is}}
 
   </div>
@@ -41,10 +48,12 @@
     {{/is}}
 
     {{#is mode 'company'}}
-      <button ($click)="edit()" type="button" class="btn btn-primary">Save Company</button>
+      {{#if newCompany}}
+        <button ($click)="saveCompany()" type="button" class="btn btn-primary">Save Company</button>
+      {{/if}}
       <button ($click)="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
     {{/is}}
-
-
   </div>
+
+  {{/if}}
 </bootstrap-modal-content>

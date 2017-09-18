@@ -1,6 +1,7 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/common/modal-company/" />
 
+<!--
 <div class="well">
 	<div class="row">
 		<div class="col-xs-12 col-sm-3 col-md-2 company-info">
@@ -97,12 +98,15 @@
 		</div>
 	</div>
 </div>
+-->
 
+{{#each issuances as issuance}}
+  {{#if issuance.issuanceName}}
 <div class="well">
 	<div class="row">
 		<div class="col-xs-12 col-sm-2 company-info">
-			<div class="company-name"><strong>Imperial Brands</strong></div>
-			<div class="company-domicile">USA</div>
+			<div class="company-name"><strong>{{issuance.companyName}}</strong></div>
+			<div class="company-domicile">{{issuance.domicile}}</div>
 			<a class="company-more-info" href="">{{i18n('more')}}</a>
 		</div>
 
@@ -124,12 +128,12 @@
 
 				<tbody>
 					<tr>
-						<td class="column-name">Series 1</td>
-						<td class="column-type">Common Shares</td>
-						<td class="column-restriction">Level 1</td>
-						<td class="column-price font-numeric">7.714</td>
-						<td class="column-authorized font-numeric">10,000</td>
-						<td class="column-issued font-numeric">7,900</td>
+						<td class="column-name">{{issuance.issuanceName}}</td>
+						<td class="column-type">{{issuance.issuanceType}}</td>
+						<td class="column-restriction">Level 0{{issuance.restriction}}</td>
+						<td class="column-price font-numeric">- -</td>
+						<td class="column-authorized font-numeric">{{format(issuance.sharesAuthorized, '', 0)}}</td>
+						<td class="column-issued font-numeric">0</td>
 						<td class="column-action"><button class="btn btn-default btn-xs">Manage</button></td>
 					</tr>
 				</tbody>
@@ -138,6 +142,8 @@
 		</div>
 	</div>
 </div>
+  {{/if}}
+{{/each}}
 
 {{#if isModalShown}}
   <modal-company></modal-company>
