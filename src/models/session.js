@@ -26,12 +26,13 @@ import dataCallbacks from 'can-connect/data/callbacks/'
 import realtime from 'can-connect/real-time/'
 import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior'
 import canDefineStream from 'can-define-stream-kefir'
+
 import Notification from './notification'
-import feathersClient from '~/models/feathers-client'
-import signed from '~/models/feathers-signed'
-import User from '~/models/user/user'
-import Portfolio from '~/models/portfolio'
-import Issuance from '../models/issuance'
+import feathersClient from './feathers-client'
+import signed from './feathers-signed'
+import User from './user/user'
+import Portfolio from './portfolio'
+import Issuance from './issuance'
 
 const behaviors = [
   feathersAuthenticationSignedSession,
@@ -58,82 +59,50 @@ const Session = DefineMap.extend('Session', {
   /**
    * @property {Function} models/session.prototype.portfoliosPromise portfoliosPromise
    * @parent models/session.prototype
-   * Promise for portfolios.
+   * Promise for portfolios live list.
    */
   portfoliosPromise: {
     get () {
       console.log('[session.portfoliosPromise.get] ...')
       // TODO: report that portfolio.patch breaks Portfolio.connection.listStore if a set different from `{}` is used.
+      // We do not need to provide userId since feathers does this for us (restricts to current user via JWT)
       return Portfolio.getList({})
     }
   },
 
   /**
-   * @property {Function} models/session.prototype.portfolios portfolios
+   * @property {Function} models/session.prototype.portfoliosMeta portfoliosMeta
    * @parent models/session.prototype
-   * List of user's portfolios.
+   * List of user's portfolios info.
+   * ```
+   *  [{
+   *    name,
+   *    index,
+   *
+   *  }]
+   * ```
    */
   portfolios: {
     Type: Portfolio.List,
-    get (val, resolved) {
+    get (val, resolve) {
       console.log('[session.portfolios.get] ...')
-      if (!val) {
-        this.portfoliosPromise.then(portfolios => {
-          portfolios.forEach(portfolio => {
-            if (portfolio.index !== 'undefined') {
-              // TODO: Mutates portfolio adding keys. Use getter that checks Session.current.user and generates keys.
-              portfolio.keys = this.user.generatePortfolioKeys(portfolio.index)
-            }
-          })
-          console.log('[session.portfolios.get -> resolve] length=' + portfolios.length)
-          resolved(portfolios)
+      this.portfoliosPromise.then(portfolios => {
+        portfolios.forEach(portfolio => {
+          if (portfolio.index !== 'undefined') {
+            portfolio.keys = this.user.generatePortfolioKeys(portfolio.index)
+          }
         })
-      }
-      return val
-    }
-  },
-
-  /**
-   * @property {Function} models/session.prototype.allAddresses allAddresses
-   * @parent models/session.prototype
-   * List of all addresses for fetching unspent amounts.
-   */
-  allAddresses: {
-    get () {
-      return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
-        return {
-          BTC: acc.BTC.concat(portfolio.addressesBtc),
-          EQB: acc.EQB.concat(portfolio.addressesEqb)
-        }
-      }, {EQB: [], BTC: []})
-    }
-  },
-
-  /**
-   * @property {Function} models/session.prototype.balancePromise balancePromise
-   * @parent models/session.prototype
-   * Promise for balance.
-   */
-  balancePromise: {
-    stream: function () {
-      const addrStream = this.toStream('.allAddresses').skipWhile(a => !a || !(a.BTC.length || a.EQB.length))
-      return addrStream.merge(this.toStream('refresh')).map(() => {
-        console.log('*** [portfolio.balancePromise] fetching balance...')
-        return this.fetchBalance()
+        console.log('[session.portfolios.get -> resolve] length=' + portfolios.length)
+        resolve(portfolios)
       })
     }
   },
-  fetchBalance () {
-    const addr = this.allAddresses
-    return feathersClient.service('/listunspent').find({
-      // GET query params are lower cased:
-      query: {
-        btc: addr.BTC,
-        eqb: addr.EQB,
-        byaddress: true
-      }
-    })
-  },
+
+  /**
+   * @property {Function} models/session.prototype.refreshBalance refreshBalance
+   * @parent models/session.prototype
+   * Method to refresh balance. Will request linstunspent and update balancePromise.
+   */
   refreshBalance: function () {
     this.dispatch('refresh')
   },
@@ -159,13 +128,12 @@ const Session = DefineMap.extend('Session', {
     // 1. We pass user's balance to each portfolio
     // 2. Each portfolio calculates its own balance and break it down (equity / bonds / cash)
     // 3. We calculate summary based on individual portfolio balance and add it to user's balance.
-    get (val, resolve) {
-      if (!val && !this.balancePromise) {
+    get () {
+      if (!this.utxoByTypeByAddress) {
         return {
-          summary: { cash: 0, securities: 0, total: 0, isDefault: true }
+          summary: { cash: 0, securities: 0, total: 0 }
         }
       }
-      // TODO: fix incorrect using val which only receives a value when balance gets explicitly set.
       if ((!val || val.isDefault) && this.balancePromise) {
         this.balancePromise.then(balance => {
           this.portfolios.forEach(portfolio => {

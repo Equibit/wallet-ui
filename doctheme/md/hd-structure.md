@@ -44,8 +44,8 @@ Equibit:
 /m /44' /72' /<portfolio>'      - EQB portfolio XPUB
                       /0
                           /0    - Trading address (to receive trading issuances EQB)
-                          /1    - Holding address (to move traded issuances EQB to)
-                          /<i>  - EQB receiver ADDR for Blank EQB
+                          /1    - Holding address (to move traded restricted issuances EQB to)
+                          /<i>  - EQB receiver ADDR for Blank EQB and unrestricted issuances
                       /1
                           /<i>  - EQB change ADDR for Blank EQB
 ```
