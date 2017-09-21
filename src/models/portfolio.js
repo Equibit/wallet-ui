@@ -93,8 +93,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
           address: keysNode.getAddress(),
           type: meta.type,
           isChange: meta.isChange,
-          isUsed: meta.isUsed,
-          keyPair: keysNode.keyPair
+          keyPair: keysNode.keyPair,
+          meta: meta
         }
       })) || []
     }

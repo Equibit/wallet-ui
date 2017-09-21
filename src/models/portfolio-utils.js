@@ -63,7 +63,7 @@ const getUnspentOutputsForAmount = (txouts, amount) => {
 
 const getAllUtxo = (addresses) => {
   return Object.keys(addresses).reduce((acc, addr) => {
-    acc.push(addresses[addr].txouts)
+    acc.push.apply(acc, addresses[addr].txouts)
     return acc
   }, [])
 }

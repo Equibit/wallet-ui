@@ -58,14 +58,14 @@ describe('models/portfolio', function () {
   describe('instance properties', function () {
     it('should populate addresses', function () {
       const expectedAddresses = [
-        {index: 0, type: 'BTC', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', isChange: false, isUsed: true},
-        {index: 1, type: 'BTC', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', isChange: false, isUsed: true},
-        {index: 0, type: 'EQB', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', isChange: false, isUsed: true},
-        {index: 1, type: 'EQB', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU', isChange: false, isUsed: false},
-        {index: 0, type: 'BTC', address: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', isChange: true, isUsed: true}
+        {index: 0, type: 'BTC', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', isChange: false},
+        {index: 1, type: 'BTC', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', isChange: false},
+        {index: 0, type: 'EQB', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', isChange: false},
+        {index: 1, type: 'EQB', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU', isChange: false},
+        {index: 0, type: 'BTC', address: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', isChange: true}
       ]
       assert.equal(portfolio.addresses.length, 5)
-      assert.deepEqual(omit(['keyPair'], portfolio.addresses[0]), expectedAddresses[0])
+      assert.deepEqual(omit(['keyPair', 'meta'], portfolio.addresses[0]), expectedAddresses[0])
     })
 
     it('should populate addressesBtc and addressesEqb', function () {
@@ -104,6 +104,7 @@ describe('models/portfolio', function () {
   describe('utxoByType', function () {
     it('should return flat lists of utxo by type', function () {
       assert.equal(portfolio.utxoByType.BTC.length, 3)
+      assert.equal(portfolio.utxoByType.BTC[0].address, 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA')
       assert.equal(portfolio.utxoByType.EQB.length, 2)
     })
   })
