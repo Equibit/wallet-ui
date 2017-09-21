@@ -1,9 +1,9 @@
 import './fixtures/'
 
-import '~/models/user/user-test'
+// import '~/models/user/user-test'
 import '~/models/portfolio-test'
-import '~/models/session-test'
-import '~/models/transaction-test'
+// import '~/models/session-test'
+// import '~/models/transaction-test'
 
 import assert from 'chai/chai'
 import 'steal-mocha'

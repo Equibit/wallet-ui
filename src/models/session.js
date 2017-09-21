@@ -25,7 +25,6 @@ import canMap from 'can-connect/can/map/'
 import dataCallbacks from 'can-connect/data/callbacks/'
 import realtime from 'can-connect/real-time/'
 import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior'
-import canDefineStream from 'can-define-stream-kefir'
 
 import Notification from './notification'
 import feathersClient from './feathers-client'
@@ -104,52 +103,37 @@ const Session = DefineMap.extend('Session', {
    * Method to refresh balance. Will request linstunspent and update balancePromise.
    */
   refreshBalance: function () {
-    this.dispatch('refresh')
+    if (this.portfolios && this.portfolios[0]) {
+      this.portfolios[0].refreshBalance()
+    }
   },
 
   /**
    * @property {Function} models/session.prototype.balance balance
    * @parent models/session.prototype
-   * User balance contains a summary and balance per address.
-   *
+   * User balance contains a summary from all portfolios.
    * ```
    * {
-   *   "summary": {
-   *     "total": 3.34999
-   *   },
-   *   "mpS2RuNkAEALvMhksCa6fPpLVb5yCPanLu": {
-   *     "amount": 2.35,
-   *     "txouts": [...]
-   *   }, { ... }
+   *    "summary": {
+   *      "total": 3.34999
+   *      "cash": 3.34999
+   *      "securities": 0
+   *    }
    * }
    * ```
    */
   balance: {
-    // 1. We pass user's balance to each portfolio
-    // 2. Each portfolio calculates its own balance and break it down (equity / bonds / cash)
-    // 3. We calculate summary based on individual portfolio balance and add it to user's balance.
     get () {
-      if (!this.utxoByTypeByAddress) {
+      if (!this.portfolios || !this.portfolios.length) {
         return {
           summary: { cash: 0, securities: 0, total: 0 }
         }
       }
-      if ((!val || val.isDefault) && this.balancePromise) {
-        this.balancePromise.then(balance => {
-          this.portfolios.forEach(portfolio => {
-            // TODO: Mutates portfolio updating userBalance. Use getter that checks Session.current.balance
-            console.log('[portfolio.balance] updating portfolio.userBalance ...')
-            portfolio.userBalance = balance
-          })
-          balance.summary = {
-            securities: 0,
-            cash: balance.BTC.summary.total + (balance.EQB.summary.total) * this.rates.eqbToBtc
-          }
-          balance.summary.total = balance.summary.securities + balance.summary.cash
-          resolve(balance)
-        })
-      }
-      return val
+      return this.portfolios.reduce((acc, { balance }) => {
+        acc.cash += balance.cashTotal
+        acc.securities += balance.securities
+        acc.total = acc.cash + acc.securities
+      }, { cash: 0, securities: 0, total: 0 })
     }
   },
 
@@ -200,8 +184,6 @@ Session.defaultRates = {
   eqbToUsd: 100,
   eqbToBtc: 100 / 5000
 }
-
-canDefineStream(Session)
 
 const algebra = new set.Algebra(
   set.comparators.id('accessToken')

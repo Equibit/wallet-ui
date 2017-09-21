@@ -9,16 +9,18 @@
 
 import DefineMap from 'can-define/map/'
 import DefineList from 'can-define/list/list'
+import canDefineStream from 'can-define-stream-kefir'
 import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
 import algebra from '~/models/algebra'
-import Session from '~/models/session'
-import {
+// import Session from '~/models/session'
+import utils from './portfolio-utils'
+const {
   importAddr,
   getNextAddressIndex,
   getUnspentOutputsForAmount,
   fetchBalance
-} from './portfolio-utils'
+} = utils
 
 const portfolioService = feathersClient.service('portfolios')
 
@@ -49,13 +51,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
     type: 'string'
   },
 
-  // Deriving data:
-  // ┏ addressMeta<blockchainType,change,index>
-  // ┣ keys
-  // ┗ balance<>
-  //
-  //    ->
-
   /**
    * Address information: what blockchain it belongs to, whether its a change, and what its index is.
    * @property {String} models/portfolio.properties.addressesMeta addressesMeta
@@ -78,9 +73,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
     value: []
   },
 
-  keys: {
-    type: '*'
-  },
+  keys: '*',
+  rates: '*',
 
   /**
    * @property {String} models/portfolio.properties.addresses addresses
@@ -128,10 +122,16 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   listunspentPromise: {
     stream: function () {
-      const addrStream = this.toStream('.addresses').skipWhile(a => (!a || !a.length))
+      const addrStream = this.toStream('.addresses').skipWhile(a => {
+        console.log('listunspentPromise.stream skipWhile addresses=', a)
+        return (!a || !a.length)
+      })
       return addrStream.merge(this.toStream('refresh')).map(() => {
         console.log('*** [portfolio.listunspentPromise] fetching balance...')
-        return fetchBalance()
+        return fetchBalance({
+          BTC: this.addressesBtc,
+          EQB: this.addressesEqb
+        })
       })
     }
   },
@@ -140,9 +140,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
   // Unspent Transaction Output map by blockchain type and by address.
   utxoByTypeByAddress: {
     get (val, resolve) {
-      // TODO: filter out UTXO for this portfolio.
-      this.listunspentPromise.then(resolve)
-      return val
+      if (val) {
+        return val
+      }
+      if (this.listunspentPromise) {
+        // TODO: filter out UTXO for this portfolio.
+        this.listunspentPromise.then(resolve)
+      }
     }
   },
 
@@ -177,7 +181,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
         if (utxo && utxo.addresses[addr.address]) {
           const amount = utxo.addresses[addr.address].amount
           // Calculate summary:
-          if (a.type === 'BTC') {
+          if (addr.type === 'BTC') {
             acc.cashBtc += amount
             acc.cashTotal += amount
           } else {
@@ -185,8 +189,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
             acc.cashTotal += this.rates.eqbToBtc * amount
           }
         }
+        acc.total = acc.cashTotal + acc.securities
         return acc
-      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0})
+      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, total: 0})
 
       const total = cashTotal + securities
 
@@ -198,12 +203,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
   unrealizedPLPercent: {type: 'number', value: 0},
   createdAt: 'date',
   updatedAt: 'date',
-
-  rates: {
-    get (val) {
-      return val || (Session.current && Session.current.rates) || Session.defaultRates
-    }
-  },
 
   /**
    * @function {String} models/portfolio.properties.nextAddress nextAddress
@@ -329,6 +328,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
     this.dispatch('refresh')
   }
 })
+
+canDefineStream(Portfolio)
 
 Portfolio.List = DefineList.extend('PortfolioList', {
   '#': Portfolio,
