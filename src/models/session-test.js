@@ -14,7 +14,7 @@ describe('models/session', function () {
         assert.equal(session.portfolios.length, 1)
         assert.equal(session.portfolios[0].keys.BTC.keyPair.compressed, true)
         assert.equal(session.portfolios[0].keys.EQB.keyPair.compressed, true)
-        assert.equal(session.portfolios[0].addressesMeta.length, 2)
+        assert.equal(session.portfolios[0].addressesMeta[0].type, 'BTC')
         assert.equal(session.portfolios[0].addresses[0].address, 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA')
         assert.equal(session.portfolios[0].addresses[1].address, 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo')
         done()
