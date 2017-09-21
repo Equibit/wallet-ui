@@ -19,7 +19,8 @@ const {
   importAddr,
   getNextAddressIndex,
   getUnspentOutputsForAmount,
-  fetchBalance
+  fetchBalance,
+  getAllUtxo
 } = utils
 
 const portfolioService = feathersClient.service('portfolios')
@@ -122,10 +123,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   listunspentPromise: {
     stream: function () {
-      const addrStream = this.toStream('.addresses').skipWhile(a => {
-        console.log('listunspentPromise.stream skipWhile addresses=', a)
-        return (!a || !a.length)
-      })
+      const addrStream = this.toStream('.addresses').skipWhile(a => (!a || !a.length))
       return addrStream.merge(this.toStream('refresh')).map(() => {
         console.log('*** [portfolio.listunspentPromise] fetching balance...')
         return fetchBalance({
@@ -146,6 +144,16 @@ const Portfolio = DefineMap.extend('Portfolio', {
       if (this.listunspentPromise) {
         // TODO: filter out UTXO for this portfolio.
         this.listunspentPromise.then(resolve)
+      }
+    }
+  },
+  utxoByType: {
+    get () {
+      if (this.utxoByTypeByAddress) {
+        return {
+          BTC: getAllUtxo(this.utxoByTypeByAddress.BTC.addresses),
+          EQB: getAllUtxo(this.utxoByTypeByAddress.EQB.addresses)
+        }
       }
     }
   },
@@ -273,10 +281,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @returns {*}
    */
   getTxouts (amount, type) {
-    if (!this.balance.txouts || this.balance[type === 'BTC' ? 'cashBtc' : 'cashEqb'] < amount) {
+    if (!this.utxoByTypeByAddress) {
+      return
+    }
+    if (this.utxoByTypeByAddress[type].summary.total < amount) {
       return []
     }
-    return getUnspentOutputsForAmount(this.balance.txouts[type], amount)
+    return getUnspentOutputsForAmount(this.utxoByType[type], amount)
   },
 
   /**

@@ -61,9 +61,17 @@ const getUnspentOutputsForAmount = (txouts, amount) => {
   }, {sum: 0, txouts: []}).txouts
 }
 
+const getAllUtxo = (addresses) => {
+  return Object.keys(addresses).reduce((acc, addr) => {
+    acc.push(addresses[addr].txouts)
+    return acc
+  }, [])
+}
+
 export default {
   importAddr,
   fetchBalance,
   getNextAddressIndex,
-  getUnspentOutputsForAmount
+  getUnspentOutputsForAmount,
+  getAllUtxo
 }

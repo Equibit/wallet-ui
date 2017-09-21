@@ -6,13 +6,15 @@ const {
   importAddr,
   getNextAddressIndex,
   getUnspentOutputsForAmount,
-  fetchBalance
+  fetchBalance,
+  getAllUtxo
 } = utils
 // import portfolioAddresses from './fixtures/portfolio-addresses';
 import { omit } from 'ramda'
 import portfolio, { addressesMeta } from './mock/mock-portfolio'
+import listunspent from './mock/mock-listunspent'
 
-describe('models/portfolio', function () {
+describe('models/portfolio-utils', function () {
   describe('getNextAddressIndex', function () {
     it('should return next available index', function () {
       assert.deepEqual(getNextAddressIndex(addressesMeta, 'BTC'), {index: 2, imported: false})
@@ -44,6 +46,15 @@ describe('models/portfolio', function () {
     })
   })
 
+  describe('getAllUtxo', function () {
+    it('should collect all utxo by addresses', function () {
+      const utxo = getAllUtxo(listunspent.BTC.addresses)
+      assert.equal(utxo.length, 3)
+    })
+  })
+})
+
+describe('models/portfolio', function () {
   describe('instance properties', function () {
     it('should populate addresses', function () {
       const expectedAddresses = [
@@ -87,6 +98,23 @@ describe('models/portfolio', function () {
         assert.deepEqual(nextAddress, expected)
         done()
       })
+    })
+  })
+
+  describe('utxoByType', function () {
+    it('should return flat lists of utxo by type', function () {
+      assert.equal(portfolio.utxoByType.BTC.length, 3)
+      assert.equal(portfolio.utxoByType.EQB.length, 2)
+    })
+  })
+
+  describe('hasEnoughFunds', function () {
+    it('should check funds for BTC', function () {
+      assert.equal(portfolio.hasEnoughFunds(900000000, 'BTC'), false)
+      assert.equal(portfolio.hasEnoughFunds(900000000, 'BTC'), false)
+    })
+    it('should indicate enough funds for EQB', function () {
+      assert.equal(portfolio.hasEnoughFunds(300000000, 'EQB'), true)
     })
   })
 
