@@ -89,6 +89,7 @@ const Session = DefineMap.extend('Session', {
         portfolios.forEach(portfolio => {
           if (portfolio.index !== 'undefined') {
             portfolio.keys = this.user.generatePortfolioKeys(portfolio.index)
+            portfolio.rates = this.rates
           }
         })
         console.log('[session.portfolios.get -> resolve] length=' + portfolios.length)
@@ -124,16 +125,22 @@ const Session = DefineMap.extend('Session', {
    */
   balance: {
     get () {
-      if (!this.portfolios || !this.portfolios.length) {
+      if (!this.portfolios) {
         return {
-          summary: { cash: 0, securities: 0, total: 0 }
+          summary: { cash: 0, securities: 0, total: 0 },
+          isPending: true
         }
       }
-      return this.portfolios.reduce((acc, { balance }) => {
-        acc.cash += balance.cashTotal
-        acc.securities += balance.securities
-        acc.total = acc.cash + acc.securities
-      }, { cash: 0, securities: 0, total: 0 })
+      return this.portfolios.reduce((acc, portfolio) => {
+        if (!portfolio.balance) {
+          acc.isPending = true
+          return acc
+        }
+        acc.summary.cash += portfolio.balance.cashTotal
+        acc.summary.securities += portfolio.balance.securities
+        acc.summary.total = acc.summary.cash + acc.summary.securities
+        return acc
+      }, { summary: { cash: 0, securities: 0, total: 0 } })
     }
   },
 

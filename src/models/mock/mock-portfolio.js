@@ -39,7 +39,8 @@ const portfolioZero = new Portfolio({
   name: 'My Portfolio Empty',
   addressesMeta,
   keys: portfolioKeys,
-  utxoByTypeByAddress: listunspentZero
+  utxoByTypeByAddress: listunspentZero,
+  rates: Session.current.rates
 })
 
 const portfolioBtc = new Portfolio({
@@ -47,7 +48,8 @@ const portfolioBtc = new Portfolio({
   name: 'My Portfolio Empty',
   addressesMeta,
   keys: portfolioKeys,
-  utxoByTypeByAddress: listunspentBtc
+  utxoByTypeByAddress: listunspentBtc,
+  rates: Session.current.rates
 })
 
 export default portfolio

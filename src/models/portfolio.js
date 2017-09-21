@@ -170,7 +170,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
   balance: {
     get () {
       if (!this.utxoByTypeByAddress) {
-        return {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, total: 0}
+        console.log('portfolio.balance is undefined - no utxo yet...')
+        return
       }
       const utxoByType = this.utxoByTypeByAddress
 
@@ -195,6 +196,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
       const total = cashTotal + securities
 
+      console.log(`portfolio.balance.total is ${total}`)
       return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total })
     }
   },

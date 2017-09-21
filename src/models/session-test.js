@@ -20,11 +20,13 @@ describe('models/session', function () {
         done()
       })
     })
-    it('should populate allAddresses and balance', function (done) {
-      session.on('balance', function () {
-        assert.equal(session.allAddresses.BTC.length, 1)
-        assert.equal(session.allAddresses.EQB.length, 1)
-        const totalInBtc = 1.5 + 3.4 * session.rates.eqbToBtc
+    it('should populate balance', function (done) {
+      const totalInBtc = 770000000 * session.rates.eqbToBtc
+      session.on('balance', function (ev, newVal, oldVal) {
+        console.log('on.balance', ev, newVal, oldVal)
+        if (!session.balance || session.balance.isPending){
+          return
+        }
         assert.deepEqual(session.balance.summary, {
           total: totalInBtc,
           cash: totalInBtc,

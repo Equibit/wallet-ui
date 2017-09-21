@@ -3,41 +3,56 @@ import fixture from 'can-fixture'
 fixture('GET /listunspent', function () {
   return {
     BTC: {
-      summary: {'total': 1.5},
+      summary: {'total': 210000000},
       addresses: {
         n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: {
-          amount: 1.5,
+          amount: 150000000,
           txouts: [{
-            txid: '50096d2b246c260698b949ce7cd321bd231e23975a9f7603b1a859d4c5906bae',
-            vout: 1,
-            address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA',
-            account: '',
-            scriptPubKey: '76a91432603c646ac065369204cbfb4ab0839b18a1812988ac',
-            amount: 1.5,
-            confirmations: 0,
-            spendable: false,
-            solvable: false
+            'txid': 'ef26a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301',
+            'vout': 0,
+            'address': 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA',
+            'amount': 150000000
+          }]
+        },
+        mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA: {
+          amount: 50000000,
+          txouts: [{
+            'txid': 'e226a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301',
+            'vout': 0,
+            'address': 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA',
+            'amount': 50000000
+          }]
+        },
+        mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ: {
+          amount: 10000000,
+          txouts: [{
+            'txid': 'e226a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301',
+            'vout': 1,
+            'address': 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ',
+            'amount': 10000000
           }]
         }
       }
     },
     EQB: {
-      summary: {
-        total: 3.4
-      },
+      summary: {'total': 560000000},
       addresses: {
         n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo: {
-          amount: 3.4,
+          amount: 340000000,
           txouts: [{
-            txid: '2f3caaca755707ef3cb846cca5a0b536d4afaf551a7fc3edbd007a77df84b4cb',
-            vout: 1,
-            address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo',
-            account: '',
-            scriptPubKey: '76a9140f1492371896d79aaf929f411e6c2313abb70b3888ac',
-            amount: 3.4,
-            confirmations: 0,
-            spendable: false,
-            solvable: false
+            'txid': 'e326a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301',
+            'vout': 0,
+            'address': 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo',
+            'amount': 340000000
+          }]
+        },
+        mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU: {
+          amount: 220000000,
+          txouts: [{
+            'txid': 'e426a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301',
+            'vout': 0,
+            'address': 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU',
+            'amount': 220000000
           }]
         }
       }
