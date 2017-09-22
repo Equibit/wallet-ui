@@ -58,7 +58,19 @@ export const ViewModel = DefineMap.extend({
       console.error('Error: received no form data')
       return
     }
+    return (formData.type === 'SECURITIES' ? this.sendIssuance(formData) : this.sendFunds(formData))
+      .then(() => {
+        const msg = formData.type === 'SECURITIES' ? translate('securitiesSent') : translate('fundsSent')
+        hub.dispatch({
+          'type': 'alert',
+          'kind': 'success',
+          'title': msg,
+          'displayInterval': 5000
+        })
+      })
+  },
 
+  sendFunds (formData) {
     const currencyType = formData.fundsType
     this.portfolio.nextChangeAddress().then(addrObj => {
       return addrObj[currencyType]
@@ -73,21 +85,45 @@ export const ViewModel = DefineMap.extend({
     }).then(changeAddr => {
       console.log('[my-portfolio.send] transaction was saved')
       this.isSending = false
-
-      const msg = this.type === 'SECURITIES' ? translate('securitiesSent') : translate('fundsSent')
-      hub.dispatch({
-        'type': 'alert',
-        'kind': 'success',
-        'title': msg,
-        'displayInterval': 5000
-      })
       Session.current.refreshBalance()
-
       // mark change address as used
       // this.portfolio.nextChangeAddress[currencyType]
       console.log('[my-portfolio.send] marking change address as used ...')
       this.portfolio.markAsUsed(changeAddr, currencyType, true)
     })
+  },
+
+  sendIssuance (formData) {
+    if (!formData.issuance) {
+      console.error('Error: issuance is not defined. formData: ', formData)
+      return
+    }
+    if (!formData.issuance.keys) {
+      console.error('Error: issuance.keys is not defined. issuance: ', formData.issuance)
+      return
+    }
+    const issuance = formData.issuance
+
+    const toAddress = formData.toAddress
+    const changeAddr = issuance.address
+    const currencyType = 'EQB'
+    const amount = formData.amount
+
+    const txouts = issuance.getTxoutsFor(amount)
+      .map(a => merge(a, {keyPair: this.issuance.keys}))
+
+    const txoutsFee = this.portfolio.getTxouts(formData.transactionFee, 'EQB')
+      .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
+    txouts.push.apply(txouts, txoutsFee)
+
+    const options = {
+      fee: formData.transactionFee,
+      changeAddr,
+      type: 'OUT',
+      currencyType,
+      description: formData.description
+    }
+    return Transaction.makeTransaction(amount, toAddress, txouts, options)
   },
 
   prepareTransaction (formData, changeAddr) {
