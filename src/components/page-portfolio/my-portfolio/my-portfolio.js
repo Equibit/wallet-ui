@@ -118,6 +118,9 @@ export const ViewModel = DefineMap.extend({
 
     const amountEqb = txoutsFee.reduce((acc, { amount }) => (acc + amount), 0)
 
+    // if we dont send all authorized shares then change goes back to the same issuance address
+    const issuanceJson = JSON.parse(txouts[0].equibit.issuance_json)
+
     // todo: for now just send the empty EQB change back to where we got it:
     const changeAddrEmptyEqb = txoutsFee[0].address
 
@@ -129,10 +132,15 @@ export const ViewModel = DefineMap.extend({
       type: 'OUT',
       currencyType,
       description: formData.description,
-      issuanceTxId: issuance.txouts[0].txid
+      issuanceTxId: issuance.utxo[0].txid,
+      issuanceJson
     }
+    const tx = Transaction.makeTransaction(amount, toAddress, txouts, options)
     debugger
-    return Transaction.makeTransaction(amount, toAddress, txouts, options)
+
+    return tx.save().then(() => {
+      this.portfolio.markAsUsed(changeAddrEmptyEqb, 'EQB', true)
+    })
   },
 
   prepareTransaction (formData, changeAddr) {

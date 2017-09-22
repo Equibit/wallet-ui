@@ -28,6 +28,7 @@ const Transaction = DefineMap.extend('Transaction', {
         outputs[0].issuanceJson = issuanceJson
       } else {
         outputs[1].issuanceJson = issuanceJson
+        outputs[1].value = toSatoshi(issuance.availableAmount - amount)
       }
     }
     if (issuanceTxId) {
@@ -196,8 +197,8 @@ export const buildTransactionEqb = (inputs, outputs, network = bitcoin.networks.
     vout.equibit = {
       // TODO: pass payment currency type here.
       payment_currency: 0,
-      payment_tx_id: (vout.issuanceTxId ? vout.issuanceTxId : ''),
-      issuance_tx_id: '0000000000000000000000000000000000000000000000000000000000000000',
+      payment_tx_id: '',
+      issuance_tx_id: (vout.issuanceTxId ? vout.issuanceTxId : '0000000000000000000000000000000000000000000000000000000000000000'),
       issuance_json: (vout.issuanceJson ? JSON.stringify(vout.issuanceJson) : '')
     }
     delete vout.issuanceJson
