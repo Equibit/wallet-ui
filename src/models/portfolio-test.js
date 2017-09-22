@@ -1,18 +1,17 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import Portfolio from './portfolio'
-import utils from './portfolio-utils'
-const {
-  importAddr,
-  getNextAddressIndex,
-  getUnspentOutputsForAmount,
-  fetchBalance,
-  getAllUtxo
-} = utils
-// import portfolioAddresses from './fixtures/portfolio-addresses';
 import { omit } from 'ramda'
 import portfolio, { addressesMeta } from './mock/mock-portfolio'
 import listunspent from './mock/mock-listunspent'
+import utils from './portfolio-utils'
+const {
+  // importAddr,
+  getNextAddressIndex,
+  getUnspentOutputsForAmount,
+  // fetchBalance,
+  getAllUtxo
+} = utils
 
 describe('models/portfolio-utils', function () {
   describe('getNextAddressIndex', function () {

@@ -24,7 +24,7 @@ describe('models/session', function () {
       const totalInBtc = 770000000 * session.rates.eqbToBtc
       session.on('balance', function (ev, newVal, oldVal) {
         console.log('on.balance', ev, newVal, oldVal)
-        if (!session.balance || session.balance.isPending){
+        if (!session.balance || session.balance.isPending) {
           return
         }
         assert.deepEqual(session.balance.summary, {
