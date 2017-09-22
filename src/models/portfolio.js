@@ -96,7 +96,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           keyPair: keysNode.keyPair,
           meta: meta
         }
-      })) || []
+      })) || new DefineList([])
     }
   },
 
