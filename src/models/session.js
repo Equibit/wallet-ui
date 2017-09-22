@@ -61,7 +61,7 @@ const Session = DefineMap.extend('Session', {
    * Promise for portfolios live list.
    */
   portfoliosPromise: {
-    get () {
+    get (val) {
       console.log('[session.portfoliosPromise.get] ...')
       // TODO: report that portfolio.patch breaks Portfolio.connection.listStore if a set different from `{}` is used.
       // We do not need to provide userId since feathers does this for us (restricts to current user via JWT)

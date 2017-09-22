@@ -67,11 +67,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   addressesMeta: {
     serialize: true,
-    // Type: DefineList,
-    // value: new DefineList([])
+    Type: DefineList,
+    value: new DefineList([])
     // TODO: should this be an observable list? can it be updated via websocket?
     // Note: this is not an observable list to not trigger linstunspent request.
-    value: []
+    // value: []
   },
 
   keys: '*',
@@ -87,6 +87,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       // TODO: make sure this getter is cached (maybe change to a stream derived from addressesMeta).
       console.log('[portfolio.addresses] deriving addresses...')
       return (this.keys && this.addressesMeta && this.addressesMeta.map(meta => {
+        console.log(`meta.type = ${meta.type}`, meta, this.keys)
         const keysNode = this.keys[meta.type].derive(meta.isChange ? 1 : 0).derive(meta.index)
         return {
           index: meta.index,
@@ -127,8 +128,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
       return addrStream.merge(this.toStream('refresh')).map(() => {
         console.log('*** [portfolio.listunspentPromise] fetching balance...')
         return fetchBalance({
-          BTC: this.addressesBtc,
-          EQB: this.addressesEqb
+          BTC: this.addressesBtc.get(),
+          EQB: this.addressesEqb.get()
         })
       })
     }
@@ -261,7 +262,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       // Save newly generated addresses to DB:
       console.log('[portfolio.getNextAddress] patching portfolio with updated addressesMeta ...')
       return this.patch({
-        addressesMeta: this.addressesMeta
+        addressesMeta: this.addressesMeta.get()
       }).then(() => addr)
     } else {
       return Promise.resolve(addr)
@@ -324,7 +325,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       addressItem.meta.isUsed = true
       console.log('[portfolio.markAsUsed] patching portfolio with updated addressesMeta ...')
       return this.patch({
-        addressesMeta: this.addressesMeta
+        addressesMeta: this.addressesMeta.get()
       })
     }
   },

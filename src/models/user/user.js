@@ -171,6 +171,7 @@ const User = DefineMap.extend('User', {
       console.warn('No keys exist. Cannot generate portfolio keys')
       return
     }
+    console.log(`generatePortfolioKeys(${index}) ...`)
     return {
       BTC: _keys.BTC.deriveHardened(index),
       EQB: _keys.EQB.deriveHardened(index)
