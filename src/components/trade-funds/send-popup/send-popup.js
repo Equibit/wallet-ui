@@ -78,7 +78,7 @@ const FormData = DefineMap.extend({
       }
       if (this.type === 'SECURITIES' && this.issuance){
         // Need available shares amount and Empty EQB for the fee:
-        return this.issuance.availableAmount > this.amount && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
+        return this.issuance.availableAmount >= this.amount && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
       }
     }
   },
