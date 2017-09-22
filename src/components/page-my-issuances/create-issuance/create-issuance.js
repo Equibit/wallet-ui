@@ -30,11 +30,13 @@ export const ViewModel = DefineMap.extend({
     value: 'edit'
   },
   portfolio: '*',
+  issuances: '*',
   formData: {
     get () {
-      if (this.portfolio) {
+      if (this.portfolio && this.issuances) {
         return new FormData({
-          portfolio: this.portfolio
+          portfolio: this.portfolio,
+          issuances: this.issuances
         })
       }
     }
@@ -62,24 +64,25 @@ export const ViewModel = DefineMap.extend({
     })
   },
   createIssuance (formData) {
-    // build transaction
-    // save transaction
-    // save issuance
-    const issuance = formData.issuance
-    const currencyType = 'EQB'
-
-    console.log('createIssuance: ', formData, issuance)
     if (!formData) {
       console.error('Error: received no form data')
       return Promise.reject(new Error('No form data provided'))
     }
+    // build transaction
+    // save transaction
+    // save issuance
+    const issuance = formData.issuance
+    const company = issuance.selectedCompany
+    const currencyType = 'EQB'
+    // todo: simplify, hide this in models.
+    const companyHdNode = Session.current.user.generatePortfolioKeys(company.index).EQB
+    const toAddress = companyHdNode.derive(issuance.index).getAddress()
 
-    return Promise.all([
-      this.portfolio.getNextAddress(),
-      this.portfolio.nextChangeAddress()
-    ]).then(addresses => {
-      return addresses.map(addrObj => addrObj[currencyType])
-    }).then(([toAddress, changeAddr]) => {
+    console.log(`createIssuance: toAddress=${toAddress}`, formData, issuance)
+
+    return this.portfolio.nextChangeAddress()
+    .then(addrObj => addrObj[currencyType])
+    .then((changeAddr) => {
       console.log(`toAddress=${toAddress}, changeAddr=${changeAddr}`)
       const tx = this.prepareTransaction(formData, issuance, toAddress, changeAddr)
 

@@ -6,9 +6,10 @@ import { toMaxPrecision } from '../../../utils/formatter'
 
 const FormData = DefineMap({
   issuance: {
-    value () {
+    get () {
       return new Issuance({
         userId: Session.current.user._id,
+        index: this.issuances.getNewIndex(),
         sharesAuthorized: 100 * 1000 * 1000,
         issuanceUnit: 'SHARES'
       })
@@ -24,6 +25,7 @@ const FormData = DefineMap({
       Company.getList({userId: Session.current.user._id}).then(resolve)
     }
   },
+  issuances: '*',
 
   // Transaction related:
   portfolio: '*',

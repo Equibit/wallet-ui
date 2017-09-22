@@ -52,7 +52,7 @@ Equibit:
 
 ### Companies and authorized Issuances (Equibit blockchain only)
 ```
-/m /44' /0'  /<company>' /0
+/m /44' /72' /<company>' /0
                             /<issuance> - EQB address for authorized EQB (with JSON)
                             /...
                          /1             - N/A, no usage of change addresses

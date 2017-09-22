@@ -11,6 +11,7 @@ const Issuance = DefineMap.extend('Issuance', {
    * Id of the user who created the issuance
    */
   userId: 'string',
+  index: 'number',
 
   companyId: 'string',
   companyName: 'string',
@@ -109,7 +110,16 @@ Issuance.types = new DefineList([
 ])
 
 Issuance.List = DefineList.extend('IssuanceList', {
-  '#': Issuance
+  '#': Issuance,
+  // Every new issuance requires a new index for its EQB address.
+  getNewIndex () {
+    return this.reduce((acc, issuance) => {
+      if (issuance.index > acc) {
+        acc = issuance.index
+      }
+      return acc
+    }, 0)
+  }
 })
 
 Issuance.connection = superModel({

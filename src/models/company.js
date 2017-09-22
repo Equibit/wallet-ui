@@ -10,6 +10,7 @@ const Company = DefineMap.extend('Company', {
 }, {
   _id: 'string',
   userId: 'string',
+  index: 'number',
 
   name: 'string',
   slug: 'string',
