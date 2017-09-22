@@ -11,6 +11,8 @@ const Issuance = DefineMap.extend('Issuance', {
    * Id of the user who created the issuance
    */
   userId: 'string',
+  index: 'number',
+  companyIndex: 'number',
 
   companyId: 'string',
   companyName: 'string',
@@ -63,11 +65,21 @@ const Issuance = DefineMap.extend('Issuance', {
     set (company) {
       if (company) {
         this.companyId = company._id
+        this.companyIndex = company.index
         this.companyName = company.name
         this.companySlug = company.slug
         this.domicile = company.domicile
       }
       return company
+    }
+  },
+  keys: {
+    serialize: false
+  },
+  address: {
+    serialize: false,
+    get () {
+      return this.keys.getAddress()
     }
   },
   getJson () {
@@ -109,7 +121,16 @@ Issuance.types = new DefineList([
 ])
 
 Issuance.List = DefineList.extend('IssuanceList', {
-  '#': Issuance
+  '#': Issuance,
+  // Every new issuance requires a new index for its EQB address.
+  getNewIndex () {
+    return this.reduce((acc, issuance) => {
+      if (issuance.index > acc) {
+        acc = issuance.index
+      }
+      return acc
+    }, 0)
+  }
 })
 
 Issuance.connection = superModel({

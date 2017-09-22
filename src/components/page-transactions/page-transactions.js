@@ -20,12 +20,9 @@ import view from './page-transactions.stache'
 import Portfolio from '../../models/portfolio'
 
 export const ViewModel = DefineMap.extend({
-  transactions: {
-    type: '*'
-  },
-  selectedRow: {
-    type: '*'
-  },
+  transactions: '*',
+  selectedRow: '*',
+  // addresses: '*',
   portfolios: {
     Type: Portfolio.List
   }

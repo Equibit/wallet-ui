@@ -25,13 +25,13 @@ import canMap from 'can-connect/can/map/'
 import dataCallbacks from 'can-connect/data/callbacks/'
 import realtime from 'can-connect/real-time/'
 import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior'
-import canDefineStream from 'can-define-stream-kefir'
+
 import Notification from './notification'
-import feathersClient from '~/models/feathers-client'
-import signed from '~/models/feathers-signed'
-import User from '~/models/user/user'
-import Portfolio from '~/models/portfolio'
-import Issuance from '../models/issuance'
+import feathersClient from './feathers-client'
+import signed from './feathers-signed'
+import User from './user/user'
+import Portfolio from './portfolio'
+import Issuance from './issuance'
 
 const behaviors = [
   feathersAuthenticationSignedSession,
@@ -58,130 +58,89 @@ const Session = DefineMap.extend('Session', {
   /**
    * @property {Function} models/session.prototype.portfoliosPromise portfoliosPromise
    * @parent models/session.prototype
-   * Promise for portfolios.
+   * Promise for portfolios live list.
    */
   portfoliosPromise: {
-    get () {
+    get (val) {
       console.log('[session.portfoliosPromise.get] ...')
       // TODO: report that portfolio.patch breaks Portfolio.connection.listStore if a set different from `{}` is used.
+      // We do not need to provide userId since feathers does this for us (restricts to current user via JWT)
       return Portfolio.getList({})
     }
   },
 
   /**
-   * @property {Function} models/session.prototype.portfolios portfolios
+   * @property {Function} models/session.prototype.portfoliosMeta portfoliosMeta
    * @parent models/session.prototype
-   * List of user's portfolios.
+   * List of user's portfolios info.
+   * ```
+   *  [{
+   *    name,
+   *    index,
+   *
+   *  }]
+   * ```
    */
   portfolios: {
     Type: Portfolio.List,
-    get (val, resolved) {
+    get (val, resolve) {
       console.log('[session.portfolios.get] ...')
-      if (!val) {
-        this.portfoliosPromise.then(portfolios => {
-          portfolios.forEach(portfolio => {
-            if (portfolio.index !== 'undefined') {
-              // TODO: Mutates portfolio adding keys. Use getter that checks Session.current.user and generates keys.
-              portfolio.keys = this.user.generatePortfolioKeys(portfolio.index)
-            }
-          })
-          console.log('[session.portfolios.get -> resolve] length=' + portfolios.length)
-          resolved(portfolios)
+      this.portfoliosPromise.then(portfolios => {
+        portfolios.forEach(portfolio => {
+          if (portfolio.index !== 'undefined') {
+            portfolio.keys = this.user.generatePortfolioKeys(portfolio.index)
+            portfolio.rates = this.rates
+          }
         })
-      }
-      return val
-    }
-  },
-
-  /**
-   * @property {Function} models/session.prototype.allAddresses allAddresses
-   * @parent models/session.prototype
-   * List of all addresses for fetching unspent amounts.
-   */
-  allAddresses: {
-    get () {
-      return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
-        return {
-          BTC: acc.BTC.concat(portfolio.addressesBtc),
-          EQB: acc.EQB.concat(portfolio.addressesEqb)
-        }
-      }, {EQB: [], BTC: []})
-    }
-  },
-
-  /**
-   * @property {Function} models/session.prototype.balancePromise balancePromise
-   * @parent models/session.prototype
-   * Promise for balance.
-   */
-  balancePromise: {
-    stream: function () {
-      const addrStream = this.toStream('.allAddresses').skipWhile(a => !a || !(a.BTC.length || a.EQB.length))
-      return addrStream.merge(this.toStream('refresh')).map(() => {
-        console.log('*** [portfolio.balancePromise] fetching balance...')
-        return this.fetchBalance()
+        console.log('[session.portfolios.get -> resolve] length=' + portfolios.length)
+        resolve(portfolios)
       })
     }
   },
-  fetchBalance () {
-    const addr = this.allAddresses
-    return feathersClient.service('/listunspent').find({
-      // GET query params are lower cased:
-      query: {
-        btc: addr.BTC,
-        eqb: addr.EQB,
-        byaddress: true
-      }
-    })
-  },
+
+  /**
+   * @property {Function} models/session.prototype.refreshBalance refreshBalance
+   * @parent models/session.prototype
+   * Method to refresh balance. Will request linstunspent and update balancePromise.
+   */
   refreshBalance: function () {
-    this.dispatch('refresh')
+    if (this.portfolios && this.portfolios[0]) {
+      this.portfolios[0].refreshBalance()
+    }
   },
 
   /**
    * @property {Function} models/session.prototype.balance balance
    * @parent models/session.prototype
-   * User balance contains a summary and balance per address.
-   *
+   * User balance contains a summary from all portfolios.
    * ```
    * {
-   *   "summary": {
-   *     "total": 3.34999
-   *   },
-   *   "mpS2RuNkAEALvMhksCa6fPpLVb5yCPanLu": {
-   *     "amount": 2.35,
-   *     "txouts": [...]
-   *   }, { ... }
+   *    "summary": {
+   *      "total": 3.34999
+   *      "cash": 3.34999
+   *      "securities": 0
+   *    }
    * }
    * ```
    */
   balance: {
-    // 1. We pass user's balance to each portfolio
-    // 2. Each portfolio calculates its own balance and break it down (equity / bonds / cash)
-    // 3. We calculate summary based on individual portfolio balance and add it to user's balance.
-    get (val, resolve) {
-      if (!val && !this.balancePromise) {
+    get () {
+      if (!this.portfolios) {
         return {
-          summary: { cash: 0, securities: 0, total: 0, isDefault: true }
+          summary: { cash: 0, securities: 0, total: 0 },
+          isPending: true
         }
       }
-      // TODO: fix incorrect using val which only receives a value when balance gets explicitly set.
-      if ((!val || val.isDefault) && this.balancePromise) {
-        this.balancePromise.then(balance => {
-          this.portfolios.forEach(portfolio => {
-            // TODO: Mutates portfolio updating userBalance. Use getter that checks Session.current.balance
-            console.log('[portfolio.balance] updating portfolio.userBalance ...')
-            portfolio.userBalance = balance
-          })
-          balance.summary = {
-            securities: 0,
-            cash: balance.BTC.summary.total + (balance.EQB.summary.total) * this.rates.eqbToBtc
-          }
-          balance.summary.total = balance.summary.securities + balance.summary.cash
-          resolve(balance)
-        })
-      }
-      return val
+      return this.portfolios.reduce((acc, portfolio) => {
+        if (!portfolio.balance) {
+          acc.isPending = true
+          return acc
+        }
+        acc.summary.cash += portfolio.balance.cashTotal
+        acc.summary.securities += portfolio.balance.securities
+        acc.summary.total = acc.summary.cash + acc.summary.securities
+        return acc
+      }, { summary: { cash: 0, securities: 0, total: 0 } })
     }
   },
 
@@ -218,11 +177,40 @@ const Session = DefineMap.extend('Session', {
     }
   },
   issuances: {
+    Type: Issuance.List,
     get (val, resolve) {
       if (this.issuancesPromise) {
-        this.issuancesPromise.then(resolve)
+        this.issuancesPromise.then(issuances => {
+          issuances.forEach(issuance => {
+            if (issuance.index !== 'undefined') {
+              const companyHdNode = this.user.generatePortfolioKeys(issuance.companyIndex).EQB
+              issuance.keys = companyHdNode.derive(issuance.index)
+            }
+          })
+          resolve(issuances)
+        })
       }
       return val
+    }
+  },
+
+  /**
+   * @property {Function} models/session.prototype.allAddresses allAddresses
+   * @parent models/session.prototype
+   * List of all addresses by type. Includes authorized issuances. To use for getting transactions.
+   */
+  allAddresses: {
+    get () {
+      const issuanceAddresses = this.issuances.reduce((acc, issuance) => {
+        acc.push(issuance.address)
+        return acc
+      }, [])
+      return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
+        return {
+          BTC: acc.BTC.concat(portfolio.addressesBtc.get()),
+          EQB: acc.EQB.concat(portfolio.addressesEqb.get())
+        }
+      }, {EQB: issuanceAddresses, BTC: []})
     }
   }
 })
@@ -232,8 +220,6 @@ Session.defaultRates = {
   eqbToUsd: 100,
   eqbToBtc: 100 / 5000
 }
-
-canDefineStream(Session)
 
 const algebra = new set.Algebra(
   set.comparators.id('accessToken')

@@ -171,6 +171,8 @@ const User = DefineMap.extend('User', {
       console.warn('No keys exist. Cannot generate portfolio keys')
       return
     }
+    console.log(`generatePortfolioKeys(${index}) ...`)
+    // TODO: we need to separate index for btc and eqb. E.g. companies have only eqb index for auth issuances.
     return {
       BTC: _keys.BTC.deriveHardened(index),
       EQB: _keys.EQB.deriveHardened(index)

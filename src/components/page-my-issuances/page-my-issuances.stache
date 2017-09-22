@@ -39,5 +39,6 @@
 
 {{#if isIssuacePopupVisible}}
   <create-issuance (created)="createIssuance(%arguments)"
+                   {issuances}="issuances"
                    {portfolio}="portfolio" />
 {{/if}}

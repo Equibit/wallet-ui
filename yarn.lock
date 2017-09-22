@@ -1234,9 +1234,9 @@ can-define-stream@^0.2.1:
     can-util "^3.9.0"
     kefir "^3.5.1"
 
-can-define@^1.0.10, can-define@^1.0.17, can-define@^1.0.20, can-define@^1.2.0, can-define@^1.4.4:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/can-define/-/can-define-1.4.4.tgz#4c63f34aabf22a3c035f1faaeac40f0b41c71a16"
+can-define@^1.0.10, can-define@^1.0.17, can-define@^1.0.20, can-define@^1.2.0, can-define@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/can-define/-/can-define-1.4.5.tgz#70ba8ac861d465d091c8074457475707aa15347b"
   dependencies:
     can-cid "^1.0.0"
     can-compute "^3.3.1"
@@ -1284,9 +1284,9 @@ can-event-radiochange@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/can-event-radiochange/-/can-event-radiochange-0.1.1.tgz#a911c618b365aac9844989018bb0ca6a4225b085"
 
-can-event@^3.2.0, can-event@^3.3.0, can-event@^3.5.0, can-event@^3.5.0-pre.2, can-event@^3.6.0, can-event@^3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/can-event/-/can-event-3.7.1.tgz#5ae5ce70746ac92ff5765049a27934ebf673f81a"
+can-event@^3.2.0, can-event@^3.3.0, can-event@^3.5.0, can-event@^3.5.0-pre.2, can-event@^3.6.0, can-event@^3.7.4:
+  version "3.7.4"
+  resolved "https://registry.yarnpkg.com/can-event/-/can-event-3.7.4.tgz#3e63cdd7dc7306fb7aead83dbee062e48c1e6b8f"
   dependencies:
     can-cid "^1.0.0"
     can-namespace "1.0.0"
@@ -1505,9 +1505,9 @@ can-stache-key@0.1.0:
     can-symbol "^1.0.0-pre.0"
     can-util "^3.9.0-pre.4"
 
-can-stache@^3.0.0, can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.3.0, can-stache@^3.4.0, can-stache@^3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.7.1.tgz#ede555d2b684c9cef243285e0693fd5cd72757a6"
+can-stache@^3.0.0, can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.3.0, can-stache@^3.4.0, can-stache@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.8.0.tgz#5bbe899b8502baa22cb300b71a2c4d51778ea6d0"
   dependencies:
     can-attribute-encoder "^0.3.0"
     can-compute "^3.3.1"

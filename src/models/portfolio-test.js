@@ -1,11 +1,19 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
-import Portfolio, { getNextAddressIndex, getUnspentOutputsForAmount } from './portfolio'
-// import portfolioAddresses from './fixtures/portfolio-addresses';
+import Portfolio from './portfolio'
 import { omit } from 'ramda'
 import portfolio, { addressesMeta } from './mock/mock-portfolio'
+import listunspent from './mock/mock-listunspent'
+import utils from './portfolio-utils'
+const {
+  // importAddr,
+  getNextAddressIndex,
+  getUnspentOutputsForAmount,
+  // fetchBalance,
+  getAllUtxo
+} = utils
 
-describe('models/portfolio', function () {
+describe('models/portfolio-utils', function () {
   describe('getNextAddressIndex', function () {
     it('should return next available index', function () {
       assert.deepEqual(getNextAddressIndex(addressesMeta, 'BTC'), {index: 2, imported: false})
@@ -37,6 +45,15 @@ describe('models/portfolio', function () {
     })
   })
 
+  describe('getAllUtxo', function () {
+    it('should collect all utxo by addresses', function () {
+      const utxo = getAllUtxo(listunspent.BTC.addresses)
+      assert.equal(utxo.length, 3)
+    })
+  })
+})
+
+describe('models/portfolio', function () {
   describe('instance properties', function () {
     it('should populate addresses', function () {
       const expectedAddresses = [
@@ -46,27 +63,29 @@ describe('models/portfolio', function () {
         {index: 1, type: 'EQB', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU', isChange: false},
         {index: 0, type: 'BTC', address: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', isChange: true}
       ]
-      assert.deepEqual(portfolio.addresses.length, 5)
+      assert.equal(portfolio.addresses.length, 5)
       assert.deepEqual(omit(['keyPair', 'meta'], portfolio.addresses[0]), expectedAddresses[0])
     })
 
     it('should populate addressesBtc and addressesEqb', function () {
       const expectedAddressesBtc = ['n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ']
       const expectedAddressesEqb = ['n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU']
-      assert.deepEqual(portfolio.addressesBtc, expectedAddressesBtc)
-      assert.deepEqual(portfolio.addressesEqb, expectedAddressesEqb)
+      assert.deepEqual(portfolio.addressesBtc.get(), expectedAddressesBtc)
+      assert.deepEqual(portfolio.addressesEqb.get(), expectedAddressesEqb)
     })
 
     it('should populate portfolio balance based on user\'s balance', function () {
       var expectedBalance = {
-        cashBtc: 2,
-        cashEqb: 3.4,
-        securities: 0
+        cashBtc: 2.1 * 100000000,
+        cashEqb: 5.6 * 100000000,
+        securities: 0,
+        cashTotal: 0, // calc below
+        total: 0      // calc below
       }
       expectedBalance.cashTotal = expectedBalance.cashBtc + expectedBalance.cashEqb * portfolio.rates.eqbToBtc
       expectedBalance.total = expectedBalance.cashTotal + expectedBalance.securities
-      const balance = portfolio.balance.get()
-      assert.deepEqual(omit(['txouts'], balance), expectedBalance)
+      const balance = portfolio.balance
+      assert.deepEqual(balance, expectedBalance)
     })
 
     it('should populate nextAddress', function (done) {
@@ -78,6 +97,24 @@ describe('models/portfolio', function () {
         assert.deepEqual(nextAddress, expected)
         done()
       })
+    })
+  })
+
+  describe('utxoByType', function () {
+    it('should return flat lists of utxo by type', function () {
+      assert.equal(portfolio.utxoByType.BTC.length, 3)
+      assert.equal(portfolio.utxoByType.BTC[0].address, 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA')
+      assert.equal(portfolio.utxoByType.EQB.length, 2)
+    })
+  })
+
+  describe('hasEnoughFunds', function () {
+    it('should check funds for BTC', function () {
+      assert.equal(portfolio.hasEnoughFunds(900000000, 'BTC'), false)
+      assert.equal(portfolio.hasEnoughFunds(900000000, 'BTC'), false)
+    })
+    it('should indicate enough funds for EQB', function () {
+      assert.equal(portfolio.hasEnoughFunds(300000000, 'EQB'), true)
     })
   })
 

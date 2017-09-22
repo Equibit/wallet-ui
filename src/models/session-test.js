@@ -14,17 +14,19 @@ describe('models/session', function () {
         assert.equal(session.portfolios.length, 1)
         assert.equal(session.portfolios[0].keys.BTC.keyPair.compressed, true)
         assert.equal(session.portfolios[0].keys.EQB.keyPair.compressed, true)
-        assert.equal(session.portfolios[0].addressesMeta.length, 2)
+        assert.equal(session.portfolios[0].addressesMeta[0].type, 'BTC')
         assert.equal(session.portfolios[0].addresses[0].address, 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA')
-        assert.equal(session.portfolios[0].addresses[1].address, 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo')
+        assert.equal(session.portfolios[0].addresses[1].address, 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA')
         done()
       })
     })
-    it('should populate allAddresses and balance', function (done) {
-      session.on('balance', function () {
-        assert.equal(session.allAddresses.BTC.length, 1)
-        assert.equal(session.allAddresses.EQB.length, 1)
-        const totalInBtc = 1.5 + 3.4 * session.rates.eqbToBtc
+    it('should populate balance', function (done) {
+      const totalInBtc = 770000000 * session.rates.eqbToBtc
+      session.on('balance', function (ev, newVal, oldVal) {
+        console.log('on.balance', ev, newVal, oldVal)
+        if (!session.balance || session.balance.isPending) {
+          return
+        }
         assert.deepEqual(session.balance.summary, {
           total: totalInBtc,
           cash: totalInBtc,

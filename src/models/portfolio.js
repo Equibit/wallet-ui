@@ -9,15 +9,21 @@
 
 import DefineMap from 'can-define/map/'
 import DefineList from 'can-define/list/list'
+import canDefineStream from 'can-define-stream-kefir'
 import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
 import algebra from '~/models/algebra'
-import Session from '~/models/session'
+// import Session from '~/models/session'
+import utils from './portfolio-utils'
+const {
+  importAddr,
+  getNextAddressIndex,
+  getUnspentOutputsForAmount,
+  fetchBalance,
+  getAllUtxo
+} = utils
 
 const portfolioService = feathersClient.service('portfolios')
-
-// TODO: FIXTURES ON!
-// import '~/models/fixtures/portfolio';
 
 const Portfolio = DefineMap.extend('Portfolio', {
   '*': {
@@ -33,6 +39,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
     serialize: true,
     type: 'string'
   },
+  index: 'number',
+  userId: 'string',
 
   /**
    * @property {String} models/portfolio.properties.name name
@@ -45,12 +53,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
   },
 
   /**
+   * Address information: what blockchain it belongs to, whether its a change, and what its index is.
    * @property {String} models/portfolio.properties.addressesMeta addressesMeta
    * @parent models/portfolio.properties
    * Tracking addresses by index for one-time usage.
    * ```
    * [
-   *   {index: 0, type: 'EQB', isChange: false, isUsed: true},
+   *   {index: 0, type: 'EQB', isChange: false, isUsed: true},  // -> /m/44/<eqb_or_btc>/portfolio/<0_or_1>/index
    *   {index: 1, type: 'EQB', isChange: false, used: false},
    *   {index: 0, type: 'BTC', isChange: false, used: true},
    * ]
@@ -58,12 +67,15 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   addressesMeta: {
     serialize: true,
-    // Type: DefineList,
-    // value: new DefineList([])
-    value: []
+    Type: DefineList,
+    value: new DefineList([])
+    // TODO: should this be an observable list? can it be updated via websocket?
+    // Note: this is not an observable list to not trigger linstunspent request.
+    // value: []
   },
 
-  index: 'number',
+  keys: '*',
+  rates: '*',
 
   /**
    * @property {String} models/portfolio.properties.addresses addresses
@@ -73,18 +85,18 @@ const Portfolio = DefineMap.extend('Portfolio', {
   addresses: {
     get () {
       // TODO: make sure this getter is cached (maybe change to a stream derived from addressesMeta).
+      console.log('[portfolio.addresses] deriving addresses...')
       return (this.keys && this.addressesMeta && this.addressesMeta.map(meta => {
-        // console.log('[portfolio.addresses] deriving addr...', meta)
         const keysNode = this.keys[meta.type].derive(meta.isChange ? 1 : 0).derive(meta.index)
         return {
           index: meta.index,
-          isChange: meta.isChange,
-          type: meta.type,
           address: keysNode.getAddress(),
+          type: meta.type,
+          isChange: meta.isChange,
           keyPair: keysNode.keyPair,
           meta: meta
         }
-      })) || []
+      })) || new DefineList([])
     }
   },
 
@@ -105,15 +117,44 @@ const Portfolio = DefineMap.extend('Portfolio', {
   },
 
   /**
-   * @property {String} models/portfolio.properties.userBalance userBalance
-   * @parent models/portfolio.properties
-   * A reference to user's balance. Portfolio uses it to figure out its own funds in `balance`.
+   * @property {Function} models/session.prototype.listunspentPromise listunspentPromise
+   * @parent models/session.prototype
+   * Promise for balance.
    */
-  userBalance: {type: '*'},
+  listunspentPromise: {
+    stream: function () {
+      const addrStream = this.toStream('.addresses').skipWhile(a => (!a || !a.length))
+      return addrStream.merge(this.toStream('refresh')).map(() => {
+        console.log('*** [portfolio.listunspentPromise] fetching balance...')
+        return fetchBalance({
+          BTC: this.addressesBtc.get(),
+          EQB: this.addressesEqb.get()
+        })
+      })
+    }
+  },
 
-  rates: {
-    get (val) {
-      return val || (Session.current && Session.current.rates) || Session.defaultRates
+  // TODO: all amounts should be in satoshi. ???
+  // Unspent Transaction Output map by blockchain type and by address.
+  utxoByTypeByAddress: {
+    get (val, resolve) {
+      if (val) {
+        return val
+      }
+      if (this.listunspentPromise) {
+        // TODO: filter out UTXO for this portfolio.
+        this.listunspentPromise.then(resolve)
+      }
+    }
+  },
+  utxoByType: {
+    get () {
+      if (this.utxoByTypeByAddress) {
+        return {
+          BTC: getAllUtxo(this.utxoByTypeByAddress.BTC.addresses),
+          EQB: getAllUtxo(this.utxoByTypeByAddress.EQB.addresses)
+        }
+      }
     }
   },
 
@@ -128,47 +169,43 @@ const Portfolio = DefineMap.extend('Portfolio', {
    *   cashEqb: 3,
    *   cashTotal: 4,
    *   securities: 6,
-   *   total: 10,
-   *   txouts: {EQB: [], BTC: []}
+   *   total: 10
    * }
    * ```
+   * A security is a TX output that contains non-zero `equibit.issuance_tx_id`.
+   * The field `equibit.issuance_json` should always be empty for a portfolio. It can only be non-empty under a company.
    */
   balance: {
     get () {
-      const unspent = this.userBalance
-      if (!unspent) {
-        return {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, total: 0}
+      if (!this.utxoByTypeByAddress) {
+        console.log('portfolio.balance is undefined - no utxo yet...')
+        return
       }
+      const utxoByType = this.utxoByTypeByAddress
 
       // TODO: figure out how to evaluate securities.
 
-      const { cashBtc, cashEqb, cashTotal, securities, txouts } = this.addresses.reduce((acc, a) => {
-        const unspentByType = unspent[a.type]
-        if (unspentByType && unspentByType.addresses[a.address]) {
-          const amount = unspentByType.addresses[a.address].amount
-
-          // TODO: mutating addresses here is a bad pattern.
-          console.log('*** [portfolio.balance] Updating addresses with amount ant txouts...')
-          // Add amount and txouts:
-          a.amount = amount
-          a.txouts = unspentByType.addresses[a.address].txouts
-
+      const { cashBtc, cashEqb, cashTotal, securities } = this.addresses.reduce((acc, addr) => {
+        const utxo = utxoByType[addr.type]
+        if (utxo && utxo.addresses[addr.address]) {
+          const amount = utxo.addresses[addr.address].amount
           // Calculate summary:
-          if (a.type === 'BTC') {
+          if (addr.type === 'BTC') {
             acc.cashBtc += amount
             acc.cashTotal += amount
           } else {
             acc.cashEqb += amount
             acc.cashTotal += this.rates.eqbToBtc * amount
           }
-          acc.txouts[a.type] = acc.txouts[a.type].concat(unspentByType.addresses[a.address].txouts)
         }
+        acc.total = acc.cashTotal + acc.securities
         return acc
-      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, txouts: {EQB: [], BTC: []}})
+      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, total: 0})
 
       const total = cashTotal + securities
 
-      return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total, txouts })
+      console.log(`portfolio.balance.total is ${total}`)
+      return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total })
     }
   },
 
@@ -176,10 +213,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
   unrealizedPLPercent: {type: 'number', value: 0},
   createdAt: 'date',
   updatedAt: 'date',
-  userId: 'string',
-  keys: {
-    type: '*'
-  },
 
   /**
    * @function {String} models/portfolio.properties.nextAddress nextAddress
@@ -196,6 +229,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
     return this.getNextAddress(true)
   },
 
+  /**
+   * Generates the next available address to receive cash or unrestricted securities.
+   * @param isChange
+   * @returns {*}
+   */
   // getNextAddress :: Bool -> Object(EQB<String>,BTC<String>)
   getNextAddress (isChange = false) {
     const changeIndex = isChange ? 1 : 0
@@ -209,13 +247,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
     if (btcAddr.imported === false) {
       // Import addr as watch-only
-      this.importAddr(addr.BTC, 'btc')
+      importAddr(addr.BTC, 'btc')
       // Mark address as generated/imported but not used yet:
       this.addressesMeta.push({index: btcAddr.index, type: 'BTC', isUsed: false, isChange})
     }
     if (eqbAddr.imported === false) {
       // Import addr as watch-only
-      this.importAddr(addr.EQB, 'eqb')
+      importAddr(addr.EQB, 'eqb')
       // Mark address as generated/imported but not used yet:
       this.addressesMeta.push({index: eqbAddr.index, type: 'EQB', isUsed: false, isChange})
     }
@@ -223,7 +261,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       // Save newly generated addresses to DB:
       console.log('[portfolio.getNextAddress] patching portfolio with updated addressesMeta ...')
       return this.patch({
-        addressesMeta: this.addressesMeta
+        addressesMeta: this.addressesMeta.get()
       }).then(() => addr)
     } else {
       return Promise.resolve(addr)
@@ -231,27 +269,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
   },
 
   // Methods:
-  /**
-   * @function models/portfolio.properties.importAddr importAddr
-   * @parent models/portfolio.properties
-   * Imports the given address to the built-in wallet (to become watch-only for registering transactions).
-   */
-  importAddr (addr, currencyType) {
-    // TODO: replace with a specific service (e.g. /import-address).
-    feathersClient.service('proxycore').find({
-      query: {
-        node: currencyType.toLowerCase(),
-        method: 'importaddress',
-        params: [addr]
-      }
-    }).then(res => {
-      if (!res.error) {
-        console.log('The address was imported successfully', res)
-      } else {
-        console.error('There was an error when I tried to import your address: ', res)
-      }
-    })
-  },
   hasEnoughFunds (amount, type) {
     return amount === 0 || !!this.getTxouts(amount, type).length
   },
@@ -264,10 +281,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @returns {*}
    */
   getTxouts (amount, type) {
-    if (!this.balance.txouts || this.balance[type === 'BTC' ? 'cashBtc' : 'cashEqb'] < amount) {
+    if (!this.utxoByTypeByAddress) {
+      return
+    }
+    if (this.utxoByTypeByAddress[type].summary.total < amount) {
       return []
     }
-    return getUnspentOutputsForAmount(this.balance.txouts[type], amount)
+    return getUnspentOutputsForAmount(this.utxoByType[type], amount)
   },
 
   /**
@@ -304,42 +324,25 @@ const Portfolio = DefineMap.extend('Portfolio', {
       addressItem.meta.isUsed = true
       console.log('[portfolio.markAsUsed] patching portfolio with updated addressesMeta ...')
       return this.patch({
-        addressesMeta: this.addressesMeta
+        addressesMeta: this.addressesMeta.get()
       })
     }
   },
   patch (data) {
     return portfolioService.patch(this._id, data)
+  },
+
+  /**
+   * @property {Function} models/session.prototype.refreshBalance refreshBalance
+   * @parent models/session.prototype
+   * Method to refresh balance. Will request linstunspent and update balancePromise.
+   */
+  refreshBalance: function () {
+    this.dispatch('refresh')
   }
 })
 
-function getNextAddressIndex (addresses = [], type, isChange = false) {
-  return addresses.filter(a => a.type === type && a.isChange === isChange).reduce((acc, a) => {
-    return a.isUsed !== true ? {index: a.index, imported: true} : {index: a.index + 1, imported: false}
-  }, {index: 0, imported: false})
-}
-
-// function getPoftfolioBalance (balance, addresses) {
-//   return addresses.reduce((acc, address) => (balance[address] ? acc + balance[address].amount : acc), 0);
-// }
-
-function getUnspentOutputsForAmount (txouts, amount) {
-  return txouts.reduce((acc, a) => {
-    if (a.amount >= amount &&
-        (acc.txouts.length > 1 ||
-          (acc.txouts.length === 1 &&
-            (acc.txouts[0].amount < amount || a.amount < acc.txouts[0].amount)))
-    ) {
-      return {sum: a.amount, txouts: [a]}
-    }
-    if (acc.sum >= amount) {
-      return acc
-    }
-    acc.sum += a.amount
-    acc.txouts.push(a)
-    return acc
-  }, {sum: 0, txouts: []}).txouts
-}
+canDefineStream(Portfolio)
 
 Portfolio.List = DefineList.extend('PortfolioList', {
   '#': Portfolio,
@@ -361,8 +364,6 @@ Portfolio.connection = superModelNoCache({
 Portfolio.algebra = algebra
 
 export default Portfolio
-export { getNextAddressIndex }
-export { getUnspentOutputsForAmount }
 
 // Import an address to be added as watch-only to the built-in wallet:
 // http://localhost:3030/proxycore?method=importaddress&params[]=mwd7FgMkm9yfPmNTnntsRbugZS7BEZaf32
