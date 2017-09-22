@@ -1,8 +1,6 @@
 <can-import from="~/components/page-transactions/transactions-grid/" />
 <can-import from="~/components/page-transactions/transactions-details/" />
 <can-import from="~/utils/stache-helpers/" />
-<can-import from="~/models/fixtures/transactions" />
-
 
 <div class="row">
   <div class="col-xs-12">

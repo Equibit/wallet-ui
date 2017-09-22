@@ -177,13 +177,42 @@ const Session = DefineMap.extend('Session', {
     }
   },
   issuances: {
+    Type: Issuance.List,
     get (val, resolve) {
       if (this.issuancesPromise) {
-        this.issuancesPromise.then(resolve)
+        this.issuancesPromise.then(issuances => {
+          issuances.forEach(issuance => {
+            if (issuance.index !== 'undefined') {
+              const companyHdNode = this.user.generatePortfolioKeys(issuance.companyIndex).EQB
+              issuance.keys = companyHdNode.derive(issuance.index)
+            }
+          })
+          resolve(issuances)
+        })
       }
       return val
     }
-  }
+  },
+
+  /**
+   * @property {Function} models/session.prototype.allAddresses allAddresses
+   * @parent models/session.prototype
+   * List of all addresses by type. Includes authorized issuances. To use for getting transactions.
+   */
+  allAddresses: {
+    get () {
+      const issuanceAddresses = this.issuances.reduce((acc, issuance) => {
+        acc.push(issuance.address)
+        return acc
+      }, [])
+      return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
+          return {
+            BTC: acc.BTC.concat(portfolio.addressesBtc.get()),
+            EQB: acc.EQB.concat(portfolio.addressesEqb.get())
+          }
+        }, {EQB: issuanceAddresses, BTC: []})
+    }
+  },
 })
 
 Session.defaultRates = {

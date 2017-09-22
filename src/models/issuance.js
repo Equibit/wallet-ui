@@ -12,6 +12,7 @@ const Issuance = DefineMap.extend('Issuance', {
    */
   userId: 'string',
   index: 'number',
+  companyIndex: 'number',
 
   companyId: 'string',
   companyName: 'string',
@@ -64,11 +65,21 @@ const Issuance = DefineMap.extend('Issuance', {
     set (company) {
       if (company) {
         this.companyId = company._id
+        this.companyIndex = company.index
         this.companyName = company.name
         this.companySlug = company.slug
         this.domicile = company.domicile
       }
       return company
+    }
+  },
+  keys: {
+    serialize: false
+  },
+  address: {
+    serialize: false,
+    get () {
+      return this.keys.getAddress()
     }
   },
   getJson () {
