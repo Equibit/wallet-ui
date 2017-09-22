@@ -206,13 +206,13 @@ const Session = DefineMap.extend('Session', {
         return acc
       }, [])
       return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
-          return {
-            BTC: acc.BTC.concat(portfolio.addressesBtc.get()),
-            EQB: acc.EQB.concat(portfolio.addressesEqb.get())
-          }
-        }, {EQB: issuanceAddresses, BTC: []})
+        return {
+          BTC: acc.BTC.concat(portfolio.addressesBtc.get()),
+          EQB: acc.EQB.concat(portfolio.addressesEqb.get())
+        }
+      }, {EQB: issuanceAddresses, BTC: []})
     }
-  },
+  }
 })
 
 Session.defaultRates = {
