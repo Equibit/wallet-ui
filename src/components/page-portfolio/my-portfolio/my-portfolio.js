@@ -110,19 +110,28 @@ export const ViewModel = DefineMap.extend({
     const amount = formData.amount
 
     const txouts = issuance.getTxoutsFor(amount)
-      .map(a => merge(a, {keyPair: this.issuance.keys}))
+      .map(a => merge(a, {keyPair: issuance.keys}))
 
     const txoutsFee = this.portfolio.getTxouts(formData.transactionFee, 'EQB')
       .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
     txouts.push.apply(txouts, txoutsFee)
 
+    const amountEqb = txoutsFee.reduce((acc, { amount }) => (acc + amount), 0)
+
+    // todo: for now just send the empty EQB change back to where we got it:
+    const changeAddrEmptyEqb = txoutsFee[0].address
+
     const options = {
       fee: formData.transactionFee,
       changeAddr,
+      changeAddrEmptyEqb,
+      amountEqb,
       type: 'OUT',
       currencyType,
-      description: formData.description
+      description: formData.description,
+      issuanceTxId: issuance.txouts[0].txid
     }
+    debugger
     return Transaction.makeTransaction(amount, toAddress, txouts, options)
   },
 

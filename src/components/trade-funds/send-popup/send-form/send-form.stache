@@ -90,7 +90,7 @@
               message="{{i18n('notEnoughSecurities')}}: {{availableFunds}}" />
           {{/if}}
           <div>
-            <a ($click)="sendAllFunds()">{{i18n('sendAllFunds')}}</a>
+            <a ($click)="sendAllFunds()">{{i18n('sendAll')}}</a>
           </div>
         </div>
       </div>

@@ -325,6 +325,7 @@ export default {
   selectType: 'Select Type',
   send: 'Send',
   sendModalDescription: 'Send securities or funds from your account.',
+  sendAll: 'Send All',
   sendAllFunds: 'Send All Funds',
   sell: 'Sell',
   sellOffer: 'Sell Offer',
