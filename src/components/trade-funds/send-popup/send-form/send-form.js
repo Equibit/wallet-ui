@@ -51,6 +51,7 @@ export const ViewModel = DefineMap.extend({
     return availableFunds < 0 ? 0 : availableFunds
   },
 
+  // ENUM ('SECURITIES', 'FUNDS')
   setType (val, el) {
     this.formData.type = val
     el.blur()
@@ -62,11 +63,13 @@ export const ViewModel = DefineMap.extend({
   },
 
   formatIssuance (issuance) {
-    return `<span class="issuance issuance-company">${issuance.companyName}</span> <span class="issuance issuance-name">${issuance.issuanceName}</span> <span class="issuance issuance-quantity">${issuance.marketCap} uBTC</span>`
+    // ${issuance.marketCap} uBTC
+    return `<span class="issuance issuance-company">${issuance.companyName}</span> <span class="issuance issuance-name">${issuance.issuanceName}</span> <span class="issuance issuance-quantity">available ${issuance.availableAmount} EQB</span>`
   },
 
   formatIssuanceInput (issuance) {
-    return `${issuance.companyName} | ${issuance.issuanceName} | ${issuance.marketCap} uBTC`
+    // ${issuance.marketCap} uBTC
+    return `${issuance.companyName} | ${issuance.issuanceName} | available ${issuance.availableAmount} EQB`
   },
 
   sendAllFunds () {

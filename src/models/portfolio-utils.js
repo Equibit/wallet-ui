@@ -1,3 +1,5 @@
+import { uniq } from 'ramda'
+
 import feathersClient from './feathers-client'
 
 /**
@@ -22,12 +24,12 @@ const importAddr = (addr, currencyType) => {
   })
 }
 
-const fetchBalance = (addr) => {
+const fetchListunspent = ({ BTC = [], EQB = [] }) => {
   return feathersClient.service('/listunspent').find({
     // GET query params are lower cased:
     query: {
-      btc: addr.BTC,
-      eqb: addr.EQB,
+      btc: uniq(BTC),
+      eqb: uniq(EQB),
       byaddress: true
     }
   })
@@ -70,7 +72,7 @@ const getAllUtxo = (addresses) => {
 
 export default {
   importAddr,
-  fetchBalance,
+  fetchListunspent,
   getNextAddressIndex,
   getUnspentOutputsForAmount,
   getAllUtxo

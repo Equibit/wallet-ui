@@ -35,7 +35,8 @@ export const ViewModel = DefineMap.extend({
         totalSecurities: 20.111
       }
     }
-  }
+  },
+  issuances: '*'
 })
 
 export default Component.extend({

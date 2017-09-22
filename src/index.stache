@@ -47,6 +47,10 @@
                {balance}="session.balance"/>
     {{/if}}
 
+    {{#if session.isLoading}}
+      <p><i>Loading...</i></p>
+    {{/if}}
+
     {{#switch displayedPage}}
       {{#case 'loading'}}
         <page-loading></page-loading>

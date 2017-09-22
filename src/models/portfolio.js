@@ -19,7 +19,7 @@ const {
   importAddr,
   getNextAddressIndex,
   getUnspentOutputsForAmount,
-  fetchBalance,
+  fetchListunspent,
   getAllUtxo
 } = utils
 
@@ -126,7 +126,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       const addrStream = this.toStream('.addresses').skipWhile(a => (!a || !a.length))
       return addrStream.merge(this.toStream('refresh')).map(() => {
         console.log('*** [portfolio.listunspentPromise] fetching balance...')
-        return fetchBalance({
+        return fetchListunspent({
           BTC: this.addressesBtc.get(),
           EQB: this.addressesEqb.get()
         })
