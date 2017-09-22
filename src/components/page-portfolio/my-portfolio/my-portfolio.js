@@ -133,7 +133,8 @@ export const ViewModel = DefineMap.extend({
       currencyType,
       description: formData.description,
       issuanceTxId: issuance.utxo[0].txid,
-      issuanceJson
+      issuanceJson,
+      issuance
     }
     const tx = Transaction.makeTransaction(amount, toAddress, txouts, options)
     debugger
