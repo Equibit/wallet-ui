@@ -70,8 +70,8 @@ describe('models/portfolio', function () {
     it('should populate addressesBtc and addressesEqb', function () {
       const expectedAddressesBtc = ['n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ']
       const expectedAddressesEqb = ['n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU']
-      assert.deepEqual(portfolio.addressesBtc, expectedAddressesBtc)
-      assert.deepEqual(portfolio.addressesEqb, expectedAddressesEqb)
+      assert.deepEqual(portfolio.addressesBtc.get(), expectedAddressesBtc)
+      assert.deepEqual(portfolio.addressesEqb.get(), expectedAddressesEqb)
     })
 
     it('should populate portfolio balance based on user\'s balance', function () {
