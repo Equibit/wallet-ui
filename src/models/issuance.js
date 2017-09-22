@@ -4,7 +4,7 @@ import feathersClient from '~/models/feathers-client'
 import superModel from '~/models/super-model'
 import algebra from '~/models/algebra'
 import utils from './portfolio-utils'
-const { fetchListunspent, importAddr } = utils
+const { fetchListunspent, importAddr, getUnspentOutputsForAmount } = utils
 
 const Issuance = DefineMap.extend('Issuance', {
   _id: 'string',
@@ -120,6 +120,9 @@ const Issuance = DefineMap.extend('Issuance', {
         security_type: this.issuanceType
       }
     }
+  },
+  getTxoutsFor (amount) {
+    return getUnspentOutputsForAmount(this.utxo, amount)
   }
 })
 
