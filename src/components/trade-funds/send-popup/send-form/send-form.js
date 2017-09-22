@@ -45,10 +45,15 @@ export const ViewModel = DefineMap.extend({
   },
 
   get availableFunds () {
-    const balance = this.portfolio.balance
-    const funds = this.formData.fundsType === 'BTC' ? balance.cashBtc : balance.cashEqb
-    const availableFunds = toMaxPrecision(funds - this.formData.transactionFee, 8)
-    return availableFunds < 0 ? 0 : availableFunds
+    if (this.formData.type === 'FUNDS') {
+      const balance = this.portfolio.balance
+      const funds = this.formData.fundsType === 'BTC' ? balance.cashBtc : balance.cashEqb
+      const availableFunds = toMaxPrecision(funds - this.formData.transactionFee, 8)
+      return availableFunds < 0 ? 0 : availableFunds
+    }
+    if (this.formData.type === 'SECURITIES' && this.formData.issuance) {
+      return this.formData.issuance.availableAmount
+    }
   },
 
   // ENUM ('SECURITIES', 'FUNDS')
