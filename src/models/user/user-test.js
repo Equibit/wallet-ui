@@ -17,6 +17,7 @@ import feathersClient from '~/models/feathers-client'
 // });
 
 describe('models/user', function () {
+  this.timeout(5000);
   // it('should generateKeys', function () {
   //   let user = new User({});
   //   let keys = user.generateKeys();

@@ -12,6 +12,9 @@ import feathersClient from '~/models/feathers-client'
 import superModel from '~/models/super-model'
 import algebra from '~/models/algebra'
 
+// TODO: remove FIXTURES:
+import { data } from './fixtures/biggest-movers'
+
 const BiggestMovers = DefineMap.extend('BiggestMovers', {
   _id: 'string',
   companyName: 'string',
@@ -38,5 +41,11 @@ BiggestMovers.connection = superModel({
 })
 
 BiggestMovers.algebra = algebra
+
+// todo: remove this FIXTURE:
+BiggestMovers.getList = (params) => {
+  const sort = params && params['$sort'] && params['$sort'].change === '1' ? (a, b) => (a.change - b.change) : (a, b) => (b.change - a.change)
+  return Promise.resolve(new BiggestMovers.List(data.sort(sort)))
+}
 
 export default BiggestMovers

@@ -14,7 +14,7 @@ import superModel from '~/models/super-model'
 import algebra from '~/models/algebra'
 
 // TODO: FIXTURES ON!
-import '~/models/fixtures/market-cap'
+import { data } from './fixtures/market-cap'
 
 const MarketCap = DefineMap.extend('MarketCap', {
   /**
@@ -63,5 +63,10 @@ MarketCap.connection = superModel({
 })
 
 MarketCap.algebra = algebra
+
+// todo: remove this FIXTURE:
+MarketCap.getList = () => {
+  return Promise.resolve(new MarketCap.List(data))
+}
 
 export default MarketCap

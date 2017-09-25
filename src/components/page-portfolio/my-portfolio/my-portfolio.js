@@ -137,7 +137,6 @@ export const ViewModel = DefineMap.extend({
       issuance
     }
     const tx = Transaction.makeTransaction(amount, toAddress, txouts, options)
-    debugger
 
     return tx.save().then(() => {
       this.portfolio.markAsUsed(changeAddrEmptyEqb, 'EQB', true)
