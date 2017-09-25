@@ -35,25 +35,27 @@ export const ViewModel = DefineMap.extend({
     }
   },
   config: {
-    value: {
-      legend: {
-        position: 'right'
-      },
-      color: {
-        pattern: ['#EC2F39', '#FFBC5E', '#32B576', '#3ED2C8', '#468CD9']
-      },
-      size: {
-        height: 120
-      },
-      donut: {
-        label: {
-          show: false
+    value () {
+      return {
+        legend: {
+          position: 'right'
+        },
+        color: {
+          pattern: ['#EC2F39', '#FFBC5E', '#32B576', '#3ED2C8', '#468CD9']
+        },
+        size: {
+          height: 120
+        },
+        donut: {
+          label: {
+            show: false
+          }
+        },
+        onrendered: () => {
+          // Manually reposition chart and legend:
+          document.querySelector('portfolio-breakdown .c3-chart-arcs').setAttribute('transform', 'translate(60,58)')
+          document.querySelectorAll('portfolio-breakdown svg .c3-legend-item').forEach(a => a.setAttribute('transform', 'translate(20,0)'))
         }
-      },
-      onrendered: () => {
-        // Manually reposition chart and legend:
-        document.querySelector('portfolio-breakdown .c3-chart-arcs').setAttribute('transform', 'translate(60,58)')
-        document.querySelectorAll('portfolio-breakdown svg .c3-legend-item').forEach(a => a.setAttribute('transform', 'translate(20,0)'))
       }
     }
   }

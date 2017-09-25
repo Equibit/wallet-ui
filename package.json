@@ -94,7 +94,7 @@
     "@equibit/wallet-crypto": "^0.6.2",
     "accounting": "^0.4.1",
     "bip39": "^2.3.1",
-    "bit-c3": "^0.2.3",
+    "bit-c3": "^0.2.4",
     "bitcoinjs-lib": "^3.0.3",
     "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
