@@ -50,6 +50,18 @@
 
       </div>
     </div>
+
+    {{#if issuances.length}}
+    <div class="row">
+      <div class="col-xs-12">
+        <br>
+        Authorized Issuances: {{issuances.length}}
+        <br>
+        Available Shares: {{#each issuances}} {{availableAmount}}, &nbsp {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
   </div>
   {{/if}}
 

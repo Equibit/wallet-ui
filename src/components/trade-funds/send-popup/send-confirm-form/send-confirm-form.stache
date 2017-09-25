@@ -10,10 +10,6 @@
     </div>
 
     {{#is formData.type 'SECURITIES'}}
-<<<<<<< HEAD
-=======
-      <label for="">{{formData.issuance.issuanceType}} from</label>
->>>>>>> development
       <div class="row">
         <div class="col-xs-12 no-padding">
           <label for="">{{formData.issuance.issuanceType}} {{i18n('from')}}</label>

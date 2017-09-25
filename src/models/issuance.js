@@ -3,6 +3,8 @@ import DefineList from 'can-define/list/list'
 import feathersClient from '~/models/feathers-client'
 import superModel from '~/models/super-model'
 import algebra from '~/models/algebra'
+import utils from './portfolio-utils'
+const { fetchListunspent, importAddr, getUnspentOutputsForAmount } = utils
 
 const Issuance = DefineMap.extend('Issuance', {
   _id: 'string',
@@ -79,7 +81,17 @@ const Issuance = DefineMap.extend('Issuance', {
   address: {
     serialize: false,
     get () {
-      return this.keys.getAddress()
+      return this.keys && this.keys.getAddress()
+    }
+  },
+  // Array of UTXO from /listunspent
+  utxo: {
+    serialize: false
+  },
+  // The available amount in satoshi.
+  availableAmount: {
+    get () {
+      return this.utxo && this.utxo.reduce((acc, {amount}) => (acc + amount), 0)
     }
   },
   getJson () {
@@ -108,6 +120,9 @@ const Issuance = DefineMap.extend('Issuance', {
         security_type: this.issuanceType
       }
     }
+  },
+  getTxoutsFor (amount) {
+    return getUnspentOutputsForAmount(this.utxo, amount)
   }
 })
 
@@ -130,6 +145,36 @@ Issuance.List = DefineList.extend('IssuanceList', {
       }
       return acc
     }, 0)
+  },
+  addresses: {
+    get () {
+      return this.reduce((acc, issuance) => {
+        if (issuance.keys && issuance.address && acc.indexOf(issuance.address) === -1) {
+          // todo: import address on authorizing an issuance.
+          importAddr(issuance.address, 'EQB')
+          acc.push(issuance.address)
+        }
+        return acc
+      }, [])
+    }
+  },
+  loadUTXO () {
+    if (this.addresses.length > 0) {
+      fetchListunspent({EQB: this.addresses}).then(utxoByType => {
+        if (utxoByType.EQB.total === 0) {
+          return
+        }
+        const utxoByAddr = utxoByType.EQB.addresses
+        this.forEach(issuance => {
+          if (utxoByAddr[issuance.address]) {
+            issuance.utxo = utxoByAddr[issuance.address].txouts.filter(out => {
+              // todo: do a more comprehensive filtering.
+              return out.equibit && out.equibit.issuance_json.search(issuance.issuanceName) !== -1
+            })
+          }
+        })
+      })
+    }
   }
 })
 

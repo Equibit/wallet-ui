@@ -73,7 +73,13 @@ const FormData = DefineMap.extend({
 
   hasEnoughFunds: {
     get () {
-      return this.portfolio.hasEnoughFunds(this.amount + this.transactionFee, this.fundsType)
+      if (this.type === 'FUNDS') {
+        return this.portfolio.hasEnoughFunds(this.amount + this.transactionFee, this.fundsType)
+      }
+      if (this.type === 'SECURITIES' && this.issuance) {
+        // Need available shares amount and Empty EQB for the fee:
+        return this.issuance.availableAmount >= this.amount && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
+      }
     }
   },
 

@@ -14,7 +14,7 @@ import superModel from '~/models/super-model'
 import algebra from '~/models/algebra'
 
 // TODO: FIXTURES ON!
-import '~/models/fixtures/market'
+import { data } from './fixtures/market'
 
 const Market = DefineMap.extend('Market', {
   _id: 'string',
@@ -57,5 +57,10 @@ Market.connection = superModel({
 })
 
 Market.algebra = algebra
+
+// todo: remove this FIXTURE:
+Market.get = () => {
+  return Promise.resolve(new Market(data))
+}
 
 export default Market

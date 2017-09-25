@@ -9,7 +9,12 @@ import i18n from '../i18n/i18n'
 // import Session from './session'
 
 const Transaction = DefineMap.extend('Transaction', {
-  makeTransaction (amount, toAddress, txouts, {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuance}) {
+  makeTransaction (
+    amount,
+    toAddress,
+    txouts,
+    {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb, amountEqb}
+  ) {
     currencyType = currencyType.toUpperCase()
     const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']))
     const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0)
@@ -18,7 +23,22 @@ const Transaction = DefineMap.extend('Transaction', {
       {address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
     ]
     if (issuanceJson) {
-      outputs[0].issuanceJson = issuanceJson
+      // todo: simplify and check the case where we send all available shares
+      if (!issuanceTxId) {
+        outputs[0].issuanceJson = issuanceJson
+      } else {
+        outputs[1].issuanceJson = issuanceJson
+        outputs[1].value = toSatoshi(issuance.availableAmount - amount)
+      }
+    }
+    if (issuanceTxId) {
+      outputs[0].issuanceTxId = issuanceTxId
+    }
+    if (changeAddrEmptyEqb) {
+      outputs.push({
+        address: changeAddrEmptyEqb,
+        value: toSatoshi(amountEqb - fee)
+      })
     }
     const txInfo = buildTransaction(currencyType)(inputs, outputs, network)
 
@@ -178,7 +198,7 @@ export const buildTransactionEqb = (inputs, outputs, network = bitcoin.networks.
       // TODO: pass payment currency type here.
       payment_currency: 0,
       payment_tx_id: '',
-      issuance_tx_id: '0000000000000000000000000000000000000000000000000000000000000000',
+      issuance_tx_id: (vout.issuanceTxId ? vout.issuanceTxId : '0000000000000000000000000000000000000000000000000000000000000000'),
       issuance_json: (vout.issuanceJson ? JSON.stringify(vout.issuanceJson) : '')
     }
     delete vout.issuanceJson

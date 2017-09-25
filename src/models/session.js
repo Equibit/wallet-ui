@@ -187,6 +187,7 @@ const Session = DefineMap.extend('Session', {
               issuance.keys = companyHdNode.derive(issuance.index)
             }
           })
+          issuances.loadUTXO()
           resolve(issuances)
         })
       }
@@ -211,6 +212,16 @@ const Session = DefineMap.extend('Session', {
           EQB: acc.EQB.concat(portfolio.addressesEqb.get())
         }
       }, {EQB: issuanceAddresses, BTC: []})
+    }
+  },
+
+  isLoading: {
+    get (val, resolve) {
+      Promise.all([
+        this.issuancesPromise,
+        this.portfoliosPromise
+      ]).then(() => resolve(false))
+      return true
     }
   }
 })

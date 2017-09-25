@@ -10,6 +10,11 @@ export const ViewModel = DefineMap.extend({
       return Session.current.portfolios
     }
   },
+  issuances: {
+    get () {
+      return Session.current.issuances
+    }
+  },
   balance: {
     get () {
       return Session.current.balance
