@@ -95,7 +95,6 @@ export const ViewModel = DefineMap.extend({
       // this.isSending = false
 
       // mark change address as used
-      // this.portfolio.nextChangeAddress[currencyType]
       console.log('[my-portfolio.send] marking change address as used ...')
       this.portfolio.markAsUsed(changeAddr, currencyType, true)
       return issuance.save()

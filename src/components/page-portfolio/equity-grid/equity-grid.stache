@@ -67,7 +67,9 @@
       </div>
     {{/if}}
 
+    {{#if rows.length}}
     <div class="grid-results">Showing{{i18n('')}} {{rows.length}} of{{i18n('')}} {{pagination.total}} Results{{i18n('')}}</div>
+    {{/if}}
 
   </div>
 

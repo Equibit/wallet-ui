@@ -8,6 +8,13 @@ import { pick } from 'ramda'
 import i18n from '../i18n/i18n'
 // import Session from './session'
 
+/**
+ * Cases to cover:
+ *  - Auth issuance with change
+ *  - Auth issuance without change
+ *  - Send issuance
+ */
+
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (
     amount,
@@ -22,12 +29,14 @@ const Transaction = DefineMap.extend('Transaction', {
       {address: toAddress, value: toSatoshi(amount)},
       {address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
     ]
+    // Case: auth issuance
     if (issuanceJson) {
       // todo: simplify and check the case where we send all available shares
       if (!issuanceTxId) {
         outputs[0].issuanceJson = issuanceJson
       } else {
-        outputs[1].issuanceJson = issuanceJson
+        // Case: auth issuance with change:
+        outputs[1].issuanceTxId = issuanceTxId
         outputs[1].value = toSatoshi(issuance.availableAmount - amount)
       }
     }
