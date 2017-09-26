@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <style>body { padding: 20px }</style>
+<script>window.useXhrTransport = true</script>
 <div id="demo"></div>
 
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
   <can-import from="wallet-ui/components/page-my-issuances/issuance-list/" />
-  <issuance-list></issuance-list>
+  <issuance-list {issuances}="issuances"></issuance-list>
 </script>
 
 <script src="../../../../node_modules/steal/steal.js"
@@ -15,11 +16,14 @@
   import stache from 'can-stache'
   import reload from 'live-reload'
   import DefineMap from 'can-define/map/map'
+  import Issuance from '~/models/issuance'
+  import { data } from '~/models/fixtures/issuances'
   import canViewModel from 'can-view-model'
   window.canViewModel = canViewModel
 
   const vm = new DefineMap({
     // view model props here
+    issuances: data
   })
   window.vm = vm
 

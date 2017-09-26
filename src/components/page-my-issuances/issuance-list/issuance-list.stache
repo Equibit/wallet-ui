@@ -100,49 +100,49 @@
 </div>
 -->
 
-{{#each issuances as issuance}}
-  {{#if issuance.issuanceName}}
-<div class="well">
-	<div class="row">
-		<div class="col-xs-12 col-sm-2 company-info">
-			<div class="company-name"><strong>{{issuance.companyName}}</strong></div>
-			<div class="company-domicile">{{issuance.domicile}}</div>
-			<a class="company-more-info" href="">{{i18n('more')}}</a>
-		</div>
+{{#each issuanceByCompany as byCompany}}
+  <div class="well">
+    <div class="row">
+      <div class="col-xs-12 col-sm-2 company-info">
+        <div class="company-name"><strong>{{byCompany.companyName}}</strong></div>
+        <div class="company-domicile">{{byCompany.domicile}}</div>
+        <a class="company-more-info" href="">{{i18n('more')}}</a>
+      </div>
 
-		<div class="col-xs-12 col-sm-10 issuances-info">
-			<h2 class="subheading">{{i18n('equity')}}</h2>
-			<div class="container-table-responsive">
-				<table class="table table-condensed table-responsive">
-				<thead>
-					<tr>
-						<th class="column-name">{{i18n('name')}}</th>
-						<th class="column-type">{{i18n('type')}}</th>
-						<th class="column-restriction">{{i18n('restriction')}}</th>
-						<th class="column-price">{{i18n('price')}} (uBTC)</th>
-						<th class="column-authorized">{{i18n('authorized')}}</th>
-						<th class="column-issued">{{i18n('issued')}}</th>
-						<th class="column-action"></th>
-					</tr>
-				</thead>
+      <div class="col-xs-12 col-sm-10 issuances-info">
+        <h2 class="subheading">{{i18n('equity')}}</h2>
+        <div class="container-table-responsive">
+          <table class="table table-condensed table-responsive">
+          <thead>
+            <tr>
+              <th class="column-name">{{i18n('name')}}</th>
+              <th class="column-type">{{i18n('type')}}</th>
+              <th class="column-restriction">{{i18n('restriction')}}</th>
+              <th class="column-price">{{i18n('price')}} (uBTC)</th>
+              <th class="column-authorized">{{i18n('authorized')}}</th>
+              <th class="column-issued">{{i18n('issued')}}</th>
+              <th class="column-action"></th>
+            </tr>
+          </thead>
 
-				<tbody>
-					<tr>
-						<td class="column-name">{{issuance.issuanceName}}</td>
-						<td class="column-type">{{issuance.issuanceType}}</td>
-						<td class="column-restriction">Level 0{{issuance.restriction}}</td>
-						<td class="column-price font-numeric">- -</td>
-						<td class="column-authorized font-numeric">{{format(issuance.sharesAuthorized, '', 0)}}</td>
-						<td class="column-issued font-numeric">0</td>
-						<td class="column-action"><button class="btn btn-default btn-xs">Manage</button></td>
-					</tr>
-				</tbody>
-			</table>
-		  </div>
-		</div>
-	</div>
-</div>
-  {{/if}}
+          <tbody>
+            {{#each byCompany.issuances as issuance}}
+            <tr>
+              <td class="column-name">{{issuance.issuanceName}}</td>
+              <td class="column-type">{{issuance.issuanceType}}</td>
+              <td class="column-restriction">Level 0{{issuance.restriction}}</td>
+              <td class="column-price font-numeric">- -</td>
+              <td class="column-authorized font-numeric">{{format(issuance.sharesAuthorized, '', 0)}}</td>
+              <td class="column-issued font-numeric">0</td>
+              <td class="column-action"><button class="btn btn-default btn-xs">Cancel</button></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
 {{/each}}
 
 {{#if isModalShown}}

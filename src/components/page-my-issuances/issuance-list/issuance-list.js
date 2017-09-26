@@ -21,6 +21,25 @@ import view from './issuance-list.stache'
 export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
   issuances: '*',
+  issuanceByCompany: {
+    get () {
+      const byCompany = this.issuances.reduce((acc, issuance) => {
+        if (!acc[issuance.companyName]) {
+          acc[issuance.companyName] = []
+        }
+        acc[issuance.companyName].push(issuance)
+        return acc
+      }, {})
+      return Object.keys(byCompany).reduce((acc, companyName) => {
+        acc.push({
+          companyName: byCompany[companyName][0].companyName,
+          domicile: byCompany[companyName][0].domicile,
+          issuances: byCompany[companyName]
+        })
+        return acc
+      }, [])
+    }
+  },
   showModal () {
     this.isModalShown = false
     this.isModalShown = true

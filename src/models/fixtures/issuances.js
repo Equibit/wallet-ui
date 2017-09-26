@@ -6,10 +6,10 @@ const companies = [
   'Imperial Brands', 'Allianz SE', 'Kingfisher plc', 'Deutsche Telekom', 'Experian plc',
   'Propanc Health', 'Marks And Spencer', 'Cool Technologies', 'The Pulse Beverages'
 ]
-const store = fixture.store(_.times(90, function (i) {
+const data = _.times(90, function (i) {
   return {
     _id: i,
-    companyName: companies[i % 9] + ' - ' + i,
+    companyName: companies[i % 9],
     companySlug: companies[i % 9].toLowerCase().split(' ').join('-'),
     domicile: ['USA', 'UK', 'Poland', 'Sweden', 'France'][i % 5],
     issuanceName: ['Series 1', 'Series 2'][i % 2],
@@ -32,8 +32,11 @@ const store = fixture.store(_.times(90, function (i) {
 
     tradesNum: [40, 25, 54, 300][i % 4]
   }
-}), Issuance.connection.algebra)
+})
+const store = fixture.store(data, Issuance.connection.algebra)
 
 fixture('/issuances/{_id}', store)
 
 export default store
+
+export { data }
