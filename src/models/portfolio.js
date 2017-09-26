@@ -147,6 +147,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }
     }
   },
+  // Flat lists of addresses by node type BTC and EQB:
+  // utxoByType :: Object<BTC:List<Address>, EQB:List<Address>>
   utxoByType: {
     get () {
       if (this.utxoByTypeByAddress) {
@@ -155,6 +157,20 @@ const Portfolio = DefineMap.extend('Portfolio', {
           EQB: getAllUtxo(this.utxoByTypeByAddress.EQB.addresses)
         }
       }
+    }
+  },
+  // List of securities. For displaying in my-portfolio grid.
+  utxoSecurities: {
+    get () {
+      const eqbAddresses = this.utxoByTypeByAddress.EQB.addresses
+      return Object.keys(eqbAddresses).reduce((acc, addr) => {
+        const txouts = eqbAddresses[addr].txouts
+        const securities = txouts.filter(out => {
+          return out.equibit.issuance_tx_id !== '0000000000000000000000000000000000000000000000000000000000000000'
+        })
+        acc.push.apply(acc, securities)
+        return acc
+      }, [])
     }
   },
 
