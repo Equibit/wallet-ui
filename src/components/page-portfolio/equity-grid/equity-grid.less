@@ -1,43 +1,26 @@
 equity-grid, bonds-grid {
-      display: block;
+  display: block;
 
-      grid-component {
-        .column-company {
-          min-width: 140px;
-        }
-        .column-issuance {
-          width: 120px;
-        }
-        .column-quantity {
-          width: 110px;
-          text-align: right;
-        }
-        .column-cost,
-        .column-price,
-        .column-value {
-          width: 100px;
-          text-align: right;
-        }
-        .column-pl {
-          width: 86px;
-          text-align: right;
-        }
-        .column-action {
-          width: 30px;
-          text-align: right;
-          .icon-cross {
-            width: calc(16px);
-            height: calc(16px);
-            font-size: 12px;
-            background: lightgray;
-            border-color: lightgray;
-            &:hover {
-              text-decoration: none;
-              color: lightpink;
-              background: red;
-              border-color: red;
-            }
-          }
+  grid-component {
+    .column-company {
+      min-width: 140px;
+    }
+    .column-issuance {
+      width: 120px;
+    }
+    .column-quantity {
+      width: 110px;
+      text-align: right;
+    }
+    .column-cost,
+    .column-price,
+    .column-value {
+      width: 100px;
+      text-align: right;
+    }
+    .column-pl {
+      width: 86px;
+      text-align: right;
     }
   }
 }

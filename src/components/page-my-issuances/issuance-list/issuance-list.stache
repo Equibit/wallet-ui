@@ -134,7 +134,9 @@
               <td class="column-price font-numeric">- -</td>
               <td class="column-authorized font-numeric">{{format(issuance.sharesAuthorized, '', 0)}}</td>
               <td class="column-issued font-numeric">0</td>
-              <td class="column-action"><button class="btn btn-default btn-xs">Cancel</button></td>
+              <td class="column-action">
+                <a class="icon icon-cross icon-cancelled" ($click)="cancel(row)"></a>
+              </td>
             </tr>
             {{/each}}
           </tbody>
