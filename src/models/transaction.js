@@ -13,6 +13,7 @@ import i18n from '../i18n/i18n'
  *  - Auth issuance with change
  *  - Auth issuance without change
  *  - Send issuance
+ *  - Cancel issuance
  */
 
 const Transaction = DefineMap.extend('Transaction', {
@@ -26,9 +27,14 @@ const Transaction = DefineMap.extend('Transaction', {
     const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']))
     const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0)
     const outputs = [
-      {address: toAddress, value: toSatoshi(amount)},
-      {address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)}
+      {address: toAddress, value: toSatoshi(amount)}
     ]
+    if (changeAddr) {
+      outputs.push({address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)})
+    } else {
+      // Case: cancel issuance with no change address (all issuance inputs will be emptied).
+      outputs[0].value = toSatoshi(availableAmount) - toSatoshi(fee)
+    }
     // Case: auth issuance
     if (issuanceJson) {
       // todo: simplify and check the case where we send all available shares
@@ -100,7 +106,7 @@ const Transaction = DefineMap.extend('Transaction', {
 
   otherAddress: 'string',
 
-  type: 'string', // enum: [ 'IN', 'OUT', 'BUY', 'SELL' ]
+  type: 'string', // enum: [ 'IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL' ]
   typeFormatted: {
     get () {
       const typeString = {
@@ -108,7 +114,8 @@ const Transaction = DefineMap.extend('Transaction', {
         IN: i18n['transactionIn'],
         OUT: i18n['transactionOut'],
         SELL: i18n['transactionSell'],
-        AUTH: i18n['transactionAuth']
+        AUTH: i18n['transactionAuth'],
+        CANCEL: i18n['transactionCancel']
       }
       return typeString[this.type]
     }

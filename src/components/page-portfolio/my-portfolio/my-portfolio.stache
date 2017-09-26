@@ -69,7 +69,8 @@
           <div class="row">
             <div class="col-xs-12 section no-padding">
               <h3 class="subheading">{{i18n('Equity')}}</h3>
-              <equity-grid {rows}="portfolio.securities" />
+              <equity-grid (cancel)="cancelIssuance(%arguments)"
+                           {rows}="portfolio.securities" />
             </div>
 
             <div class="col-xs-12 no-padding">

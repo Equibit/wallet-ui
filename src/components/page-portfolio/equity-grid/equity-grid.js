@@ -44,7 +44,8 @@ export const ViewModel = DefineMap.extend({
           ),  // microBTC
           valueBtc: Session.current.rates.securitiesToBtc * utxo.amount,
           companyName: data.company.legal_name,
-          companySlug: data.company.legal_name && data.company.legal_name.toLowerCase().split(' ').join('-')
+          companySlug: data.company.legal_name && data.company.legal_name.toLowerCase().split(' ').join('-'),
+          utxo
         }
       })
     }
@@ -54,6 +55,9 @@ export const ViewModel = DefineMap.extend({
       let params = this.pagination.params
       return Object.assign({securityType: 'equity'}, params)
     }
+  },
+  cancel (issuance) {
+    this.dispatch('cancel', [issuance])
   }
 })
 

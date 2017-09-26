@@ -87,6 +87,7 @@ const FormData = DefineMap.extend({
   issuance: Issuance,
   transactionFee: {
     type: 'number',
+    // todo: calculate fee
     value: 0.00001
   },
   get transactionFeePrice () {
