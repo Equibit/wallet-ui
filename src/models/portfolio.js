@@ -162,6 +162,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
   // List of securities. For displaying in my-portfolio grid.
   utxoSecurities: {
     get () {
+      if (!this.utxoByTypeByAddress || !this.utxoByTypeByAddress.EQB){
+        return
+      }
       const eqbAddresses = this.utxoByTypeByAddress.EQB.addresses
       return Object.keys(eqbAddresses).reduce((acc, addr) => {
         const txouts = eqbAddresses[addr].txouts
@@ -171,6 +174,45 @@ const Portfolio = DefineMap.extend('Portfolio', {
         acc.push.apply(acc, securities)
         return acc
       }, [])
+    }
+  },
+  securities: {
+    get (val, resolve) {
+      if (!this.utxoSecurities) {
+        return
+      }
+      Promise.all(
+        this.utxoSecurities.map(utxo => {
+          const txId = utxo.equibit.issuance_tx_id
+          return feathersClient.service('proxycore').find({
+            query: {
+              node: 'eqb',
+              method: 'gettransaction',
+              params: [txId, 'true']        // Note: have to use boolean as string! otherwise feathers will convert it to Number(1).
+            }
+          }).then(({ result }) => {
+            // Find `issuance_json` among result.details:
+            console.log('securities.get result:', result)
+            return result.details.reduce((acc, item) => {
+              if (acc) {
+                return acc
+              }
+              let issuanceJson
+              if (item.equibit.issuance_json) {
+                try {
+                  issuanceJson = JSON.parse(item.equibit.issuance_json)
+                } catch (e) {
+                  console.error('Error: cannot parse issuance_json: ', item.equibit.issuance_json)
+                }
+              }
+              return issuanceJson && {
+                utxo,
+                data: issuanceJson
+              }
+            }, null)
+          })
+        })
+      ).then(resolve)
     }
   },
 

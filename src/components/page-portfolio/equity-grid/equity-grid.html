@@ -1,12 +1,35 @@
 <!DOCTYPE HTML>
-
 <style>body { padding: 20px }</style>
+<div id="demo"></div>
 
 <script type="text/stache" can-autorender id="demo-html">
   <can-import from="~/styles/styles.less" />
   <can-import from="wallet-ui/components/page-portfolio/equity-grid/" />
-  <equity-grid></equity-grid>
+  <equity-grid {rows}="rows"></equity-grid>
 </script>
 
 <script src="../../../../node_modules/steal/steal.js"
-        main="can-view-autorender"></script>
+        main="@empty">
+
+  import $ from 'jquery'
+  import stache from 'can-stache'
+  import reload from 'live-reload'
+  import DefineMap from 'can-define/map/map'
+  import data from '~/components/page-portfolio/equity-grid/mock-securities'
+  import '~/models/mock/mock-session'
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
+
+  const vm = new DefineMap({
+    // view model props here
+    rows: data
+  })
+  window.vm = vm
+
+  // Enable live-reload:
+  stache.async($('#demo-html').html()).then(template => {
+    let render = () => $('#demo').html(template(vm))
+    render()
+    reload(render)
+  })
+</script>

@@ -30,14 +30,18 @@ export const ViewModel = DefineMap.extend({
       limit: 10
     })
   },
-  rows: {
-    get (value, resolve) {
-      // PortfolioSecurity.getList(this.queryParams).then(rows => {
-      //   if (rows.total || rows.count) {
-      //     this.pagination.total = rows.total || rows.count
-      //   }
-      //   resolve(rows)
-      // })
+  rows: '*',
+  rowsFormatted: {
+    get () {
+      return this.rows && this.rows.map(({utxo, data}) => {
+        return {
+          issuanceName: data.issuance.issuance_name,
+          amount: utxo.amount,
+          quantity: utxo.amount * 100000000,
+          companyName: data.company.legal_name,
+          companySlug: data.company.legal_name && data.company.legal_name.toLowerCase().split(' ').join('-')
+        }
+      })
     }
   },
   queryParams: {
