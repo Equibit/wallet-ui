@@ -41,6 +41,10 @@
               <arrow-change class="no-arrow" {change}="row.profitLoss"></arrow-change>
             </td>
           </tr>
+        {{else}}
+          <tr>
+            <td colspan="7"><i>No items</i></td>
+          </tr>
         {{/each}}
         </tbody>
       </table>
