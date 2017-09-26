@@ -107,6 +107,8 @@ const Session = DefineMap.extend('Session', {
     if (this.portfolios && this.portfolios[0]) {
       this.portfolios[0].refreshBalance()
     }
+    // load company/issuance UTXO:
+    this.issuancesPromise = Math.random()
   },
 
   /**
@@ -172,7 +174,7 @@ const Session = DefineMap.extend('Session', {
   },
 
   issuancesPromise: {
-    get () {
+    get (val) {
       return this.user && Issuance.getList({userId: this.user._id})
     }
   },
