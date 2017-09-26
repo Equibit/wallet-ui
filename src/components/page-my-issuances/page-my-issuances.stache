@@ -2,6 +2,7 @@
 <can-import from="~/models/fixtures/issuances" />
 <can-import from="~/components/page-my-issuances/create-issuance/" />
 <can-import from="~/components/page-my-issuances/issuance-list/" />
+<can-import from="~/components/trade-funds/send-popup/" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -22,10 +23,10 @@
       <div class="panel-heading">
         <h1 class="panel-title">{{i18n('myIssuancesPageTitle')}}</h1>
         <div>
-          <a ($click)="send()">
+          <button ($click)="openSendIssuance()" class="btn btn-primary btn-sm">
             <span class="icon {{#if isSending}}icon-spinner icon-animation-spin{{else}}icon-upload{{/if}}"></span>
             {{i18n('send')}}
-          </a>
+          </button>
           <button ($click)="addIssuance()" class="btn btn-primary btn-sm">+ {{i18n('myIssuancesAddIssuance')}}</button>
         </div>
       </div>
@@ -47,4 +48,10 @@
   <create-issuance (created)="createIssuance(%arguments)"
                    {issuances}="issuances"
                    {portfolio}="portfolio" />
+{{/if}}
+
+{{#if isSendFundsPopup}}
+  <send-popup (send)="sendIssuance(%arguments)"
+              issuance-only="true"
+              {portfolio}="portfolio" />
 {{/if}}

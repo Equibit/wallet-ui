@@ -28,7 +28,16 @@ const FormData = DefineMap.extend({
    * @property {String} type
    * ENUM ('SECURITIES', 'FUNDS')
    */
-  type: '',
+  type: {
+    get (val) {
+      if (this.issuanceOnly) {
+        return 'SECURITIES'
+      }
+      return val
+    }
+  },
+
+  issuanceOnly: 'boolean',
 
   portfolio: {
     type: '*'
@@ -129,13 +138,16 @@ export const ViewModel = DefineMap.extend({
         return val
       }
       return new FormData({
-        portfolio: this.portfolio
+        portfolio: this.portfolio,
+        issuanceOnly: this.issuanceOnly
       })
     }
   },
   mode: {
     value: 'edit'
   },
+  issuanceOnly: 'boolean',
+  toAddress: '*',
   issuances: {
     get (val, resolve) {
       if (!val) {

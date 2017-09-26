@@ -22,11 +22,15 @@ import Session from '../../models/session'
 
 export const ViewModel = DefineMap.extend({
   portfolio: {
-    get () {
+    get (val) {
+      if (val) {
+        return val
+      }
       return Session.current && Session.current.portfolios[0]
     }
   },
   isIssuacePopupVisible: 'boolean',
+  isSendFundsPopup: 'boolean',
   issuances: {
     Type: Issuance.List,
     get (val, resolve) {
@@ -36,6 +40,12 @@ export const ViewModel = DefineMap.extend({
       Issuance.getList({userId: Session.current.user._id}).then(resolve)
     }
   },
+  // toAddress: {
+  //   get (val, resolve) {
+  //     this.portfolio.getNextAddress().then(({ EQB }) => resolve(EQB))
+  //   }
+  // },
+
   addIssuance () {
     this.isIssuacePopupVisible = false
     this.isIssuacePopupVisible = true
@@ -44,6 +54,13 @@ export const ViewModel = DefineMap.extend({
     console.log('Issuance created', issuance)
     this.issuances.push(issuance)
     this.isIssuacePopupVisible = false
+  },
+  openSendIssuance () {
+    this.isSendFundsPopup = false
+    this.isSendFundsPopup = true
+  },
+  sendIssuance () {
+
   }
 })
 
