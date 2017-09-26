@@ -32,8 +32,8 @@ const Transaction = DefineMap.extend('Transaction', {
     if (changeAddr) {
       outputs.push({address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)})
     } else {
-      // Case: cancel issuance with no change address (all issuance inputs will be emptied).
-      outputs[0].value = toSatoshi(availableAmount) - toSatoshi(fee)
+      // Case: cancel issuance with no change address (all issuance inputs will be emptied). Transaction fee is deducted here:
+      outputs[0].value -= toSatoshi(fee)
     }
     // Case: auth issuance
     if (issuanceJson) {

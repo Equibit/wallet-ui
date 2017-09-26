@@ -37,6 +37,9 @@ export const ViewModel = DefineMap.extend({
       return this.rows && this.rows.map(({utxo, data}) => {
         return {
           issuanceName: data.issuance.issuance_name,
+          issuanceType: data.issuance.security_type,
+          // todo: tmp for demo.
+          issuanceUnit: 'SHARES',
           amount: utxo.amount,
           quantity: utxo.amount * 100000000,
           price: Math.floor(

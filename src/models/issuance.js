@@ -46,6 +46,7 @@ const Issuance = DefineMap.extend('Issuance', {
 
   tradesNum: 'number',
 
+  // todo: remove this due to `issuanceType`?
   // ENUM ('Common Shares' | '')
   type: 'string',
 

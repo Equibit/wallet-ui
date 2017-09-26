@@ -174,13 +174,14 @@ export const ViewModel = DefineMap.extend({
     debugger
     // todo: update when we will group multiple utxo of one issuance.
     const issuance = args[1]
-    const addr = issuance.utxo.address
+    const address = issuance.utxo.address
     const amount = issuance.utxo.amount
-    const keyPair = this.portfolio.findAddress(addr).keyPair
+    const keyPair = this.portfolio.findAddress(address).keyPair
     // Note: txouts contain one input which will be used for the fee as well.
     const txouts = [{
       txid: issuance.utxo.txid,
       vout: issuance.utxo.vout,
+      address,
       keyPair
     }]
     console.log('cancelIssuance', issuance, issuance.utxo)
@@ -192,6 +193,14 @@ export const ViewModel = DefineMap.extend({
         type: 'CANCEL',
         currencyType: 'EQB',
         description: `Canceling  ${issuance.issuanceName} of ${issuance.companyName}`
+        issuance: {
+          companyName: issuance.companyName,
+          companySlug: issuance.companySlug,
+          issuanceId: issuance._id,
+          issuanceName: issuance.issuanceName,
+          issuanceType: issuance.issuanceType,
+          issuanceUnit: issuance.issuanceUnit
+        }
       }
       const tx = Transaction.makeTransaction(amount, toAddress, txouts, options)
 
