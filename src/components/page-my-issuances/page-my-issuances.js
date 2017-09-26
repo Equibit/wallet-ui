@@ -31,22 +31,10 @@ export const ViewModel = DefineMap.extend({
       return Session.current && Session.current.portfolios[0]
     }
   },
+  issuances: '*',
+
   isIssuacePopupVisible: 'boolean',
   isSendFundsPopup: 'boolean',
-  issuances: {
-    Type: Issuance.List,
-    get (val, resolve) {
-      if (val) {
-        return val
-      }
-      Issuance.getList({userId: Session.current.user._id}).then(resolve)
-    }
-  },
-  // toAddress: {
-  //   get (val, resolve) {
-  //     this.portfolio.getNextAddress().then(({ EQB }) => resolve(EQB))
-  //   }
-  // },
 
   addIssuance () {
     this.isIssuacePopupVisible = false
