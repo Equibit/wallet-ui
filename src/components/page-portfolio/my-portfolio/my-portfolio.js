@@ -37,6 +37,7 @@ export const ViewModel = DefineMap.extend({
       portfolio = new Portfolio({name: 'My Portfolio'})
       portfolio.save().then(portfolio => {
         portfolio.keys = Session.current.user.generatePortfolioKeys(portfolio.index)
+        portfolio.rates = Session.current.rates
         this.portfolio = portfolio
         // Session.current.portfolios.push(portfolio)
         this.isReceiveFundsPopup = true
@@ -72,7 +73,7 @@ export const ViewModel = DefineMap.extend({
 
   sendFunds (formData) {
     const currencyType = formData.fundsType
-    this.portfolio.nextChangeAddress().then(addrObj => {
+    return this.portfolio.nextChangeAddress().then(addrObj => {
       return addrObj[currencyType]
     }).then(changeAddr => {
       const tx = this.prepareTransaction(formData, changeAddr)
