@@ -43,7 +43,9 @@
             <td class="column-pl">
               <arrow-change class="no-arrow" {change}="row.profitLoss"></arrow-change>
             </td>
-            <td class="column-action"><button class="btn btn-default btn-xs" ($click)="cancel(row)">Cancel</button></td>
+            <td class="column-action">
+              <a class="icon icon-cross icon-cancelled" ($click)="cancel(row)"></a>
+            </td>
           </tr>
         {{else}}
           <tr>

@@ -192,7 +192,7 @@ export const ViewModel = DefineMap.extend({
         fee: 0.00001,
         type: 'CANCEL',
         currencyType: 'EQB',
-        description: `Canceling  ${issuance.issuanceName} of ${issuance.companyName}`
+        description: `Canceling  ${issuance.issuanceName} of ${issuance.companyName}`,
         issuance: {
           companyName: issuance.companyName,
           companySlug: issuance.companySlug,
