@@ -258,7 +258,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           } else {
             // Check for securities:
             const securitiesAmount = getSecuritiesAmount(txouts)
-            acc.securities += this.rates.eqbToBtc * securitiesAmount
+            acc.securities += this.rates.securitiesToBtc * securitiesAmount
             acc.cashEqb += amount - securitiesAmount
             acc.cashTotal += this.rates.eqbToBtc * amount
           }

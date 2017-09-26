@@ -17,8 +17,9 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './equity-grid.less'
 import view from './equity-grid.stache'
-// import PortfolioSecurity from '~/models/portfolio-security'
+import Session from '../../../models/session'
 import Pagination from '~/models/pagination'
+import { toMaxPrecision } from '../../../utils/formatter'
 
 // TODO: turn fixtures off
 import '~/models/fixtures/securities'
@@ -38,6 +39,10 @@ export const ViewModel = DefineMap.extend({
           issuanceName: data.issuance.issuance_name,
           amount: utxo.amount,
           quantity: utxo.amount * 100000000,
+          price: Math.floor(
+            Session.current.rates.securitiesToBtc * utxo.amount * 1000 * 1000
+          ),  // microBTC
+          valueBtc: Session.current.rates.securitiesToBtc * utxo.amount,
           companyName: data.company.legal_name,
           companySlug: data.company.legal_name && data.company.legal_name.toLowerCase().split(' ').join('-')
         }

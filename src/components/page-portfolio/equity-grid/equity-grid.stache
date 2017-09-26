@@ -36,9 +36,9 @@
             </td>
             <td class="column-issuance">{{row.issuanceName}}</td>
             <td class="column-quantity">{{format(row.quantity, '', 0)}}</td>
-            <td class="column-cost">{{format(row.cost, '', 4)}}</td>
-            <td class="column-price">{{format(row.price, '', 4)}}</td>
-            <td class="column-value">{{local-currency(row.amount, 'EQB')}}</td>
+            <td class="column-cost">{{format(row.cost, '', 0)}}</td>
+            <td class="column-price">{{format(row.price, '', 0)}}</td>
+            <td class="column-value">{{local-currency(row.valueBtc, 'BTC')}}</td>
             <td class="column-pl">
               <arrow-change class="no-arrow" {change}="row.profitLoss"></arrow-change>
             </td>
