@@ -19,6 +19,8 @@ import './page-my-issuances.less'
 import view from './page-my-issuances.stache'
 import Issuance from '../../models/issuance'
 import Session from '../../models/session'
+import { sendIssuance } from '../page-portfolio/my-portfolio/my-portfolio'
+import hub from '~/utils/event-hub'
 
 export const ViewModel = DefineMap.extend({
   portfolio: {
@@ -60,7 +62,21 @@ export const ViewModel = DefineMap.extend({
     this.isSendFundsPopup = true
   },
   sendIssuance () {
-
+    const formData = args[1]
+    console.log('send: ', formData)
+    if (!formData) {
+      console.error('Error: received no form data')
+      return
+    }
+    sendIssuance(this.portfolio, formData)
+      .then(() => {
+        hub.dispatch({
+          'type': 'alert',
+          'kind': 'success',
+          'title': `Securities were sent successfully`,
+          'displayInterval': 5000
+        })
+      })
   }
 })
 
