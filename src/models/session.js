@@ -228,8 +228,8 @@ const Session = DefineMap.extend('Session', {
 
 Session.defaultRates = {
   btcToUsd: 5000,
-  eqbToUsd: 100,
-  eqbToBtc: 100 / 5000
+  eqbToUsd: 1000,
+  eqbToBtc: 1000 / 5000
 }
 
 const algebra = new set.Algebra(

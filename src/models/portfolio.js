@@ -7,6 +7,7 @@
  * @group models/portfolio.properties 0 properties
  */
 
+import { flatten } from 'ramda'
 import DefineMap from 'can-define/map/'
 import DefineList from 'can-define/list/list'
 import canDefineStream from 'can-define-stream-kefir'
@@ -22,6 +23,8 @@ const {
   fetchListunspent,
   getAllUtxo
 } = utils
+
+const EMPTY_ISSUANCE_TX_ID = '0000000000000000000000000000000000000000000000000000000000000000'
 
 const portfolioService = feathersClient.service('portfolios')
 
@@ -169,7 +172,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       return Object.keys(eqbAddresses).reduce((acc, addr) => {
         const txouts = eqbAddresses[addr].txouts
         const securities = txouts.filter(out => {
-          return out.equibit.issuance_tx_id !== '0000000000000000000000000000000000000000000000000000000000000000'
+          return out.equibit.issuance_tx_id !== EMPTY_ISSUANCE_TX_ID
         })
         acc.push.apply(acc, securities)
         return acc
@@ -247,12 +250,16 @@ const Portfolio = DefineMap.extend('Portfolio', {
         const utxo = utxoByType[addr.type]
         if (utxo && utxo.addresses[addr.address]) {
           const amount = utxo.addresses[addr.address].amount
+          const txouts = utxo.addresses[addr.address].txouts
           // Calculate summary:
           if (addr.type === 'BTC') {
             acc.cashBtc += amount
             acc.cashTotal += amount
           } else {
-            acc.cashEqb += amount
+            // Check for securities:
+            const securitiesAmount = getSecuritiesAmount(txouts)
+            acc.securities += this.rates.eqbToBtc * securitiesAmount
+            acc.cashEqb += amount - securitiesAmount
             acc.cashTotal += this.rates.eqbToBtc * amount
           }
         }
@@ -420,6 +427,13 @@ Portfolio.connection = superModelNoCache({
 })
 
 Portfolio.algebra = algebra
+
+// Calculate securities quantity from utxo:
+const getSecuritiesAmount = utxo => {
+  return utxo
+    .filter(out => out.equibit.issuance_tx_id !== EMPTY_ISSUANCE_TX_ID)
+    .reduce((acc, out) => (acc + out.amount), 0)
+}
 
 export default Portfolio
 
