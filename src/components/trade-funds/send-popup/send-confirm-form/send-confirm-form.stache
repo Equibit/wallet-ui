@@ -30,7 +30,7 @@
           {{#is formData.type 'SECURITIES'}}
           <tr>
             <td class="column-label">{{i18n('quantity')}}</td>
-            <td class="column-digital-currency-value font-numeric">{{formData.amount}}</td>
+            <td class="column-digital-currency-value font-numeric">{{formData.shares}}</td>
             <td class="column-digital-currency-type font-numeric">{{i18n('shares')}}</td>
             <td class="column-local-currency-value font-numeric">$ {{formData.price}}</td>
             <td class="column-local-currency-type font-numeric">{{i18n('usd')}}</td>
@@ -81,7 +81,7 @@
           <tr>
             <td class="column-label input-value"><strong>{{i18n('myPortfolio')}}</strong></td>
             {{#is formData.type 'SECURITIES'}}
-              <td class="column-digital-currency-value font-numeric text-danger ">- {{formData.amount}}</td>
+              <td class="column-digital-currency-value font-numeric text-danger ">- {{formData.shares}}</td>
               <td class="column-digital-currency-type font-numeric text-danger">{{i18n('shares')}}</td>
             {{else}}
               <td class="column-digital-currency-value font-numeric text-danger ">- {{format-max(sum(formData.amount, formData.transactionFee), 8)}}</td>

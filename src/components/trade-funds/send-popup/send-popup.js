@@ -73,6 +73,12 @@ const FormData = DefineMap.extend({
       return toMaxPrecision(val, 8)
     }
   },
+  shares: {
+    set (val) {
+      this.amount = val / 100000000
+      return val
+    }
+  },
 
   hasFunds: {
     get () {
