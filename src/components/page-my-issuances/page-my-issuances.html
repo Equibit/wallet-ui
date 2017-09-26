@@ -27,10 +27,11 @@
   import canViewModel from 'can-view-model'
   window.canViewModel = canViewModel
   import Issuance from '~/models/issuance'
+  import { data } from '~/models/fixtures/issuances'
 
   const vm = new DefineMap({
-    issuances: new Issuance.List([])
-    // issuances: new Issuance.List([{_id:1}])
+    // issuances: new Issuance.List([])
+    issuances: new Issuance.List([data[0], data[9]])
   })
   window.vm = vm
 

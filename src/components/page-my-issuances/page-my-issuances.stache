@@ -21,7 +21,13 @@
 
       <div class="panel-heading">
         <h1 class="panel-title">{{i18n('myIssuancesPageTitle')}}</h1>
-        <button ($click)="addIssuance()" class="btn btn-primary btn-sm">+ {{i18n('myIssuancesAddIssuance')}}</button>
+        <div>
+          <a ($click)="send()">
+            <span class="icon {{#if isSending}}icon-spinner icon-animation-spin{{else}}icon-upload{{/if}}"></span>
+            {{i18n('send')}}
+          </a>
+          <button ($click)="addIssuance()" class="btn btn-primary btn-sm">+ {{i18n('myIssuancesAddIssuance')}}</button>
+        </div>
       </div>
       <div class="panel-body">
         <div class="row card-row-full">
