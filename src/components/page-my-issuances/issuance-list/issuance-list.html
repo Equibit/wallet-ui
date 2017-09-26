@@ -23,7 +23,7 @@
 
   const vm = new DefineMap({
     // view model props here
-    issuances: data
+    issuances: new Issuance.List(data)
   })
   window.vm = vm
 

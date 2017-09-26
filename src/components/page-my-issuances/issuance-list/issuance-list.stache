@@ -129,7 +129,7 @@
             {{#each byCompany.issuances as issuance}}
             <tr>
               <td class="column-name">{{issuance.issuanceName}}</td>
-              <td class="column-type">{{issuance.issuanceType}}</td>
+              <td class="column-type">{{issuance.issuanceTypeDisplay}}</td>
               <td class="column-restriction">Level 0{{issuance.restriction}}</td>
               <td class="column-price font-numeric">- -</td>
               <td class="column-authorized font-numeric">{{format(issuance.sharesAuthorized, '', 0)}}</td>

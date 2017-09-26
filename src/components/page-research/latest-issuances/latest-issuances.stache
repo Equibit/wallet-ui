@@ -33,7 +33,7 @@
                     </td>
                     <td class="column-domicile truncate">{{row.domicile}}</td>
                     <td class="column-issuance">{{row.issuanceName}}</td>
-                    <td class="column-issuance-type">{{row.issuanceType}}</td>
+                    <td class="column-issuance-type">{{row.issuanceTypeDisplay}}</td>
                     <!--<td class="column-restriction">{{row.restriction}}</td>-->
                   </tr>
                   {{/each}}

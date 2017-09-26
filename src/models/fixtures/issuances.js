@@ -13,7 +13,7 @@ const data = _.times(90, function (i) {
     companySlug: companies[i % 9].toLowerCase().split(' ').join('-'),
     domicile: ['USA', 'UK', 'Poland', 'Sweden', 'France'][i % 5],
     issuanceName: ['Series 1', 'Series 2'][i % 2],
-    issuanceType: ['Common Shares', 'Trust Units', 'Preferred Shares'][i % 3],
+    issuanceType: ['common_shares', 'trust_units', 'preferred_shares'][i % 3],
     restriction: ['1', '2', 'None'][i % 3],
     marketCap: [285123700, 285123700, 285123700][i % 3],
     change: [502, -601, 120, -120][i % 4],
