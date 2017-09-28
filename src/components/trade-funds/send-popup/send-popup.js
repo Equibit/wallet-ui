@@ -143,10 +143,8 @@ const FormData = DefineMap.extend({
 })
 
 export const ViewModel = DefineMap.extend({
-  portfolio: {
-    type: '*'
-  },
-
+  portfolio: '*',
+  issuances: '*',
   formData: {
     get (val) {
       if (val) {
@@ -163,14 +161,6 @@ export const ViewModel = DefineMap.extend({
   },
   issuanceOnly: 'boolean',
   toAddress: '*',
-  issuances: {
-    get (val, resolve) {
-      if (!val) {
-        Issuance.getList().then(resolve)
-      }
-      return val
-    }
-  },
   next () {
     this.formData.validate()
     if (!this.formData.isValid) {
