@@ -117,7 +117,7 @@ const Issuance = DefineMap.extend('Issuance', {
         phone: company.phoneNumber
       },
       issuance: {
-        issuance_public_key: '025194773f4d9a3cd8ea9e017d634df99044ab8074ef8a06b583d6663fb08f5d68',
+        issuance_public_key: this.address,
         issuance_name: this.issuanceName,
         issuance_date: Math.floor(Date.now() / 1000),
         restriction_level: (this.restriction || 0),

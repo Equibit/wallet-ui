@@ -50,11 +50,13 @@ const FormData = DefineMap.extend({
   toAddressError: 'string',
   amount: {
     type: 'number',
+    value: 0,
     set (val) {
       return toMaxPrecision(val, 8)
     }
   },
   quantity: {
+    value: 0,
     set (val) {
       this.amount = val / 100000000
       return val
