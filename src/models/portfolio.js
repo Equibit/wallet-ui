@@ -7,7 +7,6 @@
  * @group models/portfolio.properties 0 properties
  */
 
-import { flatten } from 'ramda'
 import DefineMap from 'can-define/map/'
 import DefineList from 'can-define/list/list'
 import canDefineStream from 'can-define-stream-kefir'
@@ -165,7 +164,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
   // List of securities. For displaying in my-portfolio grid.
   utxoSecurities: {
     get () {
-      if (!this.utxoByTypeByAddress || !this.utxoByTypeByAddress.EQB){
+      if (!this.utxoByTypeByAddress || !this.utxoByTypeByAddress.EQB) {
         return
       }
       const eqbAddresses = this.utxoByTypeByAddress.EQB.addresses

@@ -28,7 +28,7 @@ export const ViewModel = DefineMap.extend({
     return ({
       'IN': 'Transfer Received',
       'CANCEL': 'Cancelation of an issuance',
-      'AUTH': 'Authentication of a new issuance',
+      'AUTH': 'Authentication of a new issuance'
     })[type] || ('Unknown Type ' + type)
   },
   for (addr) {

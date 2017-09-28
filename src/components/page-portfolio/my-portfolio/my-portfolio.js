@@ -122,7 +122,6 @@ export const ViewModel = DefineMap.extend({
 
   // To cancel an issuance we strip out issuance_tx_id and send as Empty EQB to a new EQB address.
   cancelIssuance (args) {
-    debugger
     // todo: update when we will group multiple utxo of one issuance.
     const issuance = args[1]
     const address = issuance.utxo.address

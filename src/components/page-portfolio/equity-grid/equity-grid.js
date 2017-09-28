@@ -19,7 +19,6 @@ import './equity-grid.less'
 import view from './equity-grid.stache'
 import Session from '../../../models/session'
 import Pagination from '~/models/pagination'
-import { toMaxPrecision } from '../../../utils/formatter'
 
 // TODO: turn fixtures off
 import '~/models/fixtures/securities'
