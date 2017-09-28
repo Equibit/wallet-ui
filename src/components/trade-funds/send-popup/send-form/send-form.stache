@@ -86,7 +86,7 @@
             <!--<currency-converter {(input)}="formData.amount" {currency}="sharesToUsd" />-->
             <currency-converter {(input)}="formData.shares"
                                 precision="2"
-                                {currency}="sharesToEqb"/>
+                                {currency}="formData.sharesToEqb"/>
           </div>
         </div>
 

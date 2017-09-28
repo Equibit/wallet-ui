@@ -120,6 +120,15 @@ const FormData = DefineMap.extend({
     return EQB * Session.current.rates.eqbToUsd
   },
 
+  sharesToEqb: {
+    get () {
+      return {
+        rate: 1 / (100 * 1000 * 1000),
+        symbol: 'EQB'
+      }
+    }
+  },
+
   isValid: {
     get () {
       return !this.toAddressError && (this.hasEnoughFunds || this.type === 'SECURITIES') && this.amount > 0
