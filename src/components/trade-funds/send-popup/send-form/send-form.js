@@ -78,7 +78,11 @@ export const ViewModel = DefineMap.extend({
   },
 
   sendAllFunds () {
-    this.formData.amount = this.availableFunds
+    if (this.formData.type === 'SECURITIES') {
+      this.formData.quantity = this.availableFunds
+    } else {
+      this.formData.amount = this.availableFunds
+    }
   },
 
   openReceiveForm () {

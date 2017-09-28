@@ -73,7 +73,7 @@
 
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
-            <input type="number" class="form-control" {($value)}="formData.shares">
+            <input type="number" class="form-control" {($value)}="formData.quantity">
           </div>
         </div>
 
@@ -84,7 +84,7 @@
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
             <!--<currency-converter {(input)}="formData.amount" {currency}="sharesToUsd" />-->
-            <currency-converter {(input)}="formData.shares"
+            <currency-converter {(input)}="formData.quantity"
                                 precision="2"
                                 {currency}="formData.sharesToEqb"/>
           </div>
