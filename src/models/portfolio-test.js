@@ -85,7 +85,7 @@ describe('models/portfolio', function () {
       expectedBalance.cashTotal = expectedBalance.cashBtc + expectedBalance.cashEqb * portfolio.rates.eqbToBtc
       expectedBalance.total = expectedBalance.cashTotal + expectedBalance.securities
       const balance = portfolio.balance
-      assert.deepEqual(balance, expectedBalance)
+      assert.deepEqual((balance.get ? balance.get() : balance), expectedBalance)
     })
 
     it('should populate nextAddress', function (done) {

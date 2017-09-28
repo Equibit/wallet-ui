@@ -6,7 +6,8 @@ const userMock = new User({
   rates: {
     btcToUsd: 4000,
     eqbToUsd: 3,
-    eqbToBtc: 1
+    eqbToBtc: 1,
+    securitiesToBtc: 1
   }
 })
 userMock.cacheWalletKeys(hdNode)
