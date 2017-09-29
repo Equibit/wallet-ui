@@ -378,7 +378,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       console.warn(`*** The address is not in the list of this portfolio: ${addr}, ${currencyType}, isChange=${isChange}`)
       return
     }
-    if (typeof isChange === 'undefined'){
+    if (typeof isChange === 'undefined') {
       isChange = addressItem.meta.isChange
     }
     if (addressItem.type !== currencyType) {
