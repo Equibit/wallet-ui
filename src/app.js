@@ -114,7 +114,7 @@ const AppViewModel = DefineMap.extend({
 
   subcribeToEvents () {
     Transaction.subscribe(data => {
-      console.log('vm.subcribeToEvents', data)
+      console.log('AppVM.subcribeToEvents: Transaction', data)
       this.session.notifications.push({
         type: data.type,
         address: data.address,
@@ -122,7 +122,7 @@ const AppViewModel = DefineMap.extend({
         currencyType: data.currencyType,
         transactionId: data._id
       })
-      this.session.refreshBalance()
+      this.session.refreshBalance({transactionEvent: data})
     })
   }
 })

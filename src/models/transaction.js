@@ -85,8 +85,8 @@ const Transaction = DefineMap.extend('Transaction', {
     return new Transaction(txData)
   },
   subscribe (cb) {
-    feathersClient.service('/transactions').on('created', (data) => {
-      console.log('subscribe', arguments)
+    feathersClient.service('/transactions').on('created', data => {
+      console.log('Transaction.on.created', data)
       cb(data)
     })
   },

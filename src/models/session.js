@@ -103,7 +103,12 @@ const Session = DefineMap.extend('Session', {
    * @parent models/session.prototype
    * Method to refresh balance. Will request linstunspent and update balancePromise.
    */
-  refreshBalance: function () {
+  refreshBalance: function (options) {
+    // Mark portfolio address as used:
+    if (options && options.transactionEvent && options.transactionEvent.type === 'IN') {
+      const { address, currencyType } = options.transactionEvent
+      this.portfolio.markAsUsed(address, currencyType)
+    }
     if (this.portfolios && this.portfolios[0]) {
       this.portfolios[0].refreshBalance()
     }
