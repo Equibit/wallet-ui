@@ -237,7 +237,7 @@ Session.defaultRates = {
   btcToUsd: 5000,
   eqbToUsd: 1000,
   eqbToBtc: 1000 / 5000,
-  securitiesToBtc: 1 / 5 * 1000  // 1 = 200 BTC, 0.02 = 4 BTC
+  securitiesToBtc: 1 / 5
 }
 
 const algebra = new set.Algebra(
