@@ -27,7 +27,7 @@ export const ViewModel = DefineMap.extend({
     get () {
       return this.balance && new DefineList([
         new DefineList(['Cash', this.balance.cashTotal]),
-        new DefineList(['Domest. Equity', this.balance.equityDomest || 0]),
+        new DefineList(['Domest. Equity', this.balance.securities || 0]),   // equityDomest
         new DefineList(['Domest. Bonds', this.balance.bondsDomest || 0]),
         new DefineList(['Int. Equity', this.balance.equityInt || 0]),
         new DefineList(['Int. Bonds', this.balance.bondsInt || 0])
@@ -35,25 +35,27 @@ export const ViewModel = DefineMap.extend({
     }
   },
   config: {
-    value: {
-      legend: {
-        position: 'right'
-      },
-      color: {
-        pattern: ['#EC2F39', '#FFBC5E', '#32B576', '#3ED2C8', '#468CD9']
-      },
-      size: {
-        height: 120
-      },
-      donut: {
-        label: {
-          show: false
+    value () {
+      return {
+        legend: {
+          position: 'right'
+        },
+        color: {
+          pattern: ['#EC2F39', '#FFBC5E', '#32B576', '#3ED2C8', '#468CD9']
+        },
+        size: {
+          height: 120
+        },
+        donut: {
+          label: {
+            show: false
+          }
+        },
+        onrendered: () => {
+          // Manually reposition chart and legend:
+          document.querySelector('portfolio-breakdown .c3-chart-arcs').setAttribute('transform', 'translate(60,58)')
+          document.querySelectorAll('portfolio-breakdown svg .c3-legend-item').forEach(a => a.setAttribute('transform', 'translate(20,0)'))
         }
-      },
-      onrendered: () => {
-        // Manually reposition chart and legend:
-        document.querySelector('portfolio-breakdown .c3-chart-arcs').setAttribute('transform', 'translate(60,58)')
-        document.querySelectorAll('portfolio-breakdown svg .c3-legend-item').forEach(a => a.setAttribute('transform', 'translate(20,0)'))
       }
     }
   }

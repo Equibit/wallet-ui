@@ -13,6 +13,7 @@
     </div>
   </div>
   }}
+
   <div class="list-group-item">
     <div class="form-group">
       <label for="">{{i18n('to')}}</label>
@@ -21,8 +22,9 @@
       <validation-message {message}="formData.toAddressError" />
     </div>
   </div>
-  <div class="list-group-item">
 
+  <div class="list-group-item">
+    {{^if formData.issuanceOnly}}
     <div class="row">
       <div class="col-sm-6 col-xs-12 no-padding">
         <div class="form-group">
@@ -49,6 +51,7 @@
         {{/is}}
       </div>
     </div>
+    {{/if}}
 
     {{#is formData.type 'SECURITIES'}}
       <div class="form-group">
@@ -70,7 +73,7 @@
 
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
-            <input type="number" class="form-control" {($value)}="formData.amount">
+            <input type="number" class="form-control" {($value)}="formData.quantity">
           </div>
         </div>
 
@@ -80,7 +83,10 @@
 
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
-            <currency-converter {(input)}="formData.amount" {currency}="sharesToUsd" />
+            <!--<currency-converter {(input)}="formData.amount" {currency}="sharesToUsd" />-->
+            <currency-converter {(input)}="formData.quantity"
+                                precision="8"
+                                {currency}="formData.sharesToEqb"/>
           </div>
         </div>
 

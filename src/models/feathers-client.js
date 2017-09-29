@@ -6,12 +6,10 @@ import socketio from 'feathers-socketio/client'
 import auth from 'feathers-authentication-client'
 import hooks from 'feathers-hooks'
 import environment from '~/environment'
-
 const { api, useXhrTransport } = environment
 
-// const transport = 'socketio'
-// const transport = 'rest'
 const transport = useXhrTransport ? 'rest' : 'socketio'
+
 const feathersClient = feathers()
 
 if (transport === 'socketio') {

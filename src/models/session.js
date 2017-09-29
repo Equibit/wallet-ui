@@ -103,10 +103,17 @@ const Session = DefineMap.extend('Session', {
    * @parent models/session.prototype
    * Method to refresh balance. Will request linstunspent and update balancePromise.
    */
-  refreshBalance: function () {
+  refreshBalance: function (options) {
+    // Mark portfolio address as used:
+    if (options && options.transactionEvent && options.transactionEvent.type === 'IN') {
+      const { address, currencyType } = options.transactionEvent
+      this.portfolio.markAsUsed(address, currencyType)
+    }
     if (this.portfolios && this.portfolios[0]) {
       this.portfolios[0].refreshBalance()
     }
+    // load company/issuance UTXO:
+    this.issuancesPromise = Math.random()
   },
 
   /**
@@ -172,7 +179,7 @@ const Session = DefineMap.extend('Session', {
   },
 
   issuancesPromise: {
-    get () {
+    get (val) {
       return this.user && Issuance.getList({userId: this.user._id})
     }
   },
@@ -228,8 +235,9 @@ const Session = DefineMap.extend('Session', {
 
 Session.defaultRates = {
   btcToUsd: 5000,
-  eqbToUsd: 100,
-  eqbToBtc: 100 / 5000
+  eqbToUsd: 1000,
+  eqbToBtc: 1000 / 5000,
+  securitiesToBtc: 1 / 5
 }
 
 const algebra = new set.Algebra(

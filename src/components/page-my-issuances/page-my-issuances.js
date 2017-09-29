@@ -17,25 +17,24 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './page-my-issuances.less'
 import view from './page-my-issuances.stache'
-import Issuance from '../../models/issuance'
 import Session from '../../models/session'
+import { sendIssuance } from '../page-portfolio/my-portfolio/my-portfolio'
+import hub from '~/utils/event-hub'
 
 export const ViewModel = DefineMap.extend({
   portfolio: {
-    get () {
-      return Session.current && Session.current.portfolios[0]
-    }
-  },
-  isIssuacePopupVisible: 'boolean',
-  issuances: {
-    Type: Issuance.List,
-    get (val, resolve) {
+    get (val) {
       if (val) {
         return val
       }
-      Issuance.getList({userId: Session.current.user._id}).then(resolve)
+      return Session.current && Session.current.portfolios[0]
     }
   },
+  issuances: '*',
+
+  isIssuacePopupVisible: 'boolean',
+  isSendFundsPopup: 'boolean',
+
   addIssuance () {
     this.isIssuacePopupVisible = false
     this.isIssuacePopupVisible = true
@@ -44,6 +43,27 @@ export const ViewModel = DefineMap.extend({
     console.log('Issuance created', issuance)
     this.issuances.push(issuance)
     this.isIssuacePopupVisible = false
+  },
+  openSendIssuance () {
+    this.isSendFundsPopup = false
+    this.isSendFundsPopup = true
+  },
+  sendIssuance (args) {
+    const formData = args[1]
+    console.log('send: ', formData)
+    if (!formData) {
+      console.error('Error: received no form data')
+      return
+    }
+    sendIssuance(this.portfolio, formData)
+      .then(() => {
+        hub.dispatch({
+          'type': 'alert',
+          'kind': 'success',
+          'title': `Securities were sent successfully`,
+          'displayInterval': 5000
+        })
+      })
   }
 })
 

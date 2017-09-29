@@ -22,6 +22,9 @@ const Issuance = DefineMap.extend('Issuance', {
   domicile: 'string',
   issuanceName: 'string',
   issuanceType: 'string',
+  get issuanceTypeDisplay () {
+    return Issuance.typesMap[this.issuanceType] || this.issuanceType
+  },
   issuanceUnit: 'string',   // ['SHARES', 'BTC', 'UNITS'] ?
   restriction: 'string',
   marketCap: 'number',
@@ -43,6 +46,7 @@ const Issuance = DefineMap.extend('Issuance', {
 
   tradesNum: 'number',
 
+  // todo: remove this due to `issuanceType`?
   // ENUM ('Common Shares' | '')
   type: 'string',
 
@@ -113,7 +117,7 @@ const Issuance = DefineMap.extend('Issuance', {
         phone: company.phoneNumber
       },
       issuance: {
-        issuance_public_key: '025194773f4d9a3cd8ea9e017d634df99044ab8074ef8a06b583d6663fb08f5d68',
+        issuance_public_key: this.address,
         issuance_name: this.issuanceName,
         issuance_date: Math.floor(Date.now() / 1000),
         restriction_level: (this.restriction || 0),
@@ -127,13 +131,16 @@ const Issuance = DefineMap.extend('Issuance', {
 })
 
 // "common_shares", "fund_units", "partnership_units", "trust_units", "preferred_shares" or "bonds"
-Issuance.types = new DefineList([
-  { name: 'Common Shares', type: 'common_shares' },
-  { name: 'Preferred Shares', type: 'preferred_shares' },
-  { name: 'Trust Units', type: 'trust_units' },
-  { name: 'Partnership Units', type: 'fund_units' },   // <<< TODO ??? check type/name
-  { name: 'Bonds', type: 'bonds' }
-])
+Issuance.typesMap = {
+  'common_shares': 'Common Shares',
+  'preferred_shares': 'Preferred Shares',
+  'trust_units': 'Trust Units',
+  'fund_units': 'Partnership Units',   // <<< TODO ??? check type/name
+  'bonds': 'Bonds'
+}
+Issuance.types = new DefineList(
+  Object.keys(Issuance.typesMap).map(type => ({ type, name: Issuance.typesMap[type] }))
+)
 
 Issuance.List = DefineList.extend('IssuanceList', {
   '#': Issuance,

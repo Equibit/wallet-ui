@@ -21,6 +21,7 @@
           <th class="column-price">{{i18n('price')}} (μBTC)</th>
           <th class="column-value">{{i18n('value')}} ({{local-currency-symbol()}})</th>
           <th class="column-pl">{{i18n('profitandLoss')}} (μBTC)</th>
+          <th class="column-action"></th>
         </tr>
         </thead>
       </table>
@@ -29,19 +30,26 @@
     <div class="grid-body-scroll">
       <table class="table table-condensed grid-body">
         <tbody>
-        {{#each rows as row}}
+        {{#each rowsFormatted as row}}
           <tr>
             <td class="column-company truncate">
               <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug itemId=row._id}}">{{row.companyName}}</a>
             </td>
             <td class="column-issuance">{{row.issuanceName}}</td>
-            <td class="column-quantity">{{row.quantity}}</td>
-            <td class="column-cost">{{format(row.cost, '', 4)}}</td>
-            <td class="column-price">{{format(row.price, '', 4)}}</td>
-            <td class="column-value">{{local-currency(row.value, 'EQB')}}</td>
+            <td class="column-quantity">{{format(row.quantity, '', 0)}}</td>
+            <td class="column-cost">{{format(row.cost, '', 0)}}</td>
+            <td class="column-price">{{format(row.price, '', 0)}}</td>
+            <td class="column-value">{{local-currency(row.valueBtc, 'BTC')}}</td>
             <td class="column-pl">
               <arrow-change class="no-arrow" {change}="row.profitLoss"></arrow-change>
             </td>
+            <td class="column-action">
+              <a class="icon icon-cross icon-cancelled" ($click)="cancel(row)"></a>
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="7"><i>No items</i></td>
           </tr>
         {{/each}}
         </tbody>
@@ -63,7 +71,9 @@
       </div>
     {{/if}}
 
-    <div class="grid-results">Showing{{i18n('')}} {{rows.length}} of{{i18n('')}} {{pagination.total}} Results{{i18n('')}}</div>
+    {{#if rows.length}}
+    <!--div class="grid-results">Showing{{i18n('')}} {{rows.length}} of{{i18n('')}} {{pagination.total}} Results{{i18n('')}}</div-->
+    {{/if}}
 
   </div>
 

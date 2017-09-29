@@ -42,7 +42,10 @@ stache.registerHelper('format-date-short', function (value) {
 
 stache.registerHelper('local-currency', function (value, type = 'BTC') {
   const rates = Session.current && Session.current.rates
-  return accounting.formatMoney(value * rates[type === 'BTC' ? 'btcToUsd' : 'eqbToUsd'], '', 2)
+  const rateType = type === 'BTC'
+    ? 'btcToUsd'
+    : (type === 'SECURITIES' ? 'securitiesToBtc' : 'eqbToUsd')
+  return accounting.formatMoney(value * rates[rateType], '', 2)
 })
 
 stache.registerHelper('local-currency-symbol', function () {

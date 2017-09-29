@@ -23,7 +23,7 @@
           </div>
           <div class="col-xs-12 summary-section">
             <label>{{i18n('totalSecurities')}}</label>
-            <span>{{balance.summary.securities}} <small>BTC</small></span>
+            <span>{{format-max(balance.summary.securities, 8)}} <small>BTC</small></span>
           </div>
         </div>
 
@@ -53,7 +53,7 @@
 
     {{#if issuances.length}}
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-xs-12" style="color:white">
         <br>
         Authorized Issuances: {{issuances.length}}
         <br>

@@ -188,6 +188,7 @@ export default {
   issuanceAuthorization: 'Issuance Authorization',
   issuanceName: 'Issuance Name',
   issuanceType: 'Issuance Type',
+  issuanceWasCanceled: 'Issuance was canceled',
   issued: 'Issued',
 
   issuanceAuthorized: 'A new issuance was authorized successfully',
@@ -368,6 +369,7 @@ export default {
   trades: 'Trades',
   transactionAuth: 'Authorization',
   transactionBuy: 'Buy',
+  transactionCancel: 'Cancelation',
   transactionFee: 'Transaction Fee',
   transaction: 'Transaction',
   transactions: 'Transactions',

@@ -17,7 +17,7 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './equity-grid.less'
 import view from './equity-grid.stache'
-// import PortfolioSecurity from '~/models/portfolio-security'
+import Session from '../../../models/session'
 import Pagination from '~/models/pagination'
 
 // TODO: turn fixtures off
@@ -30,14 +30,26 @@ export const ViewModel = DefineMap.extend({
       limit: 10
     })
   },
-  rows: {
-    get (value, resolve) {
-      // PortfolioSecurity.getList(this.queryParams).then(rows => {
-      //   if (rows.total || rows.count) {
-      //     this.pagination.total = rows.total || rows.count
-      //   }
-      //   resolve(rows)
-      // })
+  rows: '*',
+  rowsFormatted: {
+    get () {
+      return this.rows && this.rows.map(({utxo, data}) => {
+        return {
+          issuanceName: data.issuance.issuance_name,
+          issuanceType: data.issuance.security_type,
+          // todo: tmp for demo.
+          issuanceUnit: 'SHARES',
+          amount: utxo.amount,
+          quantity: utxo.amount * 100000000,
+          price: Math.floor(
+            Session.current.rates.securitiesToBtc * utxo.amount * 1000 * 1000
+          ),  // microBTC
+          valueBtc: Session.current.rates.securitiesToBtc * utxo.amount,
+          companyName: data.company.legal_name,
+          companySlug: data.company.legal_name && data.company.legal_name.toLowerCase().split(' ').join('-'),
+          utxo
+        }
+      })
     }
   },
   queryParams: {
@@ -45,6 +57,9 @@ export const ViewModel = DefineMap.extend({
       let params = this.pagination.params
       return Object.assign({securityType: 'equity'}, params)
     }
+  },
+  cancel (issuance) {
+    this.dispatch('cancel', [issuance])
   }
 })
 

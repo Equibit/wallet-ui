@@ -23,6 +23,8 @@ const {
   getAllUtxo
 } = utils
 
+const EMPTY_ISSUANCE_TX_ID = '0000000000000000000000000000000000000000000000000000000000000000'
+
 const portfolioService = feathersClient.service('portfolios')
 
 const Portfolio = DefineMap.extend('Portfolio', {
@@ -147,6 +149,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }
     }
   },
+  // Flat lists of addresses by node type BTC and EQB:
+  // utxoByType :: Object<BTC:List<Address>, EQB:List<Address>>
   utxoByType: {
     get () {
       if (this.utxoByTypeByAddress) {
@@ -155,6 +159,62 @@ const Portfolio = DefineMap.extend('Portfolio', {
           EQB: getAllUtxo(this.utxoByTypeByAddress.EQB.addresses)
         }
       }
+    }
+  },
+  // List of securities. For displaying in my-portfolio grid.
+  utxoSecurities: {
+    get () {
+      if (!this.utxoByTypeByAddress || !this.utxoByTypeByAddress.EQB) {
+        return
+      }
+      const eqbAddresses = this.utxoByTypeByAddress.EQB.addresses
+      return Object.keys(eqbAddresses).reduce((acc, addr) => {
+        const txouts = eqbAddresses[addr].txouts
+        const securities = txouts.filter(out => {
+          return out.equibit.issuance_tx_id !== EMPTY_ISSUANCE_TX_ID
+        })
+        acc.push.apply(acc, securities)
+        return acc
+      }, [])
+    }
+  },
+  securities: {
+    get (val, resolve) {
+      if (!this.utxoSecurities) {
+        return
+      }
+      Promise.all(
+        this.utxoSecurities.map(utxo => {
+          const txId = utxo.equibit.issuance_tx_id
+          return feathersClient.service('proxycore').find({
+            query: {
+              node: 'eqb',
+              method: 'gettransaction',
+              params: [txId, 'true']        // Note: have to use boolean as string! otherwise feathers will convert it to Number(1).
+            }
+          }).then(({ result }) => {
+            // Find `issuance_json` among result.details:
+            console.log('securities.get result:', result)
+            return result.details.reduce((acc, item) => {
+              if (acc) {
+                return acc
+              }
+              let issuanceJson
+              if (item.equibit.issuance_json) {
+                try {
+                  issuanceJson = JSON.parse(item.equibit.issuance_json)
+                } catch (e) {
+                  console.error('Error: cannot parse issuance_json: ', item.equibit.issuance_json)
+                }
+              }
+              return issuanceJson && {
+                utxo,
+                data: issuanceJson
+              }
+            }, null)
+          })
+        })
+      ).then(resolve)
     }
   },
 
@@ -189,12 +249,16 @@ const Portfolio = DefineMap.extend('Portfolio', {
         const utxo = utxoByType[addr.type]
         if (utxo && utxo.addresses[addr.address]) {
           const amount = utxo.addresses[addr.address].amount
+          const txouts = utxo.addresses[addr.address].txouts
           // Calculate summary:
           if (addr.type === 'BTC') {
             acc.cashBtc += amount
             acc.cashTotal += amount
           } else {
-            acc.cashEqb += amount
+            // Check for securities:
+            const securitiesAmount = getSecuritiesAmount(txouts)
+            acc.securities += this.rates.securitiesToBtc * securitiesAmount
+            acc.cashEqb += amount - securitiesAmount
             acc.cashTotal += this.rates.eqbToBtc * amount
           }
         }
@@ -314,6 +378,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
       console.warn(`*** The address is not in the list of this portfolio: ${addr}, ${currencyType}, isChange=${isChange}`)
       return
     }
+    if (typeof isChange === 'undefined') {
+      isChange = addressItem.meta.isChange
+    }
     if (addressItem.type !== currencyType) {
       console.warn(`*** The address is used for a different currencyType of ${addressItem.type}! ${addr}, ${currencyType}, isChange=${isChange}`)
     }
@@ -362,6 +429,13 @@ Portfolio.connection = superModelNoCache({
 })
 
 Portfolio.algebra = algebra
+
+// Calculate securities quantity from utxo:
+const getSecuritiesAmount = utxo => {
+  return utxo
+    .filter(out => (out.equibit && out.equibit.issuance_tx_id !== EMPTY_ISSUANCE_TX_ID))
+    .reduce((acc, out) => (acc + out.amount), 0)
+}
 
 export default Portfolio
 

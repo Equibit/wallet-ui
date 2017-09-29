@@ -13,7 +13,8 @@
   <can-import from="~/styles/styles.less" />
   <can-import from="~/components/page-my-issuances/" />
 
-  <page-my-issuances {issuances}="issuances"></page-my-issuances>
+  <page-my-issuances {issuances}="issuances"
+                     {portfolio}="portfolio"></page-my-issuances>
   <bootstrap-modal></bootstrap-modal>
 </script>
 
@@ -27,10 +28,13 @@
   import canViewModel from 'can-view-model'
   window.canViewModel = canViewModel
   import Issuance from '~/models/issuance'
+  import { data } from '~/models/fixtures/issuances'
+  import portfolio from '~/models/mock/mock-portfolio'
 
   const vm = new DefineMap({
-    issuances: new Issuance.List([])
-    // issuances: new Issuance.List([{_id:1}])
+    // issuances: new Issuance.List([])
+    issuances: new Issuance.List([data[0], data[9]]),
+    portfolio
   })
   window.vm = vm
 
