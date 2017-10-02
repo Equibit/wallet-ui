@@ -8,7 +8,7 @@ export default function login (email, password) {
   return signed.sign(data, hashedPassword)
     .then(signedData => {
       return feathersClient.authenticate(Object.assign({
-        strategy: 'challenge-request',
+        strategy: 'challenge-request'
       }, signedData))
     })
     .then(({challenge, salt}) => {

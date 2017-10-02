@@ -1,15 +1,11 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import stache from 'can-stache'
-import { translate } from '../i18n/i18n'
 
 import crypto from './crypto'
 import './stache-helpers/stache-helpers'
-import { toMaxPrecision } from './formatter'
-import validators from './validators'
 import '~/models/mock/mock-session'
 import './random-elements-test'
-
 
 describe('utils/crypto', function () {
   it('mnemonicToSeed', function () {
@@ -32,7 +28,6 @@ describe('utils/crypto', function () {
     assert(original === decrypted)
   })
 })
-
 
 describe('utils/stache-helpers', function () {
   describe('is-lt', function () {

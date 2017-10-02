@@ -48,7 +48,7 @@ import canBatch from 'can-event/batch/batch'
 import 'moment/locale/fr'
 
 let i18n = new DefineMap(en)
-const localStorage = typeof window !== 'undefined' && window.localStorage || undefined
+const localStorage = (typeof window !== 'undefined' && window.localStorage) || undefined
 
 let userLang = localStorage && localStorage.getItem('locale')
 if (userLang) {
