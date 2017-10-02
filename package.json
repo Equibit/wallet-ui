@@ -25,7 +25,7 @@
     "lint:fix": "standard --fix",
     "test": "npm-run-all lint test:unit",
     "test:funcunit": "testee test/test-funcunit.html --browsers firefox --reporter Spec",
-    "test:unit": "testee test/test.html --browsers firefox --reporter Spec",
+    "test:unit": "DEBUG=testee:* testee test/test.html --browsers firefox --reporter Spec",
     "qa": "npm run release:qa:patch",
     "release:qa:patch": "npm test && npm run build && npm version patch && make release-qa",
     "release:qa:minor": "npm test && npm run build && npm version minor && make release-qa",
