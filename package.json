@@ -23,7 +23,7 @@
     "docs:publish": "npm run build && npm run docs && make docs-publish",
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "test": "npm-run-all lint mocha",
+    "test": "npm-run-all lint test:unit",
     "mocha": "mocha --compilers js:babel-core/register src/utils/test-mocha.js",
     "test:funcunit": "testee test/test-funcunit.html --browsers firefox --reporter Spec",
     "test:unit": "testee test/test.html --browsers firefox --reporter Spec",

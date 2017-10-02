@@ -2,7 +2,7 @@ import assert from 'chai/chai'
 import fixture from 'can-fixture'
 import 'steal-mocha'
 import User from './user'
-import feathersClient from './feathers-client'
+import feathersClient from '../feathers-client'
 
 // describe('models/user', function () {
 //  it('should getList', function (done) {

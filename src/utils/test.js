@@ -6,6 +6,7 @@ import crypto from './crypto'
 import './stache-helpers/stache-helpers'
 import '~/models/mock/mock-session'
 import './random-elements-test'
+import './test-mocha'
 
 describe('utils/crypto', function () {
   it('mnemonicToSeed', function () {
