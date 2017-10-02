@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './sell-orders.less'
 import view from './sell-orders.stache'
 import SellOrder from '~/models/sell-order'

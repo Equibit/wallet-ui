@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './related-companies.less'
 import view from './related-companies.stache'
 

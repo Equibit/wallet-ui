@@ -7,12 +7,12 @@
  * @group models/portfolio.properties 0 properties
  */
 
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import canDefineStream from 'can-define-stream-kefir'
 import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
-import algebra from '~/models/algebra'
+import algebra from './algebra'
 // import Session from '~/models/session'
 import utils from './portfolio-utils'
 const {

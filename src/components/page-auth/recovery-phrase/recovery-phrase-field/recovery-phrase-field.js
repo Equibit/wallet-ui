@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './recovery-phrase-field.less'
 import view from './recovery-phrase-field.stache'
 import validate from '../../../../utils/validators'

@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './most-active.less'
 import view from './most-active.stache'
 import Issuance from '~/models/issuance'

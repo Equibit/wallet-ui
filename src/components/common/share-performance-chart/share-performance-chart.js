@@ -1,5 +1,5 @@
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './share-performance-chart.less'
 import view from './share-performance-chart.stache'
 

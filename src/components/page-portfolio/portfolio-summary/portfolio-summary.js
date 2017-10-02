@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './portfolio-summary.less'
 import view from './portfolio-summary.stache'
 // import PortfolioSummary from '~/models/portfolio';

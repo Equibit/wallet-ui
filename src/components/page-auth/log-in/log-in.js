@@ -17,7 +17,7 @@
 **/
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './log-in.less'
 import view from './log-in.stache'
 import Session from '~/models/session'

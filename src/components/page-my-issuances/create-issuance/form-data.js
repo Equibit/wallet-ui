@@ -1,4 +1,4 @@
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import Issuance from '../../../models/issuance'
 import Company from '../../../models/company'
 import Session from '../../../models/session'

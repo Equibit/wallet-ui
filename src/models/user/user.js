@@ -9,17 +9,17 @@
  * @group models/user.static 2 static
  */
 
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
-import feathersClient from '~/models/feathers-client'
-import signed from '~/models/feathers-signed'
-import superModel from '~/models/super-model'
-import algebra from '~/models/algebra'
+import feathersClient from '../feathers-client'
+import signed from '../feathers-signed'
+import superModel from '../super-model'
+import algebra from '../algebra'
 import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
-import cryptoUtils from '~/utils/crypto'
+import cryptoUtils from '../../utils/crypto'
 import connect from 'can-connect'
 import login from './login'
-// import Portfolio from '~/models/portfolio';
+// import Portfolio from '../portfolio';
 
 const userService = feathersClient.service('users')
 
@@ -293,4 +293,7 @@ User.connection = superModel({
 User.algebra = algebra
 
 export default User
-window.User = User
+
+if (typeof window !== 'undefined') {
+  window.User = User
+}

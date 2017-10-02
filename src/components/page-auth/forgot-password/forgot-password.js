@@ -19,7 +19,7 @@
 **/
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './forgot-password.less'
 import view from './forgot-password.stache'
 import User from '~/models/user/user'

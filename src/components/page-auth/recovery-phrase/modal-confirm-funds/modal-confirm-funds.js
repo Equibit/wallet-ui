@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './modal-confirm-funds.less'
 import view from './modal-confirm-funds.stache'
 

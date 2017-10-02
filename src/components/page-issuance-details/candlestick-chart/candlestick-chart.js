@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './candlestick-chart.less'
 import view from './candlestick-chart.stache'
 import Candlestick from '~/models/candlestick'

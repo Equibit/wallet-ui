@@ -16,7 +16,7 @@
 **/
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './change-password.less'
 import view from './change-password.stache'
 import validate from '~/utils/validators'

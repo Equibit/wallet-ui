@@ -9,7 +9,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './send-form.less'
 import view from './send-form.stache'
 import { Currency } from '~/components/trade-funds/currency-converter/'

@@ -1,5 +1,5 @@
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './page-portfolio.less'
 import view from './page-portfolio.stache'
 import Session from '~/models/session'

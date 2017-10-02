@@ -42,7 +42,7 @@
     <span class="{{#if is-lt(change, 0)}}arrow-neg{{/if}}">{{format(change, '')}} <content/></span>
   </view>
   <script type="view-model">
-    import DefineMap from 'can-define/map/';
+    import DefineMap from 'can-define/map/map';
 
     export default DefineMap.extend({
       change: 'number'

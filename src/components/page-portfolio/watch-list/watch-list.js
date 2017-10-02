@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './watch-list.less'
 import view from './watch-list.stache'
 import Issuance from '~/models/issuance'

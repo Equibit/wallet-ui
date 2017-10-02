@@ -1,5 +1,5 @@
-import feathersClient from '~/models/feathers-client'
-import signed from '~/models/feathers-signed'
+import feathersClient from '../feathers-client'
+import signed from '../feathers-signed'
 
 export default function login (email, password) {
   let hashedPassword = signed.createHash(password)
@@ -7,10 +7,9 @@ export default function login (email, password) {
 
   return signed.sign(data, hashedPassword)
     .then(signedData => {
-      return feathersClient.authenticate({
+      return feathersClient.authenticate(Object.assign({
         strategy: 'challenge-request',
-        ...signedData
-      })
+      }, signedData))
     })
     .then(({challenge, salt}) => {
       return signed.generateSecret(hashedPassword, salt).then(secret => {

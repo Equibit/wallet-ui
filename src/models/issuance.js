@@ -1,8 +1,8 @@
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
-import feathersClient from '~/models/feathers-client'
-import superModel from '~/models/super-model'
-import algebra from '~/models/algebra'
+import feathersClient from './feathers-client'
+import superModel from './super-model'
+import algebra from './algebra'
 import utils from './portfolio-utils'
 const { fetchListunspent, importAddr, getUnspentOutputsForAmount } = utils
 

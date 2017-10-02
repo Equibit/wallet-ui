@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './recovery-phrase-forgot-password.less'
 import view from './recovery-phrase-forgot-password.stache'
 

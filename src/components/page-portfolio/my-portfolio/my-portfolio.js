@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './my-portfolio.less'
 import view from './my-portfolio.stache'
 import hub from '~/utils/event-hub'

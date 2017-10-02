@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './market-summary.less'
 import view from './market-summary.stache'
 import Market from '~/models/market'

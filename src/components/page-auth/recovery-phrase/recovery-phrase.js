@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import view from './recovery-phrase.stache'
 import route from 'can-route'
 import i18n from '../../../i18n/i18n'

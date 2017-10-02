@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/'
 import './phrase-input.less'
 import view from './phrase-input.stache'

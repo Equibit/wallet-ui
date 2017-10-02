@@ -17,7 +17,7 @@
 **/
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './password-strength.less'
 import view from './password-strength.stache'
 import zxcvbn from 'zxcvbn'

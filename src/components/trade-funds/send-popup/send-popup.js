@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './send-popup.less'
 import view from './send-popup.stache'
 import Session from '~/models/session'

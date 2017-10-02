@@ -31,7 +31,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './currency-converter.less'
 import view from './currency-converter.stache'
 import accounting from 'accounting'
