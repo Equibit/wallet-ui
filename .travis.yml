@@ -1,3 +1,4 @@
+sudo: required
 language: node_js
 node_js: 7.3
 addons:
@@ -7,3 +8,5 @@ before_install:
   - "export DISPLAY=:99.0"
   - "export DEBUG=testee:*"
   - "sh -e /etc/init.d/xvfb start"
+script:
+  - sudo sh -c "dbus-uuidgen > /etc/machine-id"
