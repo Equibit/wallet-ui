@@ -18,7 +18,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './nav-bar.less'
 import view from './nav-bar.stache'
 

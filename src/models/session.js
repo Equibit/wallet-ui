@@ -12,18 +12,18 @@
  * @group models/session.properties 0 properties
  */
 
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import connect from 'can-connect'
 import set from 'can-set'
-import dataParse from 'can-connect/data/parse/'
-import construct from 'can-connect/constructor/'
-import constructStore from 'can-connect/constructor/store/'
-import constructOnce from 'can-connect/constructor/callbacks-once/'
+import dataParse from 'can-connect/data/parse/parse'
+import construct from 'can-connect/constructor/constructor'
+import constructStore from 'can-connect/constructor/store/store'
+import constructOnce from 'can-connect/constructor/callbacks-once/callbacks-once'
 import constructorHydrate from 'can-connect/can/constructor-hydrate/constructor-hydrate'
-import canMap from 'can-connect/can/map/'
-import dataCallbacks from 'can-connect/data/callbacks/'
-import realtime from 'can-connect/real-time/'
+import canMap from 'can-connect/can/map/map'
+import dataCallbacks from 'can-connect/data/callbacks/callbacks'
+import realtime from 'can-connect/real-time/real-time'
 import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior'
 
 import Notification from './notification'
@@ -259,7 +259,9 @@ Session.connection = connect(behaviors, {
 Session.algebra = algebra
 
 //! steal-remove-start
-window.Session = Session
+if (typeof window !== 'undefined') {
+  window.Session = Session
+}
 //! steal-remove-end
 
 export default Session

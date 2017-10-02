@@ -83,7 +83,7 @@
     </bootstrap-modal-content>
   </view>
   <script type="view-model">
-    import DefineMap from 'can-define/map/';
+    import DefineMap from 'can-define/map/map';
 
     export default DefineMap.extend({
     });

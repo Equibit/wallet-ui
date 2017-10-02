@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './page-my-issuances.less'
 import view from './page-my-issuances.stache'
 import Session from '../../models/session'

@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './issuance-form.less'
 import view from './issuance-form.stache'
 import Issuance from '../../../../models/issuance'

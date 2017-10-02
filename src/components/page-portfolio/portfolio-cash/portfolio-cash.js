@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './portfolio-cash.less'
 import view from './portfolio-cash.stache'
 import Session from '~/models/session'

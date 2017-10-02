@@ -9,11 +9,11 @@
  * @group models/candlestick.static 2 static
  */
 
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
-import superModel from '~/models/super-model'
-import feathersClient from '~/models/feathers-client'
-import algebra from '~/models/algebra'
+import superModel from './super-model'
+import feathersClient from './feathers-client'
+import algebra from './algebra'
 
 // FIXTURES!!!
 import '~/models/fixtures/candlestick'

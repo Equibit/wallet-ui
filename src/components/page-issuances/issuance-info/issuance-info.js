@@ -1,5 +1,5 @@
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './issuance-info.less'
 import view from './issuance-info.stache'
 

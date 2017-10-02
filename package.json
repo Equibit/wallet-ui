@@ -24,6 +24,7 @@
     "lint": "standard",
     "lint:fix": "standard --fix",
     "test": "npm-run-all lint test:unit",
+    "mocha": "mocha --compilers js:babel-core/register src/utils/test-mocha.js",
     "test:funcunit": "testee test/test-funcunit.html --browsers firefox --reporter Spec",
     "test:unit": "testee test/test.html --browsers firefox --reporter Spec",
     "test:unit:debug": "DEBUG=testee:* testee test/test.html --browsers firefox --reporter Spec",
@@ -139,11 +140,14 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "ramda": "^0.24.1",
+    "socket.io-client": "^2.0.3",
     "tether": "^1.4.0",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0",
     "can-fixture": "^1.1.1",
     "can-view-model": "^3.4.0",
     "chai": "^4.1.2",

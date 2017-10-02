@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './biggest-movers.less'
 import view from './biggest-movers.stache'
 import BiggestMovers from '../../../models/biggest-movers'

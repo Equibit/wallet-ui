@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './receive-popup.less'
 import view from './receive-popup.stache'
 import hub from '~/utils/event-hub'

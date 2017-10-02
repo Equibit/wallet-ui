@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import { merge } from 'ramda'
 import './create-issuance.less'
 import view from './create-issuance.stache'

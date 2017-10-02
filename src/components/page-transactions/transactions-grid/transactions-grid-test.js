@@ -1,7 +1,7 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import { ViewModel } from './transactions-grid'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/'
 
 describe('wallet-ui/components/page-transactions/transactions-grid', function () {

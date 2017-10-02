@@ -1,9 +1,9 @@
-import DefineMap from 'can-define/map/'
-import validators from '~/utils/validators'
-import { toMaxPrecision } from '~/utils/formatter'
-import { translate } from '~/i18n/i18n'
-import Issuance from '~/models/issuance'
-import Portfolio from '~/models/portfolio'
+import DefineMap from 'can-define/map/map'
+import validators from '../../../utils/validators'
+import { toMaxPrecision } from '../../../utils/formatter'
+import { translate } from '../../../i18n/i18n'
+import Issuance from '../../../models/issuance'
+import Portfolio from '../../../models/portfolio'
 
 const FormData = DefineMap.extend({
   /**

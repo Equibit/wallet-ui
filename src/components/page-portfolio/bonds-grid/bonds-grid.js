@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './bonds-grid.less'
 import view from './bonds-grid.stache'
 // import PortfolioSecurity from '~/models/portfolio-security'

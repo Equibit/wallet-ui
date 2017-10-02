@@ -48,9 +48,9 @@ import canBatch from 'can-event/batch/batch'
 import 'moment/locale/fr'
 
 let i18n = new DefineMap(en)
-const localStorage = window.localStorage
+const localStorage = (typeof window !== 'undefined' && window.localStorage) || undefined
 
-let userLang = typeof localStorage !== 'undefined' && localStorage.getItem('locale')
+let userLang = localStorage && localStorage.getItem('locale')
 if (userLang) {
   setLang(userLang)
 }
@@ -80,7 +80,9 @@ function translate (term, silent) {
   return i18n[term] || term + (silent ? '' : ' (!i18n!)')
 }
 
-window.setLang = setLang
+if (typeof window !== 'undefined') {
+  window.setLang = setLang
+}
 
 export default i18n
 export { setLang }

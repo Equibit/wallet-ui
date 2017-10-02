@@ -10,7 +10,7 @@
 **/
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './company-metadata.less'
 import view from './company-metadata.stache'
 

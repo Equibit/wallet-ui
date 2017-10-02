@@ -16,7 +16,7 @@
 **/
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './sign-up.less'
 import view from './sign-up.stache'
 import User from '~/models/user/user'

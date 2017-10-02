@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/'
 import './modal-recovery-phrase.less'
 import view from './modal-recovery-phrase.stache'

@@ -15,7 +15,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './progress-tracker.less'
 import view from './progress-tracker.stache'
 

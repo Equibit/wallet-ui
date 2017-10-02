@@ -20,7 +20,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './flow-message.less'
 import view from './flow-message.stache'
 

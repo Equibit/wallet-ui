@@ -2,7 +2,7 @@ import stache from 'can-stache'
 import accounting from 'accounting'
 import moment from 'moment'
 import { toMaxPrecision } from '../formatter'
-import Session from '~/models/session'
+import Session from '../../models/session'
 
 stache.registerHelper('format', function (value, symbol, precision = 2) {
   return accounting.formatMoney(value, symbol, precision)

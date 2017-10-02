@@ -14,7 +14,7 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './equity-grid.less'
 import view from './equity-grid.stache'
 import Session from '../../../models/session'

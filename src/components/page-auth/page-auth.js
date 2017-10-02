@@ -1,5 +1,5 @@
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import view from './page-auth.stache'
 
 export const ViewModel = DefineMap.extend({
