@@ -18,7 +18,9 @@ const Issuance = DefineMap.extend('Issuance', {
 
   companyId: 'string',
   companyName: 'string',
-  companySlug: 'string',
+  get companySlug () {
+    return this.companyName && this.companyName.toLowerCase().split(' ').join('-')
+  },
   domicile: 'string',
   issuanceName: 'string',
   issuanceType: 'string',

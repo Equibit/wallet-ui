@@ -1,6 +1,6 @@
 import fixture from 'can-fixture'
 import _ from 'lodash'
-import SellOrder from '~/models/sell-order'
+import SellOrder from '../sell-order'
 
 let store = fixture.store(_.times(50, (i) => {
   return {
