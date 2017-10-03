@@ -29,11 +29,11 @@ const Order = DefineMap.extend('Order', {
   userId: 'string',
 
   /**
-   * @property {Number} models/order.properties.issuanceId issuanceId
+   * @property {Number} models/order.properties.issuanceAddress issuanceAddress
    * @parent models/order.properties
-   * Id of the issuance for the order
+   * Public address of the issuance for the order
    */
-  issuanceId: 'string',
+  issuanceAddress: 'string',
 
   /**
    * @property {Number} models/order.properties.type type

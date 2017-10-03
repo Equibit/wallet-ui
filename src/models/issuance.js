@@ -13,9 +13,21 @@ const Issuance = DefineMap.extend('Issuance', {
    * Id of the user who created the issuance
    */
   userId: 'string',
+
+  /**
+   * Issuance address identifies issuance in Blockchain. All OrderBook items will be linked by this address.
+   */
+  address: 'string',
+
+  /**
+   * For deriving keys
+   */
   index: 'number',
   companyIndex: 'number',
 
+  /**
+   * Company and Issuance info.
+   */
   companyId: 'string',
   companyName: 'string',
   get companySlug () {
