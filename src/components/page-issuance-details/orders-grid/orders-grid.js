@@ -52,7 +52,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   rows: {
     get (lastVal, resolve) {
       this.accumulativeQuantity = 0
-      this.rowsPromise.then(resolve)
+      this.rowsPromise && this.rowsPromise.then(resolve)
     }
   },
   get totalQuantity () {

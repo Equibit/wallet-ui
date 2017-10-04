@@ -23,7 +23,7 @@ export const ViewModel = DefineMap.extend({
   issuanceId: {
     type: 'string',
     set (val) {
-      Issuance.get(val).then(issuance => {
+      Issuance.get({_id: val}).then(issuance => {
         this.issuance = issuance
       })
       return val
