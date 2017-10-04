@@ -22,7 +22,7 @@
       <table class="table table-condensed grid-body">
         <tbody>
         {{#each rows as row}}
-          <tr class="">
+          <tr class="order-row percentage-{{marketColor}} percentage-{{marketWidth}}">
             <td class="column-action-buttons"><button class="btn btn-default btn-xs">{{i18n('buy')}}</button></td>
             <td class="column-partial">{{yes-no(row.partial)}}</td>
             <td class="column-datetime">{{format-time(row.date)}}</td>

@@ -117,6 +117,11 @@ const Order = DefineMap.extend('Order', {
     get () {
       return this.portfolioId && this.fundsPortfolioId && this.quantity && this.goodFor
     }
+  },
+
+  marketWidth: {
+    serialize: false,
+    type: 'number'
   }
 })
 
