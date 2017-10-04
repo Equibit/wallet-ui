@@ -2,7 +2,7 @@ sell-orders {
 	display: block;
 }
 
-.loop(@counter, @color) when (@counter > 0) {
+.loop(@counter, @color) when (@counter >= 0) {
   .loop((@counter - 1), @color);    // next iteration
   &.percentage-@{counter} {
     background-image: linear-gradient(90deg, white (1% * @counter), @color (1% * @counter));

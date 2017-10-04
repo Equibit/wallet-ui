@@ -7,13 +7,11 @@ const data = times((i) => {
   return {
     _id: i,
     issuanceAddress: issuance.address,
-    quantity: Math.floor(1000 * (i + 1) * Math.random()),
+    quantity: (1000 * (i + 1)),
     price: 70 * (i + 1),
     date: [(new Date()).toJSON(), '2017-04-12T04:35:34.835Z', '2017-03-05T08:45:34.835Z'][i % 3],
     partial: [true, false, true][i % 3],
-    type: ['SELL', 'BUY'][i % 2],
-    marketWidth: (100 - [75, 70, 55][i % 3]),
-    marketColor: ['green', 'red', 'blue'][i % 3]
+    type: ['SELL', 'BUY'][i % 2]
   }
 }, 50)
 

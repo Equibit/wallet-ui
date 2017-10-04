@@ -19,6 +19,8 @@ import './sell-orders.less'
 import view from './sell-orders.stache'
 import Order from '~/models/order'
 
+let accumulativeQuantity = 0
+
 // TODO: turn FIXTURES OFF
 import '~/models/fixtures/sell-order'
 
@@ -44,8 +46,18 @@ export const ViewModel = DefineMap.extend({
   },
   rows: {
     get (lastVal, resolve) {
+      accumulativeQuantity = 0
       this.rowsPromise.then(resolve)
     }
+  },
+  get totalQuantity () {
+    return this.rows.reduce((sum, row) => (sum + row.quantity), 0)
+  },
+  marketWidth (quantity) {
+    accumulativeQuantity += quantity
+    let percentageOffset = 100 - Math.floor(accumulativeQuantity / this.totalQuantity * 100)
+    console.log(`marketWidth: totalQuantity=${this.totalQuantity}, quantity=${quantity}, accumulativeQuantity=${accumulativeQuantity} => ${percentageOffset}`)
+    return percentageOffset >= 100 ? 99 : percentageOffset
   }
 })
 
