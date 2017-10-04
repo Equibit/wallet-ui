@@ -15,9 +15,6 @@ import algebra from './algebra'
 import Issuance from './issuance'
 import Portfolio from './portfolio'
 
-// TODO: FIXTURES ON!
-// import './fixtures/orders'
-
 const Order = DefineMap.extend('Order', {
   _id: 'string',
 

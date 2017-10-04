@@ -11,7 +11,7 @@
     <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
       <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-      <sell-orders limit="10" />
+      <sell-orders limit="10" address:from="issuance.address" />
 
       <div>
         <button class="btn btn-primary btn-xs">{{i18n('addSellOrder')}}</button>
@@ -21,7 +21,7 @@
     <div class="col-lg-6 col-xs-12 buy-orders no-padding-right">
       <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-      <buy-orders limit="15" />
+      <buy-orders limit="15" address:from="issuance.address" />
 
       <div>
         <button class="btn btn-primary btn-xs">{{i18n('addBuyOrder')}}</button>

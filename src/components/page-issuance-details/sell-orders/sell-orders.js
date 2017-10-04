@@ -17,20 +17,29 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './sell-orders.less'
 import view from './sell-orders.stache'
-import SellOrder from '~/models/sell-order'
+import Order from '~/models/order'
 
 // TODO: turn FIXTURES OFF
 import '~/models/fixtures/sell-order'
 
 export const ViewModel = DefineMap.extend({
+  address: 'string',
   limit: 'number',
   rowsPromise: {
     get () {
-      let params = this.limit ? {
-        $limit: this.limit,
-        $skip: 0
-      } : {}
-      return SellOrder.getList(params)
+      if (!this.address){
+        console.error('Orders require issuance address!')
+        return
+      }
+      // let params = this.limit ? {
+      //   $limit: this.limit,
+      //   $skip: 0
+      // } : {}
+      const params = {
+        type: 'SELL',
+        address: this.address
+      }
+      return Order.getList(params)
     }
   },
   rows: {
