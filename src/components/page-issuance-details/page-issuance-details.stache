@@ -54,7 +54,7 @@
           <div class="panel-body">
             <!--<candlestick-chart />-->
 
-            <order-book {issuance}="issuance" />
+            <order-book issuance:from="issuance" />
 
             <!--market-depth /-->
             <!--<related-companies />-->

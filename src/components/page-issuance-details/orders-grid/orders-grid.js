@@ -1,15 +1,15 @@
 /**
- * @module {can.Component} components/sell-orders sell-orders
+ * @module {can.Component} components/orders-grid orders-grid
  * @parent components.issuance-details
  *
- * Issuance Details / Order Book / Sell Orders
+ * Issuance Details / Order Book / Sell and Buy Orders
  *
- * @signature `<sell-orders />`
+ * @signature `<orders-grid type="BUY" limit="10" address:from="issuance.address" />`
  *
- * @link ../src/components/page-issuance-details/sell-orders/sell-orders.html Full Page Demo
+ * @link ../src/components/page-issuance-details/orders-grid/orders-grid.html Full Page Demo
  * ## Example
  *
- * @demo src/components/page-issuance-details/sell-orders/sell-orders.html
+ * @demo src/components/page-issuance-details/orders-grid/orders-grid.html
  *
  */
 
@@ -58,10 +58,18 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   get totalQuantity () {
     return this.rows.reduce((sum, row) => (sum + row.quantity), 0)
   },
-  marketWidth (quantity, isLeft) {
+
+  /**
+   * Market depth chart as a background for order table tows.
+   * @param quantity
+   * @param hasLeftOffset Whether to show bar chart from the right (with left offset).
+   * @returns {number}
+   */
+  marketWidth (quantity, hasLeftOffset) {
+    // Accumulative quantity value per row:
     this.accumulativeQuantity += quantity
     const percentageWidth = Math.floor(this.accumulativeQuantity / this.totalQuantity * 100)
-    const percentageOffset = isLeft === 'offsetLeft' ? 100 - percentageWidth : percentageWidth
+    const percentageOffset = hasLeftOffset === 'offsetLeft' ? 100 - percentageWidth : percentageWidth
     // console.log(`marketWidth: totalQuantity=${this.totalQuantity}, quantity=${quantity}, accumulativeQuantity=${this.accumulativeQuantity} => ${percentageOffset}`)
     return percentageOffset >= 100 ? 99 : (percentageOffset === 0 ? 1 : percentageOffset)
   }
