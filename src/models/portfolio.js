@@ -162,6 +162,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
   },
   // List of securities. For displaying in my-portfolio grid.
+  // utxoSecurities :: List<UTXO>
   utxoSecurities: {
     get () {
       if (!this.utxoByTypeByAddress || !this.utxoByTypeByAddress.EQB) {
@@ -178,6 +179,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }, [])
     }
   },
+
+  // securities :: List<Object<UTXO,IssuanceJson>>
   securities: {
     get (val, resolve) {
       if (!this.utxoSecurities) {

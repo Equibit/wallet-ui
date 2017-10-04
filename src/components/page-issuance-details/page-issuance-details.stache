@@ -52,10 +52,12 @@
           </div>
 
           <div class="panel-body">
-            <candlestick-chart />
-            <order-book {issuance}="issuance" />
+            <!--<candlestick-chart />-->
+
+            <order-book issuance:from="issuance" />
+
             <!--market-depth /-->
-            <related-companies />
+            <!--<related-companies />-->
             <small class="fineprint">{{i18n('disclaimerPriceData')}}</small>
           </div>
         </div>

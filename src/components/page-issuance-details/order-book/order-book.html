@@ -1,11 +1,30 @@
-<script type="text/stache" can-autorender>
+<script>window.useXhrTransport = true</script>
+<script type="text/stache" id="demo" can-autorender>
   <can-import from="~/styles/styles.less" />
   <can-import from="~/components/page-issuance-details/order-book/" />
   <can-import from="bootstrap-canjs" />
   <can-import from="bootstrap-canjs/modal/modal.less" />
 
   <bootstrap-modal></bootstrap-modal>
-  <order-book></order-book>
+
+  <br>
+  <div class="row">
+    <div class="col-xs-12">
+      <drag-panel class="panel panel-default card card-full">
+        <div class="panel-body">
+          <order-book issuance:from="issuance"></order-book>
+        </div>
+      </drag-panel>
+    </div>
+  </div>
 </script>
 <script src="../../../../node_modules/steal/steal.js"
-        main="can-view-autorender"></script>
+        main="can-view-autorender">
+  import canViewModel from 'can-view-model'
+  import issuance from '~/models/mock/mock-issuance'
+  import '~/models/fixtures/orders'
+
+  canViewModel(document.getElementById('demo')).set({
+    issuance
+  })
+</script>

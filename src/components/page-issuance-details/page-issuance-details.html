@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-
 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 <div id="demo"></div>
+<script>window.useXhrTransport = true</script>
 
 <script type="text/stache" id="demo-html">
 <can-import from="bootstrap/dist/js/bootstrap" />
@@ -11,7 +11,7 @@
 <can-import from="~/components/page-issuance-details/" />
 
 <nav-bar page="issuances" />
-<page-issuance-details {company-slug}="companySlug" {issuance-id}="issuanceId"></page-issuance-details>
+<page-issuance-details company-slug:from="companySlug" issuance:from="issuance"></page-issuance-details>
 </script>
 
 <script src="../../../node_modules/steal/steal.js"
@@ -21,11 +21,12 @@
   import stache from 'can-stache';
   import reload from 'live-reload';
   import DefineMap from 'can-define/map/map';
-  import '~/models/fixtures/issuances';
+  import '~/models/fixtures/orders';
+  import issuance from '~/models/mock/mock-issuance'
 
   const vm = new DefineMap({
     companySlug: 'imperial-brands',
-    issuanceId: '0'
+    issuance
   });
 
   stache.async($('#demo-html').html()).then(template => {
