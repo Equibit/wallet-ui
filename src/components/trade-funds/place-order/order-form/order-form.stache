@@ -8,10 +8,11 @@
     </div>
 </div>
 
+{{#if formData}}
 <div class="list-group">
 
   <div class="list-group-item order-header">
-    <issuance-summary />
+    <issuance-summary issuance:from="issuance"/>
   </div>
 
   <div class="list-group-item order-fields">
@@ -23,7 +24,7 @@
             <label for="inputQuantity" class="control-label">{{i18n('quantity')}}</label>
           </div>
           <div class="col-xs-12 col-sm-9">
-            <input type="text" class="form-control" id="inputQuantity">
+            <input type="text" class="form-control" id="inputQuantity" value:bind="formData.quantity">
           </div>
         </div>
       </div>
@@ -35,7 +36,7 @@
           </div>
           <div class="col-xs-12 col-sm-9">
             <div class="input-group">
-              <input type="text" class="form-control" id="inputAskPrice">
+              <input type="text" class="form-control" id="inputAskPrice" value:bind="formData.price">
               <div class="input-group-addon">μBTC</div>
             </div>
           </div>
@@ -49,7 +50,7 @@
           </div>
           <div class="col-xs-12 col-sm-9">
             <div class="input-group">
-              <input type="text" class="form-control" id="inputTotalAmount" disabled>
+              <input type="text" class="form-control" id="inputTotalAmount" viewonly value:from="formData.totalPrice">
               <div class="input-group-addon disabled">μBTC</div>
             </div>
           </div>
@@ -96,3 +97,4 @@
   </div>
 
 </div>
+{{/if}}

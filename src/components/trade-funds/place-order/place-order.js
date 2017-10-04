@@ -17,7 +17,6 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './place-order.less'
 import view from './place-order.stache'
-import Issuance from '../../../models/issuance'
 import FormData from './form-data'
 
 export const ViewModel = DefineMap.extend({
@@ -34,8 +33,9 @@ export const ViewModel = DefineMap.extend({
       }
       return new FormData({
         portfolio: this.portfolio,
-        authIssuancesOnly: this.authIssuancesOnly,
-        rates: Session.current.rates
+        issuance: this.issuance,
+        authIssuancesOnly: this.authIssuancesOnly
+        // rates: Session.current.rates
       })
     }
   },

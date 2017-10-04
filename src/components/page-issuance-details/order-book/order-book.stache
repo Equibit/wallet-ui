@@ -2,6 +2,7 @@
 <can-import from="~/components/page-issuances/company-value-change.component" />
 <can-import from="~/components/common/modal/modal.less" />
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/trade-funds/place-order/" />
 
 <h2 class="subtitle">{{i18n('orderBook')}}</h2>
 
@@ -13,8 +14,8 @@
       <orders-grid type="SELL" limit="10" address:from="issuance.address" />
 
       <div>
-        <button class="btn btn-primary btn-xs">{{i18n('addSellOrder')}}</button>
-        <button class="btn btn-link btn-xs" ($click)="showModal()">View All</button>
+        <button class="btn btn-primary btn-xs" on:click="showModal()">{{i18n('addSellOrder')}}</button>
+        <button class="btn btn-link btn-xs" on:click="showViewAll()">View All</button>
       </div>
     </div>
     <div class="col-lg-6 col-xs-12 buy-orders no-padding-right">
@@ -23,8 +24,8 @@
       <orders-grid type="BUY" limit="10" address:from="issuance.address" />
 
       <div>
-        <button class="btn btn-primary btn-xs">{{i18n('addBuyOrder')}}</button>
-        <button class="btn btn-link btn-xs" ($click)="showModal()">View All</button>
+        <button class="btn btn-primary btn-xs" on:click="showModal()">{{i18n('addBuyOrder')}}</button>
+        <button class="btn btn-link btn-xs" on:click="showViewAll()">View All</button>
       </div>
     </div>
   </div>

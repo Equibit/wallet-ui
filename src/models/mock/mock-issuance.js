@@ -38,6 +38,7 @@ const issuance = new Issuance({
   index: issuanceIndex,
   companyName: 'Equibit Group',
   issuanceName: 'Series One',
+  issuanceType: 'common_shares',
   keys: issuanceKeyPair,
   utxo,
   rates: Session.current.rates
