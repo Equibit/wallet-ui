@@ -2,7 +2,7 @@ import './users'
 import './authenticate'
 import './market-cap'
 import './biggest-movers'
-import './sell-order'
+import './orders'
 import './portfolio'
 import './listunspent'
 
