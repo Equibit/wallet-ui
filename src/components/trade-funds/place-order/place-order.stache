@@ -7,18 +7,24 @@
 
 <bootstrap-modal-content>
   <div class="modal-header">
-    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+    <button on:click="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
     <h3 class="modal-title">{{i18n('placeSellOrder')}}</h3>
   </div>
 
   <div class="modal-body">
-    <order-form></order-form>
-    <!--order-confirm></order-confirm-->
+
+    {{#is mode 'edit'}}
+      <order-form form-data:from="formData"
+                  issuance:from="issuance" />
+    {{else}}
+      <order-confirm form-data:from="formData"
+                     issuance:from="issuance" />
+    {{/is}}
 
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary">{{i18n('next')}}</button>
-    <button type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    <button on:click="next()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
+    <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
   </div>
 </bootstrap-modal-content>

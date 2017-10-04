@@ -19,9 +19,9 @@ import './order-book.less'
 import view from './order-book.stache'
 
 export const ViewModel = DefineMap.extend({
-  issuance: {
-    type: '*'
-  },
+  portfolio: '*',
+  issuance: "*",
+
   isModalShown: 'boolean',
   showModal () {
     // Note: we need to re-insert the modal content:
