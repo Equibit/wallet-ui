@@ -22,11 +22,19 @@ export const ViewModel = DefineMap.extend({
   issuance: {
     type: '*'
   },
+
   isModalShown: 'boolean',
   showModal () {
     // Note: we need to re-insert the modal content:
     this.isModalShown = false
     this.isModalShown = true
+  },
+
+  isViewAllShown: 'boolean',
+  viewAllModal () {
+    // Note: we need to re-insert the modal content:
+    this.isViewAllShown = false
+    this.isViewAllShown = true
   }
 })
 
