@@ -36,7 +36,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   },
   rowsPromise: {
     get () {
-      if (!this.address){
+      if (!this.address) {
         console.error('Orders require issuance address!')
         return
       }
