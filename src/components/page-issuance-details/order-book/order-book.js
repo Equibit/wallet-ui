@@ -18,6 +18,7 @@ import DefineMap from 'can-define/map/map'
 import './order-book.less'
 import view from './order-book.stache'
 import Order from '../../../models/order'
+import Session from '../../../models/session'
 import hub from '../../../utils/event-hub'
 import { translate } from '~/i18n/'
 
