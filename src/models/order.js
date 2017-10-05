@@ -61,18 +61,22 @@ const Order = DefineMap.extend('Order', {
   quantity: 'number',
 
   /**
-   * @property {Number} models/order.properties.askPrice askPrice
+   * @property {Number} models/order.properties.price price
    * @parent models/order.properties
    * Price of one unit of the issuance, in satoshi BTC
    */
-  askPrice: 'number',
+  price: 'number',
 
   /**
    * @property {Number} models/order.properties.totalPrice totalPrice
    * @parent models/order.properties
    * Total price, quantity * askPrice, in satoshi BTC
    */
-  totalPrice: 'number',
+  totalPrice: {
+    get () {
+      return this.quantity * this.price
+    }
+  },
 
   /**
    * @property {Number} models/order.properties.isFillOrKill isFillOrKill

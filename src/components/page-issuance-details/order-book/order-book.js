@@ -17,6 +17,9 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './order-book.less'
 import view from './order-book.stache'
+import Order from '../../../models/order'
+import hub from '../../../utils/event-hub'
+import { translate } from '~/i18n/'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
@@ -42,6 +45,24 @@ export const ViewModel = DefineMap.extend({
     if (!formData) {
       console.error('Error: received no form data')
     }
+    const order = new Order({
+      userId: Session.current.user._id,
+      issuanceAddress: this.issuance.address,
+      type,
+      portfolioId: this.portfolio._id,
+      quantity: this.formData.quantity,
+      askPrice: this.formData.price,
+      isFillOrKill: this.formData.isFillOrKill,
+      goodFor: this.formData.goodFor
+    })
+    order.save(() => {
+      hub.dispatch({
+        'type': 'alert',
+        'kind': 'success',
+        'title': translate('orderWasCreated'),
+        'displayInterval': 5000
+      })
+    })
   }
 })
 

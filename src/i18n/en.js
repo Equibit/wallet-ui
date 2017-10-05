@@ -251,6 +251,7 @@ export default {
   offer: 'Offer',
   order: 'Order',
   orderBook: 'Order Book',
+  orderWasCreated: 'Your order was created',
   optional: 'Optional',
 
   partial: 'Partial',
