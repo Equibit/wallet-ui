@@ -18,7 +18,7 @@ import './button-group.less'
 
 const Button = DefineMap.extend({
   name: 'string',
-  value: 'string',
+  value: 'number',
   isSelected: 'boolean'
 })
 
@@ -40,10 +40,11 @@ export const ViewModel = DefineMap.extend({
   },
   selectedItem: '*',
   selectedValue: {
+    type: 'number',
     set (val) {
       this.buttons.forEach(b => { b.isSelected = false })
       const button = this.buttons.reduce((selected, button) => {
-        return selected || (button.value == val && button)
+        return selected || (button.value === val && button)
       }, null)
       if (button) {
         button.isSelected = true
