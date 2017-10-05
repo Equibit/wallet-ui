@@ -80,7 +80,7 @@
             <label class="control-label">{{i18n('goodFor')}}</label>
           </div>
           <div class="col-xs-12 col-sm-9 display-row">
-            <button-group amount="7" start-with="1" {^selected-value}="formData.goodFor" />
+            <button-group amount="7" start-with="1" {(selected-value)}="formData.goodFor" />
             <label class="label-days">{{i18n('Days')}}</label>
           </div>
         </div>

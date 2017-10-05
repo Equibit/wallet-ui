@@ -41,9 +41,8 @@ export const ViewModel = DefineMap.extend({
   },
 
   next () {
-    this.formData.validate()
     if (!this.formData.isValid) {
-      // return
+      return
     }
     this.mode = 'confirm'
   },
@@ -51,7 +50,7 @@ export const ViewModel = DefineMap.extend({
     this.mode = 'edit'
   },
   send (close) {
-    this.dispatch('send', [this.formData])
+    this.dispatch('send', [this.formData, 'SELL'])
     close()
   }
 })

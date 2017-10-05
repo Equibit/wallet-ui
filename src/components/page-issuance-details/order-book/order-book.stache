@@ -3,6 +3,7 @@
 <can-import from="~/components/common/modal/modal.less" />
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/trade-funds/place-order/" />
+<can-import from="~/components/trade-funds/place-offer/" />
 
 <h2 class="subtitle">{{i18n('orderBook')}}</h2>
 
@@ -32,8 +33,9 @@
 </div>
 
 {{#if isModalShown}}
-  <place-order portfolio:from="portfolio"
-               issuance:from="issuance"></place-order>
+  <place-order on:send="placeOrder(%arguments)"
+               portfolio:from="portfolio"
+               issuance:from="issuance" />
 {{/if}}
 
 {{#if isViewAllShown}}

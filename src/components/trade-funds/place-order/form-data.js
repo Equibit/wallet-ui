@@ -1,5 +1,6 @@
 import DefineMap from 'can-define/map/map'
-import { translate } from '../../../i18n/i18n'
+import moment from 'moment'
+// import { translate } from '../../../i18n/i18n'
 import Issuance from '../../../models/issuance'
 import Portfolio from '../../../models/portfolio'
 
@@ -26,8 +27,14 @@ const FormData = DefineMap.extend({
   isFillOrKill: 'boolean',
   goodFor: 'number',
 
+  error: 'string',
+
   get totalPrice () {
     return this.quantity * this.price
+  },
+
+  get goodUntil () {
+    return moment().add(this.goodFor, 'days').format('MMM D')
   },
 
   hasFunds: {
@@ -50,12 +57,7 @@ const FormData = DefineMap.extend({
   },
   isValid: {
     get () {
-      return !this.toAddressError && (this.hasEnoughFunds || this.type === 'SECURITIES') && this.amount > 0
-    }
-  },
-  validate () {
-    if (!this.toAddress && !this.toAddressError) {
-      this.toAddressError = translate('missingAddress')
+      return this.quantity && this.price && this.goodFor
     }
   }
 })

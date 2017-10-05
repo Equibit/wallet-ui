@@ -6,29 +6,34 @@
 <div class="list-group">
 
   <div class="list-group-item order-header ">
-    <issuance-summary />
+    <issuance-summary issuance:from="issuance"/>
   </div>
 
   <div class="list-group-item order-summary">
     <dl class="dl-horizontal dl-stripped responsive">
       <dt>{{i18n('quantity')}}</dt>
-      <dd class="input-value">400 <small>{{i18n('securities')}}</small></dd>
+      <dd class="input-value">{{formData.quantity}} <small>{{i18n('securities')}}</small></dd>
 
       <dt>{{i18n('askPrice')}}</dt>
-      <dd class="input-value">30,375 <small>μBTC</small></dd>
+      <dd class="input-value">{{format(formData.price, '')}} <small>μBTC</small></dd>
 
       <dt>{{i18n('totalPrice')}}</dt>
-      <dd class="input-value">12,750,000 <small>μBTC</small></dd>
+      <dd class="input-value">{{format(formData.price, '')}} <small>μBTC</small></dd>
 
       <dt>{{i18n('fillKill')}}</dt>
       <dd class="input-value">
-        <span class="icon icon-done"></span>
-        <strong>{{i18n('yes')}}.</strong>
-        <small>{{i18n('noPartialFills')}}</small>
+        {{#if formData.isFillOrKill}}
+          <span class="icon icon-done"></span>
+          <strong>{{i18n('yes')}}.</strong>
+          <small>{{i18n('noPartialFills')}}</small>
+        {{else}}
+          <strong>{{i18n('no')}}.</strong>
+          <small>{{i18n('partialBidsAllowed')}}</small>
+        {{/if}}
       </dd>
 
       <dt>{{i18n('goodUntil')}}</dt>
-      <dd class="input-value">April 28, 2017</dd>
+      <dd class="input-value">{{formData.goodUntil}}</dd>
     </dl>
   </div>
 

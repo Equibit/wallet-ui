@@ -210,6 +210,7 @@ export default {
   messages: 'Messages',
   minutes: 'Minutes',
   missingAddress: 'Address is missing',
+  missingRequiredFields: 'Please fill in all parameters',
   more: 'More',
   mostActive: 'Most Active',
   myIssuances: 'My Issuances',
@@ -253,6 +254,7 @@ export default {
   optional: 'Optional',
 
   partial: 'Partial',
+  partialBidsAllowed: 'Partial bids will be allowed',
   pasteAddress: 'Paste address',
   password: 'Password',
   passwordCurrent: 'Current Password',

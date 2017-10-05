@@ -34,6 +34,14 @@ export const ViewModel = DefineMap.extend({
     // Note: we need to re-insert the modal content:
     this.isViewAllShown = false
     this.isViewAllShown = true
+  },
+  placeOrder (args) {
+    const formData = args[1]
+    const type = args[2]
+    console.log(`placeOrder: ${type}`, formData)
+    if (!formData) {
+      console.error('Error: received no form data')
+    }
   }
 })
 
