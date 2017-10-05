@@ -6,7 +6,8 @@ describe('components/common/button-group', function () {
   let vm
   beforeEach(function () {
     vm = new ViewModel({
-      amount: 5
+      amount: 5,
+      selectedValue: 2
     })
   })
   describe('buttons', function () {
@@ -18,12 +19,14 @@ describe('components/common/button-group', function () {
       assert.equal(vm.buttons[4].value, '4')
     })
   })
-  describe('select()', function () {
+  describe('selectedItem and select()', function () {
     it('should select the given button', function () {
+      assert.equal(vm.selectedItem.value, 2)
+      assert.equal(vm.selectedItem.isSelected, true)
       const button = vm.buttons[0]
       vm.select(button)
-      assert.equal(vm.selectedItem, button)
       assert.equal(vm.selectedValue, button.value)
+      assert.equal(vm.selectedItem, button)
     })
   })
 })

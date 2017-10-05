@@ -28,19 +28,29 @@ export const ViewModel = DefineMap.extend({
     type: 'number',
     value: 0
   },
-  get buttons () {
-    return new DefineList(times(i => {
-      return new Button({name: (i + this.startWith), value: (i + this.startWith)})
-    }, this.amount))
+  buttons: {
+    value () {
+      return new DefineList(times(i => {
+        return new Button({name: (i + this.startWith), value: (i + this.startWith)})
+      }, this.amount))
+    }
   },
   select (button) {
-    this.buttons.forEach(b => { b.isSelected = false })
-    button.isSelected = true
-    this.selectedItem = button
+    this.selectedValue = button.value
   },
   selectedItem: '*',
-  get selectedValue () {
-    return this.selectedItem && this.selectedItem.value
+  selectedValue: {
+    set (val) {
+      this.buttons.forEach(b => { b.isSelected = false })
+      const button = this.buttons.reduce((selected, button) => {
+        return selected || (button.value == val && button)
+      }, null)
+      if (button) {
+        button.isSelected = true
+      }
+      this.selectedItem = button
+      return val
+    }
   }
 })
 
