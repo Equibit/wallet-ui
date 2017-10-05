@@ -33,19 +33,19 @@ const FormData = DefineMap.extend({
   hasFunds: {
     get () {
       return true
-      return (this.portfolio.balance[this.fundsType === 'BTC' ? 'cashBtc' : 'cashEqb'] - this.transactionFee) > 0
+      // return (this.portfolio.balance[this.fundsType === 'BTC' ? 'cashBtc' : 'cashEqb'] - this.transactionFee) > 0
     }
   },
   hasEnoughFunds: {
     get () {
       return true
-      if (this.type === 'FUNDS') {
-        return this.portfolio.hasEnoughFunds(this.amount + this.transactionFee, this.fundsType)
-      }
-      if (this.type === 'SECURITIES' && this.issuance) {
-        // Need available shares amount and Empty EQB for the fee:
-        return this.issuance.availableAmount >= this.amount && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
-      }
+      // if (this.type === 'FUNDS') {
+      //   return this.portfolio.hasEnoughFunds(this.amount + this.transactionFee, this.fundsType)
+      // }
+      // if (this.type === 'SECURITIES' && this.issuance) {
+      //   // Need available shares amount and Empty EQB for the fee:
+      //   return this.issuance.availableAmount >= this.amount && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
+      // }
     }
   },
   isValid: {

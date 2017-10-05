@@ -24,8 +24,14 @@ const Button = DefineMap.extend({
 
 export const ViewModel = DefineMap.extend({
   amount: 'number',
+  startWith: {
+    type: 'number',
+    value: 0
+  },
   get buttons () {
-    return new DefineList(times(i => new Button({name: i, value: i}), this.amount))
+    return new DefineList(times(i => {
+      return new Button({name: (i + this.startWith), value: (i + this.startWith)})
+    }, this.amount))
   },
   select (button) {
     this.buttons.forEach(b => { b.isSelected = false })

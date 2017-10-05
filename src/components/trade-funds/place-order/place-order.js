@@ -53,7 +53,7 @@ export const ViewModel = DefineMap.extend({
   send (close) {
     this.dispatch('send', [this.formData])
     close()
-  },
+  }
 })
 
 export default Component.extend({
