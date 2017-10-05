@@ -22,12 +22,12 @@ const FormData = DefineMap.extend({
   authIssuancesOnly: 'boolean',
 
   quantity: 'number',
-  askPrice: 'number',
+  price: 'number',
   isFillOrKill: 'boolean',
   goodFor: 'number',
 
   get totalPrice () {
-    return this.quantity * this.askPrice
+    return this.quantity * this.price
   },
 
   hasFunds: {

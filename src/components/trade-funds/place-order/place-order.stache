@@ -12,17 +12,15 @@
   </div>
 
   <div class="modal-body">
-  {{#if formData}}
 
     {{#is mode 'edit'}}
-      <order-form form-data:from="formData"
-                  issuance:from="issuance" />
+      <order-form {form-data}="formData"
+                  {issuance}="issuance" />
     {{else}}
-      <order-confirm form-data:from="formData"
-                     issuance:from="issuance" />
+      <order-confirm {form-data}="formData"
+                     {issuance}="issuance" />
     {{/is}}
 
-  {{/if}}
   </div>
 
   <div class="modal-footer">
