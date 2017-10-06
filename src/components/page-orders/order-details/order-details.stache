@@ -15,6 +15,7 @@
     </div>
   </nav>
 
+  <!--
   <div class="panel-body">
     <div class="row order-details-body">
       <div class="col-xs-12 col-lg-8 order-data">
@@ -26,8 +27,9 @@
       </div>
     </div>
   </div>
+  -->
 
-  <!-- Placeholder message for no orders
+  <!-- Message for no orders -->
   <div class="panel-body align-center">
     <div class="row">
       <div class="col-xs-12">
@@ -39,7 +41,6 @@
       </div>
     </div>
   </div>
-  -->
 
 </drag-panel>
 

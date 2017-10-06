@@ -355,6 +355,10 @@ export default {
   streetAddress: 'Street Address',
   streetAddressPlaceholder1: 'Street and number, P.O. box, c/o.',
   streetAddressPlaceholder2: 'Suite, unit, building, floor, etc.',
+  statusOPEN: 'Open',
+  statusTRADING: 'Trading',
+  statusCANCELLED: 'Cancelled',
+  statusCLOSED: 'Closed',
 
   termsAndConditions: 'Terms & Conditions',
   termsAndConditionsContactTitle: 'Contact Us',

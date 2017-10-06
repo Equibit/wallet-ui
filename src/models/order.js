@@ -15,6 +15,7 @@ import algebra from './algebra'
 import Issuance from './issuance'
 import Portfolio from './portfolio'
 import moment from 'moment'
+import { translate } from '../i18n/i18n'
 
 const Order = DefineMap.extend('Order', {
   _id: 'string',
@@ -119,6 +120,9 @@ const Order = DefineMap.extend('Order', {
   },
   get dateDisplay () {
     return moment(this.createdAt).add(this.goodFor, 'days').format('MMM D')
+  },
+  get statusDisplay () {
+    return translate(`status${this.status}`)
   },
 
   issuance: {

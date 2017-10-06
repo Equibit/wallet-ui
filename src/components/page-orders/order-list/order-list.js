@@ -26,7 +26,24 @@ const labelStatusMap = {
 }
 
 export const ViewModel = DefineMap.extend({
+  mode: {
+    get (val) {
+      return val || 'SELL'
+    }
+  },
   orders: '*',
+  ordersFiltered: {
+    get () {
+      return this.orders.filter(order => {
+        return this.mode === 'ARCHIVE'
+          ? ['CLOSED', 'CANCELLED'].indexOf(order.status) !== -1
+          : ['CLOSED', 'CANCELLED'].indexOf(order.status) === -1 && order.type === this.mode
+      })
+    }
+  },
+  switchMode (mode) {
+    this.mode = mode
+  },
   toLabel (status) {
     return labelStatusMap[status] || labelStatusMap.OPEN
   },
