@@ -8,7 +8,9 @@ import Order from '../../models/order'
 export const ViewModel = DefineMap.extend({
   ordersPromise: {
     value () {
-      return Order.getList({userId: Session.current.user._id})
+      if (Session.current){
+        return Order.getList({userId: Session.current.user._id})
+      }
     }
   },
   orders: {
@@ -16,7 +18,9 @@ export const ViewModel = DefineMap.extend({
       if (val) {
         return val
       }
-      this.ordersPromise.then(resolve)
+      if (this.ordersPromise) {
+        this.ordersPromise.then(resolve)
+      }
     }
   },
   selectedOrder: '*'

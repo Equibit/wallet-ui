@@ -34,7 +34,7 @@ export const ViewModel = DefineMap.extend({
   orders: '*',
   ordersFiltered: {
     get () {
-      return this.orders.filter(order => {
+      return this.orders && this.orders.filter(order => {
         return this.mode === 'ARCHIVE'
           ? ['CLOSED', 'CANCELLED'].indexOf(order.status) !== -1
           : ['CLOSED', 'CANCELLED'].indexOf(order.status) === -1 && order.type === this.mode
