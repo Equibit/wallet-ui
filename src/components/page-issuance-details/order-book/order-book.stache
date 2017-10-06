@@ -2,6 +2,8 @@
 <can-import from="~/components/page-issuances/company-value-change.component" />
 <can-import from="~/components/common/modal/modal.less" />
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/trade-funds/place-order/" />
+<can-import from="~/components/trade-funds/place-offer/" />
 
 <h2 class="subtitle">{{i18n('orderBook')}}</h2>
 
@@ -10,27 +12,37 @@
     <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
       <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-      <orders-grid type="SELL" limit="10" address:from="issuance.address" />
+      <orders-grid type="SELL" limit="10" issuanceAddress:from="issuance.issuanceAddress" />
 
       <div>
-        <button class="btn btn-primary btn-xs">{{i18n('addSellOrder')}}</button>
-        <button class="btn btn-link btn-xs" ($click)="showModal()">View All</button>
+        {{#if session}}
+          <button class="btn btn-primary btn-xs" on:click="showModal()">{{i18n('addSellOrder')}}</button>
+        {{/if}}
+        <button class="btn btn-link btn-xs" on:click="showViewAll()">View All</button>
       </div>
     </div>
     <div class="col-lg-6 col-xs-12 buy-orders no-padding-right">
       <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-      <orders-grid type="BUY" limit="10" address:from="issuance.address" />
+      <orders-grid type="BUY" limit="10" issuanceAddress:from="issuance.issuanceAddress" />
 
       <div>
-        <button class="btn btn-primary btn-xs">{{i18n('addBuyOrder')}}</button>
-        <button class="btn btn-link btn-xs" ($click)="showModal()">View All</button>
+        {{#if session}}
+          <button class="btn btn-primary btn-xs" on:click="showModal()">{{i18n('addBuyOrder')}}</button>
+        {{/if}}
+        <button class="btn btn-link btn-xs" on:click="showViewAll()">View All</button>
       </div>
     </div>
   </div>
 </div>
 
 {{#if isModalShown}}
+  <place-order on:send="placeOrder(%arguments)"
+               portfolio:from="portfolio"
+               issuance:from="issuance" />
+{{/if}}
+
+{{#if isViewAllShown}}
   <bootstrap-modal-content class="order-book">
     <div class="modal-header">
       <button ($click)="close()" type="button" class="close" aria-label="Close">
@@ -52,20 +64,24 @@
         <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
           <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-          <orders-grid type="SELL" limit="25" address:from="issuance.address" />
+          <orders-grid type="SELL" limit="25" issuanceAddress:from="issuance.issuanceAddress" />
 
-          <div>
-            <button class="btn btn-primary btn-xs">{{i18n('addSellOrder')}}</button>
-          </div>
+          {{#if session}}
+            <div>
+              <button class="btn btn-primary btn-xs">{{i18n('addSellOrder')}}</button>
+            </div>
+          {{/if}}
         </div>
         <div class="col-lg-6 col-xs-12 buy-orders no-padding">
           <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-          <orders-grid type="BUY" limit="25" address:from="issuance.address" />
+          <orders-grid type="BUY" limit="25" issuanceAddress:from="issuance.issuanceAddress" />
 
-          <div>
-            <button class="btn btn-primary btn-xs">{{i18n('addBuyOrder')}}</button>
-          </div>
+          {{#if session}}
+            <div>
+              <button class="btn btn-primary btn-xs">{{i18n('addBuyOrder')}}</button>
+            </div>
+          {{/if}}
         </div>
       </div>
     </div>

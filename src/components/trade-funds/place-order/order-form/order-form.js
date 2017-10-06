@@ -19,9 +19,8 @@ import './order-form.less'
 import view from './order-form.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the order-form component'
-  }
+  formData: '*',
+  issuance: '*'
 })
 
 export default Component.extend({

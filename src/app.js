@@ -132,4 +132,6 @@ route('issuances/{companySlug}/{itemId}', {page: 'issuance-details'})
 route('{page}/{itemId}')
 route('{page}', {page: 'research'})
 
+window.route = route
+
 export default AppViewModel

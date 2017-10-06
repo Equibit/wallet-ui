@@ -4,7 +4,7 @@
  *
  * Issuance Details / Order Book / Sell and Buy Orders
  *
- * @signature `<orders-grid type="BUY" limit="10" address:from="issuance.address" />`
+ * @signature `<orders-grid type="BUY" limit="10" issuanceAddress:from="issuance.issuanceAddress" />`
  *
  * @link ../src/components/page-issuance-details/orders-grid/orders-grid.html Full Page Demo
  * ## Example
@@ -29,22 +29,22 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       return val || 'SELL'
     }
   },
-  address: 'string',
+  issuanceAddress: 'string',
   limit: {
     type: 'number',
     value: 10
   },
   rowsPromise: {
     get () {
-      if (!this.address) {
-        console.error('Orders require issuance address!')
+      if (!this.issuanceAddress) {
+        console.error('Orders require issuanceAddress!')
         return
       }
       const params = {
         $limit: this.limit,
         $skip: 0,
         type: this.type,
-        address: this.address
+        issuanceAddress: this.issuanceAddress
       }
       return Order.getList(params)
     }

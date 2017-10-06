@@ -17,11 +17,41 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './place-order.less'
 import view from './place-order.stache'
-import Issuance from '../../../models/issuance'
+import FormData from './form-data'
 
 export const ViewModel = DefineMap.extend({
-  issuance: {
-    Type: Issuance
+  portfolio: '*',
+  issuance: '*',
+  mode: {
+    value: 'edit'
+  },
+  authIssuancesOnly: 'boolean',
+  formData: {
+    get (val) {
+      if (val) {
+        return val
+      }
+      return new FormData({
+        portfolio: this.portfolio,
+        // issuance: this.issuance,
+        authIssuancesOnly: this.authIssuancesOnly
+        // rates: Session.current.rates
+      })
+    }
+  },
+
+  next () {
+    if (!this.formData.isValid) {
+      return
+    }
+    this.mode = 'confirm'
+  },
+  edit () {
+    this.mode = 'edit'
+  },
+  send (close) {
+    this.dispatch('send', [this.formData, 'SELL'])
+    close()
   }
 })
 

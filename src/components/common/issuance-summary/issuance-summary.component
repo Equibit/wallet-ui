@@ -29,16 +29,25 @@
     <div class="row">
       <div class="col-xs-12 col-sm-4 no-padding-left summary-company">
         <label>{{i18n('company')}}</label>
-        <a href="" class="input-value order-value-company">Imperial Brands</a>
+        <a href="" class="input-value order-value-company">{{issuance.companyName}}</a>
       </div>
       <div class="col-xs-6 col-sm-4 no-padding-left summary-issuance-name">
         <label>{{i18n('issuanceName')}}</label>
-        <span class="input-value">Series 1</span>
+        <span class="input-value">{{issuance.issuanceName}}</span>
       </div>
       <div class="col-xs-6 col-sm-4 no-padding-rigth summary-issuance-type">
         <label>{{i18n('issuanceType')}}</label>
-        <span class="input-value">Common Shares</span>
+        <span class="input-value">{{issuance.issuanceTypeDisplay}}</span>
       </div>
     </div>
   </view>
+
+  <script type="view-model">
+    import DefineMap from 'can-define/map/map'
+    import Issuance from '~/models/issuance'
+
+    export default DefineMap.extend({
+      issuance: Issuance
+    })
+  </script>
 </can-component>

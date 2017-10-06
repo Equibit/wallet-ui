@@ -33,11 +33,12 @@ const utxo = [{
 
 const issuance = new Issuance({
   _id: '595e5c58711b9e358f567edc',
-  address: 'mmWBNCAdwoPbF9BRBDeGo6QpoxrF98n7Rn',
+  issuanceAddress: 'mmWBNCAdwoPbF9BRBDeGo6QpoxrF98n7Rn',
   companyIndex,
   index: issuanceIndex,
   companyName: 'Equibit Group',
   issuanceName: 'Series One',
+  issuanceType: 'common_shares',
   keys: issuanceKeyPair,
   utxo,
   rates: Session.current.rates

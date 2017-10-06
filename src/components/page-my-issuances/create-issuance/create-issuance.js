@@ -77,6 +77,8 @@ export const ViewModel = DefineMap.extend({
     // todo: simplify, hide this in models.
     const companyHdNode = Session.current.user.generatePortfolioKeys(company.index).EQB
     const toAddress = companyHdNode.derive(issuance.index).getAddress()
+    // Save public issuance address:
+    issuance.issuanceAddress = toAddress
 
     console.log(`createIssuance: toAddress=${toAddress}`, formData, issuance)
 
