@@ -22,6 +22,11 @@ import FormData from './form-data'
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
   issuance: '*',
+  type: {
+    get (val) {
+      return val === 'BUY' ? val : 'SELL'
+    }
+  },
   mode: {
     value: 'edit'
   },
@@ -50,7 +55,7 @@ export const ViewModel = DefineMap.extend({
     this.mode = 'edit'
   },
   send (close) {
-    this.dispatch('send', [this.formData, 'SELL'])
+    this.dispatch('send', [this.formData, this.type])
     close()
   }
 })

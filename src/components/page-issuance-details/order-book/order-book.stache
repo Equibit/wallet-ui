@@ -12,7 +12,9 @@
     <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
       <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-      <orders-grid type="SELL" limit="10" issuanceAddress:from="issuance.issuanceAddress" />
+      <orders-grid type="SELL" limit="10"
+                   issuanceAddress:from="issuance.issuanceAddress"
+                   rowsPromise:bind="resetSellOrders" />
 
       <div>
         {{#if session}}
@@ -24,7 +26,9 @@
     <div class="col-lg-6 col-xs-12 buy-orders no-padding-right">
       <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-      <orders-grid type="BUY" limit="10" issuanceAddress:from="issuance.issuanceAddress" />
+      <orders-grid type="BUY" limit="10"
+                   issuanceAddress:from="issuance.issuanceAddress"
+                   rowsPromise:bind="resetBuyOrders" />
 
       <div>
         {{#if session}}
@@ -39,6 +43,7 @@
 {{#if isModalShown}}
   <place-order on:send="placeOrder(%arguments)"
                portfolio:from="portfolio"
+               type="SELL"
                issuance:from="issuance" />
 {{/if}}
 
