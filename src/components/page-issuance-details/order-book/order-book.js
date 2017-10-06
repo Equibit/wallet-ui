@@ -60,7 +60,7 @@ export const ViewModel = DefineMap.extend({
       goodFor: formData.goodFor,
       companyName: this.issuance.companyName,
       issuanceName: this.issuance.issuanceName,
-      issuanceType: this.issuance.issuanceType,
+      issuanceType: this.issuance.issuanceType
     })
     order.save(() => {
       hub.dispatch({

@@ -112,13 +112,12 @@ const Order = DefineMap.extend('Order', {
     serialize: false
   },
 
-
   // Computed props:
 
   get issuanceTypeDisplay () {
     return Issuance.typesMap[this.issuanceType] || this.issuanceType
   },
-  get dateDisplay() {
+  get dateDisplay () {
     return moment(this.createdAt).add(this.goodFor, 'days').format('MMM D')
   },
 
