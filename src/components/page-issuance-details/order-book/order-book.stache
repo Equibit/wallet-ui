@@ -39,6 +39,7 @@
 {{#if isModalShown}}
   <place-order on:send="placeOrder(%arguments)"
                portfolio:from="portfolio"
+               type="SELL"
                issuance:from="issuance" />
 {{/if}}
 

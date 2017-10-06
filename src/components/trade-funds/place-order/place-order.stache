@@ -8,17 +8,20 @@
 <bootstrap-modal-content>
   <div class="modal-header">
     <button on:click="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
-    <h3 class="modal-title">{{i18n('placeSellOrder')}}</h3>
+    <h3 class="modal-title">
+      {{#is type 'SELL'}} {{i18n('placeSellOrder')}} {{else}} {{i18n('placeBuyOrder')}} {{/is}}
+    </h3>
   </div>
 
   <div class="modal-body">
 
     {{#is mode 'edit'}}
-      <order-form {form-data}="formData"
-                  {issuance}="issuance" />
+      <order-form formData:from="formData"
+                  type:bind="type"
+                  issuance:from="issuance" />
     {{else}}
-      <order-confirm {form-data}="formData"
-                     {issuance}="issuance" />
+      <order-confirm formData:from="formData"
+                     issuance:from="issuance" />
     {{/is}}
 
   </div>
@@ -28,7 +31,9 @@
       <button on:click="next()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
       <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
     {{else}}
-      <button on:click="send(@close)" type="button" class="btn btn-primary">{{i18n('placeSellOrder')}}</button>
+      <button on:click="send(@close)" type="button" class="btn btn-primary">
+        {{#is type 'SELL'}} {{i18n('placeSellOrder')}} {{else}} {{i18n('placeBuyOrder')}} {{/is}}
+      </button>
       <button on:click="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('edit')}}</button>
     {{/is}}
   </div>
