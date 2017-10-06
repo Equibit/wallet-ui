@@ -8,7 +8,7 @@ import Order from '../../models/order'
 export const ViewModel = DefineMap.extend({
   ordersPromise: {
     value () {
-      if (Session.current){
+      if (Session.current) {
         return Order.getList({userId: Session.current.user._id})
       }
     }
