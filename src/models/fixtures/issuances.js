@@ -40,3 +40,5 @@ fixture('/issuances/{_id}', store)
 export default store
 
 export { data }
+
+export { companies }

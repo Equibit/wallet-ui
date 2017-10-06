@@ -7,25 +7,28 @@
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
   <can-import from="wallet-ui/components/page-orders/order-list/" />
-  <order-list></order-list>
+
+  <order-list orders:from="orders" />
 </script>
 
 <script src="../../../../node_modules/steal/steal.js"
         main="@empty">
 
-  import $ from 'jquery';
-  import stache from 'can-stache';
-  import reload from 'live-reload';
-  import DefineMap from 'can-define/map/map';
+  import $ from 'jquery'
+  import stache from 'can-stache'
+  import reload from 'live-reload'
+  import DefineMap from 'can-define/map/map'
+  import Order from '~/models/order'
+  import orders from '~/models/fixtures/orders'
 
   const vm = new DefineMap({
-    // view model props here
-  });
+    orders: new Order.List(orders)
+  })
 
   // Enable live-reload:
   stache.async($('#demo-html').html()).then(template => {
-    let render = () => $('#demo').html(template(vm));
-    render();
-    reload(render);
-  });
+    let render = () => $('#demo').html(template(vm))
+    render()
+    reload(render)
+  })
 </script>

@@ -18,9 +18,35 @@ import DefineMap from 'can-define/map/map'
 import './order-list.less'
 import view from './order-list.stache'
 
+const labelStatusMap = {
+  OPEN: 'info',
+  TRADING: 'progress',
+  CANCELLED: 'danger',
+  CLOSED: 'info'
+}
+
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the order-list component'
+  orders: '*',
+  toLabel (status) {
+    return labelStatusMap[status] || labelStatusMap.OPEN
+  },
+  selectOrder (order) {
+    this.selectedOrder = order
+  },
+  selectedOrder: {
+    set (order) {
+      if (!this.orders || !this.orders.length) {
+        return
+      }
+      if (!order) {
+        order = this.orders[0]
+      }
+      this.orders.forEach(order => {
+        order.isSelected = false
+      })
+      order.isSelected = true
+      return order
+    }
   }
 })
 
