@@ -4,7 +4,7 @@
  *
  * Issuance Details / Order Book / Sell and Buy Orders
  *
- * @signature `<orders-grid type="BUY" limit="10" address:from="issuance.address" />`
+ * @signature `<orders-grid type="BUY" limit="10" issuanceAddress:from="issuance.issuanceAddress" />`
  *
  * @link ../src/components/page-issuance-details/orders-grid/orders-grid.html Full Page Demo
  * ## Example

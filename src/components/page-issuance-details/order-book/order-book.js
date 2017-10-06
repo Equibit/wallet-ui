@@ -51,13 +51,13 @@ export const ViewModel = DefineMap.extend({
     }
     const order = new Order({
       userId: Session.current.user._id,
-      issuanceAddress: this.issuance.address,
+      issuanceAddress: this.issuance.issuanceAddress,
       type,
       portfolioId: this.portfolio._id,
-      quantity: this.formData.quantity,
-      askPrice: this.formData.price,
-      isFillOrKill: this.formData.isFillOrKill,
-      goodFor: this.formData.goodFor
+      quantity: formData.quantity,
+      price: formData.price,
+      isFillOrKill: formData.isFillOrKill,
+      goodFor: formData.goodFor
     })
     order.save(() => {
       hub.dispatch({

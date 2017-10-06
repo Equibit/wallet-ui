@@ -12,20 +12,24 @@
     <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
       <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-      <orders-grid type="SELL" limit="10" address:from="issuance.address" />
+      <orders-grid type="SELL" limit="10" issuanceAddress:from="issuance.issuanceAddress" />
 
       <div>
-        <button class="btn btn-primary btn-xs" on:click="showModal()">{{i18n('addSellOrder')}}</button>
+        {{#if session}}
+          <button class="btn btn-primary btn-xs" on:click="showModal()">{{i18n('addSellOrder')}}</button>
+        {{/if}}
         <button class="btn btn-link btn-xs" on:click="showViewAll()">View All</button>
       </div>
     </div>
     <div class="col-lg-6 col-xs-12 buy-orders no-padding-right">
       <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-      <orders-grid type="BUY" limit="10" address:from="issuance.address" />
+      <orders-grid type="BUY" limit="10" issuanceAddress:from="issuance.issuanceAddress" />
 
       <div>
-        <button class="btn btn-primary btn-xs" on:click="showModal()">{{i18n('addBuyOrder')}}</button>
+        {{#if session}}
+          <button class="btn btn-primary btn-xs" on:click="showModal()">{{i18n('addBuyOrder')}}</button>
+        {{/if}}
         <button class="btn btn-link btn-xs" on:click="showViewAll()">View All</button>
       </div>
     </div>
@@ -60,7 +64,7 @@
         <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
           <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-          <orders-grid type="SELL" limit="25" issuance-address:from="issuance.address" />
+          <orders-grid type="SELL" limit="25" issuanceAddress:from="issuance.issuanceAddress" />
 
           {{#if session}}
             <div>
@@ -71,7 +75,7 @@
         <div class="col-lg-6 col-xs-12 buy-orders no-padding">
           <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-          <orders-grid type="BUY" limit="25" address:from="issuance.address" />
+          <orders-grid type="BUY" limit="25" issuanceAddress:from="issuance.issuanceAddress" />
 
           {{#if session}}
             <div>

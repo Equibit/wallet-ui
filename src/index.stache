@@ -65,8 +65,8 @@
         <page-issuances />
       {{/case}}
       {{#case 'issuance-details'}}
-        <page-issuance-details company-slug:from="companySlug"
-                               issuance-id:from="itemId"
+        <page-issuance-details companySlug:from="companySlug"
+                               issuanceId:from="itemId"
                                portfolio:from="session.portfolios.0"/>
       {{/case}}
       {{#case 'portfolio'}}

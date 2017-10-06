@@ -126,6 +126,15 @@ const Order = DefineMap.extend('Order', {
   marketWidth: {
     serialize: false,
     type: 'number'
+  },
+
+  createdAt: {
+    type: 'date',
+    serialize: false
+  },
+  updatedAt: {
+    type: 'date',
+    serialize: false
   }
 })
 
