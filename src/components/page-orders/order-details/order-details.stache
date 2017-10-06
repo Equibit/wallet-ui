@@ -6,8 +6,8 @@
   <nav class="navbar toolbar">
     <div class="row">
       <p class="navbar-text">
-        <span class="details-company">Imperial Brands</span>
-        <span class="details-issuance-name">, Series 1</span>
+        <span class="details-company">{{order.companyName}}</span>
+        <span class="details-issuance-name">, {{order.issuanceName}}</span>
       </p>
       <ul class="nav navbar-nav navbar-right toolbar-actions">
         <li><a href=""><span class="icon icon-bin"></span> {{i18n('cancelOrder')}}</a></li>
