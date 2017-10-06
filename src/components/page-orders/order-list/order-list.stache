@@ -7,184 +7,39 @@
   <div class="panel-body">
 
     <ul class="nav nav-pills list-tabs">
-      <li role="presentation" class="active"><a href="#">{{i18n('sell')}}</a></li>
-      <li role="presentation"><a href="#">{{i18n('buy')}}</a></li>
-      <li role="presentation"><a href="#">{{i18n('archived')}}</a></li>
+      <li role="presentation" class="{{#is mode 'SELL'}}active{{/is}}">
+        <a href="#" on:click="switchMode('SELL')">{{i18n('sell')}}</a>
+      </li>
+      <li role="presentation" class="{{#is mode 'BUY'}}active{{/is}}">
+        <a href="#" on:click="switchMode('BUY')">{{i18n('buy')}}</a>
+      </li>
+      <li role="presentation" class="{{#is mode 'ARCHIVE'}}active{{/is}}">
+        <a href="#" on:click="switchMode('ARCHIVE')">{{i18n('archived')}}</a>
+      </li>
     </ul>
 
-    <!--Message for no sell orders
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="message-box no-border message-placeholder">
-          <div class="icon icon-sell-inversed"></div>
-          <p class="message-box-cause">{{i18n('notFoundOrdersSell')}}</p>
-        </div>
-      </div>
-    </div>
-    -->
-
-    <!--Message for no buy orders
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="message-box no-border message-placeholder">
-          <div class="icon icon-buy-inversed"></div>
-          <p class="message-box-cause">{{i18n('notFoundOrdersBuy')}}</p>
-        </div>
-      </div>
-    </div>
-    -->
-
-    <!--Message for no archived orders
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="message-box no-border message-placeholder">
-          <div class="icon icon-folder-open"></div>
-          <p class="message-box-cause">{{i18n('notFoundOrdersArchived')}}</p>
-        </div>
-      </div>
-    </div>
-    -->
-
     <div class="list-group list-group-simple">
-      <a href="#" class="list-group-item active">
+      {{#each ordersFiltered as order}}
+      <a href="#" class="list-group-item {{#if order.isSelected}}active{{/if}}" on:click="selectOrder(order)">
         <div class="row">
           <div class="col-xs-8">
-            <h4 class="list-group-item-heading list-issuance">Imperial Brands, Series 1</h4>
-            <div class="list-issuance-type">Common Shares</div>
-            <div class="list-quantity-price">200 @30,375 <small>μBTC</small></div>
+            <h4 class="list-group-item-heading list-issuance">{{order.companyName}}, {{order.issuanceName}}</h4>
+            <div class="list-issuance-type">{{order.issuanceTypeDisplay}}</div>
+            <div class="list-quantity-price">{{format(order.quantity, '', 0)}} @{{format(order.price, '', 0)}} <small>μBTC</small></div>
           </div>
 
           <div class="col-xs-4">
-            <div class="list-time-stamp">1:00 pm</div>
-            <div class="list-status"><span class="label label-info label-condensed">{{i18n('statusOpen')}}</span></div>
+            <div class="list-time-stamp">{{order.dateDisplay}}</div>
+            <div class="list-status"><span class="label label-{{toLabel(order.status)}} label-condensed">{{order.statusDisplay}}</span></div>
+            {{#is mode 'ARCHIVE'}}
+              <div class="list-type">
+                <span class="label label-simple">{{order.type}}</span>
+              </div>
+            {{/is}}
           </div>
         </div>
       </a>
-
-      <a href="#" class="list-group-item">
-        <div class="row">
-          <div class="col-xs-8">
-            <h4 class="list-group-item-heading list-issuance">Johnson & Johnson, Series 1</h4>
-            <div class="list-issuance-type">Trust Units</div>
-            <div class="list-quantity-price">200 @30,375 <small>μBTC</small></div>
-          </div>
-
-          <div class="col-xs-4">
-            <div class="list-time-stamp">1:00 pm</div>
-            <div class="list-status"><span class="label label-info label-condensed">{{i18n('statusOpen')}}</span></div>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="list-group-item">
-        <div class="row">
-          <div class="col-xs-8">
-            <h4 class="list-group-item-heading list-issuance">Johnson & Johnson, Series 1</h4>
-            <div class="list-issuance-type">Trust Units</div>
-            <div class="list-quantity-price">200 @30,375 <small>μBTC</small></div>
-          </div>
-
-          <div class="col-xs-4">
-            <div class="list-time-stamp">1:00 pm</div>
-            <div class="list-status">
-              <span class="label label-danger label-condensed">{{i18n('statusCancelled')}}</span>
-            </div>
-            <div class="list-type">
-              <span class="label label-simple">{{i18n('buy')}}</span>
-            </div>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="list-group-item">
-        <div class="row">
-          <div class="col-xs-8">
-            <h4 class="list-group-item-heading list-issuance">Johnson & Johnson, Series 1</h4>
-            <div class="list-issuance-type">Trust Units</div>
-            <div class="list-quantity-price">200 @30,375 <small>μBTC</small></div>
-          </div>
-
-          <div class="col-xs-4">
-            <div class="list-time-stamp">1:00 pm</div>
-            <div class="list-status"><span class="label label-progress label-condensed">{{i18n('statusTrading')}}</span></div>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="list-group-item">
-        <div class="row">
-          <div class="col-xs-8">
-            <h4 class="list-group-item-heading list-issuance">Johnson & Johnson, Series 1</h4>
-            <div class="list-issuance-type">Trust Units</div>
-            <div class="list-quantity-price">200 @30,375 <small>μBTC</small></div>
-          </div>
-
-          <div class="col-xs-4">
-            <div class="list-time-stamp">1:00 pm</div>
-            <div class="list-status"><span class="label label-info label-condensed">{{i18n('statusOpen')}}</span></div>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="list-group-item">
-        <div class="row">
-          <div class="col-xs-8">
-            <h4 class="list-group-item-heading list-issuance">Johnson & Johnson, Series 1</h4>
-            <div class="list-issuance-type">Trust Units</div>
-            <div class="list-quantity-price">200 @30,375 <small>μBTC</small></div>
-          </div>
-
-          <div class="col-xs-4">
-            <div class="list-time-stamp">1:00 pm</div>
-            <div class="list-status"><span class="label label-info label-condensed">{{i18n('statusOpen')}}</span></div>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="list-group-item">
-        <div class="row">
-          <div class="col-xs-8">
-            <h4 class="list-group-item-heading list-issuance">Johnson & Johnson, Series 1</h4>
-            <div class="list-issuance-type">Trust Units</div>
-            <div class="list-quantity-price">200 @30,375 <small>μBTC</small></div>
-          </div>
-
-          <div class="col-xs-4">
-            <div class="list-time-stamp">1:00 pm</div>
-            <div class="list-status"><span class="label label-info label-condensed">{{i18n('statusOpen')}}</span></div>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="list-group-item">
-        <div class="row">
-          <div class="col-xs-8">
-            <h4 class="list-group-item-heading list-issuance">Johnson & Johnson, Series 1</h4>
-            <div class="list-issuance-type">Trust Units</div>
-            <div class="list-quantity-price">200 @30,375 <small>μBTC</small></div>
-          </div>
-
-          <div class="col-xs-4">
-            <div class="list-time-stamp">1:00 pm</div>
-            <div class="list-status"><span class="label label-progress label-condensed">{{i18n('statusTrading')}}</span></div>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="list-group-item">
-        <div class="row">
-          <div class="col-xs-8">
-            <h4 class="list-group-item-heading list-issuance">Johnson & Johnson, Series 1</h4>
-            <div class="list-issuance-type">Trust Units</div>
-            <div class="list-quantity-price">200 @30,375 <small>μBTC</small></div>
-          </div>
-
-          <div class="col-xs-4">
-            <div class="list-time-stamp">1:00 pm</div>
-            <div class="list-status"><span class="label label-info label-condensed">{{i18n('statusOpen')}}</span></div>
-          </div>
-        </div>
-      </a>
+      {{/each}}
     </div>
 
   </div>
