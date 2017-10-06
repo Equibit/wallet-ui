@@ -17,12 +17,7 @@ const Issuance = DefineMap.extend('Issuance', {
   /**
    * Issuance address identifies issuance in Blockchain. All OrderBook items will be linked by this address.
    */
-  address: {
-    type: 'string',
-    get (val) {
-      return this.keys && this.keys.getAddress()
-    }
-  },
+  issuanceAddress: 'string',
 
   /**
    * For deriving keys
@@ -101,6 +96,9 @@ const Issuance = DefineMap.extend('Issuance', {
   keys: {
     serialize: false
   },
+  get address () {
+    return this.keys && this.keys.getAddress()
+  },
   // Array of UTXO from /listunspent
   utxo: {
     serialize: false
@@ -130,7 +128,7 @@ const Issuance = DefineMap.extend('Issuance', {
         phone: company.phoneNumber
       },
       issuance: {
-        issuance_public_key: this.address,
+        issuance_address: this.issuanceAddress,
         issuance_name: this.issuanceName,
         issuance_date: Math.floor(Date.now() / 1000),
         restriction_level: (this.restriction || 0),

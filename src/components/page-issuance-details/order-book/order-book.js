@@ -25,6 +25,9 @@ import { translate } from '~/i18n/'
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
   issuance: '*',
+  get session () {
+    return Session.current
+  },
 
   isModalShown: 'boolean',
   showModal () {

@@ -29,22 +29,22 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       return val || 'SELL'
     }
   },
-  address: 'string',
+  issuanceAddress: 'string',
   limit: {
     type: 'number',
     value: 10
   },
   rowsPromise: {
     get () {
-      if (!this.address) {
-        console.error('Orders require issuance address!')
+      if (!this.issuanceAddress) {
+        console.error('Orders require issuanceAddress!')
         return
       }
       const params = {
         $limit: this.limit,
         $skip: 0,
         type: this.type,
-        address: this.address
+        issuanceAddress: this.issuanceAddress
       }
       return Order.getList(params)
     }
