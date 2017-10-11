@@ -11,7 +11,14 @@ const FormData = DefineMap.extend({
 
   portfolio: Portfolio,
   order: Order,
-  quantity: 'number',
+  quantity: {
+    get (val) {
+      if (this.order.isFillOrKill) {
+        return this.order.quantity
+      }
+      return val
+    }
+  },
   error: 'string',
   transactionFee: 0,
 
