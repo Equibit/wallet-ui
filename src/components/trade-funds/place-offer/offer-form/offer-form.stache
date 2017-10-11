@@ -40,7 +40,7 @@
         </div>
         <div class="col-xs-12 col-sm-4">
           <input type="number" class="form-control" id="inputQuantityOffer" {{#if formData.order.isFillOrKill}}readonly{{/if}}
-                 value:from="formData.quantity">
+                 value:bind="formData.quantity">
         </div>
 
         <div class="col-xs-12 col-sm-2">

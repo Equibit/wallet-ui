@@ -12,6 +12,7 @@ const FormData = DefineMap.extend({
   portfolio: Portfolio,
   order: Order,
   quantity: {
+    type: 'number',
     get (val) {
       if (this.order.isFillOrKill) {
         return this.order.quantity
@@ -32,13 +33,14 @@ const FormData = DefineMap.extend({
     }
   },
   hasEnoughFunds: {
+    // todo: for SELL offer we should check securities
     get () {
       return this.portfolio.hasEnoughFunds(this.totalPrice + this.transactionFee, 'BTC')
     }
   },
   isValid: {
     get () {
-      return this.quantity && this.price && this.goodFor
+      return !!this.quantity
     }
   }
 })
