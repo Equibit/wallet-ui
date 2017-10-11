@@ -14,11 +14,9 @@
 
   <div class="modal-body">
     {{#is mode 'edit'}}
-      <offer-form formData:from="formData"
-                  order:from="order" />
+      <offer-form formData:from="formData" />
     {{else}}
-      <offer-confirm formData:from="formData"
-                     order:from="order" />
+      <offer-confirm formData:from="formData" />
     {{/is}}
   </div>
 

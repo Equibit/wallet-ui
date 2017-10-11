@@ -19,9 +19,7 @@ import './offer-confirm.less'
 import view from './offer-confirm.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the offer-confirm component'
-  }
+  formData: '*'
 })
 
 export default Component.extend({
