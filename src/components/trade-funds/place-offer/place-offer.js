@@ -17,10 +17,53 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './place-offer.less'
 import view from './place-offer.stache'
+import Portfolio from '../../../models/portfolio'
+import Order from '../../../models/order'
+import FormData from './form-data'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the place-offer component'
+  portfolio: Portfolio,
+  order: Order,
+  type: {
+    get (val) {
+      return val === 'BUY' ? val : 'SELL'
+    }
+  },
+  mode: {
+    value: 'edit'
+  },
+  formData: {
+    get (val) {
+      if (val) {
+        return val
+      }
+      if (!this.portfolio) {
+        console.error('Requires a portfolio')
+        return
+      }
+      if (!this.order) {
+        console.error('Requires an order')
+        return
+      }
+      return new FormData({
+        portfolio: this.portfolio,
+        order: this.order
+      })
+    }
+  },
+
+  next () {
+    if (!this.formData.isValid) {
+      return
+    }
+    this.mode = 'confirm'
+  },
+  edit () {
+    this.mode = 'edit'
+  },
+  send (close) {
+    this.dispatch('send', [this.formData, this.type])
+    close()
   }
 })
 

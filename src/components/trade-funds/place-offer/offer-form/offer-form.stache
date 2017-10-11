@@ -4,7 +4,7 @@
 
 <div class="list-group">
   <div class="list-group-item order-header">
-    <issuance-summary />
+    <issuance-summary issuance:from="formData.order" />
   </div>
 
   <div class="list-group-item order-fields">
@@ -15,7 +15,7 @@
           <label for="inputQuantity" class="control-label">{{i18n('quantity')}}</label>
         </div>
         <div class="col-xs-12 col-sm-4">
-          <input type="number" class="form-control" id="inputQuantity" disabled>
+          <input type="number" class="form-control" id="inputQuantity" readonly value:from="formData.order.quantity">
         </div>
 
         <div class="col-xs-12 col-sm-2">
@@ -23,7 +23,7 @@
         </div>
         <div class="col-xs-12 col-sm-4">
           <div class="input-group">
-            <input type="number" class="form-control" id="inputAskPrice" disabled>
+            <input type="number" class="form-control" id="inputAskPrice" readonly value:from="formData.order.price">
             <div class="input-group-addon disabled">μBTC</div>
           </div>
         </div>
@@ -39,7 +39,7 @@
           <label for="inputQuantityOffer" class="control-label">{{i18n('quantity')}}</label>
         </div>
         <div class="col-xs-12 col-sm-4">
-          <input type="number" class="form-control" id="inputQuantityOffer">
+          <input type="number" class="form-control" id="inputQuantityOffer" value:from="formData.quantity">
         </div>
 
         <div class="col-xs-12 col-sm-2">
@@ -47,7 +47,7 @@
         </div>
         <div class="col-xs-12 col-sm-4">
           <div class="input-group">
-            <input type="number" class="form-control" id="inputAskPrice" disabled>
+            <input type="number" class="form-control" id="inputAskPrice" readonly value:from="formData.totalPrice">
             <div class="input-group-addon disabled">μBTC</div>
           </div>
         </div>

@@ -6,17 +6,31 @@
 
 <bootstrap-modal-content>
   <div class="modal-header">
-    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
-    <h3 class="modal-title">{{i18n('placeSellOffer')}}</h3>
+    <button on:click="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+    <h3 class="modal-title">
+      {{#is type 'SELL'}} {{i18n('placeSellOffer')}} {{else}} {{i18n('placeBuyOffer')}} {{/is}}
+    </h3>
   </div>
 
   <div class="modal-body">
-    <offer-form></offer-form>
-    <!--<offer-confirm></offer-confirm>-->
+    {{#is mode 'edit'}}
+      <offer-form formData:from="formData"
+                  order:from="order" />
+    {{else}}
+      <offer-confirm formData:from="formData"
+                     order:from="order" />
+    {{/is}}
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary">{{i18n('next')}}</button>
-    <button type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    {{#is mode 'edit'}}
+      <button on:click="next()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
+      <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    {{else}}
+      <button on:click="send(@close)" type="button" class="btn btn-primary">
+        {{#is type 'SELL'}} {{i18n('placeSellOrder')}} {{else}} {{i18n('placeBuyOrder')}} {{/is}}
+      </button>
+      <button on:click="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('edit')}}</button>
+    {{/is}}
   </div>
 </bootstrap-modal-content>

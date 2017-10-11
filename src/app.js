@@ -42,8 +42,8 @@ var pages = {
   preferences: 'private',
   transactions: 'private',
   'my-issuances': 'private',
-  orders: 'public',
-  offers: 'public'
+  orders: 'private',
+  offers: 'private'
 }
 
 const AppViewModel = DefineMap.extend({
