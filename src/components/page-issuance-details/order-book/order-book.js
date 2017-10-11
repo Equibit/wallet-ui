@@ -36,6 +36,20 @@ export const ViewModel = DefineMap.extend({
     this.isModalShown = true
   },
 
+  modalType: 'string',
+  order: '*',
+  isBuySellShown: 'boolean',
+  openBuySellModal (args) {
+    const type = args[1]
+    const order = args[2]
+    console.log(`openBuySellModal: ${type}, ${order.quantity}`)
+    this.modalType = type
+    this.order = order
+    // Note: we need to re-insert the modal content:
+    this.isBuySellShown = false
+    this.isBuySellShown = true
+  },
+
   isViewAllShown: 'boolean',
   showViewAll () {
     // Note: we need to re-insert the modal content:

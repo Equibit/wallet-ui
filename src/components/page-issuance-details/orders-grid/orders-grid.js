@@ -72,6 +72,10 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     const percentageOffset = hasLeftOffset === 'offsetLeft' ? 100 - percentageWidth : percentageWidth
     // console.log(`marketWidth: totalQuantity=${this.totalQuantity}, quantity=${quantity}, accumulativeQuantity=${this.accumulativeQuantity} => ${percentageOffset}`)
     return percentageOffset >= 100 ? 99 : (percentageOffset === 0 ? 1 : percentageOffset)
+  },
+
+  buySell (type, order) {
+    this.dispatch('buysell', [type, order])
   }
 })
 

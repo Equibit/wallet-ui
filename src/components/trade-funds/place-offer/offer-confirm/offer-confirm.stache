@@ -18,9 +18,6 @@
 
       <dt>{{i18n('totalPrice')}}</dt>
       <dd class="input-value">{{format(formData.totalPrice, '')}} <small>μBTC</small></dd>
-
     </dl>
   </div>
-
 </div>
-

@@ -28,6 +28,7 @@
 
       <orders-grid type="BUY" limit="10"
                    issuanceAddress:from="issuance.issuanceAddress"
+                   on:vm:buysell="openBuySellModal(%arguments)"
                    rowsPromise:bind="resetBuyOrders" />
 
       <div>
@@ -45,6 +46,13 @@
                portfolio:from="portfolio"
                type="SELL"
                issuance:from="issuance" />
+{{/if}}
+
+{{#if isBuySellShown}}
+  <place-offer on:send="placeOffer(%arguments)"
+               portfolio:from="portfolio"
+               type:from="modalType"
+               order:from="order" />
 {{/if}}
 
 {{#if isViewAllShown}}
