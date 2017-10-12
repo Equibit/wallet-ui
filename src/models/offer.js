@@ -100,7 +100,13 @@ const Offer = DefineMap.extend('Offer', {
 })
 
 Offer.List = DefineList.extend('OfferList', {
-  '#': Offer
+  '#': Offer,
+  selectItem (item) {
+    this.forEach(item => {
+      item.isSelected = false
+    })
+    item.isSelected = true
+  }
 })
 
 Offer.connection = superModel({

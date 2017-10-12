@@ -64,10 +64,7 @@ export const ViewModel = DefineMap.extend({
       if (!order) {
         order = this.orders[0]
       }
-      this.orders.forEach(order => {
-        order.isSelected = false
-      })
-      order.isSelected = true
+      this.orders.selectItem(order)
       return order
     }
   }

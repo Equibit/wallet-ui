@@ -167,7 +167,13 @@ const Order = DefineMap.extend('Order', {
 })
 
 Order.List = DefineList.extend('OrderList', {
-  '#': Order
+  '#': Order,
+  selectItem (item) {
+    this.forEach(item => {
+      item.isSelected = false
+    })
+    item.isSelected = true
+  }
 })
 
 Order.connection = superModel({

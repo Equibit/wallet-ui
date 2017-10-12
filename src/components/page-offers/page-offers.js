@@ -43,7 +43,11 @@ export const ViewModel = DefineMap.extend({
       if (val) {
         return val
       }
-      return this.offers && this.offers.length && this.offers[0]
+      const offer = this.offers && this.offers.length && this.offers[0]
+      if (offer) {
+        this.offers.selectItem(offer)
+      }
+      return offer
     }
   }
 })
