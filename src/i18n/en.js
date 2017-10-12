@@ -249,6 +249,7 @@ export default {
   now: 'Now',
 
   offer: 'Offer',
+  offerWasCreated: 'Your offer was created',
   order: 'Order',
   orderBook: 'Order Book',
   orderWasCreated: 'Your order was created',
