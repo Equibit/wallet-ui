@@ -13,6 +13,7 @@
       <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
       <orders-grid type="SELL" limit="10"
+                   on:vm:buysell="openBuySellModal(%arguments)"
                    issuanceAddress:from="issuance.issuanceAddress"
                    rowsPromise:bind="resetSellOrders" />
 
@@ -27,8 +28,8 @@
       <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
       <orders-grid type="BUY" limit="10"
-                   issuanceAddress:from="issuance.issuanceAddress"
                    on:vm:buysell="openBuySellModal(%arguments)"
+                   issuanceAddress:from="issuance.issuanceAddress"
                    rowsPromise:bind="resetBuyOrders" />
 
       <div>
@@ -77,7 +78,9 @@
         <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
           <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-          <orders-grid type="SELL" limit="25" issuanceAddress:from="issuance.issuanceAddress" />
+          <orders-grid type="SELL" limit="25"
+                       on:vm:buysell="openBuySellModal(%arguments)"
+                       issuanceAddress:from="issuance.issuanceAddress" />
 
           {{#if session}}
             <div>
@@ -88,7 +91,9 @@
         <div class="col-lg-6 col-xs-12 buy-orders no-padding">
           <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-          <orders-grid type="BUY" limit="25" issuanceAddress:from="issuance.issuanceAddress" />
+          <orders-grid type="BUY" limit="25"
+                       on:vm:buysell="openBuySellModal(%arguments)"
+                       issuanceAddress:from="issuance.issuanceAddress" />
 
           {{#if session}}
             <div>
