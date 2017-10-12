@@ -38,7 +38,7 @@ export const ViewModel = DefineMap.extend({
       }
     }
   },
-  selectedOffer: {
+  selectedItem: {
     get (val) {
       if (val) {
         return val

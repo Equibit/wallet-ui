@@ -3,11 +3,13 @@
 <can-import from="~/utils/stache-helpers/" />
 
 <drag-panel class="page-panel panel panel-default card card-full">
+
+  {{#if item}}
   <nav class="navbar toolbar">
     <div class="row">
       <p class="navbar-text">
-        <span class="details-company">{{order.companyName}}</span>
-        <span class="details-issuance-name">, {{order.issuanceName}}</span>
+        <span class="details-company">{{item.companyName}}</span>
+        <span class="details-issuance-name">, {{item.issuanceName}}</span>
       </p>
       <ul class="nav navbar-nav navbar-right toolbar-actions">
         <li><a href=""><span class="icon icon-bin"></span> {{i18n('cancelOrder')}}</a></li>
@@ -15,7 +17,6 @@
     </div>
   </nav>
 
-  <!--
   <div class="panel-body">
     <div class="row order-details-body">
       <div class="col-xs-12 col-lg-8 order-data">
@@ -27,9 +28,10 @@
       </div>
     </div>
   </div>
-  -->
+  {{/if}}
 
-  <!-- Message for no orders -->
+  <!-- No items -->
+  {{^if itemsLength}}
   <div class="panel-body align-center">
     <div class="row">
       <div class="col-xs-12">
@@ -41,6 +43,7 @@
       </div>
     </div>
   </div>
+  {{/if}}
 
 </drag-panel>
 

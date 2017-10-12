@@ -26,7 +26,18 @@ export const ViewModel = DefineMap.extend({
       }
     }
   },
-  selectedOrder: '*'
+  selectedItem: {
+    get (val) {
+      if (val) {
+        return val
+      }
+      const order = this.orders && this.orders.length && this.orders[0]
+      if (order) {
+        this.orders.selectItem(order)
+      }
+      return order
+    }
+  }
 })
 
 export default Component.extend({

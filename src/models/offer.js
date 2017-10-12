@@ -86,6 +86,9 @@ const Offer = DefineMap.extend('Offer', {
   get dateDisplay () {
     return moment(this.createdAt).format('MMM D')
   },
+  get dateDisplayFull () {
+    return moment(this.createdAt).format('DD/MM/YY @hh:mmA')
+  },
   get statusDisplay () {
     return translate(`status${this.status}`)
   },

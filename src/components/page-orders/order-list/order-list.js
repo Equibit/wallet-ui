@@ -53,10 +53,10 @@ export const ViewModel = DefineMap.extend({
   toLabel (status) {
     return labelStatusMap[status] || labelStatusMap.OPEN
   },
-  selectOrder (order) {
-    this.selectedOrder = order
+  selectItem (order) {
+    this.selectedItem = order
   },
-  selectedOrder: {
+  selectedItem: {
     set (order) {
       if (!this.orders || !this.orders.length) {
         return

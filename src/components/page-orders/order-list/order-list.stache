@@ -22,7 +22,7 @@
 
     <div class="list-group list-group-simple">
       {{#each ordersFiltered as order}}
-      <a href="#" class="list-group-item {{#if order.isSelected}}active{{/if}}" on:click="selectOrder(order)">
+      <a href="#" class="list-group-item {{#if order.isSelected}}active{{/if}}" on:click="selectItem(order)">
         <div class="row">
           <div class="col-xs-8">
             <h4 class="list-group-item-heading list-issuance">{{order.companyName}}, {{order.issuanceName}}</h4>
