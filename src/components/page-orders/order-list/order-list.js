@@ -72,3 +72,5 @@ export default Component.extend({
   ViewModel,
   view
 })
+
+export { labelStatusMap }

@@ -17,10 +17,34 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './page-offers.less'
 import view from './page-offers.stache'
+import Session from '../../models/session'
+import Offer from '../../models/offer'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the page-offers component'
+  offersPromise: {
+    get (val) {
+      if (Session.current) {
+        return Offer.getList({userId: Session.current.user._id})
+      }
+    }
+  },
+  offers: {
+    get (val, resolve) {
+      if (val) {
+        return val
+      }
+      if (this.offersPromise) {
+        this.offersPromise.then(resolve)
+      }
+    }
+  },
+  selectedOffer: {
+    get (val) {
+      if (val) {
+        return val
+      }
+      return this.offers && this.offers.length && this.offers[0]
+    }
   }
 })
 

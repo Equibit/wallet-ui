@@ -4,8 +4,11 @@
 
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
-  <can-import from="wallet-ui/components/page-offers/" />
-  <page-offers></page-offers>
+  <can-import from="~/components/nav-bar/" />
+  <can-import from="~/components/page-offers/" />
+
+  <nav-bar page="" is-logged-in="true" />
+  <page-offers offers:from="offers">
 </script>
 
 <script src="../../../node_modules/steal/steal.js"
@@ -15,9 +18,11 @@
   import stache from 'can-stache';
   import reload from 'live-reload';
   import DefineMap from 'can-define/map/map';
+  import Offer from '~/models/offer'
+  import offers from '~/models/fixtures/offers'
 
   const vm = new DefineMap({
-    // view model props here
+    offers: new Offer.List(offers)
   });
 
   // Enable live-reload:
