@@ -26,6 +26,12 @@ const labelStatusMap = {
 }
 
 export const ViewModel = DefineMap.extend({
+  // ENUM ['ORDER', 'OFFER']
+  type: {
+    get (val) {
+      return val === 'OFFER' ? val : 'ORDER'
+    }
+  },
   mode: {
     get (val) {
       return val || 'SELL'
