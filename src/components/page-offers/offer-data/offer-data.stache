@@ -12,10 +12,10 @@
     <div class="offer-metadata section">
       <dl class="dl-horizontal dl-stripped responsive no-top-border">
         <dt>{{i18n('quantity')}}</dt>
-        <dd class="offer-bid-quantity">{{offer.quantity}}</dd>
+        <dd class="offer-bid-quantity">{{format(offer.quantity, '', 0)}}</dd>
 
         <dt>{{i18n('totalPrice')}}</dt>
-        <dd>{{format(offer.quantity, '', 0)}} <small>μBTC</small></dd>
+        <dd>{{format(offer.totalPrice, '', 0)}} <small>μBTC</small></dd>
       </dl>
     </div>
 

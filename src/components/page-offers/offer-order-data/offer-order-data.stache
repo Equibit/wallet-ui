@@ -9,27 +9,30 @@
 
 <div class="well">
   <div class="order-header section">
-    <issuance-summary />
+    <issuance-summary issuance:from="order" />
   </div>
 
   <div class="order-summary section row">
     <div class="col-xs-6">
       <label>{{i18n('quantity')}}</label>
-      <span class="order-quantity">400</span>
+      <span class="order-quantity">{{format(order.quantity, '', 0)}}</span>
     </div>
     <div class="col-xs-6 sub-section">
       <label>{{i18n('askPrice')}}</label>
-      <span class="order-ask-price">30,375 <small>μBTC</small></span>
+      <span class="order-ask-price">{{format(order.price, '', 0)}} <small>μBTC</small></span>
     </div>
+
+    {{#if order.isFillOrKill}}
     <div class="col-xs-12 sub-section">
        <fillkill-indicator />
     </div>
+    {{/if}}
   </div>
 
   <div class="order-metadata section">
     <dl class="dl-horizontal dl-stripped no-bottom-border responsive ">
       <dt>{{i18n('goodUntil')}}</dt>
-      <dd>April 28, 2017</dd>
+      <dd>{{order.dataDisplay}}</dd>
     </dl>
   </div>
 

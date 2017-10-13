@@ -19,9 +19,8 @@ import './offer-details.less'
 import view from './offer-details.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the offer-details component'
-  }
+  offer: '*',
+  offersLength: 'number'
 })
 
 export default Component.extend({

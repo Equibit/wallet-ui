@@ -13,7 +13,7 @@ import feathersClient from './feathers-client'
 import superModel from './super-model'
 import algebra from './algebra'
 import Issuance from './issuance'
-import Portfolio from './portfolio'
+import Order from './order'
 import moment from 'moment'
 import { translate } from '../i18n/i18n'
 
@@ -26,6 +26,8 @@ const Offer = DefineMap.extend('Offer', {
    * Id of the user this offer belongs to
    */
   userId: 'string',
+
+  orderId: 'string',
 
   /**
    * @property {Number} models/offer.properties.issuanceAddress issuanceAddress
@@ -91,6 +93,18 @@ const Offer = DefineMap.extend('Offer', {
   },
   get statusDisplay () {
     return translate(`status${this.status}`)
+  },
+
+  order: {
+    Type: Order,
+    get (val, resolve) {
+      if (val) {
+        return val
+      }
+      if (this.orderId) {
+        Order.get({_id: this.orderId}).then(resolve)
+      }
+    }
   },
 
   // Extras:

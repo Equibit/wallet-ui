@@ -37,13 +37,14 @@ export const ViewModel = DefineMap.extend({
       return val || 'SELL'
     }
   },
-  orders: '*',
-  ordersFiltered: {
+  // Either orders or offers:
+  items: '*',
+  itemsFiltered: {
     get () {
-      return this.orders && this.orders.filter(order => {
+      return this.items && this.items.filter(item => {
         return this.mode === 'ARCHIVE'
-          ? ['CLOSED', 'CANCELLED'].indexOf(order.status) !== -1
-          : ['CLOSED', 'CANCELLED'].indexOf(order.status) === -1 && order.type === this.mode
+          ? ['CLOSED', 'CANCELLED'].indexOf(item.status) !== -1
+          : ['CLOSED', 'CANCELLED'].indexOf(item.status) === -1 && item.type === this.mode
       })
     }
   },
@@ -53,19 +54,19 @@ export const ViewModel = DefineMap.extend({
   toLabel (status) {
     return labelStatusMap[status] || labelStatusMap.OPEN
   },
-  selectItem (order) {
-    this.selectedItem = order
+  selectItem (item) {
+    this.selectedItem = item
   },
   selectedItem: {
-    set (order) {
-      if (!this.orders || !this.orders.length) {
+    set (item) {
+      if (!this.items || !this.items.length) {
         return
       }
-      if (!order) {
-        order = this.orders[0]
+      if (!item) {
+        item = this.items[0]
       }
-      this.orders.selectItem(order)
-      return order
+      this.items.selectItem(item)
+      return item
     }
   }
 })

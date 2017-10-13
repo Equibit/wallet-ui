@@ -125,6 +125,8 @@ const Order = DefineMap.extend('Order', {
     return translate(`status${this.status}`)
   },
 
+  // Related models:
+
   issuance: {
     get (val, resolve) {
       if (typeof this.issuanceId !== 'undefined') {
@@ -149,6 +151,9 @@ const Order = DefineMap.extend('Order', {
       return val
     }
   },
+
+  // Extras:
+
   isValid: {
     get () {
       return this.portfolioId && this.fundsPortfolioId && this.quantity && this.goodFor
