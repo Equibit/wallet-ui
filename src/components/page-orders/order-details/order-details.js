@@ -25,7 +25,7 @@ export const ViewModel = DefineMap.extend({
       return val === 'OFFER' ? val : 'ORDER'
     }
   },
-  item: '*',
+  item: '*'
 })
 
 export default Component.extend({
