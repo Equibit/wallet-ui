@@ -4,7 +4,7 @@
 
 
 <h2 class="subtitle">
-  Sell Offer
+  {{#is offer.type 'SELL'}} {{i18n('sellOffer')}} {{else}} {{i18n('buyOffer')}} {{/is}}
   <div class="offer-date">Created on {{offer.dateDisplayFull}}</div>
 </h2>
 
@@ -25,6 +25,7 @@
     </div>
 
     <div class="offer-status-details section">
-      <offer-status></offer-status>
+      <offer-status status:from="offer.status"
+                    date:from="offer.updatedAt" />
     </div>
 </div>

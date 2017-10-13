@@ -4,7 +4,7 @@
 
 
 <h2 class="subtitle">
-  {{i18n('sellOrder')}}
+  {{#is order.type 'SELL'}} {{i18n('sellOrder')}} {{else}} {{i18n('buyOrder')}} {{/is}}
 </h2>
 
 <div class="well">
@@ -32,7 +32,7 @@
   <div class="order-metadata section">
     <dl class="dl-horizontal dl-stripped no-bottom-border responsive ">
       <dt>{{i18n('goodUntil')}}</dt>
-      <dd>{{order.dataDisplay}}</dd>
+      <dd>{{order.dateDisplay}}</dd>
     </dl>
   </div>
 

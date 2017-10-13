@@ -17,6 +17,7 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './status-badge.less'
 import view from './status-badge.stache'
+import { translate } from '../../../i18n/i18n'
 
 export const ViewModel = DefineMap.extend({
   status: {
@@ -25,24 +26,31 @@ export const ViewModel = DefineMap.extend({
   statusLabel: {
     get () {
       const values = {
+        open: translate('statusOpen'),
         progress: 'In progress',
-        trading: 'Trading',
+        trading: translate('statusTrading'),
         completed: 'Completed',
-        canceled: 'Canceled',
+        closed: translate('statusClosed'),
+        cancelled: translate('statusCancelled'),
+        rejected: translate('statusRejected'),
         unknown: 'Unknown'
       }
-      return values[this.status] || values.unknown
+      return values[this.status.toLowerCase()] || values.unknown
     }
   },
   statusClass: {
     get () {
       const values = {
+        open: 'success',
         progress: 'progress',
+        trading: 'progress',
         completed: 'success',
-        canceled: 'warning',
+        closed: 'success',
+        cancelled: 'warning',
+        rejected: 'default',
         unknown: 'default'
       }
-      return values[this.status] || values.unknown
+      return values[this.status.toLowerCase()] || values.unknown
     }
   }
 })

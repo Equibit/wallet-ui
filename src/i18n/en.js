@@ -76,7 +76,9 @@ export default {
   breakdown: 'Breakdown',
   BTC: 'BTC',
   buy: 'Buy',
+  buyOffer: 'Buy Offer',
   buyOffers: 'Buy Offers',
+  buyOrder: 'Buy Order',
   buyOrders: 'Buy Orders',
 
   cancelDeal: 'Cancel Deal',
