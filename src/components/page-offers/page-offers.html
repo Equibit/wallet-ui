@@ -1,29 +1,36 @@
 <!DOCTYPE HTML>
 <style>body { padding: 20px }</style>
+<script>window.useXhrTransport = true</script>
 <div id="demo"></div>
 
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
-  <can-import from="wallet-ui/components/page-offers/" />
-  <page-offers></page-offers>
+  <can-import from="~/components/nav-bar/" />
+  <can-import from="~/components/page-offers/" />
+
+  <nav-bar page="" is-logged-in="true" />
+  <page-offers offers:from="offers">
 </script>
 
 <script src="../../../node_modules/steal/steal.js"
         main="@empty">
 
-  import $ from 'jquery';
-  import stache from 'can-stache';
-  import reload from 'live-reload';
-  import DefineMap from 'can-define/map/map';
+  import $ from 'jquery'
+  import stache from 'can-stache'
+  import reload from 'live-reload'
+  import DefineMap from 'can-define/map/map'
+  import Offer from '~/models/offer'
+  import offers from '~/models/fixtures/offers'
+  import '~/models/fixtures/orders'
 
   const vm = new DefineMap({
-    // view model props here
-  });
+    offers: new Offer.List(offers)
+  })
 
   // Enable live-reload:
   stache.async($('#demo-html').html()).then(template => {
-    let render = () => $('#demo').html(template(vm));
-    render();
-    reload(render);
-  });
+    let render = () => $('#demo').html(template(vm))
+    render()
+    reload(render)
+  })
 </script>

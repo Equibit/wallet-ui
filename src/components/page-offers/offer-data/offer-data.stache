@@ -4,27 +4,28 @@
 
 
 <h2 class="subtitle">
-  Sell Offer
-  <div class="offer-date">Created on 04/28/12 @1:00pm</div>
+  {{#is offer.type 'SELL'}} {{i18n('sellOffer')}} {{else}} {{i18n('buyOffer')}} {{/is}}
+  <div class="offer-date">Created on {{offer.dateDisplayFull}}</div>
 </h2>
 
 <div class="well">
     <div class="offer-metadata section">
       <dl class="dl-horizontal dl-stripped responsive no-top-border">
         <dt>{{i18n('quantity')}}</dt>
-        <dd class="offer-bid-quantity">385</dd>
+        <dd class="offer-bid-quantity">{{format(offer.quantity, '', 0)}}</dd>
 
         <dt>{{i18n('totalPrice')}}</dt>
-        <dd>12,750,000 <small>μBTC</small></dd>
+        <dd>{{format(offer.totalPrice, '', 0)}} <small>μBTC</small></dd>
       </dl>
     </div>
 
     <div class="offer-status section">
       <h3 class="subheading">{{i18n('status')}}</h3>
-      <status-badge />
+      <status-badge status:from="offer.status" />
     </div>
 
     <div class="offer-status-details section">
-      <offer-status></offer-status>
+      <offer-status status:from="offer.status"
+                    date:from="offer.updatedAt" />
     </div>
 </div>

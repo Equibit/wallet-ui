@@ -19,7 +19,13 @@ import './order-details.less'
 import view from './order-details.stache'
 
 export const ViewModel = DefineMap.extend({
-  order: '*'
+  // ENUM ['ORDER', 'OFFER']
+  type: {
+    get (val) {
+      return val === 'OFFER' ? val : 'ORDER'
+    }
+  },
+  item: '*'
 })
 
 export default Component.extend({

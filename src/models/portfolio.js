@@ -337,6 +337,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
   // Methods:
   hasEnoughFunds (amount, type) {
+    if (['BTC', 'EQB'].indexOf(type) === -1) {
+      console.error(`Invalid type ${type}. Expects "EQB" or "BTC"`)
+    }
     return amount === 0 || !!this.getTxouts(amount, type).length
   },
 

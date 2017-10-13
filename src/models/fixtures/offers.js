@@ -1,18 +1,18 @@
 import fixture from 'can-fixture'
 import { times } from 'ramda'
-import Order from '../order'
+import Offer from '../offer'
 import issuance from '../mock/mock-issuance'
 import { companies } from '../fixtures/issuances'
 
 const data = times(i => {
   return {
     _id: i,
+    orderId: i,
     issuanceAddress: issuance.address,
     quantity: (1000 * (i + 1)),
     price: 70 * (i + 1),
     createdAt: [(new Date()).toJSON(), '2017-04-12T04:35:34.835Z', '2017-03-05T08:45:34.835Z'][i % 3],
-    isFillOrKill: [true, false, false][i % 3],
-    type: ['SELL', 'BUY', 'SELL'][i % 3],
+    type: ['BUY', 'SELL', 'BUY'][i % 3],
     status: ['OPEN', 'TRADING', 'CANCELLED', 'CLOSED'][i % 4],
 
     companyName: companies[i % 9],
@@ -21,8 +21,8 @@ const data = times(i => {
   }
 }, 50)
 
-const store = fixture.store(data, Order.algebra)
+const store = fixture.store(data, Offer.algebra)
 
-fixture('/orders/{_id}', store)
+fixture('/offers/{_id}', store)
 
 export default data

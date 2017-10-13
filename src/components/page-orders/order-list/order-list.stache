@@ -2,7 +2,9 @@
 
 <drag-panel class="panel panel-default card card-full">
   <div class="panel-heading">
-    <h3 class="panel-title">{{i18n('myOrders')}}</h3>
+    <h3 class="panel-title">
+      {{#is type 'OFFER'}} {{i18n('myOffers')}} {{else}} {{i18n('myOrders')}} {{/is}}
+    </h3>
   </div>
   <div class="panel-body">
 
@@ -19,21 +21,21 @@
     </ul>
 
     <div class="list-group list-group-simple">
-      {{#each ordersFiltered as order}}
-      <a href="#" class="list-group-item {{#if order.isSelected}}active{{/if}}" on:click="selectOrder(order)">
+      {{#each itemsFiltered as item}}
+      <a href="#" class="list-group-item {{#if item.isSelected}}active{{/if}}" on:click="selectItem(item)">
         <div class="row">
           <div class="col-xs-8">
-            <h4 class="list-group-item-heading list-issuance">{{order.companyName}}, {{order.issuanceName}}</h4>
-            <div class="list-issuance-type">{{order.issuanceTypeDisplay}}</div>
-            <div class="list-quantity-price">{{format(order.quantity, '', 0)}} @{{format(order.price, '', 0)}} <small>μBTC</small></div>
+            <h4 class="list-group-item-heading list-issuance">{{item.companyName}}, {{item.issuanceName}}</h4>
+            <div class="list-issuance-type">{{item.issuanceTypeDisplay}}</div>
+            <div class="list-quantity-price">{{format(item.quantity, '', 0)}} @{{format(item.price, '', 0)}} <small>μBTC</small></div>
           </div>
 
           <div class="col-xs-4">
-            <div class="list-time-stamp">{{order.dateDisplay}}</div>
-            <div class="list-status"><span class="label label-{{toLabel(order.status)}} label-condensed">{{order.statusDisplay}}</span></div>
+            <div class="list-time-stamp">{{item.dateDisplay}}</div>
+            <div class="list-status"><span class="label label-{{toLabel(item.status)}} label-condensed">{{item.statusDisplay}}</span></div>
             {{#is mode 'ARCHIVE'}}
               <div class="list-type">
-                <span class="label label-simple">{{order.type}}</span>
+                <span class="label label-simple">{{item.type}}</span>
               </div>
             {{/is}}
           </div>

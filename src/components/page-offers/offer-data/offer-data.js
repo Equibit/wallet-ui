@@ -17,11 +17,10 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './offer-data.less'
 import view from './offer-data.stache'
+import Offer from '../../../models/offer'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the offer-data component'
-  }
+  offer: Offer
 })
 
 export default Component.extend({

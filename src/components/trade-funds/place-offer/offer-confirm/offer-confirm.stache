@@ -5,22 +5,19 @@
 
 <div class="list-group">
   <div class="list-group-item order-header ">
-    <issuance-summary />
+    <issuance-summary issuance:from="formData.order" />
   </div>
 
   <div class="list-group-item order-summary">
     <dl class="dl-horizontal dl-stripped responsive">
       <dt>{{i18n('quantity')}}</dt>
-      <dd class="input-value">400 <small>{{i18n('securities')}}</small></dd>
+      <dd class="input-value">{{format(formData.quantity, '')}} <small>{{i18n('securities')}}</small></dd>
 
       <dt>{{i18n('askPrice')}}</dt>
-      <dd class="input-value">30,375 <small>μBTC</small></dd>
+      <dd class="input-value">{{format(formData.order.price, '')}} <small>μBTC</small></dd>
 
       <dt>{{i18n('totalPrice')}}</dt>
-      <dd class="input-value">12,750,000 <small>μBTC</small></dd>
-
+      <dd class="input-value">{{format(formData.totalPrice, '')}} <small>μBTC</small></dd>
     </dl>
   </div>
-
 </div>
-

@@ -26,18 +26,25 @@ const labelStatusMap = {
 }
 
 export const ViewModel = DefineMap.extend({
+  // ENUM ['ORDER', 'OFFER']
+  type: {
+    get (val) {
+      return val === 'OFFER' ? val : 'ORDER'
+    }
+  },
   mode: {
     get (val) {
       return val || 'SELL'
     }
   },
-  orders: '*',
-  ordersFiltered: {
+  // Either orders or offers:
+  items: '*',
+  itemsFiltered: {
     get () {
-      return this.orders && this.orders.filter(order => {
+      return this.items && this.items.filter(item => {
         return this.mode === 'ARCHIVE'
-          ? ['CLOSED', 'CANCELLED'].indexOf(order.status) !== -1
-          : ['CLOSED', 'CANCELLED'].indexOf(order.status) === -1 && order.type === this.mode
+          ? ['CLOSED', 'CANCELLED'].indexOf(item.status) !== -1
+          : ['CLOSED', 'CANCELLED'].indexOf(item.status) === -1 && item.type === this.mode
       })
     }
   },
@@ -47,22 +54,19 @@ export const ViewModel = DefineMap.extend({
   toLabel (status) {
     return labelStatusMap[status] || labelStatusMap.OPEN
   },
-  selectOrder (order) {
-    this.selectedOrder = order
+  selectItem (item) {
+    this.selectedItem = item
   },
-  selectedOrder: {
-    set (order) {
-      if (!this.orders || !this.orders.length) {
+  selectedItem: {
+    set (item) {
+      if (!this.items || !this.items.length) {
         return
       }
-      if (!order) {
-        order = this.orders[0]
+      if (!item) {
+        item = this.items[0]
       }
-      this.orders.forEach(order => {
-        order.isSelected = false
-      })
-      order.isSelected = true
-      return order
+      this.items.selectItem(item)
+      return item
     }
   }
 })
@@ -72,3 +76,5 @@ export default Component.extend({
   ViewModel,
   view
 })
+
+export { labelStatusMap }

@@ -15,12 +15,28 @@
 
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
+import moment from 'moment'
 import './offer-status.less'
 import view from './offer-status.stache'
 
+const enumSetter = values => value => {
+  if (values.indexOf) {
+    if (values.indexOf(value) !== -1) {
+      return value
+    } else {
+      throw Error(`Unexpected enum value ${value}`)
+    }
+  }
+  return value
+}
+
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the offer-status component'
+  status: {
+    set: enumSetter(['OPEN', 'TRADING', 'CLOSED', 'CANCELLED', 'REJECTED'])
+  },
+  date: '*',
+  get dateDisplay () {
+    return moment(this.date).format('MM/DD @h:mm A')   // 04/29 @2:30 pm
   }
 })
 
