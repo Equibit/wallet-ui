@@ -19,6 +19,8 @@ import './offer-details.less'
 import view from './offer-details.stache'
 
 export const ViewModel = DefineMap.extend({
+  // ENUM ['SELL', 'BUY']
+  type: 'string',
   offer: '*',
   offersLength: 'number'
 })

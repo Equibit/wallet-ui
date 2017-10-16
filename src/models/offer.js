@@ -27,6 +27,11 @@ const Offer = DefineMap.extend('Offer', {
    */
   userId: 'string',
 
+  /**
+   * @property {Number} models/offer.properties.orderId orderId
+   * @parent models/offer.properties
+   * Id of the related order
+   */
   orderId: 'string',
 
   /**

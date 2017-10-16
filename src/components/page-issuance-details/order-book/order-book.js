@@ -99,6 +99,7 @@ export const ViewModel = DefineMap.extend({
     }
     const offer = new Offer({
       userId: Session.current.user._id,
+      orderId: formData.order._id,
       issuanceAddress: this.issuance.issuanceAddress,
       type,
       quantity: formData.quantity,
