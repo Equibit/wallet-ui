@@ -88,6 +88,7 @@ export const ViewModel = DefineMap.extend({
       // Refresh promise to cause repaint of grid with Market Depth background (which does not support row updates).
       this[type === 'SELL' ? 'resetSellOrders' : 'resetBuyOrders'] = Math.random()
     })
+    return order
   },
   placeOffer (args) {
     const formData = args[1]
@@ -101,7 +102,7 @@ export const ViewModel = DefineMap.extend({
       issuanceAddress: this.issuance.issuanceAddress,
       type,
       quantity: formData.quantity,
-      price: formData.price,
+      price: formData.order.price,
       companyName: this.issuance.companyName,
       issuanceName: this.issuance.issuanceName,
       issuanceType: this.issuance.issuanceType
@@ -114,6 +115,7 @@ export const ViewModel = DefineMap.extend({
         'displayInterval': 5000
       })
     })
+    return offer
   },
   resetSellOrders: '*',
   resetBuyOrders: '*'
