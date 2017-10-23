@@ -131,7 +131,7 @@
     "feathers-authentication-signed": "^2.0.9",
     "feathers-hooks": "^2.1.1",
     "feathers-rest": "^1.8.0",
-    "feathers-socketio": "^1.6.0",
+    "feathers-socketio": "^2.0.0",
     "flexboxgrid-less": "^0.0.1",
     "generator-donejs": "^1.0.7",
     "grid-component": "^0.10.0",
@@ -147,7 +147,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "babel-eslint": "^7.2.2",
+    "babel-eslint": "^8.0.1",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.26.0",
     "can-fixture": "^1.1.1",

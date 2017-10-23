@@ -22,6 +22,8 @@
   import DefineMap from 'can-define/map/map'
   import Order from '~/models/order'
   import orders from '~/models/fixtures/orders'
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
 
   const vm = new DefineMap({
     orders: new Order.List(orders)
