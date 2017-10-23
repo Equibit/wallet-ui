@@ -1,0 +1,59 @@
+<can-import from="~/utils/stache-helpers/" />
+
+<drag-panel class="page-panel panel panel-default card card-full">
+
+  
+  <nav class="navbar toolbar">
+    <div class="row">
+      <p class="navbar-text">Imperial Brands Passport</p>
+      <ul class="nav navbar-nav navbar-right toolbar-actions">
+        <li><a href=""><span class="icon icon-bin"></span> {{i18n('delete')}}</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="panel-body">
+    <div class="row">
+        <div class="col-xs-12 passport-metadata">
+            <div class="well">
+                <dl class="dl-horizontal dl-stripped responsive no-top-border no-bottom-border">
+                    <dt>Authority</dt>
+                    <dd><a href="#">Imperial Brands</a></dd>
+
+                    <dt>Issued On</dt>
+                    <dd>04/28/17</dd>
+
+                    <dt>Expires On</dt>
+                    <dd>04/28/19</dd>
+
+                    <dt>Status</dt>
+                    <dd><span class="label label-info">Active</span></dd>
+                </dl>
+            </div>
+        </div>
+      
+        <div class="col-xs-12">
+            <h2 class="subtitle">Accepted on Issuances</h2>
+            <div class="well">
+        </div>
+      
+        </div>
+    </div>
+  </div>
+  
+
+  <!-- SCENARIO 1: No Items
+  
+  <div class="panel-body align-center">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="message-box no-border">
+          <div class="message-box-status">{{i18n('placeholderNoOrdersTile')}}</div>
+          <p class="message-box-cause">{{i18n('placeholderNoOrdersDescription')}}</p>
+          <a href="/issuances" class="btn btn-primary">{{i18n('placeholderNoOrdersCTA')}}</a>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+</drag-panel>

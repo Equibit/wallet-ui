@@ -18,7 +18,7 @@
     <!-- SCENARIO 1: Without Passports
     <div class="message-box no-border message-placeholder">
         <div class="icon icon-passport"></div>
-        <p class="message-box-cause">No Received Passports Found</p>
+        <p class="message-box-cause">{{i18n('tradingPassportsReceivedNotFound')}}</p>
     </div>
     -->
 

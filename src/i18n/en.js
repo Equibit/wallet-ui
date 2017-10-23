@@ -382,6 +382,7 @@ export default {
   tradingPassportsAccepted: 'Accepted Trading Passports',
   tradingPassportsAcceptedMessage: 'This issuance is restricted and requires at least one of these passports.',
   tradingPassportLegend: '= Passports you have',
+  tradingPassportsReceivedNotFound: 'No Received Passports Found',
   tradingPassportRequired: 'A Trading Passport is required but has not been set yet',
   tradingPassportRequiredWarning: 'You need one of the listed passports:',
   trades: 'Trades',
