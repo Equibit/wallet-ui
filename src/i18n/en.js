@@ -377,6 +377,8 @@ export default {
   trademark: '© 2017 Equibit Group Ltd.',
   tradingPassportsAccepted: 'Accepted Trading Passports',
   tradingPassportsAcceptedMessage: 'This issuance is restricted and requires at least one of these passports.',
+  tradingPassportLegend: '= Passports you have',
+  tradingPassportRequired: 'A Trading Passport is required but has not been set yet',
   trades: 'Trades',
   transactionAuth: 'Authorization',
   transactionBuy: 'Buy',
