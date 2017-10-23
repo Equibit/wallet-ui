@@ -9,4 +9,5 @@ addons:
       - dbus-x11
 before_install:
   - "export DISPLAY=:99.0"
+  - "export DEBUG=testee:*"
   - "sh -e /etc/init.d/xvfb start"
