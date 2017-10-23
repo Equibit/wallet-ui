@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 
+<!-- CASE 1 : Shows and action done and an action that is pending -->
 <p class="message-flow">
   <span class="message-flow-title"><span class="icon icon-checkmark"></span> {{i18n('dealFlowMessageTitleSecuritiesSent')}}</span>
 </p>
@@ -8,33 +9,32 @@
   <span class="message-flow-title"><span class="icon icon-clock"></span> {{i18n('dealFlowMessageTitleConfirmDealBuyer')}}</span>
   <span class="message-flow-description">
     {{i18n('dealFlowMessageContentAvailabilityBuyer')}}
+    <br>
     {{i18n('dealFlowMessageContentNotifyContinue')}}
   </span>
 </p>
 
-<!-- TODO: Support the following configuations:-->
-
-<hr />
-
+<!-- CASE 2 : Shows and action done and an a warning message 
 <p class="message-flow">
   <span class="message-flow-title"><span class="icon icon-checkmark"></span> {{i18n('dealFlowMessageTitleSecuritiesReceived')}}</span>
 </p>
-
 <p class="message-flow">
   <span class="message-flow-title"><span class="icon icon-warning"></span> {{i18n('dealFlowMessageTitleAwaitingConfirmationBuyer')}}</span>
   <span class="message-flow-description">{{i18n('dealFlowMessageContentRevokeSeller')}}</span>
 </p>
+-->
 
-<hr />
 
+<!-- CASE 3 : Shows the done deal message and a link to the transaction
 <p class="message-flow">
   <span class="message-flow-title"><span class="icon icon-hand-shake"></span>{{i18n('dealFlowMessageTitleDealConfirmed')}}</span>
   <span class="message-flow-description">  on 05/07/2016 @3:01 pm.</span>
 </p>
 <a href="#" class="btn btn-default btn-sm">{{i18n('viewTransaction')}}</a>
+-->
 
-<hr />
 
+<!-- CASE 4 : Shows an action done and a box with the amounts that can be send
 <p class="message-flow">
   <span class="message-flow-title"><span class="icon icon-checkmark"></span> {{i18n('dealFlowMessageTitleGuaranteeReceived')}}</span>
 </p>
@@ -43,7 +43,7 @@
   <span class="message-flow-title">{{i18n('dealFlowMessageContentSendPayment')}}</span>
 </p>
 
-<div class="well message-exchange">
+<div class="well message-">
   <div class="row">
     <div class="col-xs-6 no-padding">
       <div class="deal-quantity">
@@ -59,3 +59,5 @@
     </div>
   </div>
 </div>
+
+ -->

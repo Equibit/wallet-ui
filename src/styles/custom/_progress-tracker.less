@@ -24,9 +24,6 @@
 @path-position:             @marker-size-half - (@path-height / 2);
 
 
-
-
-
 // Container element
 .progress-tracker {
   display: flex;
@@ -62,6 +59,17 @@
 
   .icon {
     display: none;
+  }
+}
+
+// If the tracker is shown in a modal the z-index needs to be adjusted
+
+.modal-content {
+  .progress-step:not(:last-child)::after {
+    z-index: 0;
+  }
+  .progress-marker {
+    z-index: 1;
   }
 }
 

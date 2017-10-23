@@ -119,6 +119,7 @@ export default {
   dateAndTime: 'Date and Time',
   dateAndTime2: 'Date/Time',
   days: 'Days',
+  dealFlow: 'Deal Flow',
   dealFlowMessageContentAvailabilityBuyer: 'This can take some time, depending on the buyer availability.',
   dealFlowMessageContentAvailabilitySeller: 'This can take some time, depending on the seller availability.',
   dealFlowMessageContentNotifyContinue: 'We will notify you when you can continue.',
