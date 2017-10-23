@@ -376,6 +376,7 @@ export default {
   totalPrice: 'Total Price',
   totalSecurities: 'Total Securities',
   trademark: '© 2017 Equibit Group Ltd.',
+  tradingPassports: 'My Trading Passports',
   tradingPassportsAccepted: 'Accepted Trading Passports',
   tradingPassportsAcceptedMessage: 'This issuance is restricted and requires at least one of these passports.',
   trades: 'Trades',

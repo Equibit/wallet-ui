@@ -26,6 +26,7 @@
     <can-import from="~/components/page-settings/" />
     <can-import from="~/components/page-four-oh-four.component" />
     <can-import from="~/components/page-four-oh-one.component" />
+    <can-import from="~/components/page-trading-passports/" />
     <can-import from="~/utils/stache-helpers/" />
     <can-import from="~/components/common/alerts/alerts" />
     <can-import from="~/components/nav-bar/" />
@@ -95,6 +96,9 @@
       {{/case}}
       {{#case 'four-oh-four'}}
         <page-four-oh-four />
+      {{/case}}
+      {{#case 'my-trading-passports'}}
+        <page-trading-passports />
       {{/case}}
     {{/switch}}
 
