@@ -19,6 +19,12 @@
   </div>
   -->
 
+  <!-- SCENARIO 4: Logged in without any passports (warning message)
+  <div class="warning-message">
+    <span class="icon icon-warning"></span> {{i18n('tradingPassportRequiredWarning')}}
+  </div>
+  -->
+  
   <!-- SCENARIO 2: Logged Out -->
   <ul class="list-unstyled passport-list">
   {{#each visiblePassports}}
