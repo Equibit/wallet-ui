@@ -1,0 +1,56 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-trading-passports/passport-accepted-issuances-grid/" />
+
+<drag-panel class="page-panel panel panel-default card card-full">
+
+<!-- SCENARIO 1: No Items  
+  <div class="panel-body align-center">
+    <div class="message-box no-border">
+        <div class="message-box-status">{{i18n('tradingPassportsReceived')}}</div>
+        <p class="message-box-cause">{{i18n('tradingPassportsReceivedMessage')}}</p>
+    </div>
+  </div>
+-->
+
+<!-- SCENARIO 2: With Items -->
+  <nav class="navbar toolbar">
+    <div class="row">
+      <p class="navbar-text">Imperial Brands Passport</p>
+      <ul class="nav navbar-nav navbar-right toolbar-actions">
+        <li><a href=""><span class="icon icon-bin"></span> {{i18n('delete')}}</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="panel-body">
+    <div class="row">
+        <div class="col-xs-12 passport-metadata">
+            <div class="well">
+                <dl class="dl-horizontal dl-stripped responsive no-top-border no-bottom-border">
+                    <dt>{{i18n('authority')}}</dt>
+                    <dd><a href="#">Imperial Brands</a></dd>
+
+                    <dt>{{i18n('issuedOn')}}</dt>
+                    <dd>04/28/17</dd>
+
+                    <dt>{{i18n('expiresOn')}}</dt>
+                    <dd>04/28/19</dd>
+
+                    <dt>{{i18n('status')}}</dt>
+                    <dd><span class="label label-info">Active</span></dd>
+                </dl>
+            </div>
+        </div>
+      
+        <div class="col-xs-12">
+            <h2 class="subtitle">{{i18n('acceptedOnIssuances')}}</h2>
+            <div class="well">
+                <passport-accepted-issuances-grid></passport-accepted-issuances-grid>
+            </div>
+        </div>
+      
+        </div>
+    </div>
+  </div>
+ 
+</drag-panel>
