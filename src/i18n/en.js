@@ -63,6 +63,7 @@ export default {
   autoLogoutDescription: 'After the selected amount of time of inactivity we will log you out automatically from your account.',
   autoLogoutLabel: 'Auto Logout Time',
   authorize: 'Authorize',
+  authorityInformation: 'Authority Information',
 
   balance: 'Balance',
   bidPrice: 'Bid Price',

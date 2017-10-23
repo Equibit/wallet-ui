@@ -5,25 +5,31 @@
 		</div>
 
 		<div class="col-xs-12 col-md-6">
-
-			  <div class="entity-address">{{entity.streetAddress}}</div>
-        {{#if entity.streetAddress2}}
-			    <div class="entity-address">{{entity.streetAddress2}}</div>
-        {{/if}}
-			  <div class="entity-city">{{entity.city}}, {{entity.state}} {{entity.postalCode}}</div>
-			  <div class="entity-country">{{entity.domicile}}</div>
+			<label>{{i18n('domicile')}}</label>
+			<div class="entity-address">{{entity.streetAddress}}</div>
+        	
+			{{#if entity.streetAddress2}}
+			<div class="entity-address">{{entity.streetAddress2}}</div>
+        	{{/if}}
+			
+			<div class="entity-city">{{entity.city}}, {{entity.state}} {{entity.postalCode}}</div>
+			<div class="entity-country">{{entity.domicile}}</div>
 		</div>
 
 		<div class="col-xs-12 col-md-6">
-      {{#if entity.website}}
+			<label>{{i18n('contact')}}</label>
+
+      		{{#if entity.website}}
   			<div class="entity-url"><a href="http://{{entity.website}}" target="_blank;">http://{{entity.website}}</a></div>
-      {{/if}}
-      {{#if entity.website}}
-			  <div class="entity-email"><a href="mailto:{{entity.email}}">{{entity.email}}</a></div>
-      {{/if}}
-      {{#if entity.website}}
-			  <div class="entity-phone">{{entity.phoneNumber}}</div>
-      {{/if}}
+      		{{/if}}
+
+      		{{#if entity.website}}
+			<div class="entity-email"><a href="mailto:{{entity.email}}">{{entity.email}}</a></div>
+      		{{/if}}
+
+      		{{#if entity.website}}
+			<div class="entity-phone">{{entity.phoneNumber}}</div>
+      		{{/if}}
 		</div>
 	</div>
 </div>
