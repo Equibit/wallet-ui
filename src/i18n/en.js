@@ -258,6 +258,7 @@ export default {
   orderBook: 'Order Book',
   orderWasCreated: 'Your order was created',
   optional: 'Optional',
+  owned: 'Owned',
 
   partial: 'Partial',
   partialBidsAllowed: 'Partial bids will be allowed',
@@ -297,6 +298,7 @@ export default {
 
   receive: 'Receive',
   receiveInfo: 'Use a unique address to add funds or securities to your account.',
+  received: 'Received',
   recoveryPhrase: 'Recovery Phrase',
   recoveryPhraseLabel: 'Backup Recovery Phrase',
   recoveryPhrasePromptTitle: 'Enter Your Backup Recovery Phrase',
