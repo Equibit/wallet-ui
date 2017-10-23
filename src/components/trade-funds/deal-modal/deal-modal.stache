@@ -1,0 +1,21 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/flow-message/" />
+<can-import from="~/components/common/progress-tracker/" />
+
+
+<bootstrap-modal-content>
+  <div class="modal-header">
+      <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+      <h3 class="modal-title">{{i18n('dealFlow')}}</h3>
+  </div>
+
+  <div class="modal-body">
+      <progress-tracker></progress-tracker>
+      <flow-message></flow-message>
+  </div>
+
+    <div class="modal-footer">
+      <button ($click)="next()" type="button" class="btn btn-primary">{{i18n('gotit')}}</button>
+      <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancelDeal')}}</button>
+    </div>
+ </bootstrap-modal-content>
