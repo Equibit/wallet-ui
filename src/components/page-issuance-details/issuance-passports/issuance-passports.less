@@ -1,4 +1,5 @@
 @import '../../../styles/bootstrap-custom/_variables';
+@import (reference) '../../../styles/custom/_mixins.less';
 
 issuance-passports {
 	display: block;
@@ -18,6 +19,41 @@ issuance-passports,
     }
     .btn {
       margin-top: 5px;
+    }
+    .icon-done {
+      .icon-circle(7.5px);
+    }
+  }
+  .message-box {
+    .icon-passport:before {
+      padding: 4% 14%;
+      background: @gray-light;
+    }
+    .message-box-cause {
+      font-size: @font-size-small;
+      color: @gray;
+    }
+  }
+
+  .passports-legend {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    font-style: italic;
+    font-size: @font-size-xsmall;
+    color: @gray;
+    .icon-done {
+      .icon-circle(6px);
+      margin-right: 3px;
+      align-self: center;
+    }
+  }
+
+  .warning-message {
+    font-size: @font-size-small;
+    color: @gray;
+    .icon-warning {
+      color: @brand-warning;
     }
   }
 }

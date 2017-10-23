@@ -7,16 +7,52 @@
   <span class="badge">{{passports.length}}</span>
 </h2>
 
-<div class="well">
-    <ul class="list-unstyled passport-list">
-    {{#each visiblePassports}}
-      <li><a href="#">{{name}} <span class="icon icon-link-external"></span></a></li>
-    {{/each}}
 
-    {{#if is-gt(passports.length, 8)}}
-      <li><button ($click)="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAll')}}</button></li>
-    {{/if}}
-    </ul>
+
+
+<div class="well">
+
+  <!-- SCENARIO 1: No trading passport set
+  <div class="message-box no-border">
+    <div class="icon icon-passport"></div>
+    <p class="message-box-cause">{{i18n('tradingPassportRequired')}}</p>
+  </div>
+  -->
+
+  <!-- SCENARIO 4: Logged in without any passports (warning message)
+  <div class="warning-message">
+    <span class="icon icon-warning"></span> {{i18n('tradingPassportRequiredWarning')}}
+  </div>
+  -->
+  
+  <!-- SCENARIO 2: Logged Out -->
+  <ul class="list-unstyled passport-list">
+  {{#each visiblePassports}}
+    <li><a href="#">{{name}} <span class="icon icon-link-external"></span></a></li>
+  {{/each}}
+
+  {{#if is-gt(passports.length, 8)}}
+    <li><button ($click)="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAll')}}</button></li>
+  {{/if}}
+  </ul>
+
+  <!-- SCENARIO 3: Logged in with some passports
+  <ul class="list-unstyled passport-list">
+    <li><span class="icon icon-done"> </span> <a href="#">Imperial Brands Passport <span class="icon icon-link-external"></span></a></li>
+    <li><span class="icon icon-done"> </span> <a href="#">Issuer Direct <span class="icon icon-link-external"></span></a></li>
+    {{#each visiblePassports}}
+    <li><a href="#">{{name}} <span class="icon icon-link-external"></span></a></li>
+    {{/each}}
+  </ul>
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 no-padding-left">
+      <button ($click)="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAll')}}</button>
+    </div>
+    <div class="col-xs-12 col-sm-8 no-padding-right passports-legend">
+        <span class="icon icon-done"></span> {{i18n('tradingPassportLegend')}}
+    </div>
+  </div>
+   -->
 </div>
 
 {{#if isModalShown}}
