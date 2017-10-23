@@ -1,0 +1,50 @@
+<can-import from="grid-component" />
+<can-import from="~/components/common/grid/grid.less" />
+<can-import from="~/utils/stache-helpers/" />
+
+<grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
+    <div class="grid-responsive">
+    <table class="table table-condensed grid-header">
+        <thead>
+        <tr>
+            <th class="column-company">{{i18n('companyAndIssuanceName')}}</th>
+            <th class="column-domicile">{{i18n('domicile')}}</th>
+            <th class="column-issuance-type">{{i18n('issuanceType')}}</th>
+            <th class="column-price">{{i18n('price')}} (μBTC) </th>
+            
+        </tr>
+        </thead>
+    </table>
+
+    <div class="grid-body-scroll">
+        <table class="table table-condensed grid-body">
+            <tbody>
+
+                <tr>
+                    <td class="column-company"><a href="">Imperial Brands, Series 1</a></td>
+                    <td class="column-domicile truncate">USA</td>
+                    <td class="column-issuance-type">Common Shares</td>
+                    <td class="column-price">7,888</td>
+                </tr>
+
+                <tr>
+                    <td class="column-company"><a href="">Imperial Brands, Series 2</a></td>
+                    <td class="column-domicile truncate">USA</td>
+                    <td class="column-issuance-type">Preferred Shares</td>
+                    <td class="column-price">6,890</td>
+                </tr>
+
+                <tr>
+                    <td class="column-company"><a href="">Kingfisher plc, Series 1</a></td>
+                    <td class="column-domicile truncate">Germany</td>
+                    <td class="column-issuance-type">Bonds</td>
+                    <td class="column-price">18,234</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+</grid-component>
+

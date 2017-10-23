@@ -16,6 +16,7 @@ export default {
   addNew: 'Add New',
   addSellOrder: '+ Add Sell Order',
   accept: 'Accept',
+  acceptedOnIssuances: 'Accepted on Issuances',
   done: 'Done',
   back: 'Back',
   cancel: 'Cancel',
@@ -63,6 +64,7 @@ export default {
   autoLogoutDescription: 'After the selected amount of time of inactivity we will log you out automatically from your account.',
   autoLogoutLabel: 'Auto Logout Time',
   authorize: 'Authorize',
+  authority: 'Authority',
   authorityInformation: 'Authority Information',
 
   balance: 'Balance',
@@ -97,6 +99,7 @@ export default {
   company: 'Company',
   companyInformation: 'Company Information',
   companyAdd: 'Add a Company',
+  companyAndIssuanceName: 'Company and Issuance Name',
   companies: 'Companies',
   confirmOrder: 'Please review and confirm your order.',
   confirmOffer: 'Please review and confirm your offer.',
@@ -172,6 +175,7 @@ export default {
   errorMessageUnexpectedError: 'Sorry, unexpected error happened. Please, try again later.',
   errorMessageInvalidLogin1: 'Invalid login. Try again, or',
   errorMessageInvalidLogin2: 'reset your password',
+  expiresOn: 'Expires On',
 
   fillKill: 'Fill or Kill',
   from: 'From',
@@ -194,6 +198,7 @@ export default {
   issuanceType: 'Issuance Type',
   issuanceWasCanceled: 'Issuance was canceled',
   issued: 'Issued',
+  issuedOn: 'Issued On',
 
   issuanceAuthorized: 'A new issuance was authorized successfully',
   issuanceModalTitle: 'Create an Issuance',
@@ -382,6 +387,8 @@ export default {
   tradingPassportsAccepted: 'Accepted Trading Passports',
   tradingPassportsAcceptedMessage: 'This issuance is restricted and requires at least one of these passports.',
   tradingPassportLegend: '= Passports you have',
+  tradingPassportsReceived: 'Received Trading Passports',
+  tradingPassportsReceivedMessage: 'Passports issued to you will show here',
   tradingPassportsReceivedNotFound: 'No Received Passports Found',
   tradingPassportRequired: 'A Trading Passport is required but has not been set yet',
   tradingPassportRequiredWarning: 'You need one of the listed passports:',
