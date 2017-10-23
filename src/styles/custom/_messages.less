@@ -63,12 +63,19 @@
     background-color: @gray-lightest;
     color: @gray-light;
     border-radius: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1 1 auto;
     .message-box-cause {
       color: @gray;
     }
     .icon {
       color: @gray;
       border-color: @gray;
+      &.icon-passport:before {
+        background: @gray;
+      }
     }
   }
 }
