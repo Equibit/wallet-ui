@@ -19,7 +19,6 @@ export default {
   done: 'Done',
   back: 'Back',
   cancel: 'Cancel',
-  cancelDeal: 'Cancel Deal',
   cancelNo: 'Yes, Cancel',
   cancelYes: 'No, Don\'t Cancel',
   changePassword: 'Change Password',
