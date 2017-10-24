@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
-<can-import from="~/components/page-trading-passports/passport-accepted-issuances-grid/" />
+<can-import from="~/components/page-trading-passports/passport-owned-accepted-issuances-grid/" />
+<can-import from="~/components/page-trading-passports/passport-add-issuance-selector/" />
 
 <drag-panel class="page-panel panel panel-default card card-full">
 
@@ -13,77 +14,81 @@
  -->
 
 <!-- SCENARIO 2: With Items  -->
-  <nav class="navbar toolbar">
-    <div class="row">
-      <p class="navbar-text">Circle A Passport</p>
-      <ul class="nav navbar-nav navbar-right toolbar-actions">
-        <li><a href=""><span class="icon icon-bin"></span> {{i18n('delete')}}</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="panel-body">
-    <div class="row">
-        <div class="col-xs-12 passport-metadata">
-            <div class="well">
-                <dl class="dl-horizontal dl-stripped responsive no-top-border no-bottom-border">
-                    <dt>{{i18n('authority')}}</dt>
-                    <dd><a href="#">Imperial Brands</a></dd>
-
-                    <dt>{{i18n('createdOn')}}</dt>
-                    <dd>04/28/17</dd>
-                </dl>
-            </div>
-        </div>
-
-        <div class="col-xs-12">
-            <ul class="nav nav-pills list-tabs issuers-investors-tabs">
-                <li role="presentation" class="active">
-                    <a href="#" >{{i18n('issuances')}}</a>
-                </li>
-                <li role="presentation" class="">
-                    <a href="#" >{{i18n('investors')}}</a>
-                </li>
+    <nav class="navbar toolbar">
+        <div class="row">
+            <p class="navbar-text">Circle A Passport</p>
+            <ul class="nav navbar-nav navbar-right toolbar-actions">
+                <li><a href=""><span class="icon icon-bin"></span> {{i18n('delete')}}</a></li>
             </ul>
-
         </div>
-      
-        <div class="col-xs-12">
-            {{#is mode 'prompt'}}
-                <div class="well prompt-add-issuance">
-                    <button class="btn btn-primary btn-sm" ($click)="edit()">+ Add an Issuance</button>
-                </div>
-            {{/is}}
+    </nav>
 
-            {{#is mode 'edit'}}
-                <div class="well edit-add-issuance">
-                    <form>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6">
-                                <select class="form-control issuance-selector input-sm">
-                                    <option value="">Select Issuance</option>
-                                    <option value="">Kingfisher plc, Series 4</option>
-                                    <option value="">Maecenas Nulla, Series 1</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-6 col-sm-3">
-                                <button class="btn btn-primary btn-add-issuance btn-sm">Add Issuance</button>
-                            </div>
-                            <div class="col-xs-6 col-sm-3">
-                                <button class="btn btn-default btn-cancel btn-sm" ($click)="prompt()">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12 passport-metadata">
+                <div class="well">
+                    <dl class="dl-horizontal dl-stripped responsive no-top-border no-bottom-border">
+                        <dt>{{i18n('authority')}}</dt>
+                        <dd><a href="#">Imperial Brands</a></dd>
+
+                        <dt>{{i18n('createdOn')}}</dt>
+                        <dd>04/28/17</dd>
+                    </dl>
                 </div>
-            {{/is}}
-            <div class="well">
-                <passport-accepted-issuances-grid></passport-accepted-issuances-grid>
             </div>
-        </div>
-      
+
+            <div class="col-xs-12">
+                <ul class="nav nav-pills list-tabs issuers-investors-tabs">
+                    <li role="presentation" class="active">
+                        <a href="#" >{{i18n('issuances')}}</a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="#" >{{i18n('investors')}}</a>
+                    </li>
+                </ul>
+
+            </div>
+        
+            <!--SCENARIO 3: With Issuances -->
+            <div class="col-xs-12">
+                {{#is mode 'prompt'}}
+                    <div class="well prompt-add-issuance">
+                        <button class="btn btn-primary btn-sm" ($click)="edit()">+ Add an Issuance</button>
+                    </div>
+                {{/is}}
+
+                {{#is mode 'edit'}}
+                    <div class="well edit-add-issuance">
+                        <form>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-10 no-padding">
+                                    <passport-add-issuance-selector></passport-add-issuance-selector>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button class="btn btn-default btn-cancel btn-sm" ($click)="prompt()">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {{/is}}
+                <div class="well">
+                    <passport-owned-accepted-issuances-grid></passport-owned-accepted-issuances-grid>
+                </div>
+            </div>
+        
+             <!--SCENARIO 4: Without Issuances 
+             <div class="message-box no-border">
+                <div class="message-box-status">Add Issuances</div>
+                <p class="message-box-cause">Add Issuances where you want to accept this passport</p>
+                <div class="row center-xs">
+                    <div class="col-xs-12">
+                        <passport-add-issuance-selector></passport-add-issuance-selector>
+                    </div>
+                </div>
+            </div>
+            -->
+
         </div>
     </div>
-  </div>
- 
- 
+
 </drag-panel>

@@ -32,5 +32,25 @@ owned-passport-details {
 				margin-bottom: 15px;
 			}
 		}
+
+		@media (max-width: @screen-sm) {
+			position: relative;
+			.btn-cancel {
+				position: absolute;
+				right: 1rem;
+				bottom: 12px;
+			}
+		}
+	}
+	.message-box {
+		@media (min-width: 545px) {
+			.btn {
+				margin-top: 0;
+			}
+		}
+		
+		passport-add-issuance-selector {
+			margin-top: 15px;
+		}
 	}
 }

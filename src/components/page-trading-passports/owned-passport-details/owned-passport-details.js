@@ -22,7 +22,7 @@ export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the owned-passport-details component'
   },
-  mode : {
+  mode: {
     value: 'prompt'
   },
   prompt () {
