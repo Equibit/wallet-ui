@@ -178,8 +178,9 @@ export default {
   errorMessageUnexpectedError: 'Sorry, unexpected error happened. Please, try again later.',
   errorMessageInvalidLogin1: 'Invalid login. Try again, or',
   errorMessageInvalidLogin2: 'reset your password',
+  expirationDate: 'Expiration Date',
   expiresOn: 'Expires On',
-
+  
   fillKill: 'Fill or Kill',
   from: 'From',
   funds: 'Funds',
@@ -353,6 +354,7 @@ export default {
   shareVolume: 'Share Volume',
   sharePerformance: 'Share Performance',
   shares: 'Shares',
+  shortDescription: 'Short Description',
   signup: 'Sign Up',
   signupAgreeToTerms1: 'I agree to the',
   signupAgreeToTerms2: 'Terms & Conditions',

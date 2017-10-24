@@ -1,6 +1,9 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-trading-passports/passport-owned-accepted-issuances-grid/" />
+<can-import from="~/components/page-trading-passports/passport-owned-accepted-investors-grid/" />
 <can-import from="~/components/page-trading-passports/passport-add-issuance-selector/" />
+<can-import from="~/components/page-trading-passports/add-issuance-owned-passport/" />
+<can-import from="~/components/page-trading-passports/add-investor-owned-passport/" />
 
 <drag-panel class="page-panel panel panel-default card card-full">
 
@@ -49,32 +52,14 @@
 
             </div>
         
-            <!--SCENARIO 3: With Issuances -->
+            <!--SCENARIO 3: With Issuances 
             <div class="col-xs-12">
-                {{#is mode 'prompt'}}
-                    <div class="well prompt-add-issuance">
-                        <button class="btn btn-primary btn-sm" ($click)="edit()">+ Add an Issuance</button>
-                    </div>
-                {{/is}}
-
-                {{#is mode 'edit'}}
-                    <div class="well edit-add-issuance">
-                        <form>
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-10 no-padding">
-                                    <passport-add-issuance-selector></passport-add-issuance-selector>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button class="btn btn-default btn-cancel btn-sm" ($click)="prompt()">Cancel</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                {{/is}}
+                <add-issuance-owned-passport></add-issuance-owned-passport>
                 <div class="well">
                     <passport-owned-accepted-issuances-grid></passport-owned-accepted-issuances-grid>
                 </div>
             </div>
+            -->
         
              <!--SCENARIO 4: Without Issuances 
              <div class="message-box no-border">
@@ -87,6 +72,15 @@
                 </div>
             </div>
             -->
+
+            <!--SCENARIO 5: With Investors  -->
+            <div class="col-xs-12">
+                <add-investor-owned-passport></add-investor-owned-passport>
+                <div class="well">
+                    <passport-owned-accepted-investors-grid></passport-owned-accepted-investors-grid>
+                </div>
+            </div>
+            
 
         </div>
     </div>

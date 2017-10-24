@@ -21,15 +21,6 @@ import view from './owned-passport-details.stache'
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the owned-passport-details component'
-  },
-  mode: {
-    value: 'prompt'
-  },
-  prompt () {
-    this.mode = 'prompt'
-  },
-  edit () {
-    this.mode = 'edit'
   }
 })
 
