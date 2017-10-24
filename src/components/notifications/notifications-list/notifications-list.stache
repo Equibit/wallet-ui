@@ -25,20 +25,23 @@
     </a>
   {{/each}}
 
-  <!--
+  <!-- Example Alert: Received a Trading Passport
   <a href="#" class="list-group-item">
     <div class="media">
       <div class="media-left">
-        <span class="media-object icon icon-sell-open"></span>
+        <span class="media-object icon icon-notification-passport"></span>
       </div>
       <div class="media-body">
-        <h4 class="media-heading">Sell Offer Received</h4>
-        <div class="media-description">for Imperial Brands, Series 1</div>
-        <div class="media-cta btn-link">Quantity 385</div>
+        <div class="notification-time">10:35 am</div>
+        <h4 class="media-heading">New Trading Passport</h4>
+        <div class="media-description">Imperial Brands</div>
+        <div class="media-cta btn-link">View Passport</div>
       </div>
     </div>
   </a>
-
+   -->
+  
+  <!--
   <a href="#" class="list-group-item">
     <div class="media">
       <div class="media-left">
@@ -52,6 +55,7 @@
     </div>
   </a>
 
+  
   <a href="#" class="list-group-item read">
     <div class="media">
       <div class="media-left">

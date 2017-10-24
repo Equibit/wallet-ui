@@ -45,4 +45,18 @@ notifications-list {
       cursor: default;
     }
   }
+  .notification-time {
+    float: right;
+    font-size: @font-size-xsmall;  
+  }
+  @media (max-width: @screen-xs) {
+    .media-body {
+      position: relative;
+    }
+    .notification-time {
+      position: absolute;
+      bottom: 0;
+      right: 0;  
+    }
+  }
 }
