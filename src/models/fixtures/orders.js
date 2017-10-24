@@ -6,7 +6,7 @@ import { companies } from '../fixtures/issuances'
 
 const data = times(i => {
   return {
-    _id: i,
+    _id: '' + i,
     issuanceAddress: issuance.address,
     quantity: (1000 * (i + 1)),
     price: 70 * (i + 1),

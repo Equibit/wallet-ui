@@ -17,10 +17,11 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './order-offers-accepted.less'
 import view from './order-offers-accepted.stache'
+import Offer from '../../../models/offer'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the order-offers-accepted component'
+  offers: {
+    Type: Offer.List
   }
 })
 

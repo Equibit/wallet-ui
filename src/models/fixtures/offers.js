@@ -6,8 +6,8 @@ import { companies } from '../fixtures/issuances'
 
 const data = times(i => {
   return {
-    _id: i,
-    orderId: i,
+    _id: '' + i,
+    orderId: '' + (i % 5),
     issuanceAddress: issuance.address,
     quantity: (1000 * (i + 1)),
     price: 70 * (i + 1),
@@ -19,7 +19,7 @@ const data = times(i => {
     issuanceName: ['Series 1', 'Series 2'][i % 2],
     issuanceType: ['common_shares', 'trust_units', 'preferred_shares'][i % 3]
   }
-}, 50)
+}, 20)
 
 const store = fixture.store(data, Offer.algebra)
 
