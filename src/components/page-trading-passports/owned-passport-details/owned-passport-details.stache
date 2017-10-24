@@ -61,7 +61,7 @@
             </div>
             -->
         
-             <!--SCENARIO 4: Without Issuances 
+            <!--SCENARIO 4: Without Issuances 
              <div class="message-box no-border">
                 <div class="message-box-status">Add Issuances</div>
                 <p class="message-box-cause">Add Issuances where you want to accept this passport</p>
@@ -73,13 +73,23 @@
             </div>
             -->
 
-            <!--SCENARIO 5: With Investors  -->
+            <!--SCENARIO 5: With Investors
             <div class="col-xs-12">
-                <add-investor-owned-passport></add-investor-owned-passport>
+                <div class="well prompt-box">
+                    
+                </div>
                 <div class="well">
                     <passport-owned-accepted-investors-grid></passport-owned-accepted-investors-grid>
                 </div>
             </div>
+              -->
+            
+            <!--SCENARIO 5: Without Investors -->
+             <div class="message-box no-border">
+                <div class="message-box-status">Add Investors</div>
+                <p class="message-box-cause">Issue this passport to selected investors</p>
+                <add-investor-owned-passport></add-investor-owned-passport>
+            </div> 
             
 
         </div>
