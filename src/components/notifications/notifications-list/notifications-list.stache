@@ -25,7 +25,7 @@
     </a>
   {{/each}}
 
-  <!-- Example Alert: Received a Trading Passport -->
+  <!-- Example Alert: Received a Trading Passport
   <a href="#" class="list-group-item">
     <div class="media">
       <div class="media-left">
@@ -54,7 +54,9 @@
     </div>
   </a>
 
-  <!-- Example Alert: Revoked Trading Passport -->
+  -->
+
+  <!-- Example Alert: Revoked Trading Passport
   <a href="#" class="list-group-item">
     <div class="media">
       <div class="media-left">
@@ -82,7 +84,7 @@
       </div>
     </div>
   </a>
-  
+   -->
   
   <!--
   <a href="#" class="list-group-item">
