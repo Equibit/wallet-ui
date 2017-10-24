@@ -21,7 +21,7 @@ import view from './add-investor-owned-passport.stache'
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the add-investor-owned-passport component'
-  },  
+  },
   mode: {
     value: 'prompt'
   },

@@ -2,7 +2,7 @@
 <can-import from="~/components/page-trading-passports/passport-add-issuance-selector/" />
 
 {{#is mode 'prompt'}}
-    <button class="btn btn-primary btn-sm" ($click)="edit()">+ Issue a Passport</button>
+    <button class="btn btn-primary btn-sm" ($click)="edit()">{{i18n('issuePassport')}}</button>
 {{/is}}
 
 {{#is mode 'edit'}}

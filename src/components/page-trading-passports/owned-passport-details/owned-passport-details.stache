@@ -42,17 +42,17 @@
 
             <div class="col-xs-12">
                 <ul class="nav nav-pills list-tabs issuers-investors-tabs">
-                    <li role="presentation" class="active">
+                    <li role="presentation" class="">
                         <a href="#" >{{i18n('issuances')}}</a>
                     </li>
-                    <li role="presentation" class="">
+                    <li role="presentation" class="active">
                         <a href="#" >{{i18n('investors')}}</a>
                     </li>
                 </ul>
 
             </div>
         
-            <!--SCENARIO 3: With Issuances 
+            <!--SCENARIO 3: With Issuances  
             <div class="col-xs-12">
                 <add-issuance-owned-passport></add-issuance-owned-passport>
                 <div class="well">
@@ -61,10 +61,10 @@
             </div>
             -->
         
-            <!--SCENARIO 4: Without Issuances 
+            <!--SCENARIO 4: Without Issuances
              <div class="message-box no-border">
-                <div class="message-box-status">Add Issuances</div>
-                <p class="message-box-cause">Add Issuances where you want to accept this passport</p>
+                <div class="message-box-status">{{i18n('tradingPassportsOwnedAddIssuances')}}</div>
+                <p class="message-box-cause">{{i18n('tradingPassportsOwnedAddIssuancesMessage')}}</p>
                 <div class="row center-xs">
                     <div class="col-xs-12">
                         <passport-add-issuance-selector></passport-add-issuance-selector>
@@ -76,18 +76,18 @@
             <!--SCENARIO 5: With Investors
             <div class="col-xs-12">
                 <div class="well prompt-box">
-                    
+                    <add-investor-owned-passport></add-investor-owned-passport>
                 </div>
                 <div class="well">
                     <passport-owned-accepted-investors-grid></passport-owned-accepted-investors-grid>
                 </div>
             </div>
-              -->
+             -->
             
-            <!--SCENARIO 5: Without Investors -->
+            <!--SCENARIO 5: Without Investors  -->
              <div class="message-box no-border">
-                <div class="message-box-status">Add Investors</div>
-                <p class="message-box-cause">Issue this passport to selected investors</p>
+                <div class="message-box-status">{{i18n('tradingPassportsOwnedAddInvestors')}}</div>
+                <p class="message-box-cause">{{i18n('tradingPassportsOwnedAddInvestorsMessage')}}</p>
                 <add-investor-owned-passport></add-investor-owned-passport>
             </div> 
             

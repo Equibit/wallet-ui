@@ -3,7 +3,7 @@
 
 {{#is mode 'prompt'}}
     <div class="well prompt-box">
-        <button class="btn btn-primary btn-sm" ($click)="edit()">+ Add an Issuance</button>
+        <button class="btn btn-primary btn-sm" ($click)="edit()">+ {{i18n('addIssuance')}}</button>
     </div>
 {{/is}}
 
