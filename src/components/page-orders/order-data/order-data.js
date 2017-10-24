@@ -19,9 +19,7 @@ import './order-data.less'
 import view from './order-data.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the order-data component'
-  }
+  order: '*'
 })
 
 export default Component.extend({

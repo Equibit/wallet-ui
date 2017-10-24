@@ -16,6 +16,7 @@ import Issuance from './issuance'
 import Portfolio from './portfolio'
 import moment from 'moment'
 import { translate } from '../i18n/i18n'
+import Offer from './offer'
 
 const Order = DefineMap.extend('Order', {
   _id: 'string',
@@ -76,17 +77,6 @@ const Order = DefineMap.extend('Order', {
   },
 
   /**
-   * @property {Number} models/order.properties.totalPrice totalPrice
-   * @parent models/order.properties
-   * Total price, quantity * askPrice, in satoshi BTC
-   */
-  totalPrice: {
-    get () {
-      return this.quantity * this.price
-    }
-  },
-
-  /**
    * @property {Number} models/order.properties.isFillOrKill isFillOrKill
    * @parent models/order.properties
    * Whether the order allows partials or not (True === does not allow partials).
@@ -113,8 +103,22 @@ const Order = DefineMap.extend('Order', {
     serialize: false
   },
 
-  // Computed props:
+  acceptedOfferIds: 'array',
 
+  //
+  // Computed props:
+  //
+
+  /**
+   * @property {Number} models/order.properties.totalPrice totalPrice
+   * @parent models/order.properties
+   * Total price, quantity * askPrice, in satoshi BTC
+   */
+  totalPrice: {
+    get () {
+      return this.quantity * this.price
+    }
+  },
   get issuanceTypeDisplay () {
     return Issuance.typesMap[this.issuanceType] || this.issuanceType
   },
@@ -125,7 +129,9 @@ const Order = DefineMap.extend('Order', {
     return translate(`status${this.status}`)
   },
 
+  //
   // Related models:
+  //
 
   issuance: {
     get (val, resolve) {
@@ -151,8 +157,20 @@ const Order = DefineMap.extend('Order', {
       return val
     }
   },
+  acceptedOffers: {
+    get (val, resolve) {
+      const acceptedOfferIds = this.acceptedOfferIds
+      if (acceptedOfferIds && acceptedOfferIds.length > 0) {
+        const offerPromises = acceptedOfferIds.map(id => Offer.get({_id: id}))
+        Promise.all(offerPromises).then(results => resolve(new Offer.List(results)))
+      }
+      return val
+    }
+  },
 
+  //
   // Extras:
+  //
 
   isValid: {
     get () {

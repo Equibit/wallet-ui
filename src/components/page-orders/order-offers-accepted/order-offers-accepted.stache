@@ -1,6 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 
-<h3 class="subheading">{{i18n('acceptedOffers')}}</h3>
+<h3 class="subheading">{{i18n('acceptedOffers')}} <span class="badge">{{offers.length}}</span></h3>
 
 <div class="accepted-offers">
   <div class="row accepted-offers-header">
@@ -11,43 +11,63 @@
   </div>
 
   <div class="col-xs-12 accepted-offers-body no-padding">
-    <div class="row accepted-offers-status contextual-bg-progress">
-      <div class="col-xs-2 offer-quantity">385</div>
-      <div class="col-xs-3 offer-accepted-date">04/29 @2:30 pm</div>
-      <div class="col-xs-4 offer-deal-step">
-        <span class="icon icon-clock"></span>
-        <span class="deal-step-label">{{i18n('dealFlowStep2')}} </span>
-      </div>
-      <div class="col-xs-2 offer-deal-step-number">Step 2 of 3</div>
-      <div class="col-xs-1 offer-deal-action">
-        <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
-      </div>
-    </div>
 
-    <div class="row accepted-offers-status contextual-bg-success">
-      <div class="col-xs-2 offer-quantity">385</div>
-      <div class="col-xs-3 offer-accepted-date">04/29 @2:30 pm</div>
-      <div class="col-xs-4 offer-deal-step">
-        <span class="icon icon-hand-shake"></span>
-        <span class="deal-step-label">{{i18n('dealFlowStep3')}} </span>
-      </div>
-      <div class="col-xs-2 offer-deal-step-number">Step 2 of 3</div>
-      <div class="col-xs-1 offer-deal-action">
-        <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
-      </div>
-    </div>
+    {{#each offers as offer}}
 
-    <div class="row accepted-offers-status contextual-bg-danger">
-      <div class="col-xs-2 offer-quantity">385</div>
-      <div class="col-xs-3 offer-accepted-date">04/29 @2:30 pm</div>
-      <div class="col-xs-5 offer-deal-step">
-        <span class="icon icon-hand-stop"></span>
-        <span class="deal-step-label">{{i18n('cancelledOn')}} 04/29 @3:56 pm</span>
-      </div>
-      <div class="col-xs-2 offer-deal-action">
-        <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
-      </div>
-    </div>
+      {{#switch status}}
+        {{#case "OPEN"}}
+          <!--p>OPEN - N/A</p-->
+        {{/case}}
+
+        {{#case "TRADING"}}
+          <div class="row accepted-offers-status contextual-bg-progress">
+            <div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>
+            <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
+            <div class="col-xs-4 offer-deal-step">
+              <span class="icon icon-clock"></span>
+              <span class="deal-step-label">{{i18n('dealFlowStep2')}} </span>
+            </div>
+            <div class="col-xs-2 offer-deal-step-number">Step 2 of 3</div>
+            <div class="col-xs-1 offer-deal-action">
+              <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
+            </div>
+          </div>
+        {{/case}}
+
+        {{#case "CLOSED"}}
+          <div class="row accepted-offers-status contextual-bg-success">
+            <div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>
+            <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
+            <div class="col-xs-4 offer-deal-step">
+              <span class="icon icon-hand-shake"></span>
+              <span class="deal-step-label">{{i18n('dealFlowStep3')}} </span>
+            </div>
+            <div class="col-xs-2 offer-deal-step-number">Step 3 of 3</div>
+            <div class="col-xs-1 offer-deal-action">
+              <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
+            </div>
+          </div>
+        {{/case}}
+
+        {{#case "CANCELLED"}}
+          <div class="row accepted-offers-status contextual-bg-danger">
+            <div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>
+            <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
+            <div class="col-xs-5 offer-deal-step">
+              <span class="icon icon-hand-stop"></span>
+              <span class="deal-step-label">{{i18n('cancelledOn')}} {{offer.dateUpdatedDisplay}}</span>
+            </div>
+            <div class="col-xs-2 offer-deal-action">
+              <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
+            </div>
+          </div>
+        {{/case}}
+
+        {{#case "REJECTED"}}
+          <!--p>REJECTED - N/A</p-->
+        {{/case}}
+      {{/switch}}
+    {{/each}}
   </div>
 
 </div>

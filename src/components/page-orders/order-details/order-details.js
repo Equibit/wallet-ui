@@ -17,15 +17,13 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './order-details.less'
 import view from './order-details.stache'
+import Order from '../../../models/order'
 
 export const ViewModel = DefineMap.extend({
-  // ENUM ['ORDER', 'OFFER']
-  type: {
-    get (val) {
-      return val === 'OFFER' ? val : 'ORDER'
-    }
-  },
-  item: '*'
+  // ENUM ['SELL', 'BUY']
+  type: 'string',
+  order: Order,
+  ordersLength: 'number'
 })
 
 export default Component.extend({

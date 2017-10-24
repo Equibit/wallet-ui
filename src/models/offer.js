@@ -91,10 +91,16 @@ const Offer = DefineMap.extend('Offer', {
     return Issuance.typesMap[this.issuanceType] || this.issuanceType
   },
   get dateDisplay () {
+    return moment(this.createdAt).format('MM/DD @hh:mm a') // 04/29 @3:56 pm
+  },
+  get dateUpdatedDisplay () {
+    return moment(this.updatedAt).format('MM/DD @hh:mm a')
+  },
+  get dateDisplayShort () {
     return moment(this.createdAt).format('MMM D')
   },
   get dateDisplayFull () {
-    return moment(this.createdAt).format('DD/MM/YY @hh:mmA')
+    return moment(this.createdAt).format('MM/DD/YY @hh:mm a')
   },
   get statusDisplay () {
     return translate(`status${this.status}`)
