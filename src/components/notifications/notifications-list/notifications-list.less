@@ -38,11 +38,28 @@ notifications-list {
         }
 				&.icon-notification-generic {
 					color: @brand-primary;
-				}
+        }
+        &.icon-notification-passport {
+          color: @brand-success;
+        }
       }
     }
     &.no-link {
       cursor: default;
+    }
+  }
+  .notification-time {
+    float: right;
+    font-size: @font-size-xsmall;  
+  }
+  @media (max-width: @screen-xs) {
+    .media-body {
+      position: relative;
+    }
+    .notification-time {
+      position: absolute;
+      bottom: 0;
+      right: 0;  
     }
   }
 }
