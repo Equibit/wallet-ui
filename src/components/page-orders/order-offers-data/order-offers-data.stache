@@ -1,12 +1,14 @@
 <can-import from="~/utils/stache-helpers/" />
 
-<h2 class="subtitle">{{i18n('buyOffers')}} <span class="badge">2</span></h2>
+<h2 class="subtitle">
+  {{#is order.type 'SELL'}} {{i18n('buyOffers')}} {{else}} {{i18n('sellOffers')}} {{/is}}
+  <span class="badge">{{offers.length}}</span>
+</h2>
 
 <div class="well">
 
-  <!--Message for no sell orders -->
-
   {{^if offers.length}}
+
   <div class="row">
     <div class="col-xs-12 no-padding">
       <div class="message-box no-border message-placeholder">

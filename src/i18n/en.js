@@ -338,6 +338,7 @@ export default {
   sendAllFunds: 'Send All Funds',
   sell: 'Sell',
   sellOffer: 'Sell Offer',
+  sellOffers: 'Sell Offers',
   sellOrder: 'Sell Order',
   sellOrders: 'Sell Orders',
   shareVolume: 'Share Volume',
