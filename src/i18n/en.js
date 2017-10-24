@@ -183,7 +183,7 @@ export default {
   errorMessageInvalidLogin2: 'reset your password',
   expirationDate: 'Expiration Date',
   expiresOn: 'Expires On',
-  
+
   fillKill: 'Fill or Kill',
   from: 'From',
   funds: 'Funds',
@@ -405,10 +405,10 @@ export default {
   tradingPassportsOwned: 'Owned Trading Passports',
   tradingPassportsOwnedMessage: 'Trading passports that you create will show here',
   tradingPassportsOwnedNotFound: 'No Owned Passports Found',
-  tradingPassportsOwnedAddIssuances: 'Add Issuances', 
-  tradingPassportsOwnedAddIssuancesMessage: 'Add Issuances where you want to accept this passport', 
-  tradingPassportsOwnedAddInvestors: 'Add Investors', 
-  tradingPassportsOwnedAddInvestorsMessage: 'Issue this passport to selected investors',  
+  tradingPassportsOwnedAddIssuances: 'Add Issuances',
+  tradingPassportsOwnedAddIssuancesMessage: 'Add Issuances where you want to accept this passport',
+  tradingPassportsOwnedAddInvestors: 'Add Investors',
+  tradingPassportsOwnedAddInvestorsMessage: 'Issue this passport to selected investors',
   trades: 'Trades',
   transactionAuth: 'Authorization',
   transactionBuy: 'Buy',
