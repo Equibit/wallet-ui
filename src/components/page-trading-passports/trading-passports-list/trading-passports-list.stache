@@ -15,14 +15,14 @@
       </li>
     </ul>
 
-    <!-- SCENARIO 1: Without Passports
+    <!-- SCENARIO 1: Without Passports (RECEIVED)
     <div class="message-box no-border message-placeholder">
         <div class="icon icon-passport"></div>
         <p class="message-box-cause">{{i18n('tradingPassportsReceivedNotFound')}}</p>
     </div>
     -->
 
-    <!-- SCENARIO 2: With Passports -->
+    <!-- SCENARIO 2: With Passports (RECEIVED) 
     <div class="list-group">
       
       <a href="#" class="list-group-item active">
@@ -70,9 +70,16 @@
       </a>
       
     </div>
+    -->
     
+    <!-- SCENARIO 3: Without Passports (OWNED)
+    <div class="message-box no-border message-placeholder">
+        <div class="icon icon-passport"></div>
+        <p class="message-box-cause">{{i18n('tradingPassportsOwnedNotFound')}}</p>
+    </div>
+     -->
 
-    <!-- SCENARIO 3: Owned Passports
+    <!-- SCENARIO 4: With Passports (OWNED) -->
     <div class="form-group">
       <button class="btn btn-primary btn-sm btn-create-passport">+ Create a Passport</button>
     </div>
@@ -80,7 +87,7 @@
       <a href="#" class="list-group-item active"><h4 class="list-group-item-heading">Circle A Passport</h4></a>
       <a href="#" class="list-group-item"><h4 class="list-group-item-heading">Aenean Pretium Services</h4></a>
     </div>
-    -->
+    
 
   </div>
 

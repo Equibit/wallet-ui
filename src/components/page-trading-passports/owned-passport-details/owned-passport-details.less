@@ -1,0 +1,36 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+owned-passport-details {
+	display: block;
+
+	.issuers-investors-tabs {
+		margin-top: 20px;
+		&.nav-pills > li {
+			width: 50%;
+		}
+	}
+	.passport-metadata {
+		dl {
+			margin-bottom: 0;
+		}
+	}
+	.prompt-add-issuance,
+	.edit-add-issuance {
+		border-bottom: 0;
+	}
+	
+	.edit-add-issuance {
+		background-color: @active-bg;
+		.btn-add-issuance {
+			align-self: flex-start;
+		}
+		.btn-cancel {
+			align-self: flex-end;
+		}
+		.issuance-selector {
+			@media (max-width: @screen-sm) {
+				margin-bottom: 15px;
+			}
+		}
+	}
+}
