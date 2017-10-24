@@ -25,7 +25,7 @@
     </a>
   {{/each}}
 
-  <!-- Example Alert: Received a Trading Passport
+  <!-- Example Alert: Received a Trading Passport -->
   <a href="#" class="list-group-item">
     <div class="media">
       <div class="media-left">
@@ -39,7 +39,50 @@
       </div>
     </div>
   </a>
-   -->
+
+  <a href="#" class="list-group-item read">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-notification-passport"></span>
+      </div>
+      <div class="media-body">
+        <div class="notification-time">10:35 am</div>
+        <h4 class="media-heading">New Trading Passport</h4>
+        <div class="media-description">Imperial Brands</div>
+        <div class="media-cta btn-link">View Passport</div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Example Alert: Revoked Trading Passport -->
+  <a href="#" class="list-group-item">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-cancelled"></span>
+      </div>
+      <div class="media-body">
+        <div class="notification-time">10:35 am</div>
+        <h4 class="media-heading">Trading Passport Revoked</h4>
+        <div class="media-description">Investor ID Services</div>
+        <div class="media-cta btn-link">View Passport</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="list-group-item read">
+    <div class="media">
+      <div class="media-left">
+        <span class="media-object icon icon-cancelled"></span>
+      </div>
+      <div class="media-body">
+        <div class="notification-time">10:35 am</div>
+        <h4 class="media-heading">Trading Passport Revoked</h4>
+        <div class="media-description">Investor ID Services</div>
+        <div class="media-cta btn-link">View Passport</div>
+      </div>
+    </div>
+  </a>
+  
   
   <!--
   <a href="#" class="list-group-item">
