@@ -14,6 +14,7 @@ const data = times(i => {
     isFillOrKill: [true, false, false][i % 3],
     type: ['SELL', 'BUY', 'SELL'][i % 3],
     status: ['OPEN', 'TRADING', 'CANCELLED', 'CLOSED'][i % 4],
+    acceptedOfferIds: (i < 6 ? ['1', '2'] : ['3', '4', '5']),
 
     companyName: companies[i % 9],
     issuanceName: ['Series 1', 'Series 2'][i % 2],
