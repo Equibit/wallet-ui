@@ -6,7 +6,7 @@
     <button ($click)="close()" type="button" class="close" aria-label="Close">
 			<span class="icon icon-cross rotate-90"></span>
 	  </button>
-		<h3 class="modal-title"><span class="icon icon-passport"></span>{{i18n('tradingPassportIssue')}}</h3>
+		<h3 class="modal-title"><span class="icon icon-passport"></span>{{i18n('tradingPassportsIssue')}}</h3>
  	</div>
 
 	<div class="modal-body">
@@ -17,7 +17,7 @@
                     <label for="key-one">{{i18n('Keys')}}
                         <span class="icon icon-question"
                             data-toggle="popover"
-                            data-content="{{i18n('tradingPassportIssueKeyPopoverMessage')}}"
+                            data-content="{{i18n('tradingPassportsIssueKeyPopoverMessage')}}"
                             data-placement="right">
                         </span>
                     </label>
@@ -43,7 +43,7 @@
                     <label for="short-description">{{i18n('shortDescription')}}
                         <span class="icon icon-question"
                             data-toggle="popover"
-                            data-content="{{i18n('tradingPassportIssueDescriptionPopoverMessage')}}"
+                            data-content="{{i18n('tradingPassportsIssueDescriptionPopoverMessage')}}"
                             data-placement="right">
                         </span>
                     </label>
