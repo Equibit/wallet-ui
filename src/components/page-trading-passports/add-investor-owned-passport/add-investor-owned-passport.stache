@@ -1,10 +1,11 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-trading-passports/passport-add-issuance-selector/" />
+<can-import from="~/components/page-trading-passports/issue-passport/" />
 
 {{#is mode 'prompt'}}
-    <button class="btn btn-primary btn-sm" ($click)="edit()">{{i18n('issuePassport')}}</button>
+    <button class="btn btn-primary btn-sm" ($click)="edit()">{{i18n('issueAPassport')}}</button>
 {{/is}}
 
 {{#is mode 'edit'}}
-    Show Modal
+    <issue-passport></issue-passport>
 {{/is}}
