@@ -12,13 +12,13 @@
   <!-- SCENARIO 1: No trading passport set
   <div class="message-box no-border">
     <div class="icon icon-passport"></div>
-    <p class="message-box-cause">{{i18n('tradingPassportRequired')}}</p>
+    <p class="message-box-cause">{{i18n('tradingPassportsRequired')}}</p>
   </div>
   -->
 
   <!-- SCENARIO 4: Logged in without any passports (warning message)
   <div class="warning-message">
-    <span class="icon icon-warning"></span> {{i18n('tradingPassportRequiredWarning')}}
+    <span class="icon icon-warning"></span> {{i18n('tradingPassportsRequiredWarning')}}
   </div>
   -->
   
@@ -46,7 +46,7 @@
       <button ($click)="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAll')}}</button>
     </div>
     <div class="col-xs-12 col-sm-8 no-padding-right passports-legend">
-        <span class="icon icon-done"></span> {{i18n('tradingPassportLegend')}}
+        <span class="icon icon-done"></span> {{i18n('tradingPassportsLegend')}}
     </div>
   </div>
    -->
