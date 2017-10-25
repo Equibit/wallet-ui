@@ -402,14 +402,10 @@ export default {
   tradingPassportsAcceptedMessage: 'This issuance is restricted and requires at least one of these passports.',
   tradingPassportsDeleteWarningTitle: 'Delete Passport',
   tradingPassportsDeleteWarningMessage: 'This action cannot be undone. Deleting this passport will remove access to the issuances where this passport is currently accepted. Are you sure you want to continue?',
-<<<<<<< HEAD
-  tradingPassportsLegend: '= Passports you have',
-=======
   tradingPassportIssue: 'Issue Trading Passport',
   tradingPassportIssueKeyPopoverMessage: 'Enter the Investor\'s Keys you would like to issue a Trading Passport to.',
   tradingPassportIssueDescriptionPopoverMessage: 'Enter a short description for your own records.',
   tradingPassportLegend: '= Passports you have',
->>>>>>> development
   tradingPassportsReceived: 'Received Trading Passports',
   tradingPassportsReceivedMessage: 'Passports issued to you will show here',
   tradingPassportsReceivedNotFound: 'No Received Passports Found',
