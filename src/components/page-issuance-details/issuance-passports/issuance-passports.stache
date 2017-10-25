@@ -26,14 +26,15 @@
   <ul class="list-unstyled passport-list">
   {{#each visiblePassports}}
     <li><a href="#">{{name}} <span class="icon icon-link-external"></span></a></li>
-  {{/each}}
-
-  {{#if is-gt(passports.length, 8)}}
-    <li><button ($click)="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAll')}}</button></li>
-  {{/if}}
+  {{/each}} 
   </ul>
+  {{#if is-gt(passports.length, 8)}}
+    <button ($click)="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAll')}}</button>
+  {{/if}}
+  
+  
 
-  <!-- SCENARIO 3: Logged in with some passports
+  <!-- SCENARIO 3: Logged in with some passports 
   <ul class="list-unstyled passport-list">
     <li><span class="icon icon-done"> </span> <a href="#">Imperial Brands Passport <span class="icon icon-link-external"></span></a></li>
     <li><span class="icon icon-done"> </span> <a href="#">Issuer Direct <span class="icon icon-link-external"></span></a></li>
@@ -49,7 +50,22 @@
         <span class="icon icon-done"></span> {{i18n('tradingPassportsLegend')}}
     </div>
   </div>
-   -->
+  -->
+
+   <!-- SCENARIO 4: Managing an issuance and no passports have been added
+   <div class="message-box no-border">
+    <p class="message-box-cause">{{i18n('tradingPassportsAcceptedNoPassports')}}</p>
+    <button class="btn btn-primary btn-xs">{{i18n('acceptPassports')}}</button>
+  </div> 
+  -->
+
+  <!-- SCENARIO 5: Managing an issuance with passports that have been added
+  <ul class="list-unstyled passport-list">
+    <li><a href="#">Imperial Brands Passport <span class="icon icon-link-external"></span></a></li>
+    <li><a href="#">Issuer Direct <span class="icon icon-link-external"></span></a></li>
+  </ul>
+  <button ($click)="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAllAndManage')}}</button>
+  -->
 </div>
 
 {{#if isModalShown}}

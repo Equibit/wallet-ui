@@ -51,6 +51,7 @@ export default {
   verify: 'Verify',
   view: 'View',
   viewAll: 'View All',
+  viewAllAndManage: 'View All & Manage',
   viewDetails: 'View Details',
   viewTransaction: 'View Transaction',
 
@@ -60,6 +61,7 @@ export default {
 
   // Alphabetically
   about: 'About',
+  acceptPassports: 'Accept Passports',
   acceptedOffers: 'Accepted Offers',
   acceptedDate: 'Accepted Date',
   additionalDetails: 'Additional Details',
@@ -405,6 +407,7 @@ export default {
   tradingPassports: 'My Trading Passports',
   tradingPassportsAccepted: 'Accepted Trading Passports',
   tradingPassportsAcceptedMessage: 'This issuance is restricted and requires at least one of these passports.',
+  tradingPassportsAcceptedNoPassports: 'There are no accepted passports for this issuance',
   tradingPassportsCreate: 'Create a Trading Passport',
   tradingPassportsCreateConfirm: 'Please review and confirm your trading passport information.',
   tradingPassportsDeleteWarningTitle: 'Delete Passport',
