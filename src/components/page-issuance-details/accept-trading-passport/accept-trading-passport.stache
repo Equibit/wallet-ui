@@ -1,0 +1,25 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal/modal.less" />
+
+<bootstrap-modal-content class="user-recovery-phrase">
+  <div class="modal-header">
+    <button ($click)="doClose(@close)" type="button" class="close" aria-label="Close">
+      <span class="icon icon-cross rotate-90"></span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="heading">
+      <span class="icon icon-notification-passport"></span>
+      <h4 class="title">{{i18n('tradingPassportsAccepteModalTitle')}}</h4>
+    </div>
+    <p>{{i18n('tradingPassportsAccepteModalMessage')}}</p>
+    <button type="button" class="btn btn-primary btn-add-passport">{{i18n('addPassport')}}</button>
+    <button type="button" class="btn btn-default btn-create-new">{{i18n('createNew')}}</button>
+  </div>
+
+  <div class="modal-footer">
+    <button ($click)="risk()" type="button" class="btn btn-default">{{i18n('skip')}}</button>
+  </div>
+
+</bootstrap-modal-content>
