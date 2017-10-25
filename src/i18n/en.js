@@ -31,7 +31,8 @@ export default {
   edit: 'Edit',
   finish: 'Finish',
   gotit: 'Got it!',
-  issuePassport: '+ Issue a Passport',
+  issueAPassport: '+ Issue a Passport',
+  issuePassport: 'Issue Passport',
   manage: 'Manage',
   next: 'Next',
   passportDelete: 'Yes, Delete Passport',
@@ -59,6 +60,7 @@ export default {
   acceptedOffers: 'Accepted Offers',
   acceptedDate: 'Accepted Date',
   additionalDetails: 'Additional Details',
+  addExpirationDate: 'Add Expiration Date',
   amount: 'Amount',
   archived: 'Archived',
   ask: 'Ask',
@@ -208,10 +210,11 @@ export default {
   issuanceWasCanceled: 'Issuance was canceled',
   issued: 'Issued',
   issuedOn: 'Issued On',
-
   issuanceAuthorized: 'A new issuance was authorized successfully',
   issuanceModalTitle: 'Create an Issuance',
   issuanceModalConfirm: 'Please review and confirm your issuance',
+
+  keys: 'Keys',
 
   lastestIssuances: 'Latest Issuances',
   last24hours: 'Last 24 hours',
@@ -399,7 +402,14 @@ export default {
   tradingPassportsAcceptedMessage: 'This issuance is restricted and requires at least one of these passports.',
   tradingPassportsDeleteWarningTitle: 'Delete Passport',
   tradingPassportsDeleteWarningMessage: 'This action cannot be undone. Deleting this passport will remove access to the issuances where this passport is currently accepted. Are you sure you want to continue?',
+<<<<<<< HEAD
   tradingPassportsLegend: '= Passports you have',
+=======
+  tradingPassportIssue: 'Issue Trading Passport',
+  tradingPassportIssueKeyPopoverMessage: 'Enter the Investor\'s Keys you would like to issue a Trading Passport to.',
+  tradingPassportIssueDescriptionPopoverMessage: 'Enter a short description for your own records.',
+  tradingPassportLegend: '= Passports you have',
+>>>>>>> development
   tradingPassportsReceived: 'Received Trading Passports',
   tradingPassportsReceivedMessage: 'Passports issued to you will show here',
   tradingPassportsReceivedNotFound: 'No Received Passports Found',
@@ -451,6 +461,8 @@ export default {
   watchlistPlaceholderDescription: 'Add companies you want to watch on the issuance details.',
   watchlistPlaceholderButton: 'Explore Issuances',
   website: 'Website',
+
+  years: 'Years',
 
   zipcode: 'Zip Code / Postal Code'
 }
