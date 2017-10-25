@@ -1,62 +1,20 @@
 <can-import from="bootstrap-canjs" />
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-trading-passports/create-passport/passport-form/" />
 
 <bootstrap-modal-content>
-  <div class="modal-header">
-    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
-    <h3 class="modal-title">{{i18n('tradingPassportsCreate')}}</h3>
-  </div>
-
-  <div class="modal-body">
-    
-      <div class="list-group">
-  <div class="list-group-item item-authority">
-    <div class="form-horizontal">
-      <div class="form-group">
-        <div class="row">
-            <div class="col-xs-12 col-sm-3">
-                <label class="control-label">{{i18n('authority')}}</label>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <select class="form-control issuance-selector input-sm">
-                    <option value="">Imperial Brands</option>
-                    <option value="">Kingfisher plc</option>
-                    <option value="">Maecenas Nulla</option>
-                </select>
-            </div>
-            <div class="col-xs-12 col-sm-3">
-                <div>
-                    <button ($click)="company()" type="button" class="btn btn-primary btn-sm">{{i18n('addNew')}}</button>
-                </div>
-            </div>
-        </div>
-      </div>
+    <div class="modal-header">
+        <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+        <h3 class="modal-title">{{i18n('tradingPassportsCreate')}}</h3>
     </div>
-  </div>
 
-  <div class="list-group-item order-fields">
-    <div class="form-horizontal">
-      <div class="form-group">
-        <div class="row">
-          <div class="col-xs-12 col-sm-3">
-            <label for="passportName" class="control-label">{{i18n('tradingPassportsPassportName')}}</label>
-          </div>
-          <div class="col-xs-12 col-sm-6">
-            <input type="text" class="form-control" id="passportName">
-          </div>
-        </div>
-      </div>
+    <div class="modal-body">
+        <passport-form></passport-form>
     </div>
-  </div>
 
-
-
-</div>
-
-  </div>
-  <div class="modal-footer">
-      <button ($click)="next()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
-      <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
-  </div>
+    <div class="modal-footer">
+        <button ($click)="next()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
+        <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    </div>
 
 </bootstrap-modal-content>
