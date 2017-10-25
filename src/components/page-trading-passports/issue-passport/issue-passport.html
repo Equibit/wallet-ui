@@ -7,16 +7,16 @@
 
 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 <script>window.useXhrTransport = true</script>
+
 <div id="demo"></div>
 
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
-  <can-import from="wallet-ui/components/page-trading-passports/delete-passport-warning/" />
-
+  <can-import from="wallet-ui/components/page-trading-passports/issue-passport/" />
   <div class="modal fade in" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <delete-passport-warning></delete-passport-warning>
+        <issue-passport></issue-passport>
       </div>
     </div>
   </div>
