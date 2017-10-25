@@ -1,6 +1,7 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-trading-passports/trading-passports-list/" />
 <can-import from="~/components/page-trading-passports/received-passport-details/" />
+<can-import from="~/components/page-trading-passports/owned-passport-details/" />
 
 <div class="row">
   <div class="col-xs-12 col-md-5 col-lg-4">
@@ -8,6 +9,10 @@
   </div>
 
   <div class="col-xs-12 col-md-7 col-lg-8">
+    <!--
     <received-passport-details></received-passport-details>
+    -->
+
+    <owned-passport-details></owned-passport-details>
   </div>
 </div>

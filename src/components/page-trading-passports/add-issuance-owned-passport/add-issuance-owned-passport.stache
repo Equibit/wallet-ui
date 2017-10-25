@@ -1,0 +1,23 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-trading-passports/passport-add-issuance-selector/" />
+
+{{#is mode 'prompt'}}
+    <div class="well prompt-box">
+        <button class="btn btn-primary btn-sm" ($click)="edit()">+ {{i18n('addIssuance')}}</button>
+    </div>
+{{/is}}
+
+{{#is mode 'edit'}}
+    <div class="well prompt-box prompt-box--edit">
+        <form>
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 no-padding">
+                    <passport-add-issuance-selector></passport-add-issuance-selector>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-default btn-cancel btn-sm" ($click)="prompt()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{{/is}}

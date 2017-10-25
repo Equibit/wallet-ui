@@ -1,0 +1,30 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+add-issuance-owned-passport {
+	display: block;
+	.prompt-box {
+		&.prompt-box--edit {
+			background-color: @active-bg;
+			.btn-add-issuance {
+				align-self: flex-start;
+			}
+			.btn-cancel {
+				align-self: flex-end;
+			}
+			.issuance-selector {
+				@media (max-width: @screen-sm) {
+					margin-bottom: 15px;
+				}
+			}
+	
+			@media (max-width: @screen-sm) {
+				position: relative;
+				.btn-cancel {
+					position: absolute;
+					right: 1rem;
+					bottom: 12px;
+				}
+			}
+		}
+	}
+}

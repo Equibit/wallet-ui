@@ -11,5 +11,18 @@ page-trading-passports {
 		.toolbar-actions {
 			font-size: 85%;
 		}
+	}	
+	trading-passports-list .panel {
+		@media (max-width: @screen-sm) {
+			margin-bottom: 20px !important;
+		}
+	}
+	@media (max-width: @screen-xs) {
+		grid-component .grid-responsive {
+			width: 550px;
+		}
+		grid-component {
+			overflow-x: auto;
+		}
 	}
 }

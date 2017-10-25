@@ -1,0 +1,32 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+owned-passport-details {
+	display: block;
+
+	.issuers-investors-tabs {
+		margin-top: 20px;
+		&.nav-pills > li {
+			width: 50%;
+		}
+	}
+	.passport-metadata {
+		dl {
+			margin-bottom: 0;
+		}
+	}
+
+	.message-box {
+		@media (min-width: 545px) {
+			passport-add-issuance-selector .btn {
+				margin-top: 0;
+			}
+		}
+		
+		passport-add-issuance-selector {
+			margin-top: 15px;
+		}
+	}
+	.prompt-box {
+		border-bottom: 0;
+	}
+}

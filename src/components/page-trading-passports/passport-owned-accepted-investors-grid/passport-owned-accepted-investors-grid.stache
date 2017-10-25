@@ -1,0 +1,41 @@
+<can-import from="grid-component" />
+<can-import from="~/components/common/grid/grid.less" />
+<can-import from="~/utils/stache-helpers/" />
+
+<grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
+    <div class="grid-responsive">
+        <table class="table table-condensed grid-header">
+            <thead>
+            <tr>
+                <th class="column-description truncate">{{i18n('shortDescription')}}</th>
+                <th class="column-expiration">{{i18n('expirationDate')}}</th>
+                <th class="column-action"></th>
+            </tr>
+            </thead>
+        </table>
+
+        <div class="grid-body-scroll">
+            <table class="table table-condensed grid-body">
+                <tbody>
+                    <tr>
+                        <td class="column-description truncate">Pat Frank</td>
+                        <td class="column-expiration">04/28/2027</td>
+                        <td class="column-action"><button class="btn btn-default btn-xs">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td class="column-description truncate">Charlotte Bryant</td>
+                        <td class="column-expiration">02/28/2027</td>
+                        <td class="column-action"><button class="btn btn-default btn-xs">Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td class="column-description truncate">Andrew Barnes</td>
+                        <td class="column-expiration">n/a</td>
+                        <td class="column-action"><button class="btn btn-default btn-xs">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</grid-component>
+
