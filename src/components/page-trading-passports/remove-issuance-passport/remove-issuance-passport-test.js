@@ -1,5 +1,5 @@
 import assert from 'chai/chai'
-import 'steal-mocha';
+import 'steal-mocha'
 import { ViewModel } from './remove-issuance-passport'
 
 describe('wallet-ui/components/page-trading-passports/remove-issuance-passport', function () {
