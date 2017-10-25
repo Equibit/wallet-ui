@@ -1,0 +1,26 @@
+<div class="well">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="entity-name"><strong>Imperial Brands</strong></div>
+        </div>
+
+        <div class="col-xs-12 col-md-6">
+            <label>{{i18n('domicile')}}</label>
+            <div class="entity-address">152 Main St. Suite 102</div>
+            <div class="entity-city">Albany, NY 12065</div>
+            <div class="entity-country">USA</div>
+        </div>
+
+        <div class="col-xs-12 col-md-6">
+            <label>{{i18n('contact')}}</label>
+            <div class="entity-url"><a href="http://{{entity.website}}" target="_blank;">imperialbrands.com</a></div>
+            <div class="entity-email"><a href="mailto:{{entity.email}}">info@imperialbrands.com</a></div>
+            <div class="entity-phone">1-800-768-378</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-sm btn-edit btn-default">Edit</button>
+        </div>
+    </div>
+</div>

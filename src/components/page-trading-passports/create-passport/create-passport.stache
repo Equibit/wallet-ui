@@ -1,6 +1,7 @@
 <can-import from="bootstrap-canjs" />
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-trading-passports/create-passport/passport-form/" />
+<can-import from="~/components/page-trading-passports/create-passport/passport-confirm/" />
 
 <bootstrap-modal-content>
     <div class="modal-header">
@@ -9,12 +10,25 @@
     </div>
 
     <div class="modal-body">
-        <passport-form></passport-form>
+        {{#is mode 'edit'}}
+            <passport-form></passport-form>
+        {{/is}}
+
+        {{#is mode 'confirm'}}
+            <passport-confirm></passport-confirm>
+        {{/is}}
     </div>
 
     <div class="modal-footer">
-        <button ($click)="next()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
-        <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+        {{#is mode 'edit'}}
+            <button ($click)="confirm()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
+            <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+        {{/is}}
+
+        {{#is mode 'confirm'}}
+            <button type="button" class="btn btn-primary">{{i18n('createPassport')}}</button>
+            <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+        {{/is}}
     </div>
 
 </bootstrap-modal-content>
