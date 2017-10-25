@@ -5,12 +5,12 @@
     <button ($click)="close()" type="button" class="close" aria-label="Close">
 			<span class="icon icon-cross rotate-90"></span>
 	  </button>
-		<h3 class="modal-title">{{i18n('tradingPassportsRemoveIssuances')}}</h3>
+		<h3 class="modal-title">{{i18n('tradingPassportsRemoveIssuance')}}</h3>
  	</div>
 
 	<div class="modal-body">
 		<h4 class="heading-warning"><span class="icon icon-warning"></span> {{i18n('warning')}}!</h4>
-        <p>{{i18n('tradingPassportsRemoveIssuancesMessage')}}</p>
+        <p>{{i18n('tradingPassportsRemoveIssuanceMessage')}}</p>
     </div>
 
     <div class="modal-footer">
