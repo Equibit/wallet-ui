@@ -1,6 +1,7 @@
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal/modal.less" />
 
-<bootstrap-modal-content class="modal-company">
+<bootstrap-modal-content>
   <div class="modal-header">
     <button ($click)="close()" type="button" class="close" aria-label="Close">
 			<span class="icon icon-cross rotate-90"></span>

@@ -1,0 +1,84 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal/modal.less" />
+
+
+<bootstrap-modal-content>
+    <div class="modal-header">
+        <button ($click)="close()" type="button" class="close" aria-label="Close">
+                <span class="icon icon-cross rotate-90"></span>
+        </button>
+        <h3 class="modal-title">{{i18n('authorityAdd')}}</h3>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="list-group">
+            <div class="list-group-item">
+                <div class="form-group">
+                    <label for="inputLegalName">{{i18n('legalName')}}</label>
+                    <input type="text" class="form-control" id="inputLegalName" {($value)}="company.name">
+                </div>
+            </div>
+
+            <div class="list-group-item">
+                <h5 class="subheading">{{i18n('domicile')}}</h5>
+                <div class="form-group">
+                    <label for="inputCountry">{{i18n('country')}}</label>
+                    <input type="text" class="form-control" id="inputCountry" {($value)}="company.domicile">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddressLine1">{{i18n('streetAddress')}}</label>
+                    <input type="text" class="form-control" id="inputAddressLine1" placeholder="{{i18n('streetAddressPlaceholder1')}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="inputAddressLine2" placeholder="{{i18n('streetAddressPlaceholder2')}}">
+                </div>
+                <div class="form-group">
+                    <label for="inputCity">{{i18n('city')}}</label>
+                    <input type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 no-padding-left">
+                        <div class="form-group">
+                            <label for="inputState">{{i18n('state')}}</label>
+                            <input type="text" class="form-control" id="inputState">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 no-padding-right">
+                        <div class="form-group">
+                            <label for="inputZipcode">{{i18n('zipcode')}}</label>
+                            <input type="text" class="form-control" id="inputZipcode">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group-item">
+                <h5 class="subheading">{{i18n('contact')}}</h5>
+                <div class="form-group">
+                    <label for="inputWebsite">{{i18n('website')}}</label>
+                    <input type="text" class="form-control" id="inputWebsite">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail">{{i18n('email')}}</label>
+                    <div class="optional-field">{{i18n('optional')}}</div>
+                    <input type="email" class="form-control" id="inputEmail">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPhone">{{i18n('phone')}}</label>
+                    <div class="optional-field">{{i18n('optional')}}</div>
+                    <input type="number" class="form-control" id="inputPhone">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button ($click)="next()" type="button" class="btn btn-primary">{{i18n('saveAuthority')}}</button>
+        <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    </div>
+</bootstrap-modal-content>
