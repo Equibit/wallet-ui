@@ -78,6 +78,7 @@ export default {
   autoLogoutLabel: 'Auto Logout Time',
   authorize: 'Authorize',
   authority: 'Authority',
+  authorityEditWarning: 'Updating this information will only take effect in passports issued after this update.',
   authorityInformation: 'Authority Information',
 
   balance: 'Balance',

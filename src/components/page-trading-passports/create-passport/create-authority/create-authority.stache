@@ -12,6 +12,11 @@
 
     <div class="modal-body">
 
+        <!-- If the authority is being edited after the passport has been created show this warning -->
+        <div class="alert alert-warning" role="alert">
+            <strong>{{i18n('warning')}}!</strong> {{i18n('authorityEditWarning')}}</a>
+        </div>
+
         <div class="list-group">
             <div class="list-group-item">
                 <div class="form-group">
