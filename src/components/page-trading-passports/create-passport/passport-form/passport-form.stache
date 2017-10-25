@@ -1,0 +1,40 @@
+<div class="list-group">
+    <div class="list-group-item item-authority">
+        <div class="form-horizontal">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                    <label class="control-label">{{i18n('authority')}}</label>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <select class="form-control issuance-selector input-sm">
+                        <option value="">Imperial Brands</option>
+                        <option value="">Kingfisher plc</option>
+                        <option value="">Maecenas Nulla</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <div>
+                        <button ($click)="company()" type="button" class="btn btn-primary btn-sm">{{i18n('addNew')}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="list-group-item order-fields">
+        <div class="form-horizontal">
+        <div class="form-group">
+            <div class="row">
+            <div class="col-xs-12 col-sm-3">
+                <label for="passportName" class="control-label">{{i18n('tradingPassportsPassportName')}}</label>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <input type="text" class="form-control" id="passportName">
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

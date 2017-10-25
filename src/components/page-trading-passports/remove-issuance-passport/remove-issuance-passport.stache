@@ -1,4 +1,5 @@
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal/modal.less" />
 
 <bootstrap-modal-content class="modal-company">
   <div class="modal-header">

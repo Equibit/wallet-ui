@@ -1,0 +1,18 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal-authority/authority-info/" />
+
+<div class="description">
+  {{i18n('tradingPassportsCreateConfirm')}}
+</div>
+
+<h3 class="subtitle">{{i18n('authority')}}</h3>
+<authority-info></authority-info>
+
+<h3 class="subtitle">Trading Passport</h3>
+<div class="well">
+  <dl class="dl-horizontal dl-stripped responsive no-top-border">
+    <dt>{{i18n('tradingPassportsPassportName')}}</dt>
+    <dd>Passport Name</dd>
+  </dl>
+  <button class="btn btn-sm btn-edit btn-default">Edit</button>
+</div>
