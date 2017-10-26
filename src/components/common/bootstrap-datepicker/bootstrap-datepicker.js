@@ -28,11 +28,11 @@ export default Component.extend({
   ViewModel,
   view,
   events: {
-    inserted: function(el, ev){
+    inserted: function (el, ev) {
       // console.log('options', this.viewModel.options)
       $(el).find('[datetimepicker]').datetimepicker(this.viewModel.options)
     },
-    removed: function(el, ev){
+    removed: function (el, ev) {
       $(el).find('[datetimepicker]').datetimepicker('destroy')
     }
   }
