@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/components/page-issuance-details/manage-accepted-trading-passports/issuance-add-passport/" />
 <can-import from="~/components/page-issuance-details/manage-accepted-trading-passports/issuance-add-passport-selector/" />
 
 <bootstrap-modal-content>
@@ -23,13 +24,25 @@
             </li>
         </ul>
 		
-        <div class="well">
-            <!--SCENARIO 1: Without Accepting Passports  -->
-             <div class="message-box no-border">
+        
+        <!--SCENARIO 1: Without Accepted Passports  
+            <div class="well">
+            <div class="message-box no-border">
                 <div class="message-box-status">{{i18n('tradingPassportsAcceptedAddExitingPassport')}}</div>
                 <issuance-add-passport-selector></issuance-add-passport-selector>
             </div> 
         </div>
+        -->
+
+        <!--SCENARIO 2: Accepted Passports  -->
+       
+        <issuance-add-passport></issuance-add-passport>
+        
+        <div class="well">
+            <passport-owned-accepted-issuances-grid></passport-owned-accepted-issuances-grid>
+        </div>
+            
+        
     </div>
 
 </bootstrap-modal-content>

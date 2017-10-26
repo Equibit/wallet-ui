@@ -73,7 +73,7 @@
             </div>
             -->
 
-            <!--SCENARIO 5: With Investors
+            <!--SCENARIO 5: With Investors -->
             <div class="col-xs-12">
                 <div class="well prompt-box">
                     <add-investor-owned-passport></add-investor-owned-passport>
@@ -82,15 +82,15 @@
                     <passport-owned-accepted-investors-grid></passport-owned-accepted-investors-grid>
                 </div>
             </div>
-             -->
+             
             
-            <!--SCENARIO 5: Without Investors  -->
+            <!--SCENARIO 5: Without Investors
              <div class="message-box no-border">
                 <div class="message-box-status">{{i18n('tradingPassportsOwnedAddInvestors')}}</div>
                 <p class="message-box-cause">{{i18n('tradingPassportsOwnedAddInvestorsMessage')}}</p>
                 <add-investor-owned-passport></add-investor-owned-passport>
             </div> 
-            
+            -->
 
         </div>
     </div>
