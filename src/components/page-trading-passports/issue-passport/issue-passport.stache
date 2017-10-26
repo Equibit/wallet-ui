@@ -67,7 +67,7 @@
             </label>
           </div>
           <div class="row">
-            <div class="col-xs-12 col-sm-6 no-padding-left">
+            <div class="col-xs-12 col-sm-5 no-padding-left">
               <div class="form-group">
                 <div class="btn-group">
                   <a href="#" class="btn btn-default btn-sm">1</a>
@@ -78,8 +78,11 @@
               </div>
             </div>
 
-            <bootstrap-datepicker />
-
+            <div class="col-xs-12 col-sm-7 no-padding date-picker-container">
+               <label>{{i18n('or')}}</label> 
+               <bootstrap-datepicker options:from="datepickerOptions"></bootstrap-datepicker>
+            </div>
+            
           </div>
         </div>
       </div>

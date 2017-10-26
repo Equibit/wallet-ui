@@ -20,6 +20,21 @@ import './bootstrap-datepicker.less'
 import view from './bootstrap-datepicker.stache'
 
 export const ViewModel = DefineMap.extend({
+  defaultOptions: {
+    type: '*',
+    value () {
+      return {
+        icons: {
+          time: "icon icon-clock",
+          date: "icon icon-calendar",
+          up: "icon icon-chevron rotate-270",
+          down: "icon icon-chevron rotate-90",
+          previous: 'icon icon-chevron rotate-180',
+          next: 'icon icon-chevron',
+        }
+      }
+    }
+  },
   options: '*'
 })
 
@@ -30,7 +45,9 @@ export default Component.extend({
   events: {
     inserted: function (el, ev) {
       // console.log('options', this.viewModel.options)
-      $(el).find('[datetimepicker]').datetimepicker(this.viewModel.options)
+      const options = Object.assign(this.viewModel.defaultOptions, this.viewModel.options)
+
+      $(el).find('[datetimepicker]').datetimepicker(options)
     },
     removed: function (el, ev) {
       $(el).find('[datetimepicker]').datetimepicker('destroy')

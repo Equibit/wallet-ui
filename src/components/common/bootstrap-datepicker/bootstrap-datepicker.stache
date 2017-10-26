@@ -3,18 +3,14 @@
 <can-import from="eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" />
 <!--<can-import from="eonasdan-bootstrap-datetimepicker/src/less/bootstrap-datetimepicker-build.less" />-->
 
-<div class="container">
-  <div class="row">
-    <div class='col-sm-6'>
-      <div class="form-group">
-        {{! The attribute [datetimepicker] tells where to }}
-        <div class="input-group date" datetimepicker>
-          <input type='text' class="form-control"/>
-          <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-          </span>
-        </div>
-      </div>
-    </div>
+
+<div class="form-group">
+  {{! The attribute [datetimepicker] tells where to }}
+  <div class="input-group date" datetimepicker>
+    <input type='text' class="form-control"/>
+    <span class="input-group-addon">
+      <span class="icon icon-calendar"></span>
+    </span>
   </div>
 </div>
+

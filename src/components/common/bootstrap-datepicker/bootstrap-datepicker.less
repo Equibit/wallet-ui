@@ -1,3 +1,29 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
 bootstrap-datepicker {
 	display: block;
+	.dropdown-menu {
+		background-color: @white;
+	}
+	.icon {
+		color: @link-color;
+	}
+
+	.bootstrap-datetimepicker-widget {
+		table {
+			td {
+				&.active,
+				&.active:hover,
+				span.active {
+					background-color: @brand-primary;
+					text-shadow: none;
+				}
+			} 
+			th.picker-switch {
+				color: @link-color;
+				text-transform: capitalize;
+			}
+		}
+	} 
 }
+
