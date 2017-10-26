@@ -25,12 +25,12 @@ export const ViewModel = DefineMap.extend({
     value () {
       return {
         icons: {
-          time: "icon icon-clock",
-          date: "icon icon-calendar",
-          up: "icon icon-chevron rotate-270",
-          down: "icon icon-chevron rotate-90",
+          time: 'icon icon-clock',
+          date: 'icon icon-calendar',
+          up: 'icon icon-chevron rotate-270',
+          down: 'icon icon-chevron rotate-90',
           previous: 'icon icon-chevron rotate-180',
-          next: 'icon icon-chevron',
+          next: 'icon icon-chevron'
         }
       }
     }
