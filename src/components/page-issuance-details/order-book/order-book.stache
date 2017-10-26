@@ -42,6 +42,8 @@
   </div>
 </div>
 
+<small class="fineprint">{{i18n('disclaimerPriceData')}}</small>
+
 {{#if isModalShown}}
   <place-order on:send="placeOrder(%arguments)"
                portfolio:from="portfolio"

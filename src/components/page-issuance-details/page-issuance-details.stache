@@ -6,6 +6,7 @@
 <can-import from="~/components/page-issuance-details/market-depth/" />
 <can-import from="~/components/page-issuance-details/order-book/" />
 <can-import from="~/components/page-issuance-details/related-companies/" />
+<can-import from="~/components/page-issuance-details/issuance-messages/" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -37,9 +38,9 @@
             {{else}}
 
             <ul class="nav nav-pills">
-              <li role="presentation" class="active"><a href="">{{i18n('market')}}</a></li>
+              <li role="presentation"><a href="">{{i18n('market')}}</a></li>
               <li role="presentation"><a href="">{{i18n('distributions')}}</a></li>
-              <li role="presentation"><a href="">{{i18n('messages')}}</a></li>
+              <li role="presentation" class="active"><a href="">{{i18n('messages')}}</a></li>
               <li role="presentation"><a href="">{{i18n('polls')}}</a></li>
               <li role="presentation"><a href="">{{i18n('history')}}</a></li>
               <li role="presentation"><a href="">{{i18n('shareholders')}}</a></li>
@@ -54,12 +55,16 @@
           <div class="panel-body">
             <!--<candlestick-chart />-->
 
+            <!--
             <order-book portfolio:from="portfolio"
-                        issuance:from="issuance" />
+                        issuance:from="issuance" />-->
 
             <!--market-depth /-->
             <!--<related-companies />-->
-            <small class="fineprint">{{i18n('disclaimerPriceData')}}</small>
+
+            <issuance-messages></issuance-messages>
+
+            
           </div>
         </div>
       </div>

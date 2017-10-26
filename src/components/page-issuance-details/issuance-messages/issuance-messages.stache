@@ -1,0 +1,11 @@
+<can-import from="~/utils/stache-helpers/" />
+
+<div class="well messages-container">
+    <!--SCENARIO 1: No messages sent -->
+    <div class="message-box no-border align-center">
+        <div class="message-box-status">{{i18n('messagesPlaceholderTitle')}}</div>
+        <p class="message-box-cause">{{i18n('messagesPlaceholderMessage')}}</p>
+       <button class="btn btn-primary">{{i18n('composeMessage')}}</button>
+    </div>
+</div>
+    
