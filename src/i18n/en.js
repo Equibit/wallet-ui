@@ -113,6 +113,7 @@ export default {
   change: 'Change',
   changePasswordMsg: 'Create a new password for your account.',
   changePasswordTitle: 'Reset Password',
+  createNew: 'Create New',
   createdOn: 'Created On',
   city: 'City',
   company: 'Company',
@@ -280,6 +281,7 @@ export default {
 
   offer: 'Offer',
   offerWasCreated: 'Your offer was created',
+  or: 'Or',
   order: 'Order',
   orderBook: 'Order Book',
   orderWasCreated: 'Your order was created',

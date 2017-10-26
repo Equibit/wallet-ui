@@ -2,6 +2,7 @@
 <can-import from="~/components/common/modal/modal.less" />
 <can-import from="~/components/page-issuance-details/manage-accepted-trading-passports/issuance-add-passport/" />
 <can-import from="~/components/page-issuance-details/manage-accepted-trading-passports/issuance-add-passport-selector/" />
+<can-import from="~/components/page-issuance-details/manage-accepted-trading-passports/passport-owned-accepted-grid/" />
 
 <bootstrap-modal-content>
     <div class="modal-header">
@@ -39,7 +40,7 @@
         <issuance-add-passport></issuance-add-passport>
         
         <div class="well">
-            <passport-owned-accepted-issuances-grid></passport-owned-accepted-issuances-grid>
+            <passport-owned-accepted-grid></passport-owned-accepted-grid>
         </div>
             
         

@@ -8,6 +8,6 @@
     </select>
     <button class="btn btn-primary btn-add-passport btn-sm">{{i18n('addPassport')}}</button>
     <div class="create-new">
-        Or <a href="">create new</a>
+        {{i18n('or')}} <a href="">{{i18n('createNew')}}</a>
     </div>
 </div>
