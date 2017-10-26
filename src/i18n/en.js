@@ -25,7 +25,6 @@ export default {
   cancelNo: 'Yes, Cancel',
   cancelYes: 'No, Don\'t Cancel',
   changePassword: 'Change Password',
-  createNew: 'Create New',
   createPassport: 'Create a Passport',
   continue: 'Continue',
   correctYes: 'Yes, This is Correct',
