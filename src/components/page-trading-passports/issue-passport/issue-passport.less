@@ -14,4 +14,29 @@ issue-passport {
 	.icon-passport {
 		margin-right: @padding-xs-horizontal;
 	}
+	bootstrap-modal-content .modal-body {
+		padding-top: @padding-large-horizontal;
+		overflow-y: inherit; // Allows to show the datepicker without requiring scroll.
+		
+		@media (min-width: @screen-sm) {
+			padding-bottom: 66px;
+		}
+	}
+	.date-picker-container {
+		flex-direction: row;
+		label {
+			margin-right: @padding-small-horizontal;
+			text-transform: uppercase;			
+		}
+	}
+	bootstrap-datepicker {
+		.form-control {
+			padding-right: 0;
+		}
+	}
+	@media (max-width: 330px) {
+		.modal-title {
+			font-size: @font-size-h4 - 1;
+		}
+	}
 }
