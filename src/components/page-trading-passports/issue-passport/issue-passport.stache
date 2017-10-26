@@ -1,90 +1,94 @@
-<can-import from="~/utils/stache-helpers/" />
-<can-import from="bootstrap/dist/js/bootstrap" />
-<can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/utils/stache-helpers/"/>
+<can-import from="bootstrap/dist/js/bootstrap"/>
+<can-import from="~/components/common/modal/modal.less"/>
+<can-import from="~/components/common/bootstrap-datepicker/" />
 
 <bootstrap-modal-content>
   <div class="modal-header">
     <button ($click)="close()" type="button" class="close" aria-label="Close">
-			<span class="icon icon-cross rotate-90"></span>
-	  </button>
-		<h3 class="modal-title"><span class="icon icon-passport"></span>{{i18n('tradingPassportsIssue')}}</h3>
- 	</div>
+      <span class="icon icon-cross rotate-90"></span>
+    </button>
+    <h3 class="modal-title"><span class="icon icon-passport"></span>{{i18n('tradingPassportsIssue')}}</h3>
+  </div>
 
-	<div class="modal-body">
-        <div class="well issue-trading-passport-form">
-            
-            <div class="row">
-                <div class="col-xs-12 col-sm-3 no-padding">
-                    <label for="key-one">{{i18n('Keys')}}
-                        <span class="icon icon-question"
-                            data-toggle="popover"
-                            data-content="{{i18n('tradingPassportsIssueKeyPopoverMessage')}}"
-                            data-placement="right">
+  <div class="modal-body">
+    <div class="well issue-trading-passport-form">
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 no-padding">
+          <label for="key-one">{{i18n('Keys')}}
+            <span class="icon icon-question"
+                  data-toggle="popover"
+                  data-content="{{i18n('tradingPassportsIssueKeyPopoverMessage')}}"
+                  data-placement="right">
                         </span>
-                    </label>
-                </div>
-                <div class="col-xs-12 col-sm-9">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon icon icon-key"></span>
-                            <input type="text" class="form-control" id="key-one">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon icon icon-key"></span>
-                            <input type="text" class="form-control" id="key-two">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-3 no-padding">
-                    <label for="short-description">{{i18n('shortDescription')}}
-                        <span class="icon icon-question"
-                            data-toggle="popover"
-                            data-content="{{i18n('tradingPassportsIssueDescriptionPopoverMessage')}}"
-                            data-placement="right">
-                        </span>
-                    </label>
-                </div>
-                <div class="col-xs-12 col-sm-9">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="short-description">
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-offset-3 col-sm-9">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="">
-                            {{i18n('addExpirationDate')}}
-                        </label>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 no-padding-left">
-                            <div class="form-group">
-                                <div class="btn-group">
-                                    <a href="#" class="btn btn-default btn-sm">1</a>
-                                    <a href="#" class="btn btn-default btn-sm">5</a>
-                                    <a href="#" class="btn btn-default btn-sm">10</a>
-                                </div>
-                                <label>{{i18n('Years')}}</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                
+          </label>
         </div>
-    </div>
+        <div class="col-xs-12 col-sm-9">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon icon icon-key"></span>
+              <input type="text" class="form-control" id="key-one">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon icon icon-key"></span>
+              <input type="text" class="form-control" id="key-two">
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary">{{i18n('issuePassport')}}</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 no-padding">
+          <label for="short-description">{{i18n('shortDescription')}}
+            <span class="icon icon-question"
+                  data-toggle="popover"
+                  data-content="{{i18n('tradingPassportsIssueDescriptionPopoverMessage')}}"
+                  data-placement="right">
+                        </span>
+          </label>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+          <div class="form-group">
+            <input type="text" class="form-control" id="short-description">
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-offset-3 col-sm-9">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="">
+              {{i18n('addExpirationDate')}}
+            </label>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 no-padding-left">
+              <div class="form-group">
+                <div class="btn-group">
+                  <a href="#" class="btn btn-default btn-sm">1</a>
+                  <a href="#" class="btn btn-default btn-sm">5</a>
+                  <a href="#" class="btn btn-default btn-sm">10</a>
+                </div>
+                <label>{{i18n('Years')}}</label>
+              </div>
+            </div>
+
+            <bootstrap-datepicker />
+
+          </div>
+        </div>
+      </div>
+
     </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary">{{i18n('issuePassport')}}</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+  </div>
 </bootstrap-modal-content>

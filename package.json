@@ -125,6 +125,7 @@
     "done-component": "^1.0.0",
     "done-css": "^3.0.0",
     "done-serve": "^1.4.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "express-session": "^1.15.6",
     "feathers": "^2.2.3",
     "feathers-authentication-client": "^0.3.3",
