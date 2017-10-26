@@ -410,6 +410,7 @@ export default {
   tradingPassportsAccepteModalTitle: 'Accept a Trading Passport in this issuance',
   tradingPassportsAccepteModalMessage: 'Since this issuance is restricted investors require a Trading passport',
   tradingPassportsAccepted: 'Accepted Trading Passports',
+  tradingPassportsAcceptedAddExitingPassport: 'Add an Existing Passport',
   tradingPassportsAcceptedMessage: 'This issuance is restricted and requires at least one of these passports.',
   tradingPassportsAcceptedNoPassports: 'There are no accepted passports for this issuance',
   tradingPassportsCreate: 'Create a Trading Passport',

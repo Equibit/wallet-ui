@@ -1,0 +1,27 @@
+@import '../../../../styles/bootstrap-custom/_variables.less';
+
+issuance-add-passport-selector {
+	display: block;
+	.form-inline {
+		.form-control.passport-selector {
+			width: 280px;
+			display: inline-block;
+			@media (max-width: 545px) {
+				width: 100%;
+			}
+			
+		}
+		@media (min-width: 545px) {
+			.form-control.passport-selector {
+				margin-right: @padding-small-horizontal;
+			}
+			.btn-add-passport {
+				margin-top: 0;
+			}
+		}
+	}
+	.create-new {
+		margin-top: @padding-xlarge-vertical;
+	}
+}
+

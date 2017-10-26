@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/components/page-issuance-details/manage-accepted-trading-passports/issuance-add-passport-selector/" />
 
 <bootstrap-modal-content>
     <div class="modal-header">
@@ -8,12 +9,27 @@
 	    </button>
 		<h3 class="modal-title">
             <span class="icon icon-passport"></span> 
-            {{i18n('tradingPassportsAccepted')}}</h3>
+            {{i18n('tradingPassportsAccepted')}}
+        </h3>
  	</div>
 
 	<div class="modal-body">
-		<h4 class="heading-warning"><span class="icon icon-warning"></span> {{i18n('warning')}}!</h4>
-        <p>{{i18n('tradingPassportsDeleteWarningMessage')}}</p>
+        <ul class="nav nav-pills list-tabs">
+            <li role="presentation" class="active">
+                <a href="#" >{{i18n('owned')}}</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#" >{{i18n('received')}}</a>
+            </li>
+        </ul>
+		
+        <div class="well">
+            <!--SCENARIO 1: Without Accepting Passports  -->
+             <div class="message-box no-border">
+                <div class="message-box-status">{{i18n('tradingPassportsAcceptedAddExitingPassport')}}</div>
+                <issuance-add-passport-selector></issuance-add-passport-selector>
+            </div> 
+        </div>
     </div>
 
 </bootstrap-modal-content>

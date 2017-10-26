@@ -1,0 +1,13 @@
+<can-import from="~/utils/stache-helpers/" />
+
+<div class="form-inline">
+    <select class="form-control passport-selector input-sm">
+        <option value="">Select Passport</option>
+        <option value="">Aenean Pretium Services</option>
+        <option value="">Circle A Passport</option>
+    </select>
+    <button class="btn btn-primary btn-add-passport btn-sm">{{i18n('addPassport')}}</button>
+    <div class="create-new">
+        Or <a href="">create new</a>
+    </div>
+</div>
