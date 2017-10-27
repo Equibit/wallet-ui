@@ -29,6 +29,13 @@ export const ViewModel = DefineMap.extend({
   get session () {
     return Session.current
   },
+  hasSellOrders: 'boolean',
+  hasBuyOrders: 'boolean',
+  hasOrders: {
+    get () {
+      return this.hasSellOrders || this.hasBuyOrders
+    }
+  },
 
   isModalShown: 'boolean',
   showModal () {

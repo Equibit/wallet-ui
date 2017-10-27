@@ -66,12 +66,31 @@
 
           <div class="panel-body">
             {{#is modeContent 'market'}}
+
+              {{^if hasOrders}}
+                <div class="well messages-container">
+                  <div class="message-box no-border align-center">
+                    {{#is mode 'investor'}}
+                      <div class="message-box-status">{{i18n('marketNoInitialOfferingTitle')}}</div>
+                      <p class="message-box-cause">{{i18n('marketNoInitialOfferingMessage')}}</p>
+                      <button class="btn btn-primary">{{i18n('notifyMe')}}</button>
+                    {{else}}
+                      <div class="message-box-status">{{i18n('marketMakeInitialOfferingTitle')}}</div>
+                      <p class="message-box-cause">{{i18n('marketMakeInitialOfferingMessage')}}</p>
+                      <button class="btn btn-primary">{{i18n('placeSellOrder')}}</button>
+                    {{/is}}
+                  </div>
+                </div>
+              {{/if}}
               <!-- <candlestick-chart /> -->
-              <order-book portfolio:from="portfolio"
-                          issuance:from="issuance" />
+              <order-book class="{{^if hasOrders}}hidden{{/if}}"
+                          portfolio:from="portfolio"
+                          issuance:from="issuance"
+                          hasOrders:to="hasOrders"/>
 
               <!-- <market-depth /> -->
               <!-- <related-companies /> -->
+
             {{/is}}
             
             {{#is modeContent 'messages'}}

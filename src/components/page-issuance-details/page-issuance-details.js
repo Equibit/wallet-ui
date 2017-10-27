@@ -41,6 +41,7 @@ export const ViewModel = DefineMap.extend({
       return this.mode === 'investor' ? 'market' : val
     }
   },
+  hasOrders: 'boolean',
   investor () {
     this.mode = 'investor'
   },

@@ -13,6 +13,7 @@
       <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
       <orders-grid type="SELL" limit="10"
+                   rows.length:to="hasSellOrders"
                    on:vm:buysell="openBuySellModal(%arguments)"
                    issuanceAddress:from="issuance.issuanceAddress"
                    rowsPromise:bind="resetSellOrders" />
@@ -28,6 +29,7 @@
       <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
       <orders-grid type="BUY" limit="10"
+                   rows.length:to="hasBuyOrders"
                    on:vm:buysell="openBuySellModal(%arguments)"
                    issuanceAddress:from="issuance.issuanceAddress"
                    rowsPromise:bind="resetBuyOrders" />
