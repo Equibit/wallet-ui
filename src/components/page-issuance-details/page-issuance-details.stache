@@ -13,7 +13,7 @@
 
     <drag-panel class="panel panel-default card card-full">
       <div class="row">
-        <div class="col-lg-3 col-sm-4 col-xs-12">
+        <div class="col-lg-3 col-sm-4 col-xs-12 padding-bottom">
           <div class="panel-heading panel-heading-clear">
             <h1 class="panel-title">{{issuance.companyName}}</h1>
             <div class="panel-subtitle">{{issuance.issuanceName}}</div>
