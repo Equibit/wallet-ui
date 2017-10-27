@@ -35,11 +35,20 @@ export const ViewModel = DefineMap.extend({
   mode: {
     value: 'investor'
   },
+  modeContent: {
+    value: 'market',
+    get (val) {
+      return this.mode === 'investor' ? 'market' : val
+    }
+  },
   investor () {
     this.mode = 'investor'
   },
   admin () {
     this.mode = 'admin'
+  },
+  switch (modeContent) {
+    this.modeContent = modeContent
   }
 })
 
