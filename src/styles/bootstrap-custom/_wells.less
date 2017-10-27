@@ -5,3 +5,32 @@
   margin-bottom: 0;
   padding: @padding-base-horizontal;
 }
+
+.well--header {
+  border-bottom: 0;
+  margin-bottom: 0 !important;
+}
+
+.well--content {
+  width: 100%;
+  display: flex;
+  flex: 1 1 auto;
+  margin-bottom: 0 !important;
+  flex-direction: column;
+  .message-box {
+    display: flex;
+    flex-direction: column;
+  }	
+}
+
+.well-nav {
+  display: flex;
+  font-size: @font-size-small;
+  align-items: center;
+  flex-wrap: wrap;
+  .btn {
+    .icon {
+      font-size: 15px;
+    }
+  }
+}

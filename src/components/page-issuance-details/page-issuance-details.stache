@@ -55,14 +55,16 @@
           <div class="panel-body">
             <!--<candlestick-chart />-->
 
-            <!--
+            
             <order-book portfolio:from="portfolio"
-                        issuance:from="issuance" />-->
+                        issuance:from="issuance" />
 
             <!--market-depth /-->
             <!--<related-companies />-->
 
+            <!--
             <issuance-messages></issuance-messages>
+            -->
 
             
           </div>

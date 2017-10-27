@@ -1,0 +1,319 @@
+<can-import from="grid-component" />
+<can-import from="~/components/common/grid/grid.less" />
+<can-import from="~/utils/stache-helpers/" />
+
+<grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
+    <div class="grid-responsive">
+        <div class="grid-header-container">
+            <table class="table table-condensed grid-header">
+                <thead>
+                <tr>
+                    <th class="column-address truncate">{{i18n('addressEQB')}}</th>
+                    <th class="column-address truncate">{{i18n('addressBTC')}}</th>
+                    <th class="column-passport">{{i18n('tradingPassport')}}</th>
+                    <th class="column-quantity">{{i18n('quantity')}}</th>
+                    <th class="column-interest">{{i18n('interest')}} (%)</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="grid-body-scroll">
+            <table class="table table-condensed grid-body">
+                <tbody>
+                    <tr>
+                        <td class="column-address truncate">18CN7PCzxCdfb8Hkzb7YzqXLApzqoeTALH</td>
+                        <td class="column-address truncate">1MkuUqdT8ak9ZM8EMJNQGLiY73NLzZj9gR</td>
+                        <td class="column-passport">
+                            <a href="">Imperial Brands Passport</a>
+                        </td>
+                        <td class="column-quantity font-numeric">1,590</td>
+                        <td class="column-interest font-numeric">0.0015</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                    <tr>
+                        <td class="column-address truncate">17reoj2EMByyhEGjTsA5HUB3CTk3qS5DbJ</td>
+                        <td class="column-address truncate">17eDsAkuWZ6MDm64AqfDZAE15VCyaZp1VX</td>
+                        <td class="column-passport">
+                            <a href="">Investor ID Services</a>
+                        </td>
+                        <td class="column-quantity font-numeric">10,776</td>
+                        <td class="column-interest font-numeric">0.0010</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="grid-footer">
+        <div class="btn-group pagination" role="group" aria-label="pagination">
+            <button type="button" class="btn btn-default btn-xs disabled">&laquo;</button>
+            <button type="button" class="btn btn-default btn-xs active" >1</button>
+            <button type="button" class="btn btn-default btn-xs" >2</button>
+            <button type="button" class="btn btn-default btn-xs" >3</button>
+            <button type="button" class="btn btn-default btn-xs" >&raquo;</button>
+        </div>
+        <div class="grid-results">Showing 1-25 of 400 {{i18n('messages')}}</div>
+    </div>
+
+</grid-component>

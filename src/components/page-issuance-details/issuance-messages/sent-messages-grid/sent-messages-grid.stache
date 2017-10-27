@@ -1,0 +1,407 @@
+<can-import from="grid-component" />
+<can-import from="~/components/common/grid/grid.less" />
+<can-import from="~/utils/stache-helpers/" />
+
+<grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
+    <div class="grid-responsive">
+        <div class="grid-header-container">
+            <table class="table table-condensed grid-header">
+                <thead>
+                <tr>
+                    <th class="column-subject truncate">{{i18n('subject')}}</th>
+                    <th class="column-date">{{i18n('date')}}</th>
+                    <th class="column-status"></th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="grid-body-scroll">
+            <table class="table table-condensed grid-body">
+                <tbody>
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Notice of Special Meeting and Proxy Statement</span> |
+                            Dear Shareholder: Imperial Brands, Inc. will hold a Special Meeting of Shareholders
+                        </td>
+                        <td class="column-date">10:30 PM</td>
+                        <td class="column-status">
+                            <div class="progress progress--small">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                    <span class="sr-only">60% Complete</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Financial Statement</span>  |
+                            Sed porta sapien urna, id dignissim purus suscipit ac. Fusce lobortis sapien ut neque laoreet dapibus.
+                        </td>
+                        <td class="column-date">6:00 PM</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-subject truncate">
+                            <span class="btn-link">Annual General Meeting</span>  |
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies enim id lacus luctus dictum
+                        </td>
+                        <td class="column-date">12/7/2017</td>
+                        <td class="column-status">
+                            <span class="icon icon-checkmark"></span> Received
+                        </td>
+                    </tr>
+
+
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="grid-footer">
+        <div class="btn-group pagination" role="group" aria-label="pagination">
+            <button type="button" class="btn btn-default btn-xs disabled">&laquo;</button>
+            <button type="button" class="btn btn-default btn-xs active" >1</button>
+            <button type="button" class="btn btn-default btn-xs" >2</button>
+            <button type="button" class="btn btn-default btn-xs" >3</button>
+            <button type="button" class="btn btn-default btn-xs" >&raquo;</button>
+        </div>
+        <div class="grid-results">Showing 1-25 of 400 {{i18n('messages')}}</div>
+    </div>
+
+</grid-component>
