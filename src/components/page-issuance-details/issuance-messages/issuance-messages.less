@@ -7,16 +7,61 @@ issuance-messages {
 	.well--header {
 		min-height: 56px;
 	}
+
+	.messages-sent-on {
+		flex: 1 1 auto;
+		text-align: right;
+		font-size: @font-size-xsmall;
+		color: @gray-light;
+		@media (max-width: @screen-xs) {
+			width: 100%;
+			text-align: left;
+			padding: 15px 0;
+		}
+	}
+
+	.message-metadata {
+		font-size: @font-size-small;
+		width: 100%;
+		border-bottom: @border-default;
+		padding-bottom: @padding-large-vertical*2;
+		margin-bottom: @padding-large-vertical*2;
+	}
+
+	.message-metadata-section {
+		@media (max-width: @screen-md) {
+			margin-bottom: 15px;
+		}
+	}
+
+	.message-metadata-status {
+		justify-content: flex-end;
+	}
+
+	.message-subject {
+		font-family: @font-family-bold;
+	}
+
+	.message-content {
+		font-size: @font-size-small;
+	}
+	
+	.btn-delete-item {
+		@media (max-width: @screen-xs) {
+			padding-left: 0;
+		}
+	}
+
 	@media (max-width: @screen-md) {
 		grid-component {
 		  .grid-responsive {
-			.grid-header-container,
-			.grid-body-scroll {
-			  width: 800px;
-			}
+				.grid-header-container,
+				.grid-body-scroll {
+					width: 800px;
+				}
 		  }
 		}
-	  }
+	}
 	
 	@media (max-width: @screen-xs) {
 		grid-component {

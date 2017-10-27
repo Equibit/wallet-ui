@@ -29,6 +29,7 @@ export default {
   composeMessage: 'Compose Message',
   continue: 'Continue',
   correctYes: 'Yes, This is Correct',
+  delete: 'Delete',
   deleteNo: 'No, Don\'t Delete',
   edit: 'Edit',
   finish: 'Finish',

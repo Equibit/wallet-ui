@@ -85,6 +85,7 @@
 }
 
 
+
 /**
 * @styles helpers-active-item-indicator Active Item Indicator
 * @parent custom/_helpers.less 1
@@ -191,8 +192,24 @@
   *
 **/
 
-
 .break-word {
   overflow-wrap: break-word;
   word-wrap: break-word;
+}
+
+
+/**
+  * @styles helpers-vertical-divider Vertical Divider
+  * @parent custom/_helpers.less 4
+  *
+  * @description
+  * Use the class `.vertical-divider` to show a vertical line to divide items in a navigation
+  *
+**/
+
+.vertical-divider {
+  width: 1px;
+  background-color: @border-color;
+  margin: 0 20px;
+  height: 30px;
 }

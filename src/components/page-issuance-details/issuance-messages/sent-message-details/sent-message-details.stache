@@ -1,1 +1,66 @@
-<p>{{message}}</p>
+ <div class="well well--header">
+    <div class="well-nav">
+        <a class="btn-back">← Back to Sent</a>
+        <div class="vertical-divider"></div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default btn-xs">&laquo;</button>
+            <button type="button" class="btn btn-default btn-xs" >&raquo;</button>
+        </div>
+        <span class="messages-sent-on">Sent on 12/8/2017 @10:30 PM</span>
+        <div class="vertical-divider hidden-xs"></div>
+        <a href="" class="btn btn-link btn-sm btn-delete-item"><span class="icon icon-bin"></span> {{i18n('delete')}}</a>
+    </div>
+</div>
+<div class="well well--content">
+    <div class="row message-metadata">
+        <div class="col-xs-12 col-md-3 no-padding-left message-metadata-section">
+            <label>To</label>
+            <a href="#">123 Shareholders</a>
+        </div>
+        <div class="col-xs-12 col-md-8 message-metadata-section">
+            <label>Subject</label>
+            <div class="message-subject">
+                Notice of Special Meeting and Proxy Statement
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-1 message-metadata-status">
+            <div class="progress progress--small">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                    <span class="sr-only">60% Complete</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="message-content">
+        <p>
+            Dear Shareholder:
+        </p>
+            
+        <p>
+            Imperial Brands, Inc. will hold a Special Meeting of Shareholders on Jan 8, 2017 beginning at 10:00 a.m., local time, at the company’s offices located at 52 Main St. Suite 102, Albany, NY 12065, USA. We look forward to your attending either in person or by proxy, but please note that due to security procedures you will be required to show a form of picture identification to gain access to the company’s offices if you plan to attend the special meeting. The enclosed notice of meeting, the proxy statement and the proxy card from the Board of Directors describe the proposal to be acted upon at the meeting.
+        </p>
+
+        <p>
+            This special meeting has been called for the purpose of asking our shareholders to approve an option exchange program under which eligible employees would be able to elect to exchange certain outstanding stock options for a lesser number of shares of restricted stock. The exchange program’s eligible participants would exclude, among others, our executive officers and Board of Directors. The Board of Directors recommends that you vote FOR the approval of the proposed option exchange program.
+        </p>
+
+        <p>
+            Please refer to the enclosed proxy statement for detailed information on the proposal. If you have any further questions concerning the meeting or the proposal, please feel free to contact us at (123) 456-7890. Your vote is important. Whether or not you expect to attend the meeting, your shares should be represented. Therefore, we urge you to complete, sign, date, and promptly return the enclosed proxy card.
+        </p>
+
+        <p>
+            On behalf of the Board of Directors, we would like to express our appreciation for your continued interest in our company.
+        </p>
+
+        <p>
+            Sincerely yours
+        </p>
+
+        <p>
+            <strong>John McCormick</strong> <br>
+            President, Chief Executive Officer and Director
+        </p>
+
+    </div>
+</div>
