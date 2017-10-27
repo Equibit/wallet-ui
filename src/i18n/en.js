@@ -399,7 +399,8 @@ export default {
   statusTRADING: 'Trading',
   statusCANCELLED: 'Cancelled',
   statusCLOSED: 'Closed',
-
+  subject: 'Subject',
+  
   termsAndConditions: 'Terms & Conditions',
   termsAndConditionsContactTitle: 'Contact Us',
   termsAndConditionsContactMessage: 'This page, the entire EDC site, images / documents are Copyright © 2015 by Equibit Development Corporation. All Rights Reserved.',

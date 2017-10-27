@@ -1,14 +1,29 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
 issuance-messages {
 	display: flex;
 	flex: 1 1 auto;
-	.messages-container {
-		width: 100%;
-		display: flex;
-		flex: 1 1 auto;
-		margin-bottom: 0 !important;
-		.message-box {
-			display: flex;
-			flex-direction: column;
-		}	
+	flex-direction: column; 
+	.well--header {
+		min-height: 56px;
+	}
+	@media (max-width: @screen-md) {
+		grid-component {
+		  .grid-responsive {
+			.grid-header-container,
+			.grid-body-scroll {
+			  width: 800px;
+			}
+		  }
+		}
+	  }
+	
+	@media (max-width: @screen-xs) {
+		grid-component {
+			height: initial;
+			.grid-responsive {
+				height: initial;
+			}
+		}
 	}
 }
