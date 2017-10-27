@@ -1,0 +1,22 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
+shareholders-modal {
+	display: block;
+
+	.well--header {
+		min-height: 56px;
+	}
+	.text {
+		flex-grow: 1;
+		font-size: @font-size-base;
+		color: @gray;
+	}
+
+	bootstrap-modal-content .modal-body {
+		display: flex;
+		flex: 1 1 auto;
+		flex-direction: column;
+		padding-bottom: @padding-large-vertical*2 !important;
+	}
+}
+

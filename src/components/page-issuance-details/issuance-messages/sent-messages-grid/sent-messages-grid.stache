@@ -401,7 +401,7 @@
             <button type="button" class="btn btn-default btn-xs" >3</button>
             <button type="button" class="btn btn-default btn-xs" >&raquo;</button>
         </div>
-        <div class="grid-results">Showing 1-25 of 400 Messages</div>
+        <div class="grid-results">Showing 1-25 of 400 {{i18n('messages')}}</div>
     </div>
 
 </grid-component>

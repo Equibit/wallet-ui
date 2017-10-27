@@ -12,17 +12,18 @@
     </div>
     -->
 
-    <!--SCENARIO 2: With messages sent 
+    <!--SCENARIO 2: With messages sent -->
     <div class="well well--header">
         <button class="btn btn-primary btn-sm">{{i18n('composeMessage')}}</button>
     </div>
     <div class="well well--content">
         <sent-messages-grid></sent-messages-grid>
     </div>
-    -->
+    
 
-    <!--SCENARIO 3: Message Details -->
+    <!--SCENARIO 3: Message Details
     <sent-message-details></sent-message-details>
+     -->
    
     
     

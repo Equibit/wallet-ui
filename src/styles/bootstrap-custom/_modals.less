@@ -61,15 +61,21 @@
 }
 
 // Removes external margins and modal decoration for small devices
-  @media (max-width: @screen-sm) {
-    .modal-dialog {
-      margin: 0;
-    }
-    .modal-content {
-      border: 0;
-      border-radius: 0;
-    }
-    .modal-footer {
-      border-radius: 0;
-    }
+@media (max-width: @screen-sm) {
+  .modal-dialog {
+    margin: 0;
   }
+  .modal-content {
+    border: 0;
+    border-radius: 0;
+  }
+  .modal-footer {
+    border-radius: 0;
+  }
+}
+
+@media (min-width: @screen-sm) {
+  .modal-xl {
+    width: 90%;
+  }
+}

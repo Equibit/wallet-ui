@@ -1,0 +1,39 @@
+@import '../../../styles/bootstrap-custom/_variables';
+
+shareholders-grid {
+	display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex: 1 1 auto;
+
+	.column-address {
+		width: 300px;
+		max-width: 300px;
+	}
+	.column-interest,
+	.column-quantity {
+		width: 90px;
+		text-align: right;
+	}
+
+	@media (max-width: 1150px) {
+		grid-component {
+			.grid-responsive {
+			overflow-x: auto;
+				.grid-header-container,
+				.grid-body-scroll {
+					width: 1150px;
+				}
+			}
+		}
+	}
+	
+	@media (max-width: @screen-xs) {
+		grid-component {
+			height: initial;
+			.grid-responsive {
+				height: initial;
+			}
+		}
+	}
+}

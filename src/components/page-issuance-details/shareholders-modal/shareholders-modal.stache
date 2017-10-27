@@ -1,0 +1,29 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/components/page-issuance-details/shareholders-grid/" />
+
+<bootstrap-modal-content>
+    <div class="modal-header">
+        <button ($click)="close()" type="button" class="close" aria-label="Close">
+			<span class="icon icon-cross rotate-90"></span>
+	    </button>
+		<h3 class="modal-title">{{i18n('shareholders')}}</h3>
+ 	</div>
+
+	<div class="modal-body">
+         <div class="well well--header">
+            <div class="well-nav">
+                <span class="text">Shareholders List as of 12/8/2017 @10:30 PM</span>
+                <a href="" class="btn btn-link btn-sm btn-delete-item">
+                    <span class="icon icon-export"></span> 
+                    {{i18n('export')}}
+                </a>
+            </div>
+        </div>
+        <div class="well well--content">
+            <shareholders-grid></shareholders-grid>
+        </div>
+		
+    </div>
+
+</bootstrap-modal-content>
