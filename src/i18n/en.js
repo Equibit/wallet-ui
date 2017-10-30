@@ -147,6 +147,7 @@ export default {
   contact: 'Contact',
   country: 'Country',
   currency: 'Currency',
+  currentShareholders: 'Current Shareholders',
 
   date: 'Date',
   dateAndTime: 'Date and Time',
@@ -334,6 +335,7 @@ export default {
   privacyPolicyRevised: 'This policy was last modified on: Wednesday, July 1, 2015.',
   profitandLoss: 'P&L',
   polls: 'Polls',
+  pollsCreateAPoll: 'Create a Poll',
   portfolioSummary: 'Portfolio Summary',
 
   quantity: 'Quantity',
