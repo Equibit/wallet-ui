@@ -55,7 +55,7 @@
                 <button type="button" class="btn btn-primary">{{i18n('send')}}</button>
             </div>
             <div class="col-xs-6 no-padding-right display-row delete-button-container">
-                <button type="button" class="btn btn-delete" data-dismiss="modal">
+                <button on:click="showModal()" type="button" class="btn btn-delete" data-dismiss="modal">
                     <span class="icon icon-bin"></span>
                     {{i18n('delete')}}
                 </button>
