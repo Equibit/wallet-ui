@@ -13,6 +13,7 @@
  	</div>
 
 	<div class="modal-body">
+        <div class="alert alert-danger" role="alert">{{{i18n('messagesErrorSubjectMissing')}}}</div>
          <div class="well well--header">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 form-inline">
@@ -43,7 +44,7 @@
             </div>
         </div>
         <div class="well well--content">
-            <textarea></textarea>
+            <textarea class="form-control"></textarea>
         </div>
         
     </div>
@@ -54,7 +55,7 @@
                 <button type="button" class="btn btn-primary">{{i18n('send')}}</button>
             </div>
             <div class="col-xs-6 no-padding-right display-row delete-button-container">
-                <button type="button" class="btn btn-delete" data-dismiss="modal">
+                <button on:click="showModal()" type="button" class="btn btn-delete" data-dismiss="modal">
                     <span class="icon icon-bin"></span>
                     {{i18n('delete')}}
                 </button>
