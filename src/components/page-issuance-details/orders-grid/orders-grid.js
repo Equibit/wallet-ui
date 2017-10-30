@@ -35,7 +35,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     value: 10
   },
   rowsPromise: {
-    get (val) {
+    get () {
       if (!this.issuanceAddress) {
         console.error('Orders require issuanceAddress!')
         return
@@ -50,7 +50,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     }
   },
   rows: {
-    get (lastVal, resolve) {
+    get (val, resolve) {
       this.accumulativeQuantity = 0
       this.rowsPromise && this.rowsPromise.then(resolve)
     }

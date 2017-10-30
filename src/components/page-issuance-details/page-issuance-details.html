@@ -11,7 +11,7 @@
 <can-import from="~/components/page-issuance-details/" />
 
 <nav-bar page="issuances" />
-<page-issuance-details company-slug:from="companySlug" issuance:from="issuance"></page-issuance-details>
+<page-issuance-details company-slug:from="companySlug" issuancePromise:from="issuancePromise"></page-issuance-details>
 </script>
 
 <script src="../../../node_modules/steal/steal.js"
@@ -26,7 +26,7 @@
 
   const vm = new DefineMap({
     companySlug: 'imperial-brands',
-    issuance
+    issuancePromise: Promise.resolve(issuance)
   });
 
   stache.async($('#demo-html').html()).then(template => {
