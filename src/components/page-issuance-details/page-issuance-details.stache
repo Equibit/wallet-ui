@@ -11,6 +11,11 @@
 <div class="row">
   <div class="col-xs-12">
 
+  {{#if issuancePromise.isPending}}
+    Loading...
+  {{/if}}
+  {{#if issuance}}
+
     <drag-panel class="panel panel-default card card-full">
       <div class="row">
         <div class="col-lg-3 col-sm-4 col-xs-12 padding-bottom">
@@ -82,6 +87,7 @@
                   </div>
                 </div>
               {{/if}}
+
               <!-- <candlestick-chart /> -->
               <order-book class="{{^if hasOrders}}hidden{{/if}}"
                           isModalShown:bind="isCreateOrderModalShown"
@@ -101,7 +107,8 @@
           </div>
         </div>
       </div>
-
     </drag-panel>
+
+  {{/if}}
   </div>
 </div>

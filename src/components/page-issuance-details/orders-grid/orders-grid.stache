@@ -2,7 +2,7 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="grid-component" />
 
-<grid-component {(rows)}="rows">
+<grid-component class="{{#if rowsPromise.isPending}}loading{{/if}}">
   <div class="grid-responsive">
   {{#is type 'SELL'}}
 
@@ -23,7 +23,7 @@
     <div class="grid-body-scroll">
       <table class="table table-condensed grid-body">
         <tbody>
-        {{#each rows as row}}
+        {{#each ../rows as row}}
           <tr class="order-row percentage-green percentage-{{../../marketWidth(row.quantity, 'offsetLeft')}}">
             <td class="column-action-buttons">
               <button class="btn btn-default btn-xs" on:click="buySell(../type, row)">{{i18n('buy')}}</button>
@@ -57,7 +57,7 @@
     <div class="grid-body-scroll">
       <table class="table table-condensed grid-body">
         <tbody>
-        {{#each rows as row}}
+        {{#each ../rows as row}}
           <tr class="order-row percentage-red percentage-{{../../marketWidth(row.quantity)}}">
             <td class="column-price">{{row.price}}</td>
             <td class="column-quantity">{{row.quantity}}</td>

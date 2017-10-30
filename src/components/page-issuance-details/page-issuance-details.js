@@ -20,17 +20,21 @@ import view from './page-issuance-details.stache'
 import Issuance from '~/models/issuance'
 
 export const ViewModel = DefineMap.extend({
-  issuanceId: {
-    type: 'string',
-    set (val) {
-      Issuance.get({_id: val}).then(issuance => {
-        this.issuance = issuance
-      })
-      return val
+  issuanceId: 'string',
+  issuancePromise: {
+    get (val) {
+      if (val) {
+        return val
+      }
+      if (this.issuanceId) {
+        return Issuance.get({_id: this.issuanceId})
+      }
     }
   },
   issuance: {
-    type: '*'
+    get (val, resolve) {
+      this.issuancePromise.then(resolve)
+    }
   },
   mode: {
     value: 'investor'
@@ -50,6 +54,7 @@ export const ViewModel = DefineMap.extend({
     this.mode = 'admin'
   },
   switch (modeContent) {
+    this.isCreateOrderModalShown = false
     this.modeContent = modeContent
   },
   placeSellOrder () {

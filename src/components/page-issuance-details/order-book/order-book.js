@@ -91,9 +91,7 @@ export const ViewModel = DefineMap.extend({
         'title': translate('orderWasCreated'),
         'displayInterval': 5000
       })
-      // TODO: See https://github.com/Equibit/wallet-ui/issues/486
-      // Refresh promise to cause repaint of grid with Market Depth background (which does not support row updates).
-      this[type === 'SELL' ? 'resetSellOrders' : 'resetBuyOrders'] = Math.random()
+      // TODO: Refresh Market Depth background. See https://github.com/Equibit/wallet-ui/issues/486
     })
     return order
   },
@@ -124,9 +122,7 @@ export const ViewModel = DefineMap.extend({
       })
     })
     return offer
-  },
-  resetSellOrders: '*',
-  resetBuyOrders: '*'
+  }
 })
 
 export default Component.extend({
