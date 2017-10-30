@@ -22,12 +22,20 @@ import Offer from '../../../models/offer'
 import Session from '../../../models/session'
 import hub from '../../../utils/event-hub'
 import { translate } from '~/i18n/'
+import BitMessage from '../../../models/bit-message'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
   issuance: '*',
   get session () {
     return Session.current
+  },
+  hasSellOrders: 'boolean',
+  hasBuyOrders: 'boolean',
+  hasOrders: {
+    get () {
+      return this.hasSellOrders || this.hasBuyOrders
+    }
   },
 
   isModalShown: 'boolean',
@@ -84,9 +92,8 @@ export const ViewModel = DefineMap.extend({
         'title': translate('orderWasCreated'),
         'displayInterval': 5000
       })
-      // TODO: See https://github.com/Equibit/wallet-ui/issues/486
-      // Refresh promise to cause repaint of grid with Market Depth background (which does not support row updates).
-      this[type === 'SELL' ? 'resetSellOrders' : 'resetBuyOrders'] = Math.random()
+      // this.sendMessage(order)
+      // TODO: Refresh Market Depth background. See https://github.com/Equibit/wallet-ui/issues/486
     })
     return order
   },
@@ -118,8 +125,14 @@ export const ViewModel = DefineMap.extend({
     })
     return offer
   },
-  resetSellOrders: '*',
-  resetBuyOrders: '*'
+  sendMessage (order) {
+    const bitMessage = BitMessage.createFrom(order)
+    bitMessage.send().then(res => {
+      console.log(`Message was sent!`, res)
+    }).catch(err => {
+      console.log(`Message was NOT sent :(`, err)
+    })
+  }
 })
 
 export default Component.extend({

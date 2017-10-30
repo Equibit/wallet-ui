@@ -11,6 +11,11 @@
 <div class="row">
   <div class="col-xs-12">
 
+  {{#if issuancePromise.isPending}}
+    Loading...
+  {{/if}}
+  {{#if issuance}}
+
     <drag-panel class="panel panel-default card card-full">
       <div class="row">
         <div class="col-lg-3 col-sm-4 col-xs-12 padding-bottom">
@@ -38,12 +43,24 @@
             {{else}}
 
             <ul class="nav nav-pills">
-              <li role="presentation"><a href="">{{i18n('market')}}</a></li>
-              <li role="presentation"><a href="">{{i18n('distributions')}}</a></li>
-              <li role="presentation" class="active"><a href="">{{i18n('messages')}}</a></li>
-              <li role="presentation"><a href="">{{i18n('polls')}}</a></li>
-              <li role="presentation"><a href="">{{i18n('history')}}</a></li>
-              <li role="presentation"><a href="">{{i18n('shareholders')}}</a></li>
+              <li role="presentation" class="{{#is modeContent 'market'}}active{{/is}}">
+                <a on:click="switch('market')">{{i18n('market')}}</a>
+              </li>
+              <li role="presentation" class="{{#is modeContent 'distributions'}}active{{/is}}">
+                <a on:click="switch('distributions')">{{i18n('distributions')}}</a>
+              </li>
+              <li role="presentation" class="{{#is modeContent 'messages'}}active{{/is}}">
+                <a on:click="switch('messages')">{{i18n('messages')}}</a>
+              </li>
+              <li role="presentation" class="{{#is modeContent 'polls'}}active{{/is}}">
+                <a on:click="switch('polls')">{{i18n('polls')}}</a>
+              </li>
+              <li role="presentation" class="{{#is modeContent 'history'}}active{{/is}}">
+                <a on:click="switch('history')">{{i18n('history')}}</a>
+              </li>
+              <li role="presentation" class="{{#is modeContent 'shareholders'}}active{{/is}}">
+                <a on:click="switch('shareholders')">{{i18n('shareholders')}}</a>
+              </li>
             </ul>
 
             <div class="additional-actions">
@@ -53,24 +70,45 @@
           </div>
 
           <div class="panel-body">
-            <!--<candlestick-chart />-->
+            {{#is modeContent 'market'}}
 
+              {{^if hasOrders}}
+                <div class="well messages-container">
+                  <div class="message-box no-border align-center">
+                    {{#is mode 'investor'}}
+                      <div class="message-box-status">{{i18n('marketNoInitialOfferingTitle')}}</div>
+                      <p class="message-box-cause">{{i18n('marketNoInitialOfferingMessage')}}</p>
+                      <button class="btn btn-primary">{{i18n('notifyMe')}}</button>
+                    {{else}}
+                      <div class="message-box-status">{{i18n('marketMakeInitialOfferingTitle')}}</div>
+                      <p class="message-box-cause">{{i18n('marketMakeInitialOfferingMessage')}}</p>
+                      <button class="btn btn-primary" on:click="placeSellOrder()">{{i18n('placeSellOrder')}}</button>
+                    {{/is}}
+                  </div>
+                </div>
+              {{/if}}
+
+              <!-- <candlestick-chart /> -->
+              <order-book class="{{^if hasOrders}}hidden{{/if}}"
+                          isModalShown:bind="isCreateOrderModalShown"
+                          portfolio:from="portfolio"
+                          issuance:from="issuance"
+                          hasOrders:to="hasOrders"/>
+
+              <!-- <market-depth /> -->
+              <!-- <related-companies /> -->
+
+            {{/is}}
             
-            <order-book portfolio:from="portfolio"
-                        issuance:from="issuance" />
+            {{#is modeContent 'messages'}}
+              <issuance-messages></issuance-messages>
+            {{/is}}
 
-            <!--market-depth /-->
-            <!--<related-companies />-->
-
-            <!--
-            <issuance-messages></issuance-messages>
-            -->
-
-            
           </div>
         </div>
       </div>
-
     </drag-panel>
+
+  {{/if}}
   </div>
 </div>

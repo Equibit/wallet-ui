@@ -3,7 +3,7 @@
 issuance-messages {
 	display: flex;
 	flex: 1 1 auto;
-	flex-direction: column; 
+	flex-direction: column;
 	.well--header {
 		min-height: 56px;
 	}
@@ -45,7 +45,7 @@ issuance-messages {
 	.message-content {
 		font-size: @font-size-small;
 	}
-	
+
 	.btn-delete-item {
 		@media (max-width: @screen-xs) {
 			padding-left: 0;
@@ -62,7 +62,7 @@ issuance-messages {
 		  }
 		}
 	}
-	
+
 	@media (max-width: @screen-xs) {
 		grid-component {
 			height: initial;
@@ -71,4 +71,18 @@ issuance-messages {
 			}
 		}
 	}
+}
+
+/* TODO: this is reused for other empty data message. Make class more generic and move to other level. */
+page-issuance-details {
+  .messages-container {
+    width: 100%;
+    display: flex;
+    flex: 1 1 auto;
+    margin-bottom: 0 !important;
+    .message-box {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
