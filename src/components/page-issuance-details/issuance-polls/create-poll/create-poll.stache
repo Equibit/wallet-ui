@@ -44,11 +44,10 @@
         </div>
         <div class="well well--content options-container">
             <div class="radio">
-                <label>
-                    <input type="radio" value="">
-                    <input type="text" class="form-control" placeholder="Option 1">
-                </label>
+                <input type="radio" value="">
+                <input type="text" class="form-control" placeholder="Option 1">
             </div>
+            <span class="icon icon-cross"></span>
         </div>
          <div class="well well--footer">
             
