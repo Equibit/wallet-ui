@@ -6,8 +6,8 @@ export default {
   // Alert messages:
   accountCreated: 'Account Created',
   changesSaved: 'Changes Saved',
-  messagesErrorContentMissing: '<strong>Content is missing.<\/strong> Please add content for your message.',
-  messagesErrorSubjectMissing: '<strong>Subject is missing.<\/strong> Please add a subject for your message.',
+  messagesErrorContentMissing: '<strong>Content is missing.</strong> Please add content for your message.',
+  messagesErrorSubjectMissing: '<strong>Subject is missing.</strong> Please add a subject for your message.',
   passwordReset: 'Password Reset',
   // welcomeMsg: 'Welcome to Equibit! Your account was created successfully!',
   // passwordResetMsg: 'Your password was changed successfully',
