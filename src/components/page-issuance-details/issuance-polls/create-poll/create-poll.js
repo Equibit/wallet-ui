@@ -21,6 +21,14 @@ import view from './create-poll.stache'
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'This is the create-poll component'
+  },
+  datepickerOptions: {
+    type: '*',
+    value () {
+      return {
+        format: 'MM/DD/YYYY'
+      }
+    }
   }
 })
 

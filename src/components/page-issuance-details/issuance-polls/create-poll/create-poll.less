@@ -2,6 +2,12 @@
 
 create-poll {
 	display: block;
+
+	bootstrap-modal-content {
+		.modal-header {
+			margin-bottom: @padding-xs-horizontal;
+		}
+	}
 	
 	.well--header {
 		padding: @padding-small-vertical @padding-small-horizontal;
@@ -33,9 +39,15 @@ create-poll {
 	}
 	.well--content {
 		background-color: @active-bg;
+		textarea.form-control {
+			min-height: 120px;
+		}
 	}
 	.well--footer {
 		margin-bottom: @padding-large-horizontal !important;
+		.form-group {
+			margin-bottom: 0;
+		}
 	}
 	.modal-footer {
 		.row {
@@ -64,9 +76,35 @@ create-poll {
 			color: @gray;
 		}
 		.btn-link {
+			text-align: left;
 			&:hover {
 				text-decoration: none;
 			}
+		}
+	}
+	.poll-preset-date {
+		.btn-group {
+			margin: 0 10px;
+		}
+	}
+	.date-picker-container {
+		flex-direction: row;
+		align-items: center;		
+		label {
+			margin-right: @padding-small-horizontal;
+			text-transform: uppercase;			
+		}
+		@media (max-width: @screen-xs) {
+			margin-top: @padding-large-vertical;
+		}
+	}
+
+	.modal-footer {
+		.row {
+			width: 100%;
+		}
+		.delete-button-container {
+			justify-content: flex-end;
 		}
 	}
 }
