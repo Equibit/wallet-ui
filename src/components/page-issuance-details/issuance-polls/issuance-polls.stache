@@ -1,8 +1,8 @@
 <can-import from="~/utils/stache-helpers/" />
-<!--<can-import from="~/components/page-issuance-details/issuance-messages/sent-polls-grid/" />
+<can-import from="~/components/page-issuance-details/issuance-polls/sent-polls-grid/" />
 <!--<can-import from="~/components/page-issuance-details/issuance-messages/sent-poll-details/" />-->
 
-<!--SCENARIO 1: No polls sent -->
+<!--SCENARIO 1: No polls sent
 <div class="well well--content placeholder-message">
     <div class="message-box no-border align-center">
         <div class="message-box-status">{{i18n('pollsPlaceholderTitle')}}</div>
@@ -10,16 +10,16 @@
         <button class="btn btn-primary">{{i18n('pollsCreateAPoll')}}</button>
     </div>
 </div>
+ -->
 
-
-<!--SCENARIO 2: With messages sent 
+<!--SCENARIO 2: With polls sent -->
 <div class="well well--header">
-    <button class="btn btn-primary btn-sm">{{i18n('composeMessage')}}</button>
+    <button class="btn btn-primary btn-sm">{{i18n('pollsCreateAPoll')}}</button>
 </div>
 <div class="well well--content">
-    <sent-messages-grid></sent-messages-grid>
+    <sent-polls-grid></sent-polls-grid>
 </div>
--->
+
 
 <!--SCENARIO 3: Message Details
 <sent-message-details></sent-message-details>
