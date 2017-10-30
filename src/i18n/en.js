@@ -245,6 +245,7 @@ export default {
   marketCapitalization: 'Market Capitalization',
   marketSummary: 'Market Summary',
   messages: 'Messages',
+  messagesComposeMessage: 'Compose Message',
   messagesPlaceholderTitle: 'Message Your Shareholders',
   messagesPlaceholderMessage: 'Sent direct messages to current shareholders',
   minutes: 'Minutes',
