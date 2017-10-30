@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<style>
+  body { padding: 20px }
+  #demo .modal { display: block; }
+  #demo bootstrap-modal-content { display: block; }
+</style>
+
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+<script>window.useXhrTransport = true</script>
+
+<div id="demo"></div>
+
+<script type="text/stache" id="demo-html">
+  <can-import from="~/styles/styles.less" />
+  <can-import from="wallet-ui/components/page-issuance-details/issuance-polls/create-poll/" />
+  
+  <div class="modal fade in" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <create-poll></create-poll>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script src="../../../../../node_modules/steal/steal.js"
+        main="@empty">
+
+  import $ from 'jquery'
+  import stache from 'can-stache'
+  import reload from 'live-reload'
+  import DefineMap from 'can-define/map/map'
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
+
+  const vm = new DefineMap({
+    // view model props here
+  })
+  window.vm = vm
+
+  // Enable live-reload:
+  stache.async($('#demo-html').html()).then(template => {
+    let render = () => $('#demo').html(template(vm))
+    render()
+    reload(render)
+  })
+</script>
