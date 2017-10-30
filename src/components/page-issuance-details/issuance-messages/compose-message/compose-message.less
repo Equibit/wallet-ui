@@ -2,23 +2,23 @@
 
 compose-message {
 	display: block;
+	.form-control {
+		border: 0;
+		width: 80%;
+		&:focus,
+		&:active {
+			box-shadow: none;
+		}
+		@media (max-width: @screen-xs) {
+			width: 100%;
+			padding-left: 0;
+			padding-top: 0;
+			border-bottom: @border-default;
+			border-radius: 0;
+		}
+	}
 	.well--header {
 		padding: @padding-small-vertical;
-		.form-control {
-			border: 0;
-			width: 80%;
-			&:focus,
-			&:active {
-				box-shadow: none;
-			}
-			@media (max-width: @screen-xs) {
-				width: 100%;
-				padding-left: 0;
-				padding-top: 0;
-				border-bottom: @border-default;
-				border-radius: 0;
-			}
-		}
 	}
 	.well--content {
 		margin-bottom: @padding-large-horizontal !important;
