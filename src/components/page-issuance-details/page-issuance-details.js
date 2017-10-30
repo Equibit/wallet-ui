@@ -42,6 +42,7 @@ export const ViewModel = DefineMap.extend({
     }
   },
   hasOrders: 'boolean',
+  isCreateOrderModalShown: 'boolean',
   investor () {
     this.mode = 'investor'
   },
@@ -50,6 +51,10 @@ export const ViewModel = DefineMap.extend({
   },
   switch (modeContent) {
     this.modeContent = modeContent
+  },
+  placeSellOrder () {
+    this.isCreateOrderModalShown = false
+    this.isCreateOrderModalShown = true
   }
 })
 

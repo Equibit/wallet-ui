@@ -77,13 +77,14 @@
                     {{else}}
                       <div class="message-box-status">{{i18n('marketMakeInitialOfferingTitle')}}</div>
                       <p class="message-box-cause">{{i18n('marketMakeInitialOfferingMessage')}}</p>
-                      <button class="btn btn-primary">{{i18n('placeSellOrder')}}</button>
+                      <button class="btn btn-primary" on:click="placeSellOrder()">{{i18n('placeSellOrder')}}</button>
                     {{/is}}
                   </div>
                 </div>
               {{/if}}
               <!-- <candlestick-chart /> -->
               <order-book class="{{^if hasOrders}}hidden{{/if}}"
+                          isModalShown:bind="isCreateOrderModalShown"
                           portfolio:from="portfolio"
                           issuance:from="issuance"
                           hasOrders:to="hasOrders"/>
