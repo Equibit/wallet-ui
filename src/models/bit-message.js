@@ -24,9 +24,15 @@ import { walletMessage } from '@equibit/wallet-crypto/dist/wallet-crypto'
 // feathersClient.service('/bit-message')
 
 const BitMessage = DefineMap.extend('BitMessage', {
-  createFromOrder (order) {
+  createFrom (item, keyPair, publicKey) {
+    const time = '' + Date.now()
     return new BitMessage({
-      type: order.type === 'SELL' ? 'Ask' : 'Bid'
+      type: item.type === 'SELL' ? 'Ask' : 'Bid',
+      timestamp: Number(time.slice(0, -3)),
+      timestamp_nanoseconds: Number(time.slice(0, -3)) * 1000,
+      payload: JSON.stringify(item.getMessagePayload()),
+      sender_public_key: publicKey,
+      keyPair
     })
   }
 }, {
@@ -43,6 +49,7 @@ const BitMessage = DefineMap.extend('BitMessage', {
 
   build (keyPair = this.keyPair, difficulty = 4) {
     const message = walletMessage.messagePow(this.serialize(), keyPair, difficulty)
+    console.log(`BitMessage.build: message=${message}`)
     return message
   },
 

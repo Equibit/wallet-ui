@@ -128,6 +128,9 @@ const Order = DefineMap.extend('Order', {
   get statusDisplay () {
     return translate(`status${this.status}`)
   },
+  get goodForSec () {
+    return this.goodFor * 24 * 3600
+  },
 
   //
   // Related models:
@@ -186,6 +189,17 @@ const Order = DefineMap.extend('Order', {
   marketWidth: {
     serialize: false,
     type: 'number'
+  },
+
+  // For BitMessage payload.
+  // {"quantity": 5000,"price": "0.333","fill_or_kill": "no","duration": 86400}
+  getMessagePayload () {
+    return {
+      quantity: this.quantity,
+      price: this.price,
+      fill_or_kill: this.isFillOrKill ? 'yes' : 'no',
+      duration: this.goodForSec
+    }
   }
 })
 
