@@ -43,11 +43,22 @@
             <textarea class="form-control" placeholder="Ask a question..."></textarea>
         </div>
         <div class="well well--content options-container">
-            <div class="radio">
-                <input type="radio" value="">
+            <div class="option-item">
+                <div class="radio"><input type="radio" name="pollOptions" value="Option1" disabled></div>
                 <input type="text" class="form-control" placeholder="Option 1">
             </div>
-            <span class="icon icon-cross"></span>
+            <div class="option-item">
+                <div class="radio"><input type="radio" name="pollOptions" value="Option2" disabled></div>
+                <input type="text" class="form-control" placeholder="Option 2">
+            </div>
+            <div class="option-item">
+                <div class="radio"><input type="radio" name="pollOptions" value="Option3" disabled></div>
+                <input type="text" class="form-control" placeholder="Option 3">
+                <button type="button" aria-label="Close" class="btn btn-link">
+                    <span class="icon icon-cross"></span>
+                </button>
+            </div>
+            
         </div>
          <div class="well well--footer">
             

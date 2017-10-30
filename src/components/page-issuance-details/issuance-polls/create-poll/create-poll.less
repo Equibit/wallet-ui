@@ -2,33 +2,33 @@
 
 create-poll {
 	display: block;
-	.form-inline {
-		.form-group {
-			width: 100%;
-		}
-		.form-control {
-			border: 0;
-			&:focus,
-			&:active {
-				box-shadow: none;
-			}
-			@media (min-width: @screen-sm) {
-				width: 89%;
-			}
-			@media (max-width: @screen-xs) {
-				width: 100%;
-				padding-left: 0;
-				padding-top: 0;
-				border-bottom: @border-default;
-				border-radius: 0;
-			}
-		}
-	}
-
+	
 	.well--header {
 		padding: @padding-small-vertical @padding-small-horizontal;
 		label {
 			min-width: 50px;
+		}
+		.form-inline {
+			.form-group {
+				width: 100%;
+			}
+			.form-control {
+				border: 0;
+				&:focus,
+				&:active {
+					box-shadow: none;
+				}
+				@media (min-width: @screen-sm) {
+					width: 89%;
+				}
+				@media (max-width: @screen-xs) {
+					width: 100%;
+					padding-left: 0;
+					padding-top: 0;
+					border-bottom: @border-default;
+					border-radius: 0;
+				}
+			}
 		}
 	}
 	.well--content {
@@ -47,5 +47,26 @@ create-poll {
 	}
 	.options-container {
 		border-top: 0;
+		.option-item {
+			display: flex;
+			flex-direction: row;
+			margin-bottom: @padding-large-vertical;
+		}
+		.radio {
+			width: 30px;
+			min-width: 30px;
+			input[type="radio"] {
+				margin-left: 0;
+			}			
+		}
+		.icon-cross {
+			font-size: 18px;
+			color: @gray;
+		}
+		.btn-link {
+			&:hover {
+				text-decoration: none;
+			}
+		}
 	}
 }
