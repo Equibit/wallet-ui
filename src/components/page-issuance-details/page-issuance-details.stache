@@ -7,6 +7,7 @@
 <can-import from="~/components/page-issuance-details/order-book/" />
 <can-import from="~/components/page-issuance-details/related-companies/" />
 <can-import from="~/components/page-issuance-details/issuance-messages/" />
+<can-import from="~/components/page-issuance-details/issuance-polls/" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -55,16 +56,17 @@
           <div class="panel-body">
             <!--<candlestick-chart />-->
 
-            
-            <order-book portfolio:from="portfolio"
-                        issuance:from="issuance" />
+            <!--<order-book portfolio:from="portfolio"
+                        issuance:from="issuance" />-->
 
             <!--market-depth /-->
             <!--<related-companies />-->
 
-            <!--
-            <issuance-messages></issuance-messages>
-            -->
+            <!--<issuance-messages></issuance-messages>-->
+
+            
+            <issuance-polls></issuance-polls>
+            
 
             
           </div>

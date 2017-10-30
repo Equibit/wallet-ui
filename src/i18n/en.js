@@ -253,7 +253,7 @@ export default {
   messages: 'Messages',
   messagesComposeMessage: 'Compose Message',
   messagesPlaceholderTitle: 'Message Your Shareholders',
-  messagesPlaceholderMessage: 'Sent direct messages to current shareholders',
+  messagesPlaceholderMessage: 'Send direct messages to current shareholders',
   minutes: 'Minutes',
   missingAddress: 'Address is missing',
   missingRequiredFields: 'Please fill in all parameters',
@@ -336,6 +336,8 @@ export default {
   profitandLoss: 'P&L',
   polls: 'Polls',
   pollsCreateAPoll: 'Create a Poll',
+  pollsPlaceholderTitle: 'Poll Your Shareholders',
+  pollsPlaceholderMessage: 'Send polls to current shareholders',
   portfolioSummary: 'Portfolio Summary',
 
   quantity: 'Quantity',

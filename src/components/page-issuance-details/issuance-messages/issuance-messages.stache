@@ -2,28 +2,25 @@
 <can-import from="~/components/page-issuance-details/issuance-messages/sent-messages-grid/" />
 <can-import from="~/components/page-issuance-details/issuance-messages/sent-message-details/" />
 
-    <!--SCENARIO 1: No messages sent
-    <div class="well well--content">
-        <div class="message-box no-border align-center">
-            <div class="message-box-status">{{i18n('messagesPlaceholderTitle')}}</div>
-            <p class="message-box-cause">{{i18n('messagesPlaceholderMessage')}}</p>
-            <button class="btn btn-primary">{{i18n('composeMessage')}}</button>
-        </div>
+<!--SCENARIO 1: No messages sent-->
+<div class="well well--content placeholder-message">
+    <div class="message-box no-border align-center">
+        <div class="message-box-status">{{i18n('messagesPlaceholderTitle')}}</div>
+        <p class="message-box-cause">{{i18n('messagesPlaceholderMessage')}}</p>
+        <button class="btn btn-primary">{{i18n('composeMessage')}}</button>
     </div>
-    -->
+</div>
 
-    <!--SCENARIO 2: With messages sent -->
-    <div class="well well--header">
-        <button class="btn btn-primary btn-sm">{{i18n('composeMessage')}}</button>
-    </div>
-    <div class="well well--content">
-        <sent-messages-grid></sent-messages-grid>
-    </div>
-    
 
-    <!--SCENARIO 3: Message Details
-    <sent-message-details></sent-message-details>
-     -->
-   
-    
-    
+<!--SCENARIO 2: With messages sent 
+<div class="well well--header">
+    <button class="btn btn-primary btn-sm">{{i18n('composeMessage')}}</button>
+</div>
+<div class="well well--content">
+    <sent-messages-grid></sent-messages-grid>
+</div>
+-->
+
+<!--SCENARIO 3: Message Details
+<sent-message-details></sent-message-details>
+-->
