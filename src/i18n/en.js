@@ -12,6 +12,8 @@ export default {
   // welcomeMsg: 'Welcome to Equibit! Your account was created successfully!',
   // passwordResetMsg: 'Your password was changed successfully',
   passwordResetMsg: '',
+  pollsErrorContentMissing: '<strong>Content is missing.</strong> Please add content for your poll.',
+  pollsErrorSubjectMissing: '<strong>Subject is missing.</strong> Please add a subject for your poll.',
 
   // Buttons:
   addBuyOrder: '+ Add Buy Order',
