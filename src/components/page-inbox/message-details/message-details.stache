@@ -1,12 +1,73 @@
 <drag-panel class="page-panel panel panel-default card card-full">
 
-
-    <!-- SCENARIO 1: No Messages  -->
+    <!-- SCENARIO 1: No Messages  
     <div class="panel-body align-center">
         <div class="message-box no-border">
             <div class="message-box-status">{{i18n('messages')}}</div>
             <p class="message-box-cause">{{i18n('inboxMessagesPlaceholder')}}</p>
         </div>
     </div>
+    -->
+
+    <!-- SCENARIO 2: With Messages  -->
+    <nav class="navbar toolbar">
+        <div class="row">
+            <p class="navbar-text">Notice of Special Meeting and Proxy Statement</p>
+            <ul class="nav navbar-nav navbar-right toolbar-actions">
+                <li><a href=""><span class="icon icon-bin"></span> {{i18n('delete')}}</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="panel-body">
+        <div class="row message-row">
+            <div class="col-xs-12 message-wrapper">
+                <div class="well well--header message-metadata">
+                    <dl class="dl-horizontal dl-stripped responsive no-top-border no-bottom-border">
+                        <dt>{{i18n('from')}}</dt>
+                        <dd><a href="#">Imperial Brands, Series 1</a></dd>
+
+                        <dt>{{i18n('sentOn')}}</dt>
+                        <dd>12/08/2017 @10:30 PM</dd>
+                    </dl>
+                </div>
+
+                <div class="well well--content message-content">
+                    <p>
+                        Dear Shareholder:
+                    </p>
+                        
+                    <p>
+                        Imperial Brands, Inc. will hold a Special Meeting of Shareholders on Jan 8, 2017 beginning at 10:00 a.m., local time, at the company’s offices located at 52 Main St. Suite 102, Albany, NY 12065, USA. We look forward to your attending either in person or by proxy, but please note that due to security procedures you will be required to show a form of picture identification to gain access to the company’s offices if you plan to attend the special meeting. The enclosed notice of meeting, the proxy statement and the proxy card from the Board of Directors describe the proposal to be acted upon at the meeting.
+                    </p>
+
+                    <p>
+                        This special meeting has been called for the purpose of asking our shareholders to approve an option exchange program under which eligible employees would be able to elect to exchange certain outstanding stock options for a lesser number of shares of restricted stock. The exchange program’s eligible participants would exclude, among others, our executive officers and Board of Directors. The Board of Directors recommends that you vote FOR the approval of the proposed option exchange program.
+                    </p>
+
+                    <p>
+                        Please refer to the enclosed proxy statement for detailed information on the proposal. If you have any further questions concerning the meeting or the proposal, please feel free to contact us at (123) 456-7890. Your vote is important. Whether or not you expect to attend the meeting, your shares should be represented. Therefore, we urge you to complete, sign, date, and promptly return the enclosed proxy card.
+                    </p>
+
+                    <p>
+                        On behalf of the Board of Directors, we would like to express our appreciation for your continued interest in our company.
+                    </p>
+
+                    <p>
+                        Sincerely yours
+                    </p>
+
+                    <p>
+                        <strong>John McCormick</strong> <br>
+                        President, Chief Executive Officer and Director
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+    
 
 </drag-panel>

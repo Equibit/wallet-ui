@@ -4,4 +4,19 @@
 page-inbox {
 	display: block;
 	.page-layout;
+	.toolbar {
+		.navbar-text {
+			flex-grow: 1;
+			margin-left: 0;
+			font-size: @font-size-large;
+		}
+		.toolbar-actions {
+			font-size: 85%;
+		}
+	}
+	@media (max-width: @screen-xs) {
+		inbox-tabs-list {
+			margin-bottom: @padding-xlarge-vertical;
+		}
+	}  
 }
