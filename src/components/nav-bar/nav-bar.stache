@@ -26,9 +26,9 @@
               aria-expanded="false">
             <span class="sr-only">{{i18n('inbox')}}</span>
             
-            <inbox-counter />
+            <notification-counter {count}="notifications.length" />
           </a>
-          <div class="dropdown-menu popover bottom notifications-popover animated fadeIn">
+          <div class="dropdown-menu popover popover--inbox bottom notifications-popover animated fadeIn">
             <span class="arrow"></span>
             <div class="popover-title">
               {{i18n('inbox')}}
