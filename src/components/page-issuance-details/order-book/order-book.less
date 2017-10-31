@@ -7,9 +7,20 @@ order-book {
   .well {
     margin-bottom: @padding-xlarge-vertical;
   }
+  .well--content {
+    .row {
+      flex: 1 1 auto;
+      overflow-y: auto;
+    }
+  }
+  .fineprint {
+    margin-top: @padding-base-vertical;
+  }
 
   grid-component {
     margin-bottom: @padding-large-vertical;
+    overflow-y: auto;
+    
 		tr:hover {
 			background-color: @active-bg;
 			.btn {
