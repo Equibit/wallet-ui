@@ -1,1 +1,7 @@
-<p>{{message}}</p>
+<!-- SCENARIO 1: Without Inbox Notifications -->
+<div class="message-box no-border message-placeholder">
+    <div class="icon icon-drawer2"></div>
+    <p class="message-box-cause">{{i18n('inboxEmtpy')}}</p>
+</div>
+
+<!-- SCENARIO 2: With Inbox Notifications -->

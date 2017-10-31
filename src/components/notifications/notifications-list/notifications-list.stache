@@ -19,10 +19,10 @@
     </a>
 
   {{else}}
-
-    <a href="#" class="list-group-item no-link">
-      No notifications
-    </a>
+    <div class="message-box no-border message-placeholder">
+        <div class="icon icon-bell"></div>
+        <p class="message-box-cause">{{i18n('notificationsNone')}}</p>
+    </div>
   {{/each}}
 
   <!-- Example Alert: Received a Trading Passport

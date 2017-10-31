@@ -225,6 +225,8 @@ export default {
   helpTransactionFeeEquibit: 'Required by Equibit miners.',
   history: 'History',
 
+  inbox: 'Inbox',
+  inboxEmtpy: 'Your Inbox is Empty',
   interest: 'Interest',
   issuance: 'Issuance',
   issuances: 'Issuances',
@@ -296,6 +298,7 @@ export default {
   notFoundOrdersBuy: 'No Buy Orders Found',
   notFoundOrdersSell: 'No Sell Orders Found',
   notifications: 'Notifications',
+  notificationsNone: 'There no notifications',
   notifyMe: 'Notify Me',
   noPartialFills: 'No partial fills allowed.',
   noRestriction: 'No restriction',
