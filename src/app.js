@@ -43,6 +43,7 @@ var pages = {
   transactions: 'private',
   'my-issuances': 'private',
   'my-trading-passports': 'private',
+  'my-inbox': 'private',
   orders: 'private',
   offers: 'private'
 }
