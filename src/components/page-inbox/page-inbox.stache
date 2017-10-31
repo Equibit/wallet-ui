@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-inbox/inbox-tabs-list/" />
+<can-import from="~/components/page-inbox/message-details/" />
 
 
 <div class="row">
@@ -8,6 +9,6 @@
   </div>
 
   <div class="col-xs-12 col-md-7 col-lg-8">
-    Message details will go here
+    <message-details></message-details>
   </div>
 </div>

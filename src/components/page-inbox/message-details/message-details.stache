@@ -1,0 +1,12 @@
+<drag-panel class="page-panel panel panel-default card card-full">
+
+
+    <!-- SCENARIO 1: No Messages  -->
+    <div class="panel-body align-center">
+        <div class="message-box no-border">
+            <div class="message-box-status">{{i18n('messages')}}</div>
+            <p class="message-box-cause">{{i18n('inboxMessagesPlaceholder')}}</p>
+        </div>
+    </div>
+
+</drag-panel>
