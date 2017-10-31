@@ -1,0 +1,155 @@
+<div class="list-group list-group-simple notifications-list">
+    <!-- SCENARIO 1: Without Inbox Notifications
+    <div class="message-box no-border message-placeholder">
+        <div class="icon icon-drawer2"></div>
+        <p class="message-box-cause">{{i18n('inboxEmtpy')}}</p>
+    </div>
+     -->
+
+    <!-- SCENARIO 2: With a Message -->
+    <a href="#" class="list-group-item">
+        <div class="media">
+            <div class="media-left">
+                <span class="media-object icon icon-messages"></span>
+            </div>
+            <div class="media-body">
+                <div class="notification-time">10:35 am</div>
+                <h4 class="media-heading">Notice of Special Meeting and Proxy Statement</h4>
+                <div class="media-description">Imperial Brands, Series 1</div>
+            </div>
+        </div>
+    </a>
+
+    <!-- SCENARIO 3: With a Poll -->
+    <a href="#" class="list-group-item">
+        <div class="media">
+            <div class="media-left">
+                <span class="media-object icon icon-polls"></span>
+            </div>
+            <div class="media-body">
+                <div class="notification-time">6:30 pm</div>
+                <h4 class="media-heading">Who do you want to vote as the new auditor</h4>
+                <div class="media-description">Imperial Brands, Series 1</div>
+            </div>
+        </div>
+    </a>
+
+    <!-- SCENARIO 4: Read Polls and Mesages-->
+    <a href="#" class="list-group-item read">
+        <div class="media">
+            <div class="media-left">
+                <span class="media-object icon icon-messages"></span>
+            </div>
+            <div class="media-body">
+                <div class="notification-time">10:35 am</div>
+                <h4 class="media-heading">Annual Meeting</h4>
+                <div class="media-description">Imperial Brands, Series 1</div>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="list-group-item read">
+        <div class="media">
+            <div class="media-left">
+                <span class="media-object icon icon-messages"></span>
+            </div>
+            <div class="media-body">
+                <div class="notification-time">10:35 am</div>
+                <h4 class="media-heading">Annual Meeting</h4>
+                <div class="media-description">Imperial Brands, Series 1</div>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="list-group-item read">
+        <div class="media">
+            <div class="media-left">
+                <span class="media-object icon icon-messages"></span>
+            </div>
+            <div class="media-body">
+                <div class="notification-time">10:35 am</div>
+                <h4 class="media-heading">Annual Meeting</h4>
+                <div class="media-description">Imperial Brands, Series 1</div>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="list-group-item read">
+        <div class="media">
+            <div class="media-left">
+                <span class="media-object icon icon-messages"></span>
+            </div>
+            <div class="media-body">
+                <div class="notification-time">10:35 am</div>
+                <h4 class="media-heading">Annual Meeting</h4>
+                <div class="media-description">Imperial Brands, Series 1</div>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="list-group-item read">
+        <div class="media">
+            <div class="media-left">
+                <span class="media-object icon icon-polls"></span>
+            </div>
+            <div class="media-body">
+                <div class="notification-time">10:35 am</div>
+                <h4 class="media-heading">Lorem Ipsum</h4>
+                <div class="media-description">Imperial Brands, Series 1</div>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="list-group-item read">
+        <div class="media">
+            <div class="media-left">
+                <span class="media-object icon icon-polls"></span>
+            </div>
+            <div class="media-body">
+                <div class="notification-time">10:35 am</div>
+                <h4 class="media-heading">Lorem Ipsum</h4>
+                <div class="media-description">Imperial Brands, Series 1</div>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="list-group-item read">
+        <div class="media">
+            <div class="media-left">
+                <span class="media-object icon icon-messages"></span>
+            </div>
+            <div class="media-body">
+                <div class="notification-time">10:35 am</div>
+                <h4 class="media-heading">Annual Meeting</h4>
+                <div class="media-description">Imperial Brands, Series 1</div>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="list-group-item read">
+        <div class="media">
+            <div class="media-left">
+                <span class="media-object icon icon-messages"></span>
+            </div>
+            <div class="media-body">
+                <div class="notification-time">10:35 am</div>
+                <h4 class="media-heading">Annual Meeting</h4>
+                <div class="media-description">Imperial Brands, Series 1</div>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="list-group-item read">
+        <div class="media">
+            <div class="media-left">
+                <span class="media-object icon icon-messages"></span>
+            </div>
+            <div class="media-body">
+                <div class="notification-time">10:35 am</div>
+                <h4 class="media-heading">Annual Meeting</h4>
+                <div class="media-description">Imperial Brands, Series 1</div>
+            </div>
+        </div>
+    </a>
+
+</div>

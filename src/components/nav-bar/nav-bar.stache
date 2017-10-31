@@ -3,6 +3,7 @@
 <can-import from="~/components/nav-bar/search-form.component" />
 <can-import from="~/components/notifications/notifications-list/" />
 <can-import from="~/components/notifications/notification-counter/notification-counter.component" />
+<can-import from="~/components/inbox/inbox-list/" />
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/styles/custom/animate.less" />
 
@@ -16,6 +17,30 @@
         </li>
 
         {{#if isLoggedIn}}
+        <li class="dropdown">
+          <a href="#"
+              class="dropdown-toggle icon icon-drawer2"
+              data-toggle="dropdown"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false">
+            <span class="sr-only">{{i18n('inbox')}}</span>
+            
+            <notification-counter {count}="notifications.length" />
+          </a>
+          <div class="dropdown-menu popover popover--inbox bottom notifications-popover animated fadeIn">
+            <span class="arrow"></span>
+            <div class="popover-title">
+              {{i18n('inbox')}}
+              <span class="icon icon-cross pull-right"></span>
+            </div>
+
+            <div class="popover-body">
+              <inbox-list />
+            </div>
+          </div>
+        </li>
+
         <li class="dropdown">
           <a href="#"
               class="dropdown-toggle icon icon-bell"

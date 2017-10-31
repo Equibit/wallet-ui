@@ -1,6 +1,7 @@
 @import '../../../styles/bootstrap-custom/_variables.less';
 
-notifications-list {
+notifications-list,
+inbox-list {
 	display: block;
 
   .list-group-item {
@@ -18,34 +19,16 @@ notifications-list {
       }
       .icon {
         background-color: transparent;
-        &.icon-buy-open,
-        &.icon-sell-open {
-          color: @brand-info;
-        }
-        &.icon-buy-progress,
-        &.icon-buy-progress {
-          color: @brand-progress;
-        }
-        &.icon-cancelled {
-          color: @brand-danger;
-        }
-        &.icon-rejected {
-          color: @gray-light;
-        }
-        &.icon-done,
-				&.icon-passport-notification {
-          color: @brand-success;
-        }
-				&.icon-notification-generic {
-					color: @brand-primary;
-        }
-        &.icon-notification-passport {
-          color: @brand-success;
-        }
+        border-color: @gray-lighter;
+        color: @gray-light;
+        
       }
     }
     &.no-link {
       cursor: default;
+    }
+    &:last-of-type {
+      border-bottom: none;
     }
   }
   .notification-time {
