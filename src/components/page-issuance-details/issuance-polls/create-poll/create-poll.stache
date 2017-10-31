@@ -1,0 +1,101 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/components/common/bootstrap-datepicker/" />
+
+<bootstrap-modal-content>
+    <div class="modal-header">
+        <button ($click)="close()" type="button" class="close" aria-label="Close">
+            <span class="icon icon-cross rotate-90"></span>
+        </button>
+        <h3 class="modal-title">
+            <span class="icon icon-stats-bars"></span>
+            {{i18n('pollsCreateAPoll')}}
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="well well--header">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="messageTo">{{i18n('to')}}</label>
+                    <input type="text" class="form-control" id="messageTo" value="{{i18n('currentShareholders')}} (123)">
+                </div>
+            </div>
+        </div>
+        <div class="well well--header">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="messageFrom">{{i18n('From')}}</label>
+                    <input type="text" class="form-control" id="messageFrom" value="Imperial Brands, Series 1">
+                </div>
+            </div>
+        </div> 
+        
+        <div class="well well--header">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="messageSubject">{{i18n('subject')}}</label>
+                    <input type="text" class="form-control" id="messageTo">
+                </div>
+            </div>
+        </div>
+            
+        <div class="well well--content">
+            <textarea class="form-control" placeholder="Ask a question..."></textarea>
+        </div>
+        <div class="well well--content options-container">
+            <div class="option-item">
+                <div class="radio"><input type="radio" name="pollOptions" value="Option1" disabled></div>
+                <input type="text" class="form-control" placeholder="Option 1">
+            </div>
+            <div class="option-item">
+                <div class="radio"><input type="radio" name="pollOptions" value="Option2" disabled></div>
+                <input type="text" class="form-control" placeholder="Option 2">
+            </div>
+            <div class="option-item">
+                <div class="radio"><input type="radio" name="pollOptions" value="Option3" disabled></div>
+                <input type="text" class="form-control" placeholder="Option 3">
+                <button type="button" aria-label="Close" class="btn btn-link">
+                    <span class="icon icon-cross"></span>
+                </button>
+            </div>
+            <button class="btn btn-link">+ Add an Option</button>
+            
+        </div>
+         <div class="well well--footer">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 no-padding-left">
+                    <div class="form-group poll-preset-date">
+                        <label>Poll Lenght</label>
+                        <div class="btn-group">
+                        <a href="#" class="btn btn-default btn-sm">1</a>
+                        <a href="#" class="btn btn-default btn-sm">7</a>
+                        <a href="#" class="btn btn-default btn-sm">14</a>
+                        </div>
+                        <label>{{i18n('days')}}</label>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 no-padding date-picker-container">
+                    <label>{{i18n('or')}}</label> 
+                    <bootstrap-datepicker options:from="datepickerOptions"></bootstrap-datepicker>
+                </div>
+            
+          </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-xs-6 no-padding-left display-row">
+                <button type="button" class="btn btn-primary">{{i18n('send')}}</button>
+            </div>
+            <div class="col-xs-6 no-padding-right display-row delete-button-container">
+                <button on:click="showModal()" type="button" class="btn btn-delete" data-dismiss="modal">
+                    <span class="icon icon-bin"></span>
+                    {{i18n('delete')}}
+                </button>
+            </div>
+        </div>
+    </div>
+</bootstrap-modal-content>
