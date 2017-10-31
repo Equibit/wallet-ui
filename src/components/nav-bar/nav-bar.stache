@@ -32,6 +32,7 @@
             <span class="arrow"></span>
             <div class="popover-title">
               {{i18n('inbox')}}
+              <a href="" class="btn-view-all pull-right">View All</a>
               <span class="icon icon-cross pull-right"></span>
             </div>
 
