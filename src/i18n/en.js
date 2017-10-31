@@ -25,7 +25,7 @@ export default {
   acceptedOnIssuances: 'Accepted on Issuances',
   done: 'Done',
   back: 'Back',
-  backToSent:  'Back to Sent',
+  backToSent: 'Back to Sent',
   cancel: 'Cancel',
   cancelNo: 'Yes, Cancel',
   cancelYes: 'No, Don\'t Cancel',
