@@ -7,7 +7,7 @@
 
 <h2 class="subtitle">{{i18n('orderBook')}}</h2>
 
-<div class="well">
+<div class="well well--content">
   <div class="row">
     <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
       <h3 class="subheading">{{i18n('sellOrders')}}</h3>
