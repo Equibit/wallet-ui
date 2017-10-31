@@ -1,12 +1,12 @@
  <div class="well well--header">
     <div class="well-nav">
-        <a class="btn-back">← Back to Sent</a>
+        <a class="btn-back">← {{i18n('backToSent')}}</a>
         <div class="vertical-divider"></div>
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-default btn-xs">&laquo;</button>
             <button type="button" class="btn btn-default btn-xs" >&raquo;</button>
         </div>
-        <span class="messages-sent-on">Sent on 12/8/2017 @10:30 PM</span>
+        <span class="messages-sent-on">{{i18n('sentOn')}} 12/8/2017 @10:30 PM</span>
         <div class="vertical-divider hidden-xs"></div>
         <a href="" class="btn btn-link btn-sm btn-delete-item"><span class="icon icon-bin"></span> {{i18n('delete')}}</a>
     </div>
@@ -14,8 +14,8 @@
 <div class="well well--content">
     <div class="row message-metadata">
         <div class="col-xs-12 col-md-3 no-padding-left message-metadata-section">
-            <label>To</label>
-            <a href="#">123 Shareholders</a>
+            <label>{{i18n('to')}}</label>
+            <a href="#">123 {{i18n('shareholders')}}</a>
         </div>
         <div class="col-xs-12 col-md-8 message-metadata-section">
             <label>Subject</label>
