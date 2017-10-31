@@ -207,6 +207,14 @@ nav-bar {
         &.popover--inbox {
           max-width: 450px;
           width: 450px;
+          &.bottom {
+            @media (max-width: 710px) and (min-width: @screen-xs) {
+              right: -185px;
+              > .arrow {
+                right: 200px;
+              }
+            }
+          }
         }
         &.bottom {
           margin-top: 60px;
@@ -263,7 +271,8 @@ nav-bar {
         .arrow {
           display: none;
         }
-        &.popover {
+        &.popover,
+        &.popover.popover--inbox {
           max-width: 100vw;
           width: 100vw;
           &.bottom {
