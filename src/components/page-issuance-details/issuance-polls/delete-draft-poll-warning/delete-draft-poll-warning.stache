@@ -1,0 +1,21 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal/modal.less" />
+
+<bootstrap-modal-content>
+    <div class="modal-header">
+        <button ($click)="close()" type="button" class="close" aria-label="Close">
+            <span class="icon icon-cross rotate-90"></span>
+        </button>
+        <h3 class="modal-title">{{i18n('deleteDraft')}}</h3>
+    </div>
+
+    <div class="modal-body">
+        <h4 class="heading-warning"><span class="icon icon-warning"></span> {{i18n('warning')}}!</h4>
+        <p>{{i18n('canNotUndoActionMessage')}}</p>
+    </div>
+
+    <div class="modal-footer">
+        <button ($click)="next()" type="button" class="btn btn-primary">{{i18n('deleteYes')}}</button>
+        <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('deleteNo')}}</button>
+    </div>
+</bootstrap-modal-content>

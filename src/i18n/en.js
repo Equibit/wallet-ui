@@ -12,6 +12,8 @@ export default {
   // welcomeMsg: 'Welcome to Equibit! Your account was created successfully!',
   // passwordResetMsg: 'Your password was changed successfully',
   passwordResetMsg: '',
+  pollsErrorContentMissing: '<strong>Content is missing.</strong> Please add content for your poll.',
+  pollsErrorSubjectMissing: '<strong>Subject is missing.</strong> Please add a subject for your poll.',
 
   // Buttons:
   addBuyOrder: '+ Add Buy Order',
@@ -23,6 +25,7 @@ export default {
   acceptedOnIssuances: 'Accepted on Issuances',
   done: 'Done',
   back: 'Back',
+  backToSent: 'Back to Sent',
   cancel: 'Cancel',
   cancelNo: 'Yes, Cancel',
   cancelYes: 'No, Don\'t Cancel',
@@ -339,6 +342,7 @@ export default {
   privacyPolicyContactMessage: 'If there are any questions regarding this privacy policy you may contact us using the following e-mail address:',
   privacyPolicyRevised: 'This policy was last modified on: Wednesday, July 1, 2015.',
   profitandLoss: 'P&L',
+  poll: 'Poll',
   polls: 'Polls',
   pollsCreateAPoll: 'Create a Poll',
   pollsPlaceholderTitle: 'Poll Your Shareholders',
@@ -380,6 +384,7 @@ export default {
   restrictionLevel2Description: 'Equibit can be transferred to an address that is one degree of trust separation from the issuer.',
   restrictionLevel3Name: 'Level 3',
   restrictionLevel3Description: 'No exceptions. Equibit can only be returned to the issuer.',
+  results: 'Results',
 
   shareholders: 'Shareholders',
   state: 'State / Province / Region',
@@ -390,6 +395,7 @@ export default {
   sendModalDescription: 'Send securities or funds from your account.',
   sendAll: 'Send All',
   sendAllFunds: 'Send All Funds',
+  sentOn: 'Sent On',
   sell: 'Sell',
   sellOffer: 'Sell Offer',
   sellOffers: 'Sell Offers',

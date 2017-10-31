@@ -7,6 +7,7 @@
 <can-import from="~/components/page-issuance-details/order-book/" />
 <can-import from="~/components/page-issuance-details/related-companies/" />
 <can-import from="~/components/page-issuance-details/issuance-messages/" />
+<can-import from="~/components/page-issuance-details/issuance-polls/" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -103,6 +104,12 @@
             {{#is modeContent 'messages'}}
               <issuance-messages></issuance-messages>
             {{/is}}
+
+            {{#is modeContent 'polls'}}
+              <issuance-polls></issuance-polls>
+            {{/is}}
+
+            
 
           </div>
         </div>
