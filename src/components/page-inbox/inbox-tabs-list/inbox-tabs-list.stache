@@ -1,0 +1,115 @@
+<can-import from="~/utils/stache-helpers/" />
+
+<drag-panel class="panel panel-default card card-full">
+  <div class="panel-heading"><h3 class="panel-title">{{i18n('inbox')}}</h3></div>
+ 
+    <div class="panel-body">
+        <ul class="nav nav-pills list-tabs">
+            <li role="presentation" class="active">
+                <a href="#" >
+                    <span class="icon icon-plane"></span>
+                    {{i18n('messages')}}
+                </a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#" >
+                    <span class="icon icon-stats-bars"></span>
+                    {{i18n('polls')}}
+                </a>
+            </li>
+        </ul>
+
+        <!-- SCENARIO 1: No Messages
+        <div class="message-box no-border message-placeholder">
+            <div class="icon icon-plane"></div>
+            <p class="message-box-cause">{{i18n('inboxNoMessages')}}</p>
+        </div>
+        -->
+
+        <!-- SCENARIO 2: With Passports (RECEIVED) -->
+        <div class="list-group list-group-simple">
+            <a href="#" class="list-group-item active">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 no-padding">
+                        <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 no-padding">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 no-padding">
+                        <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 no-padding">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 no-padding">
+                        <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 no-padding">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item read">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 no-padding">
+                        <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 no-padding">
+                        <div class="list-time-stamp">10/17/2017</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item read">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 no-padding">
+                        <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 no-padding">
+                        <div class="list-time-stamp">10/17/2017</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item read">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10 no-padding">
+                        <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 no-padding">
+                        <div class="list-time-stamp">10/17/2017</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+    </div>
+
+    <div class="panel-footer">
+        <div class="btn-group pagination" role="group" aria-label="pagination">
+            <button type="button" class="btn btn-default btn-xs disabled">&laquo;</button>
+            <button type="button" class="btn btn-default btn-xs active" >1</button>
+            <button type="button" class="btn btn-default btn-xs" >2</button>
+            <button type="button" class="btn btn-default btn-xs" >3</button>
+            <button type="button" class="btn btn-default btn-xs" >&raquo;</button>
+        </div>
+    </div>
+</drag-panel>
