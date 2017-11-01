@@ -12,6 +12,8 @@ export default {
   // welcomeMsg: 'Welcome to Equibit! Your account was created successfully!',
   // passwordResetMsg: 'Your password was changed successfully',
   passwordResetMsg: '',
+  pleaseSelectAnOption: 'Please select option',
+  pollHasEnded: 'This poll has ended. View the results below',
   pollsErrorContentMissing: '<strong>Content is missing.</strong> Please add content for your poll.',
   pollsErrorSubjectMissing: '<strong>Subject is missing.</strong> Please add a subject for your poll.',
 
@@ -228,6 +230,7 @@ export default {
   helpTransactionFeeBitcoin: 'Required by Bitcoin miners.',
   helpTransactionFeeEquibit: 'Required by Equibit miners.',
   history: 'History',
+  hours: 'Hours',
 
   inbox: 'Inbox',
   inboxEmtpy: 'Your Inbox is Empty',
@@ -356,8 +359,10 @@ export default {
   poll: 'Poll',
   polls: 'Polls',
   pollsCreateAPoll: 'Create a Poll',
+  pollsEndedOn: 'Poll Ended On',
   pollsPlaceholderTitle: 'Poll Your Shareholders',
   pollsPlaceholderMessage: 'Send polls to current shareholders',
+  pollsResponseSubmitted: 'Your response has been submitted',
   portfolioSummary: 'Portfolio Summary',
 
   quantity: 'Quantity',

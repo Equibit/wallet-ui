@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<script>window.useXhrTransport = true</script>
+<style>body { padding: 20px }</style>
+<div id="demo"></div>
+
+<script type="text/stache" id="demo-html">
+  <can-import from="~/styles/styles.less" />
+  <can-import from="wallet-ui/components/page-issuance-details/issuance-polls/poll-results/" />
+  <poll-results></poll-results>
+</script>
+
+<script src="../../../../../node_modules/steal/steal.js"
+        main="@empty">
+
+  import $ from 'jquery'
+  import stache from 'can-stache'
+  import reload from 'live-reload'
+  import DefineMap from 'can-define/map/map'
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
+
+  const vm = new DefineMap({
+    // view model props here
+  })
+  window.vm = vm
+
+  // Enable live-reload:
+  stache.async($('#demo-html').html()).then(template => {
+    let render = () => $('#demo').html(template(vm))
+    render()
+    reload(render)
+  })
+</script>
