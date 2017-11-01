@@ -65,10 +65,10 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
    */
   get marketWidth () {
     // Accumulative quantity value per row:
-    const hasLeftOffset = this.type === 'SELL';
-    let quantityTab = 0;
+    const hasLeftOffset = this.type === 'SELL'
+    let quantityTab = 0
     if (!this.rows) {
-      return [];
+      return []
     }
     return this.rows.map(row => {
       quantityTab += row.quantity
