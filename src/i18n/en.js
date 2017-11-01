@@ -18,7 +18,7 @@ export default {
   pollsErrorIncorrectProxyAddress: 'Please enter a valid proxy address',
   pollsErrorMessageMissing: 'Please enter a message for your proxy',
   pollsErrorSubjectMissing: '<strong>Subject is missing.</strong> Please add a subject for your poll.',
-  
+
   // Buttons:
   addBuyOrder: '+ Add Buy Order',
   addNew: 'Add New',
