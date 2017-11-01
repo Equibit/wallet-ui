@@ -23,6 +23,7 @@ import Session from '../../../models/session'
 import hub from '../../../utils/event-hub'
 import { translate } from '~/i18n/'
 import BitMessage from '../../../models/bit-message'
+import typeforce from 'typeforce'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
@@ -85,17 +86,18 @@ export const ViewModel = DefineMap.extend({
       issuanceName: this.issuance.issuanceName,
       issuanceType: this.issuance.issuanceType
     })
-    order.save(() => {
-      hub.dispatch({
-        'type': 'alert',
-        'kind': 'success',
-        'title': translate('orderWasCreated'),
-        'displayInterval': 5000
+    return this.sendMessage(order)
+      .then(() => order.save())
+      .then(() => {
+        hub.dispatch({
+          'type': 'alert',
+          'kind': 'success',
+          'title': translate('orderWasCreated'),
+          'displayInterval': 5000
+        })
+        // TODO: Refresh Market Depth background. See https://github.com/Equibit/wallet-ui/issues/486
+        return order
       })
-      // this.sendMessage(order)
-      // TODO: Refresh Market Depth background. See https://github.com/Equibit/wallet-ui/issues/486
-    })
-    return order
   },
   placeOffer (args) {
     const formData = args[1]
@@ -125,9 +127,10 @@ export const ViewModel = DefineMap.extend({
     })
     return offer
   },
-  sendMessage (order) {
-    const bitMessage = BitMessage.createFrom(order)
-    bitMessage.send().then(res => {
+  sendMessage (order, keyPair) {
+    // typeforce()
+    const bitMessage = BitMessage.createFromOrder(order)
+    return bitMessage.send().then(res => {
       console.log(`Message was sent!`, res)
     }).catch(err => {
       console.log(`Message was NOT sent :(`, err)

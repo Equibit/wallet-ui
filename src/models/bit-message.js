@@ -1,4 +1,15 @@
-/*
+/**
+ * BitMessage is a part of the Equibit Core node. There are different types of messages UI should send to BitMessage:
+ * - Private (Encrypted 1-to-1)
+ * - Multicast (Encrypted group)
+ * - Broadcast (Unencrypted):
+ *    - Order Book Bid/Ask (by Trader)
+ *    - Order Book Cancel (by Trader)
+ *    - Accept Passport (by Issuer)
+ *    - Cancel Passport (by Issuer)
+ *
+ * Example of creating a pubic Order Book message:
+ * ```
  * const { messagePow } = require('../dist/wallet-message')
  * const fixtureNode = require('../test/fixtures/hdnode.build')
  * const keyPair = fixtureNode.keyPair
@@ -14,6 +25,7 @@
  *
  * const message = messagePow(messageData, keyPair, 4)
  * console.log(`message = ${message.toString('hex')}`, messageData)
+ * ```
  */
 
 import DefineMap from 'can-define/map/map'
@@ -24,13 +36,13 @@ import { walletMessage } from '@equibit/wallet-crypto/dist/wallet-crypto'
 // feathersClient.service('/bit-message')
 
 const BitMessage = DefineMap.extend('BitMessage', {
-  createFrom (item, keyPair, publicKey) {
+  createFromOrder (order, keyPair, publicKey) {
     const time = '' + Date.now()
     return new BitMessage({
-      type: item.type === 'SELL' ? 'Ask' : 'Bid',
+      type: order.type === 'SELL' ? 'Ask' : 'Bid',
       timestamp: Number(time.slice(0, -3)),
       timestamp_nanoseconds: Number(time.slice(0, -3)) * 1000,
-      payload: JSON.stringify(item.getMessagePayload()),
+      payload: JSON.stringify(order.getMessagePayload()),
       sender_public_key: publicKey,
       keyPair
     })
