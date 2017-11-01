@@ -15,6 +15,8 @@ export default {
   pleaseSelectAnOption: 'Please select option',
   pollHasEnded: 'This poll has ended. View the results below',
   pollsErrorContentMissing: '<strong>Content is missing.</strong> Please add content for your poll.',
+  pollsErrorIncorrectProxyAddress: 'Please enter a valid proxy address',
+  pollsErrorMessageMissing: 'Please enter a message for your proxy',
   pollsErrorSubjectMissing: '<strong>Subject is missing.</strong> Please add a subject for your poll.',
 
   // Buttons:
@@ -78,13 +80,15 @@ export default {
   acceptPassports: 'Accept Passports',
   acceptedOffers: 'Accepted Offers',
   acceptedDate: 'Accepted Date',
-  additionalDetails: 'Additional Details',
+  addMessage: 'Add a message',
   addExpirationDate: 'Add Expiration Date',
+  additionalDetails: 'Additional Details',
   addressEQB: 'Address EQB',
   addressBTC: 'Address BTC',
   amount: 'Amount',
   archived: 'Archived',
   ask: 'Ask',
+  askQuestion: 'Ask a question',
   askPrice: 'Ask Price',
   auth2StepDescription: 'Please autenticate to continue.',
   auth2StepMessage: 'Enter the verification code we just sent to your email. <br /> Didn\'t receive it?',
@@ -218,7 +222,9 @@ export default {
   expiresOn: 'Expires On',
 
   fillKill: 'Fill or Kill',
+  forwardDetails: 'Forward Details',
   forwardProxy: 'Forward to a Proxy',
+  fwd: 'Fwd',
   from: 'From',
   funds: 'Funds',
   fundsSent: 'Funds sent',
@@ -360,8 +366,11 @@ export default {
   polls: 'Polls',
   pollsCreateAPoll: 'Create a Poll',
   pollsEndedOn: 'Poll Ended On',
+  pollsForward: 'Forward Poll',
+  pollsForwardedToProxy: 'Poll forwarded to proxy.',
   pollsPlaceholderTitle: 'Poll Your Shareholders',
   pollsPlaceholderMessage: 'Send polls to current shareholders',
+  pollsEnterProxyAddress: 'Enter Proxy Address',
   pollsResponseSubmitted: 'Your response has been submitted',
   portfolioSummary: 'Portfolio Summary',
 
@@ -530,6 +539,7 @@ export default {
   website: 'Website',
 
   years: 'Years',
+  you: 'You',
 
   zipcode: 'Zip Code / Postal Code'
 }

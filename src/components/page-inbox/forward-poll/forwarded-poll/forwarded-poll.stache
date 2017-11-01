@@ -1,0 +1,22 @@
+<div class="foward-poll-content">
+    <span class="forward-poll-indicator font-numeric">{{i18n('pollsForward')}}</span>
+    <div class="radio">
+        <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" disabled>
+            Bert Reeves
+            </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" disabled>
+            Annie Potter
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+            Hope Conner
+        </label>
+    </div>
+    <button class="btn btn-success disabled">{{i18n('submit')}}</button> 
+</div>
