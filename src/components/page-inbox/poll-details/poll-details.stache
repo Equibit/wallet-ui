@@ -1,0 +1,71 @@
+<drag-panel class="page-panel panel panel-default card card-full">
+
+    <!-- SCENARIO 1: No Polls 
+    <div class="panel-body align-center">
+        <div class="message-box no-border">
+            <div class="message-box-status">{{i18n('polls')}}</div>
+            <p class="message-box-cause">{{i18n('inboxPollsPlaceholder')}}</p>
+        </div>
+    </div>
+    -->
+    
+
+    <!-- SCENARIO 2: With Polls -->
+    <nav class="navbar toolbar">
+        <div class="row">
+            <p class="navbar-text">Who do you want to vote as the new auditor?</p>
+            <ul class="nav navbar-nav navbar-right toolbar-actions">
+                <li><a href=""><span class="icon icon-bin"></span> {{i18n('delete')}}</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="panel-body">
+        <div class="row message-row">
+            <div class="col-xs-12 message-wrapper">
+                <div class="well well--header message-metadata">
+                    <dl class="dl-horizontal dl-stripped responsive no-top-border no-bottom-border">
+                        <dt>{{i18n('from')}}</dt>
+                        <dd><a href="#">Imperial Brands, Series 1</a></dd>
+
+                        <dt>{{i18n('sentOn')}}</dt>
+                        <dd>12/08/2017 @10:30 PM</dd>
+                    </dl>
+                </div>
+
+                <div class="well well--content poll-content">
+                    <p>We are going to appoint a new auditor. Please cast your vote below.</p>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                            Bert Reeves
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                            Annie Potter
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                            Hope Conner
+                        </label>
+                    </div>
+                    <div class="row poll-cta">
+                        <button class="btn btn-success">{{i18n('submit')}}</button> 
+                        <span class="or">{{i18n('or')}}</span> 
+                        <button class="btn btn-sm btn-link">{{i18n('forwardProxy')}}</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+    
+
+</drag-panel>
