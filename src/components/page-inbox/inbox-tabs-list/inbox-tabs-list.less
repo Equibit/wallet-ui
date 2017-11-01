@@ -1,0 +1,23 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+inbox-tabs-list {
+	display: block;
+	.list-tabs li {
+		width: 50%;
+	}
+	.pagination {
+		margin: 0;
+	}
+	.list-time-stamp {
+		text-align: right;
+		font-size: @font-size-xsmall;
+	}
+	.list-group-item {
+		&.read {
+			background: @gray-lightest;
+			.list-group-item-heading {
+				color: @gray;
+			}
+		}
+	}
+}

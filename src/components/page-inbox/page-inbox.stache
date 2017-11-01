@@ -1,0 +1,14 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-inbox/inbox-tabs-list/" />
+<can-import from="~/components/page-inbox/message-details/" />
+
+
+<div class="row">
+  <div class="col-xs-12 col-md-5 col-lg-4">
+    <inbox-tabs-list></inbox-tabs-list>
+  </div>
+
+  <div class="col-xs-12 col-md-7 col-lg-8">
+    <message-details></message-details>
+  </div>
+</div>
