@@ -222,6 +222,7 @@ export default {
   expiresOn: 'Expires On',
 
   fillKill: 'Fill or Kill',
+  forwardDetails: 'Forward Details',
   forwardProxy: 'Forward to a Proxy',
   fwd: 'Fwd',
   from: 'From',
@@ -366,6 +367,7 @@ export default {
   pollsCreateAPoll: 'Create a Poll',
   pollsEndedOn: 'Poll Ended On',
   pollsForward: 'Forward Poll',
+  pollsForwardedToProxy: 'Poll forwarded to proxy.',
   pollsPlaceholderTitle: 'Poll Your Shareholders',
   pollsPlaceholderMessage: 'Send polls to current shareholders',
   pollsEnterProxyAddress: 'Enter Proxy Address',
@@ -537,6 +539,7 @@ export default {
   website: 'Website',
 
   years: 'Years',
+  you: 'You',
 
   zipcode: 'Zip Code / Postal Code'
 }

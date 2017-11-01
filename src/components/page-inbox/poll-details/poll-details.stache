@@ -1,4 +1,5 @@
 <can-import from="~/components/page-issuance-details/issuance-polls/poll-results/" />
+<can-import from="~/components/page-inbox/forward-poll/forwarded-poll/" />
 
 <drag-panel class="page-panel panel panel-default card card-full">
 
@@ -77,13 +78,37 @@
                     <poll-results></poll-results>
                     -->
 
-                    <!-- SCENARIO 6: Poll Has Ended-->
+                    <!-- SCENARIO 6: Poll Has Ended
                     <div class="alert alert-info" role="alert">
                         {{i18n('pollHasEnded')}}
                     </div>
                     <poll-results></poll-results>
-                    
+                    -->
 
+                    <!-- SCENARIO 7: Poll Forwarded -->
+                    <div class="alert alert-success" role="alert">
+                        {{i18n('pollsForwardedToProxy')}}
+                    </div>
+                    <h3 class="subtitle">{{i18n('forwardDetails')}}</h3>
+                    <div class="well well-header">
+                        <dl class="dl-horizontal dl-stripped responsive no-top-border">
+                            <dt>{{i18n('from')}}</dt>
+                            <dd>{{i18n('you')}} (1DQB5byqy9foZWoH4wesqne1sVed6z6hB8)</dd>
+
+                            <dt>{{i18n('subject')}}</dt>
+                            <dd>{{i18n('fwd')}}. Who do you want to vote as the new auditor?</dd>
+
+                            <dt>{{i18n('date')}}</dt>
+                            <dd>12/8/2015 @10:45 PM</dd>
+
+                            <dt>{{i18n('to')}}</dt>
+                            <dd>126VYrnSP7h5jvSfbg9UdeRogZzS5wXxap</dd>
+                        </dl>
+                        Adding you as a proxy for this. Thanks!
+                    </div>
+                    <div class="well well--footer">
+                        <forwarded-poll></forwarded-poll>
+                    </div>
                 </div>
             </div>
         </div>
