@@ -187,6 +187,8 @@ export default {
   dealFlowStep2: 'Exchange Assets',
   dealFlowStep3: 'Close Deal',
   deleteDraft: 'Delete Draft',
+  deleteMessage: 'Delete Message',
+  deletePoll: 'Delete Poll',
   description: 'Description',
   disclaimerPriceData: 'Price and data does not include trades outside of the Equibit network.',
   distributions: 'Distributions',
