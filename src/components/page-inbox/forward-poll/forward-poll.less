@@ -1,0 +1,32 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+forward-poll {
+	display: block;
+
+	bootstrap-modal-content {
+		.modal-header {
+			margin-bottom: @padding-xs-horizontal;
+		}
+	}
+	.well--content {
+		background-color: @active-bg;
+		textarea.form-control {
+			min-height: 120px;
+		}
+	}
+	.well--footer {
+		margin-bottom: @padding-xlarge-vertical;		
+	}
+	.foward-poll-content {
+		border-left: 2px solid @brand-forward;
+		padding-left: 15px;
+		label {
+			font-size: @font-size-base;
+			margin-bottom: @padding-large-vertical;
+		}
+		.forward-poll-indicator {
+			color: @brand-forward;
+			font-size: @font-size-small;
+		}
+	}
+}

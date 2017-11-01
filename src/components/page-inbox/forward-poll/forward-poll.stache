@@ -1,0 +1,78 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/components/common/bootstrap-datepicker/" />
+
+<bootstrap-modal-content>
+    <div class="modal-header">
+        <button ($click)="close()" type="button" class="close" aria-label="Close">
+            <span class="icon icon-cross rotate-90"></span>
+        </button>
+        <h3 class="modal-title">
+            <span class="icon icon-stats-bars"></span>
+            {{i18n('pollsForward')}}
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <!-- <div class="alert alert-danger" role="alert">{{{i18n('messagesErrorSubjectMissing')}}}</div> -->
+        <div class="well well--header well--header-simple-form">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="messageTo">{{i18n('to')}}</label>
+                    <input type="text" class="form-control" id="messageTo" placeholder="{{i18n('pollsEnterProxyAddress')}}">
+                </div>
+            </div>
+        </div>
+        
+        <div class="well well--header well--header-simple-form">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="messageSubject">{{i18n('subject')}}</label>
+                    <input type="text" class="form-control" id="messageTo" value="{{i18n('fwd')}}: Who do you want to vote as the new auditor?">
+                </div>
+            </div>
+        </div>
+            
+        <div class="well well--content">
+            <textarea class="form-control" placeholder="{{i18n('addMessage')}}..."></textarea>
+        </div>
+        <div class="well well--footer">
+            <div class="foward-poll-content">
+                <span class="forward-poll-indicator font-numeric">{{i18n('pollsForward')}}</span>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" disabled>
+                        Bert Reeves
+                        </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" disabled>
+                        Annie Potter
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                        Hope Conner
+                    </label>
+                </div>
+                <button class="btn btn-success">{{i18n('submit')}}</button> 
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-xs-6 no-padding-left display-row">
+                <button type="button" class="btn btn-primary">{{i18n('send')}}</button>
+            </div>
+            <div class="col-xs-6 no-padding-right display-row modal-delete-button">
+                <button on:click="showModal()" type="button" class="btn btn-delete" data-dismiss="modal">
+                    <span class="icon icon-bin"></span>
+                    {{i18n('delete')}}
+                </button>
+            </div>
+        </div>
+    </div>
+</bootstrap-modal-content>

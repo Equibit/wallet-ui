@@ -9,6 +9,34 @@
 .well--header {
   border-bottom: 0;
   margin-bottom: 0 !important;
+  &.well--header-simple-form {
+    padding: @padding-small-vertical @padding-small-horizontal;
+		label {
+			min-width: 50px;
+		}
+		.form-inline {
+			.form-group {
+				width: 100%;
+			}
+			.form-control {
+				border: 0;
+				&:focus,
+				&:active {
+					box-shadow: none;
+				}
+				@media (min-width: @screen-sm) {
+					width: 89%;
+				}
+				@media (max-width: @screen-xs) {
+					width: 100%;
+					padding-left: 0;
+					padding-top: 0;
+					border-bottom: @border-default;
+					border-radius: 0;
+				}
+			}
+		}
+  }
 }
 
 .well--content {
@@ -26,6 +54,9 @@
 
 .well--footer {
   border-top: 0;
+  .row {
+    width: 100%;
+  }
 }
 
 .well-nav {
