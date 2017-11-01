@@ -229,8 +229,9 @@ export default {
 
   inbox: 'Inbox',
   inboxEmtpy: 'Your Inbox is Empty',
-  inboxNoMessages: 'There are no messages',
   inboxMessagesPlaceholder: 'Message sent to you will show here',
+  inboxNoMessages: 'There are no messages',
+  inboxNoPolls: 'There are no polls',
   interest: 'Interest',
   issuance: 'Issuance',
   issuances: 'Issuances',
