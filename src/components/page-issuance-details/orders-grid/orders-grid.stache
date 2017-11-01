@@ -24,7 +24,7 @@
       <table class="table table-condensed grid-body">
         <tbody>
         {{#each ../rows as row}}
-          <tr class="order-row percentage-green percentage-{{../../marketWidth(row.quantity, 'offsetLeft')}}">
+          <tr class="order-row percentage-green percentage-{{../../marketWidth[%index]}}">
             <td class="column-action-buttons">
               <button class="btn btn-default btn-xs" on:click="buySell(../type, row)">{{i18n('buy')}}</button>
             </td>
@@ -58,7 +58,7 @@
       <table class="table table-condensed grid-body">
         <tbody>
         {{#each ../rows as row}}
-          <tr class="order-row percentage-red percentage-{{../../marketWidth(row.quantity)}}">
+          <tr class="order-row percentage-red percentage-{{../../marketWidth[%index]}}">
             <td class="column-price">{{row.price}}</td>
             <td class="column-quantity">{{row.quantity}}</td>
             <td class="column-datetime">{{format-time(row.date)}}</td>
