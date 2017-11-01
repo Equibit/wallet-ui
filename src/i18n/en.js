@@ -15,8 +15,10 @@ export default {
   pleaseSelectAnOption: 'Please select option',
   pollHasEnded: 'This poll has ended. View the results below',
   pollsErrorContentMissing: '<strong>Content is missing.</strong> Please add content for your poll.',
+  pollsErrorIncorrectProxyAddress: 'Please enter a valid proxy address',
+  pollsErrorMessageMissing: 'Please enter a message for your proxy',
   pollsErrorSubjectMissing: '<strong>Subject is missing.</strong> Please add a subject for your poll.',
-
+  
   // Buttons:
   addBuyOrder: '+ Add Buy Order',
   addNew: 'Add New',

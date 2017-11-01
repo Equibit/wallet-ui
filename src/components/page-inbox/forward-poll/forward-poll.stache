@@ -14,7 +14,7 @@
     </div>
 
     <div class="modal-body">
-        <!-- <div class="alert alert-danger" role="alert">{{{i18n('messagesErrorSubjectMissing')}}}</div> -->
+        <div class="alert alert-danger" role="alert">{{{i18n('pollsErrorIncorrectProxyAddress')}}}</div>
         <div class="well well--header well--header-simple-form">
             <div class="form-inline">
                 <div class="form-group">
