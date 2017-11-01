@@ -79,18 +79,16 @@
                     -->
 
                     <!-- SCENARIO 6: Poll Has Ended
-                    <div class="alert alert-info" role="alert">
-                        {{i18n('pollHasEnded')}}
-                    </div>
+                    <div class="alert alert-info" role="alert">{{i18n('pollHasEnded')}}</div>
                     <poll-results></poll-results>
                     -->
 
-                    <!-- SCENARIO 7: Poll Forwarded -->
+                    <!-- SCENARIO 7: Poll Forwarded 
                     <div class="alert alert-success" role="alert">
                         {{i18n('pollsForwardedToProxy')}}
                     </div>
                     <h3 class="subtitle">{{i18n('forwardDetails')}}</h3>
-                    <div class="well well-header">
+                    <div class="well well-header forward-details">
                         <dl class="dl-horizontal dl-stripped responsive no-top-border">
                             <dt>{{i18n('from')}}</dt>
                             <dd>{{i18n('you')}} (1DQB5byqy9foZWoH4wesqne1sVed6z6hB8)</dd>
@@ -104,11 +102,25 @@
                             <dt>{{i18n('to')}}</dt>
                             <dd>126VYrnSP7h5jvSfbg9UdeRogZzS5wXxap</dd>
                         </dl>
-                        Adding you as a proxy for this. Thanks!
+                        
                     </div>
                     <div class="well well--footer">
                         <forwarded-poll></forwarded-poll>
                     </div>
+                    -->
+
+                    <!-- SCENARIO 8: Poll Forwarded Received by Proxy
+                    <div class="alert alert-danger" role="alert">{{i18n('pleaseSelectAnOption')}}</div>
+                    <p>Adding you as a proxy for this. Thanks!</p>
+                    <forwarded-poll></forwarded-poll>
+                    -->
+
+                    <!-- SCENARIO 8: Poll Forwarded Received by Proxy has ended-->
+                    <p>Adding you as a proxy for this. Thanks!</p>
+                    <forwarded-poll></forwarded-poll>
+                    <hr >
+                    <div class="alert alert-info" role="alert">{{i18n('pollHasEnded')}}</div>
+                    <poll-results></poll-results>
                 </div>
             </div>
         </div>
