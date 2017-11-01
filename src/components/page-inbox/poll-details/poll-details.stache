@@ -1,3 +1,5 @@
+<can-import from="~/components/page-issuance-details/issuance-polls/poll-results/" />
+
 <drag-panel class="page-panel panel panel-default card card-full">
 
     <!-- SCENARIO 1: No Polls 
@@ -34,38 +36,57 @@
                 </div>
 
                 <div class="well well--content poll-content">
-                    <p>We are going to appoint a new auditor. Please cast your vote below.</p>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                            Bert Reeves
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                            Annie Potter
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                            Hope Conner
-                        </label>
-                    </div>
-                    <div class="row poll-cta">
-                        <button class="btn btn-success">{{i18n('submit')}}</button> 
-                        <span class="or">{{i18n('or')}}</span> 
-                        <button class="btn btn-sm btn-link">{{i18n('forwardProxy')}}</button>
-                    </div>
                     
+                    <!-- SCENARIO 4: Poll Received 
+                    <div class="poll-details">
+                        <div class="alert alert-danger" role="alert">{{i18n('pleaseSelectAnOption')}}</div>
+
+                        <p>We are going to appoint a new auditor. Please cast your vote below.</p>
+                       
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                Bert Reeves
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                Annie Potter
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                                Hope Conner
+                            </label>
+                        </div>
+                        
+                        <div class="row poll-cta">
+                            <button class="btn btn-success">{{i18n('submit')}}</button> 
+                            <span class="or">{{i18n('or')}}</span> 
+                            <button class="btn btn-sm btn-link">{{i18n('forwardProxy')}}</button>
+                        </div>
+                    </div>
+                    -->
+
+                    <!-- SCENARIO 5: Poll Response Submitted 
+                    <div class="alert alert-success" role="alert">
+                        {{i18n('pollsResponseSubmitted')}}
+                    </div>
+                    <poll-results></poll-results>
+                    -->
+
+                    <!-- SCENARIO 6: Poll Has Ended-->
+                    <div class="alert alert-info" role="alert">
+                        {{i18n('pollHasEnded')}}
+                    </div>
+                    <poll-results></poll-results>
+                    
+
                 </div>
             </div>
         </div>
 
-        
-
     </div>
-    
-
 </drag-panel>

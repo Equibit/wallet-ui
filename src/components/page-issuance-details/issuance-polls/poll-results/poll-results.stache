@@ -1,0 +1,22 @@
+<h3 class="subtitle">{{i18n('results')}}</h3>
+
+<div class="well poll-results">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 poll-breakdown">
+            <!-- Placeholder for the pie chart -->
+        </div>
+        <div class="col-xs-12 col-sm-3 poll-stats">
+            <label>{{i18n('responses')}}</label>
+            <span class="poll-stat">43 of 123</span>
+
+            <!-- If the poll is still going
+            <label>{{i18n('timeLeft')}}</label>
+            <span class="poll-stat">5 {{i18n('hours')}}</span>
+            -->
+
+            <!-- If the poll has ended -->
+            <label>{{i18n('pollsEndedOn')}}</label>
+            <span class="poll-stat">12/09/2017 3:30 PM</span>
+        </div>
+    </div>
+</div>

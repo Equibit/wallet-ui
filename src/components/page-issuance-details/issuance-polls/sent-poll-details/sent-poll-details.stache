@@ -1,4 +1,5 @@
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-issuance-details/issuance-polls/poll-results/" />
 
 <div class="well well--header">
     <div class="well-nav">
@@ -58,20 +59,7 @@
             </div>
         </div>
         
-        <h3 class="subtitle">{{i18n('results')}}</h3>
-        <div class="well poll-results">
-            <div class="row">
-                <div class="col-xs-12 col-sm-9 poll-breakdown">
-                    <!-- Placeholder for the pie chart -->
-                </div>
-                <div class="col-xs-12 col-sm-3 poll-stats">
-                    <label>{{i18n('responses')}}</label>
-                    <span class="poll-stat">43 of 123</span>
-                    <label>{{i18n('timeLeft')}}</label>
-                    <span class="poll-stat">5 hours</span>
-                </div>
-            </div>
-        </div>
+        <poll-results></poll-results>
 
     </div>
 </div>  
