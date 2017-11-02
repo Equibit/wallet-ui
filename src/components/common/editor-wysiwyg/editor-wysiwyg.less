@@ -1,3 +1,19 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
 editor-wysiwyg {
 	display: block;
+	.btn-default {
+		color: @gray-dark;
+		border: none;
+	}
+	.btn-group.open .dropdown-toggle,
+	.btn:active {
+		box-shadow: none;
+	}
+	.dropdown-menu > li > a{
+		color: @gray-dark;
+	}
+	.note-style {
+		border-right: @border-default;
+	}
 }
