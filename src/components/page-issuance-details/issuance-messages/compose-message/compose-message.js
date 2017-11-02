@@ -19,8 +19,22 @@ import './compose-message.less'
 import view from './compose-message.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the compose-message component'
+  config: {
+    type: '*',
+    value () {
+      return {
+        toolbar: [
+          // [groupName, [list of button]]
+          ['font', ['fontname', 'fontsize']],
+          ['fontstyle', ['bold', 'italic', 'underline', 'clear', 'quote']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['height', ['height']],
+          ['insert', ['table', 'link', 'hr']],
+          ['misc', ['undo', 'redo']]
+        ]
+      }
+    }
   }
 })
 
