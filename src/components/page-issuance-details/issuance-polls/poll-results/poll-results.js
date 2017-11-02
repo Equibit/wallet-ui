@@ -20,24 +20,26 @@ import view from './poll-results.stache'
 
 export const ViewModel = DefineMap.extend({
   
-  dataColumns: [
-    ["Ber Reeves", 100],
-    ["Annie Potter", 80],
-    ["Hope Conner", 70]
-  ],
+  dataColumns: {
+    type: '*',
+    value () {
+      return [
+        ["Ber Reeves", 100],
+        ["Annie Potter", 80],
+        ["Hope Conner", 70]
+      ]
+    }
+  },
 
   // Config options can be overriden:
   config: {
     type: '*',
-    set (val) {
-      if (val && val.get) {
-        val = val.get()
-      }
-      return Object.assign({
+    value () {
+      return {
         size: {
           height: 180
         }
-      }, val)
+      }
     }
   }
 

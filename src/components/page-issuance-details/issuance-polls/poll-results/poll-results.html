@@ -8,8 +8,6 @@
   <can-import from="wallet-ui/components/common/pie-chart/" />
   <can-import from="wallet-ui/components/page-issuance-details/issuance-polls/poll-results/" />
   <poll-results></poll-results>
-  <pie-chart config:from="config"
-  dataColumns:from="dataColumns"></pie-chart>
 </script>
 
 <script src="../../../../../node_modules/steal/steal.js"
@@ -24,14 +22,11 @@
 
   const vm = new DefineMap({
     dataColumns: [
-    ["Ber Reeves", 100],
-    ["Annie Potter", 80],
-    ["Hope Conner", 70]
+      ["Ber Reeves", 100],
+      ["Annie Potter", 80],
+      ["Hope Conner", 70]
     ],
     config: {
-      legend: {
-        position: 'right'
-      },
       size: {
           height: 180
       },
