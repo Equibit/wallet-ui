@@ -1,9 +1,14 @@
+<can-import from="~/components/common/pie-chart/" />
+
+
 <h3 class="subtitle">{{i18n('results')}}</h3>
 
 <div class="well poll-results">
     <div class="row">
         <div class="col-xs-12 col-sm-9 poll-breakdown">
-            <!-- Placeholder for the pie chart -->
+            <pie-chart config:from="config" 
+                       dataColumns:from="dataColumns">
+            </pie-chart>
         </div>
         <div class="col-xs-12 col-sm-3 poll-stats">
             <label>{{i18n('responses')}}</label>
