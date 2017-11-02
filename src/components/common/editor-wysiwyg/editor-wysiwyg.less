@@ -1,3 +1,29 @@
-editor-wysiwyg {
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+editor-wysiwyg,
+.popover {
 	display: block;
+	.btn-default {
+		color: @gray-dark;
+		border: none;
+	}
+	.btn-group.open .dropdown-toggle,
+	.btn {
+		border-radius: 0;
+		&:active {
+			box-shadow: none;
+		}
+		&.active {
+			&:hover {
+				background-color: @link-color;
+				color: @white;
+			}
+		}
+	}
+	.dropdown-menu > li > a{
+		color: @gray-dark;
+	}
+	.note-style {
+		border-right: @border-default;
+	}
 }

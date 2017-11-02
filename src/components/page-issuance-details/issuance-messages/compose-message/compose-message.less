@@ -33,10 +33,28 @@ compose-message {
 	}
 	.well--content {
 		margin-bottom: @padding-large-horizontal !important;
-		textarea {
-			display: flex;
-			flex: 1 1 auto;
+		padding: 0;
+	}
+
+	editor-wysiwyg {
+		.note-editor.note-frame {
+			border: none;
 		}
+		.panel {
+			box-shadow: none;
+			margin-bottom: 0;
+		}
+		.note-resizebar {
+			display: none;
+		}
+	}
+
+	editor-wysiwyg,
+	.note-editor.note-frame,
+	.note-editing-area {
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 auto;
 	}
 	
 	bootstrap-modal-content {

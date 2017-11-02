@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <style>
   body { padding: 20px }
-  #demo .modal { display: block; }
-  #demo bootstrap-modal-content { display: block; }
+  #demo .modal.modal-compose { display: block; }
+  #demo .modal.modal-compose bootstrap-modal-content { display: block; }
 </style>
 
 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -13,8 +13,10 @@
 
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
+  <can-import from="bootstrap/dist/js/bootstrap" />
+  <can-import from="wallet-ui/components/common/editor-wysiwyg/" />
   <can-import from="wallet-ui/components/page-issuance-details/issuance-messages/compose-message/" />
-  <div class="modal fade in" tabindex="-1" role="dialog">
+  <div class="modal modal-compose fade in" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <compose-message></compose-message>

@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/components/common/editor-wysiwyg/" />
 
 <bootstrap-modal-content>
     <div class="modal-header">
@@ -13,8 +14,8 @@
  	</div>
 
 	<div class="modal-body">
-        <div class="alert alert-danger" role="alert">{{{i18n('messagesErrorSubjectMissing')}}}</div>
-         <div class="well well--header">
+        <!--<div class="alert alert-danger" role="alert">{{{i18n('messagesErrorSubjectMissing')}}}</div>-->
+        <div class="well well--header">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 form-inline">
                     <div class="form-group">
@@ -32,21 +33,17 @@
         </div>
         <div class="well well--header">
             <div class="row">
-                <div class="col-xs-12 col-sm-6 form-inline">
+                <div class="col-xs-12 form-inline">
                     <div class="form-group">
                         <label for="messageSubject">{{i18n('subject')}}</label>
                         <input type="text" class="form-control" id="messageTo">
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 form-inline">
-                    <!--Editor Placeholder -->
-                </div>
             </div>
         </div>
         <div class="well well--content">
-            <textarea class="form-control"></textarea>
+            <editor-wysiwyg></editor-wysiwyg>
         </div>
-        
     </div>
 
     <div class="modal-footer">
@@ -61,8 +58,5 @@
                 </button>
             </div>
         </div>
-        
-        
     </div>
-
 </bootstrap-modal-content>
