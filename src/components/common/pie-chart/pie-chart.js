@@ -42,7 +42,7 @@ export const ViewModel = DefineMap.extend({
           position: 'right'
         },
         color: {
-          pattern: ['#EC2F39', '#FFBC5E', '#32B576', '#3ED2C8', '#468CD9']
+          pattern: ['#717DD9', '#FFBC5E', '#FF4B55', '#549FFF', '#28B674']
         },
         size: {
           height: 120
