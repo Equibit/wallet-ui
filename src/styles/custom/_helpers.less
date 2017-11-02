@@ -73,6 +73,9 @@
 *
 * ### `.display-row`
 * Elements inmediatly inside of a `.col-*` will be displayed as a column. Use this class to display as a row.
+*
+* ### `.stretch`
+* Apply to any element to make it stretch vertically to the size of it's container.
 **/
 
 .align-center {
@@ -82,6 +85,12 @@
 
 .display-row {
   flex-direction: row;
+}
+
+.stretch {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 

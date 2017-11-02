@@ -8,7 +8,7 @@
   <div class="offer-date">Created on {{offer.dateDisplayFull}}</div>
 </h2>
 
-<div class="well">
+<div class="well stretch">
     <div class="offer-metadata section">
       <dl class="dl-horizontal dl-stripped responsive no-top-border">
         <dt>{{i18n('quantity')}}</dt>
