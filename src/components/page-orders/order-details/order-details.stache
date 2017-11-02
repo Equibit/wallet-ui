@@ -20,11 +20,11 @@
   <div class="panel-body">
     <div class="row order-details-body">
       <div class="col-xs-12 col-lg-8 order-data">
-        <order-data order:from="order" />
+        <order-data order:from="order" class="stretch"/>
       </div>
 
       <div class="col-xs-12 col-lg-4 offers-data">
-        <order-offers-data  order:from="order" />
+        <order-offers-data  order:from="order" class="stretch"/>
       </div>
     </div>
   </div>
@@ -33,15 +33,11 @@
   <!-- No items -->
   {{^if ordersLength}}
   <div class="panel-body align-center">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="message-box no-border">
-          <div class="message-box-status">{{i18n('placeholderNoOrdersTile')}}</div>
-          <p class="message-box-cause">{{i18n('placeholderNoOrdersDescription')}}</p>
-          <a href="/issuances" class="btn btn-primary">{{i18n('placeholderNoOrdersCTA')}}</a>
-        </div>
+    <div class="message-box no-border">
+        <div class="message-box-status">{{i18n('placeholderNoOrdersTile')}}</div>
+        <p class="message-box-cause">{{i18n('placeholderNoOrdersDescription')}}</p>
+        <a href="/issuances" class="btn btn-primary">{{i18n('placeholderNoOrdersCTA')}}</a>
       </div>
-    </div>
   </div>
   {{/if}}
 
