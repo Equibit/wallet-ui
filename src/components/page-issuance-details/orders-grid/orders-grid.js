@@ -19,7 +19,6 @@ import './orders-grid.less'
 import view from './orders-grid.stache'
 import Order from '~/models/order'
 
-// Note: for some reason if `this.accumulativeQuantity` is defined within DefineMap then `marketWidth` makes an infinite loop.
 export const ViewModel = DefineMap.extend({ seal: false }, {
   type: {
     set (val) {
@@ -51,27 +50,31 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   },
   rows: {
     get (val, resolve) {
-      this.accumulativeQuantity = 0
       this.rowsPromise && this.rowsPromise.then(resolve)
     }
   },
   get totalQuantity () {
-    return this.rows.reduce((sum, row) => (sum + row.quantity), 0)
+    return this.rows ? this.rows.reduce((sum, row) => (sum + row.quantity), 0) : 0
   },
 
   /**
    * Market depth chart as a background for order table tows.
-   * @param quantity
-   * @param hasLeftOffset Whether to show bar chart from the right (with left offset).
-   * @returns {number}
+   * @returns {Array<Number>}
    */
-  marketWidth (quantity, hasLeftOffset) {
+  get marketWidth () {
     // Accumulative quantity value per row:
-    this.accumulativeQuantity += quantity
-    const percentageWidth = Math.floor(this.accumulativeQuantity / this.totalQuantity * 100)
-    const percentageOffset = hasLeftOffset === 'offsetLeft' ? 100 - percentageWidth : percentageWidth
-    // console.log(`marketWidth: totalQuantity=${this.totalQuantity}, quantity=${quantity}, accumulativeQuantity=${this.accumulativeQuantity} => ${percentageOffset}`)
-    return percentageOffset >= 100 ? 99 : (percentageOffset === 0 ? 1 : percentageOffset)
+    const hasLeftOffset = this.type === 'SELL'
+    let quantityTab = 0
+    if (!this.rows) {
+      return []
+    }
+    return this.rows.map(row => {
+      quantityTab += row.quantity
+      const percentageWidth = Math.floor(quantityTab / this.totalQuantity * 100)
+      const percentageOffset = hasLeftOffset ? 100 - percentageWidth : percentageWidth
+      // console.log(`marketWidth: totalQuantity=${this.totalQuantity}, quantity=${quantity}, accumulativeQuantity=${this.accumulativeQuantity} => ${percentageOffset}`)
+      return percentageOffset >= 100 ? 99 : (percentageOffset === 0 ? 1 : percentageOffset)
+    })
   },
 
   buySell (type, order) {

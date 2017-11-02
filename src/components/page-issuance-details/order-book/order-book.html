@@ -12,7 +12,7 @@
     <div class="col-xs-12">
       <drag-panel class="panel panel-default card card-full">
         <div class="panel-body">
-          <order-book issuance:from="issuance"></order-book>
+          <order-book issuance:from="issuance" portfolio:from="portfoliosPromise.value"></order-book>
         </div>
       </drag-panel>
     </div>
@@ -23,8 +23,13 @@
   import canViewModel from 'can-view-model'
   import issuance from '~/models/mock/mock-issuance'
   import '~/models/fixtures/orders'
+  import '~/models/fixtures/portfolio'
+  import Portfolio from '~/models/portfolio'
 
   canViewModel(document.getElementById('demo')).set({
-    issuance
+    issuance,
+    get portfoliosPromise () {
+      return Portfolio.findAll({}).then(l => l[0]);
+    }
   })
 </script>
