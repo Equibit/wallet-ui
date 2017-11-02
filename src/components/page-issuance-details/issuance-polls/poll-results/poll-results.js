@@ -19,14 +19,13 @@ import './poll-results.less'
 import view from './poll-results.stache'
 
 export const ViewModel = DefineMap.extend({
-  
   dataColumns: {
     type: '*',
     value () {
       return [
-        ["Bert Reeves", 100],
-        ["Annie Potter", 80],
-        ["Hope Conner", 70]
+        ['Bert Reeves', 100],
+        ['Annie Potter', 80],
+        ['Hope Conner', 70]
       ]
     }
   },
