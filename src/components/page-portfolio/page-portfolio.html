@@ -21,6 +21,7 @@
   import $ from 'jquery';
   import stache from 'can-stache';
   import reload from 'live-reload';
+  import '~/models/mock/mock-session'
 
   stache.async($('#demo-html').html()).then(template => {
     let render = () => $('#demo').html(template({}));
