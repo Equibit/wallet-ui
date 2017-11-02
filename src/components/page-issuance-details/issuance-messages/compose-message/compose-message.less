@@ -2,34 +2,34 @@
 
 compose-message {
 	display: block;
-	.form-control  {
-		border: 0;
-		&:focus,
-		&:active {
-			box-shadow: none;
-		}
-	}
-	.form-inline {
-		.form-group {
-			width: 100%;
-		}
-		.form-control {
-			
-			@media (min-width: @screen-sm) {
-				width: 80%;
-			}
-			@media (max-width: @screen-xs) {
-				width: 100%;
-				padding-left: 0;
-				padding-top: 0;
-				border-bottom: @border-default;
-				border-radius: 0;
-			}
-		}
-	}
 	
 	.well--header {
 		padding: @padding-small-vertical;
+		.form-control  {
+			border: 0;
+			&:focus,
+			&:active {
+				box-shadow: none;
+			}
+		}
+		.form-inline {
+			.form-group {
+				width: 100%;
+			}
+			.form-control {
+				
+				@media (min-width: @screen-sm) {
+					width: 80%;
+				}
+				@media (max-width: @screen-xs) {
+					width: 100%;
+					padding-left: 0;
+					padding-top: 0;
+					border-bottom: @border-default;
+					border-radius: 0;
+				}
+			}
+		}
 	}
 	.well--content {
 		margin-bottom: @padding-large-horizontal !important;
@@ -57,18 +57,21 @@ compose-message {
 		flex: 1 1 auto;
 	}
 	
+	
 	bootstrap-modal-content {
 		.modal-header {
 			margin-bottom: @padding-xs-horizontal;
 		}
 		@media (min-width: @screen-xs-max) {
-			.modal-body {
+			.modal-body.compose-mesage-area {
 				height: calc(~"100vh - "45px) !important;
 				display: flex;
 				flex-direction: column;
 			}
 		}
 	}
+	
+	
 	.modal-footer {
 		.row {
 			width: 100%;

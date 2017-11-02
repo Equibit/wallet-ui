@@ -7,9 +7,12 @@ editor-wysiwyg,
 		color: @gray-dark;
 		border: none;
 	}
-	.btn-group.open .dropdown-toggle,
+	.note-toolbar.panel-heading {
+		.btn {
+			border-radius: 0;
+		}
+	}
 	.btn {
-		border-radius: 0;
 		&:active {
 			box-shadow: none;
 		}
@@ -20,10 +23,14 @@ editor-wysiwyg,
 			}
 		}
 	}
+	.btn-group.open .dropdown-toggle {
+		box-shadow: none;
+	}
 	.dropdown-menu > li > a{
 		color: @gray-dark;
 	}
 	.note-style {
 		border-right: @border-default;
 	}
+
 }

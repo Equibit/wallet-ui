@@ -13,7 +13,7 @@
         </h3>
  	</div>
 
-	<div class="modal-body">
+	<div class="modal-body compose-mesage-area">
         <!--<div class="alert alert-danger" role="alert">{{{i18n('messagesErrorSubjectMissing')}}}</div>-->
         <div class="well well--header">
             <div class="row">
@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="well well--content">
-            <editor-wysiwyg></editor-wysiwyg>
+            <editor-wysiwyg config:from="config" popover:from="popover"></editor-wysiwyg>
         </div>
     </div>
 

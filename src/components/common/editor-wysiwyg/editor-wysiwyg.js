@@ -21,8 +21,11 @@ import $ from 'jquery'
 import 'summernote'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the editor-wysiwyg component'
+  config: {
+    type: '*',
+    value () {
+      return {}
+    }
   }
 })
 
@@ -32,7 +35,8 @@ export default Component.extend({
   view,
   events: {
     inserted (el) {
-      $(el).find('.summernote-container').summernote()
+      console.log('this.viewModel.config', this.viewModel.config)
+      $(el).find('.summernote-container').summernote(this.viewModel.config)
     }
   }
 })
