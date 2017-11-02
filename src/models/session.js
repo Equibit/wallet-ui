@@ -84,6 +84,9 @@ const Session = DefineMap.extend('Session', {
   portfolios: {
     Type: Portfolio.List,
     get (val, resolve) {
+      if (val) {
+        return val
+      }
       console.log('[session.portfolios.get] ...')
       this.portfoliosPromise.then(portfolios => {
         portfolios.forEach(portfolio => {

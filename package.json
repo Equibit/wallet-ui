@@ -144,6 +144,7 @@
     "socket.io-client": "^2.0.4",
     "steal": "^1.5.15",
     "steal-stache": "^3.1.2",
+    "summernote": "^0.8.8",
     "tether": "^1.4.0",
     "zxcvbn": "^4.4.2"
   },
