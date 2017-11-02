@@ -41,12 +41,12 @@ export const ViewModel = DefineMap.extend({
   statusClass: {
     get () {
       const values = {
-        open: 'success',
+        open: 'info',
         progress: 'progress',
         trading: 'progress',
         completed: 'success',
         closed: 'success',
-        cancelled: 'warning',
+        cancelled: 'danger',
         rejected: 'default',
         unknown: 'default'
       }
