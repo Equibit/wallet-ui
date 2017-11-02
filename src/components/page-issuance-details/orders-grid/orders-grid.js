@@ -19,7 +19,6 @@ import './orders-grid.less'
 import view from './orders-grid.stache'
 import Order from '~/models/order'
 
-// Note: for some reason if `this.accumulativeQuantity` is defined within DefineMap then `marketWidth` makes an infinite loop.
 export const ViewModel = DefineMap.extend({ seal: false }, {
   type: {
     set (val) {
@@ -51,7 +50,6 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   },
   rows: {
     get (val, resolve) {
-      this.accumulativeQuantity = 0
       this.rowsPromise && this.rowsPromise.then(resolve)
     }
   },
