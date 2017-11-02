@@ -24,7 +24,7 @@ export const ViewModel = DefineMap.extend({
     type: '*',
     value () {
       return [
-        ["Ber Reeves", 100],
+        ["Bert Reeves", 100],
         ["Annie Potter", 80],
         ["Hope Conner", 70]
       ]
