@@ -1,0 +1,18 @@
+<can-import from="~/utils/stache-helpers/"></can-import>
+<can-import from="bit-c3" />
+
+<h2 class="subtitle">Pie Chart</h2>
+
+<div class="well">
+  <div class="row">
+    {{#if dataColumns}}
+      <bit-c3 {config}="config">
+        <bit-c3-data type="pie">
+          {{#each dataColumns}}
+            <bit-c3-data-column value="{.}" />
+          {{/each}}
+        </bit-c3-data>
+      </bit-c3>
+    {{/if}}
+  </div>
+</div>
