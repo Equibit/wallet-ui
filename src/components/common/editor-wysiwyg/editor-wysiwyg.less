@@ -7,8 +7,17 @@ editor-wysiwyg {
 		border: none;
 	}
 	.btn-group.open .dropdown-toggle,
-	.btn:active {
-		box-shadow: none;
+	.btn {
+		border-radius: 0;
+		&:active {
+			box-shadow: none;
+		}
+		&.active {
+			&:hover {
+				background-color: @link-color;
+				color: @white;
+			}
+		}
 	}
 	.dropdown-menu > li > a{
 		color: @gray-dark;
