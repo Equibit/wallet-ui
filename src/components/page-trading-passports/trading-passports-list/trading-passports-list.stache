@@ -81,7 +81,7 @@
 
     <!-- SCENARIO 4: With Passports (OWNED) -->
     <div class="form-group">
-      <button class="btn btn-primary btn-sm btn-create-passport">+ {{i18n('createPassport')}}t</button>
+      <button class="btn btn-primary btn-sm btn-create-passport">+ {{i18n('createPassport')}}</button>
     </div>
     <div class="list-group">
       <a href="#" class="list-group-item active"><h4 class="list-group-item-heading">Circle A Passport</h4></a>

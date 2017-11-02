@@ -2,13 +2,13 @@
 <can-import from="~/components/page-trading-passports/passport-add-issuance-selector/" />
 
 {{#is mode 'prompt'}}
-    <div class="well prompt-box">
+    <div class="well well--header">
         <button class="btn btn-primary btn-sm" ($click)="edit()">+ {{i18n('addIssuance')}}</button>
     </div>
 {{/is}}
 
 {{#is mode 'edit'}}
-    <div class="well prompt-box prompt-box--edit">
+    <div class="well well--header edit-view">
         <form>
             <div class="row">
                 <div class="col-xs-12 col-sm-10 no-padding">
