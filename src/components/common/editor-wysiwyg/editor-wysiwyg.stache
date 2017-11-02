@@ -1,0 +1,3 @@
+<can-import from="summernote/dist/summernote.css" />
+
+<div class="summernote-container"></div>
