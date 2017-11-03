@@ -3,14 +3,14 @@
 <can-import from="~/components/page-issuance-details/issuance-polls/sent-poll-details/" />
 
 <!-- SCENARIO 1: No polls sent
-<div class="well well--content placeholder-message">
+<div class="well well--content align-center">
     <div class="message-box no-border align-center">
         <div class="message-box-status">{{i18n('pollsPlaceholderTitle')}}</div>
         <p class="message-box-cause">{{i18n('pollsPlaceholderMessage')}}</p>
         <button class="btn btn-primary">{{i18n('pollsCreateAPoll')}}</button>
     </div>
 </div>
- -->
+-->
 
 <!-- SCENARIO 2: With polls sent 
 <div class="well well--header">
@@ -23,3 +23,4 @@
 
 <!-- SCENARIO 3: Message Details -->
 <sent-poll-details></sent-poll-details>
+ 

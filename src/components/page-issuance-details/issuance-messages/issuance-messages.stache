@@ -2,15 +2,15 @@
 <can-import from="~/components/page-issuance-details/issuance-messages/sent-messages-grid/" />
 <can-import from="~/components/page-issuance-details/issuance-messages/sent-message-details/" />
 
-<!--SCENARIO 1: No messages sent-->
-<div class="well well--content placeholder-message">
+<!--SCENARIO 1: No messages sent
+<div class="well well--content align-center">
     <div class="message-box no-border align-center">
         <div class="message-box-status">{{i18n('messagesPlaceholderTitle')}}</div>
         <p class="message-box-cause">{{i18n('messagesPlaceholderMessage')}}</p>
         <button class="btn btn-primary">{{i18n('composeMessage')}}</button>
     </div>
 </div>
-
+-->
 
 <!--SCENARIO 2: With messages sent 
 <div class="well well--header">
@@ -21,6 +21,5 @@
 </div>
 -->
 
-<!--SCENARIO 3: Message Details
+<!--SCENARIO 3: Message Details -->
 <sent-message-details></sent-message-details>
--->
