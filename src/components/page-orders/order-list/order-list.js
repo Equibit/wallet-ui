@@ -41,11 +41,11 @@ export const ViewModel = DefineMap.extend({
   items: '*',
   itemsFiltered: {
     get () {
-      return this.items && this.items.filter(item => {
+      return this.items ? this.items.filter(item => {
         return this.mode === 'ARCHIVE'
           ? ['CLOSED', 'CANCELLED'].indexOf(item.status) !== -1
           : ['CLOSED', 'CANCELLED'].indexOf(item.status) === -1 && item.type === this.mode
-      })
+      }) : []
     }
   },
   switchMode (mode) {

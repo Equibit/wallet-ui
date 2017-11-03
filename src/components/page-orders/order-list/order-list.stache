@@ -21,7 +21,7 @@
     </ul>
 
     <div class="list-group list-group-simple">
-      {{#each itemsFiltered as item}}
+      {{#each itemsFiltered item=value}}
       <a href="#" class="list-group-item {{#if item.isSelected}}active{{/if}}" on:click="selectItem(item)">
         <div class="row">
           <div class="col-xs-8">
@@ -41,6 +41,23 @@
           </div>
         </div>
       </a>
+      {{else}}
+        <div class="message-box no-border">
+          {{#switch mode}}
+          {{#case 'ARCHIVE'}}
+            <div class="icon icon-folder-open"></div>
+            <p class="message-box-cause">{{i18n('notFoundOrdersArchived')}}</p>
+          {{/case}}
+          {{#case 'BUY'}}
+            <div class="icon icon-buy-inversed"></div>
+            <p class="message-box-cause">{{i18n('notFoundOrdersBuy'}}</p>
+          {{/case}}
+          {{#case 'SELL'}}
+            <div class="icon icon-sell-inversed"></div>
+            <p class="message-box-cause">{{i18n('notFoundOrdersSell')}}</p>
+          {{/case}}
+          {{/switch}}
+        </div>
       {{/each}}
     </div>
 
