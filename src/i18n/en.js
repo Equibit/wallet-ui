@@ -203,6 +203,7 @@ export default {
   distributionsPlaceholderMessage: 'Distribute profits to your shareholders',
   distributionsPlaceholderTitle: 'Schedule Distributions',
   distributionsSchedule: 'Schedule a Distribution',
+  distributionsEdit: 'Edit Distribution',
   distributionsDescription: 'Distributions will be paid to the current shareholders at the scheduled time.',
   distributionsRecordDate: 'Cut-off date to determine the shareholders that are eligible to receive distributions.',
   dividendYield: 'Dividend Yield',

@@ -68,7 +68,9 @@
                             </span>
                         </label> 
                     </div>
-                    <div class="col-xs-12 col-sm-5"><bootstrap-datepicker></bootstrap-datepicker></div>
+                    <div class="col-xs-12 col-sm-5">
+                        <bootstrap-datepicker></bootstrap-datepicker>
+                    </div>
                     <div class="col-xs-12 col-sm-3 additional-time">
                         <small>1:00 PM ({{i18n('utc')}})</small>
                     </div>
@@ -91,7 +93,7 @@
                     <div class="col-xs-12 col-sm-3 additional-time">
                         <small>1:00 PM ({{i18n('utc')}})</small>
                     </div>
-                    <div class="col-xs-12 col-xs-offset-3">
+                    <div class="col-xs-12 col-sm-offset-3">
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" value="">

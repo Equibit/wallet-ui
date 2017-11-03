@@ -8,7 +8,13 @@
         <button ($click)="close()" type="button" class="close" aria-label="Close">
             <span class="icon icon-cross rotate-90"></span>
         </button>
-        <h3 class="modal-title">{{i18n('distributionsSchedule')}}</h3>
+        <h3 class="modal-title">
+            {{i18n('distributionsSchedule')}}
+
+            <!-- If Editing a Distribution
+            {{i18n('distributionsEdit')}}
+            -->
+        </h3>
         
     </div>
 
@@ -24,8 +30,22 @@
 
     <div class="modal-footer">
         {{#is mode 'edit'}}
-            <button ($click)="confirm()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
-            <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+            <div class="row">
+                <div class="col-xs-8 no-padding-left display-row">
+                    <button ($click)="confirm()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
+                    <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+                </div>
+
+                <!--If Editing a Distribution
+                <div class="col-xs-4 no-padding-right display-row delete-button-container">
+                    <button type="button" class="btn btn-delete" data-dismiss="modal">
+                        <span class="icon icon-bin"></span>
+                        {{i18n('delete')}}
+                    </button>
+                </div>
+                -->
+            </div>
+            
         {{/is}}
 
         {{#is mode 'confirm'}}

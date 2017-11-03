@@ -5,17 +5,25 @@ distribution-form {
 	.form-group {
 		margin-bottom: 0;
 	}
-	bootstrap-datepicker {
-		@media (min-width: @screen-xs-max) {
-			margin-left: 15px;
+	 
+	.form-horizontal {
+		bootstrap-datepicker {
+			.form-group {
+				margin-left: 0;
+				margin-right: 0;
+			}
 		}
 	}
+	
 	.additional-time {
 		justify-content: center;
-		margin-left: 5px;
 		color: @gray;
+		@media (min-width: @screen-xs) {
+			margin-top: @padding-small-vertical;
+		}
 	}
 	.frequency-selector {
-		margin-top: 10px;
+		margin-top: @padding-large-vertical;
 	}
 }
+
