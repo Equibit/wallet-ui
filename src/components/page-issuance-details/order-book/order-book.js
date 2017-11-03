@@ -23,7 +23,7 @@ import Session from '../../../models/session'
 import hub from '../../../utils/event-hub'
 import { translate } from '~/i18n/'
 import BitMessage from '../../../models/bit-message'
-import typeforce from 'typeforce'
+// import typeforce from 'typeforce'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',

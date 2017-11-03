@@ -32,16 +32,23 @@ import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
 import { walletMessage } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import typeforce from 'typeforce'
+import { instanceOf, isKeyPair } from '../utils/typeforce-types'
+import Order from './order'
 
 // feathersClient.service('/bit-message')
 
 const BitMessage = DefineMap.extend('BitMessage', {
-  createFromOrder (order, keyPair, publicKey) {
+  createFromOrder (order, keyPair) {
+    typeforce(instanceOf(Order), order)
+    typeforce(isKeyPair, keyPair)
+
+    const publicKey = keyPair.getPublicKeyBuffer().toString('hex')
     const time = '' + Date.now()
     return new BitMessage({
       type: order.type === 'SELL' ? 'Ask' : 'Bid',
       timestamp: Number(time.slice(0, -3)),
-      timestamp_nanoseconds: Number(time.slice(0, -3)) * 1000,
+      timestamp_nanoseconds: Number(time.slice(-3)) * 1000,
       payload: JSON.stringify(order.getMessagePayload()),
       sender_public_key: publicKey,
       keyPair
@@ -57,11 +64,15 @@ const BitMessage = DefineMap.extend('BitMessage', {
   timestamp_nanoseconds: 'number',
   sender_public_key: 'string',
   payload: 'string',
-  keyPair: 'string',
 
-  build (keyPair = this.keyPair, difficulty = 4) {
-    const message = walletMessage.messagePow(this.serialize(), keyPair, difficulty)
-    console.log(`BitMessage.build: message=${message}`)
+  keyPair: {
+    type: '*',
+    serialize: false
+  },
+
+  build (difficulty = 4) {
+    const message = walletMessage.messagePow(this.serialize(), this.keyPair, difficulty)
+    console.log(`BitMessage.build: message=${message.toString('hex')}`)
     return message
   },
 
