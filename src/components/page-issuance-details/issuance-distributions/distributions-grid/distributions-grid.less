@@ -1,0 +1,44 @@
+@import '../../../../styles/bootstrap-custom/_variables';
+
+distributions-grid {
+	display: block;
+	.column-date {
+		width: 200px;
+	}
+	.column-frequency {
+		width: 100px;
+	}
+	.column-status {
+		width: 115px;
+	}
+	.column-action {
+		width: 100px;
+	}
+
+	.icon-checkmark {
+		color: @brand-success;
+	}
+	.icon-clock {
+		color: @gray-light;
+	}
+
+	@media (max-width: @screen-lg) {
+		grid-component {
+		  .grid-responsive {
+				.grid-header-container,
+				.grid-body-scroll {
+					width: 810px;
+				}
+		  }
+		}
+	}
+
+	@media (max-width: @screen-xs) {
+		grid-component {
+			height: initial;
+			.grid-responsive {
+				height: initial;
+			}
+		}
+	}
+}

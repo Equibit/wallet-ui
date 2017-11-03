@@ -8,6 +8,7 @@
 <can-import from="~/components/page-issuance-details/related-companies/" />
 <can-import from="~/components/page-issuance-details/issuance-messages/" />
 <can-import from="~/components/page-issuance-details/issuance-polls/" />
+<can-import from="~/components/page-issuance-details/issuance-distributions/" />
 
 <div class="row">
   <div class="col-xs-12">
@@ -99,6 +100,10 @@
               <!-- <market-depth /> -->
               <!-- <related-companies /> -->
 
+            {{/is}}
+
+            {{#is modeContent 'distributions'}}
+              <issuance-distributions class="stretch"></issuance-distributions>
             {{/is}}
             
             {{#is modeContent 'messages'}}
