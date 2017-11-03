@@ -29,8 +29,8 @@
         {{/is}}
 
         {{#is mode 'confirm'}}
-            <button ($click)="edit()" type="button" class="btn btn-primary">{{i18n('schedule')}}</button>
-            <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('edit')}}</button>
+            <button ($click)="close()" type="button" class="btn btn-primary">{{i18n('schedule')}}</button>
+            <button ($click)="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('edit')}}</button>
         {{/is}}
     </div>
 </bootstrap-modal-content>
