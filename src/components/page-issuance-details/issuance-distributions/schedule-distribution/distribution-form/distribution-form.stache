@@ -1,0 +1,116 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="bootstrap/dist/js/bootstrap" />
+<can-import from="~/components/trade-funds/currency-converter/" />
+<can-import from="~/components/common/bootstrap-datepicker/" />
+
+<div class="description">{{i18n('distributionsDescription')}}</div>
+
+<div class="list-group">
+    <div class="list-group-item">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        <label class="control-label">{{i18n('amount')}}</label>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="input-group">
+                            <input type="number" class="form-control">
+                            <span class="input-group-addon">{{i18n('BTC')}}</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-1">
+                        <span class="rate-arrows icon icon-enlarge"></span>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="input-group">
+                            <input type="number" class="form-control">
+                            <span class="input-group-addon">{{i18n('USD')}}</span>
+                        </div>
+                    </div> 
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-group-item">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        <label class="control-label">{{i18n('from')}} {{i18n('portfolio')}}</label>
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                        <select class="form-control">
+                            <option>Select</option>
+                            <option>My Portfolio</option>
+                            <option>My Portfolio 2</option>
+                            <option>My Portfolio 3</option>
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-group-item">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        <label class="control-label">{{i18n('recordDate')}}
+                            <span class="icon icon-question"
+                                  data-toggle="popover"
+                                  data-content="{{i18n('distributionsRecordDate')}}"
+                                  data-placement="right">
+                            </span>
+                        </label> 
+                    </div>
+                    <div class="col-xs-12 col-sm-5"><bootstrap-datepicker></bootstrap-datepicker></div>
+                    <div class="col-xs-12 col-sm-3 additional-time">
+                        <small>1:00 PM ({{i18n('utc')}})</small>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-group-item">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        <label class="control-label">{{i18n('payOn')}}
+                            <span class="icon icon-question"></span>
+                        </label> 
+                    </div>
+                    <div class="col-xs-12 col-sm-5"><bootstrap-datepicker></bootstrap-datepicker></div>
+                    <div class="col-xs-12 col-sm-3 additional-time">
+                        <small>1:00 PM ({{i18n('utc')}})</small>
+                    </div>
+                    <div class="col-xs-12 col-xs-offset-3">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="">
+                                {{i18n('recurring')}}
+                            </label>
+                        </div>
+                        
+                        <div class="btn-group frequency-selector">
+                            <a href="#" class="btn btn-default btn-sm">{{i18n('monthly')}}</a>
+                            <a href="#" class="btn btn-default btn-sm">{{i18n('quarterly')}}</a>
+                            <a href="#" class="btn btn-default btn-sm">{{i18n('semiAnnually')}}</a>
+                            <a href="#" class="btn btn-default btn-sm">{{i18n('annually')}}</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
