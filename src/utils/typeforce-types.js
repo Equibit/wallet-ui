@@ -4,7 +4,7 @@ module.exports = {
       return value instanceof ConstructorFn
     }
   },
-  isKeyPair (value) {
-    return !!value
+  KeyPair (value) {
+    return !!(value && value.getPublicKeyBuffer)
   }
 }

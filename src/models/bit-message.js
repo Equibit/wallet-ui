@@ -33,7 +33,7 @@ import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
 import { walletMessage } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import typeforce from 'typeforce'
-import { instanceOf, isKeyPair } from '../utils/typeforce-types'
+import { instanceOf, KeyPair } from '../utils/typeforce-types'
 import Order from './order'
 
 // feathersClient.service('/bit-message')
@@ -41,7 +41,7 @@ import Order from './order'
 const BitMessage = DefineMap.extend('BitMessage', {
   createFromOrder (order, keyPair) {
     typeforce(instanceOf(Order), order)
-    typeforce(isKeyPair, keyPair)
+    typeforce(KeyPair, keyPair)
 
     const publicKey = keyPair.getPublicKeyBuffer().toString('hex')
     const time = '' + Date.now()
@@ -70,23 +70,24 @@ const BitMessage = DefineMap.extend('BitMessage', {
     serialize: false
   },
 
-  build (difficulty = 4) {
+  build (difficulty = 2) {
     const message = walletMessage.messagePow(this.serialize(), this.keyPair, difficulty)
     console.log(`BitMessage.build: message=${message.toString('hex')}`)
     return message
   },
 
   send (message = this.build()) {
-    return sendMessage(message)
+    return sendMessage(message.toString('hex'))
   }
 })
 
-const sendMessage = (message) => {
+const sendMessage = (messageStr) => {
+  typeforce(typeforce.String, messageStr)
   return feathersClient.service('proxycore').find({
     query: {
-      node: 'equibit',
+      node: 'eqb',
       method: 'sendrawmessage',
-      params: [ message ]
+      params: [ messageStr ]
     }
   }).then(res => {
     if (!res.error) {
