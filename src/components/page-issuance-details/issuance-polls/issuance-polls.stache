@@ -12,15 +12,15 @@
 </div>
 -->
 
-<!-- SCENARIO 2: With polls sent 
+<!-- SCENARIO 2: With polls sent -->
 <div class="well well--header">
     <button class="btn btn-primary btn-sm">{{i18n('pollsCreateAPoll')}}</button>
 </div>
 <div class="well well--content">
     <sent-polls-grid></sent-polls-grid>
 </div>
--->
 
-<!-- SCENARIO 3: Message Details -->
+
+<!-- SCENARIO 3: Message Details 
 <sent-poll-details></sent-poll-details>
- 
+ -->

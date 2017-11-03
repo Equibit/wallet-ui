@@ -16,6 +16,6 @@
     <button class="btn btn-primary btn-sm">+ {{i18n('distributionsSchedule')}}</button>
 </div>
 <div class="well well--content">
-    <distributions-grid></distributions-grid>
+    <distributions-grid class="stretch"></distributions-grid>
 </div>
 
