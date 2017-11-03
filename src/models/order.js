@@ -103,7 +103,7 @@ const Order = DefineMap.extend('Order', {
     serialize: false
   },
 
-  acceptedOfferIds: 'array',
+  acceptedOfferIds: Array,
 
   //
   // Computed props:
