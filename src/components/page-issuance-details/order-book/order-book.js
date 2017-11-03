@@ -130,11 +130,14 @@ export const ViewModel = DefineMap.extend({
   sendMessage (order, keyPair) {
     // typeforce()
     const bitMessage = BitMessage.createFromOrder(order)
-    return bitMessage.send().then(res => {
-      console.log(`Message was sent!`, res)
-    }).catch(err => {
-      console.log(`Message was NOT sent :(`, err)
-    })
+    console.log(`bitMessage`, bitMessage)
+
+    return Promise.resolve()
+    // return bitMessage.send().then(res => {
+    //   console.log(`Message was sent!`, res)
+    // }).catch(err => {
+    //   console.log(`Message was NOT sent :(`, err)
+    // })
   }
 })
 
