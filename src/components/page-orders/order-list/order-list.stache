@@ -22,7 +22,7 @@
 
     <div class="list-group list-group-simple">
       {{#each itemsFiltered item=value}}
-      <a href="#" class="list-group-item {{#if item.isSelected}}active{{/if}}" on:click="selectItem(item)">
+      <a href="#" class="list-group-item {{#eq item selectedItem}}active{{/eq}}" on:click="selectItem(item)">
         <div class="row">
           <div class="col-xs-8">
             <h4 class="list-group-item-heading list-issuance">{{item.companyName}}, {{item.issuanceName}}</h4>
