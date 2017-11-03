@@ -298,7 +298,7 @@ export default {
   name: 'Name',
   newIssuances: 'New Issuances',
   note: 'Note',
-  notEnoughEqbIssuance: 'You don\'t have enough EQB to create an issuance.',
+  notEnoughEqbIssuance: 'You don\'t have enough EQB to create an issuance',
   notEnoughFunds: 'You don\'t have enough funds to send. Use the total available minus the transaction fee.',
   notEnoughSecurities: 'You don\'t have enough securities to send. Use the total available.',
   notFound401Title: 'This Page is Password Protected',
