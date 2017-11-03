@@ -363,6 +363,7 @@ export default {
   placeSellOffer: 'Place Sell Offer',
   placeBuyOrder: 'Place Buy Order',
   placeBuyOffer: 'Place Buy Offer',
+  pleaseReviewAndConfirm: 'Please review and confirm.',
   price: 'Price',
   privacyPolicy: 'Privacy Policy',
   privacyPolicyChangesTitle: 'Changes to our Privacy Policy',
@@ -424,6 +425,7 @@ export default {
   restrictionLevel3Description: 'No exceptions. Equibit can only be returned to the issuer.',
   results: 'Results',
 
+  schedule: 'Schedule',
   shareholders: 'Shareholders',
   state: 'State / Province / Region',
   securities: 'Securities',
@@ -450,6 +452,7 @@ export default {
   signupAgreeToTerms3: 'and',
   signupAgreeToTerms4: 'Privacy Policy',
   step: 'Step',
+  startingOn: 'Starting on',
   status: 'Status',
   statusCancelled: 'Cancelled',
   statusClosed: 'Closed',

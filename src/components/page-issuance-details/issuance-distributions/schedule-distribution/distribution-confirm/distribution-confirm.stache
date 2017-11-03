@@ -1,1 +1,17 @@
-<p>{{message}}</p>
+<div class="description">{{i18n('pleaseReviewAndConfirm')}}</div>
+
+<div class="well">
+  <dl class="dl-horizontal dl-stripped responsive no-top-border no-bottom-border">
+    <dt>{{i18n('amount')}}</dt>
+    <dd>1.030125 {{i18n('BTC')}} → $2,756.36 {{i18n('USD')}}</dd>
+
+    <dt>{{i18n('from')}}</dt>
+    <dd><strong>My Portfolio</strong></dd>
+
+    <dt>{{i18n('recordDate')}}</dt>
+    <dd>{{i18n('monthly')}}, {{i18n('startingOn')}} 03/10/2017 @8:00 am</dd>
+
+    <dt>{{i18n('payOn')}}</dt>
+    <dd>{{i18n('monthly')}}, {{i18n('startingOn')}} 03/10/2017 @8:00 am</dd>
+  </dl>
+</div>
