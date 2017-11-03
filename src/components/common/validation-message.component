@@ -3,12 +3,13 @@
     display: block;
     .help-block {
       color: #FF4B55;
+      font-side: 13px;
     }
 
   </style>
   <view>
     {{#if message}}
-      <small class="form-text help-block">{{message}}</small>
+      <div class="form-text help-block">{{message}}</div>
     {{/if}}
   </view>
   <script type="view-model">

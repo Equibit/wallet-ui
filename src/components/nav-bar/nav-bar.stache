@@ -11,6 +11,11 @@
 
     <div class="navbar-header">
       <a class="header-logo" href="{{routeUrl page='research'}}">{{i18n('equibitAppName')}}</a>
+
+      <div class="main-nav-container hidden-xxs">
+        <main-nav {page}="page"/>
+      </div>
+
       <ul class="nav navbar-nav add-nav navbar-right">
         <li>
           <a href="#" class="icon icon-refresh" role="button" ($click)="refresh()"></a>
@@ -111,9 +116,7 @@
         </li>
       </ul>
 
-      <div class="main-nav-container hidden-xxs">
-        <main-nav {page}="page"/>
-      </div>
+      
 
       <div class="login-menu hidden-xs">
         <login-buttons {is-logged-in}="isLoggedIn" {logout}="@logout" />

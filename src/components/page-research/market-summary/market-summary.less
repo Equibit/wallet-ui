@@ -10,6 +10,9 @@ market-summary {
   .card {
     .panel-body {
       padding-top: 0;
+      @media (min-width: @screen-xs-max) {
+        min-height: 335px; 
+      }
 
       .row > div > .row {
         &:nth-child(1) {

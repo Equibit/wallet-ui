@@ -1,3 +1,5 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
 market-capitalization {
 	display: block;
 
@@ -6,9 +8,11 @@ market-capitalization {
   }
 
   .panel-body {
-    min-height: 245px;
     text-align: center;
     position: relative; // to display the spinner in relation to the body of this panel.
+    @media (min-width: @screen-xs-max) {
+      min-height: 344px;
+    }
   }
 
   bit-c3 {
