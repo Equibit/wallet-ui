@@ -146,6 +146,7 @@
     "steal-stache": "^3.1.2",
     "summernote": "^0.8.8",
     "tether": "^1.4.0",
+    "typeforce": "^1.11.5",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {

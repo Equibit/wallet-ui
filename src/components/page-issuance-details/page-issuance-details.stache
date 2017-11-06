@@ -105,7 +105,7 @@
             {{#is modeContent 'distributions'}}
               <issuance-distributions class="stretch"></issuance-distributions>
             {{/is}}
-            
+
             {{#is modeContent 'messages'}}
               <issuance-messages></issuance-messages>
             {{/is}}
@@ -114,7 +114,7 @@
               <issuance-polls></issuance-polls>
             {{/is}}
 
-            
+
 
           </div>
         </div>
