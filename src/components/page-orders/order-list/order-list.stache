@@ -20,7 +20,7 @@
       </li>
     </ul>
 
-    <div class="list-group list-group-simple">
+    <div class="list-group list-group-simple stretch">
       {{#each itemsFiltered item=value}}
       <a href="#" class="list-group-item {{#eq item selectedItem}}active{{/eq}}" on:click="selectItem(item)">
         <div class="row">

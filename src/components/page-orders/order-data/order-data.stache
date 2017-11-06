@@ -11,7 +11,7 @@
   <div class="order-date">Created on 04/28/12 @1:00pm</div>
 </h2>
 
-<div class="well">
+<div class="well stretch">
     <div class="order-header section">
       <issuance-summary issuance:from="order" />
     </div>

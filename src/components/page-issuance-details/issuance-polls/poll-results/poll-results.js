@@ -19,9 +19,29 @@ import './poll-results.less'
 import view from './poll-results.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the poll-results component'
+  dataColumns: {
+    type: '*',
+    value () {
+      return [
+        ['Bert Reeves', 100],
+        ['Annie Potter', 80],
+        ['Hope Conner', 70]
+      ]
+    }
+  },
+
+  // Config options can be overriden:
+  config: {
+    type: '*',
+    value () {
+      return {
+        size: {
+          height: 180
+        }
+      }
+    }
   }
+
 })
 
 export default Component.extend({

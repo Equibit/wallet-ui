@@ -15,7 +15,7 @@
   <div class="modal-body">
     {{^if formData.hasFunds}}
       <div class="alert alert-warning" role="alert">
-        <strong>{{i18n('warning')}}!</strong> {{i18n('notEnoughEqb')}}</a>
+        <strong>{{i18n('warning')}}!</strong> {{i18n('notEnoughEqbIssuance')}}</a>
       </div>
     {{/if}}
 

@@ -5,19 +5,13 @@
   <span class="badge">{{offers.length}}</span>
 </h2>
 
-<div class="well">
+<div class="well stretch">
 
   {{^if offers.length}}
-
-  <div class="row">
-    <div class="col-xs-12 no-padding">
-      <div class="message-box no-border message-placeholder">
-        <div class="icon icon-info"></div>
-        <p class="message-box-cause">{{i18n('notFoundOffers')}}</p>
-      </div>
-    </div>
+  <div class="message-box no-border message-placeholder">
+    <div class="icon icon-info"></div>
+    <p class="message-box-cause">{{i18n('notFoundOffers')}}</p>
   </div>
-
   {{else}}
 
   <div class="panel-group accordion-wrapper" id="accordion" role="tablist" aria-multiselectable="true">

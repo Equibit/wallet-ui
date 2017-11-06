@@ -7,7 +7,7 @@
   {{#is order.type 'SELL'}} {{i18n('sellOrder')}} {{else}} {{i18n('buyOrder')}} {{/is}}
 </h2>
 
-<div class="well">
+<div class="well stretch">
   <div class="order-header section">
     <issuance-summary issuance:from="order" />
   </div>

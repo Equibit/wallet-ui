@@ -1,4 +1,15 @@
-/*
+/**
+ * BitMessage is a part of the Equibit Core node. There are different types of messages UI should send to BitMessage:
+ * - Private (Encrypted 1-to-1)
+ * - Multicast (Encrypted group)
+ * - Broadcast (Unencrypted):
+ *    - Order Book Bid/Ask (by Trader)
+ *    - Order Book Cancel (by Trader)
+ *    - Accept Passport (by Issuer)
+ *    - Cancel Passport (by Issuer)
+ *
+ * Example of creating a pubic Order Book message:
+ * ```
  * const { messagePow } = require('../dist/wallet-message')
  * const fixtureNode = require('../test/fixtures/hdnode.build')
  * const keyPair = fixtureNode.keyPair
@@ -14,23 +25,31 @@
  *
  * const message = messagePow(messageData, keyPair, 4)
  * console.log(`message = ${message.toString('hex')}`, messageData)
+ * ```
  */
 
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
 import { walletMessage } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import typeforce from 'typeforce'
+import { instanceOf, KeyPair } from '../utils/typeforce-types'
+import Order from './order'
 
 // feathersClient.service('/bit-message')
 
 const BitMessage = DefineMap.extend('BitMessage', {
-  createFrom (item, keyPair, publicKey) {
+  createFromOrder (order, keyPair) {
+    typeforce(instanceOf(Order), order)
+    typeforce(KeyPair, keyPair)
+
+    const publicKey = keyPair.getPublicKeyBuffer().toString('hex')
     const time = '' + Date.now()
     return new BitMessage({
-      type: item.type === 'SELL' ? 'Ask' : 'Bid',
+      type: order.type === 'SELL' ? 'Ask' : 'Bid',
       timestamp: Number(time.slice(0, -3)),
-      timestamp_nanoseconds: Number(time.slice(0, -3)) * 1000,
-      payload: JSON.stringify(item.getMessagePayload()),
+      timestamp_nanoseconds: Number(time.slice(-3)) * 1000,
+      payload: JSON.stringify(order.getMessagePayload()),
       sender_public_key: publicKey,
       keyPair
     })
@@ -45,25 +64,30 @@ const BitMessage = DefineMap.extend('BitMessage', {
   timestamp_nanoseconds: 'number',
   sender_public_key: 'string',
   payload: 'string',
-  keyPair: 'string',
 
-  build (keyPair = this.keyPair, difficulty = 4) {
-    const message = walletMessage.messagePow(this.serialize(), keyPair, difficulty)
-    console.log(`BitMessage.build: message=${message}`)
+  keyPair: {
+    type: '*',
+    serialize: false
+  },
+
+  build (difficulty = 2) {
+    const message = walletMessage.messagePow(this.serialize(), this.keyPair, difficulty)
+    console.log(`BitMessage.build: message=${message.toString('hex')}`)
     return message
   },
 
   send (message = this.build()) {
-    return sendMessage(message)
+    return sendMessage(message.toString('hex'))
   }
 })
 
-const sendMessage = (message) => {
+const sendMessage = (messageStr) => {
+  typeforce(typeforce.String, messageStr)
   return feathersClient.service('proxycore').find({
     query: {
-      node: 'equibit',
+      node: 'eqb',
       method: 'sendrawmessage',
-      params: [ message ]
+      params: [ messageStr ]
     }
   }).then(res => {
     if (!res.error) {

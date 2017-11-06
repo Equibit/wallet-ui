@@ -1,12 +1,10 @@
-import chai from 'chai'
+import assert from 'chai/chai'
 import { translate } from '../i18n/i18n'
 import { toMaxPrecision } from './formatter'
 import validators from './validators'
 import '../models/mock/mock-session'
 
 // import './random-elements-test'
-
-const assert = chai.assert
 
 describe('utils/formatter', function () {
   it('should format to max precision of 8', function () {

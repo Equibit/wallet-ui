@@ -1,0 +1,21 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-issuance-details/issuance-distributions/distributions-grid/" />
+
+<!-- SCENARIO 1: No distributions scheduled 
+<div class="well well--content align-center">
+    <div class="message-box no-border align-center">
+        <div class="message-box-status">{{i18n('distributionsPlaceholderTitle')}}</div>
+        <p class="message-box-cause">{{i18n('distributionsPlaceholderMessage')}}</p>
+        <button class="btn btn-primary">+ {{i18n('distributionsSchedule')}}</button>
+    </div>
+</div>
+-->
+
+<!-- SCENARIO 2: With scheduled distributions -->
+<div class="well well--header">
+    <button class="btn btn-primary btn-sm">+ {{i18n('distributionsSchedule')}}</button>
+</div>
+<div class="well well--content">
+    <distributions-grid class="stretch"></distributions-grid>
+</div>
+

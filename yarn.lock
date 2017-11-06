@@ -7786,7 +7786,7 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typeforce@^1.11.3:
+typeforce@^1.11.3, typeforce@^1.11.5:
   version "1.11.5"
   resolved "https://registry.yarnpkg.com/typeforce/-/typeforce-1.11.5.tgz#ddbbf322e5022014cd7b8f4facb63ead3c80da09"
 

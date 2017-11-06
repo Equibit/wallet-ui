@@ -1,0 +1,161 @@
+<can-import from="grid-component" />
+<can-import from="~/components/common/grid/grid.less" />
+<can-import from="~/utils/stache-helpers/" />
+
+<grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
+    <div class="grid-responsive">
+        <div class="grid-header-container">
+            <table class="table table-condensed grid-header">
+                <thead>
+                <tr>
+                    <th class="column-amount">{{i18n('amount')}} ({{i18n('BTC')}})</th>
+                    <th class="column-date">{{i18n('recordDate')}}</th>
+                    <th class="column-date">{{i18n('payOn')}}</th>
+                    <th class="column-frequency">{{i18n('frequency')}}</th>
+                    <th class="column-status">{{i18n('status')}}</th>
+                    <th class="column-action"></th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="grid-body-scroll">
+            <table class="table table-condensed grid-body">
+                <tbody>
+                    <tr>
+                        <td class="column-amount">1.030125000</td>
+                        <td class="column-date">04/13/2017 @8:00 AM</td>
+                        <td class="column-date">04/13/2017 @10:00 AM</td>
+                        <td class="column-frequency">Monthly</td>
+                        <td class="column-status"><span class="icon icon-clock"></span> Scheduled</td>
+                        <td class="column-action"><button class="btn btn-xs btn-default">Edit</button></td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-amount">1.030125000</td>
+                        <td class="column-date">04/13/2017 @8:00 AM</td>
+                        <td class="column-date">04/13/2017 @10:00 AM</td>
+                        <td class="column-frequency">Monthly</td>
+                        <td class="column-status"><span class="icon icon-checkmark"></span> Paid</td>
+                        <td class="column-action">
+                            <a href="">
+                                {{i18n('txId')}} ({{i18n('BTC')}})
+                                <span class="icon icon-link-external"></span>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-amount">1.030125000</td>
+                        <td class="column-date">04/13/2017 @8:00 AM</td>
+                        <td class="column-date">04/13/2017 @10:00 AM</td>
+                        <td class="column-frequency">Monthly</td>
+                        <td class="column-status"><span class="icon icon-checkmark"></span> Paid</td>
+                        <td class="column-action">
+                            <a href="">
+                                {{i18n('txId')}} ({{i18n('BTC')}})
+                                <span class="icon icon-link-external"></span>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-amount">1.030125000</td>
+                        <td class="column-date">04/13/2017 @8:00 AM</td>
+                        <td class="column-date">04/13/2017 @10:00 AM</td>
+                        <td class="column-frequency">Monthly</td>
+                        <td class="column-status"><span class="icon icon-checkmark"></span> Paid</td>
+                        <td class="column-action">
+                            <a href="">
+                                {{i18n('txId')}} ({{i18n('BTC')}})
+                                <span class="icon icon-link-external"></span>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-amount">1.030125000</td>
+                        <td class="column-date">04/13/2017 @8:00 AM</td>
+                        <td class="column-date">04/13/2017 @10:00 AM</td>
+                        <td class="column-frequency">Monthly</td>
+                        <td class="column-status"><span class="icon icon-checkmark"></span> Paid</td>
+                        <td class="column-action">
+                            <a href="">
+                                {{i18n('txId')}} ({{i18n('BTC')}})
+                                <span class="icon icon-link-external"></span>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-amount">1.030125000</td>
+                        <td class="column-date">04/13/2017 @8:00 AM</td>
+                        <td class="column-date">04/13/2017 @10:00 AM</td>
+                        <td class="column-frequency">Monthly</td>
+                        <td class="column-status"><span class="icon icon-checkmark"></span> Paid</td>
+                        <td class="column-action">
+                            <a href="">
+                                {{i18n('txId')}} ({{i18n('BTC')}})
+                                <span class="icon icon-link-external"></span>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-amount">1.030125000</td>
+                        <td class="column-date">04/13/2017 @8:00 AM</td>
+                        <td class="column-date">04/13/2017 @10:00 AM</td>
+                        <td class="column-frequency">Monthly</td>
+                        <td class="column-status"><span class="icon icon-checkmark"></span> Paid</td>
+                        <td class="column-action">
+                            <a href="">
+                                {{i18n('txId')}} ({{i18n('BTC')}})
+                                <span class="icon icon-link-external"></span>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-amount">1.030125000</td>
+                        <td class="column-date">04/13/2017 @8:00 AM</td>
+                        <td class="column-date">04/13/2017 @10:00 AM</td>
+                        <td class="column-frequency">Monthly</td>
+                        <td class="column-status"><span class="icon icon-checkmark"></span> Paid</td>
+                        <td class="column-action">
+                            <a href="">
+                                {{i18n('txId')}} ({{i18n('BTC')}})
+                                <span class="icon icon-link-external"></span>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="column-amount">1.030125000</td>
+                        <td class="column-date">04/13/2017 @8:00 AM</td>
+                        <td class="column-date">04/13/2017 @10:00 AM</td>
+                        <td class="column-frequency">Monthly</td>
+                        <td class="column-status"><span class="icon icon-checkmark"></span> Paid</td>
+                        <td class="column-action">
+                            <a href="">
+                                {{i18n('txId')}} ({{i18n('BTC')}})
+                                <span class="icon icon-link-external"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="grid-footer">
+        <div class="btn-group pagination" role="group" aria-label="pagination">
+            <button type="button" class="btn btn-default btn-xs disabled">&laquo;</button>
+            <button type="button" class="btn btn-default btn-xs active" >1</button>
+            <button type="button" class="btn btn-default btn-xs" >2</button>
+            <button type="button" class="btn btn-default btn-xs" >3</button>
+            <button type="button" class="btn btn-default btn-xs" >&raquo;</button>
+        </div>
+        <div class="grid-results">Showing 1-25 of 400 {{i18n('messages')}}</div>
+    </div>
+
+</grid-component>
