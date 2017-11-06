@@ -46,15 +46,15 @@
           {{#switch mode}}
           {{#case 'ARCHIVE'}}
             <div class="icon icon-folder-open"></div>
-            <p class="message-box-cause">{{i18n('notFoundOrdersArchived')}}</p>
+            <p class="message-box-cause">{{#is type 'OFFER'}}{{i18n('notFoundOffersArchived')}}{{else}}{{i18n('notFoundOrdersArchived')}}{{/is}}</p>
           {{/case}}
           {{#case 'BUY'}}
             <div class="icon icon-buy-inversed"></div>
-            <p class="message-box-cause">{{i18n('notFoundOrdersBuy'}}</p>
+            <p class="message-box-cause">{{#is type 'OFFER'}}{{i18n('notFoundOffersBuy'}}{{else}}{{i18n('notFoundOrdersBuy'}}{{/is}}</p>
           {{/case}}
           {{#case 'SELL'}}
             <div class="icon icon-sell-inversed"></div>
-            <p class="message-box-cause">{{i18n('notFoundOrdersSell')}}</p>
+            <p class="message-box-cause">{{#is type 'OFFER'}}{{i18n('notFoundOffersSell')}}{{else}}{{i18n('notFoundOrdersSell')}}{{/is}}</p>
           {{/case}}
           {{/switch}}
         </div>
