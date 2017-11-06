@@ -27,14 +27,14 @@
         
 
         <!-- SCENARIO 2: With Messages
-        <div class="list-group list-group-simple">
+        <div class="list-group list-group-simple stretch">
             <a href="#" class="list-group-item active">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-10 no-padding">
+                    <div class="col-xs-12 col-sm-10">
                         <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
                         <div class="list-issuance-type">Imperial Brands, Series 1</div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 no-padding">
+                    <div class="col-xs-12 col-sm-2">
                         <div class="list-time-stamp">10:30 am</div>
                     </div>
                 </div>
@@ -42,11 +42,11 @@
 
             <a href="#" class="list-group-item">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-10 no-padding">
+                    <div class="col-xs-12 col-sm-10">
                         <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
                         <div class="list-issuance-type">Imperial Brands, Series 1</div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 no-padding">
+                    <div class="col-xs-12 col-sm-2">
                         <div class="list-time-stamp">10:30 am</div>
                     </div>
                 </div>
@@ -54,11 +54,11 @@
 
             <a href="#" class="list-group-item">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-10 no-padding">
+                    <div class="col-xs-12 col-sm-10">
                         <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
                         <div class="list-issuance-type">Imperial Brands, Series 1</div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 no-padding">
+                    <div class="col-xs-12 col-sm-2">
                         <div class="list-time-stamp">10:30 am</div>
                     </div>
                 </div>
@@ -66,11 +66,11 @@
 
             <a href="#" class="list-group-item read">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-10 no-padding">
+                    <div class="col-xs-12 col-sm-10">
                         <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
                         <div class="list-issuance-type">Imperial Brands, Series 1</div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 no-padding">
+                    <div class="col-xs-12 col-sm-2">
                         <div class="list-time-stamp">10/17/2017</div>
                     </div>
                 </div>
@@ -78,11 +78,11 @@
 
             <a href="#" class="list-group-item read">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-10 no-padding">
+                    <div class="col-xs-12 col-sm-10">
                         <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
                         <div class="list-issuance-type">Imperial Brands, Series 1</div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 no-padding">
+                    <div class="col-xs-12 col-sm-2">
                         <div class="list-time-stamp">10/17/2017</div>
                     </div>
                 </div>
@@ -90,11 +90,11 @@
 
             <a href="#" class="list-group-item read">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-10 no-padding">
+                    <div class="col-xs-12 col-sm-10">
                         <h4 class="list-group-item-heading">Notice of Special Meeting and Proxy Statement</h4>
                         <div class="list-issuance-type">Imperial Brands, Series 1</div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 no-padding">
+                    <div class="col-xs-12 col-sm-2">
                         <div class="list-time-stamp">10/17/2017</div>
                     </div>
                 </div>
@@ -110,14 +110,14 @@
         -->
 
         <!-- SCENARIO 4: With Polls -->
-        <div class="list-group list-group-simple">
+        <div class="list-group list-group-simple stretch">
             <a href="#" class="list-group-item active">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-10 no-padding">
+                    <div class="col-xs-12 col-sm-10">
                         <h4 class="list-group-item-heading">Who do you want to vote as the new auditor?</h4>
                         <div class="list-issuance-type">Imperial Brands, Series 1</div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 no-padding">
+                    <div class="col-xs-12 col-sm-2">
                         <div class="list-time-stamp">10:30 am</div>
                     </div>
                 </div>
@@ -125,11 +125,11 @@
 
             <a href="#" class="list-group-item">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-10 no-padding">
+                    <div class="col-xs-12 col-sm-10">
                         <h4 class="list-group-item-heading">Approve the company name</h4>
                         <div class="list-issuance-type">Imperial Brands, Series 1</div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 no-padding">
+                    <div class="col-xs-12 col-sm-2">
                         <div class="list-time-stamp">10:30 am</div>
                     </div>
                 </div>
@@ -137,15 +137,281 @@
 
             <a href="#" class="list-group-item">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-10 no-padding">
+                    <div class="col-xs-12 col-sm-10">
                         <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
                         <div class="list-issuance-type">Imperial Brands, Series 1</div>
                     </div>
-                    <div class="col-xs-12 col-sm-2 no-padding">
+                    <div class="col-xs-12 col-sm-2">
                         <div class="list-time-stamp">10:30 am</div>
                     </div>
                 </div>
             </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Approve the company name</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Approve the company name</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Approve the company name</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Approve the company name</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Approve the company name</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Approve the company name</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Approve the company name</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Approve the company name</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Approve the company name</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Approve the company name</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Approve the company name</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-10">
+                        <h4 class="list-group-item-heading">Poll lorem ipsum dolor sit amet</h4>
+                        <div class="list-issuance-type">Imperial Brands, Series 1</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="list-time-stamp">10:30 am</div>
+                    </div>
+                </div>
+            </a>
+
+
 
         </div>
         

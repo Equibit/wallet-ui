@@ -20,7 +20,7 @@
       </li>
     </ul>
 
-    <div class="list-group list-group-simple">
+    <div class="list-group list-group-simple stretch">
       {{#each itemsFiltered as item}}
       <a href="#" class="list-group-item {{#if item.isSelected}}active{{/if}}" on:click="selectItem(item)">
         <div class="row">

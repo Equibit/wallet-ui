@@ -1,0 +1,29 @@
+@import '../../../../../styles/bootstrap-custom/_variables';
+
+distribution-form {
+	display: block;
+	.form-group {
+		margin-bottom: 0;
+	}
+	 
+	.form-horizontal {
+		bootstrap-datepicker {
+			.form-group {
+				margin-left: 0;
+				margin-right: 0;
+			}
+		}
+	}
+	
+	.additional-time {
+		justify-content: center;
+		color: @gray;
+		@media (min-width: @screen-xs) {
+			margin-top: @padding-small-vertical;
+		}
+	}
+	.frequency-selector {
+		margin-top: @padding-large-vertical;
+	}
+}
+
