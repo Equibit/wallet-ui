@@ -117,7 +117,7 @@ export const ViewModel = DefineMap.extend({
       issuanceName: this.issuance.issuanceName,
       issuanceType: this.issuance.issuanceType
     })
-    offer.save(() => {
+    offer.save().then(() => {
       hub.dispatch({
         'type': 'alert',
         'kind': 'success',
