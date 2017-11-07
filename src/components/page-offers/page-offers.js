@@ -49,6 +49,16 @@ export const ViewModel = DefineMap.extend({
       }
       return offer
     }
+  },
+  selectedItemId: {
+    get () {
+      return this.selectedItem && this.selectedItem._id
+    },
+    set (val) {
+      this.selectedItem = this.offers
+        ? this.offers.filter(o => o._id === val)[0]
+        : this.offersPromise.then(offers => offers.filter(o => o._id === val)[0])
+    }
   }
 })
 

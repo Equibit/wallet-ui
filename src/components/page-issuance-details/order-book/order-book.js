@@ -23,6 +23,7 @@ import Session from '../../../models/session'
 import hub from '../../../utils/event-hub'
 import { translate } from '~/i18n/'
 import BitMessage from '../../../models/bit-message'
+import route from 'can-route'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
@@ -121,6 +122,10 @@ export const ViewModel = DefineMap.extend({
         'type': 'alert',
         'kind': 'success',
         'title': translate('offerWasCreated'),
+        'message': '<a href="' +
+          route.url({ page: 'offers', itemId: offer._id }) +
+          '">' + translate('viewDetails') +
+          '</a>',
         'displayInterval': 5000
       })
     })
