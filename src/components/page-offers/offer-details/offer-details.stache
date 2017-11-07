@@ -1,5 +1,6 @@
 <can-import from="~/components/page-offers/offer-data/" />
 <can-import from="~/components/page-offers/offer-order-data/" />
+<can-import from="~/components/page-offers/cancel-offer/" />
 <can-import from="~/utils/stache-helpers/" />
 
 <drag-panel class="page-panel panel panel-default card card-full">
@@ -12,7 +13,7 @@
         <span class="details-issuance-name">, {{offer.issuanceName}}</span>
       </p>
       <ul class="nav navbar-nav navbar-right toolbar-actions">
-        <li><a href=""><span class="icon icon-bin"></span> {{i18n('cancelOffer')}}</a></li>
+        <li><a href="" on:click="showModal()"><span class="icon icon-bin"></span> {{i18n('cancelOffer')}}</a></li>
       </ul>
     </div>
   </nav>
@@ -43,6 +44,5 @@
 
 </drag-panel>
 
-
-
+{{#if isModalShown}}<cancel-offer offer:from="offer"/>{{/if}}
 

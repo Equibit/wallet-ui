@@ -17,10 +17,16 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './cancel-order.less'
 import view from './cancel-order.stache'
+import Order from '~/models/order'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the cancel-order component'
+  order: Order,
+  closeModal: '*',
+  confirm () {
+    this.order.status = 'CANCELLED'
+    this.order.save().then(() => {
+      this.closeModal()
+    })
   }
 })
 

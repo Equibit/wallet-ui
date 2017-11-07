@@ -23,7 +23,13 @@ export const ViewModel = DefineMap.extend({
   // ENUM ['SELL', 'BUY']
   type: 'string',
   order: Order,
-  ordersLength: 'number'
+  ordersLength: 'number',
+  isModalShown: 'boolean',
+  showModal () {
+    // Note: we need to re-insert the modal content:
+    this.isModalShown = false
+    this.isModalShown = true
+  }
 })
 
 export default Component.extend({
