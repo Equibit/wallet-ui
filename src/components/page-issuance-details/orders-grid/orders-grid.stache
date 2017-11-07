@@ -26,7 +26,7 @@
         {{#each ../rows row=value index=index}}
           <tr class="order-row percentage-green percentage-{{../../marketWidth[index]}}">
             <td class="column-action-buttons">
-              <button class="btn btn-default btn-xs" on:click="buySell(../type, row)">{{i18n('buy')}}</button>
+              <button class="btn btn-default btn-xs" on:click="buySell('BUY', row)">{{i18n('buy')}}</button>
             </td>
             <td class="column-partial">{{yes-no(row.partial)}}</td>
             <td class="column-datetime">{{format-time(row.date)}}</td>
@@ -64,7 +64,7 @@
             <td class="column-datetime">{{format-time(row.date)}}</td>
             <td class="column-partial">{{yes-no(row.partial)}}</td>
             <td class="column-action-buttons">
-              <button class="btn btn-default btn-xs" on:click="buySell(../type, row)">{{i18n('sell')}}</button>
+              <button class="btn btn-default btn-xs" on:click="buySell('SELL', row)">{{i18n('sell')}}</button>
             </td>
           </tr>
         {{/each}}

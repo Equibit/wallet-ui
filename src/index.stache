@@ -84,7 +84,7 @@
         <page-orders />
       {{/case}}
       {{#case 'offers'}}
-        <page-offers />
+        <page-offers selectedItemId:from="itemId"/>
       {{/case}}
       {{#case 'preferences'}}
         <page-preferences />

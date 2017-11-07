@@ -2,6 +2,7 @@ import '~/components/page-auth/password-strength/test'
 import '~/components/common/alerts/alerts-test'
 
 import '~/components/page-issuance-details/orders-grid/orders-grid-test'
+import '~/components/page-issuance-details/order-book/order-book-test'
 
 import '~/components/page-issuances/company-metadata/company-metadata-test'
 

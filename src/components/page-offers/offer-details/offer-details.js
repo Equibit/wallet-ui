@@ -17,12 +17,19 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './offer-details.less'
 import view from './offer-details.stache'
+import Offer from '~/models/offer'
 
 export const ViewModel = DefineMap.extend({
   // ENUM ['SELL', 'BUY']
   type: 'string',
-  offer: '*',
-  offersLength: 'number'
+  offer: Offer,
+  offersLength: 'number',
+  isModalShown: 'boolean',
+  showModal () {
+    // Note: we need to re-insert the modal content:
+    this.isModalShown = false
+    this.isModalShown = true
+  }
 })
 
 export default Component.extend({

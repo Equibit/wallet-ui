@@ -17,6 +17,8 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './order-list.less'
 import view from './order-list.stache'
+import route from 'can-route'
+import canBatch from 'can-event/batch/'
 
 const labelStatusMap = {
   OPEN: 'info',
@@ -44,7 +46,20 @@ export const ViewModel = DefineMap.extend({
     }
   },
   // Either orders or offers:
-  items: '*',
+  items: {
+    type: '*',
+    set (val) {
+      const itemId = route.attr('itemId')
+      if (itemId) {
+        const item = val && val.filter(o => o._id === itemId)[0]
+        if (item) {
+          this.mode = item.type // resets selectedIndex, so...
+          canBatch.after(() => this.selectItem(item)) // select it after everything resolves
+        }
+      }
+      return val
+    }
+  },
   itemsFiltered: {
     get () {
       const isArchive = this.mode === 'ARCHIVE'
