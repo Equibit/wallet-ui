@@ -21,8 +21,8 @@
     </ul>
 
     <div class="list-group list-group-simple stretch">
-      {{#each itemsFiltered as item}}
-      <a href="#" class="list-group-item {{#if item.isSelected}}active{{/if}}" on:click="selectItem(item)">
+      {{#each itemsFiltered item=value}}
+      <a href="#" class="list-group-item {{#eq item selectedItem}}active{{/eq}}" on:click="selectItem(item)">
         <div class="row">
           <div class="col-xs-8">
             <h4 class="list-group-item-heading list-issuance">{{item.companyName}}, {{item.issuanceName}}</h4>
@@ -41,6 +41,23 @@
           </div>
         </div>
       </a>
+      {{else}}
+        <div class="message-box no-border">
+          {{#switch mode}}
+          {{#case 'ARCHIVE'}}
+            <div class="icon icon-folder-open"></div>
+            <p class="message-box-cause">{{#is type 'OFFER'}}{{i18n('notFoundOffersArchived')}}{{else}}{{i18n('notFoundOrdersArchived')}}{{/is}}</p>
+          {{/case}}
+          {{#case 'BUY'}}
+            <div class="icon icon-buy-inversed"></div>
+            <p class="message-box-cause">{{#is type 'OFFER'}}{{i18n('notFoundOffersBuy'}}{{else}}{{i18n('notFoundOrdersBuy'}}{{/is}}</p>
+          {{/case}}
+          {{#case 'SELL'}}
+            <div class="icon icon-sell-inversed"></div>
+            <p class="message-box-cause">{{#is type 'OFFER'}}{{i18n('notFoundOffersSell')}}{{else}}{{i18n('notFoundOrdersSell')}}{{/is}}</p>
+          {{/case}}
+          {{/switch}}
+        </div>
       {{/each}}
     </div>
 

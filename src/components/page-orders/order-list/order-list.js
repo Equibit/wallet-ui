@@ -35,17 +35,24 @@ export const ViewModel = DefineMap.extend({
   mode: {
     get (val) {
       return val || 'SELL'
+    },
+    set () {
+      this.selectedIndex = 0
+    },
+    value () {
+      return 'SELL'
     }
   },
   // Either orders or offers:
   items: '*',
   itemsFiltered: {
     get () {
-      return this.items && this.items.filter(item => {
-        return this.mode === 'ARCHIVE'
+      const isArchive = this.mode === 'ARCHIVE'
+      return this.items ? this.items.filter(item => {
+        return isArchive
           ? ['CLOSED', 'CANCELLED'].indexOf(item.status) !== -1
           : ['CLOSED', 'CANCELLED'].indexOf(item.status) === -1 && item.type === this.mode
-      })
+      }) : []
     }
   },
   switchMode (mode) {
@@ -55,18 +62,21 @@ export const ViewModel = DefineMap.extend({
     return labelStatusMap[status] || labelStatusMap.OPEN
   },
   selectItem (item) {
-    this.selectedItem = item
+    this.selectedIndex = this.itemsFiltered.indexOf(item)
+  },
+  selectedIndex: {
+    type: 'number'
   },
   selectedItem: {
-    set (item) {
-      if (!this.items || !this.items.length) {
+    get () {
+      if (!this.itemsFiltered || !this.itemsFiltered.length) {
         return
       }
-      if (!item) {
-        item = this.items[0]
+      if (!this.selectedIndex) {
+        this.selectedIndex = 0
       }
-      this.items.selectItem(item)
-      return item
+
+      return this.itemsFiltered[this.selectedIndex]
     }
   }
 })

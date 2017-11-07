@@ -21,7 +21,10 @@ const FormData = DefineMap.extend({
     }
   },
   error: 'string',
-  transactionFee: 0,
+  transactionFee: {
+    type: 'number',
+    value: 0
+  },
 
   get totalPrice () {
     return this.order && (this.order.price * this.quantity)

@@ -5,6 +5,8 @@ import '~/components/page-issuance-details/orders-grid/orders-grid-test'
 
 import '~/components/page-issuances/company-metadata/company-metadata-test'
 
+import '~/components/page-orders/order-list/order-list-test'
+
 import '~/components/page-transactions/transactions-grid/transactions-grid-test'
 import '~/components/page-transactions/transactions-details/transactions-details-test'
 
