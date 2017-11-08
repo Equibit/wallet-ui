@@ -67,7 +67,7 @@ export const ViewModel = DefineMap.extend({
         return isArchive
           ? ['CLOSED', 'CANCELLED'].indexOf(item.status) !== -1
           : ['CLOSED', 'CANCELLED'].indexOf(item.status) === -1 && item.type === this.mode
-      }) : []
+      }).sort((a, b) => a.createdAt < b.createdAt ? 1 : -1) : []
     }
   },
   switchMode (mode) {
