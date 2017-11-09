@@ -1,0 +1,15 @@
+<div class="btn-group pagination" role="group" aria-label="pagination">
+  <button type="button" class="btn btn-default btn-xs{{#eq page 1}} disabled{{/eq}}" el:disabled:from="equal(page, 1)" on:click="prev()">&laquo;</button>
+  {{#each pagesToDisplay pageNumber=value}}
+    {{#if pageNumber}}
+    <button type="button"
+      class="btn btn-default btn-xs {{#eq pageNumber ../currentPageNumber}} active{{/eq}}"
+      on:click:el:pn:to="../currentPageNumber"
+      pn="{{pageNumber}}">{{pageNumber}}</button>
+    {{else}}
+    <button type="button" class="btn btn-xs" disabled="disabled">...</button>
+    {{/if}}
+  {{/each}}
+  <button type="button" class="btn btn-default btn-xs{{#eq page lastPageNumber}} disabled{{/eq}}" el:disabled:from="equal(page, lastPageNumber)" on:click="next()">&raquo;</button>
+
+</div>
