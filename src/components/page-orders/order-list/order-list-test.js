@@ -46,4 +46,23 @@ describe('wallet-ui/components/page-orders/order-list', function () {
     assert.equal(vm.mode, 'BUY', 'Initial mode is BUY')
     assert.equal(vm.selectedItem, item, 'Item is selected')
   })
+
+  it('orders filtered items by most recent', function () {
+    const items = [{
+      _id: '2',
+      createdAt: new Date(2017, 11, 2),
+      type: 'SELL'
+    }, {
+      _id: '1',
+      createdAt: new Date(2017, 11, 1),
+      type: 'SELL'
+    }, {
+      _id: '3',
+      createdAt: new Date(2017, 11, 3),
+      type: 'SELL'
+    }]
+    const vm = new ViewModel()
+    vm.items = items
+    assert.deepEqual(vm.itemsFiltered.map(item => item._id), ['3', '2', '1'], 'Items are sorted')
+  })
 })

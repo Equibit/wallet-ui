@@ -1,5 +1,6 @@
 import '~/components/page-auth/password-strength/test'
 import '~/components/common/alerts/alerts-test'
+import '~/components/common/list-paginator/list-paginator-test'
 
 import '~/components/page-issuance-details/orders-grid/orders-grid-test'
 import '~/components/page-issuance-details/order-book/order-book-test'
