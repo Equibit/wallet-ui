@@ -48,9 +48,13 @@ export const ViewModel = DefineMap.extend({
       return val < 1 ? 1 : val > this.lastPageNumber ? this.lastPageNumber : val
     }
   },
+  maxPaginatorLength: {
+    type: 'number',
+    value: 7
+  },
   pagesToDisplay: {
     get () {
-      const maxPaginatorLength = 7
+      const maxPaginatorLength = this.maxPaginatorLength
       const pages = new Array(Math.min(maxPaginatorLength, this.lastPageNumber)).fill(null).map((_, i) => i + 1)
       if (maxPaginatorLength < this.lastPageNumber) {
         for (let i = 1; i < maxPaginatorLength; i++) {
