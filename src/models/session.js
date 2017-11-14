@@ -198,10 +198,25 @@ const Session = DefineMap.extend('Session', {
             }
           })
           issuances.loadUTXO()
-          resolve(issuances)
+          resolve && resolve(issuances)
         })
       }
       return val
+    }
+  },
+  userHasIssuances: {
+    get (val, resolve) {
+      return this.issuancesPromise.then(issuances => {
+        resolve(!!issuances && issuances.length > 0)
+      })
+    }
+  },
+
+  issuancePassports: {
+    get () {
+      // For a user's own issuances, find all passports that are also linked to that
+      // issuance.
+      return []
     }
   },
 
