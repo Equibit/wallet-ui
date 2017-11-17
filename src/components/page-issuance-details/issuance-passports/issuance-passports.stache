@@ -21,20 +21,20 @@
     <span class="icon icon-warning"></span> {{i18n('tradingPassportsRequiredWarning')}}
   </div>
   -->
-  
+
   <!-- SCENARIO 2: Logged Out -->
   <ul class="list-unstyled passport-list">
   {{#each visiblePassports}}
     <li><a href="#">{{name}} <span class="icon icon-link-external"></span></a></li>
-  {{/each}} 
+  {{/each}}
   </ul>
   {{#if is-gt(passports.length, 8)}}
-    <button ($click)="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAll')}}</button>
+    <button on:click="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAll')}}</button>
   {{/if}}
-  
-  
 
-  <!-- SCENARIO 3: Logged in with some passports 
+
+
+  <!-- SCENARIO 3: Logged in with some passports
   <ul class="list-unstyled passport-list">
     <li><span class="icon icon-done"> </span> <a href="#">Imperial Brands Passport <span class="icon icon-link-external"></span></a></li>
     <li><span class="icon icon-done"> </span> <a href="#">Issuer Direct <span class="icon icon-link-external"></span></a></li>
@@ -44,7 +44,7 @@
   </ul>
   <div class="row">
     <div class="col-xs-12 col-sm-4 no-padding-left">
-      <button ($click)="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAll')}}</button>
+      <button on:click="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAll')}}</button>
     </div>
     <div class="col-xs-12 col-sm-8 no-padding-right passports-legend">
         <span class="icon icon-done"></span> {{i18n('tradingPassportsLegend')}}
@@ -56,7 +56,7 @@
    <div class="message-box no-border">
     <p class="message-box-cause">{{i18n('tradingPassportsAcceptedNoPassports')}}</p>
     <button class="btn btn-primary btn-xs">{{i18n('acceptPassports')}}</button>
-  </div> 
+  </div>
   -->
 
   <!-- SCENARIO 5: Managing an issuance with passports that have been added
@@ -64,14 +64,14 @@
     <li><a href="#">Imperial Brands Passport <span class="icon icon-link-external"></span></a></li>
     <li><a href="#">Issuer Direct <span class="icon icon-link-external"></span></a></li>
   </ul>
-  <button ($click)="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAllAndManage')}}</button>
+  <button on:click="showModal()" class="btn btn-primary btn-xs">{{i18n('viewAllAndManage')}}</button>
   -->
 </div>
 
 {{#if isModalShown}}
   <bootstrap-modal-content class="issuance-passports">
     <div class="modal-header">
-      <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+      <button on:click="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
       <h4 class="modal-title">{{i18n('tradingPassportsAccepted')}}</h4>
     </div>
     <div class="modal-body">

@@ -19,8 +19,17 @@ import './passport-owned-accepted-issuances-grid.less'
 import view from './passport-owned-accepted-issuances-grid.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the passport-owned-accepted-issuances-grid component'
+  rowsPromise: {
+    get () {
+      return Promise.resolve([])
+    }
+  },
+  rows: {
+    get (lastSetVal, resolve) {
+      this.rowsPromise.then(rows => {
+        resolve && resolve(rows)
+      })
+    }
   }
 })
 

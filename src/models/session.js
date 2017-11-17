@@ -220,6 +220,12 @@ const Session = DefineMap.extend('Session', {
     }
   },
 
+  passportAuthorities: {
+    get () {
+      return []
+    }
+  },
+
   /**
    * @property {Function} models/session.prototype.allAddresses allAddresses
    * @parent models/session.prototype

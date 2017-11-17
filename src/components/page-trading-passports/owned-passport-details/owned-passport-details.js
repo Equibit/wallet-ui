@@ -19,9 +19,11 @@ import './owned-passport-details.less'
 import view from './owned-passport-details.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the owned-passport-details component'
-  }
+  mode: {
+    type: 'string',
+    value: 'ISSUANCES'
+  },
+  passport: '*'
 })
 
 export default Component.extend({

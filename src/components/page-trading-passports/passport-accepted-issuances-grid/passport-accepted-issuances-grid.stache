@@ -2,7 +2,7 @@
 <can-import from="~/components/common/grid/grid.less" />
 <can-import from="~/utils/stache-helpers/" />
 
-<grid-component {rows}="rows" class="{{#if rowsPromise.isPending}}loading{{/if}}">
+<grid-component rows:from="issuances" class="{{#if issuancesPromise.isPending}}loading{{/if}}">
     <div class="grid-responsive">
     <table class="table table-condensed grid-header">
         <thead>
@@ -11,7 +11,7 @@
             <th class="column-domicile">{{i18n('domicile')}}</th>
             <th class="column-issuance-type">{{i18n('issuanceType')}}</th>
             <th class="column-price">{{i18n('price')}} (μBTC) </th>
-            
+
         </tr>
         </thead>
     </table>
@@ -19,28 +19,14 @@
     <div class="grid-body-scroll">
         <table class="table table-condensed grid-body">
             <tbody>
-
+              {{#each issuances issuance=value}}
                 <tr>
-                    <td class="column-company truncate"><a href="">Imperial Brands, Series 1</a></td>
-                    <td class="column-domicile">USA</td>
-                    <td class="column-issuance-type">Common Shares</td>
-                    <td class="column-price">7,888</td>
+                    <td class="column-company truncate"><a href="">{{issuance.issuanceName}}</a></td>
+                    <td class="column-domicile">{{issuance.domicile}}</td>
+                    <td class="column-issuance-type">{{issuance.issuanceTypeDisplay}}</td>
+                    <td class="column-price">{{issuance.highestBid}}</td>
                 </tr>
-
-                <tr>
-                    <td class="column-company truncate"><a href="">Imperial Brands, Series 2</a></td>
-                    <td class="column-domicile">USA</td>
-                    <td class="column-issuance-type">Preferred Shares</td>
-                    <td class="column-price">6,890</td>
-                </tr>
-
-                <tr>
-                    <td class="column-company truncate"><a href="">Kingfisher plc, Series 1</a></td>
-                    <td class="column-domicile">Germany</td>
-                    <td class="column-issuance-type">Bonds</td>
-                    <td class="column-price">18,234</td>
-                </tr>
-
+              {{/each}}
             </tbody>
         </table>
     </div>

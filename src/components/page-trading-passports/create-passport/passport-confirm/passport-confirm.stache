@@ -6,13 +6,13 @@
 </div>
 
 <h3 class="subtitle">{{i18n('authority')}}</h3>
-<authority-info></authority-info>
+<authority-info authority:from="passport.authority"></authority-info>
 
 <h3 class="subtitle">Trading Passport</h3>
 <div class="well">
   <dl class="dl-horizontal dl-stripped responsive no-top-border">
     <dt>{{i18n('tradingPassportsPassportName')}}</dt>
-    <dd>Passport Name</dd>
+    <dd>{{passport.name}}</dd>
   </dl>
-  <button class="btn btn-sm btn-edit btn-default">Edit</button>
+  <button class="btn btn-sm btn-edit btn-default" on:click="edit()">Edit</button>
 </div>

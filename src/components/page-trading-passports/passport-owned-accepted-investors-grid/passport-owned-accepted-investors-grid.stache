@@ -17,21 +17,13 @@
         <div class="grid-body-scroll">
             <table class="table table-condensed grid-body">
                 <tbody>
+                  {{#each rows row=value}}
                     <tr>
-                        <td class="column-description truncate">Pat Frank</td>
-                        <td class="column-expiration">04/28/2027</td>
-                        <td class="column-action"><button class="btn btn-default btn-xs">Edit</button></td>
+                        <td class="column-description truncate">{{row.investor.name}}</td>
+                        <td class="column-expiration">{{#if row.expiration}}{{format-short-date(row.expiration)}}{{else}}n/a{{/if}}</td>
+                        <td class="column-action"><button class="btn btn-default btn-xs" on:click="showModal()">Edit</button></td>
                     </tr>
-                    <tr>
-                        <td class="column-description truncate">Charlotte Bryant</td>
-                        <td class="column-expiration">02/28/2027</td>
-                        <td class="column-action"><button class="btn btn-default btn-xs">Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td class="column-description truncate">Andrew Barnes</td>
-                        <td class="column-expiration">n/a</td>
-                        <td class="column-action"><button class="btn btn-default btn-xs">Edit</button></td>
-                    </tr>
+                  {{/each}}
                 </tbody>
             </table>
         </div>

@@ -19,11 +19,16 @@ import './create-passport.less'
 import view from './create-passport.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the create-passport component'
-  },
   mode: {
+    type: 'string',
     value: 'edit'
+  },
+  passport: {
+    // Type: TradingPassport,
+    value: {}
+  },
+  showAuthorityModal () {
+    this.mode = 'authority'
   },
   edit () {
     this.mode = 'edit'

@@ -16,18 +16,12 @@
     <div class="grid-body-scroll">
         <table class="table table-condensed grid-body">
             <tbody>
+              {{#each rows row=value}}
                 <tr>
-                    <td class="column-company truncate"><a href="">Imperial Brands, Series 1</a></td>
-                    <td class="column-action"><button class="btn btn-delete btn-xs">Remove</button></td>
+                    <td class="column-company truncate"><a href="">{{row.name}}</a></td>
+                    <td class="column-action"><button class="btn btn-delete btn-xs" on:click="removeItem(this)">Remove</button></td>
                 </tr>
-                <tr>
-                    <td class="column-company truncate"><a href="">Imperial Brands, Series 2</a></td>
-                    <td class="column-action"><button class="btn btn-delete btn-xs">Remove</button></td>
-                </tr>
-                <tr>
-                    <td class="column-company truncate"><a href="">Kingfisher plc, Series 1</a></td>
-                    <td class="column-action"><button class="btn btn-delete btn-xs">Remove</button></td>
-                </tr>
+              {{/each}}
             </tbody>
         </table>
     </div>

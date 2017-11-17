@@ -19,9 +19,7 @@ import './passport-confirm.less'
 import view from './passport-confirm.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the passport-confirm component'
-  }
+  passport: {}
 })
 
 export default Component.extend({

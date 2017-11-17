@@ -7,15 +7,17 @@
                     <label class="control-label">{{i18n('authority')}}</label>
                 </div>
                 <div class="col-xs-12 col-sm-6">
-                    <select class="form-control issuance-selector input-sm">
-                        <option value="">Imperial Brands</option>
-                        <option value="">Kingfisher plc</option>
-                        <option value="">Maecenas Nulla</option>
+                    <select class="form-control issuance-selector input-sm" value:bind="index-to-selected(~passport.authority, session.passportAuthorities)">
+                      {{#each session.passportAuthorities authority=value}}
+                        <option value="{{scope.index}}">{{authority.name}}</option>
+                      {{else}}
+                        <option value="" disabled="disabled" >{{i18n('authoritiesNotFound')}}</option>
+                      {{/each}}
                     </select>
                 </div>
                 <div class="col-xs-12 col-sm-3">
                     <div>
-                        <button ($click)="company()" type="button" class="btn btn-primary btn-sm">{{i18n('addNew')}}</button>
+                        <button on:click="company()" type="button" class="btn btn-primary btn-sm">{{i18n('addNew')}}</button>
                     </div>
                 </div>
             </div>
@@ -31,7 +33,7 @@
                 <label for="passportName" class="control-label">{{i18n('tradingPassportsPassportName')}}</label>
             </div>
             <div class="col-xs-12 col-sm-6">
-                <input type="text" class="form-control" id="passportName">
+                <input type="text" class="form-control" id="passportName" value:bind="passport.name">
             </div>
             </div>
         </div>

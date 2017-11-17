@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/common/list-paginator/" />
+<can-import from="~/components/page-trading-passports/create-passport/" />
 
 <drag-panel class="panel panel-default card card-full">
   <div class="panel-heading">
@@ -57,7 +58,8 @@
         {{#unless issuancePassports.length}}
         <!-- SCENARIO 3: Without Passports (OWNED) but with issuances (can create) -->
         <div class="form-group">
-          <button class="btn btn-primary btn-sm btn-create-passport">+ {{i18n('createPassport')}}</button>
+          <button class="btn btn-primary btn-sm btn-create-passport" on:click="showModal()">+ {{i18n('createPassport')}}</button>
+          {{#if isModalShown}}<create-passport></create-passport>{{/if}}
         </div>
         <div class="message-box no-border message-placeholder">
             <div class="icon icon-passport"></div>
@@ -66,7 +68,7 @@
         {{else}}
         <!-- SCENARIO 4: With Passports (OWNED) -->
         <div class="form-group">
-          <button class="btn btn-primary btn-sm btn-create-passport">+ {{i18n('createPassport')}}</button>
+          <button class="btn btn-primary btn-sm btn-create-passport" on:click="showModal()">+ {{i18n('createPassport')}}</button>
         </div>
         <div class="list-group stretch">
           {{#each issuancePassports passport=value}}
