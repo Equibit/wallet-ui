@@ -9,6 +9,7 @@
     <can-import from="~/styles/styles.less" />
     <can-import from="~/app" export-as="viewModel" />
 
+    <can-import from="can-stache-converters" />
     <can-import from="bootstrap-canjs" />
     <can-import from="bootstrap-canjs/modal/modal.less" />
     <can-import from="~/components/page-loading.component" />

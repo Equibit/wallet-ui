@@ -60,9 +60,23 @@
   <dl class="dl-horizontal dl-stripped responsive">
     <dt class="restriction-levels">{{i18n('restriction')}}</dt>
     <dd class="restriction-levels">
-      <span class="icon icon-passport-level-0"></span>
-      <strong>{{i18n('noRestriction')}}</strong>
-      <div class="restriction-info">{{i18n('noRestrictionInfo')}}</div>
+      {{#switch issuance.restriction}}
+        {{#case 1}}
+          <span class="icon icon-passport-level-1"></span>
+          <strong>{{i18n('restrictionLevel1Name')}}</strong>
+          <div class="restriction-info">{{i18n('restrictionLevel1Description')}}</div>
+        {{/case}}
+        {{#case 3}}
+          <span class="icon icon-passport-level-3"></span>
+          <strong>{{i18n('restrictionLevel3Name')}}</strong>
+          <div class="restriction-info">{{i18n('restrictionLevel3Description')}}</div>
+        {{/case}}
+        {{#default}}
+          <span class="icon icon-passport-level-0"></span>
+          <strong>{{i18n('noRestriction')}}</strong>
+          <div class="restriction-info">{{i18n('noRestrictionInfo')}}</div>
+        {{/default}}
+      {{/switch}}
     </dd>
     <hr />
   </dl>

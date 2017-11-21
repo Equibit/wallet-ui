@@ -43,7 +43,7 @@ const Issuance = DefineMap.extend('Issuance', {
     return Issuance.typesMap[this.issuanceType] || this.issuanceType
   },
   issuanceUnit: 'string',   // ['SHARES', 'BTC', 'UNITS'] ?
-  restriction: 'string',
+  restriction: 'number',
   marketCap: 'number',
   change: 'number',
   changePercentage: 'number',
