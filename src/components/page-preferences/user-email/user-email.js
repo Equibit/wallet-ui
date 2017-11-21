@@ -17,14 +17,20 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './user-email.less'
 import view from './user-email.stache'
+import User from '~/models/user/'
 
 export const ViewModel = DefineMap.extend({
-  isModalShown: 'boolean',
-  showModal () {
+  modal: 'string',
+  showAuthenticationModal () {
     // Note: we need to re-insert the modal content:
-    this.isModalShown = false
-    this.isModalShown = true
-  }
+    this.modal = null
+    this.modal = 'authentication'
+  },
+  showEmailUpdateModal () {
+    this.modal = null
+    this.modal = 'email'
+  },
+  user: User
 })
 
 export default Component.extend({

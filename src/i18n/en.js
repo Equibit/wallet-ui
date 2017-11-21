@@ -462,6 +462,7 @@ export default {
   statusOpen: 'Open',
   statusRejected: 'Rejected',
   statusTrading: 'Trading',
+  statusUnverified: 'Unverified',
   statusVerified: 'Verified',
   streetAddress: 'Street Address',
   streetAddressPlaceholder1: 'Street and number, P.O. box, c/o.',

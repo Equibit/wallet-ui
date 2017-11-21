@@ -105,6 +105,16 @@ const User = DefineMap.extend('User', {
   updatedAt: 'date',
 
   /**
+   * @property {Boolean} models/user.properties.verified verified
+   * @parent models/user.properties
+   * Whether the user has a verified email address
+   */
+  verified: {
+    type: "boolean",
+    value: true
+  },
+
+  /**
    * @property {Date} models/user.properties.isNewUser isRecovered
    * @parent models/user.properties
    * Indicates whether user keys were recovered from a seed.

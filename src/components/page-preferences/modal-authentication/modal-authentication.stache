@@ -2,9 +2,9 @@
 <can-import from="~/components/page-preferences/code-input/code-input.component" />
 <can-import from="~/components/page-preferences/user-email/modal-email-update/" />
 
-<bootstrap-modal-content class="modal-authentication">
+<bootstrap-modal-content class="modal-authentication" @close:to="close">
   <div class="modal-header">
-    <button ($click)="doClose(@close)" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+    <button on:click="doClose()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
     <h3 class="modal-title"><span class="icon icon-locks"></span> {{i18n('auth2StepTitle')}}</h3>
   </div>
 
@@ -13,13 +13,13 @@
     <p class="single-paragraph">
       {{{i18n('auth2StepMessage')}}} <a href="">{{i18n('tryAgain')}}</a>
     </p>
-    <code-input {^code}="../secondFactorCode" />
+    <code-input code:to="../secondFactorCode" />
 
   </div>
 
   <div class="modal-footer">
-    <button ($click)="verify(@close)" type="button" class="btn btn-primary">{{i18n('verify')}}</button>
-    <button ($click)="doClose(@close)" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    <button on:click="../verify()" type="button" class="btn btn-primary">{{i18n('verify')}}</button>
+    <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
   </div>
 </bootstrap-modal-content>
 

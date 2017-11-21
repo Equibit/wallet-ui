@@ -60,12 +60,12 @@
 
         {{#each pages}}
           <button type="button" class="btn btn-default btn-xs {{#if isActive}}active{{/if}}"
-                  ($click)=changePage(pageNumber)>
+                  on:click="changePage(pageNumber)">
             {{pageTitle}}
           </button>
         {{/each}}
 
-        <button type="button" class="btn btn-default btn-xs" ($click)="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
+        <button type="button" class="btn btn-default btn-xs" on:click="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
       </div>
     {{/if}}
     <div class="grid-results">Showing {{rows.length}} of {{pagination.total}} Results</div>

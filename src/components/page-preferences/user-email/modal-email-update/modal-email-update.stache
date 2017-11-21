@@ -1,37 +1,37 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-preferences/code-input/code-input.component" />
 
-<bootstrap-modal-content class="user-email">
+<bootstrap-modal-content class="user-email" @close:to="close">
   <div class="modal-header">
-    <button ($click)="close()" type="button" class="close" aria-label="Close">
+    <button on:click="close()" type="button" class="close" aria-label="Close">
       <span class="icon icon-cross rotate-90"></span></button>
       <h4 class="modal-title"><span class="icon icon-email"></span> {{i18n('email')}}</h4>
   </div>
 
   <div class="modal-body">
-    {{#is mode 'edit'}}
+    {{#is ../mode 'edit'}}
       <div class="description">{{i18n('emailUpdateDescription')}}</div>
        <p class="single-paragraph">{{i18n('emailUpdateMessage')}}</p>
       <div class="form-group">
         <label for="emailUpdate">{{i18n('emailUpdate')}}</label>
-        <input type="password" class="form-control" id="emailUpdate">
+        <input type="text" class="form-control" id="emailUpdate" value:bind="email">
       </div>
     {{/is}}
 
-    {{#is mode 'code'}}
+    {{#is ../mode 'code'}}
       <div class="description">{{i18n('emailNewVerificationDescription')}}</div>
       <p class="single-paragraph">{{i18n('emailNewVerificationMessage')}}</p>
-      <code-input />
+      <code-input code:from="codeString" />
     {{/is}}
   </div>
 
   <div class="modal-footer">
-    {{#is mode 'edit'}}
-      <button ($click)="code()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
+    {{#is ../mode 'edit'}}
+      <button on:click="../code()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
     {{/is}}
-    {{#is mode 'code'}}
-      <button type="button" class="btn btn-primary">{{i18n('verify')}}</button>
+    {{#is ../mode 'code'}}
+      <button on:click="../verify()" type="button" class="btn btn-primary">{{i18n('verify')}}</button>
     {{/is}}
-    <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
   </div>
 </bootstrap-modal-content>

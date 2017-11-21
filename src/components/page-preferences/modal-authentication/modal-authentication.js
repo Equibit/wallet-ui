@@ -20,14 +20,18 @@ import view from './modal-authentication.stache'
 
 export const ViewModel = DefineMap.extend({
   secondFactorCode: 'string',
-  verify (close) {
+  verify () {
     this.dispatch('verified', [this.secondFactorCode])
-    this.doClose(close)
+    this.doClose()
   },
-  doClose (close) {
+  doClose () {
     this.dispatch('close')
-    close()
-  }
+    this.close()
+    this.next()
+  },
+  // This happens after verify and should generally be overwritten with a next step
+  next () {},
+  close: '*' // from bootstrap-modal-content
 })
 
 export default Component.extend({

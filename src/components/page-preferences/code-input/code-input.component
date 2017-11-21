@@ -15,7 +15,7 @@
 
     <div class="form-group">
       <label for="authCode">{{i18n('codeVerificationLabel')}}</label>
-      <input {($value)}="code" type="password" class="form-control password-input" id="authCode">
+      <input value:bind="code" type="password" class="form-control password-input" id="authCode">
     </div>
   </view>
   <script type="view-model">

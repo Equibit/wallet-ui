@@ -22,12 +22,20 @@ export const ViewModel = DefineMap.extend({
   mode: {
     value: 'edit'
   },
+  email: 'string',
+  user: {},
   edit () {
     this.mode = 'edit'
   },
   code () {
     this.mode = 'code'
-  }
+  },
+  verify () {
+    this.user.email = this.email
+    this.user.verified = false
+    this.close()
+  },
+  close: '*'
 })
 
 export default Component.extend({

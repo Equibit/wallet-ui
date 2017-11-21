@@ -28,7 +28,7 @@
         <tbody>
           {{#each rows as row}}
           <tr class="{{#if row.isPending}}pending{{/if}} {{#if row.selected}}selected{{/if}}"
-              ($click)="selectRow(row, %element, %event)">
+              on:click="selectRow(row, %element, %event)">
             <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
             <td class="column-type">{{row.typeFormatted}}</td>
             <td class="column-description">
@@ -69,16 +69,16 @@
   <div class="grid-footer">
     {{#if hasPages}}
       <div class="btn-group pagination" role="group" aria-label="pagination">
-        <button type="button" class="btn btn-default btn-xs" ($click)="prev()" {{^if isPrevActive}}disabled{{/if}}>&laquo;</button>
+        <button type="button" class="btn btn-default btn-xs" on:click="prev()" {{^if isPrevActive}}disabled{{/if}}>&laquo;</button>
 
         {{#each pages}}
           <button type="button" class="btn btn-default btn-xs {{#if isActive}}active{{/if}}"
-                  ($click)=changePage(pageNumber)>
+                  on:click="changePage(pageNumber)">
             {{pageTitle}}
           </button>
         {{/each}}
 
-        <button type="button" class="btn btn-default btn-xs" ($click)="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
+        <button type="button" class="btn btn-default btn-xs" on:click="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>
       </div>
     {{/if}}
     <div class="grid-results">Showing {{rows.length}} of {{pagination.total}} Results</div>

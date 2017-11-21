@@ -1,6 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-preferences/modal-authentication/" />
-
+<can-import from="./modal-email-update/" />
 
 <div class="well">
   <div class="row section">
@@ -8,17 +8,24 @@
       <span class="icon icon-email"></span>{{i18n('email')}}
     </div>
     <div class="col-sm-7 col-xs-12 section-column section-values">
-      <span class="label label-success">{{i18n('statusVerified')}}</span>
-      <span class="input-value">myemail@gmail.com</span>
+      {{#if user.verified}}
+        <span class="label label-success">{{i18n('statusVerified')}}</span>
+      {{else}}
+        <span class="label label-danger">{{i18n('statusUnverified')}}</span>
+      {{/if}}
+      <span class="input-value">{{user.email}}</span>
     </div>
     <div class="col-sm-2 col-xs-12 section-column section-cta">
-      <button ($click)="showModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+      <button on:click="showAuthenticationModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
     </div>
   </div>
 </div>
 
 
-{{#if isModalShown}}
-  <modal-authentication></modal-authentication>
-{{/if}}
+{{#is modal 'authentication'}}
+  <modal-authentication next:from="@showEmailUpdateModal"></modal-authentication>
+{{/is}}
 
+{{#is modal 'email'}}
+  <modal-email-update user:from="user"></modal-email-update>
+{{/is}}
