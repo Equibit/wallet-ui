@@ -24,6 +24,8 @@ import hub from '../../../utils/event-hub'
 import { translate } from '~/i18n/'
 import BitMessage from '../../../models/bit-message'
 import route from 'can-route'
+import typeforce from 'typeforce'
+import cryptoUtils from '../../../utils/crypto'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
@@ -100,35 +102,21 @@ export const ViewModel = DefineMap.extend({
       })
   },
   placeOffer (args) {
+    typeforce(typeforce.tuple('FormData', 'string'), [args[1], args[2]])
     const formData = args[1]
     const type = args[2]
     console.log(`placeOffer: ${type}`, formData)
-    if (!formData) {
-      console.error('Error: received no form data')
-    }
-    const offer = new Offer({
-      userId: Session.current.user._id,
-      orderId: formData.order._id,
-      issuanceAddress: this.issuance.issuanceAddress,
-      type,
-      quantity: formData.quantity,
-      price: formData.order.price,
-      companyName: this.issuance.companyName,
-      issuanceName: this.issuance.issuanceName,
-      issuanceType: this.issuance.issuanceType
-    })
-    offer.save().then(() => {
-      hub.dispatch({
-        'type': 'alert',
-        'kind': 'success',
-        'title': translate('offerWasCreated'),
-        'message': '<a href="' +
-          route.url({ page: 'offers', itemId: offer._id }) +
-          '">' + translate('viewDetails') +
-          '</a>',
-        'displayInterval': 5000
-      })
-    })
+
+    // 1. Generate a secret for HTLC and create an offer (do not save yet).
+    // 2. Create HTLC transaction from the offer and save (send it to blockchain and save to DB).
+    // 3. On success save offer to DB
+    const secret = generateSecret()
+    const offer = createHtlcOffer(formData, type, secret, Session.current.user._id, this.issuance)
+    const tx = createHtlcTx(offer)
+    tx.save()
+      .then(tx => saveOffer(offer, tx))
+      .then(offer => dispatchAlert(hub, offer, route))
+
     return offer
   },
   sendMessage (order, keyPair) {
@@ -142,6 +130,56 @@ export const ViewModel = DefineMap.extend({
     })
   }
 })
+
+function generateSecret () {
+  return cryptoUtils.randomBytes(32)
+}
+function createHtlcOffer (formData, type, secret, user, issuance) {
+  typeforce(typeforce.tuple('FormData', 'string', typeforce.Buffer, 'User', 'Issuance'), arguments)
+
+  const secretEncrypted = user.encryptWithPassword(secret.toString('hex'))
+  const secretHash = cryptoUtils.sha256(secret)
+  const offer = new Offer({
+    userId: user._id,
+    orderId: formData.order._id,
+    issuanceAddress: issuance.issuanceAddress,
+    secretEncrypted,
+    secretHash,
+    type,
+    quantity: formData.quantity,
+    price: formData.order.price,
+    companyName: issuance.companyName,
+    issuanceName: issuance.issuanceName,
+    issuanceType: issuance.issuanceType
+  })
+  return offer
+}
+function createHtlcTx (offer) {
+
+}
+function saveOffer (offer, tx) {
+  offer.tx = tx
+  return offer.save()
+}
+function dispatchAlert (hub, offer, route) {
+  return hub.dispatch({
+    'type': 'alert',
+    'kind': 'success',
+    'title': translate('offerWasCreated'),
+    'message': '<a href="' +
+    route.url({ page: 'offers', itemId: offer._id }) +
+    '">' + translate('viewDetails') +
+    '</a>',
+    'displayInterval': 5000
+  })
+}
+
+/**
+ * Creates HTLC transaction with H(x).
+ */
+function createOfferHtlc () {
+
+}
 
 export default Component.extend({
   tag: 'order-book',

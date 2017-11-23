@@ -193,6 +193,12 @@ const User = DefineMap.extend('User', {
     }
     return res
   },
+  encrypt (val) {
+    return this.encryptWithPassword(_password, val)
+  },
+  decrypt (val) {
+    return this.decryptWithPassword(_password, val)
+  },
   reCryptKeys (oldPassword, newPassword) {
     if (!_keys) {
       return

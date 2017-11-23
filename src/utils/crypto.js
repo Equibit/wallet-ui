@@ -48,5 +48,7 @@ export default {
   encrypt,
   decrypt,
   bip39,
-  bitcoin
+  bitcoin,
+  randomBytes: crypto.randomBytes,
+  sha256: bitcoin.crypto.sha256
 }
