@@ -1,7 +1,7 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import { buildTransaction } from './transaction'
-import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { bitcoin } from '@equibit/wallet-crypto'
 
 import './fixtures/portfolio'
 import './fixtures/listunspent'

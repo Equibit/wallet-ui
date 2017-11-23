@@ -31,7 +31,7 @@
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
-import { walletMessage } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { walletMessage } from '@equibit/wallet-crypto'
 import typeforce from 'typeforce'
 import { instanceOf, KeyPair } from '../utils/typeforce-types'
 import Order from './order'

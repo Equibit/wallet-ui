@@ -1,4 +1,4 @@
-import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { bip39, bitcoin } from '@equibit/wallet-crypto'
 
 const mnemonic = 'fine raw stuff scene actor crowd flag lend wrap pony essay stamp'
 const seed = bip39.mnemonicToSeed(mnemonic, '')

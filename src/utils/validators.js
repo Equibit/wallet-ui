@@ -1,4 +1,4 @@
-import { bitcoin, bip39 } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { bitcoin, bip39 } from '@equibit/wallet-crypto'
 import { translate } from '../i18n/i18n'
 
 const emailRegex = /.+@.+\..+/i

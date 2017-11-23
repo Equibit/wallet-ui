@@ -1,27 +1,28 @@
 import 'steal-mocha'
 import assert from 'chai/chai'
-import { ViewModel } from './order-book'
+import DefineMap from 'can-define/map/map'
+import typeforce from 'typeforce'
 import Order from '~/models/order'
 import Offer from '~/models/offer'
 import eventHub from '~/utils/event-hub'
 import { translate } from '~/i18n/'
 import Session from '../../../models/session'
+import '../../../models/mock/mock-session'
+import issuance from '../../../models/mock/mock-issuance'
+
+import { ViewModel, createHtlcOffer, generateSecret } from './order-book'
 
 // ViewModel unit tests
 describe('wallet-ui/components/page-issuance-details/order-book', function () {
-  const issuance = {
-    issuanceAddress: '1234',
-    companyName: 'Foo',
-    issuanceName: 'Bar',
-    issuanceType: 'Baz',
-    keys: {}
-  }
   const portfolio = {
     _id: '5678'
   }
-
-  before(function () {
-    Session.current = { user: {} }
+  const formData = new (DefineMap.extend('FormData', {seal: false}, {}))({
+    order: {
+      _id: '2345',
+      price: '12'
+    },
+    quantity: 500
   })
 
   describe('placeOrder', function () {
@@ -71,12 +72,28 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
     })
   })
 
-  describe('placeOffer', function () {
+  describe('generateSecret', function () {
+    it('should generate 32 random bytes', function () {
+      const secret = generateSecret()
+      assert.ok(typeforce('Buffer', secret))
+      assert.equal(secret.length, 32)
+    })
+  })
+
+  describe('createHtlcOffer', function () {
+    it('should create HTLC offer', function () {
+      const secret = generateSecret()
+      const htlcOffer = createHtlcOffer(formData, 'BUY', secret, Session.current.user, issuance)
+      console.log('htlcOffer', htlcOffer)
+      assert.equal(htlcOffer.quantity, 500)
+      assert.ok(htlcOffer.secretEncrypted)
+      assert.equal(htlcOffer.secretHash.length, 64, '(256 bit) = (32 bytes) = (64 hex chars)')
+      assert.equal(htlcOffer.type, 'BUY')
+    })
+  })
+
+  describe.skip('placeOffer', function () {
     let _offerSave
-    const order = {
-      _id: '2345',
-      price: '12'
-    }
 
     beforeEach(function () {
       _offerSave = Offer.prototype.save
@@ -96,12 +113,12 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         assert.equal(this.companyName, issuance.companyName, 'Company name from issuance')
         assert.equal(this.issuanceName, issuance.issuanceName, 'Issuance name from issuance')
         assert.equal(this.issuanceType, issuance.issuanceType, 'Issuance type from issuance')
-        assert.equal(this.orderId, order._id, 'Order ID from order')
-        assert.equal(this.price, order.price, 'Price from order')
+        assert.equal(this.orderId, formData.order._id, 'Order ID from order')
+        assert.equal(this.price, formData.order.price, 'Price from order')
         done()
         return Promise.resolve(this)
       }
-      vm.placeOffer([null, {order}])
+      vm.placeOffer([null, formData, 'BUY'])
     })
 
     it('Dispatches created alert to hub', function (done) {
@@ -115,7 +132,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         done()
       }
       eventHub.on('alert', handler)
-      vm.placeOffer([null, {order}])
+      vm.placeOffer([null, formData, 'BUY'])
     })
   })
 })

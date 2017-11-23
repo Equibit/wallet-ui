@@ -20,6 +20,7 @@ import view from './order-book.stache'
 import Order from '../../../models/order'
 import Offer from '../../../models/offer'
 import Session from '../../../models/session'
+// import Transaction from '../../../models/transaction'
 import hub from '../../../utils/event-hub'
 import { translate } from '~/i18n/'
 import BitMessage from '../../../models/bit-message'
@@ -102,7 +103,7 @@ export const ViewModel = DefineMap.extend({
       })
   },
   placeOffer (args) {
-    typeforce(typeforce.tuple('FormData', 'string'), [args[1], args[2]])
+    typeforce(typeforce.tuple('FormData', 'String'), [args[1], args[2]])
     const formData = args[1]
     const type = args[2]
     console.log(`placeOffer: ${type}`, formData)
@@ -111,7 +112,7 @@ export const ViewModel = DefineMap.extend({
     // 2. Create HTLC transaction from the offer and save (send it to blockchain and save to DB).
     // 3. On success save offer to DB
     const secret = generateSecret()
-    const offer = createHtlcOffer(formData, type, secret, Session.current.user._id, this.issuance)
+    const offer = createHtlcOffer(formData, type, secret, Session.current.user, this.issuance)
     const tx = createHtlcTx(offer)
     tx.save()
       .then(tx => saveOffer(offer, tx))
@@ -135,10 +136,11 @@ function generateSecret () {
   return cryptoUtils.randomBytes(32)
 }
 function createHtlcOffer (formData, type, secret, user, issuance) {
-  typeforce(typeforce.tuple('FormData', 'string', typeforce.Buffer, 'User', 'Issuance'), arguments)
+  console.log('createHtlcOffer', arguments)
+  typeforce(typeforce.tuple('FormData', 'String', 'Buffer', 'User', 'Issuance'), arguments)
 
-  const secretEncrypted = user.encryptWithPassword(secret.toString('hex'))
-  const secretHash = cryptoUtils.sha256(secret)
+  const secretEncrypted = user.encrypt(secret.toString('hex'))
+  const secretHash = cryptoUtils.sha256(secret).toString('hex')
   const offer = new Offer({
     userId: user._id,
     orderId: formData.order._id,
@@ -154,9 +156,7 @@ function createHtlcOffer (formData, type, secret, user, issuance) {
   })
   return offer
 }
-function createHtlcTx (offer) {
 
-}
 function saveOffer (offer, tx) {
   offer.tx = tx
   return offer.save()
@@ -173,12 +173,24 @@ function dispatchAlert (hub, offer, route) {
     'displayInterval': 5000
   })
 }
-
 /**
  * Creates HTLC transaction with H(x).
  */
-function createOfferHtlc () {
-
+function createHtlcTx (formData, changeAddr) {
+  // const amount = formData.amount
+  // const currencyType = formData.fundsType
+  // const toAddress = formData.toAddress
+  // const txouts = this.portfolio
+  //   .getTxouts(amount + formData.transactionFee, currencyType)
+  //   .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
+  // const options = {
+  //   fee: formData.transactionFee,
+  //   changeAddr,
+  //   type: 'OUT',
+  //   currencyType,
+  //   description: formData.description
+  // }
+  // return Transaction.makeTransaction(amount, toAddress, txouts, options)
 }
 
 export default Component.extend({
@@ -186,3 +198,9 @@ export default Component.extend({
   ViewModel,
   view
 })
+
+export {
+  createHtlcOffer,
+  generateSecret,
+  createHtlcTx
+}
