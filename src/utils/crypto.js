@@ -1,4 +1,4 @@
-import crypto from '@equibit/wallet-crypto'
+import crypto from '@equibit/wallet-crypto/dist/wallet-crypto'
 import typeforce from 'typeforce'
 const bip39 = crypto.bip39
 const bitcoin = crypto.bitcoin

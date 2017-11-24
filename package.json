@@ -93,11 +93,9 @@
     }
   },
   "dependencies": {
-    "@equibit/wallet-crypto": "0.9.1",
+    "@equibit/wallet-crypto": "0.8.0",
     "accounting": "^0.4.1",
-    "bip39": "^2.4.0",
     "bit-c3": "^0.3.0",
-    "bitcoinjs-lib": "^3.3.0",
     "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
     "bootstrap-canjs": "^0.1.4",

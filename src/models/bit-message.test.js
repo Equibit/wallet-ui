@@ -1,6 +1,6 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
-import { walletMessage, eqbTxBuilder } from '@equibit/wallet-crypto'
+import { walletMessage, eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { keyPair, publicKey } from './mock/mock-keys'
 import BitMessage from './bit-message'
 import Order from './order'

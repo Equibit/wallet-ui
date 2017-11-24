@@ -1,4 +1,4 @@
-import { bip39, bitcoin } from '@equibit/wallet-crypto'
+import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import $ from 'jquery'
 
 export function generateHdNode (mnemonic) {
