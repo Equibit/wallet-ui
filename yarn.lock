@@ -54,9 +54,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@equibit/wallet-crypto@0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@equibit/wallet-crypto/-/wallet-crypto-0.8.0.tgz#6222a146b50bf7a76620fac7908c5b247811ffc5"
+"@equibit/wallet-crypto@0.9.7":
+  version "0.9.7"
+  resolved "https://registry.yarnpkg.com/@equibit/wallet-crypto/-/wallet-crypto-0.9.7.tgz#f4c5d27dce7c28e4582682d6e756c38da0544e1e"
 
 "@types/node@*":
   version "8.0.53"

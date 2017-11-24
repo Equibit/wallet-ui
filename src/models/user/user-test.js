@@ -71,9 +71,7 @@ describe('models/user', function () {
   })
 
   describe('static methods', function () {
-    // todo: in FF this test causes an error:
-    // todo: "DOMException [OperationError: "The operation failed for an operation-specific reason"
-    describe.skip('#login', function () {
+    describe('#login', function () {
       let loginAssertions = 0
       fixture('POST /authentication', function (request, response) {
         console.log(`FIXTURE!!! request.data.strategy = ${request.data.strategy}`, request.data)
