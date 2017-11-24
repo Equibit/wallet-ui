@@ -69,54 +69,52 @@ export const ViewModel = DefineMap.extend({
     this.isViewAllShown = false
     this.isViewAllShown = true
   },
+
+  /**
+   * Places a new order The following actions are taken:
+   *   1. Generate next available address.
+   *   2. Create a new order.
+   *   3. Send BitMessage message.
+   *   4. Save the order and show notification.
+   * @param args
+   * @returns {Promise.<Order>}
+   */
   placeOrder (args) {
+    typeforce(typeforce.tuple('FormData', 'String'), [args[1], args[2]])
     const formData = args[1]
     const type = args[2]
     console.log(`placeOrder: ${type}`, formData)
-    if (!formData) {
-      console.error('Error: received no form data')
-    }
-    const order = new Order({
-      userId: Session.current.user._id,
-      issuanceAddress: this.issuance.issuanceAddress,
-      type,
-      portfolioId: this.portfolio._id,
-      quantity: formData.quantity,
-      price: formData.price,
-      isFillOrKill: formData.isFillOrKill,
-      goodFor: formData.goodFor,
-      companyName: this.issuance.companyName,
-      issuanceName: this.issuance.issuanceName,
-      issuanceType: this.issuance.issuanceType
-    })
-    return this.sendMessage(order, this.issuance.keys.keyPair)
-      .then(() => order.save())
-      .then(() => {
-        hub.dispatch({
-          'type': 'alert',
-          'kind': 'success',
-          'title': translate('orderWasCreated'),
-          'displayInterval': 5000
-        })
-        // TODO: Refresh Market Depth background. See https://github.com/Equibit/wallet-ui/issues/486
-        return order
+
+    return this.portfolio.getNextAddress()
+      .then(addr => createOrder(formData, type, addr, Session.current.user, this.portfolio, this.issuance))
+      .then(order => {
+        return this.sendMessage(order, this.issuance.keys.keyPair)
+          .then(() => order.save())
+          .then(() => dispatchAlertOrder(hub, route))
+          .then(() => order)
       })
   },
+
+  /**
+   * Places a new offer The following actions are taken:
+   *   1. Generate a secret for HTLC and create an offer (do not save yet).
+   *   2. Create HTLC transaction from the offer and save (send it to blockchain and save to DB).
+   *   3. On success save offer to DB
+   * @param args
+   * @returns {Promise.<Order>}
+   */
   placeOffer (args) {
     typeforce(typeforce.tuple('FormData', 'String'), [args[1], args[2]])
     const formData = args[1]
     const type = args[2]
     console.log(`placeOffer: ${type}`, formData)
 
-    // 1. Generate a secret for HTLC and create an offer (do not save yet).
-    // 2. Create HTLC transaction from the offer and save (send it to blockchain and save to DB).
-    // 3. On success save offer to DB
     const secret = generateSecret()
     const offer = createHtlcOffer(formData, type, secret, Session.current.user, this.issuance)
     const tx = createHtlcTx(offer)
     tx.save()
       .then(tx => saveOffer(offer, tx))
-      .then(offer => dispatchAlert(hub, offer, route))
+      .then(offer => dispatchAlertOffer(hub, offer, route))
 
     return offer
   },
@@ -132,9 +130,37 @@ export const ViewModel = DefineMap.extend({
   }
 })
 
+function createOrder (formData, type, addr, user, portfolio, issuance) {
+  typeforce(typeforce.tuple(
+    'FormData',
+    'String',
+    {BTC: 'String', EQB: 'String'},
+    'User',
+    'Portfolio',
+    'Issuance'
+  ), arguments)
+  const order = new Order({
+    userId: user._id,
+    issuanceAddress: issuance.issuanceAddress,
+    type,
+    sellAddressBtc: (type === 'SELL' ? addr.BTC : ''),
+    buyAddressEqb: (type === 'BUY' ? addr.EQB : ''),
+    portfolioId: portfolio._id,
+    quantity: formData.quantity,
+    price: formData.price,
+    isFillOrKill: formData.isFillOrKill,
+    goodFor: formData.goodFor,
+    companyName: issuance.companyName,
+    issuanceName: issuance.issuanceName,
+    issuanceType: issuance.issuanceType
+  })
+  return order
+}
+
 function generateSecret () {
   return cryptoUtils.randomBytes(32)
 }
+
 function createHtlcOffer (formData, type, secret, user, issuance) {
   console.log('createHtlcOffer', arguments)
   typeforce(typeforce.tuple('FormData', 'String', 'Buffer', 'User', 'Issuance'), arguments)
@@ -161,18 +187,27 @@ function saveOffer (offer, tx) {
   offer.tx = tx
   return offer.save()
 }
-function dispatchAlert (hub, offer, route) {
+
+function dispatchAlertOrder (hub, route) {
+  return hub.dispatch({
+    'type': 'alert',
+    'kind': 'success',
+    'title': translate('orderWasCreated'),
+    'displayInterval': 10000
+  })
+}
+
+function dispatchAlertOffer (hub, offer, route) {
+  const offerUrl = route.url({ page: 'offers', itemId: offer._id })
   return hub.dispatch({
     'type': 'alert',
     'kind': 'success',
     'title': translate('offerWasCreated'),
-    'message': '<a href="' +
-    route.url({ page: 'offers', itemId: offer._id }) +
-    '">' + translate('viewDetails') +
-    '</a>',
-    'displayInterval': 5000
+    'message': `<a href="${offerUrl}">${translate('viewDetails')}</a>`,
+    'displayInterval': 10000
   })
 }
+
 /**
  * Creates HTLC transaction with H(x).
  */
