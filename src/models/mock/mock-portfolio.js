@@ -8,20 +8,20 @@ feathersClient.service('portfolios').patch = () => Promise.resolve()
 
 const addressesMeta = [
   // BTC:
-  {index: 0, type: 'BTC', isUsed: true, isChange: false, imported: true},
-  {index: 1, type: 'BTC', isUsed: true, isChange: false, imported: true},
-  {index: 2, type: 'BTC', isUsed: false, isChange: false, imported: true},
+  {index: 0, type: 'BTC', isUsed: true, isChange: false},
+  {index: 1, type: 'BTC', isUsed: true, isChange: false},
+  {index: 2, type: 'BTC', isUsed: false, isChange: false},
 
   // BTC change:
-  {index: 0, type: 'BTC', isUsed: true, isChange: true, imported: true},
-  {index: 1, type: 'BTC', isUsed: false, isChange: true, imported: true},
+  {index: 0, type: 'BTC', isUsed: true, isChange: true},
+  {index: 1, type: 'BTC', isUsed: false, isChange: true},
 
   // EQB:
-  {index: 0, type: 'EQB', isUsed: true, isChange: false, imported: true},
-  {index: 1, type: 'EQB', isUsed: false, isChange: false, imported: true},
+  {index: 0, type: 'EQB', isUsed: true, isChange: false},
+  {index: 1, type: 'EQB', isUsed: false, isChange: false},
 
   // EQB change:
-  {index: 0, type: 'EQB', isUsed: false, isChange: true, imported: true}
+  {index: 0, type: 'EQB', isUsed: true, isChange: true}
 ]
 
 const portfolioKeys = {
