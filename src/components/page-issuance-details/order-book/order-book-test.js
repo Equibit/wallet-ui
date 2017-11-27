@@ -15,7 +15,6 @@ import { ViewModel, createHtlcOffer, generateSecret } from './order-book'
 
 // ViewModel unit tests
 describe('wallet-ui/components/page-issuance-details/order-book', function () {
-
   describe('placeOrder', function () {
     const formData = new (DefineMap.extend('FormData', {seal: false}, {}))({
       order: {
@@ -147,5 +146,4 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       })
     })
   })
-
 })

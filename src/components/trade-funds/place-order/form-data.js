@@ -4,7 +4,7 @@ import moment from 'moment'
 import Issuance from '../../../models/issuance'
 import Portfolio from '../../../models/portfolio'
 
-const FormData = DefineMap.extend({
+const FormData = DefineMap.extend('FormData', {
   /**
    * @property {String} type
    * ENUM ('SELL', 'BUY')
