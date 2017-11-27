@@ -15,17 +15,20 @@
 
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
+import route from 'can-route'
+import { merge } from 'ramda'
 import './order-book.less'
+import typeforce from 'typeforce'
+import { types } from '@equibit/wallet-crypto'
+
+import { translate } from '../../../i18n/i18n'
 import view from './order-book.stache'
 import Order from '../../../models/order'
 import Offer from '../../../models/offer'
 import Session from '../../../models/session'
-// import Transaction from '../../../models/transaction'
+import Transaction from '../../../models/transaction'
 import hub from '../../../utils/event-hub'
-import { translate } from '~/i18n/'
 import BitMessage from '../../../models/bit-message'
-import route from 'can-route'
-import typeforce from 'typeforce'
 import cryptoUtils from '../../../utils/crypto'
 
 export const ViewModel = DefineMap.extend({
@@ -110,13 +113,17 @@ export const ViewModel = DefineMap.extend({
     console.log(`placeOffer: ${type}`, formData)
 
     const secret = generateSecret()
-    const offer = createHtlcOffer(formData, type, secret, Session.current.user, this.issuance)
-    const tx = createHtlcTx(offer)
-    tx.save()
+
+    return Promise.all([
+      this.portfolio.getNextAddress(),
+      this.portfolio.getNextAddress(true)
+    ]).then(([addr, change]) => {
+      const offer = createHtlcOffer(formData, type, secret, Session.current.user, this.issuance, addr.EQB, addr.BTC)
+      const tx = createHtlcTx(offer, formData.order, this.portfolio, change)
+      return tx.save()
+    })
       .then(tx => saveOffer(offer, tx))
       .then(offer => dispatchAlertOffer(hub, offer, route))
-
-    return offer
   },
   sendMessage (order, keyPair) {
     const bitMessage = BitMessage.createFromOrder(order, keyPair)
@@ -161,9 +168,11 @@ function generateSecret () {
   return cryptoUtils.randomBytes(32)
 }
 
-function createHtlcOffer (formData, type, secret, user, issuance) {
-  console.log('createHtlcOffer', arguments)
-  typeforce(typeforce.tuple('FormData', 'String', 'Buffer', 'User', 'Issuance'), arguments)
+function createHtlcOffer (formData, type, secret, user, issuance, eqbAddress, refundBtcAddress) {
+  typeforce(typeforce.tuple(
+    'FormData', 'String', 'Buffer', 'User', 'Issuance', types.Address, types.Address),
+    arguments
+  )
 
   const secretEncrypted = user.encrypt(secret.toString('hex'))
   const secretHash = cryptoUtils.sha256(secret).toString('hex')
@@ -171,6 +180,8 @@ function createHtlcOffer (formData, type, secret, user, issuance) {
     userId: user._id,
     orderId: formData.order._id,
     issuanceAddress: issuance.issuanceAddress,
+    eqbAddress,
+    refundBtcAddress,
     secretEncrypted,
     secretHash,
     type,
@@ -180,7 +191,37 @@ function createHtlcOffer (formData, type, secret, user, issuance) {
     issuanceName: issuance.issuanceName,
     issuanceType: issuance.issuanceType
   })
+  console.log('createHtlcOffer', arguments, offer)
   return offer
+}
+
+/**
+ * Creates HTLC transaction with H(x). Offer type is either 'BUY' or 'SELL'.
+ */
+function createHtlcTx (offer, order, portfolio, changeAddr) {
+  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'String'), arguments)
+  const amount = offer.quantity
+  const currencyType = offer.type === 'BUY' ? 'BTC' : 'EQB'
+  const toAddressA = offer.type === 'BUY' ? order.sellAddressBtc : order.buyAddressEqb
+  const toAddressB = offer.type === 'BUY' ? order.refundBtcAddress : order.refundEqbAddress
+  // todo: calculate transaction fee:
+  const transactionFee = 0.0001
+  // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
+  const timelock = 144
+  const hashlock = offer.secretHash
+
+  const txouts = this.portfolio
+    .getTxouts(amount + transactionFee, currencyType)
+    .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
+
+  const options = {
+    fee: transactionFee,
+    changeAddr: offer.type === 'BUY' ? changeAddr.BTC : changeAddr.EQB,
+    type: offer.type,
+    currencyType,
+    description: (offer.type === 'BUY' ? 'Buying' : 'Selling') + ' securities (HTLC #1)'
+  }
+  return Transaction.makeHtlc(amount, toAddressA, toAddressB, hashlock, timelock, txouts, options)
 }
 
 function saveOffer (offer, tx) {
@@ -206,26 +247,6 @@ function dispatchAlertOffer (hub, offer, route) {
     'message': `<a href="${offerUrl}">${translate('viewDetails')}</a>`,
     'displayInterval': 10000
   })
-}
-
-/**
- * Creates HTLC transaction with H(x).
- */
-function createHtlcTx (formData, changeAddr) {
-  // const amount = formData.amount
-  // const currencyType = formData.fundsType
-  // const toAddress = formData.toAddress
-  // const txouts = this.portfolio
-  //   .getTxouts(amount + formData.transactionFee, currencyType)
-  //   .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
-  // const options = {
-  //   fee: formData.transactionFee,
-  //   changeAddr,
-  //   type: 'OUT',
-  //   currencyType,
-  //   description: formData.description
-  // }
-  // return Transaction.makeTransaction(amount, toAddress, txouts, options)
 }
 
 export default Component.extend({

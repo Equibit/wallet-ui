@@ -33,4 +33,29 @@ describe('models/transaction-utils', function () {
       assert.equal(transactionInfo.hex, expectedHex)
     })
   })
+  describe.skip('buildTransactionBtc', function () {
+    it('should', function () {
+      assert.ok(false)
+    })
+  })
+  describe.skip('buildTransactionEqb', function () {
+    it('should', function () {
+      assert.ok(false)
+    })
+  })
+  describe.skip('toSatoshi', function () {
+    it('should', function () {
+      assert.ok(false)
+    })
+  })
+  describe.skip('makeTransaction', function () {
+    it('should', function () {
+      assert.ok(false)
+    })
+  })
+  describe.skip('makeHtlc', function () {
+    it('should', function () {
+      assert.ok(false)
+    })
+  })
 })

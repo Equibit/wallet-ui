@@ -42,6 +42,22 @@ const Offer = DefineMap.extend('Offer', {
   issuanceAddress: 'string',
 
   /**
+   * EQB address to receive securities to for a BUY offer.
+   */
+  eqbAddress: 'string',
+
+  /**
+   * BTC address to receive payment to for a SELL offer.
+   */
+  btcAddress: 'string',
+
+  /**
+   * Refund address that will be used in HTLC transaction.
+   */
+  refundEqbAddress: 'string',
+  refundBtcAddress: 'string',
+
+  /**
    * @property {Number} models/offer.properties.type type
    * @parent models/offer.properties
    * Type of the offer. Enum (SELL | BUY).

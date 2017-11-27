@@ -11,7 +11,7 @@ import '../../../models/mock/mock-session'
 import issuance from '../../../models/mock/mock-issuance'
 import portfolio from '../../../models/mock/mock-portfolio'
 
-import { ViewModel, createHtlcOffer, generateSecret } from './order-book'
+import { ViewModel, createHtlcOffer, generateSecret, createHtlcTx } from './order-book'
 
 // ViewModel unit tests
 describe('wallet-ui/components/page-issuance-details/order-book', function () {
@@ -90,15 +90,30 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       })
     })
 
-    describe('createHtlcOffer', function () {
-      it('should create HTLC offer', function () {
-        const secret = generateSecret()
-        const htlcOffer = createHtlcOffer(formData, 'BUY', secret, Session.current.user, issuance)
-        console.log('htlcOffer', htlcOffer)
-        assert.equal(htlcOffer.quantity, 500)
-        assert.ok(htlcOffer.secretEncrypted)
-        assert.equal(htlcOffer.secretHash.length, 64, '(256 bit) = (32 bytes) = (64 hex chars)')
-        assert.equal(htlcOffer.type, 'BUY')
+    describe('HTLC', function () {
+      const secret = generateSecret()
+      const eqbAddress = 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'
+      const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
+      const htlcOffer = createHtlcOffer(formData, 'BUY', secret, Session.current.user, issuance, eqbAddress, refundBtcAddress)
+
+      describe('createHtlcOffer', function () {
+        it('should create HTLC offer', function () {
+          console.log('htlcOffer', htlcOffer)
+          assert.equal(htlcOffer.quantity, 500)
+          assert.equal(htlcOffer.eqbAddress, eqbAddress)
+          assert.equal(htlcOffer.refundBtcAddress, refundBtcAddress)
+          assert.ok(htlcOffer.secretEncrypted)
+          assert.equal(htlcOffer.secretHash.length, 64, '(256 bit) = (32 bytes) = (64 hex chars)')
+          assert.equal(htlcOffer.type, 'BUY')
+        })
+      })
+
+      describe('createHtlcTx', function () {
+        it('should create HTLC transaction', function () {
+          const tx = createHtlcTx(htlcOffer)
+          console.log('tx', tx)
+          assert.equal(tx.type, 'BUY')
+        })
       })
     })
 

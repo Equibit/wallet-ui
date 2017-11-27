@@ -19,11 +19,11 @@ import {
  */
 
 const Transaction = DefineMap.extend('Transaction', {
-  makeTransaction () {
+  makeTransaction (amount, toAddress, txouts, options) {
     const txData = makeTransaction.apply(this, arguments)
     return new Transaction(txData)
   },
-  makeHtlc () {
+  makeHtlc (amount, toAddressA, toAddressB, hashlock, timelock, txouts, options) {
     const txData = makeHtlc.apply(this, arguments)
     return new Transaction(txData)
   },
