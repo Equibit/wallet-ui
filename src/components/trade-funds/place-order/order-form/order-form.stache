@@ -7,7 +7,7 @@
         <a href="#" class="btn btn-default btn-sm {{#is type 'SELL'}}btn-selected{{/is}}"
            on:click="switchType('SELL')">{{i18n('sell')}}</a>
         <a href="#" class="btn btn-default btn-sm {{#is type 'BUY'}}btn-selected{{/is}}"
-           on:click="switchType('BUY')>{{i18n('buy')}}</a>
+           on:click="switchType('BUY')">{{i18n('buy')}}</a>
     </div>
 </div>
 

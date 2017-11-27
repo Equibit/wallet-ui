@@ -3,7 +3,7 @@
 
 {{#if company.error}}
 <div class="alert alert-warning" role="alert">
-  <strong>{{i18n('error')}}!</strong> {{i18n(company.error)}}</a>
+  <strong>{{i18n('error')}}!</strong> {{i18n(company.error)}}
 </div>
 {{/if}}
 
