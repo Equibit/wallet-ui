@@ -86,7 +86,7 @@ describe('models/transaction-utils', function () {
         changeAddrEmptyEqb: '',
         amountEqb: 0
       }
-      const txData = makeHtlc (
+      const txData = makeHtlc(
         amount, toAddressA, toAddressB, hashlock, timelock, txouts,
         options
       )
