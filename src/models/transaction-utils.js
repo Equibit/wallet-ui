@@ -1,5 +1,6 @@
-import { bitcoin, eqbTxBuilder, txBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { bitcoin, eqbTxBuilder, txBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { pick } from 'ramda'
+import typeforce from 'typeforce'
 
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 const buildTx = txBuilder.builder.buildTx
@@ -150,6 +151,16 @@ function makeHtlc (
   amount, toAddressA, toAddressB, hashlock, timelock, txouts,
   {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb, amountEqb}
 ) {
+  console.log(`makeHtlc`, arguments)
+  typeforce(typeforce.tuple(
+    'Number',
+    types.Address,
+    types.Address,
+    'String',
+    'Number',
+    'Array',
+    'Object'
+  ), arguments)
   const availableAmount = txouts.reduce((sum, { amount }) => (sum + amount), 0)
   const script = hashTimelockContract(toAddressA, toAddressB, hashlock, timelock)
   const tx = {
@@ -160,20 +171,26 @@ function makeHtlc (
         txid: out.txid,
         vout: out.vout,
         script: '',
+        keyPair: out.keyPair,
         sequence: '4294967295'
       }
     }),
     vout: [{
       value: amount,
-      scriptPub: script
+      scriptPubKey: script
     }, {
       value: (availableAmount - amount - fee),
       address: changeAddr
     }]
   }
-  const txInfo = buildTx(tx)
+  const txBuffer = buildTx(tx)
+  const txId = txBuilder.hashFromBuffer(txBuffer)
+  console.log(`tx hex = ${txBuffer.toString('hex')}`)
+  console.log(`tx id  = ${txId}`)
   const txData = {
-    hex: txInfo.hex,
+    amount: amount,
+    hex: txBuffer.toString('hex'),
+    txId: txId
   }
   return txData
 }
