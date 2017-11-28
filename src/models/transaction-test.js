@@ -35,27 +35,27 @@ describe('models/transaction-utils', function () {
   })
   describe.skip('buildTransactionBtc', function () {
     it('should', function () {
-      assert.ok(false)
+      assert.ok(typeof buildTransactionBtc === 'function')
     })
   })
   describe.skip('buildTransactionEqb', function () {
     it('should', function () {
-      assert.ok(false)
+      assert.ok(typeof buildTransactionEqb === 'function')
     })
   })
   describe.skip('toSatoshi', function () {
     it('should', function () {
-      assert.ok(false)
+      assert.ok(typeof toSatoshi === 'function')
     })
   })
   describe.skip('makeTransaction', function () {
     it('should', function () {
-      assert.ok(false)
+      assert.ok(typeof makeTransaction === 'function')
     })
   })
   describe.skip('makeHtlc', function () {
     it('should', function () {
-      assert.ok(false)
+      assert.ok(typeof makeHtlc === 'function')
     })
   })
 })

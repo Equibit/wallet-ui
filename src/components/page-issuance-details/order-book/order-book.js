@@ -121,9 +121,9 @@ export const ViewModel = DefineMap.extend({
       const offer = createHtlcOffer(formData, type, secret, Session.current.user, this.issuance, addr.EQB, addr.BTC)
       const tx = createHtlcTx(offer, formData.order, this.portfolio, change)
       return tx.save()
+        .then(tx => saveOffer(offer, tx))
+        .then(offer => dispatchAlertOffer(hub, offer, route))
     })
-      .then(tx => saveOffer(offer, tx))
-      .then(offer => dispatchAlertOffer(hub, offer, route))
   },
   sendMessage (order, keyPair) {
     const bitMessage = BitMessage.createFromOrder(order, keyPair)

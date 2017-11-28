@@ -108,7 +108,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         })
       })
 
-      describe('createHtlcTx', function () {
+      describe.skip('createHtlcTx', function () {
         it('should create HTLC transaction', function () {
           const tx = createHtlcTx(htlcOffer)
           console.log('tx', tx)
