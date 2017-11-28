@@ -198,25 +198,25 @@ function createHtlcOffer (formData, type, secret, user, issuance, eqbAddress, re
 /**
  * Creates HTLC transaction with H(x). Offer type is either 'BUY' or 'SELL'.
  */
-function createHtlcTx (offer, order, portfolio, changeAddr) {
-  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'String'), arguments)
+function createHtlcTx (offer, order, portfolio, changeAddrPair) {
+  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', {EQB: 'String', BTC: 'String'}), arguments)
   const amount = offer.quantity
   const currencyType = offer.type === 'BUY' ? 'BTC' : 'EQB'
   const toAddressA = offer.type === 'BUY' ? order.sellAddressBtc : order.buyAddressEqb
-  const toAddressB = offer.type === 'BUY' ? order.refundBtcAddress : order.refundEqbAddress
+  const toAddressB = offer.type === 'BUY' ? offer.refundBtcAddress : offer.refundEqbAddress
   // todo: calculate transaction fee:
   const transactionFee = 0.0001
   // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
   const timelock = 144
   const hashlock = offer.secretHash
 
-  const txouts = this.portfolio
+  const txouts = portfolio
     .getTxouts(amount + transactionFee, currencyType)
-    .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
+    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
 
   const options = {
     fee: transactionFee,
-    changeAddr: offer.type === 'BUY' ? changeAddr.BTC : changeAddr.EQB,
+    changeAddr: offer.type === 'BUY' ? changeAddrPair.BTC : changeAddrPair.EQB,
     type: offer.type,
     currencyType,
     description: (offer.type === 'BUY' ? 'Buying' : 'Selling') + ' securities (HTLC #1)'

@@ -10,6 +10,7 @@ import Session from '../../../models/session'
 import '../../../models/mock/mock-session'
 import issuance from '../../../models/mock/mock-issuance'
 import portfolio from '../../../models/mock/mock-portfolio'
+import orderFixturesData from '../../../models/fixtures/orders'
 
 import { ViewModel, createHtlcOffer, generateSecret, createHtlcTx } from './order-book'
 
@@ -74,11 +75,9 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
   })
 
   describe('Place a new offer', function () {
+    const order = new Order(orderFixturesData[0])
     const formData = new (DefineMap.extend('FormData', {seal: false}, {}))({
-      order: {
-        _id: '2345',
-        price: '12'
-      },
+      order,
       quantity: 500
     })
 
@@ -94,6 +93,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       const secret = generateSecret()
       const eqbAddress = 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'
       const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
+      const changeBtcAddressPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
       const htlcOffer = createHtlcOffer(formData, 'BUY', secret, Session.current.user, issuance, eqbAddress, refundBtcAddress)
 
       describe('createHtlcOffer', function () {
@@ -108,11 +108,14 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         })
       })
 
-      describe.skip('createHtlcTx', function () {
+      describe.only('createHtlcTx', function () {
         it('should create HTLC transaction', function () {
-          const tx = createHtlcTx(htlcOffer)
+          const tx = createHtlcTx(htlcOffer, order, portfolio, changeBtcAddressPair)
           console.log('tx', tx)
           assert.equal(tx.type, 'BUY')
+          assert.equal(tx.amount, 500)
+          assert.ok(tx.hex)
+          assert.ok(tx.txId)
         })
       })
     })
