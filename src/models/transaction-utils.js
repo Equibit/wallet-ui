@@ -1,5 +1,8 @@
-import { bitcoin, eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { bitcoin, eqbTxBuilder, txBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { pick } from 'ramda'
+
+const hashTimelockContract = eqbTxBuilder.hashTimelockContract
+const buildTx = txBuilder.builder.buildTx
 
 function buildTransaction (currencyType) {
   return currencyType === 'BTC' ? buildTransactionBtc : buildTransactionEqb
@@ -60,7 +63,7 @@ function toSatoshi (val) {
 }
 
 /**
- * Creates configuration object for instantiation Transaction.
+ * Creates configuration object for instantiation a Transaction.
  * @param amount
  * @param toAddress
  * @param txouts
@@ -147,7 +150,31 @@ function makeHtlc (
   amount, toAddressA, toAddressB, hashlock, timelock, txouts,
   {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb, amountEqb}
 ) {
-  const txData = {}
+  const availableAmount = txouts.reduce((sum, { amount }) => (sum + amount), 0)
+  const script = hashTimelockContract(toAddressA, toAddressB, hashlock, timelock)
+  const tx = {
+    version: 1,
+    locktime: 0,
+    vin: txouts.map(out => {
+      return {
+        txid: out.txid,
+        vout: out.vout,
+        script: '',
+        sequence: '4294967295'
+      }
+    }),
+    vout: [{
+      value: amount,
+      scriptPub: script
+    }, {
+      value: (availableAmount - amount - fee),
+      address: changeAddr
+    }]
+  }
+  const txInfo = buildTx(tx)
+  const txData = {
+    hex: txInfo.hex,
+  }
   return txData
 }
 

@@ -1,6 +1,7 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import cryptoUtils from '../utils/crypto'
 
 import {
   buildTransaction,
@@ -54,7 +55,30 @@ describe('models/transaction-utils', function () {
     })
   })
   describe.skip('makeHtlc', function () {
+    const secret = cryptoUtils.randomBytes(32)
+    const secretHash = cryptoUtils.sha256(secret).toString('hex')
+
     it('should', function () {
+      const amount = 100
+      const toAddressA = hdNode.derive(0).getAddress()
+      const toAddressB = hdNode.derive(1).getAddress()
+      const chageAddr = hdNode.derive(2).getAddress()
+      const hashlock = secretHash
+      const timelock = 144
+      const txouts = []
+      const options = {
+        fee: 0.0001,
+        changeAddr,
+        type: '',
+        currencyType: 'BTC',
+        description: 'test btc htlc',
+        changeAddrEmptyEqb: '',
+        amountEqb: 0
+      }
+      const txData = makeHtlc (
+        amount, toAddressA, toAddressB, hashlock, timelock, txouts,
+
+      )
       assert.ok(typeof makeHtlc === 'function')
     })
   })
