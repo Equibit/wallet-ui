@@ -1,6 +1,7 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-preferences/code-input/code-input.component" />
 <can-import from="~/components/page-preferences/user-email/modal-email-update/" />
+<can-import from="wallet-ui/components/common/loading-indicator/" />
 
 <bootstrap-modal-content class="modal-authentication" @close:to="close">
   <div class="modal-header">
@@ -9,16 +10,27 @@
   </div>
 
   <div class="modal-body">
+  {{#if twoFactorPromise.isResolved}}
     <span class="description">{{i18n('auth2StepDescription')}}</span>
     <p class="single-paragraph">
-      {{{i18n('auth2StepMessage')}}} <a href="">{{i18n('tryAgain')}}</a>
+      {{{i18n('auth2StepMessage')}}} <a href="#" on:click:value:to="twoFactorPromise">{{i18n('tryAgain')}}</a>
     </p>
     <code-input code:to="../secondFactorCode" />
 
+  {{/if}}
+  {{#if twoFactorPromise.isPending}}
+    <loading-indicator />
+  {{/if}}
+  {{#if twoFactorPromise.isRejected}}
+    <span class="description">There was an error creating the two factor authentication code</span>
+    <p class="single-paragraph">
+      {{twoFactorPromise.reason}}
+    </p>
+  {{/if}}
   </div>
 
   <div class="modal-footer">
-    <button on:click="../verify()" type="button" class="btn btn-primary">{{i18n('verify')}}</button>
+    <button on:click="../verify()" type="button" class="btn btn-primary" {{#unless twoFactorPromise.isResolved}}disabled="disabled"{{/unless}}>{{i18n('verify')}}</button>
     <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
   </div>
 </bootstrap-modal-content>

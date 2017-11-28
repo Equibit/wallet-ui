@@ -8,7 +8,7 @@
       <span class="icon icon-email"></span>{{i18n('email')}}
     </div>
     <div class="col-sm-7 col-xs-12 section-column section-values">
-      {{#if user.verified}}
+      {{#if user.emailVerified}}
         <span class="label label-success">{{i18n('statusVerified')}}</span>
       {{else}}
         <span class="label label-danger">{{i18n('statusUnverified')}}</span>
@@ -16,16 +16,25 @@
       <span class="input-value">{{user.email}}</span>
     </div>
     <div class="col-sm-2 col-xs-12 section-column section-cta">
-      <button on:click="showAuthenticationModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+      {{#if user.twoFactorValidatedSession}}
+        {{#if user.emailVerified}}
+          <button on:click="{{#if user.twoFactorValidatedSession}}showEmailUpdateModal(){{else}}showAuthenticationModal(){{/if}}" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+        {{else}}
+          <button on:click="sendVerificationEmail()" class="btn btn-default btn-sm">{{i18n('resendVerificationEmail')}}</button>
+          <button on:click="showEmailUpdateModal('code')" class="btn btn-primary btn-sm btn-edit">{{i18n('verify')}}</button>
+        {{/if}}
+      {{else}}
+        <button on:click="{{#if user.twoFactorValidatedSession}}showEmailUpdateModal(){{else}}showAuthenticationModal(){{/if}}" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+      {{/if}}
     </div>
   </div>
 </div>
 
 
 {{#is modal 'authentication'}}
-  <modal-authentication next:from="@showEmailUpdateModal"></modal-authentication>
+  <modal-authentication next:from="@showEmailUpdateModal" user:from="user"></modal-authentication>
 {{/is}}
 
 {{#is modal 'email'}}
-  <modal-email-update user:from="user"></modal-email-update>
+  <modal-email-update user:from="user" mode:from="initialView" sendVerificationEmail:from="@sendVerificationEmail"></modal-email-update>
 {{/is}}

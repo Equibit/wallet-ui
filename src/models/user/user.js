@@ -105,14 +105,18 @@ const User = DefineMap.extend('User', {
   updatedAt: 'date',
 
   /**
-   * @property {Boolean} models/user.properties.verified verified
+   * @property {Boolean} models/user.properties.twoFactorValidatedSession twoFactorValidatedSession
+   * @parent models/user.properties
+   * Whether the user has used 2FA to validate accounts this session
+   */
+  twoFactorValidatedSession: { type: 'boolean', default: false },
+
+  /**
+   * @property {Boolean} models/user.properties.emailVerified emailVerified
    * @parent models/user.properties
    * Whether the user has a verified email address
    */
-  verified: {
-    type: "boolean",
-    value: true
-  },
+  emailVerified: { type: 'boolean', default: false },
 
   /**
    * @property {Date} models/user.properties.isNewUser isRecovered

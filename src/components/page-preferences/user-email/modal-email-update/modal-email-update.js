@@ -17,25 +17,61 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './modal-email-update.less'
 import view from './modal-email-update.stache'
+import User from '~/models/user/'
+import hub from '~/utils/event-hub'
 
 export const ViewModel = DefineMap.extend({
   mode: {
-    value: 'edit'
+    value: 'edit',
+    set (val) {
+      if (!val) {
+        return 'edit'
+      } else {
+        return val
+      }
+    }
   },
   email: 'string',
+  codeString: 'string',
   user: {},
+  error: 'string',
   edit () {
     this.mode = 'edit'
   },
   code () {
-    this.mode = 'code'
+    this.sendVerificationEmail(this.email).then(user => {
+      this.mode = 'code'
+    }, error => {
+      hub.dispatch({
+        'type': 'alert',
+        'kind': 'error',
+        'title': error.message
+      })
+      this.error = error
+    })
   },
   verify () {
-    this.user.email = this.email
-    this.user.verified = false
-    this.close()
+    this.error = null
+    User.connection.updateData({
+      _id: this.user._id,
+      emailVerificationCode: this.codeString
+    }).then(user => {
+      this.dispatch('verified', [this.codeString])
+      this.close()
+    }, error => {
+      hub.dispatch({
+        'type': 'alert',
+        'kind': 'error',
+        'title': error.message
+      })
+      this.error = error
+    })
   },
-  close: '*'
+  close: '*',
+  sendVerificationEmail: {
+    type: '*',
+    value: function () { return Promise.reject('not implemented') }
+  }
 })
 
 export default Component.extend({

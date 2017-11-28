@@ -17,12 +17,31 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './modal-authentication.less'
 import view from './modal-authentication.stache'
+import User from '~/models/user/'
 
 export const ViewModel = DefineMap.extend({
   secondFactorCode: 'string',
+  user: {},
+  error: 'string',
+  twoFactorPromise: {
+    get (lastSetVal) {
+      return User.connection.updateData({
+        _id: this.user._id,
+        requestTwoFactorCode: true
+      })
+    }
+  },
   verify () {
-    this.dispatch('verified', [this.secondFactorCode])
-    this.doClose()
+    this.error = null
+    User.connection.updateData({
+      _id: this.user._id,
+      twoFactorCode: this.secondFactorCode
+    }).then(user => {
+      this.dispatch('verified', [this.secondFactorCode])
+      this.doClose()
+    }, error => {
+      this.error = error
+    })
   },
   doClose () {
     this.dispatch('close')

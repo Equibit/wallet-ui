@@ -21,7 +21,7 @@
     {{#is ../mode 'code'}}
       <div class="description">{{i18n('emailNewVerificationDescription')}}</div>
       <p class="single-paragraph">{{i18n('emailNewVerificationMessage')}}</p>
-      <code-input code:from="codeString" />
+      <code-input code:bind="codeString" />
     {{/is}}
   </div>
 

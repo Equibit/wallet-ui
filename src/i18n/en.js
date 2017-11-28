@@ -416,6 +416,7 @@ export default {
   recurring: 'Recurring',
   relatedCompanies: 'Related Companies',
   research: 'Research',
+  resendVerificationEmail: 'Re-send Verification',
   responses: 'Responses',
   restriction: 'Restriction',
   restrictionLevel: 'Restriction Level',
