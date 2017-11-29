@@ -167,6 +167,9 @@ function makeHtlc (
     'Array',
     'Object'
   ), arguments)
+  if (txouts.length === 0) {
+    throw new Error('At least one transaction input is required')
+  }
   const availableAmount = txouts.reduce((sum, { amount }) => (sum + amount), 0)
   const script = hashTimelockContract(toAddressA, toAddressB, hashlock, timelock)
   const tx = {

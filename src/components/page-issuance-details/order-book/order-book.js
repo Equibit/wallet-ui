@@ -107,7 +107,7 @@ export const ViewModel = DefineMap.extend({
    * @returns {Promise.<Order>}
    */
   placeOffer (args) {
-    typeforce(typeforce.tuple('FormData', 'String'), [args[1], args[2]])
+    typeforce(typeforce.tuple('OfferFormData', 'String'), [args[1], args[2]])
     const formData = args[1]
     const type = args[2]
     console.log(`placeOffer: ${type}`, formData)
@@ -123,7 +123,7 @@ export const ViewModel = DefineMap.extend({
       return tx.save()
         .then(tx => saveOffer(offer, tx))
         .then(offer => dispatchAlertOffer(hub, offer, route))
-    })
+    }).catch(dispatchAlertError)
   },
   sendMessage (order, keyPair) {
     const bitMessage = BitMessage.createFromOrder(order, keyPair)
@@ -171,7 +171,7 @@ function generateSecret () {
 
 function createHtlcOffer (formData, type, secret, user, issuance, eqbAddress, refundBtcAddress) {
   typeforce(typeforce.tuple(
-    'FormData', 'String', 'Buffer', 'User', 'Issuance', types.Address, types.Address),
+    'OfferFormData', 'String', 'Buffer', 'User', 'Issuance', types.Address, types.Address),
     arguments
   )
 
@@ -201,7 +201,8 @@ function createHtlcOffer (formData, type, secret, user, issuance, eqbAddress, re
  */
 function createHtlcTx (offer, order, portfolio, changeAddrPair) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', {EQB: 'String', BTC: 'String'}), arguments)
-  const amount = offer.quantity
+  // todo: currently price in the order is in micro bitcoins. Store in satoshi, convert according to user's settings.
+  const amount = offer.quantity * (order.price * 0.000001)
   const currencyType = offer.type === 'BUY' ? 'BTC' : 'EQB'
   const toAddressA = offer.type === 'BUY' ? order.sellAddressBtc : order.buyAddressEqb
   const toAddressB = offer.type === 'BUY' ? offer.refundBtcAddress : offer.refundEqbAddress
@@ -253,6 +254,17 @@ function dispatchAlertOffer (hub, offer, route) {
     'message': `<a href="${offerUrl}">${translate('viewDetails')}</a>`,
     'displayInterval': 10000
   })
+}
+
+function dispatchAlertError (err) {
+  return hub.dispatch({
+    'type': 'alert',
+    'kind': 'danger',
+    'title': 'System error',
+    'message': `Sorry, an error occurred. Message: ${err.message}`,
+    'displayInterval': 10000
+  })
+  throw new Error(err)
 }
 
 export default Component.extend({

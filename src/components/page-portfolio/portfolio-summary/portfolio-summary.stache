@@ -15,15 +15,15 @@
         <div class="row">
           <div class="col-xs-12 summary-section larger">
             <label>{{i18n('balance')}}</label>
-            <span>{{format-max(balance.summary.total, 8)}} <small>BTC</small></span>
+            <span>{{btc(balance.summary.total, 8)}} <small>BTC</small></span>
           </div>
           <div class="col-xs-12 summary-section">
             <label>{{i18n('totalCash')}}</label>
-            <span>{{format-max(balance.summary.cash, 8)}} <small>BTC</small></span>
+            <span>{{btc(balance.summary.cash, 8)}} <small>BTC</small></span>
           </div>
           <div class="col-xs-12 summary-section">
             <label>{{i18n('totalSecurities')}}</label>
-            <span>{{format-max(balance.summary.securities, 8)}} <small>BTC</small></span>
+            <span>{{btc(balance.summary.securities, 8)}} <small>BTC</small></span>
           </div>
         </div>
 

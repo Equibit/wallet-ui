@@ -78,7 +78,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
   describe('Place a new offer', function () {
     const orderData = Object.assign({}, orderFixturesData[0], { issuance: issuance })
     const order = new Order(orderData)
-    const formData = new (DefineMap.extend('FormData', {seal: false}, {}))({
+    const formData = new (DefineMap.extend('OfferFormData', {seal: false}, {}))({
       order,
       quantity: 500
     })
@@ -116,8 +116,8 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         it('should have the correct type', function () {
           assert.equal(tx.type, 'BUY')
         })
-        it('should have amount', function () {
-          assert.equal(tx.amount, 500)
+        it('should have amount = quantity * price', function () {
+          assert.equal(tx.amount, formData.quantity * order.price)
         })
         it('should have BTC transaction hex and id', function () {
           assert.ok(tx.hex)
@@ -139,7 +139,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       })
     })
 
-    describe.skip('placeOffer', function () {
+    describe('placeOffer', function () {
       let _offerSave, _transactionSave
 
       beforeEach(function () {

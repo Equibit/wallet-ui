@@ -40,14 +40,26 @@ stache.registerHelper('format-date-short', function (value) {
   return moment(value).format('MM/DD/YY')
 })
 
+// Satoshi to local currency:
 stache.registerHelper('local-currency', function (value, type = 'BTC') {
   const rates = Session.current && Session.current.rates
   const rateType = type === 'BTC'
     ? 'btcToUsd'
     : (type === 'SECURITIES' ? 'securitiesToBtc' : 'eqbToUsd')
-  return accounting.formatMoney(value * rates[rateType], '', 2)
+  return accounting.formatMoney(Math.floor(value / 100000000) * rates[rateType], '', 2)
 })
 
 stache.registerHelper('local-currency-symbol', function () {
   return 'USD'
+})
+
+// Satoshi to Bitcoins
+stache.registerHelper('btc', function (value, precision = 2) {
+  return toMaxPrecision(value / 100000000, precision)
+})
+
+// Satoshi to user selected units
+stache.registerHelper('btc-user-units', function (value, precision = 2) {
+  // todo: use unit selector here.
+  return toMaxPrecision(value / 100000000, precision)
 })

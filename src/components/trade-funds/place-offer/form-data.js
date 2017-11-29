@@ -2,7 +2,7 @@ import DefineMap from 'can-define/map/map'
 import Portfolio from '../../../models/portfolio'
 import Order from '../../../models/order'
 
-const FormData = DefineMap.extend({
+const FormData = DefineMap.extend('OfferFormData', {
   /**
    * @property {String} type
    * ENUM ('SELL', 'BUY')
