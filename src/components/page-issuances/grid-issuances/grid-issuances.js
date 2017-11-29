@@ -77,7 +77,9 @@ export default Component.extend({
   view,
   events: {
     removed () {
-      this.viewModel.selectedRow.selected = false
+      if (this.viewModel.selectedRow) {
+        this.viewModel.selectedRow.selected = false
+      }
     }
   }
 })
