@@ -2,11 +2,12 @@ import 'steal-mocha'
 import assert from 'chai/chai'
 import DefineMap from 'can-define/map/map'
 import typeforce from 'typeforce'
-import Order from '~/models/order'
-import Offer from '~/models/offer'
+import Order from '../../../models/order'
+import Offer from '../../../models/offer'
 import eventHub from '~/utils/event-hub'
 import { translate } from '~/i18n/'
 import Session from '../../../models/session'
+import Transaction from '../../../models/transaction'
 import '../../../models/mock/mock-session'
 import issuance from '../../../models/mock/mock-issuance'
 import portfolio from '../../../models/mock/mock-portfolio'
@@ -90,7 +91,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       })
     })
 
-    describe('HTLC', function () {
+    describe('HTLC utils', function () {
       const secret = generateSecret()
       const eqbAddress = 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'
       const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
@@ -139,17 +140,35 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
     })
 
     describe.skip('placeOffer', function () {
-      let _offerSave
+      let _offerSave, _transactionSave
 
       beforeEach(function () {
         _offerSave = Offer.prototype.save
+        _transactionSave = Transaction.prototype.save
         Offer.prototype.save = (offer) => {
           return Promise.resolve(offer)
+        }
+        Transaction.prototype.save = (tx) => {
+          return Promise.resolve(tx)
         }
       })
 
       afterEach(function () {
         Offer.prototype.save = _offerSave
+        Transaction.prototype.save = _transactionSave
+      })
+
+      it('creates Transaction item', function (done) {
+        const vm = new ViewModel({ issuance, portfolio })
+        Transaction.prototype.save = function () {
+          assert.equal(this.amount, formData.quantity, 'Amount')
+          assert.equal(this.type, 'BUY', 'Type')
+          assert.ok(this.hex, 'Transaction hex')
+          assert.ok(this.txIdBtc, 'Transaction BTC id')
+          return Promise.resolve(this)
+        }
+        vm.placeOffer([null, formData, 'BUY'])
+          .then(() => done())
       })
 
       it('creates Offer from Issuance and Order', function (done) {
@@ -161,10 +180,10 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
           assert.equal(this.issuanceType, issuance.issuanceType, 'Issuance type from issuance')
           assert.equal(this.orderId, formData.order._id, 'Order ID from order')
           assert.equal(this.price, formData.order.price, 'Price from order')
-          done()
           return Promise.resolve(this)
         }
         vm.placeOffer([null, formData, 'BUY'])
+          .then(() => done())
       })
 
       it('Dispatches created alert to hub', function (done) {
@@ -175,10 +194,10 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
           assert.ok(~data.message.indexOf(translate('viewDetails')), 'Correct link text')
           assert.ok(~data.message.indexOf('<a') && ~data.message.indexOf('</a>'), 'Message contains a link')
           eventHub.off('alert', handler)
-          done()
         }
         eventHub.on('alert', handler)
         vm.placeOffer([null, formData, 'BUY'])
+          .then(() => done())
       })
     })
   })

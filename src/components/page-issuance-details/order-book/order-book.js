@@ -146,6 +146,7 @@ function createOrder (formData, type, addr, user, portfolio, issuance) {
     'Portfolio',
     'Issuance'
   ), arguments)
+
   const order = new Order({
     userId: user._id,
     issuanceAddress: issuance.issuanceAddress,
@@ -226,7 +227,8 @@ function createHtlcTx (offer, order, portfolio, changeAddrPair) {
 }
 
 function saveOffer (offer, tx) {
-  offer.tx = tx
+  // todo: what should offer know about the transaction?
+  // offer.tx = tx
   return offer.save()
 }
 
@@ -240,6 +242,9 @@ function dispatchAlertOrder (hub, route) {
 }
 
 function dispatchAlertOffer (hub, offer, route) {
+  if (!offer) {
+    return
+  }
   const offerUrl = route.url({ page: 'offers', itemId: offer._id })
   return hub.dispatch({
     'type': 'alert',
