@@ -75,7 +75,8 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
   })
 
   describe('Place a new offer', function () {
-    const order = new Order(orderFixturesData[0])
+    const orderData = Object.assign({}, orderFixturesData[0], { issuance: issuance })
+    const order = new Order(orderData)
     const formData = new (DefineMap.extend('FormData', {seal: false}, {}))({
       order,
       quantity: 500
@@ -108,14 +109,31 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         })
       })
 
-      describe.only('createHtlcTx', function () {
-        it('should create HTLC transaction', function () {
-          const tx = createHtlcTx(htlcOffer, order, portfolio, changeBtcAddressPair)
-          console.log('tx', tx)
+      describe('createHtlcTx', function () {
+        const tx = createHtlcTx(htlcOffer, order, portfolio, changeBtcAddressPair)
+        console.log('tx', tx)
+        it('should have the correct type', function () {
           assert.equal(tx.type, 'BUY')
+        })
+        it('should have amount', function () {
           assert.equal(tx.amount, 500)
+        })
+        it('should have BTC transaction hex and id', function () {
           assert.ok(tx.hex)
-          assert.ok(tx.txId)
+          assert.ok(tx.txIdBtc)
+        })
+        it('should have issuance details', function () {
+          assert.equal(tx.companyName, 'Equibit Group')
+          assert.equal(tx.issuanceName, 'Series One')
+        })
+        it('should have otherAddress', function () {
+          assert.equal(tx.otherAddress, order.sellAddressBtc)
+        })
+        it('should have refundAddress', function () {
+          assert.equal(tx.refundAddress, htlcOffer.refundBtcAddress)
+        })
+        it('should have timelock', function () {
+          assert.equal(tx.timelock, 144)
         })
       })
     })

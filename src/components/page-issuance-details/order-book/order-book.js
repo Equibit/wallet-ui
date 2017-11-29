@@ -219,7 +219,8 @@ function createHtlcTx (offer, order, portfolio, changeAddrPair) {
     changeAddr: offer.type === 'BUY' ? changeAddrPair.BTC : changeAddrPair.EQB,
     type: offer.type,
     currencyType,
-    description: (offer.type === 'BUY' ? 'Buying' : 'Selling') + ' securities (HTLC #1)'
+    description: (offer.type === 'BUY' ? 'Buying' : 'Selling') + ' securities (HTLC #1)',
+    issuance: order.issuance
   }
   return Transaction.makeHtlc(amount, toAddressA, toAddressB, hashlock, timelock, txouts, options)
 }

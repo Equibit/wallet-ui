@@ -136,15 +136,21 @@ function makeTransaction (
 
   // add issuance details:
   if (issuance) {
-    txData.companyName = issuance.companyName
-    txData.companySlug = issuance.companySlug
-    txData.issuanceId = issuance._id
-    txData.issuanceName = issuance.issuanceName
-    txData.issuanceType = issuance.issuanceType
-    txData.issuanceUnit = issuance.issuanceUnit
+    Object.assign(txData, addIssuanceDetails(issuance))
   }
 
   return txData
+}
+
+function addIssuanceDetails (issuance) {
+  return {
+    companyName: issuance.companyName,
+    companySlug: issuance.companySlug,
+    issuanceId: issuance._id,
+    issuanceName: issuance.issuanceName,
+    issuanceType: issuance.issuanceType,
+    issuanceUnit: issuance.issuanceUnit
+  }
 }
 
 function makeHtlc (
@@ -188,9 +194,25 @@ function makeHtlc (
   console.log(`tx hex = ${txBuffer.toString('hex')}`)
   console.log(`tx id  = ${txId}`)
   const txData = {
-    amount: amount,
+    address: txouts[0].address,
+    addressTxid: txouts[0].txid,
+    addressVout: txouts[0].vout,
+    fee,
+    type,
+    currencyType,
+    amount,
+    description,
     hex: txBuffer.toString('hex'),
-    txId: txId
+    txIdBtc: currencyType === 'BTC' ? txId : undefined,
+    txIdEqb: currencyType === 'EQB' ? txId : undefined,
+    otherAddress: toAddressA,
+    refundAddress: toAddressB,
+    timelock
+  }
+
+  // add issuance details:
+  if (issuance) {
+    Object.assign(txData, addIssuanceDetails(issuance))
   }
   return txData
 }

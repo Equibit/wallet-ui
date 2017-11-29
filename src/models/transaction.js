@@ -1,3 +1,19 @@
+/**
+ * @module {can-map} models/transaction Transaction
+ * @parent models.wallet
+ *
+ * Transaction model
+ *
+ * @group models/transaction.properties 0 properties
+ *
+ * Cases to cover:
+ *  - Auth issuance with change
+ *  - Auth issuance without change
+ *  - Send issuance
+ *  - Cancel issuance
+ *  - Buy or Sell (inc HTLC transactions)
+ */
+
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
@@ -9,14 +25,6 @@ import {
   makeTransaction,
   makeHtlc
 } from './transaction-utils'
-
-/**
- * Cases to cover:
- *  - Auth issuance with change
- *  - Auth issuance without change
- *  - Send issuance
- *  - Cancel issuance
- */
 
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (amount, toAddress, txouts, options) {
@@ -41,15 +49,57 @@ const Transaction = DefineMap.extend('Transaction', {
     return 10000
   }
 }, {
+  /**
+   * @property {String} models/user.properties._id _id
+   * @parent models/user.properties
+   * Id of a Transaction record in DB.
+   */
   _id: 'string',
 
+  /**
+   * @property {String} models/transaction.properties.address address
+   * @parent models/transaction.properties
+   * Address of one of the inputs to link transaction to a user (via portfolio addressesMeta).
+   */
   address: 'string',
+
+  // The following txid and vout are for address validation and won't be stored in DB
   addressTxid: 'string',
   addressVout: 'number',
 
+  /**
+   * @property {String} models/transaction.properties.otherAddress otherAddress
+   * @parent models/transaction.properties
+   * Address of the recipient.
+   */
   otherAddress: 'string',
 
-  type: 'string', // enum: [ 'IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL' ]
+  /**
+   * @property {String} models/transaction.properties.refundAddress refundAddress
+   * @parent models/transaction.properties
+   * Refund address for HTLC transaction.
+   */
+  refundAddress: 'string',
+
+  /**
+   * @property {Number} models/transaction.properties.timelock timelock
+   * @parent models/transaction.properties
+   * Timelock for HTLC (number of blocks, decimal).
+   */
+  timelock: 'number',
+
+  /**
+   * @property {Enum} models/transaction.properties.type type
+   * @parent models/transaction.properties
+   * Transaction type. One of: [ 'IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL' ]
+   */
+  type: 'string',
+
+  /**
+   * @property {String} models/transaction.properties.typeFormatted typeFormatted
+   * @parent models/transaction.properties
+   * Getter. Localized human readable type.
+   */
   typeFormatted: {
     get () {
       const typeString = {
@@ -63,9 +113,21 @@ const Transaction = DefineMap.extend('Transaction', {
       return typeString[this.type]
     }
   },
-  currencyType: 'string', // enum: [ 'BTC', 'EQB' ]
+
+  /**
+   * @property {String} models/transaction.properties.currencyType currencyType
+   * @parent models/transaction.properties
+   * Blockchain type: BTC or EQB.
+   */
+  currencyType: 'string',
+
   confirmations: 'number',
 
+  /**
+   * @property {String} models/transaction.properties.companyName companyName
+   * @parent models/transaction.properties
+   * Issuance details
+   */
   companyName: 'string',
   companySlug: 'string',
   issuanceId: 'string',
@@ -73,16 +135,44 @@ const Transaction = DefineMap.extend('Transaction', {
   issuanceType: 'string', // ['Common Shares', 'Bonds', 'Equibit', 'Preferred Shares', 'Partnership Units', 'Trust Units', 'Bitcoin']
   issuanceUnit: 'string', // ['Shares', 'BTC', 'Units']
 
+  /**
+   * @property {String} models/transaction.properties.txIdBtc txIdBtc
+   * @parent models/transaction.properties
+   * Transaction ID in Bitcoin blockchain
+   */
   txIdBtc: 'string',
+
+  /**
+   * @property {String} models/transaction.properties.txIdEqb txIdEqb
+   * @parent models/transaction.properties
+   * Transaction ID in Equibit blockchain
+   */
   txIdEqb: 'string',
 
+  /**
+   * @property {Number} models/transaction.properties.txIdEqb txIdEqb
+   * @parent models/transaction.properties
+   * Transaction ID in Equibit blockchain
+   */
   amount: 'number',
   // amountBtc: {
   //   get () {
   //     return (Session.current && Session.current.toBTC(this.amount, this.currencyType)) || this.amount
   //   }
   // },
+
+  /**
+   * @property {Number} models/transaction.properties.fee fee
+   * @parent models/transaction.properties
+   * Transaction fee
+   */
   fee: 'number',
+
+  /**
+   * @property {String} models/transaction.properties.description description
+   * @parent models/transaction.properties
+   * Transaction description
+   */
   description: 'string',
 
   // Won't be stored in DB. If a failure occurs the error will be immediately shown to user without creating a DB entry.

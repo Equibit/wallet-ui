@@ -1,3 +1,3 @@
-module.exports = function(mocha) {
+module.exports = function (mocha) {
   mocha.allowUncaught()
 }
