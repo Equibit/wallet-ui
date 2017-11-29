@@ -22,7 +22,8 @@ import Issuance from '~/models/issuance'
 export const ViewModel = DefineMap.extend({
   rowsPromise: {
     get () {
-      return Issuance.getList({$limit: 0, $skip: 0})
+      // return Issuance.getList({$limit: 0, $skip: 0})
+      return Promise.resolve([])
     }
   },
   rows: {
