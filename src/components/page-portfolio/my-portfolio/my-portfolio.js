@@ -95,7 +95,7 @@ export const ViewModel = DefineMap.extend({
   },
 
   prepareTransaction (formData, changeAddr) {
-    const amount = formData.amount
+    const amount = formData.quantity
     const currencyType = formData.fundsType
     const toAddress = formData.toAddress
     const txouts = this.portfolio

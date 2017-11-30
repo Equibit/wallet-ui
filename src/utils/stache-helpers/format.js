@@ -49,12 +49,18 @@ stache.registerHelper('local-currency-symbol', function () {
 })
 
 // Satoshi to Bitcoins
-stache.registerHelper('btc', function (value, precision = 2) {
+stache.registerHelper('coin', function (value, precision) {
+  if (typeof precision !== 'number') {
+    precision = 8
+  }
   return toMaxPrecision(value / 100000000, precision)
 })
 
 // Satoshi to user selected units
-stache.registerHelper('btc-user-units', function (value, precision = 2) {
+stache.registerHelper('btc-user-units', function (value, precision) {
+  if (typeof precision !== 'number') {
+    precision = 2
+  }
   // todo: use unit selector here.
   return toMaxPrecision(value / 100000000, precision)
 })
