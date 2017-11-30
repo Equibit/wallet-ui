@@ -53,11 +53,11 @@ describe('utils/stache-helpers', function () {
   })
   describe('local-currency', function () {
     it('should show BTC in local currency', function () {
-      let frag = stache('{{local-currency(value, "BTC"}}')({value: 1})
+      let frag = stache('{{local-currency(value, "BTC"}}')({value: 100000000})
       assert.equal(frag.textContent, '4,000.00')
     })
     it('should show EQB in local currency', function () {
-      let frag = stache('{{local-currency(value, "EQB"}}')({value: 2})
+      let frag = stache('{{local-currency(value, "EQB"}}')({value: 200000000})
       assert.equal(frag.textContent, '6.00')
     })
   })

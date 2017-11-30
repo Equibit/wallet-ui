@@ -265,7 +265,6 @@ function dispatchAlertError (err) {
     'message': `Sorry, an error occurred. Message: ${err.message}`,
     'displayInterval': 10000
   })
-  throw new Error(err)
 }
 
 export default Component.extend({

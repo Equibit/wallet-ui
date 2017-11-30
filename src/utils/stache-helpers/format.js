@@ -46,7 +46,7 @@ stache.registerHelper('local-currency', function (value, type = 'BTC') {
   const rateType = type === 'BTC'
     ? 'btcToUsd'
     : (type === 'SECURITIES' ? 'securitiesToBtc' : 'eqbToUsd')
-  return accounting.formatMoney(Math.floor(value / 100000000) * rates[rateType], '', 2)
+  return accounting.formatMoney(value / 100000000 * rates[rateType], '', 2)
 })
 
 stache.registerHelper('local-currency-symbol', function () {
