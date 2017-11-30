@@ -13,8 +13,8 @@
   <can-import from="~/styles/styles.less" />
   <can-import from="~/components/page-my-issuances/" />
 
-  <page-my-issuances {issuances}="issuances"
-                     {portfolio}="portfolio"></page-my-issuances>
+  <page-my-issuances issuances:from="issuances"
+                     portfolio:from="portfolio"></page-my-issuances>
   <bootstrap-modal></bootstrap-modal>
 </script>
 
@@ -30,6 +30,7 @@
   import Issuance from '~/models/issuance'
   import { data } from '~/models/fixtures/issuances'
   import portfolio from '~/models/mock/mock-portfolio'
+  import '~/models/mock/mock-session'
 
   const vm = new DefineMap({
     // issuances: new Issuance.List([])
