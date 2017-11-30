@@ -150,9 +150,9 @@ const Transaction = DefineMap.extend('Transaction', {
   txIdEqb: 'string',
 
   /**
-   * @property {Number} models/transaction.properties.txIdEqb txIdEqb
+   * @property {Number} models/transaction.properties.amount amount
    * @parent models/transaction.properties
-   * Transaction ID in Equibit blockchain
+   * Amount in Satoshi
    */
   amount: 'number',
   // amountBtc: {
@@ -164,7 +164,7 @@ const Transaction = DefineMap.extend('Transaction', {
   /**
    * @property {Number} models/transaction.properties.fee fee
    * @parent models/transaction.properties
-   * Transaction fee
+   * Transaction fee. In Satoshi
    */
   fee: 'number',
 
@@ -209,7 +209,7 @@ const Transaction = DefineMap.extend('Transaction', {
     return this.amount
   },
   get issuanceUnitQuantity () {
-    return this.amount * 100000000
+    return this.amount
   },
   get issuanceTypeDisplay () {
     return this.issuanceType === 'common_shares' ? 'Common Shares' : this.issuanceType

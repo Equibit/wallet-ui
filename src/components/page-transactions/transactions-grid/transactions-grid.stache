@@ -49,14 +49,14 @@
             </td>
             <td class="column-cash tx-{{row.type}}">
               {{#is row.currencyType 'BTC'}}
-                <span>{{format-max(row.amountPlusFee, 8))}}</span>
+                <span>{{btc(row.amountPlusFee, 8))}}</span>
               {{else}}
                 - -
               {{/is}}
             </td>
             <td class="column-cash tx-{{row.type}}">
               {{#is row.currencyType 'EQB'}}
-                <span>{{format-max(row.amountPlusFee, 8))}}</span>
+                <span>{{btc(row.amountPlusFee, 8))}}</span>
               {{/is}}
             </td>
           </tr>
