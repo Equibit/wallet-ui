@@ -7,7 +7,7 @@
 
 <div id="demo"></div>
 
-<script type="text/stache" id="demo-html">
+<script type="text/stache" can-autorender id="demo-html">
   <can-import from="bootstrap-canjs" />
   <can-import from="bootstrap-canjs/modal/modal.less" />
   <can-import from="bootstrap/dist/js/bootstrap" />
@@ -21,30 +21,17 @@
 </script>
 
 <script src="../../../node_modules/steal/steal.js"
-        main="@empty">
-
-  import $ from 'jquery'
-  import stache from 'can-stache'
-  import reload from 'live-reload'
-  import DefineMap from 'can-define/map/map'
-  import canViewModel from 'can-view-model'
-  window.canViewModel = canViewModel
+        main="can-view-autorender">
   import Issuance from '~/models/issuance'
   import { data } from '~/models/fixtures/issuances'
   import portfolio from '~/models/mock/mock-portfolio'
   import '~/models/mock/mock-session'
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
 
-  const vm = new DefineMap({
-    // issuances: new Issuance.List([])
+  let vm = canViewModel(document.getElementById('demo-html'));
+  vm.set({
     issuances: new Issuance.List([data[0], data[9]]),
     portfolio
-  })
-  window.vm = vm
-
-  // Enable live-reload:
-  stache.async($('#demo-html').html()).then(template => {
-    let render = () => $('#demo').html(template(vm))
-    render()
-    reload(render)
   })
 </script>
