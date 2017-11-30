@@ -15,10 +15,10 @@
       <dd class="input-value">{{formData.quantity}} <small>{{i18n('securities')}}</small></dd>
 
       <dt>{{#is type 'SELL'}} {{i18n('askPrice')}} {{else}} {{i18n('bidPrice')}} {{/is}}</dt>
-      <dd class="input-value">{{format(formData.price, '')}} <small>μBTC</small></dd>
+      <dd class="input-value">{{format(formData.priceInUnits, '')}} <small>μBTC</small></dd>
 
       <dt>{{i18n('totalPrice')}}</dt>
-      <dd class="input-value">{{format(formData.totalPrice, '')}} <small>μBTC</small></dd>
+      <dd class="input-value">{{format(formData.totalPriceInUnits, '')}} <small>μBTC</small></dd>
 
       <dt>{{i18n('fillKill')}}</dt>
       <dd class="input-value">

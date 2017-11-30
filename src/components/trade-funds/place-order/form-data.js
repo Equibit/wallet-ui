@@ -23,14 +23,25 @@ const FormData = DefineMap.extend('FormData', {
   authIssuancesOnly: 'boolean',
 
   quantity: 'number',
-  price: 'number',
+  priceInUnits: 'number',
   isFillOrKill: 'boolean',
   goodFor: 'number',
 
   error: 'string',
 
+  // Price in Satoshi
+  get price () {
+    // Currently the unit here is micro bitcoins:
+    return this.priceInUnits * 100
+  },
+
+  get totalPriceInUnits () {
+    return this.quantity * this.priceInUnits
+  },
+
   get totalPrice () {
-    return this.quantity * this.price
+    // Currently the unit here is micro bitcoins:
+    return this.priceInUnits * 100
   },
 
   get goodUntil () {

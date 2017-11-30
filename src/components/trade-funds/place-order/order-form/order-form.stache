@@ -40,7 +40,7 @@
           </div>
           <div class="col-xs-12 col-sm-9">
             <div class="input-group">
-              <input type="text" class="form-control" id="inputAskPrice" value:bind="formData.price">
+              <input type="text" class="form-control" id="inputAskPrice" value:bind="formData.priceInUnits">
               <div class="input-group-addon">μBTC</div>
             </div>
           </div>
@@ -54,7 +54,7 @@
           </div>
           <div class="col-xs-12 col-sm-9">
             <div class="input-group">
-              <input type="text" class="form-control" id="inputTotalAmount" readonly value:from="formData.totalPrice">
+              <input type="text" class="form-control" id="inputTotalAmount" readonly value:from="formData.totalPriceInUnits">
               <div class="input-group-addon disabled">μBTC</div>
             </div>
           </div>

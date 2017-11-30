@@ -113,12 +113,13 @@ export const ViewModel = DefineMap.extend({
     console.log(`placeOffer: ${type}`, formData)
 
     const secret = generateSecret()
+    const timelock = 20
 
     return Promise.all([
       this.portfolio.getNextAddress(),
       this.portfolio.getNextAddress(true)
     ]).then(([addr, change]) => {
-      const offer = createHtlcOffer(formData, type, secret, Session.current.user, this.issuance, addr.EQB, addr.BTC)
+      const offer = createHtlcOffer(formData, type, secret, timelock, Session.current.user, this.issuance, addr.EQB, addr.BTC)
       const tx = createHtlcTx(offer, formData.order, this.portfolio, change)
       return tx.save()
         .then(tx => saveOffer(offer, tx))
@@ -169,9 +170,9 @@ function generateSecret () {
   return cryptoUtils.randomBytes(32)
 }
 
-function createHtlcOffer (formData, type, secret, user, issuance, eqbAddress, refundBtcAddress) {
+function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbAddress, refundBtcAddress) {
   typeforce(typeforce.tuple(
-    'OfferFormData', 'String', 'Buffer', 'User', 'Issuance', types.Address, types.Address),
+    'OfferFormData', 'String', 'Buffer', 'Number', 'User', 'Issuance', types.Address, types.Address),
     arguments
   )
 
@@ -185,6 +186,7 @@ function createHtlcOffer (formData, type, secret, user, issuance, eqbAddress, re
     refundBtcAddress,
     secretEncrypted,
     secretHash,
+    timelock,
     type,
     quantity: formData.quantity,
     price: formData.order.price,
@@ -201,15 +203,14 @@ function createHtlcOffer (formData, type, secret, user, issuance, eqbAddress, re
  */
 function createHtlcTx (offer, order, portfolio, changeAddrPair) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', {EQB: 'String', BTC: 'String'}), arguments)
-  // todo: currently price in the order is in micro bitcoins. Store in satoshi, convert according to user's settings.
-  const amount = offer.quantity * (order.price * 0.000001)
+  const amount = offer.quantity * order.price
   const currencyType = offer.type === 'BUY' ? 'BTC' : 'EQB'
   const toAddressA = offer.type === 'BUY' ? order.sellAddressBtc : order.buyAddressEqb
   const toAddressB = offer.type === 'BUY' ? offer.refundBtcAddress : offer.refundEqbAddress
   // todo: calculate transaction fee:
-  const transactionFee = 0.0001
+  const transactionFee = 10000
   // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
-  const timelock = 144
+  const timelock = offer.timelock
   const hashlock = offer.secretHash
 
   const txouts = portfolio
