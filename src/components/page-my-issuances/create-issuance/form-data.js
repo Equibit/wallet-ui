@@ -22,6 +22,9 @@ const FormData = DefineMap({
   },
   companies: {
     get (val, resolve) {
+      if (val) {
+        return val
+      }
       Company.getList({userId: Session.current.user._id}).then(resolve)
     }
   },

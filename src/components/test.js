@@ -16,3 +16,5 @@ import '~/components/trade-funds/currency-converter/currency-converter-test'
 import '~/components/trade-funds/send-popup/send-popup-test'
 
 import './common/button-group/button-group-test'
+
+import '~/components/page-my-issuances/create-issuance/issuance-form/issuance-form-test'

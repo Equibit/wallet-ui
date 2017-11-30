@@ -6,7 +6,8 @@ const companies = [
   'Imperial Brands', 'Allianz SE', 'Kingfisher plc', 'Deutsche Telekom', 'Experian plc',
   'Propanc Health', 'Marks And Spencer', 'Cool Technologies', 'The Pulse Beverages'
 ]
-const store = fixture.store(times(function (i) {
+
+const companiesData = times(function (i) {
   return {
     _id: i,
     userId: 0,
@@ -24,8 +25,11 @@ const store = fixture.store(times(function (i) {
     contactEmail: 'info@imperialbrands.com',
     phoneNumber: '1-800-768-378'
   }
-}, 9), Company.connection.algebra)
+}, 9)
+
+const store = fixture.store(companiesData, Company.connection.algebra)
 
 fixture('/companies/{_id}', store)
 
 export default store
+export { companiesData }
