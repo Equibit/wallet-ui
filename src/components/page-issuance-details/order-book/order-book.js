@@ -208,7 +208,7 @@ function createHtlcTx (offer, order, portfolio, changeAddrPair) {
   const toAddressA = offer.type === 'BUY' ? order.sellAddressBtc : order.buyAddressEqb
   const toAddressB = offer.type === 'BUY' ? offer.refundBtcAddress : offer.refundEqbAddress
   // todo: calculate transaction fee:
-  const transactionFee = 10000
+  const transactionFee = 1000
   // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
   const timelock = offer.timelock
   const hashlock = offer.secretHash

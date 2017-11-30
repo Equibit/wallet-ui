@@ -81,7 +81,7 @@ const FormData = DefineMap.extend({
   transactionFee: {
     type: 'number',
     // todo: calculate fee
-    value: 0.00001
+    value: 1000
   },
   get transactionFeePrice () {
     return this.type === 'FUNDS'

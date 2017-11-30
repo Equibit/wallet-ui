@@ -7,6 +7,7 @@ import './stache-helpers/stache-helpers'
 import '~/models/mock/mock-session'
 import './random-elements-test'
 import './test-mocha'
+import { localCurrency } from './formatter'
 
 describe('utils/crypto', function () {
   it('mnemonicToSeed', function () {
@@ -65,6 +66,16 @@ describe('utils/stache-helpers', function () {
     it('should show the local currency symbol', function () {
       let frag = stache('{{local-currency-symbol(}}')()
       assert.equal(frag.textContent, 'USD')
+    })
+  })
+})
+
+describe('utils/formatter', function () {
+  describe('localCurrency', function () {
+    it('should convert satoshi to USD', function () {
+      assert.equal(localCurrency(100000000, 'BTC'), '4,000.00')
+      assert.equal(localCurrency(150000000, 'BTC'), '6,000.00')
+      assert.equal(localCurrency(1500, 'BTC'), '0.06')
     })
   })
 })

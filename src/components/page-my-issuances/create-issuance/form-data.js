@@ -17,7 +17,7 @@ const FormData = DefineMap({
   },
   amount: {
     get () {
-      return this.issuance.sharesAuthorized / 100000000
+      return this.issuance.sharesAuthorized
     }
   },
   companies: {
@@ -44,29 +44,29 @@ const FormData = DefineMap({
   },
   hasEnoughFunds: {
     get () {
-      return this.portfolio.hasEnoughFunds(this.amount + this.transactionFee, 'EQB')
+      return this.portfolio.hasEnoughFunds(this.totalAmount, 'EQB')
     }
   },
-  price: 'number',
+
   transactionFee: {
     type: 'number',
-    value: 0.00001
+    value: 1000
   },
 
-  get amountPrice () {
-    return toMaxPrecision(this.eqbToUsd(this.amount), 2)
+  totalAmount: {
+    get () {
+      return this.amount + this.transactionFee
+    }
   },
-  get transactionFeePrice () {
-    return toMaxPrecision(this.eqbToUsd(this.transactionFee), 2)
+
+  get amountEqb () {
+    return this.amount / 100000000
   },
-  get totalAmount () {
-    return this.amount + this.transactionFee
+  get totalAmountEqb () {
+    return this.totalAmount / 100000000
   },
-  get totalPrice () {
-    return this.amountPrice + this.transactionFeePrice
-  },
-  eqbToUsd (EQB) {
-    return EQB * Session.current.rates.eqbToUsd
+  get transactionFeeEqb () {
+    return this.transactionFee / 100000000
   }
 })
 

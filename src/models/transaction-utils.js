@@ -59,8 +59,13 @@ function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testne
   }
 }
 
+// Note: all values are in Satoshi to not run into Math JS craziness.
 function toSatoshi (val) {
-  return Math.floor(val * 100000000)
+  if (Math.floor(val) < val) {
+    console.error(`Attention! The value should be integer (in Satoshi) but received: ${val}`)
+  }
+  return val
+  // return Math.floor(val * 100000000)
 }
 
 /**
@@ -88,6 +93,7 @@ function makeTransaction (
   currencyType = currencyType.toUpperCase()
   const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']))
   const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0)
+  // Note: the value is in Satoshi already:
   const outputs = [
     {address: toAddress, value: toSatoshi(amount)}
   ]

@@ -1,8 +1,7 @@
 import stache from 'can-stache'
 import accounting from 'accounting'
 import moment from 'moment'
-import { toMaxPrecision } from '../formatter'
-import Session from '../../models/session'
+import { toMaxPrecision, localCurrency } from '../formatter'
 
 stache.registerHelper('format', function (value, symbol, precision = 2) {
   return accounting.formatMoney(value, symbol, precision)
@@ -42,11 +41,7 @@ stache.registerHelper('format-date-short', function (value) {
 
 // Satoshi to local currency:
 stache.registerHelper('local-currency', function (value, type = 'BTC') {
-  const rates = Session.current && Session.current.rates
-  const rateType = type === 'BTC'
-    ? 'btcToUsd'
-    : (type === 'SECURITIES' ? 'securitiesToBtc' : 'eqbToUsd')
-  return accounting.formatMoney(value / 100000000 * rates[rateType], '', 2)
+  return localCurrency(value, type)
 })
 
 stache.registerHelper('local-currency-symbol', function () {
