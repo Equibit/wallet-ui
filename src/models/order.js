@@ -43,6 +43,20 @@ const Order = DefineMap.extend('Order', {
   type: 'string',
 
   /**
+   * @property {Number} models/order.properties.sellAddressBtc sellAddressBtc
+   * @parent models/order.properties
+   * BTC address for SELL type of order where a buyer should send funds.
+   */
+  sellAddressBtc: 'string',
+
+  /**
+   * @property {Number} models/order.properties.buyAddressEqb buyAddressEqb
+   * @parent models/order.properties
+   * EQB address for BUY type of order where a seller should send securities.
+   */
+  buyAddressEqb: 'string',
+
+  /**
    * @property {Number} models/order.properties.portfolioId portfolioId
    * @parent models/order.properties
    * Id of a portfolio for buy/sell issuances

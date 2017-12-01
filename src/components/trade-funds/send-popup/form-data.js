@@ -48,7 +48,9 @@ const FormData = DefineMap.extend({
     }
   },
   toAddressError: 'string',
-  amount: {
+
+  // In BTC/EQB
+  amountCoin: {
     type: 'number',
     value: 0,
     set (val) {
@@ -56,9 +58,14 @@ const FormData = DefineMap.extend({
     }
   },
   quantity: {
+    get () {
+      return this.amountCoin * 100000000
+    }
+  },
+  securities: {
     value: 0,
     set (val) {
-      this.amount = val / 100000000
+      this.amountCoin = val / 100000000
       return val
     }
   },
@@ -70,29 +77,23 @@ const FormData = DefineMap.extend({
   hasEnoughFunds: {
     get () {
       if (this.type === 'FUNDS') {
-        return this.portfolio.hasEnoughFunds(this.amount + this.transactionFee, this.fundsType)
+        return this.portfolio.hasEnoughFunds(this.totalAmount, this.fundsType)
       }
       if (this.type === 'SECURITIES' && this.issuance) {
         // Need available shares amount and Empty EQB for the fee:
-        return this.issuance.availableAmount >= this.amount && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
+        return this.issuance.availableAmount >= this.quantity && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
       }
     }
   },
   transactionFee: {
     type: 'number',
     // todo: calculate fee
-    value: 0.00001
+    value: 1000
   },
-  get transactionFeePrice () {
-    return this.type === 'FUNDS'
-      ? (this.fundsType === 'BTC' ? this.btcToUsd(this.transactionFee) : this.eqbToUsd(this.transactionFee))
-      : this.eqbToUsd(this.transactionFee)
-  },
-  btcToUsd (BTC) {
-    return BTC * this.rates.btcToUsd
-  },
-  eqbToUsd (EQB) {
-    return EQB * this.rates.eqbToUsd
+  totalAmount: {
+    get () {
+      return this.quantity + this.transactionFee
+    }
   },
   sharesToEqb: {
     get () {
@@ -104,7 +105,7 @@ const FormData = DefineMap.extend({
   },
   isValid: {
     get () {
-      return !this.toAddressError && (this.hasEnoughFunds || this.type === 'SECURITIES') && this.amount > 0
+      return !this.toAddressError && (this.hasEnoughFunds || this.type === 'SECURITIES') && this.amountCoin > 0
     }
   },
   validate () {

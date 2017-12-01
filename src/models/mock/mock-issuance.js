@@ -11,7 +11,7 @@ const issuanceKeyPair = hdNode.derivePath(`m/44'/73'/${companyIndex}'/0/${issuan
 
 console.log(`issuance address = ${issuanceKeyPair.getAddress()}`)
 
-const amount = 1.5
+const amount = 150000000
 
 const utxo = [{
   txid: '4e7e759e537d87127b2232ce646666e3a71c48f608a43b7d6d9767bfbf92ca50',

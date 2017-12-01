@@ -49,14 +49,14 @@
             </td>
             <td class="column-cash tx-{{row.type}}">
               {{#is row.currencyType 'BTC'}}
-                <span>{{format-max(row.amountPlusFee, 8))}}</span>
+                <span>{{coin(row.amountPlusFee, 8))}}</span>
               {{else}}
                 - -
               {{/is}}
             </td>
             <td class="column-cash tx-{{row.type}}">
               {{#is row.currencyType 'EQB'}}
-                <span>{{format-max(row.amountPlusFee, 8))}}</span>
+                <span>{{coin(row.amountPlusFee, 8))}}</span>
               {{/is}}
             </td>
           </tr>
@@ -73,7 +73,7 @@
 
         {{#each pages}}
           <button type="button" class="btn btn-default btn-xs {{#if isActive}}active{{/if}}"
-                  ($click)=changePage(pageNumber)>
+                  ($click)="changePage(pageNumber)">
             {{pageTitle}}
           </button>
         {{/each}}

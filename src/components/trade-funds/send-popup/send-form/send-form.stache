@@ -73,7 +73,7 @@
 
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
-            <input type="number" class="form-control" {($value)}="formData.quantity">
+            <input type="number" class="form-control" value:bind="formData.quantity">
           </div>
         </div>
 
@@ -84,9 +84,9 @@
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
             <!--<currency-converter {(input)}="formData.amount" {currency}="sharesToUsd" />-->
-            <currency-converter {(input)}="formData.quantity"
+            <currency-converter input:bind="formData.securities"
                                 precision="8"
-                                {currency}="formData.sharesToEqb"/>
+                                currency:from="formData.sharesToEqb"/>
           </div>
         </div>
 
@@ -96,7 +96,7 @@
               message="{{i18n('notEnoughSecurities')}}: {{availableFunds}}" />
           {{/if}}
           <div>
-            <a ($click)="sendAllFunds()">{{i18n('sendAll')}}</a>
+            <a on:click="sendAllFunds()">{{i18n('sendAll')}}</a>
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@
         <div class="alert alert-danger">
           You don't have {{#is formData.fundsType 'BTC'}}Bitcoins{{else}}Equibits{{/is}} to send funds.
           <br>
-          Transfer funds first using the <a href="#" ($click)="openReceiveForm()">Receive Form</a>.
+          Transfer funds first using the <a href="#" on:click="openReceiveForm()">Receive Form</a>.
         </div>
 
       {{else}}
@@ -124,7 +124,7 @@
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
             <div class="input-group">
-              <input type="number" class="form-control" {($value)}="formData.amount" aria-describedby="funds-quantity">
+              <input type="number" class="form-control" value:bind="formData.amountCoin" aria-describedby="funds-quantity">
               <span class="input-group-addon" id="funds-quantity">
                 {{#is formData.fundsType 'EQB'}}Blank EQB{{else}}BTC{{/is}}
               </span>
@@ -138,7 +138,7 @@
 
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
-            <currency-converter {(input)}="formData.amount" {currency}="fundsToUsd" {^output}="formData.price"/>
+            <currency-converter input:bind="formData.amountCoin" currency:from="fundsToUsd" output:to="formData.price"/>
           </div>
         </div>
 
@@ -148,7 +148,7 @@
               message="{{i18n('notEnoughFunds')}}: {{availableFunds}}" />
           {{/if}}
           <div>
-            <a ($click)="sendAllFunds()">{{i18n('sendAllFunds')}}</a>
+            <a on:click="sendAllFunds()">{{i18n('sendAllFunds')}}</a>
           </div>
         </div>
 
@@ -169,7 +169,7 @@
             data-placement="right">
           </span>
         </label>
-        <textarea class="form-control" {($value)}="formData.description" />
+        <textarea class="form-control" value:bind="formData.description" />
         <!--OR <button class="btn btn-default">Scan</button>-->
       </div>
     </div>

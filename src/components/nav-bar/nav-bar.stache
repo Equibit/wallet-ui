@@ -30,7 +30,7 @@
               aria-haspopup="true"
               aria-expanded="false">
             <span class="sr-only">{{i18n('inbox')}}</span>
-            
+
             <notification-counter {count}="notifications.length" />
           </a>
           <div class="dropdown-menu popover popover--inbox bottom notifications-popover animated fadeIn">
@@ -116,7 +116,7 @@
         </li>
       </ul>
 
-      
+
 
       <div class="login-menu hidden-xs">
         <login-buttons {is-logged-in}="isLoggedIn" {logout}="@logout" />
@@ -124,7 +124,7 @@
 
       {{#if isLoggedIn}}
       <div class="currency-container hidden-xs">
-        <div class="navbar-text">{{format-max(balance.summary.total, 8)}} {{i18n('BTC')}}</div>
+        <div class="navbar-text">{{coin(balance.summary.total, 8)}} {{i18n('BTC')}}</div>
       </div>
       {{/if}}
 
@@ -147,7 +147,7 @@
 
       {{#if isLoggedIn}}
       <div class="currency-container navbar-right visible-xs">
-        <div class="navbar-text">{{balance.summary.total}}  {{i18n('BTC')}}</div>
+        <div class="navbar-text">{{coin(balance.summary.total, 8)}}  {{i18n('BTC')}}</div>
       </div>
       {{/if}}
 

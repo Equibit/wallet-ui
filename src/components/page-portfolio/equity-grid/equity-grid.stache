@@ -5,7 +5,7 @@
 
 <grid-component {rows}="rows"
                 {pagination}="pagination"
-                (onpage)=loadPage()
+                (onpage)="loadPage()"
                 class="thin-scrollbar">
 
   <div class="grid-responsive">
@@ -63,7 +63,8 @@
         <button type="button" class="btn btn-default btn-xs" ($click)="prev()" {{^if isPrevActive}}disabled{{/if}}>&laquo;</button>
 
         {{#each pages}}
-          <button type="button" class="btn btn-default btn-xs {{#if isActive}}active{{/if}}" ($click)=changePage(pageNumber)>{{pageTitle}}</button>
+          <button type="button" class="btn btn-default btn-xs {{#if isActive}}active{{/if}}"
+                  ($click)="changePage(pageNumber)">{{pageTitle}}</button>
         {{/each}}
 
         <button type="button" class="btn btn-default btn-xs" ($click)="next()" {{^if isNextActive}}disabled{{/if}}>&raquo;</button>

@@ -16,11 +16,12 @@ const {
 describe('models/portfolio-utils', function () {
   describe('getNextAddressIndex', function () {
     it('should return next available index', function () {
-      assert.deepEqual(getNextAddressIndex(addressesMeta, 'BTC'), {index: 2, imported: false})
+      assert.deepEqual(getNextAddressIndex(addressesMeta, 'BTC'), {index: 2, imported: true})
       assert.deepEqual(getNextAddressIndex(addressesMeta, 'EQB'), {index: 1, imported: true})
     })
     it('should return next available index for a change address', function () {
-      assert.deepEqual(getNextAddressIndex(addressesMeta, 'BTC', true), {index: 1, imported: false})
+      assert.deepEqual(getNextAddressIndex(addressesMeta, 'BTC', true), {index: 1, imported: true})
+      assert.deepEqual(getNextAddressIndex(addressesMeta, 'EQB', true), {index: 1, imported: false})
     })
   })
 
@@ -55,21 +56,25 @@ describe('models/portfolio-utils', function () {
 
 describe('models/portfolio', function () {
   describe('instance properties', function () {
+    const expectedAddresses = [
+      {index: 0, type: 'BTC', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', isChange: false},
+      {index: 1, type: 'BTC', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', isChange: false},
+      {index: 2, type: 'BTC', address: 'mu2DDd2d9yDzS9PoqZrjD6e1ZnmgJnpv54', isChange: false},
+      {index: 0, type: 'BTC', address: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', isChange: true},
+      {index: 1, type: 'BTC', address: 'muJpBHeXzMGoFdUDTUanwwfZSG43Ec6zd8', isChange: true},
+
+      {index: 0, type: 'EQB', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', isChange: false},
+      {index: 1, type: 'EQB', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU', isChange: false},
+      {index: 0, type: 'EQB', address: 'muMQ9mZjBy2E45QcWb1YZgD45mP3TfN3gC', isChange: true}
+    ]
     it('should populate addresses', function () {
-      const expectedAddresses = [
-        {index: 0, type: 'BTC', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', isChange: false},
-        {index: 1, type: 'BTC', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', isChange: false},
-        {index: 0, type: 'EQB', address: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', isChange: false},
-        {index: 1, type: 'EQB', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU', isChange: false},
-        {index: 0, type: 'BTC', address: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', isChange: true}
-      ]
-      assert.equal(portfolio.addresses.length, 5)
+      assert.equal(portfolio.addresses.length, 8)
       assert.deepEqual(omit(['keyPair', 'meta'], portfolio.addresses[0]), expectedAddresses[0])
     })
 
     it('should populate addressesBtc and addressesEqb', function () {
-      const expectedAddressesBtc = ['n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ']
-      const expectedAddressesEqb = ['n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo', 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU']
+      const expectedAddressesBtc = expectedAddresses.filter(({type}) => type === 'BTC').map(({address}) => address)
+      const expectedAddressesEqb = expectedAddresses.filter(({type}) => type === 'EQB').map(({address}) => address)
       assert.deepEqual(portfolio.addressesBtc.get(), expectedAddressesBtc)
       assert.deepEqual(portfolio.addressesEqb.get(), expectedAddressesEqb)
     })
