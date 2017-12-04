@@ -62,8 +62,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * ```
    * [
    *   {index: 0, type: 'EQB', isChange: false, isUsed: true},  // -> /m/44/<eqb_or_btc>/portfolio/<0_or_1>/index
-   *   {index: 1, type: 'EQB', isChange: false, used: false},
-   *   {index: 0, type: 'BTC', isChange: false, used: true},
+   *   {index: 1, type: 'EQB', isChange: false, isUsed: false},
+   *   {index: 0, type: 'BTC', isChange: false, isUsed: true},
    * ]
    * ```
    */
@@ -304,27 +304,27 @@ const Portfolio = DefineMap.extend('Portfolio', {
   // getNextAddress :: Bool -> Object(EQB<String>,BTC<String>)
   getNextAddress (isChange = false) {
     const changeIndex = isChange ? 1 : 0
-    const btcAddr = getNextAddressIndex(this.addressesMeta, 'BTC', isChange)
-    const eqbAddr = getNextAddressIndex(this.addressesMeta, 'EQB', isChange)
-    const btcNode = this.keys.BTC.derive(changeIndex).derive(btcAddr.index)
-    const eqbNode = this.keys.EQB.derive(changeIndex).derive(eqbAddr.index)
+    const btcAddrIndex = getNextAddressIndex(this.addressesMeta, 'BTC', isChange)
+    const eqbAddrIndex = getNextAddressIndex(this.addressesMeta, 'EQB', isChange)
+    const btcNode = this.keys.BTC.derive(changeIndex).derive(btcAddrIndex.index)
+    const eqbNode = this.keys.EQB.derive(changeIndex).derive(eqbAddrIndex.index)
     const addr = {
       BTC: btcNode.getAddress(),
       EQB: eqbNode.getAddress()
     }
-    if (btcAddr.imported === false) {
+    if (btcAddrIndex.imported === false) {
       // Import addr as watch-only
       importAddr(addr.BTC, 'btc')
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: btcAddr.index, type: 'BTC', isUsed: false, isChange})
+      this.addressesMeta.push({index: btcAddrIndex.index, type: 'BTC', isUsed: false, isChange})
     }
-    if (eqbAddr.imported === false) {
+    if (eqbAddrIndex.imported === false) {
       // Import addr as watch-only
       importAddr(addr.EQB, 'eqb')
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: eqbAddr.index, type: 'EQB', isUsed: false, isChange})
+      this.addressesMeta.push({index: eqbAddrIndex.index, type: 'EQB', isUsed: false, isChange})
     }
-    if (!eqbAddr.imported || !btcAddr.imported) {
+    if (!eqbAddrIndex.imported || !btcAddrIndex.imported) {
       // Save newly generated addresses to DB:
       console.log('[portfolio.getNextAddress] patching portfolio with updated addressesMeta ...')
       return this.patch({

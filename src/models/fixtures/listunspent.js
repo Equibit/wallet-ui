@@ -1,5 +1,7 @@
 import fixture from 'can-fixture'
 
+// UTXO are in Bitcoins, but our API converts them into Satoshi.
+
 fixture('GET /listunspent', function () {
   return {
     BTC: {

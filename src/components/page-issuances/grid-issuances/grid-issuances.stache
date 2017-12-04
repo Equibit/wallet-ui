@@ -6,7 +6,7 @@
 <grid-component {rows}="rows"
                 {(selected-row)}="selectedRow"
                 {pagination}="pagination"
-                (onpage)=loadPage()
+                on:page="loadPage()"
                 class="thin-scrollbar">
 
   <div class="grid-responsive">

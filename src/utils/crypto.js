@@ -1,4 +1,5 @@
 import crypto from '@equibit/wallet-crypto/dist/wallet-crypto'
+import typeforce from 'typeforce'
 const bip39 = crypto.bip39
 const bitcoin = crypto.bitcoin
 
@@ -27,6 +28,10 @@ function test () {
   let root3 = bitcoin.HDNode.fromBase58(harderedPK.toBase58())
   console.log('harderedPK', root3)
 
+  const b = crypto.randomBytes(20)
+  typeforce('Buffer', b)
+  console.log(`randomBytes: ${b.toString('hex')}`)
+
   return harderedPK
 }
 
@@ -48,5 +53,7 @@ export default {
   encrypt,
   decrypt,
   bip39,
-  bitcoin
+  bitcoin,
+  randomBytes: crypto.randomBytes,
+  sha256: bitcoin.crypto.sha256
 }

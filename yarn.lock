@@ -54,9 +54,12 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@equibit/wallet-crypto@0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@equibit/wallet-crypto/-/wallet-crypto-0.8.0.tgz#6222a146b50bf7a76620fac7908c5b247811ffc5"
+"@equibit/wallet-crypto@../wallet-crypto":
+  version "0.13.0"
+
+"@equibit/wallet-crypto@0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@equibit/wallet-crypto/-/wallet-crypto-0.13.0.tgz#ba553c5523777d3409f6bec980cc4ff1e17dd101"
 
 "@types/node@*":
   version "8.0.53"
@@ -143,8 +146,8 @@ ajv@^4.10.0, ajv@^4.7.0, ajv@^4.9.1:
     json-stable-stringify "^1.0.1"
 
 ajv@^5.1.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.3.0.tgz#4414ff74a50879c208ee5fdc826e32c303549eda"
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.4.0.tgz#32d1cf08dbc80c432f426f12e10b2511f6b46474"
   dependencies:
     co "^4.6.0"
     fast-deep-equal "^1.0.0"
@@ -1009,12 +1012,6 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
-base-x@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/base-x/-/base-x-3.0.2.tgz#bf873861b7514279b7969f340929eab87c11d130"
-  dependencies:
-    safe-buffer "^5.0.1"
-
 base64-arraybuffer@0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/base64-arraybuffer/-/base64-arraybuffer-0.1.5.tgz#73926771923b5a19747ad666aa5cd4bf9c6e9ce8"
@@ -1041,23 +1038,15 @@ bcryptjs@^2.3.0:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
 
-bech32@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/bech32/-/bech32-0.0.3.tgz#736747c4a6531c5d8937d0400498de30e93b2f9c"
-
 better-assert@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/better-assert/-/better-assert-1.0.2.tgz#40866b9e1b9e0b55b481894311e68faffaebc522"
   dependencies:
     callsite "1.0.0"
 
-bigi@^1.1.0, bigi@^1.4.0:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/bigi/-/bigi-1.4.2.tgz#9c665a95f88b8b08fc05cfd731f561859d725825"
-
 binary-extensions@^1.0.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.10.0.tgz#9aeb9a6c5e88638aad171e167f5900abe24835d0"
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.11.0.tgz#46aa1751fb6a2f93ee5e689bb1087d4b14c6c205"
 
 "binary@>= 0.3.0 < 1":
   version "0.3.0"
@@ -1070,25 +1059,9 @@ binary-extensions@^1.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/binaryextensions/-/binaryextensions-2.0.0.tgz#e597d1a7a6a3558a2d1c7241a16c99965e6aa40f"
 
-bip39@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/bip39/-/bip39-2.4.0.tgz#a0b8adbf163f53495f00f05d9ede7c25369ccf13"
-  dependencies:
-    create-hash "^1.1.0"
-    pbkdf2 "^3.0.9"
-    randombytes "^2.0.1"
-    safe-buffer "^5.0.1"
-    unorm "^1.3.3"
-
-bip66@^1.1.0:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/bip66/-/bip66-1.1.5.tgz#01fa8748785ca70955d5011217d1b3139969ca22"
-  dependencies:
-    safe-buffer "^5.0.1"
-
-bit-c3@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/bit-c3/-/bit-c3-0.2.4.tgz#b5a5c82114d9f3dddb3eae62a190c47673e64e63"
+bit-c3@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/bit-c3/-/bit-c3-0.3.0.tgz#21bd8d7aba858a6d374607fb6d0e3ac25faa5ce1"
   dependencies:
     c3 "0.4.11"
     can-component "^3.0.7"
@@ -1103,30 +1076,6 @@ bit-c3@^0.2.4:
     can-view-model "^3.1.3"
     cssify "0.6.0"
     d3 "^3.5.17"
-
-bitcoin-ops@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/bitcoin-ops/-/bitcoin-ops-1.3.0.tgz#6b126b585537bc679b02ed499f14450cffc37e13"
-
-bitcoinjs-lib@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/bitcoinjs-lib/-/bitcoinjs-lib-3.3.0.tgz#f9ba0b82d09e1532993c1cff8e26529e2bd32a80"
-  dependencies:
-    bech32 "0.0.3"
-    bigi "^1.4.0"
-    bip66 "^1.1.0"
-    bitcoin-ops "^1.3.0"
-    bs58check "^2.0.0"
-    create-hash "^1.1.0"
-    create-hmac "^1.1.3"
-    ecurve "^1.0.0"
-    merkle-lib "^2.0.10"
-    pushdata-bitcoin "^1.0.1"
-    randombytes "^2.0.1"
-    safe-buffer "^5.0.1"
-    typeforce "^1.11.3"
-    varuint-bitcoin "^1.0.4"
-    wif "^2.0.1"
 
 bitovi-source-map@0.4.2-bitovi.2:
   version "0.4.2-bitovi.2"
@@ -1300,19 +1249,6 @@ browserstacktunnel-wrapper@^1.2.1:
   dependencies:
     unzip "~0.1.9"
 
-bs58@^4.0.0:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/bs58/-/bs58-4.0.1.tgz#be161e76c354f6f788ae4071f63f34e8c4f0a42a"
-  dependencies:
-    base-x "^3.0.2"
-
-bs58check@<3.0.0, bs58check@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/bs58check/-/bs58check-2.1.0.tgz#0d378950b49261c807fbe46e5dd2cf5eb2f89513"
-  dependencies:
-    bs58 "^4.0.0"
-    create-hash "^1.1.0"
-
 buffer-xor@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/buffer-xor/-/buffer-xor-1.0.3.tgz#26e61ed1422fb70dd42e6e36729ed51d855fe8d9"
@@ -1373,8 +1309,8 @@ camelcase@^4.1.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 can-ajax@^1.0.0, can-ajax@^1.0.6:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/can-ajax/-/can-ajax-1.1.2.tgz#47b996ce00e835380da2f678ef74f9c4f3a6f0cb"
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/can-ajax/-/can-ajax-1.1.3.tgz#57a217848e240a3f5b62b1e1860e811c4bb7972e"
   dependencies:
     can-globals "^0.2.3"
     can-namespace "^1.0.0"
@@ -1446,8 +1382,8 @@ can-connect-feathers@^3.7.1:
     jwt-decode "^2.1.0"
 
 can-connect@^1.5.10, can-connect@^1.5.4:
-  version "1.5.10"
-  resolved "https://registry.yarnpkg.com/can-connect/-/can-connect-1.5.10.tgz#cd19d7a83cacf36d03d357087c240f4ac2ff2437"
+  version "1.5.12"
+  resolved "https://registry.yarnpkg.com/can-connect/-/can-connect-1.5.12.tgz#4a71325c4dfa6a5dd115496c353f48a0377e61e2"
   dependencies:
     can-ajax "^1.0.6"
     can-compute "^3.3.1"
@@ -1455,7 +1391,7 @@ can-connect@^1.5.10, can-connect@^1.5.4:
     can-define "^1.2.0"
     can-event "^3.6.0"
     can-list "^3.1.0"
-    can-make-rest "0.1.1"
+    can-make-rest "^0.1.1"
     can-map "^3.3.1"
     can-namespace "1.0.0"
     can-observation "^3.3.1"
@@ -1465,7 +1401,7 @@ can-connect@^1.5.10, can-connect@^1.5.4:
     can-stache-bindings "^3.2.0"
     can-types "^1.1.0"
     can-util "^3.9.5"
-    can-validate-interface "0.1.0"
+    can-validate-interface "^0.1.0"
     can-view-callbacks "^3.1.0"
     can-view-nodelist "^3.1.0"
     steal-stache "^3.1.0"
@@ -1617,13 +1553,13 @@ can-list@^3.1.0:
     can-types "^1.1.0"
     can-util "^3.9.0"
 
-can-log@^0.1.0:
+can-log@^0.1.0, can-log@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/can-log/-/can-log-0.1.2.tgz#dd56d5ad39a2ed833778f3ea27ab7da5ba7cf94a"
 
-can-make-rest@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/can-make-rest/-/can-make-rest-0.1.1.tgz#f25ee4f99ffccc2775836b5602862636e69a4ef8"
+can-make-rest@^0.1.1:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/can-make-rest/-/can-make-rest-0.1.2.tgz#2333f6e10695ce1df8bd6b80c5d6f5a75ada2e16"
   dependencies:
     can-util "^3.9.0-pre.4"
 
@@ -1680,8 +1616,8 @@ can-reflect-promise@^1.1.0, can-reflect-promise@^1.1.0-pre.0:
     can-util "^3.9.0"
 
 can-reflect@^1.0.0, can-reflect@^1.1.0, can-reflect@^1.1.0-pre.1, can-reflect@^1.2.0, can-reflect@^1.2.1, can-reflect@^1.2.6, can-reflect@^1.4.1, can-reflect@^1.4.5:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/can-reflect/-/can-reflect-1.8.0.tgz#1ba058d935101424e28706b285c2a44c11ddf3a9"
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/can-reflect/-/can-reflect-1.10.2.tgz#d5eba2d959a7506c604385555e513fea7ef5a42f"
   dependencies:
     can-namespace "^1.0.0"
     can-symbol "^1.3.0"
@@ -1759,8 +1695,8 @@ can-simple-observable@^1.0.0:
     can-reflect "^1.4.1"
 
 can-stache-bindings@^3.0.13, can-stache-bindings@^3.0.14, can-stache-bindings@^3.2.0, can-stache-bindings@^3.4.0:
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/can-stache-bindings/-/can-stache-bindings-3.11.1.tgz#b6925d4cf8215a6e1340a91f9ba74b35cb22189f"
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/can-stache-bindings/-/can-stache-bindings-3.11.2.tgz#06e43e407617f7e280024559b761d12b0da571db"
   dependencies:
     can-attribute-encoder "^0.3.0"
     can-compute "^3.3.1"
@@ -1773,7 +1709,7 @@ can-stache-bindings@^3.0.13, can-stache-bindings@^3.0.14, can-stache-bindings@^3
     can-reflect "^1.2.1"
     can-simple-map "^3.3.0"
     can-simple-observable "^1.0.0"
-    can-stache "^3.7.1"
+    can-stache "^3.13.5"
     can-stache-key "0.1.0"
     can-symbol "^1.0.0"
     can-types "^1.1.0"
@@ -1804,12 +1740,13 @@ can-stache-key@0.1.0:
     can-symbol "^1.0.0-pre.0"
     can-util "^3.9.0-pre.4"
 
-can-stache-key@^0.1.0:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/can-stache-key/-/can-stache-key-0.1.1.tgz#f034d66110ca15f9110f6587af10d80b48f7e20b"
+can-stache-key@^0.1.0, can-stache-key@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/can-stache-key/-/can-stache-key-0.1.2.tgz#d7ebf801f5f48d464b91b8eb9a88ef06448de8fa"
   dependencies:
     can-cid "^1.0.0"
     can-event "^3.5.0"
+    can-log "^0.1.2"
     can-namespace "1.0.0"
     can-observation "^3.3.0"
     can-reflect "^1.1.0"
@@ -1817,9 +1754,9 @@ can-stache-key@^0.1.0:
     can-symbol "^1.0.0"
     can-util "^3.9.0"
 
-can-stache@^3.0.0, can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.10.0, can-stache@^3.13.4, can-stache@^3.3.0, can-stache@^3.7.1, can-stache@^3.7.3:
-  version "3.13.4"
-  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.13.4.tgz#19380426e8559eb7a8aa8dde65c332ec833702b1"
+can-stache@^3.0.0, can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.10.0, can-stache@^3.13.4, can-stache@^3.13.5, can-stache@^3.3.0, can-stache@^3.7.3:
+  version "3.14.2"
+  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.14.2.tgz#d9564d13e8db75e3983fc8306b5d9559d426f68f"
   dependencies:
     can-attribute-encoder "^0.3.0"
     can-compute "^3.3.1"
@@ -1829,7 +1766,7 @@ can-stache@^3.0.0, can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, c
     can-observation "^3.3.1"
     can-reflect "^1.2.1"
     can-route "^3.2.0"
-    can-stache-key "0.1.0"
+    can-stache-key "^0.1.2"
     can-symbol "^1.0.0"
     can-util "^3.10.6"
     can-view-callbacks "^3.2.0"
@@ -1906,9 +1843,9 @@ can-util@^3.1.0, can-util@^3.10.10, can-util@^3.10.12, can-util@^3.10.6, can-uti
     can-symbol "^1.0.0"
     can-types "^1.1.0"
 
-can-validate-interface@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/can-validate-interface/-/can-validate-interface-0.1.0.tgz#7aa5a123a9278bfb98a4f00352469301d97630c5"
+can-validate-interface@^0.1.0:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/can-validate-interface/-/can-validate-interface-0.1.2.tgz#e225d4c12e6a07a72f8c1a013e4094367b32e356"
 
 can-vdom@^3.1.1:
   version "3.2.4"
@@ -1983,8 +1920,8 @@ can-view-nodelist@^3.1.0:
     can-util "^3.9.5"
 
 can-view-parser@^3.0.0, can-view-parser@^3.4.0, can-view-parser@^3.5.1, can-view-parser@^3.6.0:
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/can-view-parser/-/can-view-parser-3.6.3.tgz#ab80a9e0ee1275dd5927b3a40f239f1cd2f3b9d4"
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/can-view-parser/-/can-view-parser-3.8.0.tgz#e891a698342afd9f452ab0dd4e894530a8af5492"
   dependencies:
     can-attribute-encoder "^0.3.1"
     can-log "^0.1.0"
@@ -2021,8 +1958,8 @@ can-zone-storage@^1.0.0:
   resolved "https://registry.yarnpkg.com/can-zone-storage/-/can-zone-storage-1.0.1.tgz#091a0a809255ca121d3cbb3e0c1bca9f9f12589b"
 
 can-zone@^0.6.0, can-zone@^0.6.11:
-  version "0.6.14"
-  resolved "https://registry.yarnpkg.com/can-zone/-/can-zone-0.6.14.tgz#235e91c3c438de781a3a668fd58106efd53fcbad"
+  version "0.6.16"
+  resolved "https://registry.yarnpkg.com/can-zone/-/can-zone-0.6.16.tgz#4c6a3100f0d661d810c46b9c7a3f7673f9e1b74c"
 
 candlestick-volume-chart@0.2.3:
   version "0.2.3"
@@ -2036,8 +1973,8 @@ candlestick-volume-chart@0.2.3:
     moment "^2.18.1"
 
 caniuse-lite@^1.0.30000760:
-  version "1.0.30000766"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000766.tgz#8a095cc5eb9923c27008ce4d0db23e65a3e28843"
+  version "1.0.30000769"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000769.tgz#d68c5aa0772ea3eac6c97d42e239c9b4d3261b93"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -2458,7 +2395,7 @@ create-hash@^1.1.0, create-hash@^1.1.2:
     ripemd160 "^2.0.0"
     sha.js "^2.4.0"
 
-create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.3, create-hmac@^1.1.4:
+create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/create-hmac/-/create-hmac-1.1.6.tgz#acb9e221a4e17bdb076e90657c42b93e3726cf06"
   dependencies:
@@ -2834,8 +2771,8 @@ domain-browser@~1.1.2:
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
 
 done-autorender@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/done-autorender/-/done-autorender-1.4.0.tgz#9dcaee0bf6e8c7e6e1731b3dfc4ebd30010b3f9e"
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/done-autorender/-/done-autorender-1.5.0.tgz#e19579643a91f325ad93067fcb299e2e806ca604"
   dependencies:
     can-route "^3.0.5"
     can-stache "^3.0.15"
@@ -2952,12 +2889,6 @@ ecc-jsbn@~0.1.1:
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.1.tgz#0fc73a9ed5f0d53c38193398523ef7e543777505"
   dependencies:
     jsbn "~0.1.0"
-
-ecurve@^1.0.0:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/ecurve/-/ecurve-1.0.5.tgz#d148e8fe50a674f983bb5bae09da0ea23e10535e"
-  dependencies:
-    bigi "^1.1.0"
 
 editions@^1.1.1:
   version "1.3.3"
@@ -4268,8 +4199,8 @@ growl@1.9.2:
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.9.2.tgz#0ea7743715db8d8de2c5ede1775e1b45ac85c02f"
 
 gzip-size@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-4.0.0.tgz#a80e13e18938bcb2e6702fec606f5cf8b666db3a"
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-4.1.0.tgz#8ae096257eabe7d69c45be2b67c448124ffb517c"
   dependencies:
     duplexer "^0.1.1"
     pify "^3.0.0"
@@ -4589,8 +4520,8 @@ inherits@2.0.1:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.1.tgz#b17d08d326b4423e568eff719f91b0b1cbdf69f1"
 
 ini@~1.3.0:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.4.tgz#0537cb79daf59b59a1a517dff706c86ec039162e"
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
 
 iniparser@~1.0.5:
   version "1.0.5"
@@ -5524,10 +5455,6 @@ merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
 
-merkle-lib@^2.0.10:
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/merkle-lib/-/merkle-lib-2.0.10.tgz#82b8dbae75e27a7785388b73f9d7725d0f6f3326"
-
 methods@^1.1.1, methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
@@ -6021,8 +5948,8 @@ p-locate@^2.0.0:
     p-limit "^1.1.0"
 
 p-timeout@^1.1.1:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/p-timeout/-/p-timeout-1.2.0.tgz#9820f99434c5817868b4f34809ee5291660d5b6c"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/p-timeout/-/p-timeout-1.2.1.tgz#5eb3b353b7fce99f101a1038880bb054ebbea386"
   dependencies:
     p-finally "^1.0.0"
 
@@ -6165,7 +6092,7 @@ pause-stream@0.0.11:
   dependencies:
     through "~2.3"
 
-pbkdf2@^3.0.3, pbkdf2@^3.0.9:
+pbkdf2@^3.0.3:
   version "3.0.14"
   resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.0.14.tgz#a35e13c64799b06ce15320f459c230e68e73bade"
   dependencies:
@@ -6350,12 +6277,6 @@ punycode@^1.4.1:
 punycode@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.0.1.tgz#3f142fd8e6ef4e9ce24acbf7ba869ff9b00d2c2b"
-
-pushdata-bitcoin@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/pushdata-bitcoin/-/pushdata-bitcoin-1.0.1.tgz#15931d3cd967ade52206f523aa7331aef7d43af7"
-  dependencies:
-    bitcoin-ops "^1.3.0"
 
 q@^1.0.1, q@^1.1.2, q@^1.4.1:
   version "1.5.1"
@@ -7277,8 +7198,8 @@ steal-fuzzy-normalize@^1.0.0:
   resolved "https://registry.yarnpkg.com/steal-fuzzy-normalize/-/steal-fuzzy-normalize-1.0.0.tgz#082278f6697612e694edeba3940f7026cf83d2f5"
 
 steal-less@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/steal-less/-/steal-less-1.2.0.tgz#4eadb3cc2d983fc89ffe5f171f30738353335fd3"
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/steal-less/-/steal-less-1.2.2.tgz#c180fa64c74977540fff0319b8fbcd56895c0e9e"
   dependencies:
     less "2.4.0 - 2.5.3"
     steal-css "^1.2.0"
@@ -7658,8 +7579,8 @@ testee@^0.7.0:
     useragent "^2.0.9"
 
 tether@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.1.tgz#78112ef21adf2aea68cd90e72185f43d9ffc44e8"
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.2.tgz#ab9605b5ecf38f088b3da3d54d2b439207e48d04"
 
 text-encoding@^0.6.4:
   version "0.6.4"
@@ -7859,7 +7780,7 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typeforce@^1.11.3, typeforce@^1.12.0:
+typeforce@^1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/typeforce/-/typeforce-1.12.0.tgz#ca40899919f1466d7819e37be039406beb912a2e"
 
@@ -7915,8 +7836,8 @@ ultron@1.0.x:
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.0.2.tgz#ace116ab557cd197386a4e88f4685378c8b2e4fa"
 
 ultron@~1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.0.tgz#b07a2e6a541a815fc6a34ccd4533baec307ca864"
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.1.tgz#9fe1536a10a664a65266a1e3ccf85fd36302bc9c"
 
 underscore@^1.8.3:
   version "1.8.3"
@@ -7929,10 +7850,6 @@ uniq@^1.0.1:
 universalify@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.1.1.tgz#fa71badd4437af4c148841e3b3b165f9e9e590b7"
-
-unorm@^1.3.3:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/unorm/-/unorm-1.4.1.tgz#364200d5f13646ca8bcd44490271335614792300"
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
@@ -8028,10 +7945,6 @@ validate-npm-package-name@^2.2.2:
   resolved "https://registry.yarnpkg.com/validate-npm-package-name/-/validate-npm-package-name-2.2.2.tgz#f65695b22f7324442019a3c7fa39a6e7fd299085"
   dependencies:
     builtins "0.0.7"
-
-varuint-bitcoin@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/varuint-bitcoin/-/varuint-bitcoin-1.0.4.tgz#d812c5dae16e32f60544b6adee1d4be1307d0283"
 
 vary@~1.1.2:
   version "1.1.2"
@@ -8139,12 +8052,6 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2"
 
-wif@^2.0.1:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/wif/-/wif-2.0.6.tgz#08d3f52056c66679299726fade0d432ae74b4704"
-  dependencies:
-    bs58check "<3.0.0"
-
 window-size@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
@@ -8231,8 +8138,8 @@ ws@^1.0.0:
     ultron "1.0.x"
 
 ws@^3.2.0, ws@~3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-3.3.1.tgz#d97e34dee06a1190c61ac1e95f43cb60b78cf939"
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-3.3.2.tgz#96c1d08b3fefda1d5c1e33700d3bfaa9be2d5608"
   dependencies:
     async-limiter "~1.0.0"
     safe-buffer "~5.1.0"

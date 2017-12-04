@@ -20,9 +20,10 @@
       </div>
     {{else}}
       <div class="row">
-      <div class="col-xs-12 no-padding">
-        <label for="">{{#is formData.fundsType 'EQB'}}{{i18n('equibit')}}{{else}}{{i18n('bitcoin')}}{{/is}}</label>
-    </div>
+        <div class="col-xs-12 no-padding">
+          <label for="">{{#is formData.fundsType 'EQB'}}{{i18n('equibit')}}{{else}}{{i18n('bitcoin')}}{{/is}}</label>
+        </div>
+      </div>
     {{/is}}
 
     <!-- WHAT -->
@@ -42,7 +43,7 @@
           {{else}}
           <tr>
             <td class="column-label">{{i18n('quantity')}}</td>
-            <td class="column-digital-currency-value font-numeric">{{formData.amount}}</td>
+            <td class="column-digital-currency-value font-numeric">{{formData.amountCoin}}</td>
             <td class="column-digital-currency-type font-numeric">{{#is formData.fundsType 'EQB'}}{{i18n('EQB')}}{{else}}{{i18n('BTC')}}{{/is}}</td>
             <td class="column-local-currency-value font-numeric">$ {{formData.price}}</td>
             <td class="column-local-currency-type font-numeric">{{i18n('usd')}}</td>
@@ -66,10 +67,10 @@
                   </span>
                 {{/is}}
             </td>
-            <td class="column-digital-currency-value font-numeric text-muted">{{formData.transactionFee}}</td>
+            <td class="column-digital-currency-value font-numeric text-muted">{{coin(formData.transactionFee)}}</td>
             <td class="column-digital-currency-type font-numeric text-muted">{{#is formData.fundsType 'BTC'}}{{i18n('BTC')}}{{else}}{{i18n('EQB')}}{{/is}}</td>
-            <td class="column-local-currency-value font-numeric text-muted">$ {{format(formData.transactionFeePrice, '', 2)}}</td>
-            <td class="column-local-currency-type font-numeric text-muted">{{i18n('usd')}}</td>
+            <td class="column-local-currency-value font-numeric text-muted">$ {{local-currency(formData.transactionFee, formData.fundsType)}}</td>
+            <td class="column-local-currency-type font-numeric text-muted">{{local-currency-symbol()}}</td>
           </tr>
         </tbody>
       </table>
@@ -89,10 +90,16 @@
               <td class="column-digital-currency-type font-numeric text-danger">{{i18n('shares')}}</td>
             {{else}}
               <td class="column-label input-value"><strong>{{i18n('myPortfolio')}}</strong></td>
-              <td class="column-digital-currency-value font-numeric text-danger ">- {{format-max(sum(formData.amount, formData.transactionFee), 8)}}</td>
-              <td class="column-digital-currency-type font-numeric text-danger">{{#is formData.fundsType 'BTC'}}{{i18n('BTC')}}{{else}}{{i18n('EQB')}}{{/is}}}</td>
-              <td class="column-local-currency-value font-numeric text-danger">- {{format(sum(formData.price, formData.transactionFeePrice))}}</td>
-              <td class="column-local-currency-type font-numeric text-danger">{{i18n('usd')}}</td>
+              <td class="column-digital-currency-value font-numeric text-danger ">
+                - {{coin(formData.totalAmount)}}
+              </td>
+              <td class="column-digital-currency-type font-numeric text-danger">
+                {{#is formData.fundsType 'BTC'}}{{i18n('BTC')}}{{else}}{{i18n('EQB')}}{{/is}}}
+              </td>
+              <td class="column-local-currency-value font-numeric text-danger">
+                - {{local-currency(formData.totalAmount, formData.fundsType)}}
+              </td>
+              <td class="column-local-currency-type font-numeric text-danger">{{local-currency-symbol()}}</td>
             {{/is}}
           </tr>
           <tr>
@@ -100,8 +107,8 @@
               <td class="column-label input-value">{{i18n('myPortfolio')}}</td>
               <td class="column-digital-currency-value font-numeric text-danger ">- {{formData.transactionFee}}</td>
               <td class="column-digital-currency-type font-numeric text-danger">{{i18n('EQB')}}</td>
-              <td class="column-local-currency-value font-numeric text-danger">- {{format(formData.transactionFeePrice)}}</td>
-              <td class="column-local-currency-type font-numeric text-danger">{{i18n('usd')}}</td>
+              <td class="column-local-currency-value font-numeric text-danger">- {{local-currency(formData.transactionFee, formData.fundsType)}}</td>
+              <td class="column-local-currency-type font-numeric text-danger">{{local-currency-symbol()}}</td>
             {{/is}}
           </tr>
         </tbody>

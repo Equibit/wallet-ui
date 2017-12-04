@@ -5,7 +5,7 @@
   {{i18n('issuanceModalConfirm')}}
 </div>
 <div class="alert alert-warning" role="alert">
-  <strong>{{i18n('warning')}}!</strong> {{i18n('createIssuanceConfirmWarning')}}</a>
+  <strong>{{i18n('warning')}}!</strong> {{i18n('createIssuanceConfirmWarning')}}
 </div>
 
 <h3 class="subtitle">{{i18n('company')}}</h3>
@@ -21,7 +21,7 @@
     <dd>{{issuance.issuanceTypeItem.name}}</dd>
 
     <dt>{{i18n('authorize')}}</dt>
-    <dd>{{format(issuance.sharesAuthorized, '', 0)}} <small>{{i18n('shares')}}</small> &#x2194 {{format(formData.amount, '', 2)}} <small>EQB</small></dd>
+    <dd>{{format(issuance.sharesAuthorized, '', 0)}} <small>{{i18n('shares')}}</small> &#x2194 {{format(formData.amountEqb, '', 2)}} <small>EQB</small></dd>
   </dl>
 
   <div class="transaction-details">
@@ -32,24 +32,24 @@
         <tbody>
           <tr>
               <td class="column-label">{{i18n('issuanceAuthorization')}}</td>
-              <td class="column-digital-currency-value font-numeric">- {{format(formData.amount, '', 8)}}</td>
+              <td class="column-digital-currency-value font-numeric">- {{format(formData.amountEqb, '', 8)}}</td>
               <td class="column-digital-currency-type font-numeric">{{i18n('EQB')}}</td>
-              <td class="column-local-currency-value font-numeric">- {{format(formData.amountPrice, '$', 2)}}</td>
-              <td class="column-local-currency-type font-numeric">{{i18n('usd')}}</td>
+              <td class="column-local-currency-value font-numeric">- {{local-currency(formData.amount, 'EQB')}}</td>
+              <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>
           </tr>
           <tr>
               <td class="column-label text-muted">{{i18n('transactionFee')}}</td>
-              <td class="column-digital-currency-value font-numeric text-muted border-bottom">- {{format(formData.transactionFee, '', 8)}}</td>
+              <td class="column-digital-currency-value font-numeric text-muted border-bottom">- {{format(formData.transactionFeeEqb, '', 8)}}</td>
               <td class="column-digital-currency-type font-numeric text-muted border-bottom">{{i18n('EQB')}}</td>
-              <td class="column-local-currency-value font-numeric text-muted border-bottom">- {{format(formData.transactionFeePrice, '$', 2)}}</td>
-              <td class="column-local-currency-type font-numeric text-muted border-bottom">{{i18n('usd')}}</td>
+              <td class="column-local-currency-value font-numeric text-muted border-bottom">- {{local-currency(formData.transactionFee, 'EQB')}}</td>
+              <td class="column-local-currency-type font-numeric text-muted border-bottom">{{local-currency-symbol()}}</td>
           </tr>
           <tr>
               <td class="column-label"></td>
-              <td class="column-digital-currency-value font-numeric text-danger ">- {{format(formData.totalAmount, '', 8)}}</td>
+              <td class="column-digital-currency-value font-numeric text-danger ">- {{format(formData.totalAmountEqb, '', 8)}}</td>
               <td class="column-digital-currency-type font-numeric text-danger">{{i18n('EQB')}}</td>
-              <td class="column-local-currency-value font-numeric text-danger">- {{format(formData.totalPrice, '$', 2)}}</td>
-              <td class="column-local-currency-type font-numeric text-danger">{{i18n('usd')}}</td>
+              <td class="column-local-currency-value font-numeric text-danger">- {{local-currency(formData.totalAmount, 'EQB')}}</td>
+              <td class="column-local-currency-type font-numeric text-danger">{{local-currency-symbol()}}</td>
           </tr>
 
         </tbody>
@@ -60,9 +60,23 @@
   <dl class="dl-horizontal dl-stripped responsive">
     <dt class="restriction-levels">{{i18n('restriction')}}</dt>
     <dd class="restriction-levels">
-      <span class="icon icon-passport-level-0"></span>
-      <strong>{{i18n('noRestriction')}}</strong>
-      <div class="restriction-info">{{i18n('noRestrictionInfo')}}</div>
+      {{#switch issuance.restriction}}
+        {{#case 1}}
+          <span class="icon icon-passport-level-1"></span>
+          <strong>{{i18n('restrictionLevel1Name')}}</strong>
+          <div class="restriction-info">{{i18n('restrictionLevel1Description')}}</div>
+        {{/case}}
+        {{#case 3}}
+          <span class="icon icon-passport-level-3"></span>
+          <strong>{{i18n('restrictionLevel3Name')}}</strong>
+          <div class="restriction-info">{{i18n('restrictionLevel3Description')}}</div>
+        {{/case}}
+        {{#default}}
+          <span class="icon icon-passport-level-0"></span>
+          <strong>{{i18n('noRestriction')}}</strong>
+          <div class="restriction-info">{{i18n('noRestrictionInfo')}}</div>
+        {{/default}}
+      {{/switch}}
     </dd>
     <hr />
   </dl>

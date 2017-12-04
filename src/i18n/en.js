@@ -330,7 +330,7 @@ export default {
   notificationsNone: 'There no notifications',
   notifyMe: 'Notify Me',
   noPartialFills: 'No partial fills allowed.',
-  noRestriction: 'No restriction',
+  noRestriction: 'Bearer Asset',
   noRestrictionInfo: 'Securities can trade freely',
   now: 'Now',
 
@@ -422,12 +422,13 @@ export default {
   responses: 'Responses',
   restriction: 'Restriction',
   restrictionLevel: 'Restriction Level',
-  restrictionLevel1Name: 'Level 1',
-  restrictionLevel1Description: 'Equibit can be transferred to an address that is two or less degrees of trust separation from you.',
-  restrictionLevel2Name: 'Level 2',
-  restrictionLevel2Description: 'Equibit can be transferred to an address that is one degree of trust separation from the issuer.',
-  restrictionLevel3Name: 'Level 3',
-  restrictionLevel3Description: 'No exceptions. Equibit can only be returned to the issuer.',
+  restrictionLevel1Name: 'Trading Passports',
+  restrictionLevel1Description: 'Securities can only be transferred to investors the issuer accepts.',
+  // The following restriction level should not currently be used.  We may opt to change this in the future.
+  // restrictionLevel2Name: 'Level 2',
+  // restrictionLevel2Description: 'Equibit can be transferred to an address that is one degree of trust separation from the issuer.',
+  restrictionLevel3Name: 'Restricted',
+  restrictionLevel3Description: 'No secondary market. Securities can only be returned to the issuer.',
   results: 'Results',
 
   schedule: 'Schedule',

@@ -15,19 +15,19 @@
   <div class="modal-body">
     {{^if formData.hasFunds}}
       <div class="alert alert-warning" role="alert">
-        <strong>{{i18n('warning')}}!</strong> {{i18n('notEnoughEqbIssuance')}}</a>
+        <strong>{{i18n('warning')}}!</strong> {{i18n('notEnoughEqbIssuance')}}
       </div>
     {{/if}}
 
     {{#is mode 'edit'}}
       <issuance-form (receiveform)="openReceiveForm(@close)"
                  {(mode)}="mode"
-                 {formData}="formData"
+                 {form-data}="formData"
       />
     {{/is}}
 
     {{#is mode 'confirm'}}
-      <issuance-confirm {formData}="formData" />
+      <issuance-confirm {form-data}="formData" />
     {{/is}}
 
     {{#is mode 'company'}}

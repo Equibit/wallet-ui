@@ -1,87 +1,38 @@
-import DefineMap from 'can-define/map/map'
-import DefineList from 'can-define/list/list'
-import feathersClient from './feathers-client'
-import { superModelNoCache } from './super-model'
-import algebra from './algebra'
-import { bitcoin, eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
-import { pick } from 'ramda'
-import i18n from '../i18n/i18n'
-// import Session from './session'
-
 /**
+ * @module {can-map} models/transaction Transaction
+ * @parent models.wallet
+ *
+ * Transaction model
+ *
+ * @group models/transaction.properties 0 properties
+ *
  * Cases to cover:
  *  - Auth issuance with change
  *  - Auth issuance without change
  *  - Send issuance
  *  - Cancel issuance
+ *  - Buy or Sell (inc HTLC transactions)
  */
 
+import DefineMap from 'can-define/map/map'
+import DefineList from 'can-define/list/list'
+import feathersClient from './feathers-client'
+import { superModelNoCache } from './super-model'
+import algebra from './algebra'
+import i18n from '../i18n/i18n'
+// import Session from './session'
+import {
+  makeTransaction,
+  makeHtlc
+} from './transaction-utils'
+
 const Transaction = DefineMap.extend('Transaction', {
-  makeTransaction (
-    amount,
-    toAddress,
-    txouts,
-    {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb, amountEqb}
-  ) {
-    currencyType = currencyType.toUpperCase()
-    const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']))
-    const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0)
-    const outputs = [
-      {address: toAddress, value: toSatoshi(amount)}
-    ]
-    if (changeAddr) {
-      outputs.push({address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)})
-    } else {
-      // Case: cancel issuance with no change address (all issuance inputs will be emptied). Transaction fee is deducted here:
-      outputs[0].value -= toSatoshi(fee)
-    }
-    // Case: auth issuance
-    if (issuanceJson) {
-      // todo: simplify and check the case where we send all available shares
-      if (!issuanceTxId) {
-        outputs[0].issuanceJson = issuanceJson
-      } else {
-        // Case: auth issuance with change:
-        outputs[1].issuanceTxId = issuanceTxId
-        outputs[1].value = toSatoshi(issuance.availableAmount - amount)
-      }
-    }
-    if (issuanceTxId) {
-      outputs[0].issuanceTxId = issuanceTxId
-    }
-    if (changeAddrEmptyEqb) {
-      outputs.push({
-        address: changeAddrEmptyEqb,
-        value: toSatoshi(amountEqb - fee)
-      })
-    }
-    const txInfo = buildTransaction(currencyType)(inputs, outputs, network)
-
-    const txData = {
-      address: txouts[0].address,
-      addressTxid: txouts[0].txid,
-      addressVout: txouts[0].vout,
-      fee,
-      type,
-      currencyType,
-      amount,
-      description,
-      hex: txInfo.hex,
-      txIdBtc: currencyType === 'BTC' ? txInfo.txId : undefined,
-      txIdEqb: currencyType === 'EQB' ? txInfo.txId : undefined,
-      otherAddress: toAddress
-    }
-
-    // add issuance details:
-    if (issuance) {
-      txData.companyName = issuance.companyName
-      txData.companySlug = issuance.companySlug
-      txData.issuanceId = issuance._id
-      txData.issuanceName = issuance.issuanceName
-      txData.issuanceType = issuance.issuanceType
-      txData.issuanceUnit = issuance.issuanceUnit
-    }
-
+  makeTransaction (amount, toAddress, txouts, options) {
+    const txData = makeTransaction.apply(this, arguments)
+    return new Transaction(txData)
+  },
+  makeHtlc (amount, toAddressA, toAddressB, hashlock, timelock, txouts, options) {
+    const txData = makeHtlc.apply(this, arguments)
     return new Transaction(txData)
   },
   subscribe (cb) {
@@ -98,15 +49,57 @@ const Transaction = DefineMap.extend('Transaction', {
     return 10000
   }
 }, {
+  /**
+   * @property {String} models/user.properties._id _id
+   * @parent models/user.properties
+   * Id of a Transaction record in DB.
+   */
   _id: 'string',
 
+  /**
+   * @property {String} models/transaction.properties.address address
+   * @parent models/transaction.properties
+   * Address of one of the inputs to link transaction to a user (via portfolio addressesMeta).
+   */
   address: 'string',
+
+  // The following txid and vout are for address validation and won't be stored in DB
   addressTxid: 'string',
   addressVout: 'number',
 
+  /**
+   * @property {String} models/transaction.properties.otherAddress otherAddress
+   * @parent models/transaction.properties
+   * Address of the recipient.
+   */
   otherAddress: 'string',
 
-  type: 'string', // enum: [ 'IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL' ]
+  /**
+   * @property {String} models/transaction.properties.refundAddress refundAddress
+   * @parent models/transaction.properties
+   * Refund address for HTLC transaction.
+   */
+  refundAddress: 'string',
+
+  /**
+   * @property {Number} models/transaction.properties.timelock timelock
+   * @parent models/transaction.properties
+   * Timelock for HTLC (number of blocks, decimal).
+   */
+  timelock: 'number',
+
+  /**
+   * @property {Enum} models/transaction.properties.type type
+   * @parent models/transaction.properties
+   * Transaction type. One of: [ 'IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL' ]
+   */
+  type: 'string',
+
+  /**
+   * @property {String} models/transaction.properties.typeFormatted typeFormatted
+   * @parent models/transaction.properties
+   * Getter. Localized human readable type.
+   */
   typeFormatted: {
     get () {
       const typeString = {
@@ -120,9 +113,21 @@ const Transaction = DefineMap.extend('Transaction', {
       return typeString[this.type]
     }
   },
-  currencyType: 'string', // enum: [ 'BTC', 'EQB' ]
+
+  /**
+   * @property {String} models/transaction.properties.currencyType currencyType
+   * @parent models/transaction.properties
+   * Blockchain type: BTC or EQB.
+   */
+  currencyType: 'string',
+
   confirmations: 'number',
 
+  /**
+   * @property {String} models/transaction.properties.companyName companyName
+   * @parent models/transaction.properties
+   * Issuance details
+   */
   companyName: 'string',
   companySlug: 'string',
   issuanceId: 'string',
@@ -130,16 +135,44 @@ const Transaction = DefineMap.extend('Transaction', {
   issuanceType: 'string', // ['Common Shares', 'Bonds', 'Equibit', 'Preferred Shares', 'Partnership Units', 'Trust Units', 'Bitcoin']
   issuanceUnit: 'string', // ['Shares', 'BTC', 'Units']
 
+  /**
+   * @property {String} models/transaction.properties.txIdBtc txIdBtc
+   * @parent models/transaction.properties
+   * Transaction ID in Bitcoin blockchain
+   */
   txIdBtc: 'string',
+
+  /**
+   * @property {String} models/transaction.properties.txIdEqb txIdEqb
+   * @parent models/transaction.properties
+   * Transaction ID in Equibit blockchain
+   */
   txIdEqb: 'string',
 
+  /**
+   * @property {Number} models/transaction.properties.amount amount
+   * @parent models/transaction.properties
+   * Amount in Satoshi
+   */
   amount: 'number',
   // amountBtc: {
   //   get () {
   //     return (Session.current && Session.current.toBTC(this.amount, this.currencyType)) || this.amount
   //   }
   // },
+
+  /**
+   * @property {Number} models/transaction.properties.fee fee
+   * @parent models/transaction.properties
+   * Transaction fee. In Satoshi
+   */
   fee: 'number',
+
+  /**
+   * @property {String} models/transaction.properties.description description
+   * @parent models/transaction.properties
+   * Transaction description
+   */
   description: 'string',
 
   // Won't be stored in DB. If a failure occurs the error will be immediately shown to user without creating a DB entry.
@@ -176,70 +209,12 @@ const Transaction = DefineMap.extend('Transaction', {
     return this.amount
   },
   get issuanceUnitQuantity () {
-    return this.amount * 100000000
+    return this.amount
   },
   get issuanceTypeDisplay () {
     return this.issuanceType === 'common_shares' ? 'Common Shares' : this.issuanceType
   }
 })
-
-export const buildTransaction = currencyType => {
-  return currencyType === 'BTC' ? buildTransactionBtc : buildTransactionEqb
-}
-
-/**
- * @function buildTransactionBtc
- * Builds a signed transaction.
- *
- * @param {Array<Object(txid, vout, keyPair)>} inputs
- * @param {Array<Object(address, value)>} outputs
- * @returns {String} A HEX code of the signed transaction
- */
-export const buildTransactionBtc = (inputs, outputs, network = bitcoin.networks.testnet) => {
-  const tx = new bitcoin.TransactionBuilder(network)
-  inputs.forEach(({ txid, vout }, index) => tx.addInput(txid, vout))
-  outputs.forEach(({address, value}) => tx.addOutput(address, value))
-  inputs.forEach(({ keyPair }, index) => tx.sign(index, keyPair))
-  console.log('- blockchain transaction: ', tx)
-  const builtTx = tx.build()
-  return {
-    txId: builtTx.getId(),
-    hex: builtTx.toHex()
-  }
-}
-
-export const buildTransactionEqb = (inputs, outputs, network = bitcoin.networks.testnet) => {
-  const vout = outputs.map(vout => {
-    vout.equibit = {
-      // TODO: pass payment currency type here.
-      payment_currency: 0,
-      payment_tx_id: '',
-      issuance_tx_id: (vout.issuanceTxId ? vout.issuanceTxId : '0000000000000000000000000000000000000000000000000000000000000000'),
-      issuance_json: (vout.issuanceJson ? JSON.stringify(vout.issuanceJson) : '')
-    }
-    delete vout.issuanceJson
-    return vout
-  })
-  const tx = {
-    version: 2,
-    locktime: 0,
-    vin: inputs,
-    vout
-  }
-  const bufferTx = eqbTxBuilder.builder.buildTx(tx)
-  const hex = bufferTx.toString('hex')
-  const txId = eqbTxBuilder.getTxId(bufferTx)
-  console.log(`[buildTransactionEqb] hex = ${hex}, \ntxid = ${txId}`)
-
-  return {
-    txId,
-    hex
-  }
-}
-
-function toSatoshi (val) {
-  return Math.floor(val * 100000000)
-}
 
 Transaction.List = DefineList.extend('TransactionList', {
   '#': Transaction

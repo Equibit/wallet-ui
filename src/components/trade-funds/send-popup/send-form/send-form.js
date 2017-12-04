@@ -79,9 +79,9 @@ export const ViewModel = DefineMap.extend({
 
   sendAllFunds () {
     if (this.formData.type === 'SECURITIES') {
-      this.formData.quantity = this.availableFunds * 100000000
+      this.formData.securities = this.availableFunds
     } else {
-      this.formData.amount = this.availableFunds
+      this.formData.amountCoin = this.availableFunds / 100000000
     }
   },
 
