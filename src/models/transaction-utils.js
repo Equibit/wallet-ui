@@ -216,7 +216,8 @@ function makeHtlc (
     txIdEqb: currencyType === 'EQB' ? txId : undefined,
     otherAddress: toAddressA,
     refundAddress: toAddressB,
-    timelock
+    timelock,
+    hashlock
   }
 
   // add issuance details:

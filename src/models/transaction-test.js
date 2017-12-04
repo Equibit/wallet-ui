@@ -95,6 +95,10 @@ describe('models/transaction-utils', function () {
     it('should contain amount', function () {
       assert.equal(txData.amount, amount)
     })
+    it('should contain hashlock', function () {
+      assert.equal(txData.hashlock.length, 64)
+      assert.equal(txData.hashlock, secretHash)
+    })
     it('should contain BTC transaction hex and id', function () {
       assert.equal(txData.hex, expectedTxHex)
       assert.equal(txData.txIdBtc, expectedTxId)

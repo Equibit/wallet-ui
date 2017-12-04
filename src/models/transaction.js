@@ -89,6 +89,13 @@ const Transaction = DefineMap.extend('Transaction', {
   timelock: 'number',
 
   /**
+   * @property {Number} models/transaction.properties.hashlock hashlock
+   * @parent models/transaction.properties
+   * Hash of HTLC secret. The corresponding encrypted secret is stored with the Offer.
+   */
+  hashlock: 'string',
+
+  /**
    * @property {Enum} models/transaction.properties.type type
    * @parent models/transaction.properties
    * Transaction type. One of: [ 'IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL' ]
