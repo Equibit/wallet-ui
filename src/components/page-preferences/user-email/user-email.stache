@@ -20,7 +20,7 @@
         {{#if user.emailVerified}}
           <button on:click="{{#if user.twoFactorValidatedSession}}showEmailUpdateModal(){{else}}showAuthenticationModal(){{/if}}" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
         {{else}}
-          <button on:click="sendVerificationEmail()" class="btn btn-default btn-sm">{{i18n('resendVerificationEmail')}}</button>
+          <button on:click="sendVerificationEmailAndNotify()" class="btn btn-default btn-sm">{{i18n('resendVerificationEmail')}}</button>
           <button on:click="showEmailUpdateModal('code')" class="btn btn-primary btn-sm btn-edit">{{i18n('verify')}}</button>
         {{/if}}
       {{else}}

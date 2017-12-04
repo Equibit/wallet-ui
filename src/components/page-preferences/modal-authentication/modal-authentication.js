@@ -18,6 +18,8 @@ import DefineMap from 'can-define/map/map'
 import './modal-authentication.less'
 import view from './modal-authentication.stache'
 import User from '~/models/user/'
+import hub from '~/utils/event-hub'
+import { translate } from '~/i18n/'
 
 export const ViewModel = DefineMap.extend({
   secondFactorCode: 'string',
@@ -38,6 +40,11 @@ export const ViewModel = DefineMap.extend({
       twoFactorCode: this.secondFactorCode
     }).then(user => {
       this.dispatch('verified', [this.secondFactorCode])
+      hub.dispatch({
+        'type': 'alert',
+        'kind': 'success',
+        'title': translate('codeVerifiedMessage')
+      })
       this.doClose()
     }, error => {
       this.error = error
