@@ -59,7 +59,8 @@ const Transaction = DefineMap.extend('Transaction', {
   /**
    * @property {String} models/transaction.properties.address address
    * @parent models/transaction.properties
-   * Address of one of the inputs to link transaction to a user (via portfolio addressesMeta).
+   * Address to link transaction to a user. Its either one of the inputs (for a sender) or outputs (for a receiver).
+   * We create two entries in our DB - one for the sender and one for the receiver.
    */
   address: 'string',
 
@@ -68,18 +69,40 @@ const Transaction = DefineMap.extend('Transaction', {
   addressVout: 'number',
 
   /**
-   * @property {String} models/transaction.properties.otherAddress otherAddress
+   * @property {String} models/transaction.properties.fromAddress fromAddress
+   * @parent models/transaction.properties
+   * Address of the sender.
+   */
+  fromAddress: 'string',
+
+  /**
+   * @property {String} models/transaction.properties.toAddress toAddress
    * @parent models/transaction.properties
    * Address of the recipient.
    */
-  otherAddress: 'string',
+  toAddress: 'string',
 
   /**
-   * @property {String} models/transaction.properties.refundAddress refundAddress
+   * @property {Enum} models/transaction.properties.type type
    * @parent models/transaction.properties
-   * Refund address for HTLC transaction.
+   * Transaction type. One of: [ 'IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL' ]
    */
-  refundAddress: 'string',
+  type: 'string',
+
+  /**
+   * @property {Number} models/transaction.properties.htlcStep htlcStep
+   * @parent models/transaction.properties
+   * Atomic swap consists of 4 transactions. This indicates current "step".
+   */
+  htlcStep: 'number',
+
+  /**
+   * @property {Number} models/transaction.properties.hashlock hashlock
+   * @parent models/transaction.properties
+   * Hash of HTLC secret. The corresponding encrypted secret is stored with the Offer.
+   * Hashlock is also used to identify all 4 transactions of the same trade.
+   */
+  hashlock: 'string',
 
   /**
    * @property {Number} models/transaction.properties.timelock timelock
@@ -89,18 +112,11 @@ const Transaction = DefineMap.extend('Transaction', {
   timelock: 'number',
 
   /**
-   * @property {Number} models/transaction.properties.hashlock hashlock
+   * @property {String} models/transaction.properties.refundAddress refundAddress
    * @parent models/transaction.properties
-   * Hash of HTLC secret. The corresponding encrypted secret is stored with the Offer.
+   * Refund address for HTLC transaction.
    */
-  hashlock: 'string',
-
-  /**
-   * @property {Enum} models/transaction.properties.type type
-   * @parent models/transaction.properties
-   * Transaction type. One of: [ 'IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL' ]
-   */
-  type: 'string',
+  refundAddress: 'string',
 
   /**
    * @property {String} models/transaction.properties.typeFormatted typeFormatted
@@ -143,18 +159,11 @@ const Transaction = DefineMap.extend('Transaction', {
   issuanceUnit: 'string', // ['Shares', 'BTC', 'Units']
 
   /**
-   * @property {String} models/transaction.properties.txIdBtc txIdBtc
+   * @property {String} models/transaction.properties.txId txId
    * @parent models/transaction.properties
-   * Transaction ID in Bitcoin blockchain
+   * Transaction ID in Bitcoin or Equibit blockchain
    */
-  txIdBtc: 'string',
-
-  /**
-   * @property {String} models/transaction.properties.txIdEqb txIdEqb
-   * @parent models/transaction.properties
-   * Transaction ID in Equibit blockchain
-   */
-  txIdEqb: 'string',
+  txId: 'string',
 
   /**
    * @property {Number} models/transaction.properties.amount amount
@@ -162,11 +171,6 @@ const Transaction = DefineMap.extend('Transaction', {
    * Amount in Satoshi
    */
   amount: 'number',
-  // amountBtc: {
-  //   get () {
-  //     return (Session.current && Session.current.toBTC(this.amount, this.currencyType)) || this.amount
-  //   }
-  // },
 
   /**
    * @property {Number} models/transaction.properties.fee fee
@@ -195,8 +199,8 @@ const Transaction = DefineMap.extend('Transaction', {
     serialize: false
   },
   get transactionUrl () {
-    const txId = this.txIdBtc || this.txIdEqb
-    const nodeType = this.txIdBtc ? 'btc' : 'eqb'
+    const txId = this.txId
+    const nodeType = this.currencyType.toLowerCase()
     return txId && `http://localhost:3030/proxycore?node=${nodeType}&method=gettransaction&params[]=${txId}&params[]=true`
   },
   isSecurity: {

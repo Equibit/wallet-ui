@@ -9,7 +9,8 @@ describe('components/page-transactions/transactions-details', function () {
   const transaction = {
     type: 'IN',
     address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA',
-    otherAddress: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA'
+    fromAddress: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA',
+    toAddress: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
   }
   var vm = new ViewModel({
     portfolios,

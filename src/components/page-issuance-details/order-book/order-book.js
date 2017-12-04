@@ -212,6 +212,7 @@ function createHtlcTx (offer, order, portfolio, issuance, changeAddrPair) {
   // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
   const timelock = offer.timelock
   const hashlock = offer.secretHash
+  const htlcStep = 1
 
   const txouts = portfolio
     .getTxouts(amount + transactionFee, currencyType)
@@ -223,7 +224,8 @@ function createHtlcTx (offer, order, portfolio, issuance, changeAddrPair) {
     type: offer.type,
     currencyType,
     description: (offer.type === 'BUY' ? 'Buying' : 'Selling') + ' securities (HTLC #1)',
-    issuance: issuance
+    issuance: issuance,
+    htlcStep
   }
   return Transaction.makeHtlc(amount, toAddressA, toAddressB, hashlock, timelock, txouts, options)
 }

@@ -123,14 +123,18 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         })
         it('should have BTC transaction hex and id', function () {
           assert.ok(tx.hex)
-          assert.ok(tx.txIdBtc)
+          assert.ok(tx.txId)
+          assert.ok(tx.currencyType, 'BTC')
         })
         it('should have issuance details', function () {
           assert.equal(tx.companyName, 'Equibit Group')
           assert.equal(tx.issuanceName, 'Series One')
         })
-        it('should have otherAddress', function () {
-          assert.equal(tx.otherAddress, order.sellAddressBtc)
+        it('should have fromAddress ???', function () {
+          assert.equal(tx.fromAddress, order.sellAddressBtc)
+        })
+        it('should have toAddress', function () {
+          assert.equal(tx.toAddress, order.sellAddressBtc)
         })
         it('should have refundAddress', function () {
           assert.equal(tx.refundAddress, htlcOffer.refundBtcAddress)
@@ -167,7 +171,8 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
           assert.equal(this.amount, formData.quantity, 'Amount')
           assert.equal(this.type, 'BUY', 'Type')
           assert.ok(this.hex, 'Transaction hex')
-          assert.ok(this.txIdBtc, 'Transaction BTC id')
+          assert.ok(this.txId, 'Transaction BTC id')
+          assert.ok(this.currencyType, 'Transaction currencyType')
           return Promise.resolve(this)
         }
         vm.placeOffer([null, formData, 'BUY'])

@@ -101,7 +101,7 @@ describe('models/transaction-utils', function () {
     })
     it('should contain BTC transaction hex and id', function () {
       assert.equal(txData.hex, expectedTxHex)
-      assert.equal(txData.txIdBtc, expectedTxId)
+      assert.equal(txData.txId, expectedTxId)
     })
   })
 })

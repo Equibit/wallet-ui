@@ -84,7 +84,7 @@ function toSatoshi (val) {
  * @param issuance
  * @param changeAddrEmptyEqb
  * @param amountEqb
- * @returns {{address, addressTxid: (string|string|string|string|string|string|*), addressVout: (*|Array|number), fee: *, type: *, currencyType: (String.currencyType|*), amount: *, description: *, hex: (string|*|string), txIdBtc: *, txIdEqb: *, otherAddress: *}}
+ * @returns {{address, addressTxid: (string|string|string|string|string|string|*), addressVout: (*|Array|number), fee: *, type: *, currencyType: (String.currencyType|*), amount: *, description: *, hex: (string|*|string), txId: *, fromAddress: *, toAddress: *}}
  */
 function makeTransaction (
   amount, toAddress, txouts,
@@ -135,9 +135,9 @@ function makeTransaction (
     amount,
     description,
     hex: txInfo.hex,
-    txIdBtc: currencyType === 'BTC' ? txInfo.txId : undefined,
-    txIdEqb: currencyType === 'EQB' ? txInfo.txId : undefined,
-    otherAddress: toAddress
+    txId: txInfo.txId,
+    fromAddress: txouts[0].address,
+    toAddress
   }
 
   // add issuance details:
@@ -161,7 +161,7 @@ function addIssuanceDetails (issuance) {
 
 function makeHtlc (
   amount, toAddressA, toAddressB, hashlock, timelock, txouts,
-  {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb, amountEqb}
+  {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb, amountEqb, htlcStep}
 ) {
   console.log(`makeHtlc`, arguments)
   typeforce(typeforce.tuple(
@@ -212,12 +212,13 @@ function makeHtlc (
     amount,
     description,
     hex: txBuffer.toString('hex'),
-    txIdBtc: currencyType === 'BTC' ? txId : undefined,
-    txIdEqb: currencyType === 'EQB' ? txId : undefined,
-    otherAddress: toAddressA,
+    txId: txId,
+    fromAddress: txouts[0].address,
+    toAddress: toAddressA,
     refundAddress: toAddressB,
     timelock,
-    hashlock
+    hashlock,
+    htlcStep
   }
 
   // add issuance details:
