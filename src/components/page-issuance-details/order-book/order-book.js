@@ -120,7 +120,7 @@ export const ViewModel = DefineMap.extend({
       this.portfolio.getNextAddress(true)
     ]).then(([addr, change]) => {
       const offer = createHtlcOffer(formData, type, secret, timelock, Session.current.user, this.issuance, addr.EQB, addr.BTC)
-      const tx = createHtlcTx(offer, formData.order, this.portfolio, change)
+      const tx = createHtlcTx(offer, formData.order, this.portfolio, this.issuance, change)
       return tx.save()
         .then(tx => saveOffer(offer, tx))
         .then(offer => dispatchAlertOffer(hub, offer, route))
@@ -201,8 +201,8 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
 /**
  * Creates HTLC transaction with H(x). Offer type is either 'BUY' or 'SELL'.
  */
-function createHtlcTx (offer, order, portfolio, changeAddrPair) {
-  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', {EQB: 'String', BTC: 'String'}), arguments)
+function createHtlcTx (offer, order, portfolio, issuance, changeAddrPair) {
+  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', {EQB: 'String', BTC: 'String'}), arguments)
   const amount = offer.quantity * order.price
   const currencyType = offer.type === 'BUY' ? 'BTC' : 'EQB'
   const toAddressA = offer.type === 'BUY' ? order.sellAddressBtc : order.buyAddressEqb
@@ -223,7 +223,7 @@ function createHtlcTx (offer, order, portfolio, changeAddrPair) {
     type: offer.type,
     currencyType,
     description: (offer.type === 'BUY' ? 'Buying' : 'Selling') + ' securities (HTLC #1)',
-    issuance: order.issuance
+    issuance: issuance
   }
   return Transaction.makeHtlc(amount, toAddressA, toAddressB, hashlock, timelock, txouts, options)
 }

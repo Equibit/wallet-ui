@@ -118,6 +118,7 @@
     "can-view-autorender": "^3.1.2",
     "can-view-callbacks": "^3.2.3",
     "candlestick-volume-chart": "0.2.3",
+    "capture-stack-trace": "^1.0.0",
     "copy-to-clipboard": "^3.0.8",
     "core-js": "^2.5.1",
     "done-autorender": "^1.4.0",

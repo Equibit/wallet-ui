@@ -113,7 +113,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       })
 
       describe('createHtlcTx', function () {
-        const tx = createHtlcTx(htlcOffer, order, portfolio, changeBtcAddressPair)
+        const tx = createHtlcTx(htlcOffer, order, portfolio, issuance, changeBtcAddressPair)
         console.log('tx', tx)
         it('should have the correct type', function () {
           assert.equal(tx.type, 'BUY')

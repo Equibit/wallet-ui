@@ -1,5 +1,12 @@
 import crypto from '@equibit/wallet-crypto/dist/wallet-crypto'
+// Ponyfill for Error.captureStackTrace which is used by typeforce.
+import captureStackTrace from 'capture-stack-trace'
 import typeforce from 'typeforce'
+
+if (!Error.captureStackTrace) {
+  Error.captureStackTrace = captureStackTrace
+}
+
 const bip39 = crypto.bip39
 const bitcoin = crypto.bitcoin
 

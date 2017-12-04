@@ -148,6 +148,7 @@ const Order = DefineMap.extend('Order', {
 
   //
   // Related models:
+  // (Note: async getters are useful only for stache templates.)
   //
 
   issuance: {
