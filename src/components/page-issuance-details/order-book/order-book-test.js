@@ -45,7 +45,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       ViewModel.prototype.sendMessage = _sendMessage
     })
 
-    it.only('creates Order from Issuance and Portfolio', function (done) {
+    it('creates Order from Issuance and Portfolio', function (done) {
       const vm = new ViewModel({ issuance, portfolio })
       const unusedNextBtcAddress = portfolio.keys.BTC.derive(0).derive(2).getAddress()
       const unusedNextEqbAddress = portfolio.keys.EQB.derive(0).derive(1).getAddress()
@@ -102,15 +102,33 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       const htlcOffer = createHtlcOffer(formData, 'BUY', secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
 
       describe('createHtlcOffer', function () {
-        it('should create HTLC offer', function () {
+        it('should have quantity', function () {
           console.log('htlcOffer', htlcOffer)
           assert.equal(htlcOffer.quantity, 500)
-          assert.equal(htlcOffer.eqbAddress, eqbAddress)
-          assert.equal(htlcOffer.refundBtcAddress, refundBtcAddress)
+        })
+        it('should set eqbAddressTrading', function () {
+          assert.equal(htlcOffer.eqbAddressTrading, eqbAddress)
+        })
+        // todo: holding address should be different than trading.
+        it('should set eqbAddressHolding ???', function () {
+          assert.equal(htlcOffer.eqbAddressHolding, eqbAddress)
+        })
+        it('should set btcAddress for refund', function () {
+          assert.equal(htlcOffer.btcAddress, refundBtcAddress)
+        })
+        it('should set secretEncrypted', function () {
           assert.ok(htlcOffer.secretEncrypted)
+        })
+        it('should set timelock', function () {
           assert.equal(htlcOffer.timelock, timelock)
+        })
+        it('should set secretHash', function () {
           assert.equal(htlcOffer.secretHash.length, 64, '(256 bit) = (32 bytes) = (64 hex chars)')
+        })
+        it('should set type', function () {
           assert.equal(htlcOffer.type, 'BUY')
+        })
+        it('should set issuanceId', function () {
           assert.equal(htlcOffer.issuanceId, issuance._id)
         })
       })
@@ -133,14 +151,14 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
           assert.equal(tx.companyName, 'Equibit Group')
           assert.equal(tx.issuanceName, 'Series One')
         })
-        it.skip('should have fromAddress ???', function () {
-          assert.equal(tx.fromAddress, order.sellAddressBtc)
+        it('should have fromAddress', function () {
+          assert.ok(tx.fromAddress)
         })
         it('should have toAddress', function () {
-          assert.equal(tx.toAddress, order.sellAddressBtc)
+          assert.equal(tx.toAddress, order.btcAddress)
         })
         it('should have refundAddress', function () {
-          assert.equal(tx.refundAddress, htlcOffer.refundBtcAddress)
+          assert.equal(tx.refundAddress, htlcOffer.btcAddress)
         })
         it('should have timelock', function () {
           assert.equal(tx.timelock, htlcOffer.timelock)
