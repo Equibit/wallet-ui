@@ -489,6 +489,7 @@ export default {
   totalPrice: 'Total Price',
   totalSecurities: 'Total Securities',
   trademark: '© 2017 Equibit Group Ltd.',
+  tradeWasUpdated: 'Trade was updated',
   tradingPassport: 'Trading Passport',
   tradingPassportStatusActive: 'Active',
   tradingPassportStatusRevoked: 'Revoked',

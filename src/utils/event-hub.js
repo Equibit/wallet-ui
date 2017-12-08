@@ -7,4 +7,16 @@ import assign from 'can-util/js/assign/assign'
 const hub = {}
 assign(hub, canEvent)
 
+// Predefined alerts:
+const dispatchAlertError = err => {
+  return hub.dispatch({
+    'type': 'alert',
+    'kind': 'danger',
+    'title': 'System error',
+    'message': `Sorry, an error occurred. Message: ${err.message}`,
+    'displayInterval': 10000
+  })
+}
+
 export default hub
+export { dispatchAlertError }

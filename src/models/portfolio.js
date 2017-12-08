@@ -179,6 +179,24 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }, [])
     }
   },
+  // List of empty EQB.
+  // utxoEmptyEqb :: List<UTXO>
+  utxoEmptyEqb: {
+    get () {
+      if (!this.utxoByTypeByAddress || !this.utxoByTypeByAddress.EQB) {
+        return
+      }
+      const eqbAddresses = this.utxoByTypeByAddress.EQB.addresses
+      return Object.keys(eqbAddresses).reduce((acc, addr) => {
+        const txouts = eqbAddresses[addr].txouts
+        const emptyEqb = txouts.filter(out => {
+          return out.equibit.issuance_tx_id === EMPTY_ISSUANCE_TX_ID
+        })
+        acc.push.apply(acc, emptyEqb)
+        return acc
+      }, [])
+    }
+  },
 
   // securities :: List<Object<UTXO,IssuanceJson>>
   securities: {

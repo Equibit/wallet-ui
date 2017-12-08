@@ -34,7 +34,8 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-xs-12">
-              <button class="btn btn-default btn-sm btn-primary btn-accept">{{i18n('accept')}}</button>
+              <button class="btn btn-default btn-sm btn-primary btn-accept"
+                      on:click="acceptOffer(offer)">{{i18n('accept')}}</button>
             </div>
           </div>
         </div>

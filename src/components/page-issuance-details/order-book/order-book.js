@@ -27,7 +27,7 @@ import Order from '../../../models/order'
 import Offer from '../../../models/offer'
 import Session from '../../../models/session'
 import Transaction from '../../../models/transaction'
-import hub from '../../../utils/event-hub'
+import hub, { dispatchAlertError } from '../../../utils/event-hub'
 import BitMessage from '../../../models/bit-message'
 import cryptoUtils from '../../../utils/crypto'
 
@@ -152,14 +152,17 @@ function createOrder (formData, type, addr, user, portfolio, issuance) {
     userId: user._id,
     issuanceAddress: issuance.issuanceAddress,
     type,
-    sellAddressBtc: (type === 'SELL' ? addr.BTC : ''),
-    buyAddressEqb: (type === 'BUY' ? addr.EQB : ''),
+    btcAddress: addr.BTC,
+    eqbAddressHolding: addr.EQB, // a refund address for HTLC
+    // sellAddressBtc: (type === 'SELL' ? addr.BTC : ''),
+    // buyAddressEqb: (type === 'BUY' ? addr.EQB : ''),
     portfolioId: portfolio._id,
     quantity: formData.quantity,
-    price: formData.price,
+    price: formData.priceInUnits,
     isFillOrKill: formData.isFillOrKill,
     goodFor: formData.goodFor,
     companyName: issuance.companyName,
+    issuanceId: issuance._id,
     issuanceName: issuance.issuanceName,
     issuanceType: issuance.issuanceType
   })
@@ -182,14 +185,16 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
     userId: user._id,
     orderId: formData.order._id,
     issuanceAddress: issuance.issuanceAddress,
-    eqbAddress,
-    refundBtcAddress,
+    btcAddress: refundBtcAddress,
+    eqbAddressTrading: eqbAddress,
+    eqbAddressHolding: eqbAddress,
     secretEncrypted,
     secretHash,
     timelock,
     type,
     quantity: formData.quantity,
     price: formData.order.price,
+    issuanceId: issuance._id,
     companyName: issuance.companyName,
     issuanceName: issuance.issuanceName,
     issuanceType: issuance.issuanceType
@@ -205,8 +210,8 @@ function createHtlcTx (offer, order, portfolio, issuance, changeAddrPair) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', {EQB: 'String', BTC: 'String'}), arguments)
   const amount = offer.quantity * order.price
   const currencyType = offer.type === 'BUY' ? 'BTC' : 'EQB'
-  const toAddressA = offer.type === 'BUY' ? order.sellAddressBtc : order.buyAddressEqb
-  const toAddressB = offer.type === 'BUY' ? offer.refundBtcAddress : offer.refundEqbAddress
+  const toAddressA = offer.type === 'BUY' ? order.btcAddress : order.eqbAddressTrading
+  const toAddressB = offer.type === 'BUY' ? offer.btcAddress : offer.eqbAddressHolding
   // todo: calculate transaction fee:
   const transactionFee = 1000
   // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
@@ -255,16 +260,6 @@ function dispatchAlertOffer (hub, offer, route) {
     'kind': 'success',
     'title': translate('offerWasCreated'),
     'message': `<a href="${offerUrl}">${translate('viewDetails')}</a>`,
-    'displayInterval': 10000
-  })
-}
-
-function dispatchAlertError (err) {
-  return hub.dispatch({
-    'type': 'alert',
-    'kind': 'danger',
-    'title': 'System error',
-    'message': `Sorry, an error occurred. Message: ${err.message}`,
     'displayInterval': 10000
   })
 }

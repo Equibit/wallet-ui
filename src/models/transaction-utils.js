@@ -4,6 +4,7 @@ import typeforce from 'typeforce'
 
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 const buildTx = txBuilder.builder.buildTx
+const buildTxEqb = eqbTxBuilder.builder.buildTx
 
 function buildTransaction (currencyType) {
   return currencyType === 'BTC' ? buildTransactionBtc : buildTransactionEqb
@@ -171,7 +172,9 @@ function makeHtlc (
     'String',
     'Number',
     'Array',
-    'Object'
+    {
+      currencyType: 'String'
+    }
   ), arguments)
   if (txouts.length === 0) {
     throw new Error('At least one transaction input is required')

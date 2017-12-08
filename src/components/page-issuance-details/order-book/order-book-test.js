@@ -45,17 +45,19 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       ViewModel.prototype.sendMessage = _sendMessage
     })
 
-    it('creates Order from Issuance and Portfolio', function (done) {
+    it.only('creates Order from Issuance and Portfolio', function (done) {
       const vm = new ViewModel({ issuance, portfolio })
-      const unusedNextAddress = portfolio.keys.BTC.derive(0).derive(2).getAddress()
+      const unusedNextBtcAddress = portfolio.keys.BTC.derive(0).derive(2).getAddress()
+      const unusedNextEqbAddress = portfolio.keys.EQB.derive(0).derive(1).getAddress()
       ViewModel.prototype.sendMessage = order => {
+        assert.equal(order.issuanceId, issuance._id, 'issuanceId from issuance')
         assert.equal(order.issuanceAddress, issuance.issuanceAddress, 'Address from issuance')
         assert.equal(order.companyName, issuance.companyName, 'Company name from issuance')
         assert.equal(order.issuanceName, issuance.issuanceName, 'Issuance name from issuance')
         assert.equal(order.issuanceType, issuance.issuanceType, 'Issuance type from issuance')
         assert.equal(order.portfolioId, portfolio._id, 'Portfolio ID from portfolio')
-        assert.equal(order.sellAddressBtc, unusedNextAddress, 'BTC Address')
-        assert.equal(order.buyAddressEqb, '', 'Empty buyAddressEqb')
+        assert.equal(order.btcAddress, unusedNextBtcAddress, 'BTC address')
+        assert.equal(order.eqbAddressHolding, unusedNextEqbAddress, 'EQB address')
         return Promise.resolve(order)
       }
       vm.placeOrder([null, formData, 'SELL']).then(() => done())
@@ -109,6 +111,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
           assert.equal(htlcOffer.timelock, timelock)
           assert.equal(htlcOffer.secretHash.length, 64, '(256 bit) = (32 bytes) = (64 hex chars)')
           assert.equal(htlcOffer.type, 'BUY')
+          assert.equal(htlcOffer.issuanceId, issuance._id)
         })
       })
 
