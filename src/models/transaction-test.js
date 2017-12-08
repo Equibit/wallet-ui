@@ -1,7 +1,10 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
+import DefineMap from 'can-define/map/map'
 import { bitcoin, Buffer } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import cryptoUtils from '../utils/crypto'
+import Order from './order'
+import Session from './session'
 
 import {
   buildTransaction,
@@ -9,12 +12,18 @@ import {
   buildTransactionEqb,
   toSatoshi,
   makeTransaction,
-  makeHtlc
+  makeHtlc,
+  createHtlcTx2
 } from './transaction-utils'
+import { createHtlcOffer, generateSecret } from '../components/page-issuance-details/order-book/order-book'
 
 import './fixtures/portfolio'
 import './fixtures/listunspent'
+import './mock/mock-session'
 import hdNode from './mock/mock-keys'
+import issuance from './mock/mock-issuance'
+import portfolio from './mock/mock-portfolio'
+import orderFixturesData from './fixtures/orders'
 
 describe('models/transaction-utils', function () {
   describe('buildTransaction', function () {
@@ -102,6 +111,58 @@ describe('models/transaction-utils', function () {
     it('should contain BTC transaction hex and id', function () {
       assert.equal(txData.hex, expectedTxHex)
       assert.equal(txData.txId, expectedTxId)
+    })
+  })
+
+  describe.only('createHtlcTx2', function () {
+    // todo: move this to mocks.
+    const orderData = Object.assign({}, orderFixturesData[0], { issuance: issuance })
+    const order = new Order(orderData)
+    const formData = new (DefineMap.extend('OfferFormData', {seal: false}, {}))({
+      order,
+      quantity: 500
+    })
+    const secret = generateSecret()
+    const timelock = 20
+    const eqbAddress = 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'
+    const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
+    // const changeBtcAddressPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
+
+    const htlcOffer = createHtlcOffer(formData, 'BUY', secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
+    htlcOffer.htlcStep = 2
+
+    const tx = createHtlcTx2(htlcOffer, order, portfolio, issuance)
+
+    console.log('tx', tx)
+    it('should set the correct type', function () {
+      assert.equal(tx.type, 'BUY')
+    })
+    it('should set amount = quantity', function () {
+      assert.equal(tx.amount, htlcOffer.quantity)
+    })
+    it('should set BTC transaction hex and id', function () {
+      assert.ok(tx.hex)
+      assert.ok(tx.txId)
+      assert.ok(tx.currencyType, 'BTC')
+    })
+    it('should set issuance details', function () {
+      assert.equal(tx.companyName, 'Equibit Group')
+      assert.equal(tx.issuanceName, 'Series One')
+    })
+    it('should set fromAddress', function () {
+      assert.ok(tx.fromAddress)
+    })
+    it('should set toAddress', function () {
+      assert.equal(tx.toAddress, htlcOffer.eqbAddressTrading)
+    })
+    it('should set refundAddress', function () {
+      assert.equal(tx.refundAddress, order.eqbAddressHolding)
+    })
+    it('should set timelock', function () {
+      assert.equal(tx.timelock, Math.floor(htlcOffer.timelock / 2))
+    })
+    it('should set htlcStep', function () {
+      assert.equal(tx.htlcStep, 2)
     })
   })
 })

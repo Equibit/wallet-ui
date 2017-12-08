@@ -19,7 +19,7 @@ import route from 'can-route'
 import { merge } from 'ramda'
 import './order-book.less'
 import typeforce from 'typeforce'
-import { types } from '@equibit/wallet-crypto'
+import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 
 import { translate } from '../../../i18n/i18n'
 import view from './order-book.stache'
@@ -197,7 +197,8 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
     issuanceId: issuance._id,
     companyName: issuance.companyName,
     issuanceName: issuance.issuanceName,
-    issuanceType: issuance.issuanceType
+    issuanceType: issuance.issuanceType,
+    htlcStep: 1
   })
   console.log('createHtlcOffer', arguments, offer)
   return offer

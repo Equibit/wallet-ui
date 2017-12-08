@@ -131,8 +131,12 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         it('should set issuanceId', function () {
           assert.equal(htlcOffer.issuanceId, issuance._id)
         })
+        it('should set htlcStep', function () {
+          assert.equal(htlcOffer.htlcStep, 1)
+        })
       })
 
+      // todo: move to this transaction-utils test and js.
       describe('createHtlcTx', function () {
         const tx = createHtlcTx(htlcOffer, order, portfolio, issuance, changeBtcAddressPair)
         console.log('tx', tx)

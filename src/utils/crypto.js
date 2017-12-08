@@ -62,5 +62,6 @@ export default {
   bip39,
   bitcoin,
   randomBytes: crypto.randomBytes,
-  sha256: bitcoin.crypto.sha256
+  sha256: bitcoin.crypto.sha256,
+  Buffer: crypto.Buffer
 }
