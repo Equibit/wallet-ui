@@ -17,14 +17,44 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './user-password.less'
 import view from './user-password.stache'
+import Session from '~/models/session'
 
 export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
+  passwordCurrent: 'string',
+  passwordNew: 'string',
+  errorMessage: 'string',
+  visibleStates: {
+    value: {
+      passwordCurrent: false,
+      passwordNew: false
+    }
+  },
+  inputType (key) {
+    return this.visibleStates[key] ? 'text' : 'password'
+  },
+  toggleVisible (key) {
+    this.visibleStates[key] = !this.visibleStates[key]
+  },
   showModal () {
     // Note: we need to re-insert the modal content:
     this.isModalShown = false
     this.isModalShown = true
-  }
+  },
+  save () {
+    Session.current.user.changePassword(this.passwordNew, this.passwordCurrent).then(
+      () => {
+        this.passwordCurrent = ''
+        this.passwordNew = ''
+        this.errorMessage = ''
+        this.close()
+      },
+      error => {
+        this.errorMessage = error.message
+      }
+    )
+  },
+  close: '*'
 })
 
 export default Component.extend({
