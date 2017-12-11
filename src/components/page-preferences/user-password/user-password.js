@@ -30,9 +30,6 @@ export const ViewModel = DefineMap.extend({
       passwordNew: false
     }
   },
-  inputType (key) {
-    return this.visibleStates[key] ? 'text' : 'password'
-  },
   toggleVisible (key) {
     this.visibleStates[key] = !this.visibleStates[key]
   },
