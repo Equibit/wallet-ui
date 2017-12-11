@@ -43,7 +43,8 @@ export const ViewModel = DefineMap.extend({
       hub.dispatch({
         'type': 'alert',
         'kind': 'success',
-        'title': translate('codeVerifiedMessage')
+        'title': translate('codeVerifiedMessage'),
+        'displayInterval': 10000
       })
       this.doClose()
     }, error => {

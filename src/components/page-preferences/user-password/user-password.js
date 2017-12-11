@@ -18,6 +18,8 @@ import DefineMap from 'can-define/map/map'
 import './user-password.less'
 import view from './user-password.stache'
 import Session from '~/models/session'
+import hub from '~/utils/event-hub'
+import i18n from '~/i18n/'
 
 export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
@@ -44,6 +46,12 @@ export const ViewModel = DefineMap.extend({
         this.passwordCurrent = ''
         this.passwordNew = ''
         this.errorMessage = ''
+        hub.dispatch({
+          'type': 'alert',
+          'kind': 'success',
+          'title': i18n.changesSaved,
+          'displayInterval': 10000
+        })
         this.close()
       },
       error => {

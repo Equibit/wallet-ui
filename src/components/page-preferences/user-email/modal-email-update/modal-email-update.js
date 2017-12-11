@@ -67,7 +67,8 @@ export const ViewModel = DefineMap.extend({
       hub.dispatch({
         'type': 'alert',
         'kind': 'success',
-        'title': translate('changesSaved')
+        'title': translate('changesSaved'),
+        'displayInterval': 10000
       })
       this.dispatch('verified', [this.codeString])
       this.close()
