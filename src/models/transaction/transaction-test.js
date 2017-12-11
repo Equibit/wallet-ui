@@ -2,30 +2,30 @@ import assert from 'chai/chai'
 import 'steal-mocha'
 import DefineMap from 'can-define/map/map'
 import { bitcoin, Buffer } from '@equibit/wallet-crypto/dist/wallet-crypto'
-import cryptoUtils from '../utils/crypto'
-import Order from './order'
-import Session from './session'
+import cryptoUtils from '../../utils/crypto'
+import Order from '../order'
+import Session from '../session'
+import { createHtlcOffer, generateSecret } from '../../components/page-issuance-details/order-book/order-book'
+
+// Fixtures:
+import '../fixtures/portfolio'
+import '../fixtures/listunspent'
+import '../mock/mock-session'
+import hdNode from '../mock/mock-keys'
+import issuance from '../mock/mock-issuance'
+import portfolio from '../mock/mock-portfolio'
+import orderFixturesData from '../fixtures/orders'
 
 import {
   buildTransaction,
   buildTransactionBtc,
   buildTransactionEqb,
-  toSatoshi,
-  makeTransaction,
-  makeHtlc,
-  createHtlcTx2
-} from './transaction-utils'
-import { createHtlcOffer, generateSecret } from '../components/page-issuance-details/order-book/order-book'
+  toSatoshi
+} from './transaction-build'
+import { makeTransaction, makeHtlc } from './transaction-make'
+import { createHtlcTx2 } from './transaction-create'
 
-import './fixtures/portfolio'
-import './fixtures/listunspent'
-import './mock/mock-session'
-import hdNode from './mock/mock-keys'
-import issuance from './mock/mock-issuance'
-import portfolio from './mock/mock-portfolio'
-import orderFixturesData from './fixtures/orders'
-
-describe('models/transaction-utils', function () {
+describe('models/transaction/utils', function () {
   describe('buildTransaction', function () {
     const expectedHex = '0100000002b5a4d2ee7ada7a30722d3224c8e29443e75fc3506612ae41ee853f2fe24b6756000000006b483045022100c5d7e56232d2eff6461ea45bb8e9ffee36675598adb853bf6f61e881b2c29282022000d4f1d3c3e091daa4dbece16fb1f27ee199fdbd2db4db940b9a4b6987e24ed6012102c149f0b80bbbb0811cd7f2d8c2eed5bae28de5e992064590a0a16eb1743bc469ffffffff79ea8eea8ee96dc748304f5d85163d28bfcc0f9760ee50e02664b6b52dd9da1e000000006b483045022100861ac9755c989a65726a1dbf46bf85dcf12928fc5f4bc42fede7142af4111fd30220385336eed4e26c52c605a18a60effee88bfc9d0306b09994dd85bf48607762f50121028fe426abec4cd47b05911e18e91cd751a1646d179217380e7799cd12268bf202ffffffff0201000000000000001976a9143ed6bbf121b09f20b46381ab7dbf547e18ffbc3b88ac02000000000000001976a914af407ff486847db48b9a2cb25b6e14d3044eaf4488ac00000000'
     it('should create a transaction hex', function () {
@@ -69,8 +69,8 @@ describe('models/transaction-utils', function () {
     const secretHash = cryptoUtils.sha256(secret).toString('hex')
 
     // Note: the expected values were created manually:
-    const expectedTxHex = '0100000001b5a4d2ee7ada7a30722d3224c8e29443e75fc3506612ae41ee853f2fe24b6756000000006b483045022100daa76f50b528c615c501a1ec89e91ebfdea9229ebb3910457008fdfc7057fb6202200cf3742c8a4d85951027c7a9420fac3d970c62e6c2a083e5395009b607e47eb3012102c149f0b80bbbb0811cd7f2d8c2eed5bae28de5e992064590a0a16eb1743bc469ffffffff0280f0fa02000000005a63a82037b9f894d525cdb5b4d860bbdc95d4b1ea70d1794f4b77e6e54fdac374870a6d8876a91418c1f2fd53cf24b918470437e25639ed4325bd47670190b17576a914685101ea3d9f9ba1a1767bb7b0bfa8987067d2a36888acffe0f505000000001976a914751388becb32b332d716c7735ad51c9a40e9d87588ac00000000'
-    const expectedTxId = '50a4d1c3fac0a9070963ff824cde4ccb7b9b68e24484454cef48788427c70452'
+    const expectedTxHex = '0100000001b5a4d2ee7ada7a30722d3224c8e29443e75fc3506612ae41ee853f2fe24b6756000000006b483045022100f148d968e881ed481418a0b5dcb3b3ff7733ad832ff6b7342d7e4e9d95a1704102202624d73621fcc6c6ad69a16698b1423d9dd9c6ecc027c705e37b656b34b8b4cd012102c149f0b80bbbb0811cd7f2d8c2eed5bae28de5e992064590a0a16eb1743bc469ffffffff0280f0fa02000000005b63a82037b9f894d525cdb5b4d860bbdc95d4b1ea70d1794f4b77e6e54fdac374870a6d8876a91418c1f2fd53cf24b918470437e25639ed4325bd4767029000b17576a914685101ea3d9f9ba1a1767bb7b0bfa8987067d2a36888acffe0f505000000001976a914751388becb32b332d716c7735ad51c9a40e9d87588ac00000000'
+    const expectedTxId = 'e3aadfa76629496da3affb08a8f668404ccbe8581c04913e7f29637de12b61a0'
 
     const amount = 0.5 * 100000000
     const fromNode = hdNode.derive(0)
@@ -94,10 +94,15 @@ describe('models/transaction-utils', function () {
       changeAddrEmptyEqb: '',
       amountEqb: 0
     }
-    const txData = makeHtlc(
-      amount, toAddressA, toAddressB, hashlock, timelock, txouts,
-      options
-    )
+
+    let txData
+    before(function () {
+      txData = makeHtlc(
+        amount, toAddressA, toAddressB, hashlock, timelock, txouts,
+        options
+      )
+    })
+
     it('should create data for instantiating an HTLC Transaction', function () {
       assert.equal(typeof txData, 'object')
     })
@@ -114,7 +119,7 @@ describe('models/transaction-utils', function () {
     })
   })
 
-  describe.only('createHtlcTx2', function () {
+  describe.skip('createHtlcTx2', function () {
     // todo: move this to mocks.
     const orderData = Object.assign({}, orderFixturesData[0], { issuance: issuance })
     const order = new Order(orderData)
@@ -122,18 +127,22 @@ describe('models/transaction-utils', function () {
       order,
       quantity: 500
     })
-    const secret = generateSecret()
-    const timelock = 20
-    const eqbAddress = 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'
-    const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
-    // const changeBtcAddressPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
 
-    const htlcOffer = createHtlcOffer(formData, 'BUY', secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
-    htlcOffer.htlcStep = 2
+    let tx, htlcOffer
+    before(function () {
+      const secret = generateSecret()
+      const timelock = 20
+      const eqbAddress = 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'
+      const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
+      // const changeBtcAddressPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
 
-    const tx = createHtlcTx2(htlcOffer, order, portfolio, issuance)
+      htlcOffer = createHtlcOffer(formData, 'BUY', secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
+      htlcOffer.htlcStep = 2
 
-    console.log('tx', tx)
+      tx = createHtlcTx2(htlcOffer, order, portfolio, issuance)
+      console.log('createHtlcTx2 tx=', tx)
+    })
+
     it('should set the correct type', function () {
       assert.equal(tx.type, 'BUY')
     })

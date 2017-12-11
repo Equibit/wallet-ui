@@ -21,7 +21,7 @@ import hub from '~/utils/event-hub'
 import { translate } from '~/i18n/'
 import Portfolio from '../../../models/portfolio'
 import Session from '~/models/session'
-import Transaction from '~/models/transaction'
+import Transaction from '~/models/transaction/transaction'
 import { merge } from 'ramda'
 
 let portfolio

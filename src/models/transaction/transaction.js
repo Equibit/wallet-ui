@@ -16,15 +16,14 @@
 
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
-import feathersClient from './feathers-client'
-import { superModelNoCache } from './super-model'
-import algebra from './algebra'
-import i18n from '../i18n/i18n'
-// import Session from './session'
+import feathersClient from '../feathers-client'
+import { superModelNoCache } from '../super-model'
+import algebra from '../algebra'
+import i18n from '../../i18n/i18n'
 import {
   makeTransaction,
   makeHtlc
-} from './transaction-utils'
+} from './transaction-make'
 
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (amount, toAddress, txouts, options) {

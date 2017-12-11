@@ -23,7 +23,7 @@ import view from './order-offers-data.stache'
 import Order from '../../../models/order'
 import Offer from '../../../models/offer'
 import Session from '../../../models/session'
-import { createHtlcTx2 } from '../../../models/transaction-utils'
+import { createHtlcTx2 } from '../../../models/transaction/transaction-create'
 import { translate } from '../../../i18n/i18n'
 
 export const ViewModel = DefineMap.extend({
