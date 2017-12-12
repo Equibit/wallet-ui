@@ -5,16 +5,16 @@
 
 <div class="row">
   <div class="col-xs-12 col-md-5 col-lg-4">
-    <trading-passports-list></trading-passports-list>
+    <trading-passports-list activePassport:to="scope.vars.selectedPassport"></trading-passports-list>
   </div>
 
   <div class="col-xs-12 col-md-7 col-lg-8">
-    
+
     <!--
     <received-passport-details></received-passport-details>
     -->
-    
-    <owned-passport-details></owned-passport-details>
-    
+
+    <owned-passport-details passport:from="scope.vars.selectedPassport"></owned-passport-details>
+
   </div>
 </div>

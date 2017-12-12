@@ -19,9 +19,10 @@ import './create-authority.less'
 import view from './create-authority.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the create-authority component'
-  }
+  next () {
+
+  },
+  close () {}
 })
 
 export default Component.extend({

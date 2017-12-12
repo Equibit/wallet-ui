@@ -17,17 +17,48 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './modal-authentication.less'
 import view from './modal-authentication.stache'
+import User from '~/models/user/'
+import hub from '~/utils/event-hub'
+import { translate } from '~/i18n/'
 
 export const ViewModel = DefineMap.extend({
   secondFactorCode: 'string',
-  verify (close) {
-    this.dispatch('verified', [this.secondFactorCode])
-    this.doClose(close)
+  user: {},
+  error: 'string',
+  twoFactorPromise: {
+    get (lastSetVal) {
+      return User.connection.updateData({
+        _id: this.user._id,
+        requestTwoFactorCode: true
+      })
+    }
   },
-  doClose (close) {
+  verify () {
+    this.error = null
+    User.connection.updateData({
+      _id: this.user._id,
+      twoFactorCode: this.secondFactorCode
+    }).then(user => {
+      this.dispatch('verified', [this.secondFactorCode])
+      hub.dispatch({
+        'type': 'alert',
+        'kind': 'success',
+        'title': translate('codeVerifiedMessage'),
+        'displayInterval': 10000
+      })
+      this.doClose()
+    }, error => {
+      this.error = error
+    })
+  },
+  doClose () {
     this.dispatch('close')
-    close()
-  }
+    this.close()
+    this.next()
+  },
+  // This happens after verify and should generally be overwritten with a next step
+  next () {},
+  close: '*' // from bootstrap-modal-content
 })
 
 export default Component.extend({

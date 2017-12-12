@@ -18,7 +18,7 @@
 
       <ul class="nav navbar-nav add-nav navbar-right">
         <li>
-          <a href="#" class="icon icon-refresh" role="button" ($click)="refresh()"></a>
+          <a href="#" class="icon icon-refresh" role="button" on:click="refresh()"></a>
         </li>
 
         {{#if isLoggedIn}}
@@ -101,7 +101,7 @@
             <li><a href="{{routeUrl page='preferences'}}">{{i18n('userPreferences')}}</a></li>
             <li role="separator" class="divider"></li>
             <li>
-              <button type="button" class="btn btn-default btn-xs" ($click)="logout()">
+              <button type="button" class="btn btn-default btn-xs" on:click="logout()">
                 {{i18n('logout')}}
               </button>
             </li>

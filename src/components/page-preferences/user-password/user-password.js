@@ -15,16 +15,61 @@
 
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
+import isEmptyObject from 'can-util/js/is-empty-object/'
 import './user-password.less'
 import view from './user-password.stache'
+import Session from '~/models/session'
+import hub from '~/utils/event-hub'
+import i18n from '~/i18n/'
 
 export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
+  passwordCurrent: 'string',
+  passwordNew: 'string',
+  errors: {
+    value: {}
+  },
+  visibleStates: {
+    value: {
+      passwordCurrent: false,
+      passwordNew: false
+    }
+  },
+  toggleVisible (key) {
+    this.visibleStates[key] = !this.visibleStates[key]
+  },
   showModal () {
     // Note: we need to re-insert the modal content:
     this.isModalShown = false
     this.isModalShown = true
-  }
+  },
+  clearErrors (field) {
+    this.errors[field] = null
+  },
+  save () {
+    Session.current.user.changePassword(this.passwordNew, this.passwordCurrent).then(
+      () => {
+        this.passwordCurrent = ''
+        this.passwordNew = ''
+        this.errors = {}
+        hub.dispatch({
+          'type': 'alert',
+          'kind': 'success',
+          'title': i18n.changesSaved,
+          'displayInterval': 10000
+        })
+        this.close()
+      },
+      error => {
+        if (isEmptyObject(error.errors)) {
+          this.errors.set('general', error.message)
+        } else {
+          this.errors.assign(error.errors)
+        }
+      }
+    )
+  },
+  close: '*'
 })
 
 export default Component.extend({

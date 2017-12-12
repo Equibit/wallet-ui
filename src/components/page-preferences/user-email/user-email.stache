@@ -1,6 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-preferences/modal-authentication/" />
-
+<can-import from="./modal-email-update/" />
 
 <div class="well">
   <div class="row section">
@@ -8,17 +8,33 @@
       <span class="icon icon-email"></span>{{i18n('email')}}
     </div>
     <div class="col-sm-7 col-xs-12 section-column section-values">
-      <span class="label label-success">{{i18n('statusVerified')}}</span>
-      <span class="input-value">myemail@gmail.com</span>
+      {{#if user.emailVerified}}
+        <span class="label label-success">{{i18n('statusVerified')}}</span>
+      {{else}}
+        <span class="label label-danger">{{i18n('statusUnverified')}}</span>
+      {{/if}}
+      <span class="input-value">{{user.email}}</span>
     </div>
     <div class="col-sm-2 col-xs-12 section-column section-cta">
-      <button ($click)="showModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+      {{#if user.twoFactorValidatedSession}}
+        {{#if user.emailVerified}}
+          <button on:click="{{#if user.twoFactorValidatedSession}}showEmailUpdateModal(){{else}}showAuthenticationModal(){{/if}}" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+        {{else}}
+          <button on:click="sendVerificationEmailAndNotify()" class="btn btn-default btn-sm">{{i18n('resendVerificationEmail')}}</button>
+          <button on:click="showEmailUpdateModal('code')" class="btn btn-primary btn-sm btn-edit">{{i18n('verify')}}</button>
+        {{/if}}
+      {{else}}
+        <button on:click="{{#if user.twoFactorValidatedSession}}showEmailUpdateModal(){{else}}showAuthenticationModal(){{/if}}" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+      {{/if}}
     </div>
   </div>
 </div>
 
 
-{{#if isModalShown}}
-  <modal-authentication></modal-authentication>
-{{/if}}
+{{#is modal 'authentication'}}
+  <modal-authentication next:from="@showEmailUpdateModal" user:from="user"></modal-authentication>
+{{/is}}
 
+{{#is modal 'email'}}
+  <modal-email-update user:from="user" mode:from="initialView" sendVerificationEmail:from="@sendVerificationEmail"></modal-email-update>
+{{/is}}

@@ -17,16 +17,74 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './modal-email-update.less'
 import view from './modal-email-update.stache'
+import User from '~/models/user/'
+import hub from '~/utils/event-hub'
+import { translate } from '~/i18n/'
 
 export const ViewModel = DefineMap.extend({
   mode: {
-    value: 'edit'
+    value: 'edit',
+    set (val) {
+      if (!val) {
+        return 'edit'
+      } else {
+        return val
+      }
+    }
   },
+  email: 'string',
+  codeString: 'string',
+  user: {},
+  error: 'string',
   edit () {
     this.mode = 'edit'
   },
   code () {
-    this.mode = 'code'
+    this.sendVerificationEmail(this.email).then(() => {
+      if (this.user.emailVerified) {
+        // email is already verified?
+        // This means the user probably didn't change email addresses
+        // and the API didn't unverify as a result.
+        this.close()
+      } else {
+        this.mode = 'code'
+      }
+    }, error => {
+      hub.dispatch({
+        'type': 'alert',
+        'kind': 'danger',
+        'title': error.message
+      })
+      this.error = error
+    })
+  },
+  verify () {
+    this.error = null
+    User.connection.updateData({
+      _id: this.user._id,
+      emailVerificationCode: this.codeString
+    }).then(() => {
+      hub.dispatch({
+        'type': 'alert',
+        'kind': 'success',
+        'title': translate('changesSaved'),
+        'displayInterval': 10000
+      })
+      this.dispatch('verified', [this.codeString])
+      this.close()
+    }, error => {
+      hub.dispatch({
+        'type': 'alert',
+        'kind': 'danger',
+        'title': error.message
+      })
+      this.error = error
+    })
+  },
+  close: '*',
+  sendVerificationEmail: {
+    type: '*',
+    value: function () { return Promise.reject(new Error('not implemented')) }
   }
 })
 

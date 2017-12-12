@@ -17,11 +17,16 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './passport-form.less'
 import view from './passport-form.stache'
+import Session from '~/models/session'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the passport-form component'
-  }
+  get session () {
+    return Session.current
+  },
+  passport: {
+    value: {}
+  },
+  company () {}
 })
 
 export default Component.extend({

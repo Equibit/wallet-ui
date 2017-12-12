@@ -17,10 +17,11 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './page-preferences.less'
 import view from './page-preferences.stache'
+import Session from '~/models/session'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the page-preferences component'
+  get user () {
+    return Session.current && Session.current.user
   }
 })
 

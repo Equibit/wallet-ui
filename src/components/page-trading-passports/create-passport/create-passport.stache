@@ -1,34 +1,39 @@
 <can-import from="bootstrap-canjs" />
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal/modal.less" />
 <can-import from="~/components/page-trading-passports/create-passport/passport-form/" />
 <can-import from="~/components/page-trading-passports/create-passport/passport-confirm/" />
+<can-import from="~/components/page-trading-passports/create-passport/create-authority/" />
 
 <bootstrap-modal-content>
+{{#is ../mode 'authority'}}
+  <create-authority close:from="../@edit"></create-authority>
+{{else}}
     <div class="modal-header">
         <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
         <h3 class="modal-title">{{i18n('tradingPassportsCreate')}}</h3>
     </div>
 
     <div class="modal-body">
-        {{#is mode 'edit'}}
-            <passport-form></passport-form>
+        {{#is ../mode 'edit'}}
+            <passport-form passport:from="../passport" company:from="../@showAuthorityModal"></passport-form>
         {{/is}}
 
-        {{#is mode 'confirm'}}
-            <passport-confirm></passport-confirm>
+        {{#is ../mode 'confirm'}}
+            <passport-confirm passport:from="../passport" edit:from="../@edit"></passport-confirm>
         {{/is}}
     </div>
 
     <div class="modal-footer">
-        {{#is mode 'edit'}}
-            <button ($click)="confirm()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
-            <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+        {{#is ../mode 'edit'}}
+            <button on:click="confirm()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
+            <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
         {{/is}}
 
-        {{#is mode 'confirm'}}
+        {{#is ../mode 'confirm'}}
             <button type="button" class="btn btn-primary">{{i18n('createPassport')}}</button>
-            <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+            <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
         {{/is}}
     </div>
-
+{{/if}}
 </bootstrap-modal-content>

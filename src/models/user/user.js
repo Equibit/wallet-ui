@@ -81,7 +81,20 @@ const User = DefineMap.extend('User', {
 
   encryptedMnemonic: 'string',
 
+  /**
+   * @property {Boolean} models/user.properties.salt salt
+   * @parent models/user.properties
+   * The initialization salt for encrypting the password and keys
+   */
   salt: 'string',
+
+  /**
+   * @property {Boolean} models/user.properties.provisionalSalt provisionalSalt
+   * @parent models/user.properties
+   * A newly generated salt to be used when changing the password (allows the keys
+   * to be encrypted at the same time the password is changed)
+   */
+  provisionalSalt: 'string',
 
   /**
    * @property {Boolean} models/user.properties.isNewUser isNewUser
@@ -98,11 +111,32 @@ const User = DefineMap.extend('User', {
   createdAt: 'date',
 
   /**
+   * @property {Date} models/user.properties.passwordCreatedAt passwordCreatedAt
+   * @parent models/user.properties
+   * Date of last password change.
+   */
+  passwordCreatedAt: 'date',
+
+  /**
    * @property {Date} models/user.properties.isNewUser isNewUser
    * @parent models/user.properties
    * Date of user update.
    */
   updatedAt: 'date',
+
+  /**
+   * @property {Boolean} models/user.properties.twoFactorValidatedSession twoFactorValidatedSession
+   * @parent models/user.properties
+   * Whether the user has used 2FA to validate accounts this session
+   */
+  twoFactorValidatedSession: { type: 'boolean', default: false },
+
+  /**
+   * @property {Boolean} models/user.properties.emailVerified emailVerified
+   * @parent models/user.properties
+   * Whether the user has a verified email address
+   */
+  emailVerified: { type: 'boolean', default: false },
 
   /**
    * @property {Date} models/user.properties.isNewUser isRecovered
@@ -199,7 +233,7 @@ const User = DefineMap.extend('User', {
   decrypt (val) {
     return this.decryptWithPassword(_password, val)
   },
-  reCryptKeys (oldPassword, newPassword) {
+  reCryptKeys (oldPassword, newPassword, newSalt) {
     if (!_keys) {
       return
     }
@@ -208,8 +242,13 @@ const User = DefineMap.extend('User', {
       console.error('Cannot re-crypt keys. Decryption failed')
       return
     }
+    const _salt = this.salt
+    if (newSalt) {
+      this.salt = newSalt
+    }
     this.encryptedMnemonic = this.encryptWithPassword(newPassword, decryptedMnemonic)
     this.encryptedKey = this.encryptWithPassword(newPassword, _keys.root.toBase58())
+    this.salt = _salt
   },
 
   /**
@@ -220,24 +259,61 @@ const User = DefineMap.extend('User', {
    * @signature `user.changePassword( password )`
    * @param {String} password User's plain password. Will be sent as hashed.
    */
-  changePassword (password) {
+  changePassword (password, oldPassword) {
+    const _encryptedMnemonic = this.encryptedMnemonic
+    const _encryptedKey = this.encryptedKey
+    const _salt = this.salt
     const hashedPassword = signed.createHash(password)
-    const params = {
-      password: hashedPassword
+    const paramsStep2 = {
+      password: hashedPassword,
+      salt: this.salt
+    }
+    const paramsStep1 = {
+      requestPasswordChange: true
+    }
+    let step1Promise
+    if (this.provisionalSalt) {
+      // In the case where provisionalSalt exists, we've already requested one.
+      step1Promise = Promise.resolve({ provisionalSalt: this.provisionalSalt })
+    } else if (arguments.length > 1) {
+      // In the case where there is an "old" password, we assume that the
+      //  current password is *not* a temp password.
+      //  Let empty passwords through, though, to receive the appropriate API error.
+      paramsStep1.oldPassword = signed.createHash(oldPassword)
+      step1Promise = userService.patch(this._id, paramsStep1)
+    } else {
+      // Otherwise the current password is temp and we can skip requesting a
+      // provisional salt, because the salt will not change
+      step1Promise = Promise.resolve({ provisionalSalt: this.salt })
     }
 
-    // Case: user is already logged in, keys were loaded, need to re-crypt keys.
-    // Otherwise: user is new or forgot his password (in which case `generateWalletKeys` should be used).
-    if (_keys) {
-      this.reCryptKeys(_password, password)
-      params.encryptedMnemonic = this.encryptedMnemonic
-      params.encryptedKey = this.encryptedKey
-    }
+    return step1Promise.then(user => {
+      Object.assign(this, user)
+      paramsStep2.salt = user.provisionalSalt
+      // Case: user is already logged in, keys were loaded, need to re-crypt keys.
+      // Otherwise: user is new or forgot his password (in which case `generateWalletKeys` should be used).
+      if (_keys) {
+        this.reCryptKeys(_password, password, user.provisionalSalt)
+        paramsStep2.encryptedMnemonic = this.encryptedMnemonic
+        paramsStep2.encryptedKey = this.encryptedKey
+      }
 
-    _password = password
-
-    return userService.patch(this._id, params).then(data => {
-      this.salt = data.salt
+      return userService.patch(this._id, paramsStep2).then(data => {
+        Object.assign(this, data)
+        _password = password
+        return data
+      }, error => {
+        // In case of patch failure, restore old mnemonic and key
+        this.encryptedMnemonic = _encryptedMnemonic
+        this.encryptedKey = _encryptedKey
+        this.salt = _salt
+        if (error.errors && error.errors.provisionalSalt) {
+          // A provisionalSalt error means that the provisional salt is not available
+          //  and we shouldn't keep it here
+          this.provisionalSalt = undefined
+        }
+        throw error
+      })
     })
   },
 

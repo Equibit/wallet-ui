@@ -1,10 +1,11 @@
 <can-import from="~/utils/stache-helpers/" />
 
 <div class="form-inline">
-    <select class="form-control issuance-selector input-sm">
-        <option value="">Select Issuance</option>
-        <option value="">Kingfisher plc, Series 4</option>
-        <option value="">Maecenas Nulla, Series 1</option>
+    <select class="form-control issuance-selector input-sm" value:bind="{{index-to-selected(~selectedIssuance, issuances)}}">
+      <option value="">Select Issuance</option>
+      {{#each issuances issuance=value}}
+        <option value="{{scope.index}}" on:click>{{issuance.name}}</option>
+      {{/each}}
     </select>
     <button class="btn btn-primary btn-add-issuance btn-sm">{{i18n('addIssuance')}}</button>
 </div>
