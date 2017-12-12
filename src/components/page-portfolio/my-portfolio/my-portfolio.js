@@ -183,7 +183,7 @@ const sendIssuance = (portfolio, formData) => {
   const currencyType = 'EQB'
   const amount = formData.amount
 
-  const txouts = issuance.getTxoutsFor(amount)
+  const { txouts } = issuance.getTxoutsFor(amount)
     .map(a => merge(a, {keyPair: issuance.keys}))
 
   const txoutsFee = portfolio.getTxouts(formData.transactionFee, 'EQB')

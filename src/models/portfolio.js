@@ -373,7 +373,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       return
     }
     if (this.utxoByTypeByAddress[type].summary.total < amount) {
-      return []
+      return {txouts: []}
     }
     return getUnspentOutputsForAmount(this.utxoByType[type], amount)
   },

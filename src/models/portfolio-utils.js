@@ -60,7 +60,7 @@ const getUnspentOutputsForAmount = (txouts, amount) => {
     acc.sum += a.amount
     acc.txouts.push(a)
     return acc
-  }, {sum: 0, txouts: []}).txouts
+  }, {sum: 0, txouts: []})
 }
 
 const getAllUtxo = (addresses) => {

@@ -53,11 +53,14 @@ export const ViewModel = DefineMap.extend({
     console.log(`acceptOffer`, offer)
     typeforce('Offer', offer)
 
+    const portfolio = Session.current.portfolios[0]
+
     return Promise.all([
       offer.issuancePromise,
-      offer.orderPromise
-    ]).then(([issuance, order]) => {
-      const tx = createHtlcTx2(offer, order, Session.current.portfolios[0], issuance)
+      offer.orderPromise,
+      portfolio.getNextAddress(true)
+    ]).then(([issuance, order, changeAddrPair]) => {
+      const tx = createHtlcTx2(offer, order, portfolio, issuance, changeAddrPair)
       return tx.save()
         .then(tx => updateOffer(offer, tx))
         .then(offer => dispatchAlert(hub, tx, route))

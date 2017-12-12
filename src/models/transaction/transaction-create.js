@@ -10,43 +10,93 @@ import { makeHtlc } from './transaction-make'
  * - receiverA: eqbAddress
  * - from, receiverB, changeAddr: portfolio address or issuanceAddress
  */
-function createHtlcTx2 (offer, order, portfolio, issuance) {
+function createHtlcTx2 (offer, order, portfolio, issuance, changeAddrPair) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance'), arguments)
 
+  // Amount of BTC/EQB to send:
   const amount = offer.quantity
-  const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
-  const toAddressA = order.type === 'SELL' ? offer.eqbAddressTrading : order.btcAddress
-  const toAddressB = order.type === 'SELL' ? order.eqbAddressHolding : order.btcAddress
+
   // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
   // Note: timelock for the 2nd tx should be twice smaller:
   const timelock = Math.floor(offer.timelock / 2)
   const hashlock = offer.secretHash
-  const htlcStep = 2
-  // todo: calculate fee.
-  const transactionFee = 1000
 
-  const utxo = issuance.getTxoutsFor(amount)
-    .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
+  const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
 
-  // todo: get utxo of empty EQB here (pass a predicate fn).
-  const utxoFee = portfolio
-    .getTxouts(transactionFee, currencyType)
-    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
-  utxo.push.apply(utxo, utxoFee)
+  const { toAddressA, toAddressB, utxo, options } = currencyType === 'BTC'
+    ? prepareHtlc2Btc(offer, order, portfolio, issuance, changeAddrPair.BTC)
+    : prepareHtlc2Eqb(offer, order, portfolio, issuance, changeAddrPair.EQB)
 
-  // Note: for a change EQB address we use the same fromAddress (securities need to stay at the same address).
-  const options = {
-    fee: transactionFee,
-    changeAddr: order.type === 'SELL' ? order.eqbAddressHolding : order.btcAddress,
-    type: offer.type,
-    currencyType,
-    description: (order.type === 'BUY' ? 'Buying' : 'Selling') + ` securities (HTLC #${htlcStep})`,
-    issuance: issuance,
-    htlcStep
-  }
   return makeHtlc(amount, toAddressA, toAddressB, hashlock, timelock, utxo, options)
 }
 
+function prepareHtlc2Btc (offer, order, portfolio, issuance, changeAddr) {
+  const htlcStep = 2
+
+  // Addresses for HTLC script:
+  const toAddressA = order.btcAddress
+  const toAddressB = order.btcAddress
+
+  // todo: calculate fee.
+  const transactionFee = 1000
+
+  // Main utxo to cover the amount and transaction fee:
+  const utxoInfo = portfolio.getTxouts(amount + transactionFee, 'BTC')
+  const utxo = utxoInfo.txouts
+    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+
+  const options = {
+    fee: transactionFee,
+    changeAddr: changeAddr,
+    type: offer.type,
+    currencyType,
+    description: `Buying securities (HTLC #${htlcStep})`,
+    issuance: issuance,
+    htlcStep
+  }
+
+  return { toAddressA, toAddressB, utxo, options }
+}
+
+function prepareHtlc2Eqb (offer, order, portfolio, issuance, emptyEqbChangeAddr) {
+  const htlcStep = 2
+
+  // Addresses for HTLC script:
+  const toAddressA = offer.eqbAddressTrading
+  const toAddressB = order.eqbAddressHolding
+
+  // todo: calculate fee.
+  const transactionFee = 1000
+
+  // Main utxo to cover the amount:
+  const utxoInfo = issuance.getTxoutsFor(amount)
+  const utxo = utxoInfo.txouts
+    .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
+
+  // todo: get utxo of empty EQB here (pass a predicate fn).
+  // For EQB transactionFee comes from empty EQB.
+  const utxoEmptyEqbInfo = portfolio.getTxouts(transactionFee, 'EQB')
+  const emptyEqbUtxo = utxoEmptyEqbInfo.txouts
+    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+
+  const options = {
+    fee: transactionFee,
+    changeAddr: order.btcAddress,
+    type: offer.type,
+    currencyType: 'EQB',
+    description: `Buying securities (HTLC #${htlcStep})`,
+    issuance: issuance,
+    htlcStep,
+    emptyEqbAmount: utxoEmptyEqbInfo.sum,
+    emptyEqbUtxo,
+    emptyEqbChangeAddr
+  }
+
+  return { toAddressA, toAddressB, utxo, options }
+}
+
 export {
-  createHtlcTx2
+  createHtlcTx2,
+  prepareHtlc2Btc,
+  prepareHtlc2Eqb
 }

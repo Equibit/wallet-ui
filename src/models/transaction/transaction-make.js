@@ -88,7 +88,8 @@ function addIssuanceDetails (issuance) {
  */
 function makeHtlc (
   amount, toAddressA, toAddressB, hashlock, timelock, txouts,
-  {fee, changeAddr, network, type, currencyType, description, issuance, changeAddrEmptyEqb, amountEqb, htlcStep}
+  { fee, changeAddr, network, type, currencyType, description, htlcStep,
+    issuance, emptyEqbUtxo, emptyEqbAmount, emptyEqbFee, emptyEqbChangeAddr }
 ) {
   console.log(`makeHtlc`, arguments)
   typeforce(typeforce.tuple(
@@ -102,15 +103,15 @@ function makeHtlc (
       currencyType: 'String'
     }
   ), arguments)
-  // let issuanceTxId
-  // if (currencyType === 'EQB') {
-  //   typeforce('Issuance', issuance)
-  //   issuanceTxId = issuance.utxo && issuance.utxo[0] && issuance.utxo[0].txid
-  //   typeforce('String', issuanceTxId)
-  // }
   if (txouts.length === 0) {
     throw new Error('At least one transaction input is required')
   }
+  if (currencyType === 'EQB') {
+    typeforce('Issuance', issuance)
+    const issuanceTxId = issuance.utxo && issuance.utxo[0] && issuance.utxo[0].txid
+    typeforce('String', issuanceTxId)
+  }
+
   const availableAmount = txouts.reduce((sum, { amount }) => (sum + amount), 0)
   const script = hashTimelockContract(toAddressA, toAddressB, hashlock, timelock)
   const tx = {
@@ -128,12 +129,28 @@ function makeHtlc (
     vout: [{
       value: amount,
       scriptPubKey: script
-      // issuanceTxId
     }, {
-      value: (availableAmount - amount - fee),
+      value: currencyType === 'BTC' ? (availableAmount - amount - fee) : (availableAmount - amount),
       address: changeAddr
-      // issuanceTxId
     }]
+  }
+  if (currencyType === 'EQB') {
+    tx.vin.forEach(out => {
+      out.issuanceTxId = issuance.utxo[0].txid
+    })
+    tx.vin.push(emptyEqbUtxo.map(out => {
+      return {
+        txid: out.txid,
+        vout: out.vout,
+        script: '',
+        keyPair: out.keyPair,
+        sequence: '4294967295'
+      }
+    }))
+    tx.vout.push({
+      value: emptyEqbAmount - fee,
+      address: changeAddr
+    })
   }
   const txBuffer = currencyType === 'BTC' ? buildTx(tx) : buildTxEqb(tx)
   const txId = txBuilder.hashFromBuffer(txBuffer)
