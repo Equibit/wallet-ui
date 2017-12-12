@@ -15,6 +15,7 @@
 
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
+import isEmptyObject from 'can-util/js/is-empty-object/'
 import './user-password.less'
 import view from './user-password.stache'
 import Session from '~/models/session'
@@ -25,7 +26,9 @@ export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
   passwordCurrent: 'string',
   passwordNew: 'string',
-  errorMessage: 'string',
+  errors: {
+    value: {}
+  },
   visibleStates: {
     value: {
       passwordCurrent: false,
@@ -40,12 +43,15 @@ export const ViewModel = DefineMap.extend({
     this.isModalShown = false
     this.isModalShown = true
   },
+  clearErrors (field) {
+    this.errors[field] = null
+  },
   save () {
     Session.current.user.changePassword(this.passwordNew, this.passwordCurrent).then(
       () => {
         this.passwordCurrent = ''
         this.passwordNew = ''
-        this.errorMessage = ''
+        this.errors = {}
         hub.dispatch({
           'type': 'alert',
           'kind': 'success',
@@ -55,7 +61,11 @@ export const ViewModel = DefineMap.extend({
         this.close()
       },
       error => {
-        this.errorMessage = error.message
+        if (isEmptyObject(error.errors)) {
+          this.errors.set('general', error.message)
+        } else {
+          this.errors.assign(error.errors)
+        }
       }
     )
   },

@@ -275,9 +275,10 @@ const User = DefineMap.extend('User', {
     if (this.provisionalSalt) {
       // In the case where provisionalSalt exists, we've already requested one.
       step1Promise = Promise.resolve({ provisionalSalt: this.provisionalSalt })
-    } else if (oldPassword) {
+    } else if (arguments.length > 1) {
       // In the case where there is an "old" password, we assume that the
-      //  current password is *not* a temp password
+      //  current password is *not* a temp password.
+      //  Let empty passwords through, though, to receive the appropriate API error.
       paramsStep1.oldPassword = signed.createHash(oldPassword)
       step1Promise = userService.patch(this._id, paramsStep1)
     } else {
@@ -306,6 +307,11 @@ const User = DefineMap.extend('User', {
         this.encryptedMnemonic = _encryptedMnemonic
         this.encryptedKey = _encryptedKey
         this.salt = _salt
+        if (error.errors && error.errors.provisionalSalt) {
+          // A provisionalSalt error means that the provisional salt is not available
+          //  and we shouldn't keep it here
+          this.provisionalSalt = undefined
+        }
         throw error
       })
     })
