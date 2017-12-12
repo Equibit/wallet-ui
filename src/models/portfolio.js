@@ -358,7 +358,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     if (['BTC', 'EQB'].indexOf(type) === -1) {
       console.error(`Invalid type ${type}. Expects "EQB" or "BTC"`)
     }
-    return amount === 0 || !!this.getTxouts(amount, type).length
+    return amount === 0 || !!this.getTxouts(amount, type).txouts.length
   },
 
   /**
@@ -366,16 +366,20 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * Returns txouts that contain enough funds in them.
    * @param amount
    * @param type
-   * @returns {*}
+   * @returns {Object<sum:Number,txouts:Array>}
    */
   getTxouts (amount, type) {
     if (!this.utxoByTypeByAddress) {
-      return
+      return {sum: 0, txouts: []}
     }
     if (this.utxoByTypeByAddress[type].summary.total < amount) {
-      return {txouts: []}
+      return {sum: 0, txouts: []}
     }
     return getUnspentOutputsForAmount(this.utxoByType[type], amount)
+  },
+
+  getEmptyEqb (amount) {
+    return this.getTxouts(amount, 'EQB')
   },
 
   /**

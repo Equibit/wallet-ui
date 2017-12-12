@@ -117,7 +117,7 @@ export const ViewModel = DefineMap.extend({
     const currencyType = 'EQB'
     const issuanceJson = issuance.getJson()
     const txouts = this.portfolio
-      .getTxouts(amount + formData.transactionFee, currencyType)
+      .getTxouts(amount + formData.transactionFee, currencyType).txouts
       // .filter(a => !a.issuanceId)
       .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
     const options = {

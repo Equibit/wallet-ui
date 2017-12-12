@@ -221,7 +221,7 @@ function createHtlcTx (offer, order, portfolio, issuance, changeAddrPair) {
   const htlcStep = 1
 
   const txouts = portfolio
-    .getTxouts(amount + transactionFee, currencyType)
+    .getTxouts(amount + transactionFee, currencyType).txouts
     .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
 
   const options = {

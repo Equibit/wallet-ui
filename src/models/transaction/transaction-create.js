@@ -34,14 +34,14 @@ function prepareHtlc2Btc (offer, order, portfolio, issuance, changeAddr) {
   const htlcStep = 2
 
   // Addresses for HTLC script:
-  const toAddressA = order.btcAddress
+  const toAddressA = offer.btcAddress
   const toAddressB = order.btcAddress
 
   // todo: calculate fee.
   const transactionFee = 1000
 
   // Main utxo to cover the amount and transaction fee:
-  const utxoInfo = portfolio.getTxouts(amount + transactionFee, 'BTC')
+  const utxoInfo = portfolio.getTxouts(offer.quantity + transactionFee, 'BTC')
   const utxo = utxoInfo.txouts
     .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
 
@@ -49,7 +49,7 @@ function prepareHtlc2Btc (offer, order, portfolio, issuance, changeAddr) {
     fee: transactionFee,
     changeAddr: changeAddr,
     type: offer.type,
-    currencyType,
+    currencyType: 'BTC',
     description: `Buying securities (HTLC #${htlcStep})`,
     issuance: issuance,
     htlcStep
@@ -69,13 +69,13 @@ function prepareHtlc2Eqb (offer, order, portfolio, issuance, emptyEqbChangeAddr)
   const transactionFee = 1000
 
   // Main utxo to cover the amount:
-  const utxoInfo = issuance.getTxoutsFor(amount)
+  const utxoInfo = issuance.getTxoutsFor(offer.quantity)
   const utxo = utxoInfo.txouts
     .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
 
   // todo: get utxo of empty EQB here (pass a predicate fn).
   // For EQB transactionFee comes from empty EQB.
-  const utxoEmptyEqbInfo = portfolio.getTxouts(transactionFee, 'EQB')
+  const utxoEmptyEqbInfo = portfolio.getEmptyEqb(transactionFee)
   const emptyEqbUtxo = utxoEmptyEqbInfo.txouts
     .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
 

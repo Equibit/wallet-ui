@@ -99,7 +99,7 @@ export const ViewModel = DefineMap.extend({
     const currencyType = formData.fundsType
     const toAddress = formData.toAddress
     const txouts = this.portfolio
-      .getTxouts(amount + formData.transactionFee, currencyType)
+      .getTxouts(amount + formData.transactionFee, currencyType).txouts
       .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
     const options = {
       fee: formData.transactionFee,
@@ -186,7 +186,8 @@ const sendIssuance = (portfolio, formData) => {
   const { txouts } = issuance.getTxoutsFor(amount)
     .map(a => merge(a, {keyPair: issuance.keys}))
 
-  const txoutsFee = portfolio.getTxouts(formData.transactionFee, 'EQB')
+  const txoutsFeeInfo = portfolio.getTxouts(formData.transactionFee, 'EQB')
+  const txoutsFee = txoutsFeeInfo.txouts
     .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
   txouts.push.apply(txouts, txoutsFee)
 
