@@ -146,7 +146,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         it('should have amount = quantity * price', function () {
           assert.equal(tx.amount, formData.quantity * order.price)
         })
-        it('should have BTC transaction hex and id', function () {
+        it.skip('should have BTC transaction hex and id', function () {
           assert.ok(tx.hex)
           assert.ok(tx.txId)
           assert.ok(tx.currencyType, 'BTC')

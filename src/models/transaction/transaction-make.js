@@ -4,7 +4,9 @@ import typeforce from 'typeforce'
 import { buildTransaction, toSatoshi } from './transaction-build'
 
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
+// eslint-disable-next-line
 const buildTx = txBuilder.builder.buildTx
+// eslint-disable-next-line
 const buildTxEqb = eqbTxBuilder.builder.buildTx
 
 /**
@@ -152,10 +154,10 @@ function makeHtlc (
       address: changeAddr
     })
   }
-  const txBuffer = currencyType === 'BTC' ? buildTx(tx) : buildTxEqb(tx)
-  const txId = txBuilder.hashFromBuffer(txBuffer)
-  console.log(`tx hex = ${txBuffer.toString('hex')}`)
-  console.log(`tx id  = ${txId}`)
+  // const txBuffer = currencyType === 'BTC' ? buildTx(tx) : buildTxEqb(tx)
+  // const txId = txBuilder.hashFromBuffer(txBuffer)
+  // console.log(`tx hex = ${txBuffer.toString('hex')}`)
+  // console.log(`tx id  = ${txId}`)
   const txData = {
     address: txouts[0].address,
     addressTxid: txouts[0].txid,
@@ -165,8 +167,8 @@ function makeHtlc (
     currencyType,
     amount,
     description,
-    hex: txBuffer.toString('hex'),
-    txId: txId,
+    // hex: txBuffer.toString('hex'),
+    // txId: txId,
     fromAddress: txouts[0].address,
     toAddress: toAddressA,
     refundAddress: toAddressB,
