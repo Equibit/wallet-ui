@@ -20,18 +20,16 @@ import feathersClient from '../feathers-client'
 import { superModelNoCache } from '../super-model'
 import algebra from '../algebra'
 import i18n from '../../i18n/i18n'
-import {
-  makeTransaction,
-  makeHtlc
-} from './transaction-make'
+import { makeTransaction } from './transaction-make'
+import { createHtlc1 } from './transaction-create-htlc1'
 
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (amount, toAddress, txouts, options) {
     const txData = makeTransaction.apply(this, arguments)
     return new Transaction(txData)
   },
-  makeHtlc (amount, toAddressA, toAddressB, hashlock, timelock, txouts, options) {
-    const txData = makeHtlc.apply(this, arguments)
+  createHtlc1 (offer, order, portfolio, issuance, changeAddrPair) {
+    const txData = createHtlc1.apply(this, arguments)
     return new Transaction(txData)
   },
   subscribe (cb) {

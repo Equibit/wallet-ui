@@ -16,7 +16,6 @@
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import route from 'can-route'
-import { merge } from 'ramda'
 import './order-book.less'
 import typeforce from 'typeforce'
 import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
@@ -120,7 +119,7 @@ export const ViewModel = DefineMap.extend({
       this.portfolio.getNextAddress(true)
     ]).then(([addr, change]) => {
       const offer = createHtlcOffer(formData, type, secret, timelock, Session.current.user, this.issuance, addr.EQB, addr.BTC)
-      const tx = createHtlcTx(offer, formData.order, this.portfolio, this.issuance, change)
+      const tx = Transaction.createHtlc1(offer, formData.order, this.portfolio, this.issuance, change)
       return tx.save()
         .then(tx => saveOffer(offer, tx))
         .then(offer => dispatchAlertOffer(hub, offer, route))
@@ -204,38 +203,6 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
   return offer
 }
 
-/**
- * Creates HTLC transaction with H(x). Offer type is either 'BUY' or 'SELL'.
- */
-function createHtlcTx (offer, order, portfolio, issuance, changeAddrPair) {
-  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', {EQB: 'String', BTC: 'String'}), arguments)
-  const amount = offer.quantity * order.price
-  const currencyType = offer.type === 'BUY' ? 'BTC' : 'EQB'
-  const toAddressA = offer.type === 'BUY' ? order.btcAddress : order.eqbAddressTrading
-  const toAddressB = offer.type === 'BUY' ? offer.btcAddress : offer.eqbAddressHolding
-  // todo: calculate transaction fee:
-  const transactionFee = 1000
-  // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
-  const timelock = offer.timelock
-  const hashlock = offer.secretHash
-  const htlcStep = 1
-
-  const txouts = portfolio
-    .getTxouts(amount + transactionFee, currencyType).txouts
-    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
-
-  const options = {
-    fee: transactionFee,
-    changeAddr: offer.type === 'BUY' ? changeAddrPair.BTC : changeAddrPair.EQB,
-    type: offer.type,
-    currencyType,
-    description: (offer.type === 'BUY' ? 'Buying' : 'Selling') + ' securities (HTLC #1)',
-    issuance: issuance,
-    htlcStep
-  }
-  return Transaction.makeHtlc(amount, toAddressA, toAddressB, hashlock, timelock, txouts, options)
-}
-
 function saveOffer (offer, tx) {
   // todo: what should offer know about the transaction?
   // offer.tx = tx
@@ -273,6 +240,5 @@ export default Component.extend({
 
 export {
   createHtlcOffer,
-  generateSecret,
-  createHtlcTx
+  generateSecret
 }
