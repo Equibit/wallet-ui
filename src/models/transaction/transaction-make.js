@@ -1,90 +1,16 @@
-import { bitcoin, eqbTxBuilder, txBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { eqbTxBuilder, txBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { pick } from 'ramda'
 import typeforce from 'typeforce'
+import { buildTransactionOld as buildTransaction, toSatoshi } from './transaction-build'
 
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
+// eslint-disable-next-line
 const buildTx = txBuilder.builder.buildTx
-
-function buildTransaction (currencyType) {
-  return currencyType === 'BTC' ? buildTransactionBtc : buildTransactionEqb
-}
+// eslint-disable-next-line
+const buildTxEqb = eqbTxBuilder.builder.buildTx
 
 /**
- * @function buildTransactionBtc
- * Builds a signed transaction.
- *
- * @param {Array<Object(txid, vout, keyPair)>} inputs
- * @param {Array<Object(address, value)>} outputs
- * @returns {Object<txId, hex>} A HEX code of the signed transaction and transaction id (hash).
- */
-function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testnet) {
-  const tx = new bitcoin.TransactionBuilder(network)
-  inputs.forEach(({ txid, vout }, index) => tx.addInput(txid, vout))
-  outputs.forEach(({address, value}) => tx.addOutput(address, value))
-  inputs.forEach(({ keyPair }, index) => tx.sign(index, keyPair))
-  console.log('- blockchain transaction: ', tx)
-  const builtTx = tx.build()
-  return {
-    txId: builtTx.getId(),
-    hex: builtTx.toHex()
-  }
-}
-
-function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testnet) {
-  const vout = outputs.map(vout => {
-    vout.equibit = {
-      // TODO: pass payment currency type here.
-      payment_currency: 0,
-      payment_tx_id: '',
-      issuance_tx_id: (vout.issuanceTxId ? vout.issuanceTxId : '0000000000000000000000000000000000000000000000000000000000000000'),
-      issuance_json: (vout.issuanceJson ? JSON.stringify(vout.issuanceJson) : '')
-    }
-    delete vout.issuanceJson
-    return vout
-  })
-  const tx = {
-    version: 2,
-    locktime: 0,
-    vin: inputs,
-    vout
-  }
-  const bufferTx = eqbTxBuilder.builder.buildTx(tx)
-  const hex = bufferTx.toString('hex')
-  const txId = eqbTxBuilder.getTxId(bufferTx)
-  console.log(`[buildTransactionEqb] hex = ${hex}, \ntxid = ${txId}`)
-
-  return {
-    txId,
-    hex
-  }
-}
-
-// Note: all values are in Satoshi to not run into Math JS craziness.
-function toSatoshi (val) {
-  if (Math.floor(val) < val) {
-    console.error(`Attention! The value should be integer (in Satoshi) but received: ${val}`)
-  }
-  return val
-  // return Math.floor(val * 100000000)
-}
-
-/**
- * Creates configuration object for instantiation a Transaction.
- * @param amount
- * @param toAddress
- * @param txouts
- * @param fee
- * @param changeAddr
- * @param network
- * @param type
- * @param currencyType
- * @param description
- * @param issuanceJson
- * @param issuanceTxId
- * @param issuance
- * @param changeAddrEmptyEqb
- * @param amountEqb
- * @returns {{address, addressTxid: (string|string|string|string|string|string|*), addressVout: (*|Array|number), fee: *, type: *, currencyType: (String.currencyType|*), amount: *, description: *, hex: (string|*|string), txIdBtc: *, txIdEqb: *, otherAddress: *}}
+ * Creates configuration object (including a built transaction hex) for instantiating a Transaction.
  */
 function makeTransaction (
   amount, toAddress, txouts,
@@ -135,9 +61,9 @@ function makeTransaction (
     amount,
     description,
     hex: txInfo.hex,
-    txIdBtc: currencyType === 'BTC' ? txInfo.txId : undefined,
-    txIdEqb: currencyType === 'EQB' ? txInfo.txId : undefined,
-    otherAddress: toAddress
+    txId: txInfo.txId,
+    fromAddress: txouts[0].address,
+    toAddress
   }
 
   // add issuance details:
@@ -159,9 +85,13 @@ function addIssuanceDetails (issuance) {
   }
 }
 
+/**
+ * Creates configuration object (inc a built HTLC transaction hex) for instantiating a Transaction.
+ */
 function makeHtlc (
   amount, toAddressA, toAddressB, hashlock, timelock, txouts,
-  {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb, amountEqb}
+  { fee, changeAddr, network, type, currencyType, description, htlcStep,
+    issuance, emptyEqbUtxo, emptyEqbAmount, emptyEqbFee, emptyEqbChangeAddr }
 ) {
   console.log(`makeHtlc`, arguments)
   typeforce(typeforce.tuple(
@@ -171,11 +101,19 @@ function makeHtlc (
     'String',
     'Number',
     'Array',
-    'Object'
+    {
+      currencyType: 'String'
+    }
   ), arguments)
   if (txouts.length === 0) {
     throw new Error('At least one transaction input is required')
   }
+  if (currencyType === 'EQB') {
+    typeforce('Issuance', issuance)
+    const issuanceTxId = issuance.utxo && issuance.utxo[0] && issuance.utxo[0].txid
+    typeforce('String', issuanceTxId)
+  }
+
   const availableAmount = txouts.reduce((sum, { amount }) => (sum + amount), 0)
   const script = hashTimelockContract(toAddressA, toAddressB, hashlock, timelock)
   const tx = {
@@ -194,14 +132,32 @@ function makeHtlc (
       value: amount,
       scriptPubKey: script
     }, {
-      value: (availableAmount - amount - fee),
+      value: currencyType === 'BTC' ? (availableAmount - amount - fee) : (availableAmount - amount),
       address: changeAddr
     }]
   }
-  const txBuffer = buildTx(tx)
-  const txId = txBuilder.hashFromBuffer(txBuffer)
-  console.log(`tx hex = ${txBuffer.toString('hex')}`)
-  console.log(`tx id  = ${txId}`)
+  if (currencyType === 'EQB') {
+    tx.vin.forEach(out => {
+      out.issuanceTxId = issuance.utxo[0].txid
+    })
+    tx.vin.push(emptyEqbUtxo.map(out => {
+      return {
+        txid: out.txid,
+        vout: out.vout,
+        script: '',
+        keyPair: out.keyPair,
+        sequence: '4294967295'
+      }
+    }))
+    tx.vout.push({
+      value: emptyEqbAmount - fee,
+      address: changeAddr
+    })
+  }
+  // const txBuffer = currencyType === 'BTC' ? buildTx(tx) : buildTxEqb(tx)
+  // const txId = txBuilder.hashFromBuffer(txBuffer)
+  // console.log(`tx hex = ${txBuffer.toString('hex')}`)
+  // console.log(`tx id  = ${txId}`)
   const txData = {
     address: txouts[0].address,
     addressTxid: txouts[0].txid,
@@ -211,12 +167,14 @@ function makeHtlc (
     currencyType,
     amount,
     description,
-    hex: txBuffer.toString('hex'),
-    txIdBtc: currencyType === 'BTC' ? txId : undefined,
-    txIdEqb: currencyType === 'EQB' ? txId : undefined,
-    otherAddress: toAddressA,
+    // hex: txBuffer.toString('hex'),
+    // txId: txId,
+    fromAddress: txouts[0].address,
+    toAddress: toAddressA,
     refundAddress: toAddressB,
-    timelock
+    timelock,
+    hashlock,
+    htlcStep
   }
 
   // add issuance details:
@@ -227,10 +185,6 @@ function makeHtlc (
 }
 
 export {
-  buildTransaction,
-  buildTransactionBtc,
-  buildTransactionEqb,
-  toSatoshi,
   makeTransaction,
   makeHtlc
 }

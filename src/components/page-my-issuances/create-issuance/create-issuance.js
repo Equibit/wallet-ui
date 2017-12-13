@@ -19,7 +19,7 @@ import { merge } from 'ramda'
 import './create-issuance.less'
 import view from './create-issuance.stache'
 import FormData from './form-data'
-import Transaction from '../../../models/transaction'
+import Transaction from '../../../models/transaction/transaction'
 import Session from '../../../models/session'
 import { translate } from '../../../i18n/'
 import hub from '~/utils/event-hub'
@@ -117,7 +117,7 @@ export const ViewModel = DefineMap.extend({
     const currencyType = 'EQB'
     const issuanceJson = issuance.getJson()
     const txouts = this.portfolio
-      .getTxouts(amount + formData.transactionFee, currencyType)
+      .getTxouts(amount + formData.transactionFee, currencyType).txouts
       // .filter(a => !a.issuanceId)
       .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
     const options = {

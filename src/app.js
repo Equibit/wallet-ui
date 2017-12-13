@@ -16,8 +16,8 @@ import 'core-js/client/core'
 import DefineMap from 'can-define/map/map'
 import route from 'can-route'
 import 'can-route-pushstate'
-import Session from '~/models/session'
-import Transaction from '~/models/transaction'
+import Session from './models/session'
+import Transaction from './models/transaction/transaction'
 // import '~/models/fixtures/fixtures';
 
 //! steal-remove-start

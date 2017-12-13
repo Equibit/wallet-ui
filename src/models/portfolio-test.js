@@ -32,16 +32,16 @@ describe('models/portfolio-utils', function () {
       {'amount': 3}
     ]
     it('should return the 1st tx output', function () {
-      const txouts1 = getUnspentOutputsForAmount(txouts, 1)
+      const txouts1 = getUnspentOutputsForAmount(txouts, 1).txouts
       assert.deepEqual(txouts1, [{'amount': 1}])
     })
     it('should return the 2nd tx output', function () {
-      const txouts2 = getUnspentOutputsForAmount(txouts, 2)
+      const txouts2 = getUnspentOutputsForAmount(txouts, 2).txouts
       assert.deepEqual(txouts2, [{'amount': 2}])
     })
     // TODO: optimize since having 1 and 3 is enough for 4.
     it('should return all three outputs', function () {
-      const txouts3 = getUnspentOutputsForAmount(txouts, 4)
+      const txouts3 = getUnspentOutputsForAmount(txouts, 4).txouts
       assert.deepEqual(txouts3, [{'amount': 1}, {'amount': 2}, {'amount': 3}])
     })
   })

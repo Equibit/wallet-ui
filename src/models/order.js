@@ -29,6 +29,13 @@ const Order = DefineMap.extend('Order', {
   userId: 'string',
 
   /**
+   * @property {Number} models/order.properties.issuanceId issuanceId
+   * @parent models/order.properties
+   * Id of the issuance
+   */
+  issuanceId: 'string',
+
+  /**
    * @property {Number} models/order.properties.issuanceAddress issuanceAddress
    * @parent models/order.properties
    * Public address of the issuance for the order
@@ -42,19 +49,17 @@ const Order = DefineMap.extend('Order', {
    */
   type: 'string',
 
-  /**
-   * @property {Number} models/order.properties.sellAddressBtc sellAddressBtc
-   * @parent models/order.properties
-   * BTC address for SELL type of order where a buyer should send funds.
-   */
-  sellAddressBtc: 'string',
-
-  /**
-   * @property {Number} models/order.properties.buyAddressEqb buyAddressEqb
-   * @parent models/order.properties
-   * EQB address for BUY type of order where a seller should send securities.
-   */
-  buyAddressEqb: 'string',
+  // For HTLC we need 2 or 3 addresses:
+  // - Sell order:
+  //    1. btcAddress for receiving payment from a buyer.
+  //    2. eqbAddress for a refund (a holding address).
+  // - Buy order:
+  //    1. eqbAddress (trading) for receiving securities from a seller.
+  //    2. btcAddress for our own refund.
+  //    3. eqbAddress (holding) to store the securities in the end.
+  btcAddress: 'string',
+  eqbAddressTrading: 'string',
+  eqbAddressHolding: 'string',
 
   /**
    * @property {Number} models/order.properties.portfolioId portfolioId
@@ -148,12 +153,20 @@ const Order = DefineMap.extend('Order', {
 
   //
   // Related models:
+  // (Note: async getters are useful only for stache templates.)
   //
 
+  issuancePromise: {
+    get () {
+      if (typeof this.issuanceId !== 'undefined') {
+        return Issuance.get({_id: this.issuanceId})
+      }
+    }
+  },
   issuance: {
     get (val, resolve) {
-      if (typeof this.issuanceId !== 'undefined') {
-        Issuance.get({_id: this.issuanceId}).then(resolve)
+      if (this.issuancePromise) {
+        this.issuancePromise.then(resolve)
       }
       return val
     }

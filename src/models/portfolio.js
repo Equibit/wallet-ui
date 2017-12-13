@@ -179,6 +179,24 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }, [])
     }
   },
+  // List of empty EQB.
+  // utxoEmptyEqb :: List<UTXO>
+  utxoEmptyEqb: {
+    get () {
+      if (!this.utxoByTypeByAddress || !this.utxoByTypeByAddress.EQB) {
+        return
+      }
+      const eqbAddresses = this.utxoByTypeByAddress.EQB.addresses
+      return Object.keys(eqbAddresses).reduce((acc, addr) => {
+        const txouts = eqbAddresses[addr].txouts
+        const emptyEqb = txouts.filter(out => {
+          return out.equibit.issuance_tx_id === EMPTY_ISSUANCE_TX_ID
+        })
+        acc.push.apply(acc, emptyEqb)
+        return acc
+      }, [])
+    }
+  },
 
   // securities :: List<Object<UTXO,IssuanceJson>>
   securities: {
@@ -340,7 +358,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     if (['BTC', 'EQB'].indexOf(type) === -1) {
       console.error(`Invalid type ${type}. Expects "EQB" or "BTC"`)
     }
-    return amount === 0 || !!this.getTxouts(amount, type).length
+    return amount === 0 || !!this.getTxouts(amount, type).txouts.length
   },
 
   /**
@@ -348,16 +366,20 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * Returns txouts that contain enough funds in them.
    * @param amount
    * @param type
-   * @returns {*}
+   * @returns {Object<sum:Number,txouts:Array>}
    */
   getTxouts (amount, type) {
     if (!this.utxoByTypeByAddress) {
-      return
+      return {sum: 0, txouts: []}
     }
     if (this.utxoByTypeByAddress[type].summary.total < amount) {
-      return []
+      return {sum: 0, txouts: []}
     }
     return getUnspentOutputsForAmount(this.utxoByType[type], amount)
+  },
+
+  getEmptyEqb (amount) {
+    return this.getTxouts(amount, 'EQB')
   },
 
   /**

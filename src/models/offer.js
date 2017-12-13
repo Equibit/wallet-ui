@@ -35,27 +35,30 @@ const Offer = DefineMap.extend('Offer', {
   orderId: 'string',
 
   /**
+   * @property {Number} models/offer.properties.issuanceId issuanceId
+   * @parent models/offer.properties
+   * Id of the issuance
+   */
+  issuanceId: 'string',
+
+  /**
    * @property {Number} models/offer.properties.issuanceAddress issuanceAddress
    * @parent models/offer.properties
    * Public address of the issuance for the offer
    */
   issuanceAddress: 'string',
 
-  /**
-   * EQB address to receive securities to for a BUY offer.
-   */
-  eqbAddress: 'string',
-
-  /**
-   * BTC address to receive payment to for a SELL offer.
-   */
+  // For HTLC we need 2 or 3 addresses:
+  // - Buy offer:
+  //    1. btcAddress for our own refund.
+  //    2. eqbAddress (trading) for receiving securities from a seller.
+  //    3. eqbAddress (holding) to store the securities in the end.
+  // - Sell offer:
+  //    1. eqbAddress for a refund (a holding address).
+  //    2. btcAddress for receiving payment from a buyer.
   btcAddress: 'string',
-
-  /**
-   * Refund address that will be used in HTLC transaction.
-   */
-  refundEqbAddress: 'string',
-  refundBtcAddress: 'string',
+  eqbAddressTrading: 'string',
+  eqbAddressHolding: 'string',
 
   /**
    * @property {Number} models/offer.properties.type type
@@ -127,6 +130,20 @@ const Offer = DefineMap.extend('Offer', {
     return translate(`status${this.status}`)
   },
 
+  issuancePromise: {
+    get () {
+      if (this.issuanceId) {
+        return Issuance.get({_id: this.issuanceId})
+      }
+    }
+  },
+  orderPromise: {
+    get () {
+      if (this.orderId) {
+        return Order.get({_id: this.orderId})
+      }
+    }
+  },
   order: {
     Type: Order,
     get (val, resolve) {
@@ -134,7 +151,7 @@ const Offer = DefineMap.extend('Offer', {
         return val
       }
       if (this.orderId) {
-        Order.get({_id: this.orderId}).then(resolve)
+        this.orderPromise.then(resolve)
       }
     }
   },

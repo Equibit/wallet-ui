@@ -8,6 +8,7 @@ import '~/models/mock/mock-session'
 import './random-elements-test'
 import './test-mocha'
 import { localCurrency } from './formatter'
+// import { encode as scriptNumberEncode } from './script_number'
 
 describe('utils/crypto', function () {
   it('mnemonicToSeed', function () {
@@ -29,6 +30,14 @@ describe('utils/crypto', function () {
     const decrypted = crypto.decrypt(encrypted, key)
     assert(original === decrypted)
   })
+  // it('encrypts scriptNumberEncode', function () {
+  //   const scriptNumber1 = scriptNumberEncode(10)
+  //   const scriptNumber3 = scriptNumberEncode(50)
+  //   const scriptNumber2 = scriptNumberEncode(144)
+  //   assert.equal(scriptNumber1.toString('hex'), '0a')
+  //   assert.equal(scriptNumber2.toString('hex'), '32')
+  //   assert.equal(scriptNumber3.toString('hex'), '9000')
+  // })
 })
 
 describe('utils/stache-helpers', function () {

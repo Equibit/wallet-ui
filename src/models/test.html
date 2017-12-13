@@ -1,3 +1,6 @@
 <title>wallet-ui tests</title>
 <script>window.useXhrTransport = true</script>
-<script src="../../node_modules/steal/steal.js" mocha="bdd" main="wallet-ui/models/test"></script>
+<script src="../../node_modules/steal/steal.js"
+        no-mocha-require="test/setup"
+        mocha="bdd"
+        main="wallet-ui/models/test"></script>

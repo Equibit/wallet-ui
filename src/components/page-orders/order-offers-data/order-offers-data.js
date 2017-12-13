@@ -15,10 +15,16 @@
 
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
+import route from 'can-route'
+import typeforce from 'typeforce'
+import hub, { dispatchAlertError } from '../../../utils/event-hub'
 import './order-offers-data.less'
 import view from './order-offers-data.stache'
 import Order from '../../../models/order'
 import Offer from '../../../models/offer'
+import Session from '../../../models/session'
+import { createHtlcTx2 } from '../../../models/transaction/transaction-create'
+import { translate } from '../../../i18n/i18n'
 
 export const ViewModel = DefineMap.extend({
   order: Order,
@@ -42,8 +48,44 @@ export const ViewModel = DefineMap.extend({
       offer.isSelected = false
     })
     offer.isSelected = true
+  },
+  acceptOffer (offer) {
+    console.log(`acceptOffer`, offer)
+    typeforce('Offer', offer)
+
+    const portfolio = Session.current.portfolios[0]
+
+    return Promise.all([
+      offer.issuancePromise,
+      offer.orderPromise,
+      portfolio.getNextAddress(true)
+    ]).then(([issuance, order, changeAddrPair]) => {
+      const tx = createHtlcTx2(offer, order, portfolio, issuance, changeAddrPair)
+      return tx.save()
+        .then(tx => updateOffer(offer, tx))
+        .then(offer => dispatchAlert(hub, tx, route))
+    }).catch(dispatchAlertError)
   }
 })
+
+function updateOffer (offer, tx) {
+  offer.htlcStep = 2
+  return offer.save()
+}
+
+function dispatchAlert (hub, tx, route) {
+  if (!tx) {
+    return
+  }
+  const url = route.url({ page: 'transactions', itemId: tx._id })
+  return hub.dispatch({
+    'type': 'alert',
+    'kind': 'success',
+    'title': translate('tradeWasUpdated'),
+    'message': `<a href="${url}">${translate('viewTransaction')}</a>`,
+    'displayInterval': 10000
+  })
+}
 
 export default Component.extend({
   tag: 'order-offers-data',

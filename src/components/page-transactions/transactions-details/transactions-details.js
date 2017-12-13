@@ -33,12 +33,12 @@ export const ViewModel = DefineMap.extend({
   },
   to: {
     get () {
-      return this.transaction.type === 'IN' ? this.portfolioName : this.transaction.otherAddress
+      return this.transaction.type === 'IN' ? this.portfolioName : this.transaction.toAddress
     }
   },
   from: {
     get () {
-      return this.transaction.type === 'OUT' ? this.portfolioName : this.transaction.otherAddress
+      return this.transaction.type === 'OUT' ? this.portfolioName : this.transaction.fromAddress
     }
   },
   portfolios: {
