@@ -129,8 +129,24 @@ describe('models/transaction/utils', function () {
       })
     }
     describe('prepareTxData', function () {
-      it('should', function () {
-        assert.ok(prepareTxData)
+      let txData, tx
+      before(function () {
+        htlcOfferMock = mockHtlcOffer()
+        htlcConfig = prepareHtlcConfig(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC)
+        tx = { hex: htlcOfferMock.txHex, txId: htlcOfferMock.txId }
+        txData = prepareTxData(htlcConfig, tx, issuance)
+      })
+      it('should define tx props', function () {
+        assert.equal(txData.hex, tx.hex, 'tx hex')
+        assert.equal(txData.txId, tx.txId, 'txId')
+      })
+      it('should define issuance props', function () {
+        assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
+        assert.equal(txData.issuanceName, issuance.issuanceName, 'issuanceName')
+        assert.equal(txData.issuanceType, issuance.issuanceType, 'issuanceType')
+        assert.equal(txData.issuanceUnit, issuance.issuanceUnit, 'issuanceUnit')
+        assert.equal(txData.companyName, issuance.companyName, 'companyName')
+        assert.equal(txData.companySlug, issuance.companySlug, 'companySlug')
       })
     })
     describe.skip('createHtlc1', function () {
