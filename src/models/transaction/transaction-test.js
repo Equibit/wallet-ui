@@ -26,6 +26,7 @@ import {
 } from './transaction-build'
 import { makeTransaction, makeHtlc } from './transaction-make'
 import { createHtlc1, prepareHtlcConfig, prepareTxData } from './transaction-create-htlc1'
+import { createHtlc2, prepareHtlcConfig2 } from './transaction-create-htlc2'
 import { createHtlcTx2 } from './transaction-create'
 
 describe('models/transaction/utils', function () {
@@ -179,59 +180,119 @@ describe('models/transaction/utils', function () {
     }
   })
 
-  describe.skip('createHtlcTx2', function () {
-    // todo: move this to mocks.
-    const orderData = Object.assign({}, orderFixturesData[0], { issuance: issuance })
-    const order = new Order(orderData)
-    const formData = new (DefineMap.extend('OfferFormData', {seal: false}, {}))({
-      order,
-      quantity: 500
+  describe.only('HTLC-2', function () {
+    const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
+    let htlcOfferMock, htlcConfig
+
+    describe('prepareHtlcConfig2', function () {
+      describe.only('buildConfig', function () {
+        let amount, order, buildConfig
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          htlcConfig = prepareHtlcConfig2(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.EQB)
+          amount = htlcOfferMock.offer.quantity
+          order = htlcOfferMock.order
+          buildConfig = htlcConfig.buildConfig
+        })
+        it('should have two vin for issuance and empty EQB', function () {
+          assert.equal(buildConfig.vin.length, 2, 'two vins')
+        })
+        it('should have correct issuance inputs', function () {
+          assert.equal(buildConfig.vin[0].txid, issuance.utxo[0].txid, 'issuance txid')
+          assert.equal(buildConfig.vin[0].vout, issuance.utxo[0].vout, 'vin.0.vout')
+          assert.ok(buildConfig.vin[0].keyPair, 'keyPair')
+        })
+        it('should have correct empty EQB inputs', function () {
+          const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
+          assert.equal(buildConfig.vin[1].txid, utxo[0].txid, 'txid empty EQB')
+          assert.equal(buildConfig.vin[1].vout, utxo[0].vout, 'vin.1.vout empty EQB')
+          assert.ok(buildConfig.vin[1].keyPair, 'keyPair empty EQB')
+        })
+        it('should have 3 outputs', function () {
+          assert.equal(buildConfig.vout.length, 3, 'three vouts')
+        })
+        it('should have correct issuance output', function () {
+          assert.equal(buildConfig.vout[0].value, amount, 'amount of 500')
+          assert.equal(buildConfig.vout[0].scriptPubKey.toString('hex'), htlcOfferMock.htlcScript, 'scriptPubKey')
+        })
+        it('should have correct issuance change output', function () {
+          assert.equal(buildConfig.vout[1].value, 150000000 - amount, 'change for securities of 149999500')
+          assert.equal(buildConfig.vout[1].address, order.eqbAddressHolding, 'change address for securities (eqbAddressHolding)')
+          assert.equal(buildConfig.vout[2].value, 340000000 - 1000, 'change amount empty EQB of 339999000')
+          assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for empty EQB')
+        })
+        it('should have correct empty EQB  change output', function () {
+          assert.equal(buildConfig.vout[2].value, 340000000 - 1000, 'change amount empty EQB of 339999000')
+          assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for empty EQB')
+        })
+      })
+      it('should create txInfo object', function () {
+        const txInfo = htlcConfig.txInfo
+        assert.equal(txInfo.address, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'address')
+        assert.equal(txInfo.addressTxid, 'e226a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301', 'vin.0.txid')
+        assert.equal(txInfo.addressVout, '1', 'vin.0.vout')
+        assert.equal(txInfo.amount, 35000, 'amount')
+        assert.equal(txInfo.currencyType, 'BTC', 'currencyType')
+        assert.equal(txInfo.description, 'Buying securities (HTLC #1)', 'description')
+        assert.equal(txInfo.fee, 1000, 'fee')
+        assert.equal(txInfo.fromAddress, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'fromAddress')
+        assert.equal(txInfo.toAddress, 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', 'toAddress')
+        assert.equal(txInfo.type, 'BUY', 'type')
+      })
     })
 
-    let tx, htlcOffer
-    before(function () {
-      const secret = generateSecret()
-      const timelock = 20
-      const eqbAddress = 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'
-      const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
-      // const changeBtcAddressPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
+    // // todo: move this to mocks.
+    // const orderData = Object.assign({}, orderFixturesData[0], { issuance: issuance })
+    // const order = new Order(orderData)
+    // const formData = new (DefineMap.extend('OfferFormData', {seal: false}, {}))({
+    //   order,
+    //   quantity: 500
+    // })
+    //
+    // let tx, htlcOffer
+    // before(function () {
+    //   const secret = generateSecret()
+    //   const timelock = 20
+    //   const eqbAddress = 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'
+    //   const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
+    //   // const changeBtcAddressPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
+    //
+    //   htlcOffer = createHtlcOffer(formData, 'BUY', secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
+    //   htlcOffer.htlcStep = 2
+    //
+    //   tx = createHtlcTx2(htlcOffer, order, portfolio, issuance)
+    //   console.log('createHtlcTx2 tx=', tx)
+    // })
 
-      htlcOffer = createHtlcOffer(formData, 'BUY', secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
-      htlcOffer.htlcStep = 2
-
-      tx = createHtlcTx2(htlcOffer, order, portfolio, issuance)
-      console.log('createHtlcTx2 tx=', tx)
-    })
-
-    it('should set the correct type', function () {
-      assert.equal(tx.type, 'BUY')
-    })
-    it('should set amount = quantity', function () {
-      assert.equal(tx.amount, htlcOffer.quantity)
-    })
-    it('should set BTC transaction hex and id', function () {
-      assert.ok(tx.hex)
-      assert.ok(tx.txId)
-      assert.ok(tx.currencyType, 'BTC')
-    })
-    it('should set issuance details', function () {
-      assert.equal(tx.companyName, 'Equibit Group')
-      assert.equal(tx.issuanceName, 'Series One')
-    })
-    it('should set fromAddress', function () {
-      assert.ok(tx.fromAddress)
-    })
-    it('should set toAddress', function () {
-      assert.equal(tx.toAddress, htlcOffer.eqbAddressTrading)
-    })
-    it('should set refundAddress', function () {
-      assert.equal(tx.refundAddress, order.eqbAddressHolding)
-    })
-    it('should set timelock', function () {
-      assert.equal(tx.timelock, Math.floor(htlcOffer.timelock / 2))
-    })
-    it('should set htlcStep', function () {
-      assert.equal(tx.htlcStep, 2)
-    })
+    // it('should set the correct type', function () {
+    //   assert.equal(tx.type, 'BUY')
+    // })
+    // it('should set amount = quantity', function () {
+    //   assert.equal(tx.amount, htlcOffer.quantity)
+    // })
+    // it('should set BTC transaction hex and id', function () {
+    //   assert.ok(tx.hex)
+    //   assert.ok(tx.txId)
+    //   assert.ok(tx.currencyType, 'BTC')
+    // })
+    // it('should set issuance details', function () {
+    //   assert.equal(tx.companyName, 'Equibit Group')
+    //   assert.equal(tx.issuanceName, 'Series One')
+    // })
+    // it('should set fromAddress', function () {
+    //   assert.ok(tx.fromAddress)
+    // })
+    // it('should set toAddress', function () {
+    //   assert.equal(tx.toAddress, htlcOffer.eqbAddressTrading)
+    // })
+    // it('should set refundAddress', function () {
+    //   assert.equal(tx.refundAddress, order.eqbAddressHolding)
+    // })
+    // it('should set timelock', function () {
+    //   assert.equal(tx.timelock, Math.floor(htlcOffer.timelock / 2))
+    // })
+    // it('should set htlcStep', function () {
+    //   assert.equal(tx.htlcStep, 2)
+    // })
   })
 })

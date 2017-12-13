@@ -41,13 +41,18 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
 
   // UTXO:
   // todo: validate that issuance and portfolio have enough utxo (results in a non-empty array).
-  const utxoInfo = issuance.getTxoutsFor(offer.quantity)
-  const availableAmount = utxoInfo.sum
+  const issuanceUtxoInfo = issuance.getTxoutsFor(offer.quantity)
+  const availableAmount = issuanceUtxoInfo.sum
+  const issuanceUtxo = issuanceUtxoInfo.txouts
+    .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
+
   // For EQB the fee comes from empty EQB.
   const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
   const availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
-  const utxo = utxoEmptyEqbInfo.txouts.concat(utxoEmptyEqbInfo.txouts)
+  const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
     .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+
+  const utxo = issuanceUtxo.concat(utxoEmptyEqb)
 
   // HTLC SCRIPT:
   const script = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
