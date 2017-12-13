@@ -1,7 +1,7 @@
 import { eqbTxBuilder, txBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { pick } from 'ramda'
 import typeforce from 'typeforce'
-import { buildTransaction, toSatoshi } from './transaction-build'
+import { buildTransactionOld as buildTransaction, toSatoshi } from './transaction-build'
 
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 // eslint-disable-next-line

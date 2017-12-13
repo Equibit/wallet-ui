@@ -23,7 +23,7 @@ import {
   buildTransactionEqb,
   toSatoshi
 } from './transaction-build'
-import { makeTransaction } from './transaction-make'
+import { makeTransaction, makeHtlc } from './transaction-make'
 import { createHtlc1, prepareHtlcConfig, prepareTxData } from './transaction-create-htlc1'
 import { createHtlcTx2 } from './transaction-create'
 
@@ -66,9 +66,9 @@ describe('models/transaction/utils', function () {
     })
   })
   describe('HTLC-1', function () {
-    describe.only('prepareHtlcConfig', function () {
-      const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
-      let htlcOfferMock, htlcConfig
+    const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
+    let htlcOfferMock, htlcConfig
+    describe('prepareHtlcConfig', function () {
       before(function () {
         htlcOfferMock = mockHtlcOffer()
         htlcConfig = prepareHtlcConfig(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC)
@@ -76,7 +76,6 @@ describe('models/transaction/utils', function () {
       it('should create buildConfig', function () {
         const amount = htlcOfferMock.offer.quantity * htlcOfferMock.orderData.price
         const buildConfig = htlcConfig.buildConfig
-        assert.equal(buildConfig.version, 1, 'version = 1')
         assert.equal(buildConfig.vin.length, 1, 'one vin')
         assert.equal(buildConfig.vin[0].txid, 'e226a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301', 'txid')
         assert.equal(buildConfig.vin[0].vout, 1, 'vin.0.vout')
@@ -100,13 +99,29 @@ describe('models/transaction/utils', function () {
         assert.equal(txInfo.type, 'BUY', 'type')
       })
     })
-    describe('buildTx', function () {
-
+    describe('buildTransaction', function () {
+      let tx
+      before(function () {
+        htlcOfferMock = mockHtlcOffer()
+        htlcConfig = prepareHtlcConfig(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC)
+        tx = buildTransaction('BTC')(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+      })
+      it('should return tx hex', function () {
+        assert.equal(tx.hex, htlcOfferMock.txHex)
+      })
+      it('should return txid', function () {
+        assert.equal(tx.txId, htlcOfferMock.txId)
+      })
     })
     describe('prepareTxData', function () {
-
+      it('should', function () {
+        assert.ok(prepareTxData)
+      })
     })
-    describe('createHtlc1', function () {
+    describe.skip('createHtlc1', function () {
+      it('should', function () {
+        assert.ok(createHtlc1)
+      })
       const secretHex = '720f97ce05d1b6afccabcfe7a7519ba48b48a16f657d077c825af7566bfc2a99'
       const secret = Buffer.from(secretHex, 'hex')
       const secretHash = cryptoUtils.sha256(secret).toString('hex')

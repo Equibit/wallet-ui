@@ -1,8 +1,8 @@
 import typeforce from 'typeforce'
 import { merge, pick } from 'ramda'
-import { eqbTxBuilder, txBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { eqbTxBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { buildTransaction } from './transaction-build'
 
-const buildTx = txBuilder.builder.buildTx
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
 // Having data models (offer, order, portfolio, issuance)
@@ -17,7 +17,7 @@ function createHtlc1 (offer, order, portfolio, issuance, changeAddrPair) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', {EQB: types.Address, BTC: types.Address}), arguments)
 
   const htlcConfig = prepareHtlcConfig(offer, order, portfolio, changeAddrPair.BTC)
-  const tx = buildTx(htlcConfig.buildConfig)
+  const tx = buildTransaction('BTC')(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
   const txData = prepareTxData(htlcConfig, tx, issuance)
 
   return txData
@@ -43,15 +43,13 @@ function prepareHtlcConfig (offer, order, portfolio, changeAddr) {
   const utxoInfo = portfolio.getTxouts(amount + fee, 'BTC')
   const availableAmount = utxoInfo.sum
   const utxo = utxoInfo.txouts
-    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair, sequence: '4294967295'}))
+    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
 
   const script = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
   console.log(`script = ${script.toString('hex')}`)
 
   const buildConfig = {
-    version: 1,
-    locktime: 0,
-    vin: utxo.map(pick(['txid', 'vout', 'keyPair', 'sequence'])),
+    vin: utxo.map(pick(['txid', 'vout', 'keyPair'])),
     vout: [{
       value: amount,
       scriptPubKey: script

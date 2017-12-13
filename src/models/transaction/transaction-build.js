@@ -1,6 +1,11 @@
-import { bitcoin, eqbTxBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { bitcoin, eqbTxBuilder, txBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import typeforce from 'typeforce'
 
+function buildTransactionOld (currencyType) {
+  return currencyType === 'BTC' ? buildTransactionBtcOld : buildTransactionEqb
+}
+
+// Note: use tx-builder for both currency types.
 function buildTransaction (currencyType) {
   return currencyType === 'BTC' ? buildTransactionBtc : buildTransactionEqb
 }
@@ -13,7 +18,7 @@ function buildTransaction (currencyType) {
  * @param {Array<Object(address, value)>} outputs
  * @returns {Object<txId, hex>} A HEX code of the signed transaction and transaction id (hash).
  */
-function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testnet) {
+function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.testnet) {
   typeforce(typeforce.tuple('Array', 'Array', types.Network), arguments)
   const tx = new bitcoin.TransactionBuilder(network)
   inputs.forEach(({ txid, vout }, index) => tx.addInput(txid, vout))
@@ -24,6 +29,39 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
   return {
     txId: builtTx.getId(),
     hex: builtTx.toHex()
+  }
+}
+
+// eslint-disable-next-line
+const addProp = (prop, val) => obj => (obj[prop] = val, obj)
+
+function buildTransactionBtc (inputs, outputs, network) {
+  if (!network) {
+    network = bitcoin.networks.testnet
+  }
+  console.log(`buildTransactionBtc`, arguments)
+  typeforce(typeforce.arrayOf({txid: 'String', vout: 'Number', keyPair: 'ECPair'}), inputs)
+  typeforce(typeforce.arrayOf({
+    value: types.Satoshi,
+    scriptPubKey: '?Buffer',
+    address: typeforce.maybe(types.Address)
+  }), outputs)
+  typeforce(types.Network, network)
+
+  const tx = {
+    version: 1,
+    locktime: 0,
+    vin: inputs.map(addProp('sequence', '4294967295')),
+    vout: outputs
+  }
+  const bufferTx = txBuilder.builder.buildTx(tx)
+  const hex = bufferTx.toString('hex')
+  const txId = eqbTxBuilder.getTxId(bufferTx)
+  console.log(`[buildTransactionBtc] hex = ${hex}, \ntxid = ${txId}`)
+
+  return {
+    txId,
+    hex
   }
 }
 
@@ -68,5 +106,6 @@ export {
   buildTransaction,
   buildTransactionBtc,
   buildTransactionEqb,
-  toSatoshi
+  toSatoshi,
+  buildTransactionOld
 }
