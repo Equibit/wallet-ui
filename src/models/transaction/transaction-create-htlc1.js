@@ -25,13 +25,12 @@ function createHtlc1 (offer, order, portfolio, issuance, changeAddrPair) {
 
 // HTLC-1 is a BTC transaction from <offer creator> to <order creator>
 // case #1: Buy Offer / Sell Order. BTC currency type.
-function prepareHtlcConfig (offer, order, portfolio, changeAddrPair) {
+function prepareHtlcConfig (offer, order, portfolio, changeAddr) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', types.Address), arguments)
 
   const amount = offer.quantity * order.price
   const toAddress = order.btcAddress
   const refundAddress = offer.btcAddress
-  const changeAddr = changeAddrPair.BTC
 
   // todo: calculate transaction fee:
   const fee = 1000
@@ -47,11 +46,12 @@ function prepareHtlcConfig (offer, order, portfolio, changeAddrPair) {
     .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair, sequence: '4294967295'}))
 
   const script = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
+  console.log(`script = ${script.toString('hex')}`)
 
   const buildConfig = {
     version: 1,
     locktime: 0,
-    vin: pick(['txid', 'vout', 'keyPair', 'sequence'], utxo),
+    vin: utxo.map(pick(['txid', 'vout', 'keyPair', 'sequence'])),
     vout: [{
       value: amount,
       scriptPubKey: script

@@ -15,6 +15,7 @@ import hdNode from '../mock/mock-keys'
 import issuance from '../mock/mock-issuance'
 import portfolio from '../mock/mock-portfolio'
 import orderFixturesData from '../fixtures/orders'
+import mockHtlcOffer from '../mock/mock-htlc-offer'
 
 import {
   buildTransaction,
@@ -22,7 +23,8 @@ import {
   buildTransactionEqb,
   toSatoshi
 } from './transaction-build'
-import { makeTransaction, makeHtlc } from './transaction-make'
+import { makeTransaction } from './transaction-make'
+import { createHtlc1, prepareHtlcConfig, prepareTxData } from './transaction-create-htlc1'
 import { createHtlcTx2 } from './transaction-create'
 
 describe('models/transaction/utils', function () {
@@ -63,59 +65,101 @@ describe('models/transaction/utils', function () {
       assert.ok(typeof makeTransaction === 'function')
     })
   })
-  describe('makeHtlc', function () {
-    const secretHex = '720f97ce05d1b6afccabcfe7a7519ba48b48a16f657d077c825af7566bfc2a99'
-    const secret = Buffer.from(secretHex, 'hex')
-    const secretHash = cryptoUtils.sha256(secret).toString('hex')
-
-    // Note: the expected values were created manually:
-    const expectedTxHex = '0100000001b5a4d2ee7ada7a30722d3224c8e29443e75fc3506612ae41ee853f2fe24b6756000000006b483045022100f148d968e881ed481418a0b5dcb3b3ff7733ad832ff6b7342d7e4e9d95a1704102202624d73621fcc6c6ad69a16698b1423d9dd9c6ecc027c705e37b656b34b8b4cd012102c149f0b80bbbb0811cd7f2d8c2eed5bae28de5e992064590a0a16eb1743bc469ffffffff0280f0fa02000000005b63a82037b9f894d525cdb5b4d860bbdc95d4b1ea70d1794f4b77e6e54fdac374870a6d8876a91418c1f2fd53cf24b918470437e25639ed4325bd4767029000b17576a914685101ea3d9f9ba1a1767bb7b0bfa8987067d2a36888acffe0f505000000001976a914751388becb32b332d716c7735ad51c9a40e9d87588ac00000000'
-    const expectedTxId = 'e3aadfa76629496da3affb08a8f668404ccbe8581c04913e7f29637de12b61a0'
-
-    const amount = 0.5 * 100000000
-    const fromNode = hdNode.derive(0)
-    const toAddressA = hdNode.derive(1).getAddress()
-    const toAddressB = hdNode.derive(2).getAddress()
-    const chageAddr = hdNode.derive(3).getAddress()
-    const hashlock = secretHash
-    const timelock = 144
-    const txouts = [{
-      txid: '56674be22f3f85ee41ae126650c35fe74394e2c824322d72307ada7aeed2a4b5',
-      vout: 0,
-      amount: 150000000,
-      keyPair: fromNode.keyPair
-    }]
-    const options = {
-      fee: 1000,
-      changeAddr: chageAddr,
-      type: '',
-      currencyType: 'BTC',
-      description: 'test btc htlc',
-      changeAddrEmptyEqb: '',
-      amountEqb: 0
-    }
-
-    let txData
-    before(function () {
-      txData = makeHtlc(
-        amount, toAddressA, toAddressB, hashlock, timelock, txouts,
-        options
-      )
+  describe('HTLC-1', function () {
+    describe.only('prepareHtlcConfig', function () {
+      const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
+      let htlcOfferMock, htlcConfig
+      before(function () {
+        htlcOfferMock = mockHtlcOffer()
+        htlcConfig = prepareHtlcConfig(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC)
+      })
+      it('should create buildConfig', function () {
+        const amount = htlcOfferMock.offer.quantity * htlcOfferMock.orderData.price
+        const buildConfig = htlcConfig.buildConfig
+        assert.equal(buildConfig.version, 1, 'version = 1')
+        assert.equal(buildConfig.vin.length, 1, 'one vin')
+        assert.equal(buildConfig.vin[0].txid, 'e226a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301', 'txid')
+        assert.equal(buildConfig.vin[0].vout, 1, 'vin.0.vout')
+        assert.ok(buildConfig.vin[0].keyPair, 'keyPair')
+        assert.equal(buildConfig.vout[0].value, amount, 'amount of 35000')
+        assert.equal(buildConfig.vout[0].scriptPubKey.toString('hex'), htlcOfferMock.htlcScript, 'scriptPubKey')
+        assert.equal(buildConfig.vout[1].value, 10000000 - amount - 1000, 'change amount of 9964000')
+        assert.equal(buildConfig.vout[1].address, changeAddrPair.BTC, 'change address')
+      })
+      it('should create txInfo object', function () {
+        const txInfo = htlcConfig.txInfo
+        assert.equal(txInfo.address, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'address')
+        assert.equal(txInfo.addressTxid, 'e226a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301', 'vin.0.txid')
+        assert.equal(txInfo.addressVout, '1', 'vin.0.vout')
+        assert.equal(txInfo.amount, 35000, 'amount')
+        assert.equal(txInfo.currencyType, 'BTC', 'currencyType')
+        assert.equal(txInfo.description, 'Buying securities (HTLC #1)', 'description')
+        assert.equal(txInfo.fee, 1000, 'fee')
+        assert.equal(txInfo.fromAddress, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'fromAddress')
+        assert.equal(txInfo.toAddress, 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', 'toAddress')
+        assert.equal(txInfo.type, 'BUY', 'type')
+      })
     })
+    describe('buildTx', function () {
 
-    it('should create data for instantiating an HTLC Transaction', function () {
-      assert.equal(typeof txData, 'object')
     })
-    it('should contain amount', function () {
-      assert.equal(txData.amount, amount)
+    describe('prepareTxData', function () {
+
     })
-    it('should contain hashlock', function () {
-      assert.equal(txData.hashlock.length, 64)
-      assert.equal(txData.hashlock, secretHash)
-    })
-    it.skip('should contain BTC transaction hex and id', function () {
-      assert.equal(txData.hex, expectedTxHex)
-      assert.equal(txData.txId, expectedTxId)
+    describe('createHtlc1', function () {
+      const secretHex = '720f97ce05d1b6afccabcfe7a7519ba48b48a16f657d077c825af7566bfc2a99'
+      const secret = Buffer.from(secretHex, 'hex')
+      const secretHash = cryptoUtils.sha256(secret).toString('hex')
+
+      // Note: the expected values were created manually:
+      const expectedTxHex = '0100000001b5a4d2ee7ada7a30722d3224c8e29443e75fc3506612ae41ee853f2fe24b6756000000006b483045022100f148d968e881ed481418a0b5dcb3b3ff7733ad832ff6b7342d7e4e9d95a1704102202624d73621fcc6c6ad69a16698b1423d9dd9c6ecc027c705e37b656b34b8b4cd012102c149f0b80bbbb0811cd7f2d8c2eed5bae28de5e992064590a0a16eb1743bc469ffffffff0280f0fa02000000005b63a82037b9f894d525cdb5b4d860bbdc95d4b1ea70d1794f4b77e6e54fdac374870a6d8876a91418c1f2fd53cf24b918470437e25639ed4325bd4767029000b17576a914685101ea3d9f9ba1a1767bb7b0bfa8987067d2a36888acffe0f505000000001976a914751388becb32b332d716c7735ad51c9a40e9d87588ac00000000'
+      const expectedTxId = 'e3aadfa76629496da3affb08a8f668404ccbe8581c04913e7f29637de12b61a0'
+
+      const amount = 0.5 * 100000000
+      const fromNode = hdNode.derive(0)
+      const toAddressA = hdNode.derive(1).getAddress()
+      const toAddressB = hdNode.derive(2).getAddress()
+      const chageAddr = hdNode.derive(3).getAddress()
+      const hashlock = secretHash
+      const timelock = 144
+      const txouts = [{
+        txid: '56674be22f3f85ee41ae126650c35fe74394e2c824322d72307ada7aeed2a4b5',
+        vout: 0,
+        amount: 150000000,
+        keyPair: fromNode.keyPair
+      }]
+      const options = {
+        fee: 1000,
+        changeAddr: chageAddr,
+        type: '',
+        currencyType: 'BTC',
+        description: 'test btc htlc',
+        changeAddrEmptyEqb: '',
+        amountEqb: 0
+      }
+
+      let txData
+      before(function () {
+        txData = makeHtlc(
+          amount, toAddressA, toAddressB, hashlock, timelock, txouts,
+          options
+        )
+      })
+
+      it('should create data for instantiating an HTLC Transaction', function () {
+        assert.equal(typeof txData, 'object')
+      })
+      it('should contain amount', function () {
+        assert.equal(txData.amount, amount)
+      })
+      it('should contain hashlock', function () {
+        assert.equal(txData.hashlock.length, 64)
+        assert.equal(txData.hashlock, secretHash)
+      })
+      it.skip('should contain BTC transaction hex and id', function () {
+        assert.equal(txData.hex, expectedTxHex)
+        assert.equal(txData.txId, expectedTxId)
+      })
     })
   })
 
