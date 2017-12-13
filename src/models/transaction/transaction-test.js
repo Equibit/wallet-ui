@@ -136,6 +136,10 @@ describe('models/transaction/utils', function () {
         tx = { hex: htlcOfferMock.txHex, txId: htlcOfferMock.txId }
         txData = prepareTxData(htlcConfig, tx, issuance)
       })
+      it('should define htlc props', function () {
+        assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock, 'hashlock')
+        assert.equal(txData.timelock, htlcOfferMock.offer.timelock, 'timelock')
+      })
       it('should define tx props', function () {
         assert.equal(txData.hex, tx.hex, 'tx hex')
         assert.equal(txData.txId, tx.txId, 'txId')
@@ -149,64 +153,30 @@ describe('models/transaction/utils', function () {
         assert.equal(txData.companySlug, issuance.companySlug, 'companySlug')
       })
     })
-    describe.skip('createHtlc1', function () {
-      it('should', function () {
-        assert.ok(createHtlc1)
+    if (window.Testee) {
+      describe.skip('skipping createHtlc1 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
+    } else {
+      describe('createHtlc1', function () {
+        let txData, tx
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          tx = { hex: htlcOfferMock.txHex, txId: htlcOfferMock.txId }
+          txData = createHtlc1(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair)
+        })
+        it('should define main props', function () {
+          assert.equal(txData.amount, 35000, 'amount')
+          assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
+        })
+        it('should define hashlock', function () {
+          assert.equal(txData.hashlock.length, 64)
+          assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
+        })
+        it('should define transaction hex and id', function () {
+          assert.equal(txData.hex, tx.hex, 'tx hex')
+          assert.equal(txData.txId, tx.txId, 'txId')
+        })
       })
-      const secretHex = '720f97ce05d1b6afccabcfe7a7519ba48b48a16f657d077c825af7566bfc2a99'
-      const secret = Buffer.from(secretHex, 'hex')
-      const secretHash = cryptoUtils.sha256(secret).toString('hex')
-
-      // Note: the expected values were created manually:
-      const expectedTxHex = '0100000001b5a4d2ee7ada7a30722d3224c8e29443e75fc3506612ae41ee853f2fe24b6756000000006b483045022100f148d968e881ed481418a0b5dcb3b3ff7733ad832ff6b7342d7e4e9d95a1704102202624d73621fcc6c6ad69a16698b1423d9dd9c6ecc027c705e37b656b34b8b4cd012102c149f0b80bbbb0811cd7f2d8c2eed5bae28de5e992064590a0a16eb1743bc469ffffffff0280f0fa02000000005b63a82037b9f894d525cdb5b4d860bbdc95d4b1ea70d1794f4b77e6e54fdac374870a6d8876a91418c1f2fd53cf24b918470437e25639ed4325bd4767029000b17576a914685101ea3d9f9ba1a1767bb7b0bfa8987067d2a36888acffe0f505000000001976a914751388becb32b332d716c7735ad51c9a40e9d87588ac00000000'
-      const expectedTxId = 'e3aadfa76629496da3affb08a8f668404ccbe8581c04913e7f29637de12b61a0'
-
-      const amount = 0.5 * 100000000
-      const fromNode = hdNode.derive(0)
-      const toAddressA = hdNode.derive(1).getAddress()
-      const toAddressB = hdNode.derive(2).getAddress()
-      const chageAddr = hdNode.derive(3).getAddress()
-      const hashlock = secretHash
-      const timelock = 144
-      const txouts = [{
-        txid: '56674be22f3f85ee41ae126650c35fe74394e2c824322d72307ada7aeed2a4b5',
-        vout: 0,
-        amount: 150000000,
-        keyPair: fromNode.keyPair
-      }]
-      const options = {
-        fee: 1000,
-        changeAddr: chageAddr,
-        type: '',
-        currencyType: 'BTC',
-        description: 'test btc htlc',
-        changeAddrEmptyEqb: '',
-        amountEqb: 0
-      }
-
-      let txData
-      before(function () {
-        txData = makeHtlc(
-          amount, toAddressA, toAddressB, hashlock, timelock, txouts,
-          options
-        )
-      })
-
-      it('should create data for instantiating an HTLC Transaction', function () {
-        assert.equal(typeof txData, 'object')
-      })
-      it('should contain amount', function () {
-        assert.equal(txData.amount, amount)
-      })
-      it('should contain hashlock', function () {
-        assert.equal(txData.hashlock.length, 64)
-        assert.equal(txData.hashlock, secretHash)
-      })
-      it.skip('should contain BTC transaction hex and id', function () {
-        assert.equal(txData.hex, expectedTxHex)
-        assert.equal(txData.txId, expectedTxId)
-      })
-    })
+    }
   })
 
   describe.skip('createHtlcTx2', function () {

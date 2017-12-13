@@ -179,7 +179,7 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
   )
 
   const secretEncrypted = user.encrypt(secret.toString('hex'))
-  const secretHash = cryptoUtils.sha256(secret).toString('hex')
+  const hashlock = cryptoUtils.sha256(secret).toString('hex')
   const offer = new Offer({
     userId: user._id,
     orderId: formData.order._id,
@@ -188,7 +188,7 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
     eqbAddressTrading: eqbAddress,
     eqbAddressHolding: eqbAddress,
     secretEncrypted,
-    secretHash,
+    hashlock,
     timelock,
     type,
     quantity: formData.quantity,
