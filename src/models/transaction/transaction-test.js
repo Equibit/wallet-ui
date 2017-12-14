@@ -211,18 +211,17 @@ describe('models/transaction/utils', function () {
         it('should have 3 outputs', function () {
           assert.equal(buildConfig.vout.length, 3, 'three vouts')
         })
-        it('should have correct issuance output', function () {
+        it('should have correct issuance output (amount and script)', function () {
           assert.equal(buildConfig.vout[0].value, amount, 'amount of 500')
-          assert.equal(buildConfig.vout[0].scriptPubKey.toString('hex'), htlcOfferMock.htlcScript, 'scriptPubKey')
+          assert.equal(buildConfig.vout[0].scriptPubKey.toString('hex'), htlcOfferMock.htlcScript2, 'scriptPubKey')
         })
         it('should have correct issuance change output', function () {
-          assert.equal(buildConfig.vout[1].value, 150000000 - amount, 'change for securities of 149999500')
+          assert.equal(buildConfig.vout[1].value, issuance.utxo[0].amount - amount, 'change for securities of 149999500')
           assert.equal(buildConfig.vout[1].address, order.eqbAddressHolding, 'change address for securities (eqbAddressHolding)')
-          assert.equal(buildConfig.vout[2].value, 340000000 - 1000, 'change amount empty EQB of 339999000')
-          assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for empty EQB')
         })
         it('should have correct empty EQB  change output', function () {
-          assert.equal(buildConfig.vout[2].value, 340000000 - 1000, 'change amount empty EQB of 339999000')
+          const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
+          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 1000, 'change amount empty EQB of 219999000')
           assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for empty EQB')
         })
       })
