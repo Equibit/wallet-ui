@@ -14,7 +14,7 @@ const tmpRates = {
 }
 
 export function localCurrency (value, type = 'BTC', precision = 2) {
-  const rates = Session.current && Session.current.rates || tmpRates
+  const rates = (Session.current && Session.current.rates) || tmpRates
   if (!rates) {
     console.warn('No currency rates available.')
     return value
