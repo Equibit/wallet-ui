@@ -12,7 +12,7 @@
 
         <!-- If the authority is being edited after the passport has been created show this warning -->
         <div class="alert alert-warning" role="alert">
-            <strong>{{i18n('warning')}}!</strong> {{i18n('authorityEditWarning')}}</a>
+            <strong>{{i18n('warning')}}!</strong> {{i18n('authorityEditWarning')}}
         </div>
 
         <div class="list-group">
