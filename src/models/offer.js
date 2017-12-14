@@ -94,7 +94,7 @@ const Offer = DefineMap.extend('Offer', {
 
   // HTLC
   secretEncrypted: 'string',
-  secretHash: 'string',
+  hashlock: 'string',
   timelock: 'number',
 
   createdAt: {

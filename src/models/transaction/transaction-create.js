@@ -19,7 +19,7 @@ function createHtlcTx2 (offer, order, portfolio, issuance, changeAddrPair) {
   // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
   // Note: timelock for the 2nd tx should be twice smaller:
   const timelock = Math.floor(offer.timelock / 2)
-  const hashlock = offer.secretHash
+  const hashlock = offer.hashlock
 
   const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
 

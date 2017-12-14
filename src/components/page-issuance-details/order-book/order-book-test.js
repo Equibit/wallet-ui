@@ -122,8 +122,8 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         it('should set timelock', function () {
           assert.equal(htlcOffer.timelock, timelock)
         })
-        it('should set secretHash', function () {
-          assert.equal(htlcOffer.secretHash.length, 64, '(256 bit) = (32 bytes) = (64 hex chars)')
+        it('should set hashlock', function () {
+          assert.equal(htlcOffer.hashlock.length, 64, '(256 bit) = (32 bytes) = (64 hex chars)')
         })
         it('should set type', function () {
           assert.equal(htlcOffer.type, 'BUY')

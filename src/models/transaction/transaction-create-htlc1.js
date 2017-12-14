@@ -37,7 +37,7 @@ function prepareHtlcConfig (offer, order, portfolio, changeAddr) {
 
   // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
   const timelock = offer.timelock
-  const hashlock = offer.secretHash
+  const hashlock = offer.hashlock
   const htlcStep = 1
 
   const utxoInfo = portfolio.getTxouts(amount + fee, 'BTC')
@@ -69,7 +69,9 @@ function prepareHtlcConfig (offer, order, portfolio, changeAddr) {
     fee,
     type: offer.type,
     currencyType: 'BTC',
-    description: `Buying securities (HTLC #${htlcStep})`
+    description: `Buying securities (HTLC #${htlcStep})`,
+    hashlock: offer.hashlock,
+    timelock: offer.timelock
   }
 
   return { buildConfig, txInfo }
@@ -98,7 +100,7 @@ function prepareTxData (htlcConfig, tx, issuance) {
 //   const transactionFee = 1000
 //   // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
 //   const timelock = offer.timelock
-//   const hashlock = offer.secretHash
+//   const hashlock = offer.hashlock
 //   const htlcStep = 1
 //
 //   const txouts = portfolio
