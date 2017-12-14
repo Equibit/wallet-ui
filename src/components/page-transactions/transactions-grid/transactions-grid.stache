@@ -66,7 +66,7 @@
             <td class="column-cash tx-{{row.type}}">
               {{#is row.currencyType 'EQB'}}
                 {{^is row.type 'IN'}}
-                  {{#is row.type 'AUTH'}}
+                  {{#if one-of(row.type, 'AUTH', 'CANCEL')}}
                     <span>{{coin(row.amountPlusFee, 8))}}</span>
                   {{else}}
                     {{#if row.isSecurity}}
@@ -74,7 +74,7 @@
                     {{else}}
                       <span>{{coin(row.amountPlusFee, 8))}}</span>
                     {{/if}}
-                  {{/is}}
+                  {{/if}}
                 {{else}}
                   - -
                 {{/is}}
