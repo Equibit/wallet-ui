@@ -40,9 +40,9 @@ export const ViewModel = DefineMap.extend({
           // todo: tmp for demo.
           issuanceUnit: 'SHARES',
           amount: utxo.amount,
-          quantity: utxo.amount * 100000000,
+          quantity: utxo.amount,
           price: Math.floor(
-            Session.current.rates.securitiesToBtc * utxo.amount * 1000 * 1000
+            Session.current.rates.securitiesToBtc * (utxo.amount / 100000000)
           ),  // microBTC
           valueBtc: Session.current.rates.securitiesToBtc * utxo.amount,
           companyName: data.company.legal_name,

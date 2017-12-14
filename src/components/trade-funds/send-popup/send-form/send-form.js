@@ -10,6 +10,7 @@
 
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
+import accounting from 'accounting'
 import './send-form.less'
 import view from './send-form.stache'
 import { Currency } from '~/components/trade-funds/currency-converter/'
@@ -69,12 +70,12 @@ export const ViewModel = DefineMap.extend({
 
   formatIssuance (issuance) {
     // ${issuance.marketCap} uBTC
-    return `<span class="issuance issuance-company">${issuance.companyName}</span> <span class="issuance issuance-name">${issuance.issuanceName}</span> <span class="issuance issuance-quantity">available ${issuance.availableAmount} EQB</span>`
+    return `<span class="issuance issuance-company">${issuance.companyName}</span> <span class="issuance issuance-name">${issuance.issuanceName}</span> <span class="issuance issuance-quantity">available ${formatShares(issuance.availableAmount)}</span>`
   },
 
   formatIssuanceInput (issuance) {
     // ${issuance.marketCap} uBTC
-    return `${issuance.companyName} | ${issuance.issuanceName} | available ${issuance.availableAmount} EQB`
+    return `${issuance.companyName} | ${issuance.issuanceName} | available ${formatShares(issuance.availableAmount)} Shares`
   },
 
   sendAllFunds () {
@@ -89,6 +90,10 @@ export const ViewModel = DefineMap.extend({
     this.dispatch('receiveform')
   }
 })
+
+function formatShares (value) {
+  return accounting.formatMoney(value, '', 0)
+}
 
 export default Component.extend({
   tag: 'send-form',

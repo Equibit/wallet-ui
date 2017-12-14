@@ -9,22 +9,31 @@ transactions-grid {
     width: 100px;
   }
   .column-type {
-    width: 100px;
+    width: 110px;
   }
   .column-securities {
 		width: 140px;
 		text-align: right;
-    &.tx-AUTH {
-      color: @brand-success;
-      text-transform: lowercase;
+    &.tx-AUTH, &.tx-IN {
+      span {
+        color: @brand-success;
+        text-transform: lowercase;
+      }
+    }
+    &.tx-CANCEL, &.tx-OUT {
+      span:before {
+        content: "- "
+      }
     }
 	}
 	.column-cash {
     width: 110px;
     text-align: right;
 
-    &.tx-IN {
-      color: @brand-success
+    &.tx-IN, &.tx-CANCEL {
+      span {
+        color: @brand-success
+      }
     }
     &.tx-OUT, &.tx-AUTH {
       span:before {

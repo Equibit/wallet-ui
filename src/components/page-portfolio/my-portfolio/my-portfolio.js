@@ -139,7 +139,7 @@ export const ViewModel = DefineMap.extend({
       const toAddress = EQB
       const options = {
         // todo: calculate fee
-        fee: 0.00001,
+        fee: 1000,
         type: 'CANCEL',
         currencyType: 'EQB',
         description: `Canceling  ${issuance.issuanceName} of ${issuance.companyName}`,
@@ -160,7 +160,7 @@ export const ViewModel = DefineMap.extend({
           'type': 'alert',
           'kind': 'success',
           'title': translate('issuanceWasCanceled'),
-          'displayInterval': 5000
+          'displayInterval': 12000
         })
       })
     })
@@ -181,10 +181,10 @@ const sendIssuance = (portfolio, formData) => {
   const toAddress = formData.toAddress
   const changeAddr = issuance.address
   const currencyType = 'EQB'
-  const amount = formData.amount
+  const amount = formData.quantity
 
-  const { txouts } = issuance.getTxoutsFor(amount)
-    .map(a => merge(a, {keyPair: issuance.keys}))
+  const txouts = issuance.getTxoutsFor(amount).txouts
+    .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
 
   const txoutsFeeInfo = portfolio.getTxouts(formData.transactionFee, 'EQB')
   const txoutsFee = txoutsFeeInfo.txouts

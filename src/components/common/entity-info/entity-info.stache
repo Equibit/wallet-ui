@@ -7,11 +7,11 @@
 		<div class="col-xs-12 col-md-6">
 			<label>{{i18n('domicile')}}</label>
 			<div class="entity-address">{{entity.streetAddress}}</div>
-        	
+
 			{{#if entity.streetAddress2}}
 			<div class="entity-address">{{entity.streetAddress2}}</div>
         	{{/if}}
-			
+
 			<div class="entity-city">{{entity.city}}, {{entity.state}} {{entity.postalCode}}</div>
 			<div class="entity-country">{{entity.domicile}}</div>
 		</div>
@@ -24,7 +24,7 @@
       		{{/if}}
 
       		{{#if entity.website}}
-			<div class="entity-email"><a href="mailto:{{entity.email}}">{{entity.email}}</a></div>
+			<div class="entity-email"><a href="mailto:{{entity.contactEmail}}">{{entity.contactEmail}}</a></div>
       		{{/if}}
 
       		{{#if entity.website}}
