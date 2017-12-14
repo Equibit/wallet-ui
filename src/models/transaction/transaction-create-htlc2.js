@@ -82,7 +82,8 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
     fee,
     type: order.type,
     currencyType: 'EQB',
-    description: `Selling securities (HTLC #${htlcStep})`
+    description: `Selling securities (HTLC #${htlcStep})`,
+    htlcStep
   }
 
   return { buildConfig, txInfo }

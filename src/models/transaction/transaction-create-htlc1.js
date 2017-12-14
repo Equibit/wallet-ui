@@ -71,7 +71,8 @@ function prepareHtlcConfig (offer, order, portfolio, changeAddr) {
     currencyType: 'BTC',
     description: `Buying securities (HTLC #${htlcStep})`,
     hashlock: offer.hashlock,
-    timelock: offer.timelock
+    timelock: offer.timelock,
+    htlcStep
   }
 
   return { buildConfig, txInfo }
