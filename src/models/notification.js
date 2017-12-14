@@ -21,7 +21,7 @@ const Notification = DefineMap.extend('Notification', {
 
   get units () {
     return this.issuanceType
-      ? (this.issuanceType === 'common_shares' ? 'Shares' : 'Units' )
+      ? (this.issuanceType === 'common_shares' ? 'Shares' : 'Units')
       : this.currencyType
   }
 })
