@@ -167,8 +167,7 @@ const Session = DefineMap.extend('Session', {
   // TODO: add local currency switch support.
   rates: {
     get () {
-      // return (this.user && this.user.rates) || Session.defaultRates
-      return Session.defaultRates
+      return (this.user && this.user.rates) || Session.defaultRates
     }
   },
 
