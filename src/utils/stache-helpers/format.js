@@ -3,11 +3,17 @@ import accounting from 'accounting'
 import moment from 'moment'
 import { toMaxPrecision, localCurrency } from '../formatter'
 
-stache.registerHelper('format', function (value, symbol, precision = 2) {
+stache.registerHelper('format', function (value, symbol, precision) {
+  if (typeof precision === 'undefined') {
+    precision = 2
+  }
   return accounting.formatMoney(value, symbol, precision)
 })
 
-stache.registerHelper('format-max', function (value, precision = 2) {
+stache.registerHelper('format-max', function (value, precision) {
+  if (typeof precision === 'undefined') {
+    precision = 2
+  }
   return toMaxPrecision(value, precision)
 })
 
@@ -40,7 +46,10 @@ stache.registerHelper('format-date-short', function (value) {
 })
 
 // Satoshi to local currency:
-stache.registerHelper('local-currency', function (value, type = 'BTC') {
+stache.registerHelper('local-currency', function (value, type) {
+  if (!type) {
+    type = 'BTC'
+  }
   return localCurrency(value, type)
 })
 
