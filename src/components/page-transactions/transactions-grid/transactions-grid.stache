@@ -31,7 +31,10 @@
               on:click="selectRow(row, scope.element, scope.event)">
             <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
             <td class="column-type">
-              {{#is row.address row.fromAddress}}↑{{else}}↓{{/is}} {{row.typeFormatted}}
+              {{#if one-of(row.type, 'BUY', 'SELL', 'OUT', 'IN')}}
+                {{#is row.address row.fromAddress}} ↑ {{else}} ↓ {{/is}}
+              {{/if}}
+              {{row.typeFormatted}}
             </td>
             <td class="column-description">
               <span class="transaction-subject">{{row.issuanceTypeDisplay}}</span>
@@ -48,7 +51,7 @@
             </td>
             <td class="column-securities tx-{{row.type}}">
               {{#if row.isSecurity}}
-                {{format(row.issuanceUnitQuantity, '', 0)}} {{row.issuanceUnit}}
+                <span>{{format(row.issuanceUnitQuantity, '', 0)}} {{*row.issuanceUnit}}</span>
               {{else}}
                 - -
               {{/if}}
@@ -62,7 +65,21 @@
             </td>
             <td class="column-cash tx-{{row.type}}">
               {{#is row.currencyType 'EQB'}}
-                <span>{{coin(row.amountPlusFee, 8))}}</span>
+                {{^is row.type 'IN'}}
+                  {{#is row.type 'AUTH'}}
+                    <span>{{coin(row.amountPlusFee, 8))}}</span>
+                  {{else}}
+                    {{#if row.isSecurity}}
+                      <span>{{coin(row.fee, 8))}}</span>
+                    {{else}}
+                      <span>{{coin(row.amountPlusFee, 8))}}</span>
+                    {{/if}}
+                  {{/is}}
+                {{else}}
+                  - -
+                {{/is}}
+              {{else}}
+                - -
               {{/is}}
             </td>
           </tr>

@@ -19,7 +19,7 @@ function buildTransaction (currencyType) {
  * @returns {Object<txId, hex>} A HEX code of the signed transaction and transaction id (hash).
  */
 function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.testnet) {
-  typeforce(typeforce.tuple('Array', 'Array', types.Network), arguments)
+  typeforce(typeforce.tuple('Array', 'Array', types.Network), [inputs, outputs, network])
   const tx = new bitcoin.TransactionBuilder(network)
   inputs.forEach(({ txid, vout }, index) => tx.addInput(txid, vout))
   outputs.forEach(({address, value}) => tx.addOutput(address, value))
@@ -35,10 +35,7 @@ function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.tes
 // eslint-disable-next-line
 const addProp = (prop, val) => obj => (obj[prop] = val, obj)
 
-function buildTransactionBtc (inputs, outputs, network) {
-  if (!network) {
-    network = bitcoin.networks.testnet
-  }
+function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testnet) {
   console.log(`buildTransactionBtc`, arguments)
   typeforce(typeforce.arrayOf({txid: 'String', vout: 'Number', keyPair: 'ECPair'}), inputs)
   typeforce(typeforce.arrayOf({
@@ -66,7 +63,7 @@ function buildTransactionBtc (inputs, outputs, network) {
 }
 
 function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testnet) {
-  typeforce(typeforce.tuple('Array', 'Array', types.Network), arguments)
+  typeforce(typeforce.tuple('Array', 'Array', types.Network), [inputs, outputs, network])
   const vout = outputs.map(vout => {
     vout.equibit = {
       // TODO: pass payment currency type here.

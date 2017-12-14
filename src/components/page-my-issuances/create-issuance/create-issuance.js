@@ -106,7 +106,7 @@ export const ViewModel = DefineMap.extend({
         'type': 'alert',
         'kind': 'success',
         'title': msg,
-        'displayInterval': 5000
+        'displayInterval': 10000
       })
       Session.current.refreshBalance()
       return issuance

@@ -12,7 +12,7 @@
           <h4 class="media-heading">{{title(notification.type)}}</h4>
           <div class="media-description">for {{for(notification.address)}}</div>
           <div class="media-cta btn-link">
-            Amount {{notification.amount}} {{notification.currencyType}}
+            Amount {{notification.amountFormatted}} {{notification.units}}
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@
     </div>
   </a>
    -->
-  
+
   <!--
   <a href="#" class="list-group-item">
     <div class="media">
@@ -100,7 +100,7 @@
     </div>
   </a>
 
-  
+
   <a href="#" class="list-group-item read">
     <div class="media">
       <div class="media-left">

@@ -121,6 +121,7 @@ const AppViewModel = DefineMap.extend({
         type: data.type,
         address: data.address,
         amount: data.amount,
+        issuanceType: data.issuanceType,
         currencyType: data.currencyType,
         transactionId: data._id
       })
