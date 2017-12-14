@@ -1,11 +1,6 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
-import DefineMap from 'can-define/map/map'
-import { bitcoin, Buffer } from '@equibit/wallet-crypto/dist/wallet-crypto'
-import cryptoUtils from '../../utils/crypto'
-import Order from '../order'
-import Session from '../session'
-import { createHtlcOffer, generateSecret } from '../../components/page-issuance-details/order-book/order-book'
+import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
 
 // Fixtures:
 import '../fixtures/portfolio'
@@ -14,7 +9,6 @@ import '../mock/mock-session'
 import hdNode from '../mock/mock-keys'
 import issuance from '../mock/mock-issuance'
 import portfolio from '../mock/mock-portfolio'
-import orderFixturesData from '../fixtures/orders'
 import mockHtlcOffer from '../mock/mock-htlc-offer'
 
 import {
@@ -24,10 +18,9 @@ import {
   buildTransactionEqb,
   toSatoshi
 } from './transaction-build'
-import { makeTransaction, makeHtlc } from './transaction-make'
+import { makeTransaction } from './transaction-make'
 import { createHtlc1, prepareHtlcConfig, prepareTxData } from './transaction-create-htlc1'
 import { createHtlc2, prepareHtlcConfig2 } from './transaction-create-htlc2'
-import { createHtlcTx2 } from './transaction-create'
 
 describe('models/transaction/utils', function () {
   describe('buildTransaction', function () {
@@ -180,12 +173,12 @@ describe('models/transaction/utils', function () {
     }
   })
 
-  describe.only('HTLC-2', function () {
+  describe('HTLC-2', function () {
     const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
 
     describe('prepareHtlcConfig2', function () {
-      describe.only('buildConfig', function () {
+      describe('buildConfig', function () {
         let amount, order, buildConfig
         before(function () {
           htlcOfferMock = mockHtlcOffer()
@@ -225,73 +218,41 @@ describe('models/transaction/utils', function () {
           assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for empty EQB')
         })
       })
-      it('should create txInfo object', function () {
-        const txInfo = htlcConfig.txInfo
-        assert.equal(txInfo.address, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'address')
-        assert.equal(txInfo.addressTxid, 'e226a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301', 'vin.0.txid')
-        assert.equal(txInfo.addressVout, '1', 'vin.0.vout')
-        assert.equal(txInfo.amount, 35000, 'amount')
-        assert.equal(txInfo.currencyType, 'BTC', 'currencyType')
-        assert.equal(txInfo.description, 'Buying securities (HTLC #1)', 'description')
-        assert.equal(txInfo.fee, 1000, 'fee')
-        assert.equal(txInfo.fromAddress, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'fromAddress')
-        assert.equal(txInfo.toAddress, 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', 'toAddress')
-        assert.equal(txInfo.type, 'BUY', 'type')
+
+      describe('txInfo', function () {
+        let txInfo, amount, order, offer, buildConfig
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          htlcConfig = prepareHtlcConfig2(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.EQB)
+          amount = htlcOfferMock.offer.quantity
+          order = htlcOfferMock.order
+          offer = htlcOfferMock.offer
+          buildConfig = htlcConfig.buildConfig
+          txInfo = htlcConfig.txInfo
+        })
+        it('should have main address info', function () {
+          assert.equal(txInfo.address, order.eqbAddressHolding, 'address = order.eqbAddressHolding')
+          assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
+          assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
+        })
+        it('should have amount, types and desc', function () {
+          assert.equal(txInfo.amount, amount, 'amount of 500')
+          assert.equal(txInfo.currencyType, 'EQB', 'currencyType')
+          assert.equal(txInfo.type, 'SELL', 'type')
+          assert.equal(txInfo.description, 'Selling securities (HTLC #2)', 'description')
+        })
+        it('should have fee and from/to addresses', function () {
+          assert.equal(txInfo.fee, 1000, 'fee')
+          assert.equal(txInfo.fromAddress, order.eqbAddressHolding, 'fromAddress = order.eqbAddressHolding')
+          assert.equal(txInfo.toAddress, offer.eqbAddressTrading, 'toAddress = offer.eqbAddressTrading')
+        })
       })
     })
 
-    // // todo: move this to mocks.
-    // const orderData = Object.assign({}, orderFixturesData[0], { issuance: issuance })
-    // const order = new Order(orderData)
-    // const formData = new (DefineMap.extend('OfferFormData', {seal: false}, {}))({
-    //   order,
-    //   quantity: 500
-    // })
-    //
-    // let tx, htlcOffer
-    // before(function () {
-    //   const secret = generateSecret()
-    //   const timelock = 20
-    //   const eqbAddress = 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'
-    //   const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
-    //   // const changeBtcAddressPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
-    //
-    //   htlcOffer = createHtlcOffer(formData, 'BUY', secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
-    //   htlcOffer.htlcStep = 2
-    //
-    //   tx = createHtlcTx2(htlcOffer, order, portfolio, issuance)
-    //   console.log('createHtlcTx2 tx=', tx)
-    // })
-
-    // it('should set the correct type', function () {
-    //   assert.equal(tx.type, 'BUY')
-    // })
-    // it('should set amount = quantity', function () {
-    //   assert.equal(tx.amount, htlcOffer.quantity)
-    // })
-    // it('should set BTC transaction hex and id', function () {
-    //   assert.ok(tx.hex)
-    //   assert.ok(tx.txId)
-    //   assert.ok(tx.currencyType, 'BTC')
-    // })
-    // it('should set issuance details', function () {
-    //   assert.equal(tx.companyName, 'Equibit Group')
-    //   assert.equal(tx.issuanceName, 'Series One')
-    // })
-    // it('should set fromAddress', function () {
-    //   assert.ok(tx.fromAddress)
-    // })
-    // it('should set toAddress', function () {
-    //   assert.equal(tx.toAddress, htlcOffer.eqbAddressTrading)
-    // })
-    // it('should set refundAddress', function () {
-    //   assert.equal(tx.refundAddress, order.eqbAddressHolding)
-    // })
-    // it('should set timelock', function () {
-    //   assert.equal(tx.timelock, Math.floor(htlcOffer.timelock / 2))
-    // })
-    // it('should set htlcStep', function () {
-    //   assert.equal(tx.htlcStep, 2)
-    // })
+    describe.skip('createHtlc2', function () {
+      it('should create HTLC2', function () {
+        assert.ok(createHtlc2)
+      })
+    })
   })
 })

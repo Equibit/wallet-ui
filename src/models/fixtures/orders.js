@@ -18,7 +18,7 @@ const data = times(i => {
 
     btcAddress: 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1',
     eqbAddressTrading: ['', 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', ''][i % 3],
-    eqbAddressHolding: 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1',
+    eqbAddressHolding: issuance.utxo[0].address,
 
     companyName: companies[i % 9],
     issuanceName: ['Series 1', 'Series 2'][i % 2],
