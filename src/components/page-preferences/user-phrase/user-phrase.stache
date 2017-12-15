@@ -8,19 +8,23 @@
       <span class="icon icon-lock"></span>{{i18n('recoveryPhrase')}}
     </div>
     <div class="col-sm-7 col-xs-12 section-column">
-      <span class="label label-danger">{{i18n('statusNotSet')}}</span>
+      {{#if user.hasRecordedMnemonic }}
+        <span class="label label-success">{{i18n('statusSet')}}</span>
+      {{else}}
+        <span class="label label-danger">{{i18n('statusNotSet')}}</span>
+      {{/if}}
     </div>
     <div class="col-sm-2 col-xs-12 section-column section-cta">
-      <button ($click)="showAuthModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+      <button on:click="showAuthModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('view')}}</button>
     </div>
   </div>
 </div>
 
 {{#if isAuthModalShown}}
-  <modal-authentication (verified)="codeVerified(%arguments)"
-                        (close)="onClose('isAuthModalShown')"></modal-authentication>
+  <modal-authentication user:from="user" on:verified="codeVerified(scope.arguments)"
+                        on:close="onClose('isAuthModalShown')"></modal-authentication>
 {{/if}}
 
 {{#if isPhraseModalShown}}
-  <modal-recovery-phrase (close)="onClose('isPhraseModalShown')"></modal-recovery-phrase>
+  <modal-recovery-phrase on:close="onClose('isPhraseModalShown')"></modal-recovery-phrase>
 {{/if}}
