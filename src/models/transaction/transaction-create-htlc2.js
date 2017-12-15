@@ -83,6 +83,8 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
     type: order.type,
     currencyType: 'EQB',
     description: `Selling securities (HTLC #${htlcStep})`,
+    hashlock: offer.hashlock,
+    timelock: timelock,
     htlcStep
   }
 

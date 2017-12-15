@@ -249,10 +249,30 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    describe.skip('createHtlc2', function () {
-      it('should create HTLC2', function () {
-        assert.ok(createHtlc2)
+    if (window.Testee) {
+      describe.skip('skipping createHtlc2 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
+    } else {
+      describe('createHtlc2', function () {
+        let txData, tx
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
+          txData = createHtlc2(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair)
+        })
+        it('should define main props', function () {
+          assert.equal(txData.amount, 500, 'amount')
+          assert.equal(txData.fee, 1000, 'fee')
+          assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
+        })
+        it('should define hashlock', function () {
+          assert.equal(txData.hashlock.length, 64)
+          assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
+        })
+        it('should define transaction hex and id', function () {
+          assert.equal(txData.hex, tx.hex, 'tx hex')
+          assert.equal(txData.txId, tx.txId, 'txId')
+        })
       })
-    })
+    }
   })
 })
