@@ -23,7 +23,7 @@ import view from './order-offers-data.stache'
 import Order from '../../../models/order'
 import Offer from '../../../models/offer'
 import Session from '../../../models/session'
-import { createHtlcTx2 } from '../../../models/transaction/transaction-create'
+import { createHtlc2 } from '../../../models/transaction/transaction-create-htlc2'
 import { translate } from '../../../i18n/i18n'
 
 export const ViewModel = DefineMap.extend({
@@ -60,7 +60,8 @@ export const ViewModel = DefineMap.extend({
       offer.orderPromise,
       portfolio.getNextAddress(true)
     ]).then(([issuance, order, changeAddrPair]) => {
-      const tx = createHtlcTx2(offer, order, portfolio, issuance, changeAddrPair)
+      console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddrPair`, offer, order, portfolio, issuance, changeAddrPair)
+      const tx = createHtlc2(offer, order, portfolio, issuance, changeAddrPair)
       return tx.save()
         .then(tx => updateOffer(offer, tx))
         .then(offer => dispatchAlert(hub, tx, route))

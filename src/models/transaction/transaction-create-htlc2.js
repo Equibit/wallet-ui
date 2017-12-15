@@ -12,6 +12,7 @@ const hashTimelockContract = eqbTxBuilder.hashTimelockContract
  */
 function createHtlc2 (offer, order, portfolio, issuance, changeAddrPair) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', {EQB: types.Address, BTC: types.Address}), arguments)
+  typeforce(typeforce.tuple('Number', 'String'), [offer.timelock, offer.hashlock])
 
   const htlcConfig = prepareHtlcConfig2(offer, order, portfolio, issuance, changeAddrPair.EQB)
   const tx = buildTransaction('EQB')(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
