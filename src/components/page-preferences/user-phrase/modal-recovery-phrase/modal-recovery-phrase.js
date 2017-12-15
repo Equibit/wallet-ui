@@ -18,14 +18,25 @@ import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/'
 import './modal-recovery-phrase.less'
 import view from './modal-recovery-phrase.stache'
+import Session from '~/models/session'
+import User from '~/models/user/'
+import { translate } from '~/i18n/'
 
 export const ViewModel = DefineMap.extend({
+  errorMessage: 'string',
+  user: {
+    value: function () {
+      return Session.current.user
+    }
+  },
   mode: {
     value: 'intro'
   },
   phrase: {
     Type: DefineList,
-    value: new DefineList([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+    value: function () {
+      return Session.current.user.decrypt(Session.current.user.encryptedMnemonic).split(' ')
+    }
   },
   currentWords: {
     get () {
@@ -65,7 +76,19 @@ export const ViewModel = DefineMap.extend({
     }
   },
   end () {
-    this.mode = 'end'
+    this.errorMessage = ''
+    if (this.isCorrect) {
+      User.connection.updateData({
+        _id: this.user._id,
+        hasRecordedMnemonic: true
+      }).then(() => {
+        this.mode = 'end'
+      }, error => {
+        this.errorMessage = error.message
+      })
+    } else {
+      this.errorMessage = translate('recoveryPhraseSetupIncorrectEntry')
+    }
   },
   risk () {
     this.mode = 'risk'

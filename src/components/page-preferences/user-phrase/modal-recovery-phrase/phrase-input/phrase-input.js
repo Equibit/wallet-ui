@@ -27,7 +27,7 @@ export const ViewModel = DefineMap.extend({
   },
   phraseArray: {
     get () {
-      return this.phrase.split(' ')
+      return this.phrase
     }
   },
   checkWords: {
@@ -55,5 +55,10 @@ canDefineStream(ViewModel)
 export default Component.extend({
   tag: 'phrase-input',
   ViewModel,
-  view
+  view,
+  events: {
+    inserted () {
+      this.viewModel.enteredWords.replace([])
+    }
+  }
 })

@@ -13,7 +13,7 @@
       <a class="header-logo" href="{{routeUrl page='research'}}">{{i18n('equibitAppName')}}</a>
 
       <div class="main-nav-container hidden-xxs">
-        <main-nav {page}="page"/>
+        <main-nav page:from="page"/>
       </div>
 
       <ul class="nav navbar-nav add-nav navbar-right">
@@ -31,7 +31,7 @@
               aria-expanded="false">
             <span class="sr-only">{{i18n('inbox')}}</span>
 
-            <notification-counter {count}="notifications.length" />
+            <notification-counter count:from="notifications.length" />
           </a>
           <div class="dropdown-menu popover popover--inbox bottom notifications-popover animated fadeIn">
             <span class="arrow"></span>
@@ -57,7 +57,7 @@
             <span class="sr-only">{{i18n('notifications')}}</span>
 
             {{#if notifications.length}}
-              <notification-counter {count}="notifications.length" />
+              <notification-counter count:from="notifications.length" />
             {{/if}}
           </a>
           <div class="dropdown-menu popover bottom notifications-popover animated fadeIn">
@@ -68,7 +68,7 @@
             </div>
 
             <div class="popover-body">
-              <notifications-list {notifications}="notifications" />
+              <notifications-list notifications:from="notifications" />
             </div>
           </div>
         </li>
@@ -119,7 +119,7 @@
 
 
       <div class="login-menu hidden-xs">
-        <login-buttons {is-logged-in}="isLoggedIn" {logout}="@logout" />
+        <login-buttons isLoggedIn:from="isLoggedIn" logout:from="@logout" />
       </div>
 
       {{#if isLoggedIn}}
@@ -138,7 +138,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <div class="main-nav-container visible-xxs">
-        <main-nav {page}="page"/>
+        <main-nav page:from="page"/>
       </div>
 
       <div class="search-container navbar-right hidden-lg">
@@ -152,7 +152,7 @@
       {{/if}}
 
       <div class="login-menu navbar-right visible-xs">
-        <login-buttons {is-logged-in}="isLoggedIn" {logout}="@logout" />
+        <login-buttons isLoggedIn:from="isLoggedIn" logout:from="@logout" />
       </div>
 
     </div>

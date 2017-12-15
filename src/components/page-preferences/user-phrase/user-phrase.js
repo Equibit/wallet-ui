@@ -22,15 +22,21 @@ export const ViewModel = DefineMap.extend({
   secondFactorCode: 'string',
   isAuthModalShown: 'boolean',
   isPhraseModalShown: 'boolean',
+  user: {},
 
   codeVerified (args) {
     const code = args[1]
-    console.log('codeVerified!!! ' + code)
     this.secondFactorCode = code
     this.isPhraseModalShown = true
   },
   showAuthModal () {
-    this.isAuthModalShown = true
+    this.isPhraseModalShown = false
+    this.isAuthModalShown = false
+    if (this.user.twoFactorValidatedSession) {
+      this.isPhraseModalShown = true
+    } else {
+      this.isAuthModalShown = true
+    }
   },
   onClose (prop) {
     this[prop] = false

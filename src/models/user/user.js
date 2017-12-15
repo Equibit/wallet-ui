@@ -82,14 +82,21 @@ const User = DefineMap.extend('User', {
   encryptedMnemonic: 'string',
 
   /**
-   * @property {Boolean} models/user.properties.salt salt
+   * @property {Boolean} models/user.properties.hasRecordedMnemonic hasRecordedMnemonic
+   * @parent models/user.properties
+   * Indicates whether the user has written down and verified the recovery phrase.
+   */
+  hasRecordedMnemonic: 'boolean',
+
+  /**
+   * @property {String} models/user.properties.salt salt
    * @parent models/user.properties
    * The initialization salt for encrypting the password and keys
    */
   salt: 'string',
 
   /**
-   * @property {Boolean} models/user.properties.provisionalSalt provisionalSalt
+   * @property {String} models/user.properties.provisionalSalt provisionalSalt
    * @parent models/user.properties
    * A newly generated salt to be used when changing the password (allows the keys
    * to be encrypted at the same time the password is changed)

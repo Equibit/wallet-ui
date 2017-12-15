@@ -10,22 +10,24 @@
   </div>
 
   <div class="modal-body">
-  {{#if twoFactorPromise.isResolved}}
+  {{#if twoFactorPromise.isRejected}}
+    <span class="description">{{i18n('auth2StepError')}}</span>
+    <p class="single-paragraph">
+      {{twoFactorPromise.reason}}
+    </p>
+    <p class="single-paragraph">
+      {{{i18n('auth2StepMessage')}}} <a href="#" on:click:value:to="twoFactorPromise">{{i18n('tryAgain')}}</a>
+    </p>
+  {{else}}
     <span class="description">{{i18n('auth2StepDescription')}}</span>
     <p class="single-paragraph">
       {{{i18n('auth2StepMessage')}}} <a href="#" on:click:value:to="twoFactorPromise">{{i18n('tryAgain')}}</a>
     </p>
     <code-input code:to="../secondFactorCode" />
 
-  {{/if}}
-  {{#if twoFactorPromise.isPending}}
-    <loading-indicator />
-  {{/if}}
-  {{#if twoFactorPromise.isRejected}}
-    <span class="description">There was an error creating the two factor authentication code</span>
-    <p class="single-paragraph">
-      {{twoFactorPromise.reason}}
-    </p>
+    {{#if twoFactorPromise.isPending}}
+      <loading-indicator />
+    {{/if}}
   {{/if}}
   </div>
 

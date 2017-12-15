@@ -6,7 +6,7 @@
 
 <bootstrap-modal-content class="user-recovery-phrase">
   <div class="modal-header">
-    <button ($click)="doClose(@close)" type="button" class="close" aria-label="Close">
+    <button on:click="../doClose(@close)" type="button" class="close" aria-label="Close">
       <span class="icon icon-cross rotate-90"></span>
     </button>
   </div>
@@ -25,8 +25,8 @@
   </div>
 
   <div class="modal-footer">
-    <button ($click)="view()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
-    <button ($click)="risk()" type="button" class="btn btn-default">{{i18n('skip')}}</button>
+    <button on:click="../view()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
+    <button on:click="../risk()" type="button" class="btn btn-default">{{i18n('skip')}}</button>
   </div>
   {{/is}}
 
@@ -44,8 +44,8 @@
   </div>
 
   <div class="modal-footer">
-    <button ($click)="doClose(@close)" type="button" class="btn btn-primary" data-dismiss="modal">{{i18n('gotit')}}</button>
-    <button ($click)="intro()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
+    <button on:click="doClose(@close)" type="button" class="btn btn-primary" data-dismiss="modal">{{i18n('gotit')}}</button>
+    <button on:click="intro()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
   </div>
   {{/is}}
 
@@ -56,12 +56,12 @@
       <h4 class="title">{{i18n('recoveryPhraseSetupTitle')}}</h4>
     </div>
     <p class="instruction">{{i18n('recoveryPhraseSetupInstruction1')}}</p>
-    <phrase-display {words}="currentWords" {step}="step"></phrase-display>
+    <phrase-display words:from="currentWords" step:from="step"></phrase-display>
   </div>
 
   <div class="modal-footer">
-    <button ($click)="continue()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
-    <button ($click)="back()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
+    <button on:click="../continue()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
+    <button on:click="../back()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
     <div class="modal-footer-add-content"><span class="modal-step-indicator">Step {{step}} of 4</span></div>
   </div>
   {{/is}}
@@ -73,12 +73,13 @@
       <h4 class="title">{{i18n('recoveryPhraseSetupTitle')}}</h4>
     </div>
     <p class="instruction">{{i18n('recoveryPhraseSetupInstruction2')}}</p>
-    <phrase-input {phrase}="phrase" {^is-correct}="../isCorrect"></phrase-input>
+    <phrase-input phrase:from="phrase" isCorrect:to="../isCorrect"></phrase-input>
+    <div><validation-message message:from="../errorMessage"></div>
   </div>
 
   <div class="modal-footer">
-    <button ($click)="end()" type="button" class="btn btn-primary">{{i18n('finish')}}</button>
-    <button ($click)="view()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
+    <button on:click="../end()" type="button" class="btn btn-primary">{{i18n('finish')}}</button>
+    <button on:click="../view()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
     <div class="modal-footer-add-content"><span class="modal-step-indicator">Step 4 of 4</span></div>
   </div>
   {{/is}}
@@ -89,7 +90,7 @@
       <span class="icon icon-lock-enclosed icon-with-check"></span>
       <h4 class="title">{{i18n('recoveryPhraseSetupTitleDone')}}</h4>
       <p>{{i18n('recoveryPhraseSetupMessageDone')}}</p>
-      <button ($close)="end(@close)" type="button" class="btn btn-primary btn-gotit" data-dismiss="modal">{{i18n('gotit')}}</button>
+      <button on:click="../doClose(@close)" type="button" class="btn btn-primary btn-gotit" data-dismiss="modal">{{i18n('gotit')}}</button>
     </div>
   </div>
   {{/is}}
