@@ -43,7 +43,7 @@
         </div>
       </a>
       {{else}}
-        <div class="message-box no-border">
+        <div class="message-box message-placeholder no-border">
           {{#switch mode}}
           {{#case 'ARCHIVE'}}
             <div class="icon icon-folder-open"></div>
