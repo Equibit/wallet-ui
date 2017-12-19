@@ -3,9 +3,9 @@ import set from 'can-set'
 import helpers from 'can-set/src/helpers'
 
 export default new set.Algebra(
-  set.comparators.id('_id'),
+  set.props.id('_id'),
   set.props.offsetLimit('$skip', '$limit'),
-  set.comparators.sort('$sort', mongoSort),
+  set.props.sort('$sort', mongoSort),
   {
     address: function () {
       return true

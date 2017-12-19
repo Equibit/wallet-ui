@@ -183,7 +183,14 @@ const Session = DefineMap.extend('Session', {
 
   issuancesPromise: {
     get (val) {
-      return this.user && Issuance.getList({userId: this.user._id})
+      return this.user && Issuance.getList({userId: this.user._id}).then(issuances => {
+        issuances.forEach(issuance => {
+          if (issuance.index !== 'undefined') {
+            const companyHdNode = this.user.generatePortfolioKeys(issuance.companyIndex).EQB
+            issuance.keys = companyHdNode.derive(issuance.index)
+          }
+        })
+      })
     }
   },
   issuances: {
@@ -191,12 +198,6 @@ const Session = DefineMap.extend('Session', {
     get (val, resolve) {
       if (this.issuancesPromise) {
         this.issuancesPromise.then(issuances => {
-          issuances.forEach(issuance => {
-            if (issuance.index !== 'undefined') {
-              const companyHdNode = this.user.generatePortfolioKeys(issuance.companyIndex).EQB
-              issuance.keys = companyHdNode.derive(issuance.index)
-            }
-          })
           issuances.loadUTXO()
           resolve && resolve(issuances)
         })
