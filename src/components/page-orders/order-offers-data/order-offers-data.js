@@ -56,12 +56,14 @@ export const ViewModel = DefineMap.extend({
     const portfolio = Session.current.portfolios[0]
 
     return Promise.all([
-      offer.issuancePromise,
-      offer.orderPromise,
+      Session.current.issuancesPromise,
       portfolio.getNextAddress(true)
-    ]).then(([issuance, order, changeAddrPair]) => {
-      console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddrPair`, offer, order, portfolio, issuance, changeAddrPair)
-      const tx = createHtlc2(offer, order, portfolio, issuance, changeAddrPair)
+    ]).then(([issuances, changeAddrPair]) => {
+      // todo: figure out a better way to find the issuance with preloaded UTXO.
+      const issuance = issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
+
+      console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddrPair`, offer, this.order, portfolio, issuance, changeAddrPair)
+      const tx = createHtlc2(offer, this.order, portfolio, issuance, changeAddrPair)
       return tx.save()
         .then(tx => updateOffer(offer, tx))
         .then(offer => dispatchAlert(hub, tx, route))
