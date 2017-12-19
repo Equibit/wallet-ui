@@ -93,6 +93,7 @@ const Issuance = DefineMap.extend('Issuance', {
         this.companyName = company.name
         this.companySlug = company.slug
         this.domicile = company.domicile
+        this.index = this.issuances.getNewIndex(this.companyId)
       }
       return company
     }
@@ -174,8 +175,9 @@ Issuance.types = new DefineList(
 
 Issuance.List = DefineList.extend('IssuanceList', {
   '#': Issuance,
+  // todo: revisit this - it should figure out index based on company.
   // Every new issuance requires a new index for its EQB address.
-  getNewIndex () {
+  getNewIndex (companyId) {
     return this.reduce((acc, issuance) => {
       if (issuance.index > acc) {
         acc = issuance.index
@@ -195,9 +197,13 @@ Issuance.List = DefineList.extend('IssuanceList', {
       }, [])
     }
   },
+
+  // UTXO are listed by address, but different issuances can be sitting on the same address
+  // (the authorized issuances should not, instead they should sit on separate addresses `company_index/issuance_index`)
+  // so just in case we check issuance_json and filter by issuanceName (should be a combination companyName + issuanceName).
   loadUTXO () {
     if (this.addresses.length > 0) {
-      fetchListunspent({EQB: this.addresses}).then(utxoByType => {
+      return fetchListunspent({EQB: this.addresses}).then(utxoByType => {
         if (utxoByType.EQB.total === 0) {
           return
         }
@@ -211,6 +217,8 @@ Issuance.List = DefineList.extend('IssuanceList', {
           }
         })
       })
+    } else {
+      return Promise.reject('No addresses for the issuance. Cannot load UTXO')
     }
   }
 })

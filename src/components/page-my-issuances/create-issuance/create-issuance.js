@@ -73,6 +73,10 @@ export const ViewModel = DefineMap.extend({
     // save issuance
     const issuance = formData.issuance
     const company = issuance.selectedCompany
+
+    // Define issuance index:
+    issuance.index = formData.issuances.getNewIndex(company._id)
+
     const currencyType = 'EQB'
     // todo: simplify, hide this in models.
     const companyHdNode = Session.current.user.generatePortfolioKeys(company.index).EQB
