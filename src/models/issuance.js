@@ -218,7 +218,7 @@ Issuance.List = DefineList.extend('IssuanceList', {
         })
       })
     } else {
-      return Promise.reject('No addresses for the issuance. Cannot load UTXO')
+      return Promise.reject(new Error('No addresses for the issuance. Cannot load UTXO'))
     }
   }
 })
