@@ -88,8 +88,12 @@ export const ViewModel = DefineMap.extend({
     const type = args[2]
     console.log(`placeOrder: ${type}`, formData)
 
-    return this.portfolio.getNextAddress()
-      .then(addr => createOrder(formData, type, addr, Session.current.user, this.portfolio, this.issuance))
+    return Promise.all([Session.current.issuancesPromise, this.portfolio.getNextAddress()])
+      .then(([issuances, addr]) => {
+        // todo: figure out a better way to "sync" this issuance with the list of issuances in Session.
+        const issuance = issuances.filter(issuance => issuance._id === this.issuance._id)[0]
+        return createOrder(formData, type, addr, Session.current.user, this.portfolio, issuance)
+      })
       .then(order => {
         return this.sendMessage(order, this.issuance.keys.keyPair)
           .then(() => order.save())

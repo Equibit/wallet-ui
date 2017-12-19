@@ -10,7 +10,7 @@ import { makeHtlc } from './transaction-make'
  * - receiverA: eqbAddress
  * - from, receiverB, changeAddr: portfolio address or issuanceAddress
  */
-function createHtlcTx2 (offer, order, portfolio, issuance, changeAddrPair) {
+function createHtlcTx2Old (offer, order, portfolio, issuance, changeAddrPair) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance'), arguments)
 
   // Amount of BTC/EQB to send:
@@ -96,7 +96,7 @@ function prepareHtlc2Eqb (offer, order, portfolio, issuance, emptyEqbChangeAddr)
 }
 
 export {
-  createHtlcTx2,
+  createHtlcTx2Old,
   prepareHtlc2Btc,
   prepareHtlc2Eqb
 }

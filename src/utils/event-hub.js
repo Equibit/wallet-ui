@@ -9,12 +9,13 @@ assign(hub, canEvent)
 
 // Predefined alerts:
 const dispatchAlertError = err => {
+  console.error(err)
   return hub.dispatch({
     'type': 'alert',
     'kind': 'danger',
     'title': 'System error',
     'message': `Sorry, an error occurred. Message: ${err.message}`,
-    'displayInterval': 10000
+    'displayInterval': 20000
   })
 }
 
