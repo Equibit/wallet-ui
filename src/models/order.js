@@ -70,6 +70,7 @@ const Order = DefineMap.extend('Order', {
   //    1. eqbAddress (trading) for receiving securities from a seller.
   //    2. btcAddress for our own refund.
   //    3. eqbAddress (holding) to store the securities in the end.
+  htlcStep: 'number',
   btcAddress: 'string',
   eqbAddressTrading: 'string',
   eqbAddressHolding: 'string',

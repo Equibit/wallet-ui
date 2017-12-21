@@ -67,15 +67,17 @@ export const ViewModel = DefineMap.extend({
       const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddrPair)
       const tx = new Transaction(txData)
       return tx.save()
-        .then(tx => updateOffer(offer, tx))
-        .then(offer => dispatchAlert(hub, tx, route))
+        .then(tx => updateOrder(this.order, offer, tx))
+        .then(() => dispatchAlert(hub, tx, route))
     }).catch(dispatchAlertError)
   }
 })
 
-function updateOffer (offer, tx) {
+function updateOrder (order, offer, tx) {
+  order.htlcStep = 2
+  // todo: we should NOT update the offer here since it belongs to a different user. API should do it when creates a receiver transaction.
   offer.htlcStep = 2
-  return offer.save()
+  return order.save().then(() => offer.save())
 }
 
 function dispatchAlert (hub, tx, route) {
