@@ -61,6 +61,7 @@ export const ViewModel = DefineMap.extend({
 
 function updateOrder (order, offer, tx) {
   order.htlcStep = 2
+  order.htlcTxId = tx.txId
   // todo: we should NOT update the offer here since it belongs to a different user. API should do it when creates a receiver transaction.
   offer.htlcStep = 2
   offer.isAccepted = true

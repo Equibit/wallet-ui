@@ -209,7 +209,7 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
 
 function saveOffer (offer, tx) {
   // todo: what should offer know about the transaction?
-  // offer.tx = tx
+  offer.htlcTxId = tx.txId
   return offer.save()
 }
 

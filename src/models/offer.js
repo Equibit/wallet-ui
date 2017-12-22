@@ -104,6 +104,7 @@ const Offer = DefineMap.extend('Offer', {
   secretEncrypted: 'string',
   hashlock: 'string',
   timelock: 'number',
+  htlcTxId: 'string',
 
   isAccepted: 'boolean',
   description: 'string',
