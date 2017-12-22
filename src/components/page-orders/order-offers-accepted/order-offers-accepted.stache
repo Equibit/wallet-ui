@@ -22,24 +22,39 @@
             <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
             <div class="col-xs-4 offer-deal-step">
               <span class="icon icon-clock"></span>
-              <span class="deal-step-label">{{i18n('dealFlowStep2')}} </span>
+              <span class="deal-step-label">You sent securities. Waiting for the other side to collect them.</span>
             </div>
-            <div class="col-xs-2 offer-deal-step-number">Step 2 of 2</div>
+            <div class="col-xs-2 offer-deal-step-number">Step 2 of 4</div>
+            <div class="col-xs-1 offer-deal-action">
+              <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
+            </div>
+          </div>
+        {{/case}}
+
+        {{#case 3}}
+          <div class="row accepted-offers-status contextual-bg-success">
+            <div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>
+            <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
+            <div class="col-xs-4 offer-deal-step">
+              <span class="icon icon-hand-shake"></span>
+              <span class="deal-step-label">Securities were collected by the other side. You can now collect the payment. </span>
+            </div>
+            <div class="col-xs-2 offer-deal-step-number">Step 3 of 4</div>
             <div class="col-xs-1 offer-deal-action">
               <a href="" class="btn btn-xs btn-default" on:click="collectPayment(offer)">Collect</a>
             </div>
           </div>
         {{/case}}
 
-        {{#case "CLOSED"}}
+        {{#case 4}}
           <div class="row accepted-offers-status contextual-bg-success">
             <div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>
             <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
             <div class="col-xs-4 offer-deal-step">
               <span class="icon icon-hand-shake"></span>
-              <span class="deal-step-label">{{i18n('dealFlowStep3')}} </span>
+              <span class="deal-step-label">Both securities and payment were collected. </span>
             </div>
-            <div class="col-xs-2 offer-deal-step-number">Step 3 of 3</div>
+            <div class="col-xs-2 offer-deal-step-number">Done</div>
             <div class="col-xs-1 offer-deal-action">
               <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
             </div>

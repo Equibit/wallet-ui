@@ -25,7 +25,7 @@
     </div>
 
     <div class="offer-status-details section">
-      <offer-status status:from="offer.status"
+      <offer-status offer:from="offer"
                     date:from="offer.updatedAt" />
     </div>
 </div>
