@@ -18,6 +18,7 @@ import DefineMap from 'can-define/map/map'
 import './order-details.less'
 import view from './order-details.stache'
 import Order from '../../../models/order'
+import Offer from '../../../models/offer'
 
 export const ViewModel = DefineMap.extend({
   // ENUM ['SELL', 'BUY']

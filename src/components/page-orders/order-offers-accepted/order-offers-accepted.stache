@@ -14,12 +14,9 @@
 
     {{#each offers as offer}}
 
-      {{#switch status}}
-        {{#case "OPEN"}}
-          <!--p>OPEN - N/A</p-->
-        {{/case}}
+      {{#switch offer.htlcStep}}
 
-        {{#case "TRADING"}}
+        {{#case 2}}
           <div class="row accepted-offers-status contextual-bg-progress">
             <div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>
             <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
@@ -27,9 +24,9 @@
               <span class="icon icon-clock"></span>
               <span class="deal-step-label">{{i18n('dealFlowStep2')}} </span>
             </div>
-            <div class="col-xs-2 offer-deal-step-number">Step 2 of 3</div>
+            <div class="col-xs-2 offer-deal-step-number">Step 2 of 2</div>
             <div class="col-xs-1 offer-deal-action">
-              <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
+              <a href="" class="btn btn-xs btn-default" on:click="collectPayment(offer)">Collect</a>
             </div>
           </div>
         {{/case}}

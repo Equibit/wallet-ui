@@ -20,8 +20,9 @@ import view from './order-offers-accepted.stache'
 import Offer from '../../../models/offer'
 
 export const ViewModel = DefineMap.extend({
-  offers: {
-    Type: Offer.List
+  offers: Offer.List,
+  collectPayment (offer) {
+    console.log(`collectPayment offer:`, offer)
   }
 })
 
