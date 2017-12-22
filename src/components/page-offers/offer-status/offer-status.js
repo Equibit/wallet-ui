@@ -93,7 +93,7 @@ export const ViewModel = DefineMap.extend({
       // companySlug: issuance.companySlug,
       issuanceId: offer.issuanceId,
       issuanceName: offer.issuanceName,
-      issuanceType: offer.issuanceType,
+      issuanceType: offer.issuanceType
       // issuanceUnit: issuance.issuanceUnit
     }
     console.log(`collectSecurities txConfig:`, txConfig)
@@ -101,11 +101,17 @@ export const ViewModel = DefineMap.extend({
     const tx = new Transaction(txConfig)
 
     return tx.save()
-      .then(tx => updateOrder(order, offer, tx))
+      .then(tx => updateOffer(order, offer, tx))
       .then(() => dispatchAlert(hub, tx, route))
       .catch(dispatchAlertError)
   }
 })
+
+function updateOffer (order, offer, tx) {
+  offer.htlcStep = 3
+  order.htlcStep = 3
+  return order.save().then(() => offer.save())
+}
 
 function dispatchAlert (hub, tx, route) {
   if (!tx) {

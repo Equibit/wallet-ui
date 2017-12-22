@@ -93,7 +93,7 @@ const Issuance = DefineMap.extend('Issuance', {
         this.companyName = company.name
         this.companySlug = company.slug
         this.domicile = company.domicile
-        this.index = this.issuances && this.issuances.getNewIndex(this.companyId) || 0
+        this.index = (this.issuances && this.issuances.getNewIndex(this.companyId)) || 0
       }
       return company
     }
