@@ -18,9 +18,11 @@ import DefineMap from 'can-define/map/map'
 import './offer-data.less'
 import view from './offer-data.stache'
 import Offer from '../../../models/offer'
+import Order from '../../../models/order'
 
 export const ViewModel = DefineMap.extend({
-  offer: Offer
+  offer: Offer,
+  order: Order
 })
 
 export default Component.extend({
