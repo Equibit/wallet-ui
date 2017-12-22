@@ -32,7 +32,7 @@
         </div>
         <div class="col-xs-12 col-sm-2 offer-deal-step-number">Step 2 of 3</div>
         <div class="col-xs-12 col-sm-1 offer-deal-action">
-          <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
+          <a href="" class="btn btn-xs btn-default" on:click="collectSecurities()">{{i18n('continue')}}</a>
         </div>
       </div>
 

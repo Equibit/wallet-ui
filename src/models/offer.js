@@ -87,6 +87,13 @@ const Offer = DefineMap.extend('Offer', {
     value: 'OPEN'
   },
 
+  /**
+   * @property {Number} models/offer.properties.isAccepted isAccepted
+   * @parent models/offer.properties
+   * Indicates whether this offer was accepted
+   */
+  isAccepted: 'boolean',
+
   // Issuance info:
   companyName: 'string',
   issuanceName: 'string',

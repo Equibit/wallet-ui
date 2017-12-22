@@ -201,6 +201,7 @@ const Order = DefineMap.extend('Order', {
       return val
     }
   },
+  // todo: do we need this at all?
   acceptedOffers: {
     get (val, resolve) {
       const acceptedOfferIds = this.acceptedOfferIds

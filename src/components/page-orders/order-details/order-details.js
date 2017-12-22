@@ -24,6 +24,31 @@ export const ViewModel = DefineMap.extend({
   type: 'string',
   order: Order,
   ordersLength: 'number',
+  offers: {
+    get (val, resolve) {
+      if (val) {
+        return val
+      }
+      if (this.order) {
+        Offer.getList({orderId: this.order._id}).then(offers => {
+          if (offers && offers[0]) {
+            offers[0].isSelected = true
+          }
+          resolve(offers)
+        })
+      }
+    }
+  },
+  newOffers: {
+    get () {
+      return this.offers && this.offers.filter(o => !o.isAccepted)
+    }
+  },
+  acceptedOffers: {
+    get () {
+      return this.offers && this.offers.filter(o => o.isAccepted)
+    }
+  },
   isModalShown: 'boolean',
   showModal () {
     // Note: we need to re-insert the modal content:

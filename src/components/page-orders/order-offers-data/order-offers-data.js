@@ -29,21 +29,7 @@ import { translate } from '../../../i18n/i18n'
 
 export const ViewModel = DefineMap.extend({
   order: Order,
-  offers: {
-    get (val, resolve) {
-      if (val) {
-        return val
-      }
-      if (this.order) {
-        Offer.getList({orderId: this.order._id}).then(offers => {
-          if (offers && offers[0]) {
-            offers[0].isSelected = true
-          }
-          resolve(offers)
-        })
-      }
-    }
-  },
+  offers: Offer.List,
   expandOffer (offer) {
     this.offers.forEach(offer => {
       offer.isSelected = false
@@ -77,6 +63,7 @@ function updateOrder (order, offer, tx) {
   order.htlcStep = 2
   // todo: we should NOT update the offer here since it belongs to a different user. API should do it when creates a receiver transaction.
   offer.htlcStep = 2
+  offer.isAccepted = true
   return order.save().then(() => offer.save())
 }
 

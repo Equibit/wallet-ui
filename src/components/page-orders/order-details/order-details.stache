@@ -25,7 +25,7 @@
       </div>
 
       <div class="col-xs-12 col-lg-4 offers-data">
-        <order-offers-data  order:from="order" class="stretch"/>
+        <order-offers-data  order:from="order" offers:from="newOffers" class="stretch"/>
       </div>
     </div>
   </div>
