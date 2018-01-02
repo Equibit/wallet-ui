@@ -68,6 +68,23 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * ```
    */
   addressesMeta: {
+    get () {
+      const list = this._addressesMeta
+      if (!list.length) {
+        feathersClient.service('portfolio-addresses').find({
+          query: {
+            portfolioId: this._id
+          }
+        }).then((results) => {
+          const portfolioAddresses = results.data
+          list.replace(portfolioAddresses)
+          // console.log("portfolioAddresses", portfolioAddresses)
+        })
+      }
+      return list
+    }
+  },
+  _addressesMeta: {
     serialize: true,
     Type: DefineList,
     value: new DefineList([])
@@ -330,24 +347,42 @@ const Portfolio = DefineMap.extend('Portfolio', {
       BTC: btcNode.getAddress(),
       EQB: eqbNode.getAddress()
     }
+    var portfolioAddressesCreateData = null
+
     if (btcAddrIndex.imported === false) {
       // Import addr as watch-only
       importAddr(addr.BTC, 'btc')
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: btcAddrIndex.index, type: 'BTC', isUsed: false, isChange})
+      portfolioAddressesCreateData = {
+        portfolioId: this._id,
+        index: btcAddrIndex.index,
+        type: 'BTC',
+        isUsed: false,
+        isChange
+      }
     }
     if (eqbAddrIndex.imported === false) {
       // Import addr as watch-only
       importAddr(addr.EQB, 'eqb')
       // Mark address as generated/imported but not used yet:
-      this.addressesMeta.push({index: eqbAddrIndex.index, type: 'EQB', isUsed: false, isChange})
+      portfolioAddressesCreateData = {
+        portfolioId: this._id,
+        index: eqbAddrIndex.index,
+        type: 'EQB',
+        isUsed: false,
+        isChange
+      }
     }
-    if (!eqbAddrIndex.imported || !btcAddrIndex.imported) {
+    if (portfolioAddressesCreateData) {
       // Save newly generated addresses to DB:
       console.log('[portfolio.getNextAddress] patching portfolio with updated addressesMeta ...')
-      return this.patch({
-        addressesMeta: this.addressesMeta.get()
-      }).then(() => addr)
+      return feathersClient.service('portfolio-addresses')
+        .create(portfolioAddressesCreateData)
+        .then((results) => {
+          this.addressesMeta.push(portfolioAddressesCreateData)
+          // console.log("new portfolioAddresses entry", results)
+        })
+        .then(() => addr)
     } else {
       return Promise.resolve(addr)
     }
@@ -418,9 +453,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
       console.log(`[portfolio.markAsUsed] ${addr}, ${currencyType}, isChange=${isChange}`)
       addressItem.meta.isUsed = true
       console.log('[portfolio.markAsUsed] patching portfolio with updated addressesMeta ...')
-      return this.patch({
-        addressesMeta: this.addressesMeta.get()
-      })
+      return feathersClient.service('portfolio-addresses')
+        .patch(addressItem.meta._id, {isUsed: true})
+        .then((results) => {
+          console.log('[portfolio.metaAddresses[x].isUsed]', results)
+        })
     }
   },
   patch (data) {
