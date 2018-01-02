@@ -110,7 +110,7 @@ const Session = DefineMap.extend('Session', {
     // Mark portfolio address as used:
     if (options && options.transactionEvent && options.transactionEvent.type === 'IN') {
       const { address, currencyType } = options.transactionEvent
-      this.portfolio.markAsUsed(address, currencyType)
+      this.portfolios[0].markAsUsed(address, currencyType)
     }
     if (this.portfolios && this.portfolios[0]) {
       this.portfolios[0].refreshBalance()
