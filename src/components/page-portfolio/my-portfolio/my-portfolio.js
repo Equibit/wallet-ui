@@ -207,6 +207,7 @@ const sendIssuance = (portfolio, formData) => {
     type: 'OUT',
     currencyType,
     description: formData.description,
+    // TODO: issuanceTxId should not just be from the UTXO. This should be a txid of the authorization transaction!
     issuanceTxId: issuance.utxo[0].txid,
     issuanceJson,
     issuance

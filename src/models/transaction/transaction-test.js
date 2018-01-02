@@ -204,9 +204,10 @@ describe('models/transaction/utils', function () {
         it('should have 3 outputs', function () {
           assert.equal(buildConfig.vout.length, 3, 'three vouts')
         })
-        it('should have correct issuance output (amount and script)', function () {
+        it('should have correct issuance output (amount, script and issuance txid)', function () {
           assert.equal(buildConfig.vout[0].value, amount, 'amount of 500')
           assert.equal(buildConfig.vout[0].scriptPubKey.toString('hex'), htlcOfferMock.htlcScript2, 'scriptPubKey')
+          assert.equal(buildConfig.vout[0].issuanceTxId, '4e7e759e537d87127b2232ce646666e3a71c48f608a43b7d6d9767bfbf92ca50', 'txid of the authorization transaction')
         })
         it('should have correct issuance change output', function () {
           assert.equal(buildConfig.vout[1].value, issuance.utxo[0].amount - amount, 'change for securities of 149999500')

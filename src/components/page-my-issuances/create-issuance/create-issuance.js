@@ -92,6 +92,9 @@ export const ViewModel = DefineMap.extend({
       console.log(`toAddress=${toAddress}, changeAddr=${changeAddr}`)
       const tx = this.prepareTransaction(formData, issuance, toAddress, changeAddr)
 
+      // Save authorization transaction id:
+      issuance.issuanceTxId = tx.txId
+
       // Show the spinner:
       // this.isSending = true
 

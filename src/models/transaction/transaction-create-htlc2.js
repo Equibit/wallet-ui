@@ -62,14 +62,15 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
   const utxo = issuanceUtxo.concat(utxoEmptyEqb)
 
   // HTLC SCRIPT:
-  const script = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
-  console.log(`script = ${script.toString('hex')}`)
+  const htlcScript = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
+  console.log(`htlcScript = ${htlcScript.toString('hex')}`)
 
   const buildConfig = {
     vin: utxo.map(pick(['txid', 'vout', 'keyPair'])),
     vout: [{
       value: amount,
-      scriptPubKey: script
+      scriptPubKey: htlcScript,
+      issuanceTxId: issuance.issuanceTxId
     }, {
       value: availableAmount - amount,
       address: changeAddr

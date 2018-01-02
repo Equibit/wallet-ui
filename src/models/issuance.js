@@ -1,3 +1,12 @@
+/**
+ * @module {can-map} models/issuance Issuance
+ * @parent models
+ *
+ * Issuance record
+ *
+ * @group models/issuance.properties 0 properties
+ */
+
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
@@ -11,17 +20,29 @@ const Issuance = DefineMap.extend('Issuance', {
   _id: 'string',
 
   /**
+   * @property {Number} models/issuance.properties.issuanceTxId issuanceTxId
+   * @parent models/issuance.properties
+   * Id of the authorization transaction
+   */
+  issuanceTxId: 'string',
+
+  /**
+   * @property {Number} models/issuance.properties.userId userId
+   * @parent models/issuance.properties
    * Id of the user who created the issuance
    */
   userId: 'string',
 
+  // todo: `issuanceAddress` does not really make sense since one issuance will be broken into a lot of parts.
   /**
    * Issuance address identifies issuance in Blockchain. All OrderBook items will be linked by this address.
+   * This is to find UTXO of the issuance; do not confuse with authorization txid (issuanceTxId).
    */
   issuanceAddress: 'string',
 
   /**
    * For deriving keys
+   * /m' /44' /79' /<company_index>' /<issuance_index>
    */
   index: 'number',
   companyIndex: 'number',
@@ -45,6 +66,7 @@ const Issuance = DefineMap.extend('Issuance', {
   },
   issuanceUnit: 'string',   // ['SHARES', 'BTC', 'UNITS'] ?
   restriction: 'number',
+
   marketCap: 'number',
   change: 'number',
   changePercentage: 'number',

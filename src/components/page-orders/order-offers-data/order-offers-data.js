@@ -60,6 +60,7 @@ export const ViewModel = DefineMap.extend({
 })
 
 function updateOrder (order, offer, tx) {
+  // todo: technically one order can serve multiple offers, so we should update `htlcStep` only for the offer.
   order.htlcStep = 2
   order.htlcTxId = tx.txId
   // todo: we should NOT update the offer here since it belongs to a different user. API should do it when creates a receiver transaction.
