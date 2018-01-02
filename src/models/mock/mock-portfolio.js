@@ -33,7 +33,7 @@ const portfolio = new Portfolio({
   _id: '595e5c58711b9e358f567edc',
   index: 0,
   name: 'My Portfolio',
-  addressesMeta,
+  _addressesMeta: addressesMeta,
   keys: portfolioKeys,
   utxoByTypeByAddress: listunspent,
   rates
@@ -45,7 +45,7 @@ portfolio.constructor.connection.addInstanceReference(portfolio)
 const portfolioZero = new Portfolio({
   index: 0,
   name: 'My Portfolio Empty',
-  addressesMeta,
+  _addressesMeta: addressesMeta,
   keys: portfolioKeys,
   utxoByTypeByAddress: listunspentZero,
   rates
@@ -54,7 +54,7 @@ const portfolioZero = new Portfolio({
 const portfolioBtc = new Portfolio({
   index: 0,
   name: 'My Portfolio Empty',
-  addressesMeta,
+  _addressesMeta: addressesMeta,
   keys: portfolioKeys,
   utxoByTypeByAddress: listunspentBtc,
   rates
