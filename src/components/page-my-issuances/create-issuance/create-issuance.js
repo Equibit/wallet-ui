@@ -80,9 +80,11 @@ export const ViewModel = DefineMap.extend({
     const currencyType = 'EQB'
     // todo: simplify, hide this in models.
     const companyHdNode = Session.current.user.generatePortfolioKeys(company.index).EQB
-    const toAddress = companyHdNode.derive(issuance.index).getAddress()
+    const issuanceHdNode = companyHdNode.derive(issuance.index)
+    const toAddress = issuanceHdNode.getAddress()
     // Save public issuance address:
     issuance.issuanceAddress = toAddress
+    issuance.keys = issuanceHdNode
 
     console.log(`createIssuance: toAddress=${toAddress}`, formData, issuance)
 

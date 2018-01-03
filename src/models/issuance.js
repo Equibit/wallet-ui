@@ -120,6 +120,10 @@ const Issuance = DefineMap.extend('Issuance', {
       return company
     }
   },
+  /**
+   * HDNode (instance of `bitcoinjs-lib/src/hdnode.js` class).
+   * Can be used by issuer who sends issuances.
+   */
   keys: {
     serialize: false,
     get (lastSetVal) {
@@ -207,6 +211,7 @@ Issuance.List = DefineList.extend('IssuanceList', {
       return acc
     }, 0)
   },
+  // todo: revisit this: the prop issuance.address is pointing to the issue authorization transaction. Technically Issuance.List should load UTXO based on portfolio meta addresses info and issuances meta (company and issuance indexes) when current user is also an issuer.
   addresses: {
     get () {
       return this.reduce((acc, issuance) => {

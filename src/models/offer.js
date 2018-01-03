@@ -149,6 +149,15 @@ const Offer = DefineMap.extend('Offer', {
       }
     }
   },
+  issuance: {
+    Type: Issuance,
+    get (val, resolve) {
+      if (val) {
+        return val
+      }
+      this.issuancePromise.then(resolve)
+    }
+  },
   orderPromise: {
     get () {
       if (this.orderId) {

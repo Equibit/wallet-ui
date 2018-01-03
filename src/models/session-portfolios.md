@@ -1,5 +1,9 @@
 ## When user logs in app does the following:
 
+```
+/m' /44' /0' /<portfolio_index>' /<change> /<address_index>
+```
+
 1. Loads portfolios of the user (with portfolio index, no portfolio keys)   // session.js
   - portfolio <name, index, addressesMeta>
   - addresses: addressMeta<index, type=BTC, isChange, isUsed>

@@ -73,7 +73,8 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
       issuanceTxId: issuance.issuanceTxId
     }, {
       value: availableAmount - amount,
-      address: changeAddr
+      address: changeAddr,
+      issuanceTxId: issuance.issuanceTxId
     }, {
       value: availableAmountEmptyEqb - fee,
       address: changeAddrEmptyEqb

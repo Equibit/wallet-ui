@@ -100,6 +100,7 @@ export const ViewModel = DefineMap.extend({
           .then(() => dispatchAlertOrder(hub, route))
           .then(() => order)
       })
+      .catch(dispatchAlertError)
   },
 
   /**

@@ -25,6 +25,7 @@ import './offer-status.less'
 import view from './offer-status.stache'
 import Order from '../../../models/order'
 import Offer from '../../../models/offer'
+import Issuance from '../../../models/issuance'
 import Session from '../../../models/session'
 import Transaction from '../../../models/transaction/transaction'
 import { buildTransactionEqb } from '../../../models/transaction/transaction-build.js'
@@ -43,6 +44,7 @@ const enumSetter = values => value => {
 export const ViewModel = DefineMap.extend({
   order: Order,
   offer: Offer,
+  issuance: Issuance,
   status: {
     set: enumSetter(['OPEN', 'TRADING', 'CLOSED', 'CANCELLED', 'REJECTED'])
   },
@@ -56,6 +58,7 @@ export const ViewModel = DefineMap.extend({
 
     const order = this.order
     const offer = this.offer
+    const issuance = this.issuance
     const user = Session.current.user
     const portfolio = Session.current.portfolios[0]
 
@@ -69,8 +72,7 @@ export const ViewModel = DefineMap.extend({
     const outputs = [{
       value: offer.quantity,
       address: offer.eqbAddressHolding,
-      // todo: figure out how to populate `issuanceTxId`
-      issuanceTxId: '6ae5e0658ae00c06b5765b5492026ee2978e65da441250375fcbc5845daf2f2c'
+      issuanceTxId: issuance.issuanceTxId
     }]
 
     const txInfo = buildTransactionEqb(inputs, outputs)
