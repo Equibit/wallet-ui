@@ -198,7 +198,13 @@ const Session = DefineMap.extend('Session', {
     }
   },
   issuances: {
-    Type: Issuance.List,
+    type: function (val) {
+      if (val instanceof Issuance.List) {
+        return val
+      } else {
+        return new Issuance.List(val)
+      }
+    },
     get (val, resolve) {
       if (this.issuancesPromise) {
         this.issuancesPromise.then(resolve)
