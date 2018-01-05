@@ -7,9 +7,9 @@
   <h2 class="issuance-title">{{issuance.companyName}}</h2>
   <div class="issuance-subtitle">{{issuance.issuanceName}}</div>
 
-  <company-value-change {issuance}="issuance" currency="μBTC" />
+  <company-value-change issuance:from="issuance" currency:from="'μBTC'" />
 
-  <company-metadata {issuance}="issuance" currency="μBTC" class="narrow" />
+  <company-metadata issuance:from="issuance" currency:from="'μBTC'" class="narrow" />
 
   <a href="{{routeUrl page='issuance-details' companySlug=issuance.companySlug itemId=issuance._id }}" class="btn btn-primary btn-sm">{{i18n('viewDetails')}}</a>
 

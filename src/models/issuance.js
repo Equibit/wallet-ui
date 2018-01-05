@@ -4,6 +4,7 @@ import feathersClient from './feathers-client'
 import superModel from './super-model'
 import algebra from './algebra'
 import utils from './portfolio-utils'
+import Session from '~/models/session'
 const { fetchListunspent, importAddr, getUnspentOutputsForAmount } = utils
 
 const Issuance = DefineMap.extend('Issuance', {
@@ -97,7 +98,15 @@ const Issuance = DefineMap.extend('Issuance', {
     }
   },
   keys: {
-    serialize: false
+    serialize: false,
+    get (lastSetVal) {
+      if (!lastSetVal && typeof this.index !== 'undefined') {
+        const companyHdNode = Session.current.user && Session.current.user.generatePortfolioKeys(this.companyIndex).EQB
+        return companyHdNode && companyHdNode.derive(this.index)
+      } else {
+        return lastSetVal
+      }
+    }
   },
   get address () {
     return this.keys && this.keys.getAddress()

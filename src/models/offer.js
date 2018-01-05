@@ -97,6 +97,9 @@ const Offer = DefineMap.extend('Offer', {
   hashlock: 'string',
   timelock: 'number',
 
+  isAccepted: 'boolean',
+  description: 'string',
+
   createdAt: {
     type: 'date',
     serialize: false

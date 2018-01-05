@@ -12,14 +12,15 @@
     <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
       <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-      <orders-grid type="SELL" limit="10"
+      <orders-grid type:from="'SELL'" limit:from="10"
+                   session:from="session"
                    rows.length:to="hasSellOrders"
-                   on:vm:buysell="openBuySellModal(%arguments)"
+                   on:vm:buysell="openBuySellModal(scope.arguments)"
                    issuanceAddress:from="issuance.issuanceAddress" />
 
       <div>
         {{#if session}}
-          <button class="btn btn-primary btn-xs" on:click="showModal()">{{i18n('addSellOrder')}}</button>
+          <button class="btn btn-primary btn-xs" on:click="showModal('SELL')">{{i18n('addSellOrder')}}</button>
         {{/if}}
         <button class="btn btn-link btn-xs" on:click="showViewAll()">View All</button>
       </div>
@@ -27,14 +28,15 @@
     <div class="col-lg-6 col-xs-12 buy-orders no-padding-right">
       <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-      <orders-grid type="BUY" limit="10"
+      <orders-grid type:from="'BUY'" limit:from="10"
+                   session:from="session"
                    rows.length:to="hasBuyOrders"
-                   on:vm:buysell="openBuySellModal(%arguments)"
+                   on:vm:buysell="openBuySellModal(scope.arguments)"
                    issuanceAddress:from="issuance.issuanceAddress" />
 
       <div>
         {{#if session}}
-          <button class="btn btn-primary btn-xs" on:click="showModal()">{{i18n('addBuyOrder')}}</button>
+          <button class="btn btn-primary btn-xs" on:click="showModal('BUY')">{{i18n('addBuyOrder')}}</button>
         {{/if}}
         <button class="btn btn-link btn-xs" on:click="showViewAll()">View All</button>
       </div>
@@ -45,14 +47,14 @@
 <small class="fineprint">{{i18n('disclaimerPriceData')}}</small>
 
 {{#if isModalShown}}
-  <place-order on:send="placeOrder(%arguments)"
+  <place-order on:send="placeOrder(scope.arguments)"
                portfolio:from="portfolio"
-               type="SELL"
+               type:from="newOrderType"
                issuance:from="issuance" />
 {{/if}}
 
 {{#if isBuySellShown}}
-  <place-offer on:send="placeOffer(%arguments)"
+  <place-offer on:send="placeOffer(scope.arguments)"
                portfolio:from="portfolio"
                type:from="modalType"
                order:from="order" />
@@ -61,7 +63,7 @@
 {{#if isViewAllShown}}
   <bootstrap-modal-content class="order-book">
     <div class="modal-header">
-      <button ($click)="close()" type="button" class="close" aria-label="Close">
+      <button on:click="close()" type="button" class="close" aria-label="Close">
         <span class="icon icon-cross rotate-90"></span></button>
         <h4 class="modal-title"><span class="icon icon-book"></span> {{i18n('orderBook')}}</h4>
     </div>
@@ -69,10 +71,10 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-sm-6 col-xs-12 no-padding-left">
-          <div class="description">{{issuance.companyName}}, {{issuance.issuanceName}}</div>
+          <div class="description">{{../issuance.companyName}}, {{../issuance.issuanceName}}</div>
         </div>
         <div class="col-sm-6 col-xs-12 no-padding-left" >
-          <company-value-change {issuance}="issuance" currency="μBTC" />
+          <company-value-change issuance:from="../issuance" currency:from="'μBTC'" />
         </div>
       </div>
 
@@ -80,11 +82,12 @@
         <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
           <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-          <orders-grid type="SELL" limit="25"
-                       on:vm:buysell="openBuySellModal(%arguments)"
-                       issuanceAddress:from="issuance.issuanceAddress" />
+          <orders-grid type:from="'SELL'" limit:from="25"
+                       session:from="../session"
+                       on:vm:buysell="../openBuySellModal(scope.arguments)"
+                       issuanceAddress:from="../issuance.issuanceAddress" />
 
-          {{#if session}}
+          {{#if ../session}}
             <div>
               <button class="btn btn-primary btn-xs">{{i18n('addSellOrder')}}</button>
             </div>
@@ -93,11 +96,12 @@
         <div class="col-lg-6 col-xs-12 buy-orders no-padding">
           <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-          <orders-grid type="BUY" limit="25"
-                       on:vm:buysell="openBuySellModal(%arguments)"
-                       issuanceAddress:from="issuance.issuanceAddress" />
+          <orders-grid type:from="'BUY'" limit:from="25"
+                       session:from="../session"
+                       on:vm:buysell="../openBuySellModal(scope.arguments)"
+                       issuanceAddress:from="../issuance.issuanceAddress" />
 
-          {{#if session}}
+          {{#if ../session}}
             <div>
               <button class="btn btn-primary btn-xs">{{i18n('addBuyOrder')}}</button>
             </div>

@@ -38,7 +38,7 @@
             <td class="column-price">{{format(row.price, '', 4)}}</td>
             <td class="column-value">{{local-currency(row.value, 'EQB')}}</td>
             <td class="column-pl">
-              <arrow-change class="no-arrow" {change}="row.profitLoss"></arrow-change>
+              <arrow-change class="no-arrow" change:from="row.profitLoss"></arrow-change>
             </td>
           </tr>
         {{else}}

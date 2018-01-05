@@ -27,8 +27,8 @@
           </div>
           <div class="panel-body no-padding-top no-padding-bottom">
             <div class="card-row-full">
-              <company-value-change {issuance}="issuance" currency="μBTC" />
-              <company-metadata class="wide" {issuance}="issuance" currency="μBTC" />
+              <company-value-change issuance:from="issuance" currency:from="'μBTC'" />
+              <company-metadata class="wide" issuance:from="issuance" currency:from="'μBTC'" />
               <issuance-passports />
             </div>
           </div>
@@ -40,7 +40,7 @@
             <ul class="nav navbar-nav navbar-right toolbar-actions">
               <li><button class="btn btn-link"><span class="icon icon-star-empty"></span> {{i18n('watchListToggleAdd')}}</button>
               <!--<button class="btn btn-link"><span class="icon icon-star-full"></span> {{i18n('watchListToggleRemove')}}</button>--></li>
-              <li><button ($click)="admin()" class="btn btn-link"><span class="icon icon-edit"></span>Manage</button></li>
+              <li><button on:click="admin()" class="btn btn-link"><span class="icon icon-edit"></span>Manage</button></li>
             </ul>
             {{else}}
 
@@ -66,7 +66,7 @@
             </ul>
 
             <div class="additional-actions">
-              <button class="btn btn-link btn-sm" ($click)="investor()">Switch to Public View &#x2192;</button>
+              <button class="btn btn-link btn-sm" on:click="investor()">Switch to Public View &#x2192;</button>
             </div>
             {{/is}}
           </div>

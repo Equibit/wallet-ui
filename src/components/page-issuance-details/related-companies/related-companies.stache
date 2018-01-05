@@ -12,7 +12,7 @@
             <div class="company-name btn-link">Nike</div>
             <div class="company-security-price">30,429 <small>(μBTC)</small></div>
             <div class="company-name-value-change">
-              <arrow-change class="change" {change}="issuance.change">
+              <arrow-change class="change" change:from="issuance.change">
                 <span class="percentage">({{issuance.changePercentage}}%)</span>
               </arrow-change>
             </div>
@@ -25,7 +25,7 @@
             <div class="company-name btn-link">Apple</div>
             <div class="company-security-price">31,278 <small>(μBTC)</small></div>
             <div class="company-name-value-change">
-              <arrow-change class="change" {change}="issuance.change">
+              <arrow-change class="change" change:from="issuance.change">
                 <span class="percentage">({{issuance.changePercentage}}%)</span>
               </arrow-change>
             </div>
@@ -38,7 +38,7 @@
             <div class="company-name btn-link">Intel</div>
             <div class="company-security-price">30,789 <small>(μBTC)</small></div>
             <div class="company-name-value-change">
-              <arrow-change class="change" {change}="issuance.change">
+              <arrow-change class="change" change:from="issuance.change">
                 <span class="percentage">({{issuance.changePercentage}}%)</span>
               </arrow-change>
             </div>
@@ -51,7 +51,7 @@
             <div class="company-name btn-link">IBM</div>
             <div class="company-security-price">30,984 <small>(μBTC)</small></div>
             <div class="company-name-value-change">
-              <arrow-change class="change" {change}="issuance.change">
+              <arrow-change class="change" change:from="issuance.change">
                 <span class="percentage">({{issuance.changePercentage}}%)</span>
               </arrow-change>
             </div>
@@ -64,7 +64,7 @@
             <div class="company-name btn-link">Pfizer</div>
             <div class="company-security-price">32,345 <small>(μBTC)</small></div>
             <div class="company-name-value-change">
-              <arrow-change class="change" {change}="issuance.change">
+              <arrow-change class="change" change:from="issuance.change">
                 <span class="percentage">({{issuance.changePercentage}}%)</span>
               </arrow-change>
             </div>

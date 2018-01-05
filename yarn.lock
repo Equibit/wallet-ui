@@ -1315,11 +1315,21 @@ can-ajax@^1.0.0, can-ajax@^1.0.6:
     can-parse-uri "^1.0.0"
     can-reflect "^1.4.5"
 
+can-ajax@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/can-ajax/-/can-ajax-1.1.4.tgz#02d18c210fc2198ecb31d158511fdeadf77b3c96"
+  dependencies:
+    can-globals "<2.0.0"
+    can-namespace "^1.0.0"
+    can-param "^1.0.1"
+    can-parse-uri "^1.0.0"
+    can-reflect "^1.4.5"
+
 can-assign@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/can-assign/-/can-assign-1.0.1.tgz#4d2c880089d546a08e761e176b58e8639bd082f5"
 
-can-attribute-encoder@^0.3.0, can-attribute-encoder@^0.3.1:
+can-attribute-encoder@^0.3.0, can-attribute-encoder@^0.3.1, can-attribute-encoder@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/can-attribute-encoder/-/can-attribute-encoder-0.3.2.tgz#df6f3fb3e8abaff3becb90078e4760f02b59dcc6"
   dependencies:
@@ -1378,7 +1388,32 @@ can-connect-feathers@^3.7.1:
     feathers-errors "^2.7.0"
     jwt-decode "^2.1.0"
 
-can-connect@^1.5.10, can-connect@^1.5.4:
+can-connect@^1.5.16:
+  version "1.5.16"
+  resolved "https://registry.yarnpkg.com/can-connect/-/can-connect-1.5.16.tgz#83bdca1e3f9aecf0c54c8834226adab80206acc4"
+  dependencies:
+    can-ajax "^1.1.4"
+    can-compute "^3.3.1"
+    can-construct "^3.2.0"
+    can-define "^1.2.0"
+    can-event "^3.6.0"
+    can-list "^3.1.0"
+    can-make-rest "^0.1.1"
+    can-map "^3.3.1"
+    can-namespace "1.0.0"
+    can-observation "^3.3.1"
+    can-reflect "^1.2.1"
+    can-set "^1.5.0"
+    can-stache "^3.3.0"
+    can-stache-bindings "^3.11.7"
+    can-types "^1.1.0"
+    can-util "^3.10.18"
+    can-validate-interface "^0.1.0"
+    can-view-callbacks "^3.1.0"
+    can-view-nodelist "^3.1.0"
+    steal-stache "^3.1.0"
+
+can-connect@^1.5.4:
   version "1.5.12"
   resolved "https://registry.yarnpkg.com/can-connect/-/can-connect-1.5.12.tgz#4a71325c4dfa6a5dd115496c353f48a0377e61e2"
   dependencies:
@@ -1507,6 +1542,15 @@ can-event-dom-radiochange@^1.0.2, can-event-dom-radiochange@^1.0.4:
     can-dom-events "^1.0.2"
     can-globals "^0.2.2"
 
+can-event-dom-radiochange@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/can-event-dom-radiochange/-/can-event-dom-radiochange-1.0.5.tgz#7bbacdce612ec89c51e57268b0ff3993fc356a22"
+  dependencies:
+    can-cid "^1.1.0"
+    can-dom-data-state "^0.2.0"
+    can-dom-events "^1.0.2"
+    can-globals "<2.0.0"
+
 can-event@^3.2.0, can-event@^3.3.0, can-event@^3.5.0, can-event@^3.5.0-pre.2, can-event@^3.6.0, can-event@^3.7.0, can-event@^3.7.4, can-event@^3.7.6:
   version "3.7.6"
   resolved "https://registry.yarnpkg.com/can-event/-/can-event-3.7.6.tgz#1dc9342fe59e5cce42e8a5808a24776c3a4fc9a5"
@@ -1525,6 +1569,14 @@ can-fixture@^1.2.0:
     can-namespace "1.0.0"
     can-set "^1.3.0"
     can-util "^3.9.0"
+
+can-globals@<2.0.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/can-globals/-/can-globals-0.3.0.tgz#8c9b901bea4489437ca97f1bab1939603ea5a341"
+  dependencies:
+    can-namespace "^1.0.0"
+    can-reflect "^1.2.6"
+    can-symbol "^1.0.0"
 
 can-globals@^0.2.0, can-globals@^0.2.2, can-globals@^0.2.3:
   version "0.2.6"
@@ -1653,9 +1705,16 @@ can-search-select@^0.3.0:
     can-stache "^3.0.24"
     can-view-autorender "^3.0.4"
 
-can-set@^1.3.0, can-set@^1.3.3:
+can-set@^1.3.0:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/can-set/-/can-set-1.3.3.tgz#43fe25c13d1901d30e0871042b54729a617645cc"
+  dependencies:
+    can-namespace "^1.0.0"
+    can-util "^3.9.0"
+
+can-set@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/can-set/-/can-set-1.5.0.tgz#ede2267c94e6696335c49769b353a9cdf6580a19"
   dependencies:
     can-namespace "^1.0.0"
     can-util "^3.9.0"
@@ -1708,6 +1767,31 @@ can-stache-bindings@^3.0.13, can-stache-bindings@^3.0.14, can-stache-bindings@^3
     can-simple-observable "^1.0.0"
     can-stache "^3.13.5"
     can-stache-key "0.1.0"
+    can-symbol "^1.0.0"
+    can-types "^1.1.0"
+    can-util "^3.9.0"
+    can-view-callbacks "^3.2.0"
+    can-view-live "^3.2.0"
+    can-view-model "^3.4.0"
+    can-view-scope "^3.5.4"
+
+can-stache-bindings@^3.11.7:
+  version "3.11.7"
+  resolved "https://registry.yarnpkg.com/can-stache-bindings/-/can-stache-bindings-3.11.7.tgz#491e5998c62460fc8bc4fd709a26ec493965b767"
+  dependencies:
+    can-attribute-encoder "^0.3.2"
+    can-compute "^3.3.1"
+    can-event "^3.7.6"
+    can-event-dom-enter "^1.0.4"
+    can-event-dom-radiochange "^1.0.5"
+    can-globals "<2.0.0"
+    can-log "^0.1.0"
+    can-observation "^3.3.1"
+    can-reflect "^1.2.1"
+    can-simple-map "^3.3.0"
+    can-simple-observable "^1.0.0"
+    can-stache "^3.13.5"
+    can-stache-key "^0.1.0"
     can-symbol "^1.0.0"
     can-types "^1.1.0"
     can-util "^3.9.0"
@@ -1832,6 +1916,26 @@ can-util@^3.1.0, can-util@^3.10.10, can-util@^3.10.12, can-util@^3.10.6, can-uti
     can-event-dom-enter "^1.0.4"
     can-event-dom-radiochange "^1.0.4"
     can-globals "^0.2.2"
+    can-log "^0.1.0"
+    can-namespace "1.0.0"
+    can-param "^1.0.0"
+    can-parse-uri "^1.0.0"
+    can-reflect "^1.2.0"
+    can-symbol "^1.0.0"
+    can-types "^1.1.0"
+
+can-util@^3.10.18:
+  version "3.10.18"
+  resolved "https://registry.yarnpkg.com/can-util/-/can-util-3.10.18.tgz#e259b4599f7b3e9fe926f45572e10402f11108f6"
+  dependencies:
+    can-ajax "^1.0.0"
+    can-assign "^1.0.0"
+    can-cid "^1.1.0"
+    can-deparam "^1.0.0"
+    can-dom-data-state "^0.2.0"
+    can-event-dom-enter "^1.0.4"
+    can-event-dom-radiochange "^1.0.4"
+    can-globals "<2.0.0"
     can-log "^0.1.0"
     can-namespace "1.0.0"
     can-param "^1.0.0"
@@ -4195,9 +4299,9 @@ growl@1.9.2:
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.9.2.tgz#0ea7743715db8d8de2c5ede1775e1b45ac85c02f"
 
-gzip-size@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-4.1.0.tgz#8ae096257eabe7d69c45be2b67c448124ffb517c"
+gzip-size@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-4.0.0.tgz#a80e13e18938bcb2e6702fec606f5cf8b666db3a"
   dependencies:
     duplexer "^0.1.1"
     pify "^3.0.0"
@@ -6184,7 +6288,7 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@^1.7.0:
+prettier@1.8.2:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.8.2.tgz#bff83e7fd573933c607875e5ba3abbdffb96aeb8"
 
@@ -7262,9 +7366,9 @@ steal-tools@0.16.X:
     ws "^1.0.0"
     yargs "^4.3.2"
 
-steal-tools@^1.9.2:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/steal-tools/-/steal-tools-1.9.2.tgz#a60c854320953d7467b4391ba9342c85ffdc1571"
+steal-tools@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/steal-tools/-/steal-tools-1.10.0.tgz#6b3a594514c8a6341e7b4441dec4e6acd2115e2b"
   dependencies:
     babel-standalone "^6.23.1"
     bitovi-source-map "0.4.2-bitovi.2"
@@ -7274,7 +7378,7 @@ steal-tools@^1.9.2:
     find-line-column "^0.5.2"
     fs-extra "~4.0.2"
     glob "^7.1.1"
-    gzip-size "^4.0.0"
+    gzip-size "4.0.0"
     is-appveyor "^1.0.0"
     lodash "^4.17.0"
     loose-envify "^1.3.1"
@@ -7282,7 +7386,7 @@ steal-tools@^1.9.2:
     multimatch "^2.1.0"
     normalize-path "^2.1.1"
     pdenodeify "^0.1.0"
-    prettier "^1.7.0"
+    prettier "1.8.2"
     pump "^1.0.2"
     steal "^1.5.13"
     steal-bundler "^0.3.5"
@@ -7305,9 +7409,32 @@ steal@0.16.X, steal@^0.16.9:
     steal-systemjs "^0.17.5"
     system-json "^0.1.0"
 
-steal@^1.0.6, steal@^1.4.5, steal@^1.5.13, steal@^1.6.0:
+steal@^1.0.6, steal@^1.4.5, steal@^1.5.13:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/steal/-/steal-1.6.0.tgz#67d3ff450b8f54ec733aabb9e640240a239df0f5"
+  dependencies:
+    assert "~1.4.1"
+    buffer "~5.0.4"
+    console-browserify "~1.1.0"
+    constants-browserify "~1.0.0"
+    crypto-browserify "~3.11.0"
+    domain-browser "~1.1.2"
+    events "~1.1.1"
+    http-browserify "~1.7.0"
+    https-browserify "~1.0.0"
+    os-browserify "~0.3.0"
+    path-browserify "~0.0.0"
+    process "~0.11.9"
+    punycode "~2.0.1"
+    resolve "^1.1.7"
+    string_decoder "~1.0.0"
+    tty-browserify "~0.0.0"
+    vm-browserify "~0.0.4"
+    zlib-browserify "~0.0.3"
+
+steal@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/steal/-/steal-1.6.2.tgz#d28e779a11283c58474574fff36d07bdae667961"
   dependencies:
     assert "~1.4.1"
     buffer "~5.0.4"

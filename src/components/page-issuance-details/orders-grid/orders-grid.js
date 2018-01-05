@@ -18,6 +18,7 @@ import DefineMap from 'can-define/map/map'
 import './orders-grid.less'
 import view from './orders-grid.stache'
 import Order from '~/models/order'
+import Session from '~/models/session'
 
 export const ViewModel = DefineMap.extend({ seal: false }, {
   type: {
@@ -43,14 +44,22 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         $limit: this.limit,
         $skip: 0,
         type: this.type,
+        $sort: { 'price': this.type === 'BUY' ? -1 : 1 },
         issuanceAddress: this.issuanceAddress
       }
       return Order.getList(params)
     }
   },
+  session: {
+    value: function () {
+      return Session.current
+    }
+  },
   rows: {
     get (val, resolve) {
-      this.rowsPromise && this.rowsPromise.then(resolve)
+      this.rowsPromise && this.rowsPromise.then(d => {
+        resolve(d)
+      })
     }
   },
   get totalQuantity () {

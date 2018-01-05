@@ -19,6 +19,13 @@ import { translate } from '../i18n/i18n'
 import Offer from './offer'
 
 const Order = DefineMap.extend('Order', {
+  subscribe (cb) {
+    feathersClient.service('/orders').on('created', cb)
+  },
+  unSubscribe (cb) {
+    feathersClient.service('/orders').removeListener('created', cb)
+  }
+}, {
   _id: 'string',
 
   /**

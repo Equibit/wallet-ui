@@ -41,7 +41,7 @@
             <td class="column-price">{{format(row.price, '', 0)}}</td>
             <td class="column-value">{{local-currency(row.valueBtc, 'BTC')}}</td>
             <td class="column-pl">
-              <arrow-change class="no-arrow" {change}="row.profitLoss"></arrow-change>
+              <arrow-change class="no-arrow" change:from="row.profitLoss"></arrow-change>
             </td>
             <td class="column-action">
               <a class="icon icon-cross icon-cancelled" ($click)="cancel(row)"></a>

@@ -187,7 +187,7 @@ const Session = DefineMap.extend('Session', {
         // todo: consider putting this into Issuance init (or utxo getter/value).
         console.log(`Session.issuancesPromise: deriving keys and loading UTXO... issuances=${issuances.length}`)
         issuances.forEach(issuance => {
-          if (issuance.index !== 'undefined') {
+          if (typeof issuance.index !== 'undefined') {
             const companyHdNode = this.user.generatePortfolioKeys(issuance.companyIndex).EQB
             issuance.keys = companyHdNode.derive(issuance.index)
           }
@@ -198,7 +198,13 @@ const Session = DefineMap.extend('Session', {
     }
   },
   issuances: {
-    Type: Issuance.List,
+    type: function (val) {
+      if (val instanceof Issuance.List) {
+        return val
+      } else {
+        return new Issuance.List(val)
+      }
+    },
     get (val, resolve) {
       if (this.issuancesPromise) {
         this.issuancesPromise.then(resolve)
