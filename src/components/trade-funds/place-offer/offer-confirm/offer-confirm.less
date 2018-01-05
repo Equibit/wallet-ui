@@ -18,9 +18,47 @@ offer-confirm {
         border: 0;
       }
     }
+    dd {
+      width: 24%;
+      display: inline-block;
+      &.input-value {
+        font-family: @font-family-numeric;
+        text-align: right;
+      }
+      &.fee-value {
+        color: @gray-light;
+      }
+      &:last-of-type {
+        margin-bottom: 5px;
+      }
+    }
+    dt {
+      font-size: @font-size-small;
+    }
+    dt + dd {
+      width: 48%;
+    }
+    hr {
+      margin-top: 3px;
+      margin-bottom: 10px;
+    }
+    label {
+      margin-bottom: 0;
+    }
+  }
+  textarea {
+    width: 100%;
+  }
+  .list-group-item.row *[class^="col-xs-"] {
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 35px;
   }
   .icon-checkmark-inversed {
     .icon-circle(8px);
+  }
+  .negative-value {
+    color: @state-danger-text;
   }
 
 }
