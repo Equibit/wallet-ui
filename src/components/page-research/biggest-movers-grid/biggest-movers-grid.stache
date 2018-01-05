@@ -28,12 +28,12 @@
               </div>
             </td>
             <td class="column-change">
-              <arrow-change class="change" {change}="row.change">
+              <arrow-change class="change" change:from="row.change">
               <small>μBTC</small>
               </arrow-change>
             </td>
             <td class="column-changepercent">
-              <arrow-change class="no-arrow" {change}="row.changePercent">%</arrow-change>
+              <arrow-change class="no-arrow" change:from="row.changePercent">%</arrow-change>
             </td>
           </tr>
         {{/each}}

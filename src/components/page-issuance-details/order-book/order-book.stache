@@ -82,7 +82,7 @@
         <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
           <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-          <orders-grid type:from="'SELL'" limit="25"
+          <orders-grid type:from="'SELL'" limit:from="25"
                        session:from="../session"
                        on:vm:buysell="../openBuySellModal(scope.arguments)"
                        issuanceAddress:from="../issuance.issuanceAddress" />
@@ -96,7 +96,7 @@
         <div class="col-lg-6 col-xs-12 buy-orders no-padding">
           <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-          <orders-grid type:from="'BUY'" limit="25"
+          <orders-grid type:from="'BUY'" limit:from="25"
                        session:from="../session"
                        on:vm:buysell="../openBuySellModal(scope.arguments)"
                        issuanceAddress:from="../issuance.issuanceAddress" />

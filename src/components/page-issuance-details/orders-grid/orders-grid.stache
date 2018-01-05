@@ -4,7 +4,7 @@
 
 <grid-component class="{{#if rowsPromise.isPending}}loading{{/if}}">
   <div class="grid-responsive">
-  {{#is type 'SELL'}}
+  {{#is ../type 'SELL'}}
 
     <div class="grid-header-container">
       <table class="table table-condensed grid-header">
@@ -26,7 +26,7 @@
         {{#each ../rows row=value index=index}}
           <tr class="order-row percentage-green percentage-{{../../marketWidth[index]}}">
             <td class="column-action-buttons">
-              <button class="btn btn-default btn-xs" disabled:from="not(~session)" on:click="buySell('BUY', row)">{{i18n('buy')}}</button>
+              <button class="btn btn-default btn-xs" disabled:from="not(~../../session.portfolios.length)" on:click="buySell('BUY', row)">{{i18n('buy')}}</button>
             </td>
             <td class="column-partial">{{yes-no(not(~row.isFillOrKill))}}</td>
             <td class="column-datetime">{{format-time(row.createdAt)}}</td>
@@ -64,7 +64,7 @@
             <td class="column-datetime">{{format-time(row.createdAt)}}</td>
             <td class="column-partial">{{yes-no(not(~row.isFillOrKill))}}</td>
             <td class="column-action-buttons">
-              <button class="btn btn-default btn-xs" disabled:from="not(~session)" on:click="buySell('SELL', row)">{{i18n('sell')}}</button>
+              <button class="btn btn-default btn-xs" disabled:from="not(~../../session.portfolios.length)" on:click="buySell('SELL', row)">{{i18n('sell')}}</button>
             </td>
           </tr>
         {{/each}}

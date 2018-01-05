@@ -44,7 +44,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         $limit: this.limit,
         $skip: 0,
         type: this.type,
-        $sort: 'price ' + (this.type === 'BUY' ? 'desc' : 'asc'),
+        $sort: { 'price': this.type === 'BUY' ? -1 : 1 },
         issuanceAddress: this.issuanceAddress
       }
       return Order.getList(params)
@@ -57,7 +57,9 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   },
   rows: {
     get (val, resolve) {
-      this.rowsPromise && this.rowsPromise.then(resolve)
+      this.rowsPromise && this.rowsPromise.then(d => {
+        resolve(d)
+      })
     }
   },
   get totalQuantity () {

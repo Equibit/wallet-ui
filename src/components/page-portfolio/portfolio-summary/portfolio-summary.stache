@@ -34,7 +34,7 @@
         <div class="row">
           <div class="col-xs-12 summary-section">
             <label>{{i18n('unrealizedPL')}}</label>
-            <arrow-change class="change" {change}="summary.unrealizedPL">
+            <arrow-change class="change" change:from="summary.unrealizedPL">
               <span class="percentage">({{summary.unrealizedPLPercent}}%)</span>
             </arrow-change>
           </div>

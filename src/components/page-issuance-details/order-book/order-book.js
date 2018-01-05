@@ -117,13 +117,11 @@ export const ViewModel = DefineMap.extend({
     console.log(`placeOffer: ${type}`, formData)
 
     const secret = generateSecret()
-    const timelock = 20
-
     return Promise.all([
       this.portfolio.getNextAddress(),
       this.portfolio.getNextAddress(true)
     ]).then(([addr, change]) => {
-      const offer = createHtlcOffer(formData, type, secret, timelock, Session.current.user, this.issuance, addr.EQB, addr.BTC)
+      const offer = createHtlcOffer(formData, type, secret, formData.timelock, Session.current.user, this.issuance, addr.EQB, addr.BTC)
       const tx = Transaction.createHtlc1(offer, formData.order, this.portfolio, this.issuance, change)
       return tx.save()
         .then(tx => saveOffer(offer, tx))
@@ -202,6 +200,7 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
     companyName: issuance.companyName,
     issuanceName: issuance.issuanceName,
     issuanceType: issuance.issuanceType,
+    description: formData.description,
     htlcStep: 1
   })
   console.log('createHtlcOffer', arguments, offer)

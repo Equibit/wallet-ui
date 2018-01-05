@@ -43,10 +43,10 @@
                       <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug itemId=row._id}}">{{row.companyName}}</a>
                     </td>
                     <td class="column-change">
-                      <arrow-change class="no-arrow" {change}="row.change"></arrow-change>
+                      <arrow-change class="no-arrow" change:from="row.change"></arrow-change>
                     </td>
                     <td class="column-changepercent">
-                      <arrow-change class="no-arrow" {change}="row.changePercent"></arrow-change>
+                      <arrow-change class="no-arrow" change:from="row.changePercent"></arrow-change>
                     </td>
                   </tr>
                 {{/each}}
