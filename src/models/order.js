@@ -24,6 +24,12 @@ const Order = DefineMap.extend('Order', {
   },
   unSubscribe (cb) {
     feathersClient.service('/orders').removeListener('created', cb)
+  },
+  subscribeUpdated (cb) {
+    feathersClient.service('/orders').on('updated', cb)
+  },
+  unSubscribeUpdated (cb) {
+    feathersClient.service('/orders').removeListener('updated', cb)
   }
 }, {
   _id: 'string',

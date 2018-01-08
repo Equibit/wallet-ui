@@ -19,6 +19,7 @@ import './orders-grid.less'
 import view from './orders-grid.stache'
 import Order from '~/models/order'
 import Session from '~/models/session'
+import sortedSetJSON from 'can-connect/helpers/sorted-set-json'
 
 export const ViewModel = DefineMap.extend({ seal: false }, {
   type: {
@@ -44,6 +45,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         $limit: this.limit,
         $skip: 0,
         type: this.type,
+        status: 'OPEN',
         $sort: { 'price': this.type === 'BUY' ? -1 : 1 },
         issuanceAddress: this.issuanceAddress
       }
@@ -88,11 +90,43 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
 
   buySell (type, order) {
     this.dispatch('buysell', [type, order])
-  }
+  },
+
+  ordersCallback: '*',
+  ordersRemovedCallback: '*'
 })
 
 export default Component.extend({
   tag: 'orders-grid',
   ViewModel,
-  view
+  view,
+  events: {
+    inserted () {
+      Order.subscribe(this.viewModel.ordersCallback = order => {
+        const rows = this.viewModel.rows
+        const pageEndPrice = rows[rows.length - 1].price * (this.viewModel.type === 'BUY' ? -1 : 1)
+        const orderPrice = order.price * (this.viewModel.type === 'BUY' ? -1 : 1)
+        if (rows &&
+          order.type === this.viewModel.type &&
+          (rows.length < this.viewModel.limit || orderPrice < pageEndPrice)
+        ) {
+          // clear cached set and refresh, because the newly created item belongs in the shown page
+          delete Order.connection.cacheConnection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
+          this.viewModel.trigger('limit')
+        }
+      })
+      Order.subscribeUpdated(this.viewModel.ordersRemovedCallback = order => {
+        const rows = this.viewModel.rows
+        if (rows && (rows.indexOf(order) > -1 || rows.length === this.viewModel.limit - 1)) {
+          // clear cached set and refresh, because we went from a full page to less than a full page
+          delete Order.connection.cacheConnection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
+          this.viewModel.trigger('limit')
+        }
+      })
+    },
+    ' removed' () {
+      Order.unSubscribe(this.viewModel.ordersCallback)
+      Order.unSubscribeUpdated(this.viewModel.ordersRemovedCallback)
+    }
+  }
 })
