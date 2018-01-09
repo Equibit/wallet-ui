@@ -17,9 +17,17 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './offer-confirm.less'
 import view from './offer-confirm.stache'
+import currencyConverter from '~/utils/btc-usd-converter'
 
 export const ViewModel = DefineMap.extend({
-  formData: '*'
+  formData: '*',
+  convertToUSD: function (value) {
+    if (this.formData.type === 'BUY') {
+      return currencyConverter.convertMicroBTCToUSD.apply(null, arguments)
+    } else {
+      return currencyConverter.convert(value, 'EQBUSD')
+    }
+  }
 })
 
 export default Component.extend({

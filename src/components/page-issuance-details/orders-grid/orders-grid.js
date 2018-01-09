@@ -58,8 +58,9 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   rows: {
     get (val, resolve) {
       this.rowsPromise && this.rowsPromise.then(d => {
-        resolve(d)
+        resolve && resolve(d)
       })
+      return val
     }
   },
   get totalQuantity () {

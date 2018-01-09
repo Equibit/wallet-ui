@@ -74,7 +74,7 @@
     </div>
     <p class="instruction">{{i18n('recoveryPhraseSetupInstruction2')}}</p>
     <phrase-input phrase:from="phrase" isCorrect:to="../isCorrect"></phrase-input>
-    <div><validation-message message:from="../errorMessage"></div>
+    <div><validation-message message:from="../errorMessage" /></div>
   </div>
 
   <div class="modal-footer">

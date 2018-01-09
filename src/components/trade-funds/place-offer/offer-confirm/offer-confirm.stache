@@ -4,20 +4,76 @@
 <div class="description">{{i18n('confirmOffer')}}</div>
 
 <div class="list-group">
-  <div class="list-group-item order-header ">
-    <issuance-summary issuance:from="formData.order" />
-  </div>
 
   <div class="list-group-item order-summary">
-    <dl class="dl-horizontal dl-stripped responsive">
-      <dt>{{i18n('quantity')}}</dt>
-      <dd class="input-value">{{format(formData.quantity, '')}} <small>{{i18n('securities')}}</small></dd>
-
-      <dt>{{i18n('askPrice')}}</dt>
-      <dd class="input-value">{{format(formData.order.price, '')}} <small>μBTC</small></dd>
-
-      <dt>{{i18n('totalPrice')}}</dt>
-      <dd class="input-value">{{format(formData.totalPrice, '')}} <small>μBTC</small></dd>
+    <dl class="responsive">
+      <dt>{{i18n('to')}}</dt>
+      <dd><strong>{{formData.order.btcAddress}}</strong></dd>
     </dl>
+    <dl class="responsive">
+      <dt>{{i18n('paymentFor')}}</dt>
+      <dd>{{formData.order.issuanceName}}</dd>
+      <dt></dt>
+      <dd>{{i18n('quantity')}}</dd>
+      {{#eq formData.type 'BUY'}}
+      <dd class="input-value">{{format(formData.totalPrice, '', 2)}} <small>μBTC</small></dd>
+      <dd class="input-value">{{format(convertToUSD(formData.totalPrice).value, '', 2)}} <small>USD</small></dd>
+      {{else}}
+      <dd class="input-value">{{format(formData.quantity, '', 2)}} <small>{{i18n('shares')}}</small></dd>
+      <dd class="input-value">{{format(convertToUSD(formData.quantity).value, '', 2)}} <small>USD</small></dd>
+      {{/eq}}
+
+      <dt></dt>
+      <dd class="fee-value">
+        {{i18n('transactionFee')}}
+        <span class="icon icon-question"
+          data-toggle="popover"
+          data-content="{{i18n('transactionFeePopoverMessage')}}"
+          data-placement="right">
+        </span>
+      </dd>
+      <dd class="input-value fee-value">{{format(formData.transactionFee, '', 2)}} <small> {{#eq formData.type 'BUY'}}μBTC{{else}}EQB{{/eq}}</small></dd>
+      <dd class="input-value fee-value">{{format(convertToUSD(formData.transactionFee).value, '', 2)}} <small>USD</small></dd>
+    </dl>
+    <hr>
+    <dl class="responsive">
+      <dt>{{i18n('From')}}</dt>
+      <dd><strong>{{formData.portfolio.name}}</strong></dd>
+      {{#eq formData.type 'BUY'}}
+      <dd class="input-value negative-value">- {{format(formData.totalPriceWithFee, '', 2)}} <small>μBTC</small></dd>
+      <dd class="input-value negative-value">- {{format(convertToUSD(formData.totalPriceWithFee).value, '', 2)}} <small>USD</small></dd>
+      {{else}}
+      <dd class="input-value negative-value">- {{format(formData.quantity, '', 2)}} <small>{{i18n('shares')}}</small></dd>
+      <dt></dt>
+      <dd></dd>
+      <dd class="input-value negative-value">- {{format(formData.transactionFee, '', 2)}} <small>EQB</small></dd>
+      <dd class="input-value negative-value">- {{format(convertToUSD(formData.totalPriceWithFee).value, '', 2)}} <small>USD</small></dd>
+      {{/eq}}
+    </dl>
+  </div>
+  <div class="list-group-item row">
+    <div class="col-xs-6">
+      <label>Time Lock This Transaction
+      <span class="icon icon-question"
+        data-toggle="popover"
+        data-content="{{i18n('timelockPopoverMessage')}}"
+        data-placement="right">
+      </span></label>
+    </div>
+    <div class="col-xs-6">
+      <div class="btn-group" role="group" aria-label="Time lock options">
+        <button type="button" class="btn btn-default{{#eq formData.timelock 72}} active{{/eq}}" on:click:el:value:to="formData.timelock" value="72">12 {{i18n('hours')}}</button>
+        <button type="button" class="btn btn-default{{#eq formData.timelock 144}} active{{/eq}}" on:click:el:value:to="formData.timelock" value="144">1 {{i18n('day')}}</button>
+        <button type="button" class="btn btn-default{{#eq formData.timelock 288}} active{{/eq}}" on:click:el:value:to="formData.timelock" value="288">2 {{i18n('days')}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="list-group-item row">
+    <label>{{i18n('description')}} <span class="icon icon-question"
+        data-toggle="popover"
+        data-content="{{i18n('offerDescriptionPopoverMessage')}}"
+        data-placement="right">
+      </span></label>
+    <textarea class="col-xs-12" value:bind="formData.description"></textarea>
   </div>
 </div>

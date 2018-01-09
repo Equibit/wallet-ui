@@ -25,9 +25,18 @@ const FormData = DefineMap.extend('OfferFormData', {
     type: 'number',
     value: 0
   },
+  description: 'string',
+  timelock: {
+    type: 'number',
+    value: 72 // 72 blocks ~= 12 hours on the BTC blockchain
+  },
 
   get totalPrice () {
-    return this.order && (this.order.price * this.quantity)
+    return this.order ? (this.order.price * this.quantity) : 0
+  },
+
+  get totalPriceWithFee () {
+    return this.totalPrice + this.transactionFee
   },
 
   hasFunds: {
