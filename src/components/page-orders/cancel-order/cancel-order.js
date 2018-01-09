@@ -23,8 +23,9 @@ export const ViewModel = DefineMap.extend({
   order: Order,
   closeModal: '*',
   confirm () {
-    this.order.status = 'CANCELLED'
-    this.order.save().then(() => {
+    const order = this.order
+    order.status = 'CANCELLED'
+    order.save().then(() => {
       this.closeModal()
     })
   }
