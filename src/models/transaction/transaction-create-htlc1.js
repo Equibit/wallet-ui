@@ -3,6 +3,7 @@ import { merge, pick } from 'ramda'
 import { eqbTxBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { buildTransaction } from './transaction-build'
 
+// const simpleHashlockSigContract = eqbTxBuilder.simpleHashlockSigContract
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
 // Having data models (offer, order, portfolio, issuance)
@@ -45,6 +46,7 @@ function prepareHtlcConfig (offer, order, portfolio, changeAddr) {
   const utxo = utxoInfo.txouts
     .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
 
+  // const script = simpleHashlockSigContract(toAddress, hashlock)
   const script = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
   console.log(`script = ${script.toString('hex')}`)
 
