@@ -16,14 +16,17 @@
 import typeforce from 'typeforce'
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
+import route from 'can-route'
 import './order-offers-accepted.less'
 import view from './order-offers-accepted.stache'
+import Session from '../../../models/session'
 import Order from '../../../models/order'
 import Issuance from '../../../models/issuance'
 import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
 import { buildTransaction } from '../../../models/transaction/transaction-build.js'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
+import { translate } from '../../../i18n/i18n'
 
 export const ViewModel = DefineMap.extend({
   order: Order,
