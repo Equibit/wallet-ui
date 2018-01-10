@@ -74,7 +74,7 @@ const Order = DefineMap.extend('Order', {
   btcAddress: 'string',
   eqbAddressTrading: 'string',
   eqbAddressHolding: 'string',
-  htlcTxId: 'string',
+  // htlcTxId: 'string',
 
   /**
    * @property {Number} models/order.properties.portfolioId portfolioId

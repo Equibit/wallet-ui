@@ -63,7 +63,7 @@ export const ViewModel = DefineMap.extend({
     const portfolio = Session.current.portfolios[0]
 
     const inputs = [{
-      txid: order.htlcTxId,
+      txid: offer.htlcTxId2,
       vout: 0,
       keyPair: portfolio.findAddress(offer.eqbAddressTrading).keyPair,
       htlc: {
@@ -114,10 +114,10 @@ export const ViewModel = DefineMap.extend({
   }
 })
 
-function updateOffer (order, offer, tx) {
+function updateOffer (offer, tx) {
   offer.htlcStep = 3
-  order.htlcStep = 3
-  return order.save().then(() => offer.save())
+  offer.htlcTxId3 = tx.txId
+  return offer.save()
 }
 
 function dispatchAlert (hub, tx, route) {
