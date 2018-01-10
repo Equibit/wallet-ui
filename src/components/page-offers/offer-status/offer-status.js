@@ -61,13 +61,14 @@ export const ViewModel = DefineMap.extend({
     const issuance = this.issuance
     const user = Session.current.user
     const portfolio = Session.current.portfolios[0]
+    const secret = user.decrypt(offer.secretEncrypted)
 
     const inputs = [{
       txid: offer.htlcTxId2,
       vout: 0,
       keyPair: portfolio.findAddress(offer.eqbAddressTrading).keyPair,
       htlc: {
-        secret: user.decrypt(offer.secretEncrypted),
+        secret,
         // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
         refundAddr: order.eqbAddressHolding,
         timelock: order.timelock || Math.floor(offer.timelock / 2)
@@ -108,14 +109,16 @@ export const ViewModel = DefineMap.extend({
     const tx = new Transaction(txConfig)
 
     return tx.save()
-      .then(tx => updateOffer(order, offer, tx))
+      .then(tx => updateOffer(offer, secret, tx))
       .then(() => dispatchAlert(hub, tx, route))
       .catch(dispatchAlertError)
   }
 })
 
-function updateOffer (offer, tx) {
+function updateOffer (offer, secret, tx) {
   offer.htlcStep = 3
+  // reveal secret to the seller:
+  offer.secret = secret
   offer.htlcTxId3 = tx.txId
   return offer.save()
 }

@@ -102,6 +102,7 @@ const Offer = DefineMap.extend('Offer', {
   // HTLC
   htlcStep: 'number',
   secretEncrypted: 'string',
+  secret: 'string',   // Revealed secret (after transaction #3)
   hashlock: 'string',
   timelock: 'number',
   // htlcTxId: 'string',
