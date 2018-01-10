@@ -66,7 +66,12 @@ export const ViewModel = DefineMap.extend({
       txid: order.htlcTxId,
       vout: 0,
       keyPair: portfolio.findAddress(offer.eqbAddressTrading).keyPair,
-      htlcSecret: user.decrypt(offer.secretEncrypted),
+      htlc: {
+        secret: user.decrypt(offer.secretEncrypted),
+        // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
+        refundAddr: order.eqbAddressHolding,
+        timelock: order.timelock || Math.floor(offer.timelock / 2)
+      },
       sequence: '4294967295'
     }]
     const outputs = [{
