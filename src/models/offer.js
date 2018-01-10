@@ -111,7 +111,6 @@ const Offer = DefineMap.extend('Offer', {
   htlcTxId3: 'string',
   htlcTxId4: 'string',
 
-  isAccepted: 'boolean',
   description: 'string',
 
   createdAt: {
