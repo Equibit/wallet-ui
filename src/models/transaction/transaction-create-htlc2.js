@@ -4,10 +4,10 @@ import { eqbTxBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { buildTransaction } from './transaction-build'
 import { prepareTxData } from './transaction-create-htlc1'
 
-// const hashTimelockContract = eqbTxBuilder.hashTimelockContract
+const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 // const simpleHashlockContract = eqbTxBuilder.simpleHashlockContract
-const simpleHashlockAddrContract = eqbTxBuilder.simpleHashlockAddrContract
-const simpleHashlockSigContract = eqbTxBuilder.simpleHashlockSigContract
+// const simpleHashlockAddrContract = eqbTxBuilder.simpleHashlockAddrContract
+// const simpleHashlockSigContract = eqbTxBuilder.simpleHashlockSigContract
 
 /**
  * Creates HTLC transaction with H(x). Offer type is either 'BUY' or 'SELL'.

@@ -50,7 +50,9 @@
       "mocha"
     ],
     "ignore": [
-      "dev-bundle.js"
+      "dev-bundle.js",
+      "docs",
+      "docs_old"
     ]
   },
   "steal": {
