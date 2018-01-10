@@ -87,17 +87,30 @@ const Offer = DefineMap.extend('Offer', {
     value: 'OPEN'
   },
 
+  /**
+   * @property {Number} models/offer.properties.isAccepted isAccepted
+   * @parent models/offer.properties
+   * Indicates whether this offer was accepted
+   */
+  isAccepted: 'boolean',
+
   // Issuance info:
   companyName: 'string',
   issuanceName: 'string',
   issuanceType: 'string',
 
   // HTLC
+  htlcStep: 'number',
   secretEncrypted: 'string',
+  secret: 'string',   // Revealed secret (after transaction #3)
   hashlock: 'string',
   timelock: 'number',
+  // htlcTxId: 'string',
+  htlcTxId1: 'string',
+  htlcTxId2: 'string',
+  htlcTxId3: 'string',
+  htlcTxId4: 'string',
 
-  isAccepted: 'boolean',
   description: 'string',
 
   createdAt: {
@@ -138,6 +151,15 @@ const Offer = DefineMap.extend('Offer', {
       if (this.issuanceId) {
         return Issuance.get({_id: this.issuanceId})
       }
+    }
+  },
+  issuance: {
+    Type: Issuance,
+    get (val, resolve) {
+      if (val) {
+        return val
+      }
+      this.issuancePromise.then(resolve)
     }
   },
   orderPromise: {

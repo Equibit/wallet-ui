@@ -19,7 +19,8 @@ import './order-data.less'
 import view from './order-data.stache'
 
 export const ViewModel = DefineMap.extend({
-  order: '*'
+  order: '*',
+  offers: '*'
 })
 
 export default Component.extend({

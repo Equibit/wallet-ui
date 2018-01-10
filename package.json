@@ -50,7 +50,9 @@
       "mocha"
     ],
     "ignore": [
-      "dev-bundle.js"
+      "dev-bundle.js",
+      "docs",
+      "docs_old"
     ]
   },
   "steal": {
@@ -93,7 +95,7 @@
     }
   },
   "dependencies": {
-    "@equibit/wallet-crypto": "0.15.0",
+    "@equibit/wallet-crypto": "0.20.0",
     "accounting": "^0.4.1",
     "bit-c3": "^0.3.0",
     "body-parser": "^1.18.2",

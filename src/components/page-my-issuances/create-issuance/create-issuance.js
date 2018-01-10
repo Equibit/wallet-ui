@@ -73,12 +73,18 @@ export const ViewModel = DefineMap.extend({
     // save issuance
     const issuance = formData.issuance
     const company = issuance.selectedCompany
+
+    // Define issuance index:
+    issuance.index = formData.issuances.getNewIndex(company._id)
+
     const currencyType = 'EQB'
     // todo: simplify, hide this in models.
     const companyHdNode = Session.current.user.generatePortfolioKeys(company.index).EQB
-    const toAddress = companyHdNode.derive(issuance.index).getAddress()
+    const issuanceHdNode = companyHdNode.derive(issuance.index)
+    const toAddress = issuanceHdNode.getAddress()
     // Save public issuance address:
     issuance.issuanceAddress = toAddress
+    issuance.keys = issuanceHdNode
 
     console.log(`createIssuance: toAddress=${toAddress}`, formData, issuance)
 
@@ -87,6 +93,9 @@ export const ViewModel = DefineMap.extend({
     .then((changeAddr) => {
       console.log(`toAddress=${toAddress}, changeAddr=${changeAddr}`)
       const tx = this.prepareTransaction(formData, issuance, toAddress, changeAddr)
+
+      // Save authorization transaction id:
+      issuance.issuanceTxId = tx.txId
 
       // Show the spinner:
       // this.isSending = true

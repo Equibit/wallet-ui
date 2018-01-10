@@ -33,6 +33,7 @@ const utxo = [{
 
 const issuance = new Issuance({
   _id: '595e5c58711b9e358f567edc',
+  issuanceTxId: '4e7e759e537d87127b2232ce646666e3a71c48f608a43b7d6d9767bfbf92ca50',
   issuanceAddress: 'mmWBNCAdwoPbF9BRBDeGo6QpoxrF98n7Rn',
   companyIndex,
   index: issuanceIndex,

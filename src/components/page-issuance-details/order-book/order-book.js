@@ -100,6 +100,7 @@ export const ViewModel = DefineMap.extend({
           .then(() => dispatchAlertOrder(hub, route))
           .then(() => order)
       })
+      .catch(dispatchAlertError)
   },
 
   /**
@@ -209,7 +210,7 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
 
 function saveOffer (offer, tx) {
   // todo: what should offer know about the transaction?
-  // offer.tx = tx
+  offer.htlcTxId1 = tx.txId
   return offer.save()
 }
 

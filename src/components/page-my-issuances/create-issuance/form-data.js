@@ -9,7 +9,6 @@ const FormData = DefineMap({
     get () {
       return new Issuance({
         userId: Session.current.user._id,
-        index: this.issuances.getNewIndex(),
         sharesAuthorized: 100 * 1000 * 1000,
         issuanceUnit: 'SHARES'
       })

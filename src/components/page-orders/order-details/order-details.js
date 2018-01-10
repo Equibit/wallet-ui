@@ -18,12 +18,38 @@ import DefineMap from 'can-define/map/map'
 import './order-details.less'
 import view from './order-details.stache'
 import Order from '../../../models/order'
+import Offer from '../../../models/offer'
 
 export const ViewModel = DefineMap.extend({
   // ENUM ['SELL', 'BUY']
   type: 'string',
   order: Order,
   ordersLength: 'number',
+  offers: {
+    get (val, resolve) {
+      if (val) {
+        return val
+      }
+      if (this.order) {
+        Offer.getList({orderId: this.order._id}).then(offers => {
+          if (offers && offers[0]) {
+            offers[0].isSelected = true
+          }
+          resolve(offers)
+        })
+      }
+    }
+  },
+  newOffers: {
+    get () {
+      return this.offers && this.offers.filter(o => !o.isAccepted)
+    }
+  },
+  acceptedOffers: {
+    get () {
+      return this.offers && this.offers.filter(o => o.isAccepted)
+    }
+  },
   isModalShown: 'boolean',
   showModal () {
     // Note: we need to re-insert the modal content:

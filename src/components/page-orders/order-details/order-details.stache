@@ -21,11 +21,11 @@
   <div class="panel-body">
     <div class="row order-details-body">
       <div class="col-xs-12 col-lg-8 order-data">
-        <order-data order:from="order" class="stretch"/>
+        <order-data order:from="order" offers:from="acceptedOffers" class="stretch"/>
       </div>
 
       <div class="col-xs-12 col-lg-4 offers-data">
-        <order-offers-data  order:from="order" class="stretch"/>
+        <order-offers-data  order:from="order" offers:from="newOffers" class="stretch"/>
       </div>
     </div>
   </div>

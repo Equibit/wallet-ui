@@ -1,3 +1,12 @@
+/**
+ * @module {can-map} models/issuance Issuance
+ * @parent models
+ *
+ * Issuance record
+ *
+ * @group models/issuance.properties 0 properties
+ */
+
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
@@ -11,17 +20,29 @@ const Issuance = DefineMap.extend('Issuance', {
   _id: 'string',
 
   /**
+   * @property {Number} models/issuance.properties.issuanceTxId issuanceTxId
+   * @parent models/issuance.properties
+   * Id of the authorization transaction
+   */
+  issuanceTxId: 'string',
+
+  /**
+   * @property {Number} models/issuance.properties.userId userId
+   * @parent models/issuance.properties
    * Id of the user who created the issuance
    */
   userId: 'string',
 
+  // todo: `issuanceAddress` does not really make sense since one issuance will be broken into a lot of parts.
   /**
    * Issuance address identifies issuance in Blockchain. All OrderBook items will be linked by this address.
+   * This is to find UTXO of the issuance; do not confuse with authorization txid (issuanceTxId).
    */
   issuanceAddress: 'string',
 
   /**
    * For deriving keys
+   * /m' /44' /79' /<company_index>' /<issuance_index>
    */
   index: 'number',
   companyIndex: 'number',
@@ -45,6 +66,7 @@ const Issuance = DefineMap.extend('Issuance', {
   },
   issuanceUnit: 'string',   // ['SHARES', 'BTC', 'UNITS'] ?
   restriction: 'number',
+
   marketCap: 'number',
   change: 'number',
   changePercentage: 'number',
@@ -93,10 +115,15 @@ const Issuance = DefineMap.extend('Issuance', {
         this.companyName = company.name
         this.companySlug = company.slug
         this.domicile = company.domicile
+        this.index = (this.issuances && this.issuances.getNewIndex(this.companyId)) || 0
       }
       return company
     }
   },
+  /**
+   * HDNode (instance of `bitcoinjs-lib/src/hdnode.js` class).
+   * Can be used by issuer who sends issuances.
+   */
   keys: {
     serialize: false,
     get (lastSetVal) {
@@ -174,8 +201,9 @@ Issuance.types = new DefineList(
 
 Issuance.List = DefineList.extend('IssuanceList', {
   '#': Issuance,
+  // todo: revisit this - it should figure out index based on company.
   // Every new issuance requires a new index for its EQB address.
-  getNewIndex () {
+  getNewIndex (companyId) {
     return this.reduce((acc, issuance) => {
       if (issuance.index > acc) {
         acc = issuance.index
@@ -183,6 +211,7 @@ Issuance.List = DefineList.extend('IssuanceList', {
       return acc
     }, 0)
   },
+  // todo: revisit this: the prop issuance.address is pointing to the issue authorization transaction. Technically Issuance.List should load UTXO based on portfolio meta addresses info and issuances meta (company and issuance indexes) when current user is also an issuer.
   addresses: {
     get () {
       return this.reduce((acc, issuance) => {
@@ -195,9 +224,13 @@ Issuance.List = DefineList.extend('IssuanceList', {
       }, [])
     }
   },
+
+  // UTXO are listed by address, but different issuances can be sitting on the same address
+  // (the authorized issuances should not, instead they should sit on separate addresses `company_index/issuance_index`)
+  // so just in case we check issuance_json and filter by issuanceName (should be a combination companyName + issuanceName).
   loadUTXO () {
     if (this.addresses.length > 0) {
-      fetchListunspent({EQB: this.addresses}).then(utxoByType => {
+      return fetchListunspent({EQB: this.addresses}).then(utxoByType => {
         if (utxoByType.EQB.total === 0) {
           return
         }
@@ -211,6 +244,8 @@ Issuance.List = DefineList.extend('IssuanceList', {
           }
         })
       })
+    } else {
+      return Promise.reject(new Error(`No addresses for the issuances ${this.length}. Cannot load UTXO`))
     }
   }
 })

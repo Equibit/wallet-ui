@@ -23,26 +23,13 @@ import view from './order-offers-data.stache'
 import Order from '../../../models/order'
 import Offer from '../../../models/offer'
 import Session from '../../../models/session'
+import Transaction from '../../../models/transaction/transaction'
 import { createHtlc2 } from '../../../models/transaction/transaction-create-htlc2'
 import { translate } from '../../../i18n/i18n'
 
 export const ViewModel = DefineMap.extend({
   order: Order,
-  offers: {
-    get (val, resolve) {
-      if (val) {
-        return val
-      }
-      if (this.order) {
-        Offer.getList({orderId: this.order._id}).then(offers => {
-          if (offers && offers[0]) {
-            offers[0].isSelected = true
-          }
-          resolve(offers)
-        })
-      }
-    }
-  },
+  offers: Offer.List,
   expandOffer (offer) {
     this.offers.forEach(offer => {
       offer.isSelected = false
@@ -56,21 +43,27 @@ export const ViewModel = DefineMap.extend({
     const portfolio = Session.current.portfolios[0]
 
     return Promise.all([
-      offer.issuancePromise,
-      offer.orderPromise,
+      Session.current.issuancesPromise,
       portfolio.getNextAddress(true)
-    ]).then(([issuance, order, changeAddrPair]) => {
-      console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddrPair`, offer, order, portfolio, issuance, changeAddrPair)
-      const tx = createHtlc2(offer, order, portfolio, issuance, changeAddrPair)
+    ]).then(([issuances, changeAddrPair]) => {
+      // todo: figure out a better way to find the issuance with preloaded UTXO.
+      const issuance = issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
+
+      console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddrPair`, offer, this.order, portfolio, issuance, changeAddrPair)
+      const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddrPair)
+      const tx = new Transaction(txData)
       return tx.save()
-        .then(tx => updateOffer(offer, tx))
-        .then(offer => dispatchAlert(hub, tx, route))
+        .then(tx => updateOrder(this.order, offer, tx))
+        .then(() => dispatchAlert(hub, tx, route))
     }).catch(dispatchAlertError)
   }
 })
 
-function updateOffer (offer, tx) {
+function updateOrder (offer, tx) {
+  // todo: we should NOT update the offer directly here since it belongs to a different user. API should do it when creates a receiver transaction.
+  offer.htlcTxId2 = tx.txId
   offer.htlcStep = 2
+  offer.isAccepted = true
   return offer.save()
 }
 

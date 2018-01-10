@@ -51,6 +51,8 @@
     </div>
 
     <div class="order-accepted-offers section">
-      <order-offers-accepted offers:from="order.acceptedOffers"></order-offers-accepted>
+      <order-offers-accepted order:from="order"
+                             offers:from="offers"
+                             issuance:from="order.issuance"></order-offers-accepted>
     </div>
 </div>

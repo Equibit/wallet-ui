@@ -5,6 +5,9 @@ import { buildTransaction } from './transaction-build'
 import { prepareTxData } from './transaction-create-htlc1'
 
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
+// const simpleHashlockContract = eqbTxBuilder.simpleHashlockContract
+// const simpleHashlockAddrContract = eqbTxBuilder.simpleHashlockAddrContract
+// const simpleHashlockSigContract = eqbTxBuilder.simpleHashlockSigContract
 
 /**
  * Creates HTLC transaction with H(x). Offer type is either 'BUY' or 'SELL'.
@@ -43,12 +46,18 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
   // UTXO:
   // todo: validate that issuance and portfolio have enough utxo (results in a non-empty array).
   const issuanceUtxoInfo = issuance.getTxoutsFor(offer.quantity)
+  if (!issuanceUtxoInfo.sum) {
+    throw new Error('Not enough UTXO for the issuance')
+  }
   const availableAmount = issuanceUtxoInfo.sum
   const issuanceUtxo = issuanceUtxoInfo.txouts
     .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
 
   // For EQB the fee comes from empty EQB.
   const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
+  if (!utxoEmptyEqbInfo.sum) {
+    throw new Error('Not enough empty EQB to cover the fee')
+  }
   const availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
   const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
     .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
@@ -56,17 +65,19 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
   const utxo = issuanceUtxo.concat(utxoEmptyEqb)
 
   // HTLC SCRIPT:
-  const script = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
-  console.log(`script = ${script.toString('hex')}`)
+  const htlcScript = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
+  console.log(`htlcScript = ${htlcScript.toString('hex')}`)
 
   const buildConfig = {
     vin: utxo.map(pick(['txid', 'vout', 'keyPair'])),
     vout: [{
       value: amount,
-      scriptPubKey: script
+      scriptPubKey: htlcScript,
+      issuanceTxId: issuance.issuanceTxId
     }, {
       value: availableAmount - amount,
-      address: changeAddr
+      address: changeAddr,
+      issuanceTxId: issuance.issuanceTxId
     }, {
       value: availableAmountEmptyEqb - fee,
       address: changeAddrEmptyEqb
