@@ -77,7 +77,7 @@ export const ViewModel = DefineMap.extend({
       'String'
     ), [order, offer, issuance, user, portfolio, secret])
 
-    return this.portfolio.getNextAddress()
+    return portfolio.getNextAddress()
       .then(({EQB}) => {
         const txData = createHtlc3(order, offer, portfolio, issuance, secret, EQB)
         const tx = new Transaction(txData)
