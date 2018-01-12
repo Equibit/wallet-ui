@@ -19,6 +19,7 @@ import moment from 'moment'
 import route from 'can-route'
 import typeforce from 'typeforce'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
+import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 
 import { translate } from '../../../i18n/i18n'
 import './offer-status.less'
@@ -56,71 +57,99 @@ export const ViewModel = DefineMap.extend({
     console.log(`collectSecurities`, this.offer)
     typeforce('Offer', this.offer)
 
+    // 1. Generate addr for empty EQB (to pay the fee) change.
+    // 2. Prepare tx config and create htlc3 transaction.
+    // 3. Save offer htlcStep=4 and reveal the secret.
+
     const order = this.order
     const offer = this.offer
     const issuance = this.issuance
     const user = Session.current.user
     const portfolio = Session.current.portfolios[0]
     const secret = user.decrypt(offer.secretEncrypted)
+    typeforce(typeforce.tuple(
+      'Order',
+      'Offer',
+      'Issuance',
+      'User',
+      'Portfolio',
+      'String',
+      types.Address
+    ), [order, offer, issuance, user, portfolio, secret])
 
-    const inputs = [{
-      txid: offer.htlcTxId2,
-      vout: 0,
-      keyPair: portfolio.findAddress(offer.eqbAddressTrading).keyPair,
-      htlc: {
-        secret,
-        // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
-        refundAddr: order.eqbAddressHolding,
-        timelock: order.timelock || Math.floor(offer.timelock / 2)
-      },
-      sequence: '4294967295'
-    }]
-    const outputs = [{
-      value: offer.quantity,
-      address: offer.eqbAddressHolding,
-      issuanceTxId: issuance.issuanceTxId
-    }]
-
-    const txInfo = buildTransactionEqb(inputs, outputs)
-
-    const txConfig = {
-      address: offer.eqbAddressHolding,
-      addressTxid: inputs[0].txid,
-      addressVout: inputs[0].vout,
-      type: 'BUY',
-      currencyType: 'EQB',
-      amount: offer.quantity,
-      description: 'Collecting securities from HTLC',
-      hex: txInfo.hex,
-      txId: txInfo.txId,
-      fromAddress: offer.eqbAddressTrading,
-      toAddress: offer.eqbAddressHolding,
-
-      // Issuance details:
-      companyName: offer.companyName,
-      // companySlug: issuance.companySlug,
-      issuanceId: offer.issuanceId,
-      issuanceName: offer.issuanceName,
-      issuanceType: offer.issuanceType
-      // issuanceUnit: issuance.issuanceUnit
-    }
-    console.log(`collectSecurities txConfig:`, txConfig)
-
-    const tx = new Transaction(txConfig)
-
-    return tx.save()
+    return this.portfolio.getNextAddress()
+      .then(({EQB}) => {
+        const tx = createHtlc3(order, offer, portfolio, issuance, secret, EQB)
+        return tx.save()
+      })
       .then(tx => updateOffer(offer, secret, tx))
-      .then(() => dispatchAlert(hub, tx, route))
+      .then(({tx}) => dispatchAlert(hub, tx, route))
       .catch(dispatchAlertError)
   }
 })
+
+function createHtlc3 (order, offer, portfolio, issuance, secret, EQB) {
+  typeforce(typeforce.tuple(
+    'Order',
+    'Offer',
+    'Issuance',
+    'Portfolio',
+    'String',
+    types.Address
+  ), arguments)
+
+  const inputs = [{
+    txid: offer.htlcTxId2,
+    vout: 0,
+    keyPair: portfolio.findAddress(offer.eqbAddressTrading).keyPair,
+    htlc: {
+      secret,
+      // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
+      refundAddr: order.eqbAddressHolding,
+      timelock: order.timelock || Math.floor(offer.timelock / 2)
+    },
+    sequence: '4294967295'
+  }]
+  const outputs = [{
+    value: offer.quantity,
+    address: offer.eqbAddressHolding,
+    issuanceTxId: issuance.issuanceTxId
+  }]
+
+  const txInfo = buildTransactionEqb(inputs, outputs)
+
+  const txConfig = {
+    address: offer.eqbAddressHolding,
+    addressTxid: inputs[0].txid,
+    addressVout: inputs[0].vout,
+    type: 'BUY',
+    currencyType: 'EQB',
+    amount: offer.quantity,
+    description: 'Collecting securities from HTLC',
+    hex: txInfo.hex,
+    txId: txInfo.txId,
+    fromAddress: offer.eqbAddressTrading,
+    toAddress: offer.eqbAddressHolding,
+
+    // Issuance details:
+    companyName: offer.companyName,
+    // companySlug: issuance.companySlug,
+    issuanceId: offer.issuanceId,
+    issuanceName: offer.issuanceName,
+    issuanceType: offer.issuanceType
+    // issuanceUnit: issuance.issuanceUnit
+  }
+  console.log(`createHtlc3: txConfig:`, txConfig)
+
+  return new Transaction(txConfig)
+}
 
 function updateOffer (offer, secret, tx) {
   offer.htlcStep = 3
   // reveal secret to the seller:
   offer.secret = secret
   offer.htlcTxId3 = tx.txId
-  return offer.save()
+  return offer.save().then(offer => ({ offer, tx }))
 }
 
 function dispatchAlert (hub, tx, route) {
