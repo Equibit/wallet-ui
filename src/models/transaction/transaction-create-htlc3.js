@@ -10,9 +10,10 @@ import { prepareTxData } from './transaction-create-htlc1'
  */
 function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
   typeforce(
-    typeforce.tuple('Order', 'Offer', 'Issuance', 'Portfolio', 'String', types.Address),
+    typeforce.tuple('Order', 'Offer', 'Portfolio', 'Issuance', 'String', types.Address),
     arguments
   )
+  console.log(`createHtlc3 arguments:`, arguments)
 
   const htlcConfig = prepareHtlcConfig3(order, offer, portfolio, issuance, secret, changeAddr)
   // todo: generalize to both Ask and Bid.
@@ -58,12 +59,14 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
     }]
   }
   buildConfig.vin = buildConfig.vin.concat(utxoEmptyEqb)
+  console.log(`createHtlc3: buildConfig:`, buildConfig)
 
   const txInfo = {
     address: offer.eqbAddressHolding,
     addressTxid: buildConfig.vin[0].txid,
     addressVout: buildConfig.vin[0].vout,
     type: 'BUY',
+    fee,
     currencyType: 'EQB',
     amount: offer.quantity,
     description: 'Collecting securities from HTLC',
