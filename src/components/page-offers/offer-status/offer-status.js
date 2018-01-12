@@ -29,7 +29,7 @@ import Offer from '../../../models/offer'
 import Issuance from '../../../models/issuance'
 import Session from '../../../models/session'
 import Transaction from '../../../models/transaction/transaction'
-import { buildTransactionEqb } from '../../../models/transaction/transaction-build.js'
+import { createHtlc3 } from '../../../models/transaction/transaction-create-htlc3'
 
 const enumSetter = values => value => {
   if (values.indexOf) {
@@ -80,7 +80,8 @@ export const ViewModel = DefineMap.extend({
 
     return this.portfolio.getNextAddress()
       .then(({EQB}) => {
-        const tx = createHtlc3(order, offer, portfolio, issuance, secret, EQB)
+        const txData = createHtlc3(order, offer, portfolio, issuance, secret, EQB)
+        const tx = new Transaction(txData)
 
         // todo: add UI modal with tx info (amount, fee, etc).
 

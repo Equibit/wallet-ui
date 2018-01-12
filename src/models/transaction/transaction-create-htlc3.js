@@ -1,5 +1,5 @@
 import typeforce from 'typeforce'
-import { merge, pick } from 'ramda'
+import { merge } from 'ramda'
 import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { buildTransaction } from './transaction-build'
 import { prepareTxData } from './transaction-create-htlc1'
@@ -23,7 +23,6 @@ function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
 }
 
 function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAddr) {
-
   // todo: calculate transaction fee:
   const fee = 1000
 
@@ -62,14 +61,14 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
 
   const txInfo = {
     address: offer.eqbAddressHolding,
-    addressTxid: inputs[0].txid,
-    addressVout: inputs[0].vout,
+    addressTxid: buildConfig.vin[0].txid,
+    addressVout: buildConfig.vin[0].vout,
     type: 'BUY',
     currencyType: 'EQB',
     amount: offer.quantity,
     description: 'Collecting securities from HTLC',
     fromAddress: offer.eqbAddressTrading,
-    toAddress: offer.eqbAddressHolding,
+    toAddress: offer.eqbAddressHolding
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
 
