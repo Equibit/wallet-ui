@@ -84,6 +84,7 @@ export const ViewModel = DefineMap.extend({
         const tx = new Transaction(txData)
 
         // todo: add UI modal with tx info (amount, fee, etc).
+        console.log('UUUUU IIIIII')
 
         return tx.save()
       })

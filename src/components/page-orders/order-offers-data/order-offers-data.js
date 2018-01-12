@@ -57,13 +57,13 @@ export const ViewModel = DefineMap.extend({
       // todo: show UI modal with tx details (amount, fee, etc)
 
       return tx.save()
-        .then(tx => updateOrder(this.order, offer, tx))
+        .then(tx => updateOffer(offer, tx))
         .then(() => dispatchAlert(hub, tx, route))
     }).catch(dispatchAlertError)
   }
 })
 
-function updateOrder (offer, tx) {
+function updateOffer (offer, tx) {
   // todo: we should NOT update the offer directly here since it belongs to a different user. API should do it when creates a receiver transaction.
   offer.htlcTxId2 = tx.txId
   offer.htlcStep = 2
