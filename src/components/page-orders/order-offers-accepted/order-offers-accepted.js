@@ -66,7 +66,7 @@ export const ViewModel = DefineMap.extend({
       address: order.btcAddress
     }]
 
-    const txInfo = buildTransaction(inputs, outputs)
+    const txInfo = buildTransaction('BTC')(inputs, outputs)
 
     const txConfig = {
       address: order.btcAddress,
