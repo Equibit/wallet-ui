@@ -36,7 +36,7 @@ export const ViewModel = DefineMap.extend({
   offer: {
     get () {
       const offer = this.offers[0]
-      offer.htlcStep = 4
+      offer.htlcStep = 3
       return offer
     }
   },
