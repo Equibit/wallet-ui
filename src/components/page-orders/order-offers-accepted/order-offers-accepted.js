@@ -32,6 +32,8 @@ export const ViewModel = DefineMap.extend({
   order: Order,
   issuance: Issuance,
   offers: Offer.List,
+
+  // HTLC 4:
   collectPayment (offer) {
     // todo: its a BTC transacaction for a SELL order. Generalize to check `order.type`.
     console.log(`collectPayment offer:`, offer)
@@ -90,6 +92,8 @@ export const ViewModel = DefineMap.extend({
     console.log(`collectPayment txConfig:`, txConfig)
 
     const tx = new Transaction(txConfig)
+
+    // todo: show UI modal with tx info (amount, fee, etc) and proceed with "Next" button action.
 
     return tx.save()
       .then(tx => updateOffer(offer, tx))

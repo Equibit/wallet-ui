@@ -53,6 +53,7 @@ export const ViewModel = DefineMap.extend({
   get dateDisplay () {
     return moment(this.date).format('MM/DD @h:mm A')   // 04/29 @2:30 pm
   },
+  // HTLC 3:
   collectSecurities () {
     console.log(`collectSecurities`, this.offer)
     typeforce('Offer', this.offer)
@@ -80,6 +81,9 @@ export const ViewModel = DefineMap.extend({
     return this.portfolio.getNextAddress()
       .then(({EQB}) => {
         const tx = createHtlc3(order, offer, portfolio, issuance, secret, EQB)
+
+        // todo: add UI modal with tx info (amount, fee, etc).
+
         return tx.save()
       })
       .then(tx => updateOffer(offer, secret, tx))
@@ -87,62 +91,6 @@ export const ViewModel = DefineMap.extend({
       .catch(dispatchAlertError)
   }
 })
-
-function createHtlc3 (order, offer, portfolio, issuance, secret, EQB) {
-  typeforce(typeforce.tuple(
-    'Order',
-    'Offer',
-    'Issuance',
-    'Portfolio',
-    'String',
-    types.Address
-  ), arguments)
-
-  const inputs = [{
-    txid: offer.htlcTxId2,
-    vout: 0,
-    keyPair: portfolio.findAddress(offer.eqbAddressTrading).keyPair,
-    htlc: {
-      secret,
-      // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
-      refundAddr: order.eqbAddressHolding,
-      timelock: order.timelock || Math.floor(offer.timelock / 2)
-    },
-    sequence: '4294967295'
-  }]
-  const outputs = [{
-    value: offer.quantity,
-    address: offer.eqbAddressHolding,
-    issuanceTxId: issuance.issuanceTxId
-  }]
-
-  const txInfo = buildTransactionEqb(inputs, outputs)
-
-  const txConfig = {
-    address: offer.eqbAddressHolding,
-    addressTxid: inputs[0].txid,
-    addressVout: inputs[0].vout,
-    type: 'BUY',
-    currencyType: 'EQB',
-    amount: offer.quantity,
-    description: 'Collecting securities from HTLC',
-    hex: txInfo.hex,
-    txId: txInfo.txId,
-    fromAddress: offer.eqbAddressTrading,
-    toAddress: offer.eqbAddressHolding,
-
-    // Issuance details:
-    companyName: offer.companyName,
-    // companySlug: issuance.companySlug,
-    issuanceId: offer.issuanceId,
-    issuanceName: offer.issuanceName,
-    issuanceType: offer.issuanceType
-    // issuanceUnit: issuance.issuanceUnit
-  }
-  console.log(`createHtlc3: txConfig:`, txConfig)
-
-  return new Transaction(txConfig)
-}
 
 function updateOffer (offer, secret, tx) {
   offer.htlcStep = 3

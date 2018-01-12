@@ -111,6 +111,7 @@ export const ViewModel = DefineMap.extend({
    * @param args
    * @returns {Promise.<Order>}
    */
+  // HTLC 1: place payment.
   placeOffer (args) {
     typeforce(typeforce.tuple('OfferFormData', 'String'), [args[1], args[2]])
     const formData = args[1]
@@ -124,6 +125,10 @@ export const ViewModel = DefineMap.extend({
     ]).then(([addr, change]) => {
       const offer = createHtlcOffer(formData, type, secret, formData.timelock, Session.current.user, this.issuance, addr.EQB, addr.BTC)
       const tx = Transaction.createHtlc1(offer, formData.order, this.portfolio, this.issuance, change)
+
+      // Here we have all info about the transaction we want to create (fees, etc).
+      // We need to show a modal with the info here.
+
       return tx.save()
         .then(tx => saveOffer(offer, tx))
         .then(offer => dispatchAlertOffer(hub, offer, route))
