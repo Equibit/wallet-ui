@@ -3,12 +3,6 @@
 <h3 class="subheading">{{i18n('acceptedOffers')}} <span class="badge">{{offers.length}}</span></h3>
 
 <div class="accepted-offers">
-  <div class="row accepted-offers-header">
-    <div class="col-xs-2 offer-quantity">{{i18n('quantity')}}</div>
-    <div class="col-xs-3 offer-accepted-date">{{i18n('acceptedDate')}}</div>
-    <div class="col-xs-6 offer-deal-step">{{i18n('dealFlowStepLabel')}}</div>
-    <div class="col-xs-1 offer-deal-action"></div>
-  </div>
 
   <div class="col-xs-12 accepted-offers-body no-padding">
 
@@ -18,15 +12,32 @@
 
         {{#case 2}}
           <div class="row accepted-offers-status contextual-bg-progress">
-            <div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>
-            <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
-            <div class="col-xs-4 offer-deal-step">
-              <span class="icon icon-clock"></span>
-              <span class="deal-step-label">You sent securities. Waiting for the other side to collect them.</span>
-            </div>
-            <div class="col-xs-2 offer-deal-step-number">Step 2 of 4</div>
-            <div class="col-xs-1 offer-deal-action">
-              <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
+            <div class="col-xs-12 offer-quantity">Quantity <span class="offer-quantity-value">{{offer.quantity}}</span></div>
+            <div class="col-xs-12 offer-timeline">
+              <div class="row">
+                <div class="col-xs-12 col-sm-10">
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-accepted-date">{{offer.dateDisplay}}</span></div>
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-check-progress"></span>Securities sent <a href="">(View Transaction)</a>
+                  </div>
+                  <div class="offer-timeline-event offer-timeline-event--pending">
+                    <span class="icon icon-check-pending"></span>Awaiting buyer to collect securities
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-2">
+                  <div class="timer-container">
+                    <label>Time Lock</label>
+                    <div class="timer timer--active"><span class="icon icon-clock"></span>12:30:00</div>
+                  </div>
+
+                  <div class="timer-container">
+                    <label>Safety Zone</label>
+                    <div class="timer timer--pending"><span class="icon icon-clock"></span>12:00:00</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         {{/case}}
