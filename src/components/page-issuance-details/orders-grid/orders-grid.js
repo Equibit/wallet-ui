@@ -105,7 +105,7 @@ export default Component.extend({
     inserted () {
       Order.subscribe(this.viewModel.ordersCallback = order => {
         const rows = this.viewModel.rows
-        const pageEndPrice = rows[rows.length - 1].price * (this.viewModel.type === 'BUY' ? -1 : 1)
+        const pageEndPrice = rows.length < 1 ? 0 : rows[rows.length - 1].price * (this.viewModel.type === 'BUY' ? -1 : 1)
         const orderPrice = order.price * (this.viewModel.type === 'BUY' ? -1 : 1)
         if (rows &&
           order.type === this.viewModel.type &&
