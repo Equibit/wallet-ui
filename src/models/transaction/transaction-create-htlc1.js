@@ -42,6 +42,9 @@ function prepareHtlcConfig (offer, order, portfolio, changeAddr) {
   const htlcStep = 1
 
   const utxoInfo = portfolio.getTxouts(amount + fee, 'BTC')
+  if (!utxoInfo.sum) {
+    throw new Error(`Not enough BTC for the amount ${amount + fee}`)
+  }
   const availableAmount = utxoInfo.sum
   const utxo = utxoInfo.txouts
     .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
