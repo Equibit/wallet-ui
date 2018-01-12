@@ -13,7 +13,9 @@ body {
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
   <can-import from="wallet-ui/components/page-orders/order-offers-accepted/" />
-  <order-offers-accepted></order-offers-accepted>
+  <order-offers-accepted order:from="order"
+                         offers:from="offers"
+                         issuance:from="issuance"></order-offers-accepted>
 </script>
 
 <script src="../../../../node_modules/steal/steal.js"
@@ -23,9 +25,17 @@ body {
   import stache from 'can-stache';
   import reload from 'live-reload';
   import DefineMap from 'can-define/map/map';
+  import mockHtlcOffer from '~/models/mock/mock-htlc-offer'
+  import issuance from '~/models/mock/mock-issuance'
+  import Offer from '~/models/offer'
+
+  const offer = mockHtlcOffer()
+  offer.htlcStep = 2
 
   const vm = new DefineMap({
-    // view model props here
+    order: offer.order,
+    issuance,
+    offers: new Offer.List([offer]),
   });
 
   // Enable live-reload:
