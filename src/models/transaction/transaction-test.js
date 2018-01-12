@@ -21,6 +21,7 @@ import {
 import { makeTransaction } from './transaction-make'
 import { createHtlc1, prepareHtlcConfig, prepareTxData } from './transaction-create-htlc1'
 import { createHtlc2, prepareHtlcConfig2 } from './transaction-create-htlc2'
+import { createHtlc3, prepareHtlcConfig3 } from './transaction-create-htlc3'
 
 describe('models/transaction/utils', function () {
   describe('buildTransaction', function () {
@@ -281,12 +282,13 @@ describe('models/transaction/utils', function () {
     const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
 
-    describe('prepareHtlcConfig2', function () {
+    describe('prepareHtlcConfig3', function () {
       describe('buildConfig', function () {
         let amount, order, buildConfig
         before(function () {
           htlcOfferMock = mockHtlcOffer()
-          htlcConfig = prepareHtlcConfig2(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.EQB)
+          htlcConfig = prepareHtlcConfig3(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.EQB)
+          htlcConfig = prepareHtlcConfig3(order, offer, portfolio, issuance, secret, changeAddr)
           amount = htlcOfferMock.offer.quantity
           order = htlcOfferMock.order
           buildConfig = htlcConfig.buildConfig
