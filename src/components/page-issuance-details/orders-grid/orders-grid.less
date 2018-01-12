@@ -2,26 +2,26 @@ orders-grid {
 	display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-}
 
-.loopRight(@counter, @color) when (@counter >= 0) {
-  .loopRight((@counter - 1), @color);
-  &.percentage-@{counter} {
-    background-image: linear-gradient(90deg, white (1% * @counter), @color (1% * @counter));
+  .loopRight(@counter, @color) when (@counter >= 0) {
+    .loopRight((@counter - 1), @color);
+    &.percentage-@{counter} {
+      background-image: linear-gradient(90deg, white (1% * @counter), @color (1% * @counter));
+    }
   }
-}
 
-.loopLeft(@counter, @color) when (@counter >= 0) {
-  .loopLeft((@counter - 1), @color);
-  &.percentage-@{counter} {
-    background-image: linear-gradient(90deg, @color, @color (1% * @counter), white (1% * @counter));
+  .loopLeft(@counter, @color) when (@counter >= 0) {
+    .loopLeft((@counter - 1), @color);
+    &.percentage-@{counter} {
+      background-image: linear-gradient(90deg, @color, @color (1% * @counter), white (1% * @counter));
+    }
   }
-}
 
-.percentage-green {
-  .loopRight(100, rgba(0, 255, 0, .2))
-}
+  .percentage-green {
+    .loopRight(100, rgba(0, 255, 0, .2))
+  }
 
-.percentage-red {
-  .loopLeft(100, rgba(255, 0, 0, .2))
+  .percentage-red {
+    .loopLeft(100, rgba(255, 0, 0, .2))
+  }
 }
