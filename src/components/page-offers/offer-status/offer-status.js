@@ -74,8 +74,7 @@ export const ViewModel = DefineMap.extend({
       'Issuance',
       'User',
       'Portfolio',
-      'String',
-      types.Address
+      'String'
     ), [order, offer, issuance, user, portfolio, secret])
 
     return this.portfolio.getNextAddress()
