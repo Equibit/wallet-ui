@@ -20,7 +20,7 @@ order-book {
   grid-component {
     margin-bottom: @padding-large-vertical;
     overflow-y: auto;
-    
+
 		tr:hover {
 			background-color: @active-bg;
 			.btn {
@@ -52,6 +52,15 @@ order-book {
 			}
 		}
 	}
+  .popover-content,
+  .table-condensed > tbody > tr td .popover-content {
+    text-align: center;
+    .btn {
+      margin-top: 5px;
+      padding: 5px 7px;
+      font-size: 13px;
+    }
+  }
 }
 
 order-book,

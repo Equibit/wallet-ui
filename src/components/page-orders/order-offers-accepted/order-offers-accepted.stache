@@ -3,83 +3,132 @@
 <h3 class="subheading">{{i18n('acceptedOffers')}} <span class="badge">{{offers.length}}</span></h3>
 
 <div class="accepted-offers">
-  <div class="row accepted-offers-header">
-    <div class="col-xs-2 offer-quantity">{{i18n('quantity')}}</div>
-    <div class="col-xs-3 offer-accepted-date">{{i18n('acceptedDate')}}</div>
-    <div class="col-xs-6 offer-deal-step">{{i18n('dealFlowStepLabel')}}</div>
-    <div class="col-xs-1 offer-deal-action"></div>
-  </div>
 
   <div class="col-xs-12 accepted-offers-body no-padding">
 
-    {{#each offers as offer}}
+    <!--{{#each offers as offer}}-->
 
       {{#switch offer.htlcStep}}
 
         {{#case 2}}
           <div class="row accepted-offers-status contextual-bg-progress">
-            <div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>
-            <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
-            <div class="col-xs-4 offer-deal-step">
-              <span class="icon icon-clock"></span>
-              <span class="deal-step-label">You sent securities. Waiting for the other side to collect them.</span>
-            </div>
-            <div class="col-xs-2 offer-deal-step-number">Step 2 of 4</div>
-            <div class="col-xs-1 offer-deal-action">
-              <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
+            <div class="col-xs-12 offer-quantity">Quantity <span class="offer-quantity-value">{{offer.quantity}}</span></div>
+            <div class="col-xs-12 offer-timeline">
+              <div class="row">
+                <div class="col-xs-12 col-sm-10">
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-accepted-date">{{offer.dateDisplay}}</span>
+                  </div>
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-check-progress"></span>Securities sent <a href="">(View Transaction)</a>
+                  </div>
+                  <div class="offer-timeline-event offer-timeline-event--pending">
+                    <span class="icon icon-check-pending"></span>Awaiting buyer to collect securities
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-2">
+                  <div class="timer-container">
+                    <label>Time Lock</label>
+                    <div class="timer timer--active"><span class="icon icon-clock"></span>12:30:00</div>
+                  </div>
+
+                  <div class="timer-container">
+                    <label>Safety Zone</label>
+                    <div class="timer timer--pending"><span class="icon icon-clock"></span>12:00:00</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         {{/case}}
 
         {{#case 3}}
-          <div class="row accepted-offers-status contextual-bg-success">
-            <div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>
-            <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
-            <div class="col-xs-4 offer-deal-step">
-              <span class="icon icon-hand-shake"></span>
-              <span class="deal-step-label">Securities were collected by the other side. You can now collect the payment. </span>
-            </div>
-            <div class="col-xs-2 offer-deal-step-number">Step 3 of 4</div>
-            <div class="col-xs-1 offer-deal-action">
-              <a href="" class="btn btn-xs btn-default" on:click="collectPayment(offer)">Collect</a>
+          <div class="row accepted-offers-status contextual-bg-progress">
+            <div class="col-xs-12 offer-quantity">Quantity <span class="offer-quantity-value">{{offer.quantity}}</span></div>
+            <div class="col-xs-12 offer-timeline">
+              <div class="row">
+                <div class="col-xs-12 col-sm-10">
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-accepted-date">{{offer.dateDisplay}}</span>
+                  </div>
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-check-progress"></span>Securities sent <a href="">(View Transaction)</a>
+                  </div>
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-check-progress"></span>Buyer collected the securities on <span class="offer-accepted-date">{{offer.dateDisplay}}</span>
+                  </div>
+                  <div class="offer-timeline-event offer-timeline-event--pending">
+                    <span class="icon icon-check-pending"></span>You can now collect the payment
+                    <div class="offer-deal-action">
+                      <a href="" class="btn btn-xs btn-primary" on:click="collectPayment(offer)">Collect Payment</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-2">
+                  <div class="timer-container">
+                    <label>Time left to collect the payment</label>
+                    <div class="timer timer--active"><span class="icon icon-clock"></span>16:41:25</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         {{/case}}
 
         {{#case 4}}
           <div class="row accepted-offers-status contextual-bg-success">
-            <div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>
-            <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
-            <div class="col-xs-4 offer-deal-step">
-              <span class="icon icon-hand-shake"></span>
-              <span class="deal-step-label">Both securities and payment were collected. </span>
-            </div>
-            <div class="col-xs-2 offer-deal-step-number">Done</div>
-            <div class="col-xs-1 offer-deal-action">
-              <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
-            </div>
-          </div>
-        {{/case}}
-
-        {{#case "CANCELLED"}}
-          <div class="row accepted-offers-status contextual-bg-danger">
-            <div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>
-            <div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>
-            <div class="col-xs-5 offer-deal-step">
-              <span class="icon icon-hand-stop"></span>
-              <span class="deal-step-label">{{i18n('cancelledOn')}} {{offer.dateUpdatedDisplay}}</span>
-            </div>
-            <div class="col-xs-2 offer-deal-action">
-              <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
+            <div class="col-xs-12 offer-quantity">Quantity <span class="offer-quantity-value">{{offer.quantity}}</span></div>
+            <div class="col-xs-12 offer-timeline">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-check-done"></span>Offer sent on <span class="offer-accepted-date">{{offer.dateDisplay}}</span>
+                  </div>
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-check-done"></span>Payment offer sent <a href="">(View Transaction)</a>
+                  </div>
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-check-done"></span>Seller accepted the offer on <span class="offer-accepted-date">{{offer.dateDisplay}}</span>
+                  </div>
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-check-done"></span>Securities collected <a href="">(View Transaction)</a>
+                  </div>
+                  <div class="offer-timeline-event offer-timeline-event--done">
+                    <span class="icon icon-hand-shake"></span>Deal Closed
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
         {{/case}}
 
-        {{#case "REJECTED"}}
-          <!--p>REJECTED - N/A</p-->
-        {{/case}}
+        <!--{{#case "CANCELLED"}}-->
+          <!--<div class="row accepted-offers-status contextual-bg-danger">-->
+            <!--<div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>-->
+            <!--<div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>-->
+            <!--<div class="col-xs-5 offer-deal-step">-->
+              <!--<span class="icon icon-hand-stop"></span>-->
+              <!--<span class="deal-step-label">{{i18n('cancelledOn')}} {{offer.dateUpdatedDisplay}}</span>-->
+            <!--</div>-->
+            <!--<div class="col-xs-2 offer-deal-action">-->
+              <!--<a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--{{/case}}-->
+
+        <!--{{#case "REJECTED"}}-->
+          <!--&lt;!&ndash;p>REJECTED - N/A</p&ndash;&gt;-->
+        <!--{{/case}}-->
+
+        {{#default}}
+          Something is wrong (no htlcStep on the offer) {{offer.htlcStep}}
+        {{/default}}
       {{/switch}}
-    {{/each}}
+
+    <!--{{/each}}-->
   </div>
 
 </div>

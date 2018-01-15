@@ -1,0 +1,38 @@
+/**
+  * @stylesheet custom/_timer.less Timer
+  * @parent styles.containers
+  *
+  * @description
+  * Styles a simple timer
+  *
+**/
+.timer-container {
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 10px;
+    align-items: flex-start;
+    line-height: 1.2;
+}
+.timer {
+    font-family: @font-family-numeric;
+    line-height: 1.2;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    line-height: 1.2;
+    .icon {
+        font-size: @font-size-small;
+    }
+    &.timer--active {
+        background-color: @gray-base;
+        color: @white;
+        .icon {
+            color: @gray-lighter;
+        }
+    }
+    &.timer--pending {
+        background-color: (fade(@brand-progress, 15%));
+    }
+}

@@ -1,9 +1,17 @@
 @import '../../../styles/bootstrap-custom/_variables.less';
+@import (reference) '../../../styles/custom/_mixins.less';
 
 order-offers-accepted {
 	display: block;
   font-size: @font-size-small;
   overflow-x: auto;
+
+
+  .subheading {
+    border-bottom: 0;
+    margin-bottom: @padding-large-vertical;
+  }
+
   .accepted-offers {
     min-width: 600px;
   }
@@ -12,10 +20,80 @@ order-offers-accepted {
     margin: 8px 0;
   }
   .accepted-offers-status {
-    padding: @padding-small-vertical;
+    padding: 0;
     align-items: center;
     line-height: 1.8em;
     margin-bottom: @padding-small-horizontal;
+    
+    /**
+     * Offer Quantity
+     */
+     .offer-quantity {
+      padding: @padding-small-vertical @padding-large-vertical;
+      flex-direction: row;
+      .offer-quantity-value {
+        font-family: @font-family-bold;
+        font-size: @font-size-base;
+        margin-left: @padding-xs-horizontal;
+      }
+    }
+
+    /**
+     * Offer Timeline
+     */
+    .offer-timeline {
+      padding: @padding-large-vertical @padding-small-vertical;
+      .offer-timeline-event {
+        color: @gray;
+        .icon {
+          position: relative;
+          margin-bottom: 9px;
+          &:after {
+            content: '';
+            height: 12px;
+            width: 1px;
+            position: absolute;
+            bottom: -12px;
+          }
+          .icon-circle(10px);
+          &.icon-hand-shake {
+            color: @brand-success;
+            margin-left: 1px;
+            font-size: 15px;
+          }
+        }
+        &:last-of-type .icon:after {
+          display: none;
+        }
+        .btn {
+          margin-left: 30px;
+        }
+      }
+
+      .offer-accepted-date {
+        font-family: @font-family-bold;
+        color: @gray-base;
+      }
+
+      .offer-timeline-event--pending {
+        font-family: @font-family-bold;
+        color: @gray-base;
+      }
+
+      
+    }
+
+    /**
+     * Offer Timers
+     */
+    @media (min-width: @screen-sm) {
+      .timer-container {
+        align-items: flex-end;
+        text-align: right;
+      }
+    }
+    
+    
     .offer-deal-step {
       flex-direction: row;
       align-items: center;
@@ -32,8 +110,28 @@ order-offers-accepted {
       border-color: @brand-primary;
       align-self: flex-end;
     }
-    &.contextual-bg-danger .offer-deal-step {
-      font-style: italic;
+    &.contextual-bg-danger {
+      .offer-quantity {
+        background-color: (fade(@brand-danger, 10%));
+      }
+      .offer-deal-step {
+        font-style: italic;
+      }
+    } 
+    &.contextual-bg-success {
+      .offer-quantity {
+        background-color: (fade(@brand-success, 15%));
+      }
+    }
+    &.contextual-bg-progress {
+      .offer-quantity {
+        background-color: (fade(@brand-progress, 15%));
+      }
+    }
+    &.contextual-bg-warning {
+      .offer-quantity {
+        background-color: (fade(@brand-warning, 15%));
+      }
     }
   }
 

@@ -33,6 +33,15 @@ export const ViewModel = DefineMap.extend({
   issuance: Issuance,
   offers: Offer.List,
 
+  // For demo:
+  // offer: {
+  //   get () {
+  //     const offer = this.offers[0]
+  //     offer.htlcStep = 3
+  //     return offer
+  //   }
+  // },
+  
   // HTLC 4:
   collectPayment (offer) {
     // todo: its a BTC transaction for a SELL order. Generalize to check `order.type`.

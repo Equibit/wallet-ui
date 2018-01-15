@@ -73,7 +73,7 @@
 * @styles mixins-contextual-background Contextual Background
 *
 * @description
-* Create elements with a variance in color, border, and icon.
+* Create elements with a variance in color and border.
 *
 * Example:
 * ```css
@@ -87,8 +87,8 @@
   background-color: (fade(@color, 8%));
   border: 1px solid (fade(@color, 40%));
   padding: 5px;
-  .icon {
-    color: @color;
+  .icon:after {
+    background-color: @color;
   }
 }
 

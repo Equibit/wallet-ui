@@ -26,7 +26,38 @@
         {{#each ../rows row=value index=index}}
           <tr class="order-row percentage-green percentage-{{../../marketWidth[index]}}">
             <td class="column-action-buttons">
-              <button class="btn btn-default btn-xs" disabled:from="not(~../../session.portfolios.length)" on:click="buySell('BUY', row)">{{i18n('buy')}}</button>
+              {{#switch whyUserCantOffer(row)}}
+              {{#case('Not logged in')}}
+                <button class="btn btn-default btn-xs"
+                  data-toggle="popover"
+                  data-html="true"
+                  data-content="{{decodeAndRender('%7B%7Bi18n(%22loginToContinue%22)%7D%7D%3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%2Flogin%22%3E%7B%7Bi18n(%22Log in%22)%7D%7D%3C%2Fa%3E')}}"
+                  data-placement="right">
+                  {{i18n('buy')}}
+                </button>
+              {{/case}}
+              {{#case('User is owner')}}
+                <button class="btn btn-default btn-xs"
+                  data-toggle="popover"
+                  data-html="true"
+                  data-content="{{decodeAndRender('%7B%7Bi18n(%22orderPlacedByUserPopoverMessage%22)%7D%7D %3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%7B%7BrouteUrl page=%27orders%27 itemId=row._id%7D%7D%22%3E%7B%7Bi18n(%22viewDetails%22)%7D%7D%3C%2Fa%3E')}}"
+                  data-placement="right">
+                  {{i18n('view')}}
+                </button>
+              {{/case}}
+              {{#case('Offer exists')}}
+                <button class="btn btn-default btn-xs"
+                  data-toggle="popover"
+                  data-html="true"
+                  data-content="{{decodeAndRender('%7B%7Bi18n(%22offerPlacedByUserPopoverMessage%22)%7D%7D %3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%7B%7BrouteUrl page=%27offers%27 itemId=userOfferForOrder(row)._id%7D%7D%22%3E%7B%7Bi18n(%22viewDetails%22)%7D%7D%3C%2Fa%3E')}}"
+                  data-placement="right">
+                  {{i18n('view')}}
+                </button>
+              {{/case}}
+              {{#default}}
+                <button class="btn btn-default btn-xs" on:click="buySell('BUY', ../row)">{{i18n('buy')}}</button>
+              {{/default}}
+              {{/switch}}
             </td>
             <td class="column-partial">{{yes-no(not(~row.isFillOrKill))}}</td>
             <td class="column-datetime">{{format-time(row.createdAt)}}</td>
@@ -64,7 +95,38 @@
             <td class="column-datetime">{{format-time(row.createdAt)}}</td>
             <td class="column-partial">{{yes-no(not(~row.isFillOrKill))}}</td>
             <td class="column-action-buttons">
-              <button class="btn btn-default btn-xs" disabled:from="not(~../../session.portfolios.length)" on:click="buySell('SELL', row)">{{i18n('sell')}}</button>
+              {{#switch whyUserCantOffer(row)}}
+              {{#case('Not logged in')}}
+                <button class="btn btn-default btn-xs"
+                  data-toggle="popover"
+                  data-html="true"
+                  data-content="{{decodeAndRender('%7B%7Bi18n(%22loginToContinue%22)%7D%7D%3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%2Flogin%22%3E%7B%7Bi18n(%22Log in%22)%7D%7D%3C%2Fa%3E')}}"
+                  data-placement="left">
+                  {{i18n('sell')}}
+                </button>
+              {{/case}}
+              {{#case('User is owner')}}
+                <button class="btn btn-default btn-xs"
+                  data-toggle="popover"
+                  data-html="true"
+                  data-content="{{decodeAndRender('%7B%7Bi18n(%22orderPlacedByUserPopoverMessage%22)%7D%7D %3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%7B%7BrouteUrl page=%27orders%27 itemId=row._id%7D%7D%22%3E%7B%7Bi18n(%22viewDetails%22)%7D%7D%3C%2Fa%3E')}}"
+                  data-placement="left">
+                  {{i18n('view')}}
+                </button>
+              {{/case}}
+              {{#case('Offer exists')}}
+                <button class="btn btn-default btn-xs"
+                  data-toggle="popover"
+                  data-html="true"
+                  data-content="{{decodeAndRender('%7B%7Bi18n(%22offerPlacedByUserPopoverMessage%22)%7D%7D %3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%7B%7BrouteUrl page=%27offers%27 itemId=userOfferForOrder(row)._id%7D%7D%22%3E%7B%7Bi18n(%22viewDetails%22)%7D%7D%3C%2Fa%3E')}}"
+                  data-placement="left">
+                  {{i18n('view')}}
+                </button>
+              {{/case}}
+              {{#default}}
+                <button class="btn btn-default btn-xs" on:click="buySell('SELL', ../row)">{{i18n('sell')}}</button>
+              {{/default}}
+              {{/switch}}
             </td>
           </tr>
         {{/each}}
