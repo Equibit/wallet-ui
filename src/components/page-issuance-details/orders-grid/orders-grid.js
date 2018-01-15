@@ -18,6 +18,7 @@ import DefineMap from 'can-define/map/map'
 import './orders-grid.less'
 import view from './orders-grid.stache'
 import Order from '~/models/order'
+import Offer from '~/models/offer'
 import Session from '~/models/session'
 import sortedSetJSON from 'can-connect/helpers/sorted-set-json'
 
@@ -52,6 +53,20 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       return Order.getList(params)
     }
   },
+  get userOffersPromise () {
+    return Offer.getList({userId: Session.current.user._id})
+  },
+  userOffers: {
+    get (setVal, resolve) {
+      this.userOffersPromise.then(d => {
+        resolve && resolve(d)
+      })
+      return []
+    }
+  },
+  get userOfferOrderIds () {
+    return this.userOffers.map(offer => offer.orderId)
+  },
   session: {
     value: function () {
       return Session.current
@@ -67,6 +82,29 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   },
   get totalQuantity () {
     return this.rows ? this.rows.reduce((sum, row) => (sum + row.quantity), 0) : 0
+  },
+  // Return a reason why the user can't buy or sell against this order
+  // Possible reasons include:
+  //  - User is not logged in
+  //  - User was the one who posted the order (can't buy from / sell to yourself)
+  //  - User already made an offer against the order
+  //  - User has no shares to sell, for a buy order (not yet implemented)
+  whyUserCantOffer (row) {
+    if (!Session.current) {
+      return 'Not logged in'
+    }
+    if (row.userId === Session.current.user._id) {
+      return 'User is owner'
+    }
+    if (~this.userOfferOrderIds.indexOf(row._id)) {
+      return 'Offer exists'
+    }
+    // TODO create a condition that shows that the number of shares
+    // a user holds for an issuance is zero.
+    // if () {
+    //   return 'No shares to sell'
+    // }
+    return null
   },
 
   /**
@@ -91,6 +129,10 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
 
   buySell (type, order) {
     this.dispatch('buysell', [type, order])
+  },
+
+  userOfferForOrder (row) {
+    return this.userOffers.filter(offer => offer.orderId === row._id)[0]
   },
 
   ordersCallback: '*',
