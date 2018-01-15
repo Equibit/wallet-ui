@@ -7,6 +7,11 @@ import { prepareTxData } from './transaction-create-htlc1'
 /**
  * HTLC-3 collect securities using secret. Offer type is either 'BUY' or 'SELL'.
  * This is a high-level method to be called from a component VM.
+ *
+ * Case #1: Sell (Ask) Order
+ * - Buyer collects securities
+ * - To: EQB holding address (offer)
+ * - From: EQB holding address (order)
  */
 function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
   typeforce(
@@ -69,7 +74,7 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
     currencyType: 'EQB',
     amount: offer.quantity,
     description: 'Collecting securities from HTLC',
-    fromAddress: offer.eqbAddressTrading,
+    fromAddress: order.eqbAddressHolding,
     toAddress: offer.eqbAddressHolding
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
