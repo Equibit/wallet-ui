@@ -17,6 +17,7 @@ function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
 
   const htlcConfig = prepareHtlcConfig3(order, offer, portfolio, issuance, secret, changeAddr)
   // todo: generalize to both Ask and Bid.
+  alert('here!')
   const tx = buildTransaction('EQB')(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
   const txData = prepareTxData(htlcConfig, tx, issuance)
 
@@ -59,7 +60,6 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
     }]
   }
   buildConfig.vin = buildConfig.vin.concat(utxoEmptyEqb)
-  console.log(`createHtlc3: buildConfig:`, buildConfig)
 
   const txInfo = {
     address: offer.eqbAddressHolding,

@@ -23,6 +23,10 @@ import { createHtlc1, prepareHtlcConfig, prepareTxData } from './transaction-cre
 import { createHtlc2, prepareHtlcConfig2 } from './transaction-create-htlc2'
 import { createHtlc3, prepareHtlcConfig3 } from './transaction-create-htlc3'
 
+if (!window.Testee) {
+  window.Testee = {}
+}
+
 describe('models/transaction/utils', function () {
   describe('buildTransaction', function () {
     const expectedHex = '0100000002b5a4d2ee7ada7a30722d3224c8e29443e75fc3506612ae41ee853f2fe24b6756000000006b483045022100c5d7e56232d2eff6461ea45bb8e9ffee36675598adb853bf6f61e881b2c29282022000d4f1d3c3e091daa4dbece16fb1f27ee199fdbd2db4db940b9a4b6987e24ed6012102c149f0b80bbbb0811cd7f2d8c2eed5bae28de5e992064590a0a16eb1743bc469ffffffff79ea8eea8ee96dc748304f5d85163d28bfcc0f9760ee50e02664b6b52dd9da1e000000006b483045022100861ac9755c989a65726a1dbf46bf85dcf12928fc5f4bc42fede7142af4111fd30220385336eed4e26c52c605a18a60effee88bfc9d0306b09994dd85bf48607762f50121028fe426abec4cd47b05911e18e91cd751a1646d179217380e7799cd12268bf202ffffffff0201000000000000001976a9143ed6bbf121b09f20b46381ab7dbf547e18ffbc3b88ac02000000000000001976a914af407ff486847db48b9a2cb25b6e14d3044eaf4488ac00000000'
@@ -149,7 +153,7 @@ describe('models/transaction/utils', function () {
       })
     })
     if (window.Testee) {
-      describe.skip('skipping createHtlc1 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
+      it.skip('skipping createHtlc1 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     } else {
       describe('createHtlc1', function () {
         let txData, tx
@@ -252,7 +256,7 @@ describe('models/transaction/utils', function () {
     })
 
     if (window.Testee) {
-      describe.skip('skipping createHtlc2 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
+      it.skip('skipping createHtlc2 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     } else {
       describe('createHtlc2', function () {
         let txData, tx
@@ -278,7 +282,7 @@ describe('models/transaction/utils', function () {
     }
   })
 
-  describe.only('HTLC-3 Collect securities (for the Sell order / Buy offer)', function () {
+  describe('HTLC-3 Collect securities (for the Sell order / Buy offer)', function () {
     const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
 
@@ -357,7 +361,7 @@ describe('models/transaction/utils', function () {
     })
 
     if (window.Testee) {
-      describe.skip('skipping createHtlc2 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
+      it.skip('skipping createHtlc3 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     } else {
       describe('createHtlc3', function () {
         let txData, tx
