@@ -205,8 +205,8 @@ Issuance.List = DefineList.extend('IssuanceList', {
   // Every new issuance requires a new index for its EQB address.
   getNewIndex (companyId) {
     return this.reduce((acc, issuance) => {
-      if (issuance.index > acc) {
-        acc = issuance.index
+      if (issuance.index >= acc) {
+        acc = issuance.index + 1
       }
       return acc
     }, 0)
