@@ -19,7 +19,7 @@ import moment from 'moment'
 import route from 'can-route'
 import typeforce from 'typeforce'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
-import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
+// import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 
 import { translate } from '../../../i18n/i18n'
 import './offer-status.less'
