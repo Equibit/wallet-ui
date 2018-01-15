@@ -21,6 +21,7 @@ import {
 import { makeTransaction } from './transaction-make'
 import { createHtlc1, prepareHtlcConfig, prepareTxData } from './transaction-create-htlc1'
 import { createHtlc2, prepareHtlcConfig2 } from './transaction-create-htlc2'
+import { createHtlc3, prepareHtlcConfig3 } from './transaction-create-htlc3'
 
 describe('models/transaction/utils', function () {
   describe('buildTransaction', function () {
@@ -148,7 +149,7 @@ describe('models/transaction/utils', function () {
       })
     })
     if (window.Testee) {
-      describe.skip('skipping createHtlc1 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
+      it.skip('skipping createHtlc1 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     } else {
       describe('createHtlc1', function () {
         let txData, tx
@@ -251,7 +252,7 @@ describe('models/transaction/utils', function () {
     })
 
     if (window.Testee) {
-      describe.skip('skipping createHtlc2 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
+      it.skip('skipping createHtlc2 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     } else {
       describe('createHtlc2', function () {
         let txData, tx
@@ -270,6 +271,111 @@ describe('models/transaction/utils', function () {
           assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
         })
         it('should define transaction hex and id', function () {
+          assert.equal(txData.hex, tx.hex, 'tx hex')
+          assert.equal(txData.txId, tx.txId, 'txId')
+        })
+      })
+    }
+  })
+
+  describe('HTLC-3 Collect securities (for the Sell order / Buy offer)', function () {
+    const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
+    let htlcOfferMock, htlcConfig
+
+    describe('prepareHtlcConfig3', function () {
+      describe('buildConfig', function () {
+        let amount, order, offer, buildConfig
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          amount = htlcOfferMock.offer.quantity
+          order = htlcOfferMock.order
+          offer = htlcOfferMock.offer
+          htlcConfig = prepareHtlcConfig3(order, offer, portfolio, issuance, offer.secretHex, changeAddrPair.EQB)
+          buildConfig = htlcConfig.buildConfig
+        })
+        it('should have two vin for issuance and empty EQB fee', function () {
+          assert.equal(buildConfig.vin.length, 2, 'two vins')
+        })
+        it('should have two vout for issuance and empty EQB fee change', function () {
+          assert.equal(buildConfig.vout.length, 2, 'two vins')
+        })
+        it('should have correct issuance inputs', function () {
+          assert.equal(buildConfig.vin[0].txid, htlcOfferMock.offer.htlcTxId2, 'vin.0.txid === offer.htlcTxId2')
+          assert.equal(buildConfig.vin[0].vout, 0, 'vin.0.vout')
+          assert.ok(buildConfig.vin[0].keyPair, 'keyPair')
+        })
+        it('should have correct empty EQB inputs', function () {
+          const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
+          assert.equal(buildConfig.vin[1].txid, utxo[0].txid, 'txid empty EQB')
+          assert.equal(buildConfig.vin[1].vout, utxo[0].vout, 'vin.1.vout empty EQB')
+          assert.ok(buildConfig.vin[1].keyPair, 'keyPair empty EQB')
+        })
+        it.skip('should have correct issuance output (amount, script and issuance txid)', function () {
+          assert.equal(buildConfig.vout[0].value, amount, 'amount of 500')
+          assert.equal(buildConfig.vout[0].scriptPubKey.toString('hex'), htlcOfferMock.htlcScript2, 'scriptPubKey')
+          assert.equal(buildConfig.vout[0].issuanceTxId, '4e7e759e537d87127b2232ce646666e3a71c48f608a43b7d6d9767bfbf92ca50', 'txid of the authorization transaction')
+        })
+        it.skip('should have correct issuance change output', function () {
+          assert.equal(buildConfig.vout[1].value, issuance.utxo[0].amount - amount, 'change for securities of 149999500')
+          assert.equal(buildConfig.vout[1].address, order.eqbAddressHolding, 'change address for securities (eqbAddressHolding)')
+        })
+        it.skip('should have correct empty EQB  change output', function () {
+          const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
+          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 1000, 'change amount empty EQB of 219999000')
+          assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for empty EQB')
+        })
+      })
+
+      describe('txInfo', function () {
+        let txInfo, amount, order, offer, buildConfig
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          amount = htlcOfferMock.offer.quantity
+          order = htlcOfferMock.order
+          offer = htlcOfferMock.offer
+          htlcConfig = prepareHtlcConfig3(order, offer, portfolio, issuance, offer.secretHex, changeAddrPair.EQB)
+          buildConfig = htlcConfig.buildConfig
+          txInfo = htlcConfig.txInfo
+        })
+        it('should have main address info', function () {
+          assert.equal(txInfo.address, offer.eqbAddressHolding, 'address = order.eqbAddressHolding')
+          assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
+          assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
+        })
+        it('should have amount, types and desc', function () {
+          assert.equal(txInfo.amount, amount, 'amount of 500')
+          assert.equal(txInfo.currencyType, 'EQB', 'currencyType')
+          assert.equal(txInfo.type, 'BUY', 'type')
+          assert.equal(txInfo.description, 'Collecting securities from HTLC')
+        })
+        it('should have fee and from/to addresses', function () {
+          assert.equal(txInfo.fee, 1000, 'fee')
+          assert.equal(txInfo.fromAddress, offer.eqbAddressTrading, 'fromAddress = offer.eqbAddressTrading')
+          assert.equal(txInfo.toAddress, offer.eqbAddressHolding, 'toAddress = offer.eqbAddressHolding')
+        })
+      })
+    })
+
+    if (window.Testee) {
+      it.skip('skipping createHtlc3 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
+    } else {
+      describe('createHtlc3', function () {
+        let txData, tx
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
+          txData = createHtlc3(htlcOfferMock.order, htlcOfferMock.offer, portfolio, issuance, htlcOfferMock.secretHex, changeAddrPair.EQB)
+        })
+        it('should define main props', function () {
+          assert.equal(txData.amount, 500, 'amount')
+          assert.equal(txData.fee, 1000, 'fee')
+          assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
+        })
+        it.skip('should define hashlock', function () {
+          assert.equal(txData.hashlock.length, 64)
+          assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
+        })
+        it.skip('should define transaction hex and id', function () {
           assert.equal(txData.hex, tx.hex, 'tx hex')
           assert.equal(txData.txId, tx.txId, 'txId')
         })

@@ -19,6 +19,7 @@ import moment from 'moment'
 import route from 'can-route'
 import typeforce from 'typeforce'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
+// import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 
 import { translate } from '../../../i18n/i18n'
 import './offer-status.less'
@@ -28,7 +29,7 @@ import Offer from '../../../models/offer'
 import Issuance from '../../../models/issuance'
 import Session from '../../../models/session'
 import Transaction from '../../../models/transaction/transaction'
-import { buildTransactionEqb } from '../../../models/transaction/transaction-build.js'
+import { createHtlc3 } from '../../../models/transaction/transaction-create-htlc3'
 
 const enumSetter = values => value => {
   if (values.indexOf) {
@@ -52,9 +53,14 @@ export const ViewModel = DefineMap.extend({
   get dateDisplay () {
     return moment(this.date).format('MM/DD @h:mm A')   // 04/29 @2:30 pm
   },
+  // HTLC 3:
   collectSecurities () {
     console.log(`collectSecurities`, this.offer)
     typeforce('Offer', this.offer)
+
+    // 1. Generate addr for empty EQB (to pay the fee) change.
+    // 2. Prepare tx config and create htlc3 transaction.
+    // 3. Save offer htlcStep=4 and reveal the secret.
 
     const order = this.order
     const offer = this.offer
@@ -62,55 +68,27 @@ export const ViewModel = DefineMap.extend({
     const user = Session.current.user
     const portfolio = Session.current.portfolios[0]
     const secret = user.decrypt(offer.secretEncrypted)
+    typeforce(typeforce.tuple(
+      'Order',
+      'Offer',
+      'Issuance',
+      'User',
+      'Portfolio',
+      'String'
+    ), [order, offer, issuance, user, portfolio, secret])
 
-    const inputs = [{
-      txid: offer.htlcTxId2,
-      vout: 0,
-      keyPair: portfolio.findAddress(offer.eqbAddressTrading).keyPair,
-      htlc: {
-        secret,
-        // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
-        refundAddr: order.eqbAddressHolding,
-        timelock: order.timelock || Math.floor(offer.timelock / 2)
-      },
-      sequence: '4294967295'
-    }]
-    const outputs = [{
-      value: offer.quantity,
-      address: offer.eqbAddressHolding,
-      issuanceTxId: issuance.issuanceTxId
-    }]
+    return portfolio.getNextAddress()
+      .then(({EQB}) => {
+        const txData = createHtlc3(order, offer, portfolio, issuance, secret, EQB)
+        const tx = new Transaction(txData)
 
-    const txInfo = buildTransactionEqb(inputs, outputs)
+        // todo: add UI modal with tx info (amount, fee, etc).
+        console.log('UUUUU IIIIII')
 
-    const txConfig = {
-      address: offer.eqbAddressHolding,
-      addressTxid: inputs[0].txid,
-      addressVout: inputs[0].vout,
-      type: 'BUY',
-      currencyType: 'EQB',
-      amount: offer.quantity,
-      description: 'Collecting securities from HTLC',
-      hex: txInfo.hex,
-      txId: txInfo.txId,
-      fromAddress: offer.eqbAddressTrading,
-      toAddress: offer.eqbAddressHolding,
-
-      // Issuance details:
-      companyName: offer.companyName,
-      // companySlug: issuance.companySlug,
-      issuanceId: offer.issuanceId,
-      issuanceName: offer.issuanceName,
-      issuanceType: offer.issuanceType
-      // issuanceUnit: issuance.issuanceUnit
-    }
-    console.log(`collectSecurities txConfig:`, txConfig)
-
-    const tx = new Transaction(txConfig)
-
-    return tx.save()
+        return tx.save()
+      })
       .then(tx => updateOffer(offer, secret, tx))
-      .then(() => dispatchAlert(hub, tx, route))
+      .then(({tx}) => dispatchAlert(hub, tx, route))
       .catch(dispatchAlertError)
   }
 })
@@ -120,7 +98,7 @@ function updateOffer (offer, secret, tx) {
   // reveal secret to the seller:
   offer.secret = secret
   offer.htlcTxId3 = tx.txId
-  return offer.save()
+  return offer.save().then(offer => ({ offer, tx }))
 }
 
 function dispatchAlert (hub, tx, route) {

@@ -47,7 +47,7 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
   // todo: validate that issuance and portfolio have enough utxo (results in a non-empty array).
   const issuanceUtxoInfo = issuance.getTxoutsFor(offer.quantity)
   if (!issuanceUtxoInfo.sum) {
-    throw new Error('Not enough UTXO for the issuance')
+    throw new Error(`Not enough UTXO for the authorized issuance of the amount ${offer.quantity}`)
   }
   const availableAmount = issuanceUtxoInfo.sum
   const issuanceUtxo = issuanceUtxoInfo.txouts
@@ -56,7 +56,7 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
   // For EQB the fee comes from empty EQB.
   const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
   if (!utxoEmptyEqbInfo.sum) {
-    throw new Error('Not enough empty EQB to cover the fee')
+    throw new Error(`Not enough empty EQB to cover the fee ${fee}`)
   }
   const availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
   const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
