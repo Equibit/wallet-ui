@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Slider</title>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.js"></script>
+
+  <link href="../../../../../dist/bundles/wallet-ui/index.css" rel="stylesheet" >
+  <link href="bootstrap-slider.css" rel="stylesheet">
+</head>
+<body style="background: white;">
+    
+    <div class="col-xs-12">
+        <h3>Slider Default</h3>
+        <input class="slider" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
+    
+        <hr>
+        <h3>Slider Advanced</h3>
+        
+        <div class="slider-advanced">
+                <input class="slider slider-advanced" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
+        </div>
+        
+    </div>
+    
+    
+    <script>
+    // With JQuery
+    $(document).ready(function() {
+        // Instantiate a slider
+        var mySlider = $("input.slider").slider();
+
+        // Call a method on the slider
+        var value = mySlider.slider('getValue');
+
+        // For non-getter methods, you can chain together commands
+            mySlider
+                .slider('setValue', 5)
+                .slider('setValue', 7);
+    });
+    </script>
+</body>
+</html>

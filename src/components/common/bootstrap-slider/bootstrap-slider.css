@@ -1,0 +1,85 @@
+.slider-track {
+    background-image: none;
+    background-color: #CCC;
+    box-shadow: none;
+}
+.slider.slider-horizontal {
+    margin-top: 40px;
+}
+
+.slider-handle {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    background-image: none;
+    box-shadow: 0 0 3px 0px rgba(0,0,0,0.53);
+    top: -5px;
+}
+
+.slider-selection {
+    background-color: #468CD9;
+    background-image: none;
+    position: relative;
+    box-shadow: none;
+}
+.slider.slider-horizontal .slider-tick, 
+.slider.slider-horizontal .slider-handle {
+    margin-left: -16px;
+}
+
+/** 
+ * Slider Advanced
+ */
+
+ .slider-advanced .slider.slider-horizontal {
+    width: 400px;
+ }
+ .slider-advanced .slider-selection {
+    background-color: #FF6600; 
+ }
+ .slider-advanced .slider-track {
+    background-color: #32B576; 
+ }
+
+ /* Timelock Indicator */
+ .slider-advanced .slider-selection:before {
+    position: absolute;
+    content: '';
+    border: 1px solid #FF6600;
+    width: 100%;
+    bottom: -27px;
+    height: 10px;
+    border-top: transparent;
+}
+.slider-advanced .slider-selection:after {
+    position: absolute;
+    content: "Time Lock " attr(data-name) "";
+    bottom: -50px;
+    min-width: 120px;
+    color: #FF6600;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+/* Safety Zone Indicator */
+.slider-advanced .slider-track-high:before {
+    position: absolute;
+    content: '';
+    border: 1px solid #32B576;
+    width: 100%;
+    top: -27px;
+    height: 10px;
+    border-bottom: transparent;
+}
+
+.slider-advanced .slider-track-high:after{
+    position: absolute;
+    content: "Safety Zone " attr(data-name) "";
+    top: -50px;
+    min-width: 120px;
+    color: #32B576;
+    text-transform: uppercase;
+    font-size: 13px;
+    text-align: right;
+    right: 0;
+}
