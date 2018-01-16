@@ -35,6 +35,7 @@ function prepareHtlcConfig4 (order, offer, portfolio, issuance, secret) {
   )
   // todo: calculate transaction fee:
   const fee = 1000
+  const htlcStep = 4
 
   const buildConfig = {
     vin: [{
@@ -65,9 +66,10 @@ function prepareHtlcConfig4 (order, offer, portfolio, issuance, secret) {
     fee,
     currencyType: 'BTC',
     amount: offer.quantity * order.price - fee,
-    description: 'Collecting payment from HTLC',
+    description: `Collecting payment from HTLC (step #${htlcStep})`,
     fromAddress: offer.btcAddress,
-    toAddress: order.btcAddress
+    toAddress: order.btcAddress,
+    htlcStep
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
 

@@ -31,6 +31,7 @@ function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
 function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAddr) {
   // todo: calculate transaction fee:
   const fee = 1000
+  const htlcStep = 3
 
   // For EQB the fee comes from empty EQB.
   const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
@@ -73,9 +74,10 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
     fee,
     currencyType: 'EQB',
     amount: offer.quantity,
-    description: 'Collecting securities from HTLC',
+    description: `Collecting securities from HTLC (step #${htlcStep})`,
     fromAddress: order.eqbAddressHolding,
-    toAddress: offer.eqbAddressHolding
+    toAddress: offer.eqbAddressHolding,
+    htlcStep
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
 
