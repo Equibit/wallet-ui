@@ -3,43 +3,20 @@
 
 confirm-summary {
 	display: block;
-	dl {
-		margin-bottom: 0;
-		&:first-child { // Removes the top border of the list
-		border: 0;
-		}
-	}
-
-	dd, dt {
-		&:last-of-type { // Removes the bottom border of the list
-		border: 0;
-		}
-	}
-	dd {
-		width: 24%;
-		display: inline-block;
-		&.input-value {
-		font-family: @font-family-numeric;
-		text-align: right;
-		}
-		&.fee-value {
-		color: @gray-light;
-		}
-		&:last-of-type {
-		margin-bottom: 5px;
-		}
-	}
-	dt {
-		font-size: @font-size-small;
-	}
-	dt + dd {
-		width: 48%;
-	}
-	hr {
-		margin-top: 3px;
-		margin-bottom: 10px;
-	}
+	
 	label {
 		margin-bottom: 0;
+	}
+
+	.column-digital-currency-type {
+		width: 60px;
+	}
+	.column-local-currency-type {
+		width: 30px;
+	}
+	.column-digital-currency-value,
+	.column-local-currency-value {
+		width: 100px;
+		text-align: right;
 	}
 }

@@ -11,7 +11,7 @@
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
   <can-import from="wallet-ui/components/trade-funds/confirm-summary/" />
-  <confirm-summary></confirm-summary>
+  <confirm-summary this:from="this"></confirm-summary>
 </script>
 
 <script src="../../../../node_modules/steal/steal.js"
