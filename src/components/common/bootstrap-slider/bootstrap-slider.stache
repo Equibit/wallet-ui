@@ -1,1 +1,22 @@
-<p>{{message}}</p>
+<can-import from="bootstrap-slider/dist/css/bootstrap-slider.css" />
+<can-import from="./bootstrap-slider.css" />
+
+{{#eq type 'advanced'}}
+<div class="slider-advanced">
+  <input class="slider slider-advanced"
+    type="text"
+    data-slider-min="{{minValue}}"
+    data-slider-max="{{maxValue}}"
+    data-slider-step="1"
+    data-slider-value="{{initialValue}}"
+    value:bind="value"/>
+</div>
+{{else}}
+  <input class="slider"
+    type="text"
+    data-slider-min="{{minValue}}"
+    data-slider-max="{{maxValue}}"
+    data-slider-step="1"
+    data-slider-value="{{initialValue}}"
+    value:bind="value"/>
+{{/eq}}

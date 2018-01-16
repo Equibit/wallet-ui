@@ -17,15 +17,48 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './bootstrap-slider.less'
 import view from './bootstrap-slider.stache'
+import $ from 'jquery'
+import 'bootstrap'
+import 'bootstrap-slider'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the bootstrap-slider component'
+  type: {
+    type: 'string',
+    value: 'default'
+  },
+  minValue: {
+    type: 'number',
+    value: 0
+  },
+  maxValue: {
+    type: 'number',
+    value: 10
+  },
+  initialValue: {
+    type: 'number',
+    value: function () {
+      return (this.minValue + this.maxValue) / 2
+    }
+  },
+  value: {
+    type: 'number'
   }
 })
 
 export default Component.extend({
   tag: 'bootstrap-slider',
   ViewModel,
-  view
+  view,
+  events: {
+    inserted: function (el, ev) {
+      // console.log('options', this.viewModel.options)
+      //const options = Object.assign(this.viewModel.defaultOptions, this.viewModel.options)
+
+      $(el).find('input.slider').slider()
+    },
+    removed: function (el, ev) {
+      $(el).find('input.slider').slider('destroy')
+    }
+  }
+
 })
