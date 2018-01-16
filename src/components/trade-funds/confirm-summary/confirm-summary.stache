@@ -1,0 +1,50 @@
+<can-import from="~/components/common/issuance-summary/issuance-summary.component" />
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="bootstrap/dist/js/bootstrap" />
+
+<div class="list-group-item">
+    <dl class="responsive">
+        <dt>{{i18n('to')}}</dt>
+        <dd><strong>{{formData.order.btcAddress}}</strong></dd>
+    </dl>
+    <dl class="responsive">
+        <dt>{{i18n('paymentFor')}}</dt>
+        <dd>{{formData.order.issuanceName}}</dd>
+        <dt></dt>
+        <dd>{{i18n('quantity')}}</dd>
+        {{#eq formData.type 'BUY'}}
+        <dd class="input-value">{{format(formData.totalPrice, '', 2)}} <small>μBTC</small></dd>
+        <dd class="input-value">{{format(convertToUSD(formData.totalPrice).value, '', 2)}} <small>USD</small></dd>
+        {{else}}
+        <dd class="input-value">{{format(formData.quantity, '', 2)}} <small>{{i18n('shares')}}</small></dd>
+        <dd class="input-value">{{format(convertToUSD(formData.quantity).value, '', 2)}} <small>USD</small></dd>
+        {{/eq}}
+
+        <dt></dt>
+        <dd class="fee-value">
+        {{i18n('transactionFee')}}
+        <span class="icon icon-question"
+            data-toggle="popover"
+            data-content="{{i18n('transactionFeePopoverMessage')}}"
+            data-placement="right">
+        </span>
+        </dd>
+        <dd class="input-value fee-value">{{format(formData.transactionFee, '', 2)}} <small> {{#eq formData.type 'BUY'}}μBTC{{else}}EQB{{/eq}}</small></dd>
+        <dd class="input-value fee-value">{{format(convertToUSD(formData.transactionFee).value, '', 2)}} <small>USD</small></dd>
+    </dl>
+    <hr>
+    <dl class="responsive">
+        <dt>{{i18n('From')}}</dt>
+        <dd><strong>{{formData.portfolio.name}}</strong></dd>
+        {{#eq formData.type 'BUY'}}
+        <dd class="input-value negative-value">- {{format(formData.totalPriceWithFee, '', 2)}} <small>μBTC</small></dd>
+        <dd class="input-value negative-value">- {{format(convertToUSD(formData.totalPriceWithFee).value, '', 2)}} <small>USD</small></dd>
+        {{else}}
+        <dd class="input-value negative-value">- {{format(formData.quantity, '', 2)}} <small>{{i18n('shares')}}</small></dd>
+        <dt></dt>
+        <dd></dd>
+        <dd class="input-value negative-value">- {{format(formData.transactionFee, '', 2)}} <small>EQB</small></dd>
+        <dd class="input-value negative-value">- {{format(convertToUSD(formData.totalPriceWithFee).value, '', 2)}} <small>USD</small></dd>
+        {{/eq}}
+    </dl>
+</div>
