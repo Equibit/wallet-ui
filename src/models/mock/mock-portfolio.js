@@ -8,20 +8,20 @@ feathersClient.service('portfolios').patch = () => Promise.resolve()
 
 const addressesMeta = [
   // BTC:
-  {index: 0, type: 'BTC', isUsed: true, isChange: false},
-  {index: 1, type: 'BTC', isUsed: true, isChange: false},
-  {index: 2, type: 'BTC', isUsed: false, isChange: false},
+  {index: 0, type: 'BTC', isUsed: true, isChange: false},   // n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA
+  {index: 1, type: 'BTC', isUsed: true, isChange: false},   // mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA
+  {index: 2, type: 'BTC', isUsed: false, isChange: false},  // mu2DDd2d9yDzS9PoqZrjD6e1ZnmgJnpv54
 
   // BTC change:
-  {index: 0, type: 'BTC', isUsed: true, isChange: true},
-  {index: 1, type: 'BTC', isUsed: false, isChange: true},
+  {index: 0, type: 'BTC', isUsed: true, isChange: true},    // mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ
+  {index: 1, type: 'BTC', isUsed: false, isChange: true},   // muJpBHeXzMGoFdUDTUanwwfZSG43Ec6zd8
 
   // EQB:
-  {index: 0, type: 'EQB', isUsed: true, isChange: false},
-  {index: 1, type: 'EQB', isUsed: false, isChange: false},
+  {index: 0, type: 'EQB', isUsed: true, isChange: false},   // n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo
+  {index: 1, type: 'EQB', isUsed: false, isChange: false},  // mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU
 
   // EQB change:
-  {index: 0, type: 'EQB', isUsed: true, isChange: true}
+  {index: 0, type: 'EQB', isUsed: true, isChange: true}     // muMQ9mZjBy2E45QcWb1YZgD45mP3TfN3gC
 ]
 
 const portfolioKeys = {
@@ -41,6 +41,7 @@ const portfolio = new Portfolio({
 // Note: `portfolio.nextAddress()` makes a request and connection's real-time behavior requires the instance to be
 // in the instanceStore, thus adding a reference to keep it there.
 portfolio.constructor.connection.addInstanceReference(portfolio)
+console.log('mock portfolio: ', portfolio)
 
 const portfolioZero = new Portfolio({
   index: 0,

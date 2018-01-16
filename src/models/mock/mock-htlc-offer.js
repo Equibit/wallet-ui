@@ -25,6 +25,7 @@ const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
 export default function () {
   const offer = createHtlcOffer(formData, 'BUY', secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
 
+  offer.htlcTxId1 = 'e426a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301'
   offer.htlcTxId2 = 'e426a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301'
 
   return {
