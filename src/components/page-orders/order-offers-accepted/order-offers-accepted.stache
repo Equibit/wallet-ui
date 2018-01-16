@@ -1,4 +1,5 @@
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="bootstrap/dist/js/bootstrap" />
 
 <h3 class="subheading">{{i18n('acceptedOffers')}} <span class="badge">{{offers.length}}</span></h3>
 
@@ -29,12 +30,24 @@
 
                 <div class="col-xs-12 col-sm-2">
                   <div class="timer-container">
-                    <label>Time Lock</label>
+                    <label>Time Lock
+                      <span class="icon icon-question"
+                        data-toggle="popover"
+                        data-content="{{i18n('offerTooltipTimelock')}}"
+                        data-placement="right">
+                      </span>
+                    </label>
                     <div class="timer timer--active"><span class="icon icon-clock"></span>12:30:00</div>
                   </div>
 
                   <div class="timer-container">
-                    <label>Safety Zone</label>
+                    <label>Safety Zone
+                      <span class="icon icon-question"
+                        data-toggle="popover"
+                        data-content="{{i18n('offerTooltipSafetyZone')}}"
+                        data-placement="right">
+                      </span>
+                    </label>
                     <div class="timer timer--pending"><span class="icon icon-clock"></span>12:00:00</div>
                   </div>
                 </div>
