@@ -1,6 +1,6 @@
 /**
  * @module {can.Component} wallet-ui/components/trade-funds/confirm-summary confirm-summary
- * @parent components.common
+ * @parent components.buy-sell-offers
  *
  * A short description of the confirm-summary component
  *
@@ -14,13 +14,19 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './confirm-summary.less'
 import view from './confirm-summary.stache'
+import currencyConverter from '~/utils/btc-usd-converter'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the confirm-summary component'
+  formData: '*',
+  convertToUSD: function (value) {
+    if (this.formData.type === 'BUY') {
+      return currencyConverter.convertMicroBTCToUSD.apply(null, arguments)
+    } else {
+      return currencyConverter.convert(value, 'EQBUSD')
+    }
   }
 })
 
