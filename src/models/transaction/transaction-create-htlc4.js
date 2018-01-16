@@ -65,7 +65,7 @@ function prepareHtlcConfig4 (order, offer, portfolio, issuance, secret) {
     type: 'SELL',
     fee,
     currencyType: 'BTC',
-    amount: offer.quantity * order.price,
+    amount: offer.quantity * order.price - fee,
     description: 'Collecting payment from HTLC',
     fromAddress: offer.btcAddress,
     toAddress: order.btcAddress

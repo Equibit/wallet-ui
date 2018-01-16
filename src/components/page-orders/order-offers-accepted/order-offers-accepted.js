@@ -24,7 +24,7 @@ import Order from '../../../models/order'
 import Issuance from '../../../models/issuance'
 import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
-import { buildTransaction } from '../../../models/transaction/transaction-build.js'
+import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
 import { translate } from '../../../i18n/i18n'
 
