@@ -22,12 +22,12 @@
     position: relative;
     box-shadow: none;
 }
-.slider.slider-horizontal .slider-tick, 
+.slider.slider-horizontal .slider-tick,
 .slider.slider-horizontal .slider-handle {
     margin-left: -16px;
 }
 
-/** 
+/**
  * Slider Advanced
  */
 
@@ -35,10 +35,10 @@
     width: 400px;
  }
  .slider-advanced .slider-selection {
-    background-color: #FF6600; 
+    background-color: #FF6600;
  }
  .slider-advanced .slider-track {
-    background-color: #32B576; 
+    background-color: #32B576;
  }
 
  /* Timelock Indicator */

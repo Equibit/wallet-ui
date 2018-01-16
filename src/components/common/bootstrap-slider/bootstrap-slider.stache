@@ -9,6 +9,7 @@
     data-slider-max="{{maxValue}}"
     data-slider-step="{{step}}"
     data-slider-value="{{initialValue}}"
+    data-name="hours"
     />
 </div>
 {{else}}

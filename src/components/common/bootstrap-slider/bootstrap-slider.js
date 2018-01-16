@@ -49,6 +49,9 @@ export const ViewModel = DefineMap.extend({
     value: function () {
       return this.initialValue
     }
+  },
+  formatValue (val) {
+    return '' + val + (val === 1 ? ' hour' : ' hours')
   }
 })
 
@@ -62,8 +65,14 @@ export default Component.extend({
       // const options = Object.assign(this.viewModel.defaultOptions, this.viewModel.options)
 
       const slider = $(el).find('input.slider').slider().data('slider')
-      slider.on('change', ev => { this.viewModel.value = ev.newValue })
+      slider.on('change', ev => {
+        this.viewModel.value = ev.newValue
+        slider.trackHigh.setAttribute('data-name', this.viewModel.formatValue(this.viewModel.maxValue - this.viewModel.value))
+        slider.trackSelection.setAttribute('data-name', this.viewModel.formatValue(this.viewModel.value))
+      })
       this.viewModel.value = slider.getValue()
+      slider.trackHigh.setAttribute('data-name', this.viewModel.formatValue(this.viewModel.maxValue - this.viewModel.value))
+      slider.trackSelection.setAttribute('data-name', this.viewModel.formatValue(this.viewModel.value))
     },
     removed: function (el, ev) {
       $(el).find('input.slider').slider('destroy')
