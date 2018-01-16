@@ -7,16 +7,16 @@
     type="text"
     data-slider-min="{{minValue}}"
     data-slider-max="{{maxValue}}"
-    data-slider-step="1"
+    data-slider-step="{{step}}"
     data-slider-value="{{initialValue}}"
-    value:bind="value"/>
+    />
 </div>
 {{else}}
   <input class="slider"
     type="text"
     data-slider-min="{{minValue}}"
     data-slider-max="{{maxValue}}"
-    data-slider-step="1"
+    data-slider-step="{{step}}"
     data-slider-value="{{initialValue}}"
-    value:bind="value"/>
+    />
 {{/eq}}

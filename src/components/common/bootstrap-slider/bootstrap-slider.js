@@ -34,6 +34,10 @@ export const ViewModel = DefineMap.extend({
     type: 'number',
     value: 10
   },
+  step: {
+    type: 'number',
+    value: 1
+  },
   initialValue: {
     type: 'number',
     value: function () {
@@ -41,7 +45,10 @@ export const ViewModel = DefineMap.extend({
     }
   },
   value: {
-    type: 'number'
+    type: 'number',
+    value: function () {
+      return this.initialValue
+    }
   }
 })
 
@@ -52,9 +59,11 @@ export default Component.extend({
   events: {
     inserted: function (el, ev) {
       // console.log('options', this.viewModel.options)
-      //const options = Object.assign(this.viewModel.defaultOptions, this.viewModel.options)
+      // const options = Object.assign(this.viewModel.defaultOptions, this.viewModel.options)
 
-      $(el).find('input.slider').slider()
+      const slider = $(el).find('input.slider').slider().data('slider')
+      slider.on('change', ev => { this.viewModel.value = ev.newValue })
+      this.viewModel.value = slider.getValue()
     },
     removed: function (el, ev) {
       $(el).find('input.slider').slider('destroy')
