@@ -101,7 +101,7 @@ describe('models/transaction/utils', function () {
         assert.equal(txInfo.description, 'Buying securities (HTLC #1)', 'description')
         assert.equal(txInfo.fee, 1000, 'fee')
         assert.equal(txInfo.fromAddress, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'fromAddress')
-        assert.equal(txInfo.toAddress, 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', 'toAddress')
+        assert.equal(txInfo.toAddress, 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'toAddress')
         assert.equal(txInfo.type, 'BUY', 'type')
       })
     })
@@ -351,7 +351,7 @@ describe('models/transaction/utils', function () {
         })
         it('should have fee and from/to addresses', function () {
           assert.equal(txInfo.fee, 1000, 'fee')
-          assert.equal(txInfo.fromAddress, offer.eqbAddressTrading, 'fromAddress = offer.eqbAddressTrading')
+          assert.equal(txInfo.fromAddress, order.eqbAddressHolding, 'fromAddress = order.eqbAddressHolding')
           assert.equal(txInfo.toAddress, offer.eqbAddressHolding, 'toAddress = offer.eqbAddressHolding')
         })
       })
