@@ -14,13 +14,19 @@
  */
 
 import Component from 'can-component'
-import DefineMap from 'can-define/map/'
+import DefineMap from 'can-define/map/map'
 import './accept-offer.less'
 import view from './accept-offer.stache'
+import currencyConverter from '~/utils/btc-usd-converter'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the accept-offer component'
+  formData: '*',
+  convertToUSD: function (value) {
+    if (this.formData.type === 'BUY') {
+      return currencyConverter.convertMicroBTCToUSD.apply(null, arguments)
+    } else {
+      return currencyConverter.convert(value, 'EQBUSD')
+    }
   }
 })
 

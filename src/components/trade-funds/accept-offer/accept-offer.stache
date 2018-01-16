@@ -1,4 +1,5 @@
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/trade-funds/confirm-summary/" />
 
 <bootstrap-modal-content>
     <div class="modal-header">
@@ -9,6 +10,11 @@
     <div class="modal-body">
         <div class="description">Please review and confirm your transaction.</div>
 
+        <div class="list-group">
+            <div class="list-group-item">
+                <confirm-summary this:from="this"></confirm-summary>
+            </div>
+        </div>
     </div>
 
     <div class="modal-footer">
