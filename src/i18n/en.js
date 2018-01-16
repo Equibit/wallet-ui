@@ -340,6 +340,8 @@ export default {
   offer: 'Offer',
   offerDescriptionPopoverMessage: 'Enter a short description for your own records.',
   offerPlacedByUserPopoverMessage: 'You placed an offer to this order.',
+  offerTooltipTimelock: 'This is the time frame the buyer will have to collect the securities.',
+  offerTooltipSafetyZone: 'This is the time frame you will have to recover the assets, if the buyer hasn\'t claimed them.',
   offerWasCreated: 'Your offer was created',
   or: 'Or',
   order: 'Order',
