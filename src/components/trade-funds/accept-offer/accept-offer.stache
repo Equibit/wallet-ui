@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/trade-funds/confirm-summary/" />
+<can-import from="~/components/trade-funds/timer-notice/" />
 
 <bootstrap-modal-content>
     <div class="modal-header">
@@ -11,10 +12,22 @@
         <div class="description">Please review and confirm your transaction.</div>
 
         <div class="list-group">
+            <timer-notice></timer-notice>
             <div class="list-group-item">
                 <confirm-summary this:from="this"></confirm-summary>
             </div>
+
+            <div class="list-group-item">Slider will go here</div>
+            <div class="list-group-item">
+                <label>{{i18n('description')}} <span class="icon icon-question"
+                data-toggle="popover"
+                data-content="{{i18n('offerDescriptionPopoverMessage')}}"
+                data-placement="right">
+                </span></label>
+                <textarea class="col-xs-12 form-control" value:bind="formData.description"></textarea>
+            </div>
         </div>
+        
     </div>
 
     <div class="modal-footer">
