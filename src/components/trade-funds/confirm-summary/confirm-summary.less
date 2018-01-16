@@ -1,0 +1,25 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+@import (reference) '../../../styles/custom/_mixins.less';
+
+confirm-summary {
+	display: block;
+	
+	label {
+		margin-bottom: 0;
+	}
+
+	.column-digital-currency-type {
+		width: 60px;
+	}
+	.column-local-currency-type {
+		width: 30px;
+	}
+	.column-digital-currency-value,
+	.column-local-currency-value {
+		width: 100px;
+		text-align: right;
+	}
+	.table > tbody > tr > td {
+		border-bottom: 0;
+	}
+}

@@ -1,0 +1,4 @@
+<div class="list-group-item">
+    <strong>Time left to accept this offer</strong>  
+    <div class="timer timer--active"><span class="icon icon-clock"></span>12:30:00</div>
+</div>
