@@ -1,1 +1,19 @@
-<p>{{message}}</p>
+<can-import from="~/utils/stache-helpers/" />
+
+<bootstrap-modal-content>
+    <div class="modal-header">
+        <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+        <h3 class="modal-title"><span class="icon icon-upload"></span> Accept Offer and Send Securities</h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="description">Please review and confirm your transaction.</div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Accept & Send</button>
+        <button  type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    </div>
+</bootstrap-modal-content>
+
