@@ -385,7 +385,7 @@ describe('models/transaction/utils', function () {
   })
 
   describe('HTLC-4 Collect securities (for the Sell order / Buy offer)', function () {
-    const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
+    // const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
     const fee = 1000
 
@@ -466,16 +466,15 @@ describe('models/transaction/utils', function () {
           offer = htlcOfferMock.offer
           amount = offer.quantity * offer.price
           tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
-          txData = createHtlc4(htlcOfferMock.order, htlcOfferMock.offer, portfolio, issuance, htlcOfferMock.secretHex)
+          txData = createHtlc4(order, offer, portfolio, issuance, htlcOfferMock.secretHex)
         })
         it('should define main props', function () {
-          assert.equal(txData.amount, 500, 'amount')
+          assert.equal(txData.amount, amount - fee, 'amount minus fee')
           assert.equal(txData.fee, 1000, 'fee')
-          assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
         })
         it.skip('should define hashlock', function () {
           assert.equal(txData.hashlock.length, 64)
-          assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
+          assert.equal(txData.hashlock, offer.hashlock)
         })
         it.skip('should define transaction hex and id', function () {
           assert.equal(txData.hex, tx.hex, 'tx hex')

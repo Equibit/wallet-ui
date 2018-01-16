@@ -1,6 +1,5 @@
 import typeforce from 'typeforce'
-import { merge } from 'ramda'
-import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
+// import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { buildTransaction } from './transaction-build'
 import { prepareTxData } from './transaction-create-htlc1'
 
