@@ -71,7 +71,7 @@ describe('models/transaction/utils', function () {
       assert.ok(typeof makeTransaction === 'function')
     })
   })
-  describe('HTLC-1', function () {
+  describe('HTLC-1 Lock payment into HTLC', function () {
     const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
     describe('prepareHtlcConfig', function () {
@@ -175,7 +175,7 @@ describe('models/transaction/utils', function () {
     }
   })
 
-  describe('HTLC-2', function () {
+  describe('HTLC-2 Lock securities into HTLC', function () {
     const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
 
@@ -384,7 +384,7 @@ describe('models/transaction/utils', function () {
     }
   })
 
-  describe('HTLC-4 Collect securities (for the Sell order / Buy offer)', function () {
+  describe('HTLC-4 Collect payment (for the Sell order / Buy offer)', function () {
     // const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
     const fee = 1000
