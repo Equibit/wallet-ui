@@ -54,14 +54,10 @@ export const ViewModel = DefineMap.extend({
     return moment(this.date).format('MM/DD @h:mm A')   // 04/29 @2:30 pm
   },
   // HTLC 3:
+  // 1. Generate addr for empty EQB (to pay the fee) change.
+  // 2. Prepare tx config and create htlc3 transaction.
+  // 3. Save offer htlcStep=4 and reveal the secret.
   collectSecurities () {
-    console.log(`collectSecurities`, this.offer)
-    typeforce('Offer', this.offer)
-
-    // 1. Generate addr for empty EQB (to pay the fee) change.
-    // 2. Prepare tx config and create htlc3 transaction.
-    // 3. Save offer htlcStep=4 and reveal the secret.
-
     const order = this.order
     const offer = this.offer
     const issuance = this.issuance

@@ -22,6 +22,7 @@ import { makeTransaction } from './transaction-make'
 import { createHtlc1, prepareHtlcConfig, prepareTxData } from './transaction-create-htlc1'
 import { createHtlc2, prepareHtlcConfig2 } from './transaction-create-htlc2'
 import { createHtlc3, prepareHtlcConfig3 } from './transaction-create-htlc3'
+import { createHtlc4, prepareHtlcConfig4 } from './transaction-create-htlc4'
 
 describe('models/transaction/utils', function () {
   describe('buildTransaction', function () {
@@ -70,7 +71,7 @@ describe('models/transaction/utils', function () {
       assert.ok(typeof makeTransaction === 'function')
     })
   })
-  describe('HTLC-1', function () {
+  describe('HTLC-1 Lock payment into HTLC', function () {
     const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
     describe('prepareHtlcConfig', function () {
@@ -100,7 +101,7 @@ describe('models/transaction/utils', function () {
         assert.equal(txInfo.description, 'Buying securities (HTLC #1)', 'description')
         assert.equal(txInfo.fee, 1000, 'fee')
         assert.equal(txInfo.fromAddress, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'fromAddress')
-        assert.equal(txInfo.toAddress, 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', 'toAddress')
+        assert.equal(txInfo.toAddress, 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'toAddress')
         assert.equal(txInfo.type, 'BUY', 'type')
       })
     })
@@ -174,7 +175,7 @@ describe('models/transaction/utils', function () {
     }
   })
 
-  describe('HTLC-2', function () {
+  describe('HTLC-2 Lock securities into HTLC', function () {
     const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
 
@@ -346,11 +347,11 @@ describe('models/transaction/utils', function () {
           assert.equal(txInfo.amount, amount, 'amount of 500')
           assert.equal(txInfo.currencyType, 'EQB', 'currencyType')
           assert.equal(txInfo.type, 'BUY', 'type')
-          assert.equal(txInfo.description, 'Collecting securities from HTLC')
+          assert.equal(txInfo.description, 'Collecting securities from HTLC (step #3)')
         })
         it('should have fee and from/to addresses', function () {
           assert.equal(txInfo.fee, 1000, 'fee')
-          assert.equal(txInfo.fromAddress, offer.eqbAddressTrading, 'fromAddress = offer.eqbAddressTrading')
+          assert.equal(txInfo.fromAddress, order.eqbAddressHolding, 'fromAddress = order.eqbAddressHolding')
           assert.equal(txInfo.toAddress, offer.eqbAddressHolding, 'toAddress = offer.eqbAddressHolding')
         })
       })
@@ -376,6 +377,102 @@ describe('models/transaction/utils', function () {
           assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
         })
         it.skip('should define transaction hex and id', function () {
+          assert.equal(txData.hex, tx.hex, 'tx hex')
+          assert.equal(txData.txId, tx.txId, 'txId')
+        })
+      })
+    }
+  })
+
+  describe('HTLC-4 Collect payment (for the Sell order / Buy offer)', function () {
+    // const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
+    let htlcOfferMock, htlcConfig
+    const fee = 1000
+
+    describe('prepareHtlcConfig4', function () {
+      describe('buildConfig', function () {
+        let amount, order, offer, buildConfig
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          order = htlcOfferMock.order
+          offer = htlcOfferMock.offer
+          amount = offer.quantity * offer.price
+          htlcConfig = prepareHtlcConfig4(order, offer, portfolio, issuance, htlcOfferMock.secretHex)
+          buildConfig = htlcConfig.buildConfig
+        })
+        it('should have one vin of BTC payment', function () {
+          assert.equal(buildConfig.vin.length, 1, 'one vin')
+        })
+        it('should have one vout ', function () {
+          assert.equal(buildConfig.vout.length, 1, 'one vout')
+        })
+        it('should have correct input', function () {
+          assert.equal(buildConfig.vin[0].txid, htlcOfferMock.offer.htlcTxId1, 'vin.0.txid === offer.htlcTxId1')
+          assert.equal(buildConfig.vin[0].vout, 0, 'vin.0.vout')
+          assert.ok(buildConfig.vin[0].keyPair, 'keyPair')
+        })
+        it('should have correct input htlc', function () {
+          assert.equal(buildConfig.vin[0].htlc.secret, htlcOfferMock.secretHex, 'secret')
+          assert.equal(buildConfig.vin[0].htlc.refundAddr, offer.btcAddress, 'refundAddr')
+          assert.equal(buildConfig.vin[0].htlc.timelock, offer.timelock, 'timelock')
+        })
+        it('should have correct output amount', function () {
+          assert.equal(buildConfig.vout[0].value, amount - fee, 'amount - fee')
+        })
+        it('should have correct output address', function () {
+          // todo: this should be a different address (next available for BTC)
+          assert.equal(buildConfig.vout[0].address, order.btcAddress, 'output address')
+        })
+      })
+
+      describe('txInfo', function () {
+        let txInfo, amount, order, offer, buildConfig
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          order = htlcOfferMock.order
+          offer = htlcOfferMock.offer
+          amount = offer.quantity * offer.price
+          htlcConfig = prepareHtlcConfig4(order, offer, portfolio, issuance, htlcOfferMock.secretHex)
+          buildConfig = htlcConfig.buildConfig
+          txInfo = htlcConfig.txInfo
+        })
+        it('should have main address info', function () {
+          assert.equal(txInfo.address, order.btcAddress, 'address = order.eqbAddressHolding')
+          assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
+          assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
+        })
+        it('should have amount, types and desc', function () {
+          assert.equal(txInfo.amount, amount - fee, 'amount minus fee')
+          assert.equal(txInfo.currencyType, 'BTC', 'currencyType')
+          assert.equal(txInfo.type, 'SELL', 'type')
+          assert.equal(txInfo.description, 'Collecting payment from HTLC (step #4)')
+        })
+        it('should have fee and from/to addresses', function () {
+          assert.equal(txInfo.fee, 1000, 'fee')
+          assert.equal(txInfo.fromAddress, offer.btcAddress, 'fromAddress = offer.btcAddress')
+          assert.equal(txInfo.toAddress, order.btcAddress, 'toAddress = order.btcAddress')
+        })
+      })
+    })
+
+    if (window.Testee) {
+      it.skip('skipping createHtlc4 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
+    } else {
+      describe('createHtlc4', function () {
+        let txData, tx, amount, order, offer
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          order = htlcOfferMock.order
+          offer = htlcOfferMock.offer
+          amount = offer.quantity * offer.price
+          tx = { hex: htlcOfferMock.txHex4, txId: htlcOfferMock.txId4 }
+          txData = createHtlc4(order, offer, portfolio, issuance, htlcOfferMock.secretHex)
+        })
+        it('should define main props', function () {
+          assert.equal(txData.amount, amount - fee, 'amount minus fee')
+          assert.equal(txData.fee, 1000, 'fee')
+        })
+        it('should define transaction hex and id', function () {
           assert.equal(txData.hex, tx.hex, 'tx hex')
           assert.equal(txData.txId, tx.txId, 'txId')
         })

@@ -16,7 +16,7 @@ const data = times(i => {
     status: ['OPEN', 'TRADING', 'CANCELLED', 'CLOSED'][i % 4],
     acceptedOfferIds: (i < 6 ? ['1', '2'] : ['3', '4', '5']),
 
-    btcAddress: 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1',
+    btcAddress: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA',
     eqbAddressTrading: ['', 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', ''][i % 3],
     eqbAddressHolding: issuance.utxo[0].address,
 

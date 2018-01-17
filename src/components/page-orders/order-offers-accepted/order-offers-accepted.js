@@ -24,7 +24,7 @@ import Order from '../../../models/order'
 import Issuance from '../../../models/issuance'
 import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
-import { buildTransaction } from '../../../models/transaction/transaction-build.js'
+import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
 import { translate } from '../../../i18n/i18n'
 
@@ -43,70 +43,30 @@ export const ViewModel = DefineMap.extend({
   // },
 
   // HTLC 4:
+  // todo: its a BTC transaction for a SELL order. Generalize to check `order.type`.
   collectPayment (offer) {
-    // todo: its a BTC transaction for a SELL order. Generalize to check `order.type`.
-    console.log(`collectPayment offer:`, offer)
     const order = this.order
     const issuance = this.issuance
     const user = Session.current.user
     const portfolio = Session.current.portfolios[0]
+    const secret = offer.secret
+    typeforce(typeforce.tuple(
+      'Order',
+      'Offer',
+      'Issuance',
+      'User',
+      'Portfolio',
+      'String'
+    ), [order, offer, issuance, user, portfolio, secret])
 
-    typeforce('Offer', offer)
-    typeforce('Order', order)
-    typeforce('Issuance', issuance)
-    typeforce('User', user)
-    typeforce('Portfolio', portfolio)
+    const txData = createHtlc4(order, offer, portfolio, issuance, secret)
+    const tx = new Transaction(txData)
 
-    const inputs = [{
-      txid: offer.htlcTxId1,
-      vout: 0,
-      // todo: we can have a problem here with giving one BTC address to all offers.
-      keyPair: portfolio.findAddress(order.btcAddress).keyPair,
-      htlc: {
-        secret: offer.secret,
-        // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
-        refundAddr: offer.btcAddress,
-        timelock: offer.timelock
-      },
-      sequence: '4294967295'
-    }]
-    const outputs = [{
-      value: offer.quantity * order.price,
-      address: order.btcAddress
-    }]
-
-    const txInfo = buildTransaction('BTC')(inputs, outputs)
-
-    const txConfig = {
-      address: order.btcAddress,
-      addressTxid: inputs[0].txid,
-      addressVout: inputs[0].vout,
-      type: 'SELL',
-      currencyType: 'BTC',
-      amount: offer.quantity * order.price,
-      description: 'Collecting payment from HTLC',
-      hex: txInfo.hex,
-      txId: txInfo.txId,
-      fromAddress: offer.btcAddress,
-      toAddress: order.btcAddress,
-
-      // Issuance details:
-      companyName: offer.companyName,
-      // companySlug: issuance.companySlug,
-      issuanceId: offer.issuanceId,
-      issuanceName: offer.issuanceName,
-      issuanceType: offer.issuanceType
-      // issuanceUnit: issuance.issuanceUnit
-    }
-    console.log(`collectPayment txConfig:`, txConfig)
-
-    const tx = new Transaction(txConfig)
-
-    // todo: show UI modal with tx info (amount, fee, etc) and proceed with "Next" button action.
+    // todo: add UI modal with tx info (amount, fee, etc).
 
     return tx.save()
       .then(tx => updateOffer(offer, tx))
-      .then(() => dispatchAlert(hub, tx, route))
+      .then(({tx}) => dispatchAlert(hub, tx, route))
       .catch(dispatchAlertError)
   }
 })

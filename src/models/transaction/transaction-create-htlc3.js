@@ -7,6 +7,11 @@ import { prepareTxData } from './transaction-create-htlc1'
 /**
  * HTLC-3 collect securities using secret. Offer type is either 'BUY' or 'SELL'.
  * This is a high-level method to be called from a component VM.
+ *
+ * Case #1: Sell (Ask) Order
+ * - Buyer collects securities
+ * - To: EQB holding address (offer)
+ * - From: EQB holding address (order)
  */
 function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
   typeforce(
@@ -26,6 +31,7 @@ function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
 function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAddr) {
   // todo: calculate transaction fee:
   const fee = 1000
+  const htlcStep = 3
 
   // For EQB the fee comes from empty EQB.
   const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
@@ -68,9 +74,10 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
     fee,
     currencyType: 'EQB',
     amount: offer.quantity,
-    description: 'Collecting securities from HTLC',
-    fromAddress: offer.eqbAddressTrading,
-    toAddress: offer.eqbAddressHolding
+    description: `Collecting securities from HTLC (step #${htlcStep})`,
+    fromAddress: order.eqbAddressHolding,
+    toAddress: offer.eqbAddressHolding,
+    htlcStep
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
 
