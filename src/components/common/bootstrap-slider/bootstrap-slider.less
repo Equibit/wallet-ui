@@ -1,0 +1,102 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+
+bootstrap-slider {
+	.slider-track {
+		background-image: none;
+		background-color: @gray-lighter;
+		box-shadow: none;
+	}
+	.slider.slider-horizontal {
+		margin: 50px 0;
+		.slider-tick,
+		.slider-handle {
+			margin-left: -16px;
+		}
+	}
+	.slider-handle {
+		width: 30px;
+		height: 30px;
+		background-color: @white;
+		background-image: none;
+		box-shadow: 0 0 3px 0px rgba(0,0,0,0.53);
+		top: -5px;
+	}
+	.slider-selection {
+		background-color: @brand-primary;
+		background-image: none;
+		position: relative;
+		box-shadow: none;
+	}
+
+	/**
+	 * Slider Advanced
+	 */
+	.slider-advanced {
+		
+		label {
+			&.label-start {
+				margin-right: 5px;
+			}
+			&.label-end {
+				margin-left: 5px;
+			}
+		}
+
+		.slider.slider-horizontal {
+			width: 350px;
+		}
+		.slider-selection {
+			background-color: @brand-progress;
+		}
+		.slider-track {
+			background-color: @brand-success;
+		}
+
+		/* Timelock Indicator */
+		.slider-selection {
+			&:before {
+				position: absolute;
+				content: '';
+				border: 1px solid @brand-progress;
+				width: 100%;
+				bottom: -27px;
+				height: 10px;
+				border-top: transparent;
+			}
+			&:after {
+				position: absolute;
+				content: "Time Lock " attr(data-name) "";
+				bottom: -50px;
+				min-width: 150px;
+				color:@brand-progress;
+				text-transform: uppercase;
+				font-size: @font-size-xsmall;
+			}
+		}
+
+		/* Safety Zone Indicator */
+		.slider-track-high {
+			&:before {
+				position: absolute;
+				content: '';
+				border: 1px solid @brand-success;
+				width: 100%;
+				top: -27px;
+				height: 10px;
+				border-bottom: transparent;
+			}
+			
+			&:after{
+				position: absolute;
+				content: "Safety Zone " attr(data-name) "";
+				top: -50px;
+				min-width: 150px;
+				color: @brand-success;
+				text-transform: uppercase;
+				font-size: @font-size-xsmall;
+				text-align: right;
+				right: 0;
+			}
+		}
+	}
+}

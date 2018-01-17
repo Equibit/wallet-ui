@@ -1,6 +1,8 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/trade-funds/confirm-summary/" />
 <can-import from="~/components/trade-funds/timer-notice/" />
+<can-import from="~/components/common/bootstrap-slider/" />
+<can-import from="bootstrap/dist/js/bootstrap" />
 
 <bootstrap-modal-content>
     <div class="modal-header">
@@ -17,7 +19,28 @@
                 <confirm-summary this:from="this"></confirm-summary>
             </div>
 
-            <div class="list-group-item">Slider will go here</div>
+            <div class="list-group-item slider-container">
+                <label>
+                    Set a 
+                    <strong>Time Lock
+                        <span class="icon icon-question"
+                        data-toggle="popover"
+                        data-content="{{i18n('offerTooltipTimelock')}}"
+                        data-placement="bottom">
+                      </span>
+                    </strong>
+                    and your
+                    <strong>Safety Zone
+                        <span class="icon icon-question"
+                        data-toggle="popover"
+                        data-content="{{i18n('offerTooltipSafetyZone')}}"
+                        data-placement="bottom">
+                      </span>
+                    </strong>
+                    for this transaction.
+                </label>
+                <bootstrap-slider type:from="'advanced'"></bootstrap-slider> 
+            </div>
             <div class="list-group-item">
                 <label>{{i18n('description')}} <span class="icon icon-question"
                 data-toggle="popover"

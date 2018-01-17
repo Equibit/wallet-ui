@@ -1,0 +1,24 @@
+<can-import from="bootstrap-slider/dist/css/bootstrap-slider.css" />
+
+{{#eq type 'advanced'}}
+<div class="slider-advanced">
+  <label class="label-start">Now</label>
+  <input class="slider slider-advanced"
+    type="text"
+    data-slider-min="{{minValue}}"
+    data-slider-max="{{maxValue}}"
+    data-slider-step="{{step}}"
+    data-slider-value="{{initialValue}}"
+    data-name="hours"
+    />
+    <label class="label-end">When the offer expires</label>
+</div>
+{{else}}
+  <input class="slider"
+    type="text"
+    data-slider-min="{{minValue}}"
+    data-slider-max="{{maxValue}}"
+    data-slider-step="{{step}}"
+    data-slider-value="{{initialValue}}"
+    />
+{{/eq}}
