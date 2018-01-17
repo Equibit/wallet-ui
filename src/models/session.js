@@ -181,8 +181,13 @@ const Session = DefineMap.extend('Session', {
     value: new Notification.List([])
   },
 
+  // These are authorized issuances that belong to the current user.
   issuancesPromise: {
     get (val) {
+      // For testing allow incoming value:
+      if (val) {
+        return val
+      }
       return this.user && Issuance.getList({userId: this.user._id}).then(issuances => {
         // todo: consider putting this into Issuance init (or utxo getter/value).
         console.log(`Session.issuancesPromise: deriving keys and loading UTXO... issuances=${issuances.length}`)

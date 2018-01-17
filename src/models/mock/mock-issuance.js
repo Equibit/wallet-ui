@@ -45,5 +45,8 @@ const issuance = new Issuance({
   rates: Session.current.rates
 })
 
+console.log('MOCK issuance:::', issuance)
+Session.current.issuancesPromise = Promise.resolve(new Issuance.List([issuance]))
+
 export default issuance
 export { amount }

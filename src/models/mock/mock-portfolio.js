@@ -61,6 +61,15 @@ const portfolioBtc = new Portfolio({
   rates
 })
 
+// Fixture getNextAddress:
+Portfolio.prototype.getNextAddress = function () {
+  console.log('MOCK: portfolio.getNextAddress')
+  return Promise.resolve({
+    EQB: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo',
+    BTC: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
+  })
+}
+
 export default portfolio
 export { portfolioZero }
 export { portfolioBtc }
