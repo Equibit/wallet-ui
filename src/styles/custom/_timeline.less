@@ -33,7 +33,8 @@
             color: @gray;
             .icon {
                 position: relative;
-                margin-bottom: 9px;
+                margin-bottom: @padding-small-horizontal;
+                margin-right: @padding-small-horizontal;
                 float: left;
                 &:after {
                     content: '';
@@ -99,6 +100,9 @@
  * Contextual Background
  */
 .timeline-container {
+    &[class*="contextual-bg-"] {
+        padding: 0;
+    }
     &.contextual-bg-danger {
         .offer-quantity {
             background-color: (fade(@brand-danger, 10%));

@@ -99,7 +99,8 @@
   {{/case}}
 
   {{#case 4}}
-    <!--This case is no longer applicable -->
+   (This case is no longer applicable)
+    <!--
     <div class="offer-status-box contextual-bg-success">
       <div class="row">
         <div class="col-xs-12 col-sm-4"><label>{{i18n('dealFlowStepLabel')}}</label></div>
@@ -118,6 +119,7 @@
         <div class="col-xs-12 col-sm-8 offer-accepted-date">{{dateDisplay}}</div>
       </div>
     </div>
+    -->
   {{/case}}
 
   {{#case "CANCELLED"}}
