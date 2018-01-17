@@ -3,7 +3,7 @@
     display: block;
     .help-block {
       color: #FF4B55;
-      font-side: 13px;
+      font-size: 13px;
     }
 
   </style>
