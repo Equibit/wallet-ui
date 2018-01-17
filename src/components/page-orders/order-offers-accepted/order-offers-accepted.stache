@@ -18,7 +18,7 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-10">
                   <div class="offer-timeline-event offer-timeline-event--done">
-                    <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-accepted-date">{{offer.dateDisplay}}</span>
+                    <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event offer-timeline-event--done">
                     <span class="icon icon-check-progress"></span>Securities sent <a href="">(View Transaction)</a>
@@ -63,13 +63,13 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-10">
                   <div class="offer-timeline-event offer-timeline-event--done">
-                    <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-accepted-date">{{offer.dateDisplay}}</span>
+                    <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event offer-timeline-event--done">
                     <span class="icon icon-check-progress"></span>Securities sent <a href="">(View Transaction)</a>
                   </div>
                   <div class="offer-timeline-event offer-timeline-event--done">
-                    <span class="icon icon-check-progress"></span>Buyer collected the securities on <span class="offer-accepted-date">{{offer.dateDisplay}}</span>
+                    <span class="icon icon-check-progress"></span>Buyer collected the securities on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event offer-timeline-event--pending">
                     <span class="icon icon-check-pending"></span>You can now collect the payment
@@ -97,13 +97,13 @@
               <div class="row">
                 <div class="col-xs-12">
                   <div class="offer-timeline-event offer-timeline-event--done">
-                    <span class="icon icon-check-done"></span>Offer sent on <span class="offer-accepted-date">{{offer.dateDisplay}}</span>
+                    <span class="icon icon-check-done"></span>Offer sent on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event offer-timeline-event--done">
                     <span class="icon icon-check-done"></span>Payment offer sent <a href="">(View Transaction)</a>
                   </div>
                   <div class="offer-timeline-event offer-timeline-event--done">
-                    <span class="icon icon-check-done"></span>Seller accepted the offer on <span class="offer-accepted-date">{{offer.dateDisplay}}</span>
+                    <span class="icon icon-check-done"></span>Seller accepted the offer on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event offer-timeline-event--done">
                     <span class="icon icon-check-done"></span>Securities collected <a href="">(View Transaction)</a>
@@ -121,7 +121,7 @@
         <!--{{#case "CANCELLED"}}-->
           <!--<div class="row accepted-offers-status contextual-bg-danger">-->
             <!--<div class="col-xs-2 offer-quantity">{{offer.quantity}}</div>-->
-            <!--<div class="col-xs-3 offer-accepted-date">{{offer.dateDisplay}}</div>-->
+            <!--<div class="col-xs-3 offer-date">{{offer.dateDisplay}}</div>-->
             <!--<div class="col-xs-5 offer-deal-step">-->
               <!--<span class="icon icon-hand-stop"></span>-->
               <!--<span class="deal-step-label">{{i18n('cancelledOn')}} {{offer.dateUpdatedDisplay}}</span>-->

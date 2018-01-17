@@ -1,0 +1,125 @@
+/**
+  * @stylesheet custom/_timeline.less Timeline
+  * @parent styles.containers
+  *
+  * @description
+  * Styles a timeline with checkboxes and other icons. Used to illustrated the process of an atomic trade.
+  *
+**/
+
+/**
+ * Offer Quantity
+ */
+.timeline-container {
+    .offer-quantity {
+        padding: @padding-small-vertical @padding-large-vertical;
+        flex-direction: row;
+        .offer-quantity-value {
+            font-family: @font-family-bold;
+            font-size: @font-size-base;
+            margin-left: @padding-xs-horizontal;
+        }
+    }
+}
+
+
+/**
+ * Offer Timeline
+ */
+.timeline-container {
+    .offer-timeline {
+        padding: @padding-large-vertical @padding-small-vertical;
+        .offer-timeline-event {
+            color: @gray;
+            .icon {
+                position: relative;
+                margin-bottom: 9px;
+                float: left;
+                &:after {
+                    content: '';
+                    height: 12px;
+                    width: 1px;
+                    position: absolute;
+                    bottom: -12px;
+                }
+                .icon-circle(10px);
+                &.icon-hand-shake,
+                &.icon-hand-stop {
+                    margin-top: 3px;
+                    font-size: 15px;
+                }
+                &.icon-hand-shake {
+                    color: @brand-success;
+                    margin-left: 1px;
+                }
+                &.icon-hand-stop {
+                    color: @brand-danger;
+                    margin-left: 3px;
+                    margin-right: 7px;
+                }
+            }
+            &:last-of-type .icon:after {
+                display: none;
+            }
+            .btn {
+                margin-top: 10px;
+            }
+        }
+    
+        .offer-date {
+            color: @gray-base;
+        }
+    
+        .offer-timeline-event--pending {
+            color: @gray-base;
+            font-family: @font-family-bold;
+        }
+    }
+ }
+
+  
+/**
+ * Offer Timers
+ */
+.timeline-container {
+    .timer-container {
+        @media (min-width: @screen-sm) {
+            align-items: flex-end;
+            text-align: right;
+        }
+        @media (max-width: @screen-sm) {
+            margin-top: 20px;
+        }
+    }
+}
+
+
+
+/**
+ * Contextual Background
+ */
+.timeline-container {
+    &.contextual-bg-danger {
+        .offer-quantity {
+            background-color: (fade(@brand-danger, 10%));
+        }
+        .offer-deal-step {
+            font-style: italic;
+        }
+    } 
+    &.contextual-bg-success {
+        .offer-quantity {
+            background-color: (fade(@brand-success, 15%));
+        }
+    }
+    &.contextual-bg-progress {
+        .offer-quantity {
+            background-color: (fade(@brand-progress, 15%));
+        }
+    }
+    &.contextual-bg-warning {
+        .offer-quantity {
+            background-color: (fade(@brand-warning, 15%));
+        }
+    }
+} 
