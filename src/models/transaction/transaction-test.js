@@ -347,7 +347,7 @@ describe('models/transaction/utils', function () {
           assert.equal(txInfo.amount, amount, 'amount of 500')
           assert.equal(txInfo.currencyType, 'EQB', 'currencyType')
           assert.equal(txInfo.type, 'BUY', 'type')
-          assert.equal(txInfo.description, 'Collecting securities from HTLC')
+          assert.equal(txInfo.description, 'Collecting securities from HTLC (step #3)')
         })
         it('should have fee and from/to addresses', function () {
           assert.equal(txInfo.fee, 1000, 'fee')
@@ -445,7 +445,7 @@ describe('models/transaction/utils', function () {
           assert.equal(txInfo.amount, amount - fee, 'amount minus fee')
           assert.equal(txInfo.currencyType, 'BTC', 'currencyType')
           assert.equal(txInfo.type, 'SELL', 'type')
-          assert.equal(txInfo.description, 'Collecting payment from HTLC')
+          assert.equal(txInfo.description, 'Collecting payment from HTLC (step #4)')
         })
         it('should have fee and from/to addresses', function () {
           assert.equal(txInfo.fee, 1000, 'fee')
