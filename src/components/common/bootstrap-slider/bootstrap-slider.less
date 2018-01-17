@@ -7,7 +7,7 @@ bootstrap-slider {
 		box-shadow: none;
 	}
 	.slider.slider-horizontal {
-		margin-top: 40px;
+		margin: 50px 0;
 		.slider-tick,
 		.slider-handle {
 			margin-left: -16px;
@@ -32,8 +32,20 @@ bootstrap-slider {
 	 * Slider Advanced
 	 */
 	.slider-advanced {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		label {
+			&.label-start {
+				margin-right: 5px;
+			}
+			&.label-end {
+				margin-left: 5px;
+			}
+		}
+
 		.slider.slider-horizontal {
-			width: 400px;
+			width: 350px;
 		}
 		.slider-selection {
 			background-color: @brand-progress;
