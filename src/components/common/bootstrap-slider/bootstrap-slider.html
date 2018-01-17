@@ -1,16 +1,21 @@
 <!DOCTYPE HTML>
 <script>window.useXhrTransport = true</script>
-<style>body { padding: 20px }</style>
+<style>
+    body {
+      padding: 20px;
+      background-color: white !important;
+    }
+    </style>
 <div id="demo"></div>
 
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
   <can-import from="wallet-ui/components/common/bootstrap-slider/" />
 
-  <h2>default slider</h2>
+  <h2>Default Slider</h2>
   <bootstrap-slider></bootstrap-slider>
 
-  <h2>advanced slider</h2>
+  <h2>Advanced Slider</h2>
   <bootstrap-slider type:from="'advanced'"></bootstrap-slider>
 
 </script>
