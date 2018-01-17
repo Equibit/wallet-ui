@@ -1333,6 +1333,10 @@ can-assign@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/can-assign/-/can-assign-1.0.1.tgz#4d2c880089d546a08e761e176b58e8639bd082f5"
 
+can-assign@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/can-assign/-/can-assign-1.1.1.tgz#c6c7b4b2bb266eb08cf119720792cf0cb81c42d3"
+
 can-attribute-encoder@^0.3.0, can-attribute-encoder@^0.3.1, can-attribute-encoder@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/can-attribute-encoder/-/can-attribute-encoder-0.3.2.tgz#df6f3fb3e8abaff3becb90078e4760f02b59dcc6"
@@ -1720,6 +1724,14 @@ can-set@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/can-set/-/can-set-1.5.0.tgz#ede2267c94e6696335c49769b353a9cdf6580a19"
   dependencies:
+    can-namespace "^1.0.0"
+    can-util "^3.9.0"
+
+can-set@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/can-set/-/can-set-1.5.1.tgz#5b64b96ca66967d3ff57b107c9bad70c63f7d6f2"
+  dependencies:
+    can-assign "^1.1.1"
     can-namespace "^1.0.0"
     can-util "^3.9.0"
 
