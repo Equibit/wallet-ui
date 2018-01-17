@@ -1,9 +1,11 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import { ViewModel } from './order-offers-data'
-import portfolio from '../../../models/mock/mock-portfolio'
+import Offer from '../../../models/offer'
+import Transaction from '../../../models/transaction/transaction'
+import Issuance from '../../../models/issuance'
+import Portfolio from '../../../models/portfolio'
 import mockHtlcOffer from '../../../models/mock/mock-htlc-offer'
-// import '../../../models/fixtures/issuances'
 
 describe('wallet-ui/components/page-orders/order-offers-data', function () {
   let vm, offer, order
@@ -16,7 +18,7 @@ describe('wallet-ui/components/page-orders/order-offers-data', function () {
     })
   })
   describe('acceptOffer', function () {
-    let openAcceptOfferModal, calledCorrectly
+    let getNextAddress, openAcceptOfferModal, calledCorrectly
     before(function () {
       openAcceptOfferModal = ViewModel.prototype.openAcceptOfferModal
       ViewModel.prototype.openAcceptOfferModal = function (offer, tx, issuance) {
@@ -24,9 +26,19 @@ describe('wallet-ui/components/page-orders/order-offers-data', function () {
           calledCorrectly = true
         }
       }
+      getNextAddress = Portfolio.prototype.getNextAddress
+      // Fixture getNextAddress:
+      Portfolio.prototype.getNextAddress = function () {
+        console.log('MOCK: portfolio.getNextAddress')
+        return Promise.resolve({
+          EQB: 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo',
+          BTC: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
+        })
+      }
     })
     after(function () {
       ViewModel.prototype.openAcceptOfferModal = openAcceptOfferModal
+      Portfolio.prototype.getNextAddress = getNextAddress
     })
     it('should call `openAcceptOfferModal` with correct params', function (done) {
       vm.acceptOffer(offer).then(function () {
@@ -35,14 +47,45 @@ describe('wallet-ui/components/page-orders/order-offers-data', function () {
       })
     })
   })
-  describe.skip('openAcceptOfferModal', function () {
-    it('should ', function () {
-      assert.ok()
+  describe('openAcceptOfferModal', function () {
+    it('should set offer, tx and issuance and open the modal', function () {
+      const offer = new Offer()
+      const tx = new Transaction()
+      const issuance = new Issuance()
+      assert.ok(!vm.isModalShown)
+      vm.openAcceptOfferModal(offer, tx, issuance)
+      assert.ok(vm.isModalShown)
+      assert.equal(vm.offer, offer)
+      assert.equal(vm.tx, tx)
+      assert.equal(vm.issuance, issuance)
     })
   })
-  describe.skip('placeOffer', function () {
-    it('should ', function () {
-      assert.ok()
+  describe('placeOffer', function () {
+    let txSave, offerSave, txSaved, offerSaved
+    before(function () {
+      txSave = Transaction.prototype.save
+      Transaction.prototype.save = function () {
+        txSaved = true
+        return Promise.resolve(true)
+      }
+      offerSave = Offer.prototype.save
+      Offer.prototype.save = function () {
+        offerSaved = true
+        return Promise.resolve(true)
+      }
+    })
+    after(function () {
+      Transaction.prototype.save = txSave
+      Offer.prototype.save = offerSave
+    })
+    it('should save transaction and offer', function (done) {
+      vm.offer = new Offer()
+      vm.tx = new Transaction()
+      vm.placeOffer().then(function () {
+        assert.ok(txSaved)
+        assert.ok(offerSaved)
+        done()
+      })
     })
   })
 })
