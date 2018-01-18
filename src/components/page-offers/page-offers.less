@@ -10,6 +10,9 @@ page-offers {
     .order-details-body {
       flex-grow: 2;
     }
+    @media (max-width: @screen-sm-max) {
+      margin-top: 20px;
+    }
   }
 
   offer-display,
@@ -43,6 +46,12 @@ page-offers {
     }
     .dl-stripped dd {
       margin-left: 100px;
+    }
+  }
+
+  @media (max-width: @screen-md-max) {
+    .offers-data {
+      margin-top: 20px;
     }
   }
 }

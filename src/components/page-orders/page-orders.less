@@ -11,12 +11,21 @@ page-orders {
     .order-details-body {
       flex-grow: 2;
     }
+    @media (max-width: @screen-sm-max) {
+        margin-top: 20px;
+    }
   }
 
   order-data,
   order-offers-data {
     .well {
       overflow-y: auto;
+    }
+  }
+
+  @media (max-width: @screen-md-max) {
+    .offers-data {
+      margin-top: 20px;
     }
   }
 }
