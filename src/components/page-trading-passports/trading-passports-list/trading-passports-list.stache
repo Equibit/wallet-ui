@@ -80,5 +80,8 @@
     {{/is}}
   </div>
 
-  <list-paginator items:from="passports" currentPageNumber:to="offsetPage"></list-paginator>
+  <div class="panel-footer">
+    <list-paginator items:from="passports" currentPageNumber:to="offsetPage"></list-paginator>
+  </div>
+  
 </drag-panel>
