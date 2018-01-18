@@ -5,7 +5,7 @@
 
 <h2 class="subtitle">
   {{#is offer.type 'SELL'}} {{i18n('sellOffer')}} {{else}} {{i18n('buyOffer')}} {{/is}}
-  <div class="offer-date">Created on {{offer.dateDisplayFull}}</div>
+  <div class="offer-date-created">Created on {{offer.dateDisplayFull}}</div>
 </h2>
 
 <div class="well stretch">
