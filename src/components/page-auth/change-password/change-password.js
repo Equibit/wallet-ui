@@ -72,7 +72,11 @@ export const ViewModel = DefineMap.extend({
       })
       .catch(e => {
         console.error(e)
-        this.generalError = JSON.stringify(e)
+        if (e.code === 400 && e.errors && e.errors.password) {
+          this.passwordError = e.errors.password
+        } else {
+          this.generalError = JSON.stringify(e)
+        }
       })
   },
   togglePassword () {
