@@ -2,7 +2,12 @@
  * @module {can.Component} wallet-ui/components/trade-funds/accept-offer accept-offer
  * @parent components.common
  *
- * A short description of the accept-offer component
+ * Input should include:
+ *    - transaction (with address, amount and fee) and
+ *    - issuance details.
+ * Output would be:
+ *    - timelock value and
+ *    - description.
  *
  * @signature `<accept-offer />`
  *
@@ -20,13 +25,39 @@ import view from './accept-offer.stache'
 import currencyConverter from '~/utils/btc-usd-converter'
 
 export const ViewModel = DefineMap.extend({
-  formData: '*',
+  tx: '*',
+  issuance: '*',
+  offerTimelock: {
+    value: function () {
+      return this.tx.timelock * 2
+    }
+  },
+  formData: {
+    get () {
+      const tx = this.tx
+      const issuance = this.issuance
+      return {
+        type: tx.type,
+        address: tx.address,
+        issuanceName: issuance.issuanceName,
+        quantity: tx.amount,
+        fee: tx.fee,
+        timelock: tx.timelock,
+        description: tx.description,
+        offerTimelock: this.offerTimelock
+      }
+    }
+  },
   convertToUSD: function (value) {
     if (this.formData.type === 'BUY') {
       return currencyConverter.convertMicroBTCToUSD.apply(null, arguments)
     } else {
       return currencyConverter.convert(value, 'EQBUSD')
     }
+  },
+  send (close) {
+    this.dispatch('send', [this.formData, this.type])
+    close()
   }
 })
 
