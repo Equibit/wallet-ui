@@ -1,4 +1,5 @@
 <can-import from="~/components/common/grid/grid.less" />
+<can-import from="~/components/page-transactions/transactions-grid/trade-row/" />
 <can-import from="grid-component" />
 <can-import from="~/utils/stache-helpers/" />
 
@@ -84,6 +85,14 @@
             </td>
           </tr>
           {{/each}}
+
+          <!-- Custom Row For Atomic Trade Transactions
+          <tr>
+            <td colspan="6" class="no-padding">
+              <trade-row></trade-row>
+            </td>
+          </tr>  
+          -->     
         </tbody>
       </table>
     </div>

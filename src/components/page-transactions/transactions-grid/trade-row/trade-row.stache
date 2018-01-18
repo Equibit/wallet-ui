@@ -1,0 +1,53 @@
+<table class="table table-condensed">
+    <tbody>
+        <tr class="row-title row-title--top">
+            <td colspan="2" class="column-title">→ Trade</td>
+            <td colspan="4" class="column-description">
+                <span class="transaction-subject">Common Shares</span>
+                from
+                <a href="#">
+                    Imperial Brands, Series 1
+                </a>
+            </td>
+        </tr>
+
+        <tr class="transaction-group">
+            <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
+            <td class="column-type">Sell</td>
+            <td class="column-description">You collected the payment</td>
+            <td class="column-securities">--</td>
+            <td class="column-cash">0.00470023</td>
+            <td class="column-cash">0.00000023</td>    
+        </tr>
+        <tr class="transaction-group">
+            <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
+            <td class="column-type">Sell</td>
+            <td class="column-description">Buyer collected the securities</td>
+            <td class="column-securities">- 385 Shares</td>
+            <td class="column-cash">--</td>
+            <td class="column-cash">--</td>    
+        </tr>
+        <tr class="transaction-group">
+            <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
+            <td class="column-type">Sell</td>
+            <td class="column-description">You sent the securities</td>
+            <td class="column-securities"><i class="text-muted">- 385 Shares</i></td>
+            <td class="column-cash">--</td>
+            <td class="column-cash">--</td>    
+        </tr>
+        <tr class="transaction-group">
+            <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
+            <td class="column-type">Sell</td>
+            <td class="column-description">Buyer sent the payment</td>
+            <td class="column-securities">--</td>
+            <td class="column-cash"><i class="text-muted">0.00470023</i></td>
+            <td class="column-cash">0.00000023</td>    
+        </tr>
+
+        <tr class="row-title row-title--bottom">
+            <td colspan="6"></td>
+        </tr>
+
+    </tbody>
+</table>
+
