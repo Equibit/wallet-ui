@@ -1,4 +1,5 @@
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/trade-funds/accept-offer/" />
 
 <h2 class="subtitle">
   {{#is order.type 'SELL'}} {{i18n('buyOffers')}} {{else}} {{i18n('sellOffers')}} {{/is}}
@@ -48,4 +49,9 @@
 
 </div>
 
-
+{{#if isModalShown}}
+  <accept-offer on:send="sendSecurities(scope.arguments)"
+               tx:from="tx"
+               portfolio:from="portfolio"
+               issuance:from="issuance" />
+{{/if}}

@@ -22,11 +22,12 @@ import currencyConverter from '~/utils/btc-usd-converter'
 export const ViewModel = DefineMap.extend({
   formData: '*',
   convertToUSD: function (value) {
-    if (this.formData.type === 'BUY') {
-      return currencyConverter.convertMicroBTCToUSD.apply(null, arguments)
-    } else {
-      return currencyConverter.convert(value, 'EQBUSD')
-    }
+    return currencyConverter.convert(value, 'EQBUSD')
+    // if (this.formData.type === 'BUY') {
+    //   return currencyConverter.convertMicroBTCToUSD.apply(null, arguments)
+    // } else {
+    //   return currencyConverter.convert(value, 'EQBUSD')
+    // }
   }
 })
 

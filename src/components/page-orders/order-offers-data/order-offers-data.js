@@ -22,6 +22,7 @@ import './order-offers-data.less'
 import view from './order-offers-data.stache'
 import Order from '../../../models/order'
 import Offer from '../../../models/offer'
+import Issuance from '../../../models/issuance'
 import Session from '../../../models/session'
 import Transaction from '../../../models/transaction/transaction'
 import { createHtlc2 } from '../../../models/transaction/transaction-create-htlc2'
@@ -30,18 +31,25 @@ import { translate } from '../../../i18n/i18n'
 export const ViewModel = DefineMap.extend({
   order: Order,
   offers: Offer.List,
+
+  offer: Offer,
+  tx: 'any',
+  issuance: Issuance,
+  portfolio: '*',
+  isModalShown: 'boolean',
   expandOffer (offer) {
     this.offers.forEach(offer => {
       offer.isSelected = false
     })
     offer.isSelected = true
   },
-  // HTLC 2: sending securities locked with secret hash.
+
+  // Collect details and if everything is OK then open the modal.
   acceptOffer (offer) {
+    const portfolio = Session.current.portfolios[0]
     console.log(`acceptOffer`, offer)
     typeforce('Offer', offer)
-
-    const portfolio = Session.current.portfolios[0]
+    typeforce('Portfolio', portfolio)
 
     return Promise.all([
       Session.current.issuancesPromise,
@@ -53,13 +61,39 @@ export const ViewModel = DefineMap.extend({
       console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddrPair`, offer, this.order, portfolio, issuance, changeAddrPair)
       const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddrPair)
       const tx = new Transaction(txData)
-
       // todo: show UI modal with tx details (amount, fee, etc)
-
-      return tx.save()
-        .then(tx => updateOffer(offer, tx))
-        .then(() => dispatchAlert(hub, tx, route))
+      this.openAcceptOfferModal(offer, tx, issuance, portfolio)
     }).catch(dispatchAlertError)
+  },
+
+  openAcceptOfferModal (offer, tx, issuance, portfolio) {
+    typeforce(typeforce.tuple('Offer', 'Transaction', 'Issuance'), [offer, tx, issuance])
+    this.offer = offer
+    this.tx = tx
+    this.issuance = issuance
+    this.portfolio = portfolio
+    this.isModalShown = false
+    this.isModalShown = true
+  },
+
+  // HTLC 2: sending securities locked with secret hash.
+  sendSecurities (args) {
+    typeforce(typeforce.tuple('Number', '?String'), [args[1], args[2]])
+    const timelock = args[1]
+    const description = args[2]
+
+    const offer = this.offer
+    const tx = this.tx
+    typeforce('Offer', offer)
+    typeforce('Transaction', tx)
+
+    // todo: rebuild tx after updating timelock value.
+    tx.timelock = timelock
+    tx.description = description || tx.description
+    return tx.save()
+      .then(tx => updateOffer(offer, tx))
+      .then(() => dispatchAlert(hub, tx, route))
+      .catch(dispatchAlertError)
   }
 })
 

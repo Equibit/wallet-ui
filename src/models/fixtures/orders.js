@@ -8,6 +8,7 @@ const data = times(i => {
   return {
     _id: '' + i,
     issuanceAddress: issuance.address,
+    issuanceId: issuance._id,
     quantity: (1000 * (i + 1)),
     price: 70 * (i + 1),
     createdAt: [(new Date()).toJSON(), '2017-04-12T04:35:34.835Z', '2017-03-05T08:45:34.835Z'][i % 3],
