@@ -4,7 +4,7 @@
 <status-badge {status}="status"></status-badge>
 
 {{#if confirmations}}
-  <small>{{confirmations}} Confirmations</small>
+  {{confirmations}} Confirmations
 {{else}}
-  <small>0 Confirmations</small>
+  0 Confirmations
 {{/if}}
