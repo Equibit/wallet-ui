@@ -60,7 +60,7 @@ describe('wallet-ui/components/page-orders/order-offers-data', function () {
       assert.equal(vm.issuance, issuance)
     })
   })
-  describe('placeOffer', function () {
+  describe('sendSecurities', function () {
     let txSave, offerSave, txSaved, offerSaved
     before(function () {
       txSave = Transaction.prototype.save
@@ -81,7 +81,7 @@ describe('wallet-ui/components/page-orders/order-offers-data', function () {
     it('should save transaction and offer', function (done) {
       vm.offer = new Offer()
       vm.tx = new Transaction()
-      vm.placeOffer().then(function () {
+      vm.sendSecurities([null, 144, 'description']).then(function () {
         assert.ok(txSaved)
         assert.ok(offerSaved)
         done()

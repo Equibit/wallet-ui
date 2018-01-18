@@ -21,14 +21,14 @@
             <tr>
                 <td class="column-label">{{i18n('quantity')}}</td>
                 {{#eq formData.type 'BUY'}}
-                <td class="column-digital-currency-value font-numeric">{{format(formData.quantity, '', 2)}}</td>
+                <td class="column-digital-currency-value font-numeric">{{format-micro(formData.quantity)}}</td>
                 <td class="column-digital-currency-type font-numeric">μBTC</td>
-                <td class="column-local-currency-value font-numeric">{{format(convertToUSD(formData.quantity).value, '', 2)}}</td>
+                <td class="column-local-currency-value font-numeric">{{format(convertToUSD(formData.quantityBtc).value, '', 2)}}</td>
                 <td class="column-local-currency-type font-numeric">{{i18n('usd')}}</td>
                 {{else}}
-                <td class="column-digital-currency-value font-numeric">{{format(formData.quantity, '', 2)}}</td>
+                <td class="column-digital-currency-value font-numeric">{{format(formData.quantity, '')}}</td>
                 <td class="column-digital-currency-type font-numeric">{{i18n('shares')}}</td>
-                <td class="column-local-currency-value font-numeric">{{format(convertToUSD(formData.quantity).value, '', 2)}}</td>
+                <td class="column-local-currency-value font-numeric">{{format(convertToUSD(formData.quantityBtc).value, '', 2)}}</td>
                 <td class="column-local-currency-type font-numeric">{{i18n('usd')}}</td>
                 {{/eq}}
             </tr>
@@ -42,9 +42,9 @@
                         data-placement="right">
                     </span>
                 </td>
-                <td class="column-digital-currency-value font-numeric">{{format(formData.fee, '', 2)}}</td>
-                <td class="column-digital-currency-type font-numeric">{{#eq formData.type 'BUY'}}μBTC{{else}}EQB{{/eq}}</td>
-                <td class="column-local-currency-value font-numeric">{{format(convertToUSD(formData.fee).value, '', 2)}}</td>
+                <td class="column-digital-currency-value font-numeric">{{format-micro(formData.fee, '', 8)}}</td>
+                <td class="column-digital-currency-type font-numeric">{{#eq formData.type 'BUY'}}μBTC{{else}}μEQB{{/eq}}</td>
+                <td class="column-local-currency-value font-numeric">{{format(convertToUSD(formData.feeBtc).value, '', 2)}}</td>
                 <td class="column-local-currency-type font-numeric">{{i18n('usd')}}</td>
             </tr>
 
@@ -62,7 +62,7 @@
         <tbody>
             {{#eq formData.type 'BUY'}}
             <tr>
-                <td class="input-value"><strong>{{formData.portfolio.name}}</strong></td>
+                <td class="input-value"><strong>{{formData.portfolioName}}</strong></td>
                 <td class="column-digital-currency-value font-numeric text-danger">- {{format(formData.totalPriceWithFee, '', 2)}}</td>
                 <td class="column-digital-currency-type font-numeric text-danger">{{i18n('usd')}}</td>
                 <td class="column-local-currency-value font-numeric text-danger">- {{format(convertToUSD(formData.totalPriceWithFee).value, '', 2)}}</td>
@@ -70,17 +70,17 @@
             </tr>
             {{else}}
             <tr>
-                <td class="input-value"><strong>{{formData.portfolio.name}}</strong></td>
-                <td class="column-digital-currency-value font-numeric text-danger">- {{format(formData.quantity, '', 2)}}</td>
+                <td class="input-value"><strong>{{formData.portfolioName}}</strong></td>
+                <td class="column-digital-currency-value font-numeric text-danger">- {{format(formData.quantity, '')}}</td>
                 <td class="column-digital-currency-type font-numeric text-danger">{{i18n('shares')}}</td>
                 <td class="column-local-currency-value"></td>
                 <td class="column-local-currency-type"></td>
             </tr>
             <tr>
                 <td class="input-value"></td>
-                <td class="column-local-currency-value font-numeric text-danger">{{format(formData.transactionFee, '', 2)}}</td>
-                <td class="column-local-currency-type font-numeric text-danger">EQB</td>
-                <td class="column-local-currency-value font-numeric text-danger">- {{format(convertToUSD(formData.totalPriceWithFee).value, '', 2)}}</td>
+                <td class="column-local-currency-value font-numeric text-danger">{{format-micro(formData.fee)}}</td>
+                <td class="column-local-currency-type font-numeric text-danger">μEQB</td>
+                <td class="column-local-currency-value font-numeric text-danger">- {{format(convertToUSD(formData.totalAmountBtc).value, '', 2)}}</td>
                 <td class="column-local-currency-type font-numeric text-danger">{{i18n('usd')}}</td>
             </tr>
             {{/eq}}

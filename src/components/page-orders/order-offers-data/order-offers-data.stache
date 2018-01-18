@@ -50,8 +50,8 @@
 </div>
 
 {{#if isModalShown}}
-  <place-offer on:send="placeOffer(scope.arguments)"
+  <accept-offer on:send="sendSecurities(scope.arguments)"
+               tx:from="tx"
                portfolio:from="portfolio"
-               type:from="newOrderType"
                issuance:from="issuance" />
 {{/if}}

@@ -27,6 +27,7 @@ import currencyConverter from '~/utils/btc-usd-converter'
 export const ViewModel = DefineMap.extend({
   tx: '*',
   issuance: '*',
+  portfolio: '*',
   offerTimelock: {
     value: function () {
       return this.tx.timelock * 2
@@ -40,23 +41,23 @@ export const ViewModel = DefineMap.extend({
         type: tx.type,
         address: tx.address,
         issuanceName: issuance.issuanceName,
+        quantityBtc: tx.amount / 100000000,
         quantity: tx.amount,
         fee: tx.fee,
-        timelock: tx.timelock,
+        totalAmountBtc: (tx.amount + tx.fee) / 100000000,
+        // timelock is in blocks (10min per block)
+        timelock: tx.timelock / 6,
         description: tx.description,
-        offerTimelock: this.offerTimelock
+        offerTimelock: this.offerTimelock / 6,
+        portfolioName: this.portfolio.name
       }
     }
   },
   convertToUSD: function (value) {
-    if (this.formData.type === 'BUY') {
-      return currencyConverter.convertMicroBTCToUSD.apply(null, arguments)
-    } else {
-      return currencyConverter.convert(value, 'EQBUSD')
-    }
+    return currencyConverter.convert(value, 'EQBUSD')
   },
   send (close) {
-    this.dispatch('send', [this.formData, this.type])
+    this.dispatch('send', [this.formData.timelock * 6, this.formData.description])
     close()
   }
 })

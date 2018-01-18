@@ -35,6 +35,7 @@ export const ViewModel = DefineMap.extend({
   offer: Offer,
   tx: 'any',
   issuance: Issuance,
+  portfolio: '*',
   isModalShown: 'boolean',
   expandOffer (offer) {
     this.offers.forEach(offer => {
@@ -61,26 +62,34 @@ export const ViewModel = DefineMap.extend({
       const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddrPair)
       const tx = new Transaction(txData)
       // todo: show UI modal with tx details (amount, fee, etc)
-      this.openAcceptOfferModal(offer, tx, issuance)
-    })
+      this.openAcceptOfferModal(offer, tx, issuance, portfolio)
+    }).catch(dispatchAlertError)
   },
 
-  openAcceptOfferModal (offer, tx, issuance) {
+  openAcceptOfferModal (offer, tx, issuance, portfolio) {
     typeforce(typeforce.tuple('Offer', 'Transaction', 'Issuance'), [offer, tx, issuance])
     this.offer = offer
     this.tx = tx
     this.issuance = issuance
+    this.portfolio = portfolio
     this.isModalShown = false
     this.isModalShown = true
   },
 
   // HTLC 2: sending securities locked with secret hash.
-  placeOffer () {
+  sendSecurities (args) {
+    typeforce(typeforce.tuple('Number', '?String'), [args[1], args[2]])
+    const timelock = args[1]
+    const description = args[2]
+
     const offer = this.offer
     const tx = this.tx
     typeforce('Offer', offer)
     typeforce('Transaction', tx)
 
+    // todo: rebuild tx after updating timelock value.
+    tx.timelock = timelock
+    tx.description = description || tx.description
     return tx.save()
       .then(tx => updateOffer(offer, tx))
       .then(() => dispatchAlert(hub, tx, route))
