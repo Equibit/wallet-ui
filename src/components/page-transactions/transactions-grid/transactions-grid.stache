@@ -45,7 +45,7 @@
                 </a>
               {{/if}}
 
-              {{#if hashlock}}
+              {{#if htlcStep}}
                 <i>HTLC step #{{htlcStep}} of 4</i>
               {{/if}}
             </td>
