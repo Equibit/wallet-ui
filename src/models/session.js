@@ -185,7 +185,7 @@ const Session = DefineMap.extend('Session', {
   issuancesPromise: {
     get (val) {
       // For testing allow incoming value:
-      if (val) {
+      if (val && val.then) {
         return val
       }
       return this.user && Issuance.getList({userId: this.user._id}).then(issuances => {
