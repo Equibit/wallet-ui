@@ -32,6 +32,16 @@ export const ViewModel = DefineMap.extend({
   order: Order,
   issuance: Issuance,
   offers: Offer.List,
+  portfolio: {
+    get () {
+      return Session.current.portfolios[0]
+    }
+  },
+
+  // For collect-asset modal:
+  offer: '*',
+  tx: '*',
+  isModalShown: 'boolean',
 
   // For demo:
   // offer: {
@@ -48,7 +58,7 @@ export const ViewModel = DefineMap.extend({
     const order = this.order
     const issuance = this.issuance
     const user = Session.current.user
-    const portfolio = Session.current.portfolios[0]
+    const portfolio = this.portfolio
     const secret = offer.secret
     typeforce(typeforce.tuple(
       'Order',
@@ -59,11 +69,35 @@ export const ViewModel = DefineMap.extend({
       'String'
     ), [order, offer, issuance, user, portfolio, secret])
 
-    const txData = createHtlc4(order, offer, portfolio, issuance, secret)
-    const tx = new Transaction(txData)
+    try {
+      const txData = createHtlc4(order, offer, portfolio, issuance, secret)
+      const tx = new Transaction(txData)
+      this.openModal(offer, tx)
+    } catch (err) {
+      dispatchAlertError(err)
+      console.error(err)
+    }
+  },
 
-    // todo: add UI modal with tx info (amount, fee, etc).
+  // Confirmation modal:
+  openModal (offer, tx) {
+    typeforce('Transaction', tx)
+    this.offer = offer
+    this.tx = tx
+    this.isModalShown = false
+    this.isModalShown = true
+  },
 
+  sendTransaction (args) {
+    typeforce('?String', args[1])
+    const description = args[1]
+
+    const offer = this.offer
+    const tx = this.tx
+    typeforce('Offer', offer)
+    typeforce('Transaction', tx)
+
+    tx.description = description || tx.description
     return tx.save()
       .then(tx => updateOffer(offer, tx))
       .then(({tx}) => dispatchAlert(hub, tx, route))

@@ -46,6 +46,11 @@ export const ViewModel = DefineMap.extend({
   order: Order,
   offer: Offer,
   issuance: Issuance,
+  portfolio: {
+    get () {
+      return Session.current.portfolios[0]
+    }
+  },
   status: {
     set: enumSetter(['OPEN', 'TRADING', 'CLOSED', 'CANCELLED', 'REJECTED'])
   },
@@ -53,6 +58,12 @@ export const ViewModel = DefineMap.extend({
   get dateDisplay () {
     return moment(this.date).format('MM/DD @h:mm A')   // 04/29 @2:30 pm
   },
+
+  // For collect-asset modal:
+  tx: '*',
+  secret: 'string',
+  isModalShown: 'boolean',
+
   // HTLC 3:
   // 1. Generate addr for empty EQB (to pay the fee) change.
   // 2. Prepare tx config and create htlc3 transaction.
@@ -62,7 +73,7 @@ export const ViewModel = DefineMap.extend({
     const offer = this.offer
     const issuance = this.issuance
     const user = Session.current.user
-    const portfolio = Session.current.portfolios[0]
+    const portfolio = this.portfolio
     const secret = user.decrypt(offer.secretEncrypted)
     typeforce(typeforce.tuple(
       'Order',
@@ -77,12 +88,32 @@ export const ViewModel = DefineMap.extend({
       .then(({EQB}) => {
         const txData = createHtlc3(order, offer, portfolio, issuance, secret, EQB)
         const tx = new Transaction(txData)
+        this.secret = secret
 
-        // todo: add UI modal with tx info (amount, fee, etc).
-        console.log('UUUUU IIIIII')
-
-        return tx.save()
+        this.openModal(tx)
       })
+  },
+
+  // Confirmation modal:
+  openModal (tx) {
+    typeforce('Transaction', tx)
+    this.tx = tx
+    this.isModalShown = false
+    this.isModalShown = true
+  },
+
+  sendTransaction (args) {
+    typeforce('?String', args[1])
+    const description = args[1]
+
+    const offer = this.offer
+    const tx = this.tx
+    const secret = this.secret
+    typeforce('Offer', offer)
+    typeforce('Transaction', tx)
+
+    tx.description = description || tx.description
+    return tx.save()
       .then(tx => updateOffer(offer, secret, tx))
       .then(({tx}) => dispatchAlert(hub, tx, route))
       .catch(dispatchAlertError)

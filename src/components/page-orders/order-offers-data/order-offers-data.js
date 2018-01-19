@@ -32,11 +32,13 @@ export const ViewModel = DefineMap.extend({
   order: Order,
   offers: Offer.List,
 
+  // For accept-offer modal:
   offer: Offer,
-  tx: 'any',
+  tx: '*',
   issuance: Issuance,
   portfolio: '*',
   isModalShown: 'boolean',
+
   expandOffer (offer) {
     this.offers.forEach(offer => {
       offer.isSelected = false
