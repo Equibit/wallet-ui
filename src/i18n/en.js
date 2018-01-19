@@ -456,6 +456,8 @@ export default {
   sendAllFunds: 'Send All Funds',
   sendOfferPayment: 'Send Offer Payment',
   sendOfferSecurities: 'Send Offer Securities',
+  sendPaymentTo: 'Send Payment to',
+  sendSecuritiesTo: 'Send Securities to',
   sentOn: 'Sent On',
   sell: 'Sell',
   sellOffer: 'Sell Offer',

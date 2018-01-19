@@ -37,7 +37,7 @@ export const ViewModel = DefineMap.extend({
     get () {
       const tx = this.tx
       const issuance = this.issuance
-      return {
+      return new DefineMap({
         type: tx.currencyType,
         address: tx.address,
         issuanceName: issuance.companyName + ', ' + issuance.issuanceName,
@@ -50,7 +50,7 @@ export const ViewModel = DefineMap.extend({
         description: tx.description,
         offerTimelock: this.offerTimelock / 6,
         portfolioName: this.portfolio.name
-      }
+      })
     }
   },
   convertToUSD: function (value) {
