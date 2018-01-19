@@ -18,12 +18,12 @@
 
   <div class="section">
     <label>{{i18n('to')}}</label>
-    <p class="transaction-text">{{to}}</p>
+    <p class="break-word">{{to}}</p>
   </div>
 
   <div class="section">
     <label>{{i18n('from')}}</label>
-    <span class="transaction-text">{{from}}</span>
+    <span class="break-word">{{from}}</span>
   </div>
 
   <hr />
@@ -32,18 +32,18 @@
     <label>{{i18n('transaction')}}</label>
     {{#if transaction.isSecurity}}
     <div class="row">
-      <div class="col-xs-6 transaction-text no-padding-left">{{i18n('securities')}}</div>
+      <div class="col-xs-6 no-padding-left">{{i18n('securities')}}</div>
       <div class="col-xs-6 font-numeric">{{format(transaction.issuanceUnitQuantity, '', 0)}}&nbsp;Shares</div>
     </div>
     {{/if}}
 
     <div class="row">
-      <div class="col-xs-6 transaction-text no-padding-left">{{i18n('cash')}}</div>
+      <div class="col-xs-6 no-padding-left">{{i18n('cash')}}</div>
       <div class="col-xs-6 font-numeric">{{coin(transaction.amount)}}&nbsp;{{transaction.currencyType}}</div>
     </div>
 
     <div class="row">
-      <div class="col-xs-6 transaction-text no-padding-left">{{i18n('transactionFee')}}</div>
+      <div class="col-xs-6 no-padding-left">{{i18n('transactionFee')}}</div>
       <div class="col-xs-6 font-numeric">- {{coin(transaction.fee)}}&nbsp;{{transaction.currencyType}}</div>
     </div>
   </div>
@@ -53,14 +53,14 @@
   <div class="section">
     <label>{{i18n('valuation')}}</label>
     <div class="row">
-      <div class="col-xs-6 transaction-text no-padding-left">{{i18n('now')}}</div>
+      <div class="col-xs-6 no-padding-left">{{i18n('now')}}</div>
       <div class="col-xs-6 font-numeric">
         $ {{local-currency(transaction.valuationNow, transaction.currencyType)}}&nbsp;{{local-currency-symbol}}
       </div>
     </div>
 
     <div class="row">
-      <div class="col-xs-6 transaction-text no-padding-left">{{i18n('then')}}</div>
+      <div class="col-xs-6 no-padding-left">{{i18n('then')}}</div>
       <div class="col-xs-6 font-numeric">
         $ {{local-currency(transaction.valuationThen, transaction.currencyType)}}&nbsp;{{local-currency-symbol}}
       </div>

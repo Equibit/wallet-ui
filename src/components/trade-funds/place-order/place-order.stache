@@ -5,7 +5,7 @@
 <can-import from="~/utils/stache-helpers/" />
 
 
-<bootstrap-modal-content>
+<bootstrap-modal-content class="place-order">
   <div class="modal-header">
     <button on:click="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
     <h3 class="modal-title">

@@ -4,7 +4,7 @@
 <can-import from="~/components/common/bootstrap-slider/" />
 <can-import from="bootstrap/dist/js/bootstrap" />
 
-<bootstrap-modal-content>
+<bootstrap-modal-content class="accept-offer">
     <div class="modal-header">
         <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
         <h3 class="modal-title"><span class="icon icon-upload"></span> Accept Offer and Send Securities</h3>
