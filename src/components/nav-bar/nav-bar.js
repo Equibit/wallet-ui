@@ -30,7 +30,10 @@ export const ViewModel = DefineMap.extend({
   },
   notifications: {
     type: '*'
-  }
+  },
+  isLoading: 'boolean',
+  refresh: function () {},
+  logout: function () {}
 })
 
 export default Component.extend({

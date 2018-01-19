@@ -211,17 +211,21 @@ Issuance.List = DefineList.extend('IssuanceList', {
       return acc
     }, 0)
   },
+  importAddressesPromise: '*',
   // todo: revisit this: the prop issuance.address is pointing to the issue authorization transaction. Technically Issuance.List should load UTXO based on portfolio meta addresses info and issuances meta (company and issuance indexes) when current user is also an issuer.
   addresses: {
     get () {
-      return this.reduce((acc, issuance) => {
+      const importPromises = []
+      const ret = this.reduce((acc, issuance) => {
         if (issuance.keys && issuance.address && acc.indexOf(issuance.address) === -1) {
           // todo: import address on authorizing an issuance.
-          importAddr(issuance.address, 'EQB')
+          importPromises.push(importAddr(issuance.address, 'EQB').catch(() => { }))
           acc.push(issuance.address)
         }
         return acc
       }, [])
+      this.importAddressesPromise = Promise.all(importPromises)
+      return ret
     }
   },
 
@@ -231,7 +235,7 @@ Issuance.List = DefineList.extend('IssuanceList', {
   loadUTXO () {
     if (this.addresses.length > 0) {
       return fetchListunspent({EQB: this.addresses}).then(utxoByType => {
-        if (utxoByType.EQB.total === 0) {
+        if (utxoByType.EQB.summary.total === 0) {
           return
         }
         const utxoByAddr = utxoByType.EQB.addresses
