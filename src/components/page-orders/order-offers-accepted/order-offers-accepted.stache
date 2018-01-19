@@ -6,7 +6,7 @@
 <div class="accepted-offers">
 
   <div class="col-xs-12 accepted-offers-body no-padding">
-    
+
     {{#each offers as offer}}
 
       {{#switch offer.htlcStep}}
@@ -99,16 +99,16 @@
               <div class="row">
                 <div class="col-xs-12">
                   <div class="offer-timeline-event">
-                    <span class="icon icon-check-done"></span>Offer sent on <span class="offer-date">{{offer.dateDisplay}}</span>
+                    <span class="icon icon-check-done"></span>Offer accepted on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event">
-                    <span class="icon icon-check-done"></span>Payment offer sent <a href="">(View Transaction)</a>
+                    <span class="icon icon-check-done"></span>Securities sent <a href="">(View Transaction)</a>
                   </div>
                   <div class="offer-timeline-event">
-                    <span class="icon icon-check-done"></span>Seller accepted the offer on <span class="offer-date">{{offer.dateDisplay}}</span>
+                    <span class="icon icon-check-done"></span>Buyer collected the securities on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event">
-                    <span class="icon icon-check-done"></span>Securities collected <a href="">(View Transaction)</a>
+                    <span class="icon icon-check-done"></span>Payment collected <a href="">(View Transaction)</a>
                   </div>
                   <div class="offer-timeline-event">
                     <span class="icon icon-hand-shake"></span>Deal Closed
@@ -125,7 +125,7 @@
             <div class="col-xs-12 offer-quantity">Quantity <span class="offer-quantity-value">{{offer.quantity}}</span></div>
             <div class="col-xs-12 offer-timeline">
               <div class="row">
-                
+
                 <div class="col-xs-12 col-sm-10">
                   <div class="offer-timeline-event">
                     <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-date">{{offer.dateDisplay}}</span>
@@ -143,7 +143,7 @@
                     <span class="icon icon-hand-stop"></span>You cancelled this deal on <span class="offer-date">{{offer.dateUpdatedDisplay}}</span>
                   </div>
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -162,3 +162,10 @@
   </div>
 
 </div>
+
+{{#if isModalShown}}
+  <collect-asset on:send="sendTransaction(scope.arguments)"
+                 tx:from="tx"
+                 portfolio:from="portfolio"
+                 issuance:from="issuance" />
+{{/if}}

@@ -34,8 +34,12 @@ function prepareHtlcConfig4 (order, offer, portfolio, issuance, secret) {
     arguments
   )
   // todo: calculate transaction fee:
-  const fee = 1000
+  let fee = 1000
   const htlcStep = 4
+
+  if (fee > offer.quantity * order.price) {
+    fee = offer.quantity * order.price - 1
+  }
 
   const buildConfig = {
     vin: [{

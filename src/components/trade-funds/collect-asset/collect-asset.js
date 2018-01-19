@@ -24,6 +24,19 @@ import './collect-asset.less'
 import view from './collect-asset.stache'
 import currencyConverter from '~/utils/btc-usd-converter'
 
+const titles = {
+  BTC: {
+    header: 'Collect Payment',
+    timer: 'collect payment',
+    button: 'Collect & Close Deal'
+  },
+  EQB: {
+    header: 'Collect Securities',
+    timer: 'collect securities',
+    button: 'Collect Securities'
+  }
+}
+
 export const ViewModel = DefineMap.extend({
   tx: '*',
   issuance: '*',
@@ -39,15 +52,22 @@ export const ViewModel = DefineMap.extend({
       const issuance = this.issuance
       return {
         type: tx.currencyType,
-        address: tx.address,
+        address: tx.fromAddress,
         issuanceName: issuance.companyName + ', ' + issuance.issuanceName,
         quantityBtc: tx.amount / 100000000,
         quantity: tx.amount,
         fee: tx.fee,
+        totalAmount: (tx.amount + tx.fee),
         totalAmountBtc: (tx.amount + tx.fee) / 100000000,
         description: tx.description,
         portfolioName: this.portfolio.name
       }
+    }
+  },
+  titles: {
+    type: '*',
+    value () {
+      return titles[this.tx.currencyType || 'BTC']
     }
   },
   convertToUSD: function (value) {

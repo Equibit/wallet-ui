@@ -100,27 +100,35 @@
   {{/case}}
 
   {{#case 4}}
-   (This case is no longer applicable)
-    <!--
-    <div class="offer-status-box contextual-bg-success">
-      <div class="row">
-        <div class="col-xs-12 col-sm-4"><label>{{i18n('dealFlowStepLabel')}}</label></div>
-        <div class="col-xs-12 col-sm-5 offer-deal-step">
-          <span class="icon icon-hand-shake"></span>
-          <span class="deal-step-label">Both securities and payment were collected.</span>
-        </div>
-        <div class="col-xs-12 col-sm-2 offer-deal-step-number">Done</div>
-        <div class="col-xs-12 col-sm-1 offer-deal-action">
-          <a href="" class="btn btn-xs btn-default">{{i18n('view')}}</a>
-        </div>
-      </div>
+    <div class="row timeline-container contextual-bg-success">
+      <div class="col-xs-12 offer-timeline">
+        <div class="row">
 
-      <div class="row">
-        <div class="col-xs-12 col-sm-4"><label>{{i18n('acceptedDate')}}</label></div>
-        <div class="col-xs-12 col-sm-8 offer-accepted-date">{{dateDisplay}}</div>
+          <!--Events-->
+          <div class="col-xs-12 col-sm-9">
+            <div class="offer-timeline-event">
+              <span class="icon icon-check-done"></span>Offer posted on <span class="offer-date">{{dateDisplay}}</span>
+            </div>
+            <div class="offer-timeline-event">
+              <span class="icon icon-check-done"></span>Payment offer sent <a href="">(View Transaction)</a>
+            </div>
+            <div class="offer-timeline-event">
+              <span class="icon icon-check-done"></span>Seller accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
+            </div>
+            <div class="offer-timeline-event">
+              <span class="icon icon-check-done"></span>Securities collected <a href="">(View Transaction)</a>
+            </div>
+            <div class="offer-timeline-event">
+              <span class="icon icon-check-done"></span>Payment collected
+            </div>
+            <div class="offer-timeline-event">
+              <span class="icon icon-hand-shake"></span>Deal Closed
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
-    -->
   {{/case}}
 
   {{#case "CANCELLED"}}

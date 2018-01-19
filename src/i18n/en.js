@@ -428,6 +428,8 @@ export default {
   recurring: 'Recurring',
   relatedCompanies: 'Related Companies',
   research: 'Research',
+  receivePaymentFrom: 'Receive Payment From',
+  receiveSecuritiesFrom: 'Receive Securities From',
   resendVerificationEmail: 'Re-send Verification',
   responses: 'Responses',
   restriction: 'Restriction',
