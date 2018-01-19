@@ -1,0 +1,38 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/trade-funds/confirm-summary/" />
+<can-import from="~/components/trade-funds/timer-notice/" />
+<can-import from="~/components/common/bootstrap-slider/" />
+<can-import from="bootstrap/dist/js/bootstrap" />
+
+<bootstrap-modal-content>
+    <div class="modal-header">
+        <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+        <h3 class="modal-title"><span class="icon icon-upload"></span> Collect Securities</h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="description">Please review and confirm your transaction.</div>
+
+        <div class="list-group">
+            <timer-notice></timer-notice>
+            <div class="list-group-item">
+                <confirm-summary formData:from="formData"></confirm-summary>
+            </div>
+            <div class="list-group-item">
+                <label>{{i18n('description')}} <span class="icon icon-question"
+                  data-toggle="popover"
+                  data-content="{{i18n('offerDescriptionPopoverMessage')}}"
+                  data-placement="right">
+                </span></label>
+                <textarea class="col-xs-12 form-control" value:bind="formData.description"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button on:click="send(@close)" type="button" class="btn btn-primary">Collect Securities</button>
+        <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+    </div>
+</bootstrap-modal-content>
+

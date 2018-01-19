@@ -12,15 +12,13 @@
     </div>
 </div>
 
-
-
 <!-- WHAT -->
 <div class="table-responsive">
     <table class="table table-simple">
         <tbody>
             <tr>
                 <td class="column-label">{{i18n('quantity')}}</td>
-                {{#eq formData.type 'BUY'}}
+                {{#eq formData.type 'BTC'}}
                 <td class="column-digital-currency-value font-numeric">{{format-micro(formData.quantity)}}</td>
                 <td class="column-digital-currency-type font-numeric">μBTC</td>
                 <td class="column-local-currency-value font-numeric">{{format(convertToUSD(formData.quantityBtc).value, '', 2)}}</td>

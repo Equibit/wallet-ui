@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<div id="demo"></div>
+<style>
+  body { padding: 20px }
+  #demo .modal { display: block; }
+  #demo bootstrap-modal-content { display: block; }
+</style>
+
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+<script>window.useXhrTransport = true</script>
+
+<script type="text/stache" id="demo-html">
+  <can-import from="~/styles/styles.less" />
+  <can-import from="wallet-ui/components/trade-funds/collect-asset/" />
+
+  <div class="modal fade in" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <collect-asset this:from="this"></collect-asset>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script src="../../../../node_modules/steal/steal.js"
+        main="@empty">
+
+  import $ from 'jquery'
+  import stache from 'can-stache'
+  import reload from 'live-reload'
+  import Session from '~/models/session'; // This needs to be here to avoid a cirdep between Issuance and Session
+  import OfferFormData from "~/components/trade-funds/place-offer/form-data"
+  import DefineMap from 'can-define/map/map'
+  import 'bootstrap'
+
+  const vm = new DefineMap({
+    tx: new DefineMap({
+      address: 'mxdSJUzQJz9EXvjHnTcVz9ZQVhz22n4AEw',
+      amount: 3500,
+      type: 'SELL',
+      fee: 500,
+      timelock: 20,
+      description: '...'
+    }),
+    issuance: new DefineMap({
+      issuanceName: 'Bouncy Goo',
+      companyName: 'Aperture Science'
+    }),
+    offerTimelock: 36
+  })
+
+  // Enable live-reload:
+  stache.async($('#demo-html').html()).then(template => {
+    let render = () => $('#demo').html(template(vm))
+    render()
+    reload(render)
+  })
+</script>

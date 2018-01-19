@@ -1,5 +1,5 @@
 /**
- * @module {can.Component} wallet-ui/components/trade-funds/accept-offer accept-offer
+ * @module {can.Component} wallet-ui/components/trade-funds/collect-asset collect-asset
  * @parent components.common
  *
  * Input should include:
@@ -9,19 +9,19 @@
  *    - timelock value and
  *    - description.
  *
- * @signature `<accept-offer />`
+ * @signature `<collect-asset />`
  *
- * @link ../src/wallet-ui/components/trade-funds/accept-offer/accept-offer.html Full Page Demo
+ * @link ../src/wallet-ui/components/trade-funds/collect-asset/collect-asset.html Full Page Demo
  *
  * ## Example
  *
- * @demo src/wallet-ui/components/trade-funds/accept-offer/accept-offer.html
+ * @demo src/wallet-ui/components/trade-funds/collect-asset/collect-asset.html
  */
 
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
-import './accept-offer.less'
-import view from './accept-offer.stache'
+import './collect-asset.less'
+import view from './collect-asset.stache'
 import currencyConverter from '~/utils/btc-usd-converter'
 
 export const ViewModel = DefineMap.extend({
@@ -45,10 +45,7 @@ export const ViewModel = DefineMap.extend({
         quantity: tx.amount,
         fee: tx.fee,
         totalAmountBtc: (tx.amount + tx.fee) / 100000000,
-        // timelock is in blocks (10min per block)
-        timelock: tx.timelock / 6,
         description: tx.description,
-        offerTimelock: this.offerTimelock / 6,
         portfolioName: this.portfolio.name
       }
     }
@@ -57,13 +54,13 @@ export const ViewModel = DefineMap.extend({
     return currencyConverter.convert(value, 'EQBUSD')
   },
   send (close) {
-    this.dispatch('send', [this.formData.timelock * 6, this.formData.description])
+    this.dispatch('send', [this.formData.description])
     close()
   }
 })
 
 export default Component.extend({
-  tag: 'accept-offer',
+  tag: 'collect-asset',
   ViewModel,
   view
 })
