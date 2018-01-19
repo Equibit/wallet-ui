@@ -22,7 +22,8 @@
                     <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event">
-                    <span class="icon icon-check-progress"></span>Securities sent <a href="">(View Transaction)</a>
+                    <span class="icon icon-check-progress"></span>Securities sent
+                    <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId2}}">(View Transaction)</a>
                   </div>
                   <div class="offer-timeline-event offer-timeline-event--pending">
                     <span class="icon icon-check-pending"></span>Awaiting buyer to collect securities

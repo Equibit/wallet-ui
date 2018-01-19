@@ -77,7 +77,9 @@ export const ViewModel = DefineMap.extend({
   },
   selectRowDefault (row) {
     if (route.data.itemId) {
-      const found = this.rows.filter(a => a._id === route.data.itemId)
+      const found = this.rows.filter(a => {
+        return a._id === route.data.itemId || a.txId === route.data.itemId
+      })
       if (found && found[0]) {
         row = found[0]
       }
