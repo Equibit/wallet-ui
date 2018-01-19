@@ -85,7 +85,7 @@ export const ViewModel = DefineMap.extend({
   selectedItem: {
     get () {
       if (!this.itemsFiltered || !this.itemsFiltered.length) {
-        return
+        return null
       }
       if (!this.selectedIndex) {
         this.selectedIndex = 0

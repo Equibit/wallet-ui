@@ -3,6 +3,8 @@
 <can-import from="~/components/trade-funds/timer-notice/" />
 <can-import from="~/components/common/bootstrap-slider/" />
 <can-import from="bootstrap/dist/js/bootstrap" />
+<can-dynamic-import from="~/components/trade-funds/collect-asset/confirm-summary.stache!" @value:to="*confirmSummary" />
+
 
 <bootstrap-modal-content>
     <div class="modal-header">
@@ -16,7 +18,7 @@
         <div class="list-group">
             <timer-notice message:from="titles.timer"></timer-notice>
             <div class="list-group-item">
-                <confirm-summary formData:from="formData"></confirm-summary>
+                {{> *confirmSummary}}
             </div>
             <div class="list-group-item">
                 <label>{{i18n('description')}} <span class="icon icon-question"

@@ -31,13 +31,16 @@
   import Session from '~/models/session'; // This needs to be here to avoid a cirdep between Issuance and Session
   import OfferFormData from "~/components/trade-funds/place-offer/form-data"
   import DefineMap from 'can-define/map/map'
+  import canViewModel from 'can-view-model'
   import 'bootstrap'
+  window.canViewModel = canViewModel
 
   const vm = new DefineMap({
     tx: new DefineMap({
-      address: 'mxdSJUzQJz9EXvjHnTcVz9ZQVhz22n4AEw',
+      fromAddress: 'mxdSJUzQJz9EXvjHnTcVz9ZQVhz22n4AEw',
       amount: 3500,
-      type: 'SELL',
+      type: 'BUY',
+      currencyType: 'EQB',
       fee: 500,
       timelock: 20,
       description: '...'
@@ -45,6 +48,9 @@
     issuance: new DefineMap({
       issuanceName: 'Bouncy Goo',
       companyName: 'Aperture Science'
+    }),
+    portfolio: new DefineMap({
+      name: 'My Portfolio'
     }),
     offerTimelock: 36
   })

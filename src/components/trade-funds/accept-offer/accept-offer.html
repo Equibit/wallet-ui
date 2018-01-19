@@ -11,7 +11,7 @@
 
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
-  <can-import from="wallet-ui/components/trade-funds/accept-offer/" />
+  <can-import from="~/components/trade-funds/accept-offer/" />
 
   <div class="modal fade in" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -45,6 +45,9 @@
     issuance: new DefineMap({
       issuanceName: 'Bouncy Goo',
       companyName: 'Aperture Science'
+    }),
+    portfolio: new DefineMap({
+      name: 'My Portfolio'
     }),
     offerTimelock: 36
   })

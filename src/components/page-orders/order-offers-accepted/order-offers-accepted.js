@@ -115,7 +115,7 @@ function dispatchAlert (hub, tx, route) {
   if (!tx) {
     return
   }
-  const url = route.url({ page: 'transactions', itemId: tx._id })
+  const url = route.url({ page: 'transactions', itemId: tx.txId })
   return hub.dispatch({
     'type': 'alert',
     'kind': 'success',
