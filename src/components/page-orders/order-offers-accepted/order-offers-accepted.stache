@@ -97,7 +97,7 @@
             <div class="col-xs-12 offer-quantity">Quantity <span class="offer-quantity-value">{{offer.quantity}}</span></div>
             <div class="col-xs-12 offer-timeline">
               <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-10">
                   <div class="offer-timeline-event">
                     <span class="icon icon-check-done"></span>Offer accepted on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
