@@ -69,7 +69,8 @@
                     <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event">
-                    <span class="icon icon-check-progress"></span>Securities sent <a href="">(View Transaction)</a>
+                    <span class="icon icon-check-progress"></span>Securities sent
+                    <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId2}}">(View Transaction)</a>
                   </div>
                   <div class="offer-timeline-event">
                     <span class="icon icon-check-progress"></span>Buyer collected the securities on <span class="offer-date">{{offer.dateDisplay}}</span>
@@ -103,13 +104,15 @@
                     <span class="icon icon-check-done"></span>Offer accepted on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event">
-                    <span class="icon icon-check-done"></span>Securities sent <a href="">(View Transaction)</a>
+                    <span class="icon icon-check-done"></span>Securities sent
+                    <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId2}}">(View Transaction)</a>
                   </div>
                   <div class="offer-timeline-event">
                     <span class="icon icon-check-done"></span>Buyer collected the securities on <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event">
-                    <span class="icon icon-check-done"></span>Payment collected <a href="">(View Transaction)</a>
+                    <span class="icon icon-check-done"></span>Payment collected
+                    <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId4}}">(View Transaction)</a>
                   </div>
                   <div class="offer-timeline-event">
                     <span class="icon icon-hand-shake"></span>Deal Closed
