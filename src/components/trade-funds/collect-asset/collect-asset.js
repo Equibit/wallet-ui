@@ -50,7 +50,7 @@ export const ViewModel = DefineMap.extend({
     get () {
       const tx = this.tx
       const issuance = this.issuance
-      return {
+      return new DefineMap({
         type: tx.currencyType,
         address: tx.fromAddress,
         issuanceName: issuance.companyName + ', ' + issuance.issuanceName,
@@ -61,7 +61,7 @@ export const ViewModel = DefineMap.extend({
         totalAmountBtc: (tx.amount + tx.fee) / 100000000,
         description: tx.description,
         portfolioName: this.portfolio.name
-      }
+      })
     }
   },
   titles: {

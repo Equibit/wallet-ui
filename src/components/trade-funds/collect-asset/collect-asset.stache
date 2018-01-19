@@ -18,8 +18,7 @@
         <div class="list-group">
             <timer-notice message:from="titles.timer"></timer-notice>
             <div class="list-group-item">
-                <!--<confirm-summary formData:from="formData"></confirm-summary>-->
-                {{> scope.vars.confirmSummary}}
+                {{> *confirmSummary}}
             </div>
             <div class="list-group-item">
                 <label>{{i18n('description')}} <span class="icon icon-question"
