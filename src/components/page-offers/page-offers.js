@@ -40,7 +40,7 @@ export const ViewModel = DefineMap.extend({
   },
   selectedItem: {
     get (val) {
-      if (val) {
+      if (typeof val !== 'undefined') {
         return val
       }
       const offer = this.offers && this.offers.length && this.offers[0]
