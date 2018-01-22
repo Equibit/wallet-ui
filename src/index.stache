@@ -40,14 +40,15 @@
 
     {{! if used within switch/case then component gets re-rendered and we cannot share email between cases. }}
     {{#if one-of(displayedPage, 'signup', 'login', 'forgot-password', 'change-password', 'recovery-phrase')}}
-      <page-auth {(session)}="session" {page}="displayedPage" />
+      <page-auth session:bind="session" page:from="displayedPage" />
     {{else}}
-      <nav-bar {page}="page"
-               {logout}="@logout"
-               {refresh}="@refresh"
-               {is-logged-in}="isLoggedIn"
-               {notifications}="session.notifications"
-               {balance}="session.balance"/>
+      <nav-bar page:from="page"
+               logout:from="@logout"
+               refresh:from="@refresh"
+               isLoggedIn:from="isLoggedIn"
+               notifications:from="session.notifications"
+               balance:from="session.balance"
+               isLoading:from="session.isLoading"/>
     {{/if}}
 
     {{#if session.isLoading}}
@@ -76,10 +77,10 @@
         <page-portfolio />
       {{/case}}
       {{#case 'transactions'}}
-        <page-transactions {addresses}="session.allAddresses" {portfolios}="session.portfolios" />
+        <page-transactions addresses:from="session.allAddresses" portfolios:from="session.portfolios" />
       {{/case}}
       {{#case 'my-issuances'}}
-        <page-my-issuances {issuances}="session.issuances" />
+        <page-my-issuances issuances:from="session.issuances" />
       {{/case}}
       {{#case 'orders'}}
         <page-orders />

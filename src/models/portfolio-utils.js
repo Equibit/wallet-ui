@@ -9,7 +9,7 @@ import feathersClient from './feathers-client'
  */
 const importAddr = (addr, currencyType) => {
   // TODO: replace with a specific service (e.g. /import-address).
-  feathersClient.service('proxycore').find({
+  return feathersClient.service('proxycore').find({
     query: {
       node: currencyType.toLowerCase(),
       method: 'importaddress',
