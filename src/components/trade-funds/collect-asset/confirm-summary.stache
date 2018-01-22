@@ -10,7 +10,7 @@
 
   <div class="row">
       <div class="col-xs-12 no-padding">
-          <label for="">Common Shares</label>
+          <label for="">{{#eq formData.type 'BTC'}}For the sale of{{else}}Common Shares{{/eq}}</label>
           <span class="input-value">{{formData.issuanceName}}</span>
       </div>
   </div>
