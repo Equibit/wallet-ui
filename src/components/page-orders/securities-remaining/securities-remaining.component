@@ -45,15 +45,16 @@
     }
   </style>
   <view>
+    <can-import from="~/utils/stache-helpers/format" />
     <table class="table table-condensed">
       <tbody>
         <tr class="top-row">
           <th>Filled</th>
-          <td class="text-success">{{filledQuantity}}</td>
+          <td class="text-success">{{format-int(filledQuantity)}}</td>
         </tr>
         <tr>
           <th>Remaining</th>
-          <td class="text-danger">{{remainingQuantity}}</td>
+          <td class="text-danger">{{format-int(remainingQuantity)}}</td>
         </tr>
       </tbody>
     </table>
