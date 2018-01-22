@@ -123,8 +123,17 @@
                   {{i18n('view')}}
                 </button>
               {{/case}}
+              {{#case('No securities')}}
+                <button class="btn btn-default btn-xs"
+                  data-toggle="popover"
+                  data-html="true"
+                  data-content="<i class='icon icon-notification text-danger'>&nbsp;</i>{{i18n('securitiesNotOwnedPopoverMessage')}}"
+                  data-placement="left">
+                  {{i18n('sell')}}
+                </button>
+              {{/case}}
               {{#default}}
-                <button class="btn btn-default btn-xs" on:click="buySell('SELL', ../row)">{{i18n('sell')}}</button>
+                <button class="btn btn-default btn-xs" on:click="buySell('SELL', row)">{{i18n('sell')}}</button>
               {{/default}}
               {{/switch}}
             </td>

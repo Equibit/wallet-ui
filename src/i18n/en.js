@@ -447,6 +447,7 @@ export default {
   shareholders: 'Shareholders',
   state: 'State / Province / Region',
   securities: 'Securities',
+  securitiesNotOwnedPopoverMessage: 'You don\'t own securities from this issuance',
   securitiesSent: 'Securities sent',
   selectType: 'Select Type',
   semiAnnually: 'Semi-Annually',

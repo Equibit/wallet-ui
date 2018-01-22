@@ -90,14 +90,22 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   //  - User already made an offer against the order
   //  - User has no shares to sell, for a buy order (not yet implemented)
   whyUserCantOffer (row) {
-    if (!Session.current) {
+    if (!this.session) {
       return 'Not logged in'
     }
-    if (row.userId === Session.current.user._id) {
+    if (row.userId === this.session.user._id) {
       return 'User is owner'
     }
     if (~this.userOfferOrderIds.indexOf(row._id)) {
       return 'Offer exists'
+    }
+    if (!this.session.portfolios ||
+        !this.session.portfolios[0].securities ||
+        !this.session.portfolios[0].securities.filter(sec => {
+          return sec.data.issuance.issuance_address === this.issuanceAddress
+        }).length
+    ) {
+      return 'No securities'
     }
     // TODO create a condition that shows that the number of shares
     // a user holds for an issuance is zero.
