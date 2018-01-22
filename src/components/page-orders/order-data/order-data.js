@@ -20,7 +20,12 @@ import view from './order-data.stache'
 
 export const ViewModel = DefineMap.extend({
   order: '*',
-  offers: '*'
+  offers: '*',
+  get filledQuantity () {
+    return this.order && this.offers && this.offers.reduce((sum, offer) => {
+      return sum + offer.quantity
+    }, 0)
+  }
 })
 
 export default Component.extend({

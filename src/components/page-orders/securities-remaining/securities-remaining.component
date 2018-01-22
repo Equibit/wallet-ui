@@ -11,6 +11,17 @@
  */
 
 <can-component tag="securities-remaining">
+  <script type="view-model">
+    import DefineMap from 'can-define/map/'
+
+    export default DefineMap.extend("SecuritiesRemainingVM", {
+      quantity: 'number',
+      filledQuantity: 'number',
+      get remainingQuantity () {
+        return this.quantity - this.filledQuantity
+      }
+    })
+  </script>
   <style type="less">
     @import '../../../styles/bootstrap-custom/_variables.less';
     .table {
@@ -38,11 +49,11 @@
       <tbody>
         <tr class="top-row">
           <th>Filled</th>
-          <td class="text-success">385</td>
+          <td class="text-success">{{filledQuantity}}</td>
         </tr>
         <tr>
           <th>Remaining</th>
-          <td class="text-danger">15</td>
+          <td class="text-danger">{{remainingQuantity}}</td>
         </tr>
       </tbody>
     </table>

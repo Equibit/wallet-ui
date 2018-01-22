@@ -22,16 +22,15 @@
         <span class="order-quantity">{{format(order.quantity, '', 0)}}</span>
       </div>
       <div class="col-xs-6 col-sm-3">
-        <securities-remaining />
-      </div>
-      <div class="col-xs-6 col-sm-3 sub-section">
-        <label>{{i18n('askPrice')}}</label>
-        <span class="order-ask-price">{{format(order.price, '', 0)}} <small>μBTC</small></span>
-      </div>
-      <div class="col-xs-12 col-sm-3 sub-section">
         {{#if order.isFillOrKill}}
           <fillkill-indicator />
+        {{else}}
+          <securities-remaining quantity:from="order.quantity" filledQuantity:from="filledQuantity"/>
         {{/if}}
+      </div>
+      <div class="col-xs-6 col-sm-6 sub-section">
+        <label>{{i18n('askPrice')}}</label>
+        <span class="order-ask-price">{{format(order.price, '', 0)}} <small>μBTC</small></span>
       </div>
     </div>
 
