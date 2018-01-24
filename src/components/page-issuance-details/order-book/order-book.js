@@ -214,7 +214,7 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
     issuanceAddress: issuance.issuanceAddress,
     btcAddress: refundBtcAddress,
     // Main addr for receiving securities:
-    eqbAddress: eqbAddress,
+    eqbAddress,
     secretEncrypted,
     hashlock,
     timelock,
