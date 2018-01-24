@@ -111,7 +111,9 @@ const AppViewModel = DefineMap.extend({
   },
 
   refresh () {
-    this.session.refreshBalance()
+    if (this.session) {
+      this.session.refreshBalance()
+    }
   },
 
   subcribeToEvents () {

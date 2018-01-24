@@ -215,14 +215,16 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
   },
 
+  securitiesPromise: '*',
+  lastSetSecurities: {},
   // securities :: List<Object<UTXO,IssuanceJson>>
   securities: {
     get (val, resolve) {
       if (!this.utxoSecurities) {
         return
       }
-      Promise.all(
-        this.utxoSecurities.map(utxo => {
+      this.securitiesPromise = Promise.all(
+        this.utxoSecurities.map((utxo, idx) => {
           const txId = utxo.equibit.issuance_tx_id
           return feathersClient.service('proxycore').find({
             query: {
@@ -250,9 +252,16 @@ const Portfolio = DefineMap.extend('Portfolio', {
                 data: issuanceJson
               }
             }, null)
+          }).catch(err => {
+            console.error(err)
+            return this.lastSetSecurities && this.lastSetSecurities[idx]
           })
         })
-      ).then(resolve)
+      )
+      .then(securities => {
+        this.lastSetSecurities = securities
+        resolve(securities)
+      })
     }
   },
 
@@ -471,6 +480,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   refreshBalance: function () {
     this.dispatch('refresh')
+    return this.securitiesPromise
   }
 })
 

@@ -40,7 +40,7 @@ export const ViewModel = DefineMap.extend({
   },
   selectedItem: {
     get (val) {
-      if (val) {
+      if (typeof val !== 'undefined') {
         return val
       }
       const offer = this.offers && this.offers.length && this.offers[0]
@@ -55,9 +55,13 @@ export const ViewModel = DefineMap.extend({
       return this.selectedItem && this.selectedItem._id
     },
     set (val) {
-      this.selectedItem = this.offers
-        ? this.offers.filter(o => o._id === val)[0]
-        : this.offersPromise.then(offers => offers.filter(o => o._id === val)[0])
+      if (this.offers) {
+        this.selectedItem = this.offers.filter(o => o._id === val)[0]
+      } else {
+        this.offersPromise.then(offers => {
+          this.selectedItem = offers.filter(o => o._id === val)[0]
+        })
+      }
     }
   }
 })

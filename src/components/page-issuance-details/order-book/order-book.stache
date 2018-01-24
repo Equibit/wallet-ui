@@ -20,12 +20,22 @@
 
       <div>
         {{#if session}}
-          <button class="btn btn-primary btn-xs" on:click="showModal('SELL')">{{i18n('addSellOrder')}}</button>
+          {{#if userPortfolioForIssuance}}
+            <button class="btn btn-primary btn-xs" on:click="showModal('SELL')">{{i18n('addSellOrder')}}</button>
+          {{else}}
+            <button class="btn btn-primary btn-xs"
+              data-toggle="popover"
+              data-html="true"
+              data-content="<i class='icon icon-notification text-danger'>&nbsp;</i>{{i18n('securitiesNotOwnedPopoverMessage')}}"
+              data-placement="right">
+              {{i18n('addSellOrder')}}
+            </button>
+          {{/if}}
         {{else}}
           <button class="btn btn-primary btn-xs"
             data-toggle="popover"
             data-html="true"
-            data-content="{{decodeAndRender('%7B%7Bi18n(%22loginToContinue%22)%7D%7D%3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%2Flogin%22%3E%7B%7Bi18n(%22Log in%22)%7D%7D%3C%2Fa%3E')}}"
+            data-content="{{i18n('loginToContinue')}}<br><a class='btn btn-default' href='/login'>{{i18n('Log in')}}</a>"
             data-placement="right">
             {{i18n('addSellOrder')}}
           </button>
@@ -49,7 +59,7 @@
           <button class="btn btn-primary btn-xs"
             data-toggle="popover"
             data-html="true"
-            data-content="{{decodeAndRender('%7B%7Bi18n(%22loginToContinue%22)%7D%7D%3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%2Flogin%22%3E%7B%7Bi18n(%22Log in%22)%7D%7D%3C%2Fa%3E')}}"
+            data-content="{{i18n('loginToContinue')}}<br><a class='btn btn-default' href='/login'>{{i18n('Log in')}}</a>"
             data-placement="right">
             {{i18n('addBuyOrder')}}
           </button>

@@ -65,7 +65,14 @@ export const ViewModel = DefineMap.extend({
     this.isBuySellShown = false
     this.isBuySellShown = true
   },
-
+  get userPortfolioForIssuance () {
+    return this.session &&
+      this.session.portfolios &&
+      this.session.portfolios[0].securities &&
+      this.session.portfolios[0].securities.filter(sec => {
+        return sec.data.issuance.issuance_address === this.issuance.issuanceAddress
+      })[0]
+  },
   isViewAllShown: 'boolean',
   showViewAll () {
     // Note: we need to re-insert the modal content:

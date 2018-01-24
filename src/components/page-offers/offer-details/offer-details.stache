@@ -29,10 +29,9 @@
       </div>
     </div>
   </div>
-  {{/if}}
 
-  <!-- No items -->
-  {{^if offersLength}}
+  {{else}}
+
   <div class="panel-body align-center">
     <div class="message-box no-border">
       <div class="message-box-status">{{i18n('placeholderNoOffersTile')}}</div>

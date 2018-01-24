@@ -1,8 +1,9 @@
 <can-import from="~/utils/stache-helpers/" />
-<can-import from="~/components/trade-funds/confirm-summary/" />
 <can-import from="~/components/trade-funds/timer-notice/" />
 <can-import from="~/components/common/bootstrap-slider/" />
 <can-import from="bootstrap/dist/js/bootstrap" />
+<can-dynamic-import from="~/components/trade-funds/accept-offer/confirm-summary.stache!"
+                    @value:to="*confirmSummary" />
 
 <bootstrap-modal-content class="accept-offer">
     <div class="modal-header">
@@ -16,7 +17,7 @@
         <div class="list-group">
             <timer-notice></timer-notice>
             <div class="list-group-item">
-                <confirm-summary formData:from="formData"></confirm-summary>
+                {{> *confirmSummary}}
             </div>
 
             <div class="list-group-item slider-container">

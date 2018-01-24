@@ -101,6 +101,7 @@ const Session = DefineMap.extend('Session', {
     }
   },
 
+  portfolioRefreshPromise: '*',
   /**
    * @property {Function} models/session.prototype.refreshBalance refreshBalance
    * @parent models/session.prototype
@@ -113,10 +114,14 @@ const Session = DefineMap.extend('Session', {
       this.portfolios[0].markAsUsed(address, currencyType)
     }
     if (this.portfolios && this.portfolios[0]) {
-      this.portfolios[0].refreshBalance()
+      this.portfolioRefreshPromise = this.portfolios[0].refreshBalance()
     }
     // load company/issuance UTXO:
     this.issuancesPromise = Math.random()
+    return Promise.all([
+      this.portfolioRefreshPromise,
+      this.issuancesPromise
+    ])
   },
 
   /**
@@ -185,7 +190,7 @@ const Session = DefineMap.extend('Session', {
   issuancesPromise: {
     get (val) {
       // For testing allow incoming value:
-      if (val) {
+      if (val && val.then) {
         return val
       }
       return this.user && Issuance.getList({userId: this.user._id}).then(issuances => {
@@ -197,7 +202,9 @@ const Session = DefineMap.extend('Session', {
             issuance.keys = companyHdNode.derive(issuance.index)
           }
         })
-        issuances.loadUTXO()
+        if (issuances.length) {
+          issuances.loadUTXO()
+        }
         return issuances
       })
     }
@@ -263,8 +270,14 @@ const Session = DefineMap.extend('Session', {
     get (val, resolve) {
       Promise.all([
         this.issuancesPromise,
-        this.portfoliosPromise
-      ]).then(() => resolve(false))
+        this.portfoliosPromise,
+        this.portfolioRefreshPromise
+      ])
+      .then(() => Promise.all([
+        this.issuances && this.issuances.importAddressesPromise,
+        this.portfolios && this.portfolios[0] && this.portfolios[0].securitiesPromise
+      ]))
+      .then(() => resolve(false), () => resolve(false))
       return true
     }
   }

@@ -1851,7 +1851,7 @@ can-stache-key@^0.1.0, can-stache-key@^0.1.2:
     can-symbol "^1.0.0"
     can-util "^3.9.0"
 
-can-stache@^3.0.0, can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.10.0, can-stache@^3.13.4, can-stache@^3.13.5, can-stache@^3.3.0, can-stache@^3.7.3:
+can-stache@^3.0.0, can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.10.0, can-stache@^3.13.5, can-stache@^3.3.0, can-stache@^3.7.3:
   version "3.14.2"
   resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.14.2.tgz#d9564d13e8db75e3983fc8306b5d9559d426f68f"
   dependencies:
@@ -1870,6 +1870,28 @@ can-stache@^3.0.0, can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, c
     can-view-live "^3.2.0"
     can-view-nodelist "^3.1.0"
     can-view-parser "^3.6.0"
+    can-view-scope "^3.5.4"
+    can-view-target "^3.1.0"
+
+can-stache@^3.14.9:
+  version "3.14.9"
+  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.14.9.tgz#bbfb46bc872d9863715c64bb8d7fafa0b7d05d32"
+  dependencies:
+    can-attribute-encoder "^0.3.0"
+    can-compute "^3.3.1"
+    can-globals "<2.0.0"
+    can-log "^0.1.0"
+    can-namespace "1.0.0"
+    can-observation "^3.3.1"
+    can-reflect "^1.2.1"
+    can-route "^3.2.0"
+    can-stache-key "^0.1.2"
+    can-symbol "^1.0.0"
+    can-util "^3.10.12"
+    can-view-callbacks "^3.2.0"
+    can-view-live "^3.2.0"
+    can-view-nodelist "^3.1.0"
+    can-view-parser "^3.8.1"
     can-view-scope "^3.5.4"
     can-view-target "^3.1.0"
 
@@ -2039,6 +2061,14 @@ can-view-nodelist@^3.1.0:
 can-view-parser@^3.0.0, can-view-parser@^3.4.0, can-view-parser@^3.5.1, can-view-parser@^3.6.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/can-view-parser/-/can-view-parser-3.8.0.tgz#e891a698342afd9f452ab0dd4e894530a8af5492"
+  dependencies:
+    can-attribute-encoder "^0.3.1"
+    can-log "^0.1.0"
+    can-namespace "1.0.0"
+
+can-view-parser@^3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/can-view-parser/-/can-view-parser-3.8.1.tgz#f8ff75c10746fc14224063976ff777a904f7340c"
   dependencies:
     can-attribute-encoder "^0.3.1"
     can-log "^0.1.0"
