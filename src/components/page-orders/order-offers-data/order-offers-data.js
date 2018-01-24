@@ -59,9 +59,11 @@ export const ViewModel = DefineMap.extend({
     ]).then(([issuances, changeAddrPair]) => {
       // todo: figure out a better way to find the issuance with preloaded UTXO.
       const issuance = issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
+      // Change address for Empty EQB (transaction fee):
+      const changeAddr = changeAddrPair.EQB
 
-      console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddrPair`, offer, this.order, portfolio, issuance, changeAddrPair)
-      const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddrPair)
+      console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddr`, offer, this.order, portfolio, issuance, changeAddr)
+      const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddr)
       const tx = new Transaction(txData)
       // todo: show UI modal with tx details (amount, fee, etc)
       this.openAcceptOfferModal(offer, tx, issuance, portfolio)
