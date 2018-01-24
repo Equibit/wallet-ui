@@ -36,13 +36,15 @@ function prepareHtlcConfig4 (order, offer, portfolio, issuance, secret) {
   // todo: calculate transaction fee:
   let fee = 1000
   const htlcStep = 4
+  const amount = offer.quantity * order.price
 
-  if (fee > offer.quantity * order.price) {
-    fee = offer.quantity * order.price - 1
+  if (fee > amount) {
+    fee = amount - 1
   }
 
   const buildConfig = {
     vin: [{
+      // Main input of the locked HTLC:
       txid: offer.htlcTxId1,
       vout: 0,
       // todo: we can have a problem here with giving one BTC address to all offers.
@@ -56,7 +58,8 @@ function prepareHtlcConfig4 (order, offer, portfolio, issuance, secret) {
       sequence: '4294967295'
     }],
     vout: [{
-      value: offer.quantity * order.price - fee,
+      // Main output for unlocked HTLC minus fee:
+      value: amount - fee,
       // todo: should we send to a completely new BTC address? (e.g. multiple offers case)
       address: order.btcAddress
     }]
