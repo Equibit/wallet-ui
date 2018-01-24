@@ -30,9 +30,9 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
 
   const amount = offer.quantity
-  const toAddress = offer.eqbAddressTrading
-  const refundAddress = order.eqbAddressHolding
-  const changeAddr = order.eqbAddressHolding
+  const toAddress = offer.eqbAddress  // eqbAddressTrading
+  // const refundAddress = order.eqbAddressHolding
+  // const changeAddr = order.eqbAddressHolding
 
   // todo: calculate transaction fee:
   const fee = 1000
@@ -53,6 +53,10 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
   const issuanceUtxo = issuanceUtxoInfo.txouts
     .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
 
+  // For Sell order we set both change addr for securities and the refund to the same holding address from where we send securities.
+  const refundAddress = issuanceUtxo[0].address
+  const changeAddr = refundAddress
+
   // For EQB the fee comes from empty EQB.
   const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
   if (!utxoEmptyEqbInfo.sum) {
@@ -71,14 +75,17 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
   const buildConfig = {
     vin: utxo.map(pick(['txid', 'vout', 'keyPair'])),
     vout: [{
+      // main output:
       value: amount,
       scriptPubKey: htlcScript,
       issuanceTxId: issuance.issuanceTxId
     }, {
+      // change from the main output:
       value: availableAmount - amount,
       address: changeAddr,
       issuanceTxId: issuance.issuanceTxId
     }, {
+      // change for Empty EQB (for transaction fee):
       value: availableAmountEmptyEqb - fee,
       address: changeAddrEmptyEqb
     }]

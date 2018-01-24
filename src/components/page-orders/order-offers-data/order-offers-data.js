@@ -84,6 +84,7 @@ export const ViewModel = DefineMap.extend({
     const timelock = args[1]
     const description = args[2]
 
+    const order = this.order
     const offer = this.offer
     const tx = this.tx
     typeforce('Offer', offer)
@@ -93,11 +94,18 @@ export const ViewModel = DefineMap.extend({
     tx.timelock = timelock
     tx.description = description || tx.description
     return tx.save()
+      .then(tx => updateOrder(order, tx))
       .then(tx => updateOffer(offer, tx))
       .then(() => dispatchAlert(hub, tx, route))
       .catch(dispatchAlertError)
   }
 })
+
+function updateOrder (order, tx) {
+  // Address is defined during tx creation, now we save it (for refund and change):
+  order.eqbAddress = tx.fromAddress
+  return order.save()
+}
 
 function updateOffer (offer, tx) {
   // todo: we should NOT update the offer directly here since it belongs to a different user. API should do it when creates a receiver transaction.

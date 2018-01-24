@@ -88,7 +88,7 @@ export const ViewModel = DefineMap.extend({
 
   /**
    * Places a new order The following actions are taken:
-   *   1. Generate next available address.
+   *   1. Generate next available address (e.g. to receive payment for Ask order).
    *   2. Create a new order.
    *   3. Send BitMessage message.
    *   4. Save the order and show notification.
@@ -173,10 +173,8 @@ function createOrder (formData, type, addr, user, portfolio, issuance) {
     userId: user._id,
     issuanceAddress: issuance.issuanceAddress,
     type,
-    btcAddress: addr.BTC,
-    eqbAddressHolding: addr.EQB, // a refund address for HTLC
-    // sellAddressBtc: (type === 'SELL' ? addr.BTC : ''),
-    // buyAddressEqb: (type === 'BUY' ? addr.EQB : ''),
+    btcAddress: addr.BTC,         // to receive payment
+    eqbAddress: '',               // will be populated when we create a transaction (from UTXO)
     portfolioId: portfolio._id,
     quantity: formData.quantity,
     price: formData.priceInUnits,
