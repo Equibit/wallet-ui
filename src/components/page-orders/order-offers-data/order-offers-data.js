@@ -96,8 +96,8 @@ export const ViewModel = DefineMap.extend({
     tx.timelock = timelock
     tx.description = description || tx.description
     return tx.save()
-      .then(tx => updateOrder(order, tx))
-      .then(tx => updateOffer(offer, tx))
+      .then(() => updateOrder(order, tx))
+      .then(() => updateOffer(offer, tx))
       .then(() => dispatchAlert(hub, tx, route))
       .catch(dispatchAlertError)
   }
