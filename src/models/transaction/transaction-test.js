@@ -157,7 +157,7 @@ describe('models/transaction/utils', function () {
         before(function () {
           htlcOfferMock = mockHtlcOffer()
           tx = { hex: htlcOfferMock.txHex, txId: htlcOfferMock.txId }
-          txData = createHtlc1(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair)
+          txData = createHtlc1(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.BTC)
         })
         it('should define main props', function () {
           assert.equal(txData.amount, 35000, 'amount')
@@ -213,7 +213,7 @@ describe('models/transaction/utils', function () {
         })
         it('should have correct issuance change output', function () {
           assert.equal(buildConfig.vout[1].value, issuance.utxo[0].amount - amount, 'change for securities of 149999500')
-          assert.equal(buildConfig.vout[1].address, order.eqbAddressHolding, 'change address for securities (eqbAddressHolding)')
+          assert.equal(buildConfig.vout[1].address, order.eqbAddress, 'change address for securities (eqbAddress)')
         })
         it('should have correct empty EQB  change output', function () {
           const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
@@ -234,7 +234,7 @@ describe('models/transaction/utils', function () {
           txInfo = htlcConfig.txInfo
         })
         it('should have main address info', function () {
-          assert.equal(txInfo.address, order.eqbAddressHolding, 'address = order.eqbAddressHolding')
+          assert.equal(txInfo.address, order.eqbAddress, 'address = order.eqbAddress')
           assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
           assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
         })
@@ -246,8 +246,8 @@ describe('models/transaction/utils', function () {
         })
         it('should have fee and from/to addresses', function () {
           assert.equal(txInfo.fee, 1000, 'fee')
-          assert.equal(txInfo.fromAddress, order.eqbAddressHolding, 'fromAddress = order.eqbAddressHolding')
-          assert.equal(txInfo.toAddress, offer.eqbAddressTrading, 'toAddress = offer.eqbAddressTrading')
+          assert.equal(txInfo.fromAddress, order.eqbAddress, 'fromAddress = order.eqbAddress')
+          assert.equal(txInfo.toAddress, offer.eqbAddress, 'toAddress = offer.eqbAddress')
         })
       })
     })
@@ -260,7 +260,7 @@ describe('models/transaction/utils', function () {
         before(function () {
           htlcOfferMock = mockHtlcOffer()
           tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
-          txData = createHtlc2(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair)
+          txData = createHtlc2(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.EQB)
         })
         it('should define main props', function () {
           assert.equal(txData.amount, 500, 'amount')
@@ -318,7 +318,7 @@ describe('models/transaction/utils', function () {
         })
         it.skip('should have correct issuance change output', function () {
           assert.equal(buildConfig.vout[1].value, issuance.utxo[0].amount - amount, 'change for securities of 149999500')
-          assert.equal(buildConfig.vout[1].address, order.eqbAddressHolding, 'change address for securities (eqbAddressHolding)')
+          assert.equal(buildConfig.vout[1].address, order.eqbAddress, 'change address for securities (eqbAddress)')
         })
         it.skip('should have correct empty EQB  change output', function () {
           const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
@@ -339,7 +339,7 @@ describe('models/transaction/utils', function () {
           txInfo = htlcConfig.txInfo
         })
         it('should have main address info', function () {
-          assert.equal(txInfo.address, offer.eqbAddressHolding, 'address = order.eqbAddressHolding')
+          assert.equal(txInfo.address, offer.eqbAddress, 'address = order.eqbAddress')
           assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
           assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
         })
@@ -351,8 +351,8 @@ describe('models/transaction/utils', function () {
         })
         it('should have fee and from/to addresses', function () {
           assert.equal(txInfo.fee, 1000, 'fee')
-          assert.equal(txInfo.fromAddress, order.eqbAddressHolding, 'fromAddress = order.eqbAddressHolding')
-          assert.equal(txInfo.toAddress, offer.eqbAddressHolding, 'toAddress = offer.eqbAddressHolding')
+          assert.equal(txInfo.fromAddress, order.eqbAddress, 'fromAddress = order.eqbAddress')
+          assert.equal(txInfo.toAddress, offer.eqbAddress, 'toAddress = offer.eqbAddress')
         })
       })
     })
@@ -437,7 +437,7 @@ describe('models/transaction/utils', function () {
           txInfo = htlcConfig.txInfo
         })
         it('should have main address info', function () {
-          assert.equal(txInfo.address, order.btcAddress, 'address = order.eqbAddressHolding')
+          assert.equal(txInfo.address, order.btcAddress, 'address = order.eqbAddress')
           assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
           assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
         })

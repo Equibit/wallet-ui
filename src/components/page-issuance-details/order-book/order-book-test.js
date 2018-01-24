@@ -58,7 +58,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         assert.equal(order.issuanceType, issuance.issuanceType, 'Issuance type from issuance')
         assert.equal(order.portfolioId, portfolio._id, 'Portfolio ID from portfolio')
         assert.equal(order.btcAddress, unusedNextBtcAddress, 'BTC address')
-        assert.equal(order.eqbAddressHolding, unusedNextEqbAddress, 'EQB address')
+        assert.equal(order.eqbAddress, unusedNextEqbAddress, 'EQB address')
         return Promise.resolve(order)
       }
       vm.placeOrder([null, formData, 'SELL']).then(() => done())
@@ -107,12 +107,8 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
           console.log('htlcOffer', htlcOffer)
           assert.equal(htlcOffer.quantity, 500)
         })
-        it('should set eqbAddressTrading', function () {
-          assert.equal(htlcOffer.eqbAddressTrading, eqbAddress)
-        })
-        // todo: holding address should be different than trading.
-        it('should set eqbAddressHolding ???', function () {
-          assert.equal(htlcOffer.eqbAddressHolding, eqbAddress)
+        it('should set eqbAddress', function () {
+          assert.equal(htlcOffer.eqbAddress, eqbAddress)
         })
         it('should set btcAddress for refund', function () {
           assert.equal(htlcOffer.btcAddress, refundBtcAddress)
