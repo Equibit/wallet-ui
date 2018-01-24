@@ -28,7 +28,7 @@ const Transaction = DefineMap.extend('Transaction', {
     const txData = makeTransaction.apply(this, arguments)
     return new Transaction(txData)
   },
-  createHtlc1 (offer, order, portfolio, issuance, changeAddrPair) {
+  createHtlc1 (offer, order, portfolio, issuance, changeAddr) {
     const txData = createHtlc1.apply(this, arguments)
     return new Transaction(txData)
   },

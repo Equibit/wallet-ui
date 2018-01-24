@@ -105,7 +105,8 @@ export const ViewModel = DefineMap.extend({
       .then(([issuances, addr]) => {
         // todo: figure out a better way to "sync" this issuance with the list of issuances in Session.
         const issuance = issuances.filter(issuance => issuance._id === this.issuance._id)[0]
-        return createOrder(formData, type, addr, Session.current.user, this.portfolio, issuance)
+        const receiveAddr = addr.BTC
+        return createOrder(formData, type, receiveAddr, Session.current.user, this.portfolio, issuance)
       })
       .then(order => {
         return this.sendMessage(order, this.issuance.keys.keyPair)
@@ -133,11 +134,17 @@ export const ViewModel = DefineMap.extend({
 
     const secret = generateSecret()
     return Promise.all([
+      // EQB address to receive securities, BTC address for refund
       this.portfolio.getNextAddress(),
+      // Change address:
       this.portfolio.getNextAddress(true)
     ]).then(([addr, change]) => {
-      const offer = createHtlcOffer(formData, type, secret, formData.timelock, Session.current.user, this.issuance, addr.EQB, addr.BTC)
-      const tx = Transaction.createHtlc1(offer, formData.order, this.portfolio, this.issuance, change)
+      const receiveAddr = addr.EQB
+      // Note: we need to store the refundAddr on the offer because it will be used in HTLC.
+      const refundAddr = addr.BTC
+      const changeAddr = change.BTC
+      const offer = createHtlcOffer(formData, type, secret, formData.timelock, Session.current.user, this.issuance, receiveAddr, refundAddr)
+      const tx = Transaction.createHtlc1(offer, formData.order, this.portfolio, this.issuance, changeAddr)
 
       // Here we have all info about the transaction we want to create (fees, etc).
       // We need to show a modal with the info here.
@@ -163,7 +170,7 @@ function createOrder (formData, type, addr, user, portfolio, issuance) {
   typeforce(typeforce.tuple(
     'FormData',
     'String',
-    {BTC: 'String', EQB: 'String'},
+    types.Address,
     'User',
     'Portfolio',
     'Issuance'
@@ -171,9 +178,10 @@ function createOrder (formData, type, addr, user, portfolio, issuance) {
 
   const order = new Order({
     userId: user._id,
+    // todo: why do we need issuanceAddress at all??
     issuanceAddress: issuance.issuanceAddress,
     type,
-    btcAddress: addr.BTC,         // to receive payment
+    btcAddress: addr,             // to receive payment
     eqbAddress: '',               // will be populated when we create a transaction (from UTXO)
     portfolioId: portfolio._id,
     quantity: formData.quantity,
@@ -205,8 +213,8 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
     orderId: formData.order._id,
     issuanceAddress: issuance.issuanceAddress,
     btcAddress: refundBtcAddress,
-    eqbAddressTrading: eqbAddress,
-    eqbAddressHolding: eqbAddress,
+    // Main addr for receiving securities:
+    eqbAddress: eqbAddress,
     secretEncrypted,
     hashlock,
     timelock,

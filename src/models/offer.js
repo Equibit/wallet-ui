@@ -51,14 +51,12 @@ const Offer = DefineMap.extend('Offer', {
   // For HTLC we need 2 or 3 addresses:
   // - Buy offer:
   //    1. btcAddress for our own refund.
-  //    2. eqbAddress (trading) for receiving securities from a seller.
-  //    3. eqbAddress (holding) to store the securities in the end.
+  //    2. eqbAddress for receiving securities from a seller.
   // - Sell offer:
-  //    1. eqbAddress for a refund (a holding address).
+  //    1. eqbAddress for a refund.
   //    2. btcAddress for receiving payment from a buyer.
   btcAddress: 'string',
-  eqbAddressTrading: 'string',
-  eqbAddressHolding: 'string',
+  eqbAddress: 'string',
 
   /**
    * @property {Number} models/offer.properties.type type
