@@ -42,7 +42,7 @@ export const ViewModel = DefineMap.extend({
       }
       return new FormData({
         portfolio: this.portfolio,
-        order: this.order,
+        order: this.order
       })
     }
   },
