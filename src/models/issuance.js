@@ -201,10 +201,10 @@ Issuance.types = new DefineList(
 
 Issuance.List = DefineList.extend('IssuanceList', {
   '#': Issuance,
-  // todo: revisit this - it should figure out index based on company.
-  // Every new issuance requires a new index for its EQB address.
+  // Every new issuance requires a new index (for the given company) for its EQB address.
   getNewIndex (companyId) {
-    return this.reduce((acc, issuance) => {
+    const companyIssuances = this.filter(issuance => issuance.companyId === companyId)
+    return companyIssuances.reduce((acc, issuance) => {
       if (issuance.index >= acc) {
         acc = issuance.index + 1
       }
