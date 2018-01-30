@@ -21,7 +21,8 @@ import view from './timer-notice.stache'
 export const ViewModel = DefineMap.extend({
   message: {
     value: 'accept this offer'
-  }
+  },
+  endTime: 'date'
 })
 
 export default Component.extend({

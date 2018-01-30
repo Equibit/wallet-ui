@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/trade-funds/collect-asset/" />
+<can-import from="~/components/common/time-remaining/" />
 
 {{#switch offer.htlcStep}}
   {{#case 1}}
@@ -25,7 +26,7 @@
           <div class="col-xs-12 col-sm-3">
             <div class="timer-container">
               <label>Offer Expiration</label>
-              <div class="timer timer--active"><span class="icon icon-clock"></span>12:30:00</div>
+              <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
             </div>
           </div>
 
@@ -63,7 +64,7 @@
           <div class="col-xs-12 col-sm-3">
             <div class="timer-container">
               <label>Time left to collect the securities</label>
-              <div class="timer timer--active"><span class="icon icon-clock"></span>12:30:00</div>
+              <time-remaining endTime:from="offer.timelockInfo.partialEndAt"></time-remaining>
             </div>
           </div>
 
@@ -201,5 +202,6 @@
   <collect-asset on:send="sendTransaction(scope.arguments)"
                  tx:from="tx"
                  portfolio:from="portfolio"
-                 issuance:from="issuance" />
+                 issuance:from="issuance"
+                 offerTimelock:from="offer.timelockInfo.partialEndAt" />
 {{/if}}

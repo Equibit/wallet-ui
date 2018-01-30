@@ -43,7 +43,7 @@ export const ViewModel = DefineMap.extend({
   portfolio: '*',
   offerTimelock: {
     value: function () {
-      return this.tx.timelock * 2
+      return this.tx.timelockExpiresAt
     }
   },
   formData: {

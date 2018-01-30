@@ -43,6 +43,12 @@ export const ViewModel = DefineMap.extend({
   tx: '*',
   isModalShown: 'boolean',
 
+  timelocks: {
+    get (val, resolve) {
+      Promise.all(this.offers.map(offer => offer.timelockInfoPromise)).then(resolve)
+    }
+  },
+
   // For demo:
   // offer: {
   //   get () {

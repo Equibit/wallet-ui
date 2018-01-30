@@ -16,6 +16,8 @@ import Issuance from './issuance'
 import Order from './order'
 import moment from 'moment'
 import { translate } from '../i18n/i18n'
+import Transaction from './transaction/'
+import { blockTime } from '~/constants'
 
 const Offer = DefineMap.extend('Offer', {
   _id: 'string',
@@ -180,7 +182,54 @@ const Offer = DefineMap.extend('Offer', {
       }
     }
   },
-
+  timelockInfo: {
+    get (val, resolve) {
+      this.timelockInfoPromise.then(resolve)
+    }
+  },
+  timelockInfoPromise: {
+    get () {
+      // Read these props synchronously to ensure this promise is regenerated on change
+      const htlcTxId1 = this.htlcTxId1
+      const htlcTxId2 = this.htlcTxId2
+      return this.orderPromise.then(order => {
+        const addresses = [
+          this.btcAddress,
+          this.eqbAddressHolding,
+          this.eqbAddressTrading,
+          order.btcAddress,
+          order.eqbAddressTrading,
+          order.eqbAddressHolding
+        ]
+        return Transaction.getList({
+          txId: { $in: [htlcTxId1, htlcTxId2] },
+          address: {'$in': addresses}
+        })
+      })
+      .then(([step1, step2]) => {
+        if (step2 && step1.txId === htlcTxId2) {
+          const tx = step2
+          step2 = step1
+          step1 = tx
+        }
+        const fullDuration = blockTime[step1.currencyType] * step1.timelock
+        const fullEndAt = step1.createdAt.getTime() + fullDuration
+        let partialDuration, partialEndAt, safetyZone
+        if (step2) {
+          partialDuration = blockTime[step2.currencyType] * step2.timelock
+          partialEndAt = step2.createdAt.getTime() + partialDuration
+          safetyZone = fullEndAt - partialEndAt
+        }
+        return {
+          fullDuration,
+          fullEndAt,
+          partialDuration,
+          partialEndAt,
+          safetyZone
+        }
+      })
+    }
+  },
   // Extras:
 
   isSelected: {

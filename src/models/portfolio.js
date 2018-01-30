@@ -254,7 +254,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
             }, null)
           }).catch(err => {
             console.error(err)
-            return this.lastSetSecurities && this.lastSetSecurities[idx]
+            return this.lastSetSecurities ? this.lastSetSecurities[idx] : {}
           })
         })
       )

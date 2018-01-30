@@ -290,6 +290,11 @@ Session.defaultRates = {
   securitiesToBtc: 1 / 5
 }
 
+Session.blockIntervals = {
+  BTC: 600000,
+  EQB: 600000
+}
+
 const algebra = new set.Algebra(
   set.comparators.id('accessToken')
 )
