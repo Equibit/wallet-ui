@@ -14,7 +14,7 @@ import superModel from './super-model'
 import algebra from './algebra'
 import utils from './portfolio-utils'
 import Session from '~/models/session'
-const { fetchListunspent, importAddr, getUnspentOutputsForAmount } = utils
+const { fetchListunspent, importMulti, getUnspentOutputsForAmount } = utils
 
 const Issuance = DefineMap.extend('Issuance', {
   _id: 'string',
@@ -215,18 +215,22 @@ Issuance.List = DefineList.extend('IssuanceList', {
   // todo: revisit this: the prop issuance.address is pointing to the issue authorization transaction. Technically Issuance.List should load UTXO based on portfolio meta addresses info and issuances meta (company and issuance indexes) when current user is also an issuer.
   addresses: {
     get () {
-      const importPromises = []
+      const importAddresses = []
       const ret = this.reduce((acc, issuance) => {
         if (issuance.keys && issuance.address && acc.indexOf(issuance.address) === -1) {
           // todo: import address on authorizing an issuance.
-          importPromises.push(importAddr(issuance.address, 'EQB').catch(() => { }))
+          importAddresses.push(issuance.address)
           acc.push(issuance.address)
         }
         return acc
       }, [])
-      this.importAddressesPromise = Promise.all(importPromises)
+      this.importAddressesPromise = importMulti(importAddresses, 'EQB', this.dedupeEQBImport)
       return ret
     }
+  },
+
+  dedupeEQBImport: {
+    value: []
   },
 
   // UTXO are listed by address, but different issuances can be sitting on the same address

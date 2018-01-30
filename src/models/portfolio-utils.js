@@ -24,6 +24,24 @@ const importAddr = (addr, currencyType) => {
   })
 }
 
+const importMulti = (addresses, type, alreadyImportedAddresses) => {
+  if (alreadyImportedAddresses) {
+    addresses = addresses.filter(address => {
+      return !alreadyImportedAddresses.includes(address)
+    })
+    alreadyImportedAddresses.push.apply(alreadyImportedAddresses, addresses)
+  }
+  if (!addresses.length) {
+    return Promise.resolve(true)
+  }
+  return feathersClient.service('importmulti').create({
+    addresses,
+    type
+  }).then(res => {
+    return true
+  })
+}
+
 const fetchListunspent = ({ BTC = [], EQB = [] }) => {
   return feathersClient.service('/listunspent').find({
     // GET query params are lower cased:
@@ -72,6 +90,7 @@ const getAllUtxo = (addresses) => {
 
 export default {
   importAddr,
+  importMulti,
   fetchListunspent,
   getNextAddressIndex,
   getUnspentOutputsForAmount,
