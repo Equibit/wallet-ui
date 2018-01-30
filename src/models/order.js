@@ -65,16 +65,13 @@ const Order = DefineMap.extend('Order', {
   // For HTLC we need 2 or 3 addresses:
   // - Sell order:
   //    1. btcAddress for receiving payment from a buyer.
-  //    2. eqbAddress for a refund (a holding address).
+  //    2. eqbAddress for a refund.
   // - Buy order:
-  //    1. eqbAddress (trading) for receiving securities from a seller.
+  //    1. eqbAddress for receiving securities from a seller.
   //    2. btcAddress for our own refund.
-  //    3. eqbAddress (holding) to store the securities in the end.
   htlcStep: 'number',
   btcAddress: 'string',
-  eqbAddressTrading: 'string',
-  eqbAddressHolding: 'string',
-  // htlcTxId: 'string',
+  eqbAddress: 'string',
 
   /**
    * @property {Number} models/order.properties.portfolioId portfolioId

@@ -135,8 +135,8 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     })
   },
 
-  buySell (type, order) {
-    this.dispatch('buysell', [type, order])
+  buySell (order) {
+    this.dispatch('buysell', [order])
   },
 
   userOfferForOrder (row) {

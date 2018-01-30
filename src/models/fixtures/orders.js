@@ -18,8 +18,8 @@ const data = times(i => {
     acceptedOfferIds: (i < 6 ? ['1', '2'] : ['3', '4', '5']),
 
     btcAddress: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA',
-    eqbAddressTrading: ['', 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', ''][i % 3],
-    eqbAddressHolding: issuance.utxo[0].address,
+    // eqbAddressTrading: ['', 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', ''][i % 3],
+    eqbAddress: issuance.utxo[0].address,
 
     companyName: companies[i % 9],
     issuanceName: ['Series 1', 'Series 2'][i % 2],

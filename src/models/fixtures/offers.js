@@ -16,8 +16,8 @@ const data = times(i => {
     status: ['OPEN', 'TRADING', 'CANCELLED', 'CLOSED'][i % 4],
 
     btcAddress: 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1',
-    eqbAddressTrading: ['mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', '', 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1'][i % 3],
-    eqbAddressHolding: 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1',
+    // eqbAddressTrading: ['mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', '', 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1'][i % 3],
+    eqbAddress: 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1',
 
     companyName: companies[i % 9],
     issuanceName: ['Series 1', 'Series 2'][i % 2],

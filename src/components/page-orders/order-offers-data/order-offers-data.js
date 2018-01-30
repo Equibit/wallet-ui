@@ -59,9 +59,11 @@ export const ViewModel = DefineMap.extend({
     ]).then(([issuances, changeAddrPair]) => {
       // todo: figure out a better way to find the issuance with preloaded UTXO.
       const issuance = issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
+      // Change address for Empty EQB (transaction fee):
+      const changeAddr = changeAddrPair.EQB
 
-      console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddrPair`, offer, this.order, portfolio, issuance, changeAddrPair)
-      const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddrPair)
+      console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddr`, offer, this.order, portfolio, issuance, changeAddr)
+      const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddr)
       const tx = new Transaction(txData)
       // todo: show UI modal with tx details (amount, fee, etc)
       this.openAcceptOfferModal(offer, tx, issuance, portfolio)
@@ -84,6 +86,7 @@ export const ViewModel = DefineMap.extend({
     const timelock = args[1]
     const description = args[2]
 
+    const order = this.order
     const offer = this.offer
     const tx = this.tx
     typeforce('Offer', offer)
@@ -93,11 +96,18 @@ export const ViewModel = DefineMap.extend({
     tx.timelock = timelock
     tx.description = description || tx.description
     return tx.save()
-      .then(tx => updateOffer(offer, tx))
+      .then(() => updateOrder(order, tx))
+      .then(() => updateOffer(offer, tx))
       .then(() => dispatchAlert(hub, tx, route))
       .catch(dispatchAlertError)
   }
 })
+
+function updateOrder (order, tx) {
+  // Address is defined during tx creation, now we save it (for refund and change):
+  order.eqbAddress = tx.fromAddress
+  return order.save()
+}
 
 function updateOffer (offer, tx) {
   // todo: we should NOT update the offer directly here since it belongs to a different user. API should do it when creates a receiver transaction.

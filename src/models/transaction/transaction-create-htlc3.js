@@ -44,22 +44,25 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
 
   const buildConfig = {
     vin: [{
+      // Main input of the locked HTLC amount:
       txid: offer.htlcTxId2,
       vout: 0,
-      keyPair: portfolio.findAddress(offer.eqbAddressTrading).keyPair,
+      keyPair: portfolio.findAddress(offer.eqbAddress).keyPair,
       htlc: {
         secret,
         // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
-        refundAddr: order.eqbAddressHolding,
+        refundAddr: order.eqbAddress,
         timelock: order.timelock || Math.floor(offer.timelock / 2)
       },
       sequence: '4294967295'
     }],
     vout: [{
+      // Main output (unlocking HTLC securities):
       value: offer.quantity,
-      address: offer.eqbAddressHolding,
+      address: offer.eqbAddress,
       issuanceTxId: issuance.issuanceTxId
     }, {
+      // Regular change output:
       value: availableAmountEmptyEqb - fee,
       address: changeAddr
     }]
@@ -67,7 +70,7 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
   buildConfig.vin = buildConfig.vin.concat(utxoEmptyEqb)
 
   const txInfo = {
-    address: offer.eqbAddressHolding,
+    address: offer.eqbAddress,
     addressTxid: buildConfig.vin[0].txid,
     addressVout: buildConfig.vin[0].vout,
     type: 'BUY',
@@ -75,8 +78,8 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
     currencyType: 'EQB',
     amount: offer.quantity,
     description: `Collecting securities from HTLC (step #${htlcStep})`,
-    fromAddress: order.eqbAddressHolding,
-    toAddress: offer.eqbAddressHolding,
+    fromAddress: order.eqbAddress,
+    toAddress: offer.eqbAddress,
     htlcStep
   }
   console.log(`createHtlc3: txInfo:`, txInfo)

@@ -55,7 +55,7 @@
                 </button>
               {{/case}}
               {{#default}}
-                <button class="btn btn-default btn-xs" on:click="buySell('BUY', row)">{{i18n('buy')}}</button>
+                <button class="btn btn-default btn-xs" on:click="buySell(row)">{{i18n('buy')}}</button>
               {{/default}}
               {{/switch}}
             </td>
@@ -133,7 +133,7 @@
                 </button>
               {{/case}}
               {{#default}}
-                <button class="btn btn-default btn-xs" on:click="buySell('SELL', row)">{{i18n('sell')}}</button>
+                <button class="btn btn-default btn-xs" on:click="buySell(row)">{{i18n('sell')}}</button>
               {{/default}}
               {{/switch}}
             </td>

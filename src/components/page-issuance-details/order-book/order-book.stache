@@ -82,7 +82,6 @@
 {{#if isBuySellShown}}
   <place-offer on:send="placeOffer(scope.arguments)"
                portfolio:from="portfolio"
-               type:from="modalType"
                order:from="order" />
 {{/if}}
 

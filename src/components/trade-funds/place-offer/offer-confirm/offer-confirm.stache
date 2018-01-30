@@ -1,13 +1,14 @@
 <can-import from="~/components/common/issuance-summary/issuance-summary.component" />
 <can-import from="~/components/trade-funds/confirm-summary/" />
 <can-import from="~/utils/stache-helpers/" />
+<can-dynamic-import from="~/components/trade-funds/place-offer/offer-confirm/confirm-summary.stache!" @value:to="*confirmSummary" />
 
 <div class="description">{{i18n('confirmOffer')}}</div>
 
 <div class="list-group">
 
   <div class="list-group-item">
-    <confirm-summary this:from="this"></confirm-summary>
+    {{> *confirmSummary}}
   </div>
   <div class="list-group-item">
     <div class="row">
@@ -37,5 +38,5 @@
     </span></label>
     <textarea class="col-xs-12 form-control" value:bind="formData.description"></textarea>
   </div>
-  
+
 </div>
