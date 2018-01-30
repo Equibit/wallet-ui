@@ -16,7 +16,7 @@
         <div class="description">Please review and confirm your transaction.</div>
 
         <div class="list-group">
-            <timer-notice message:from="titles.timer" endTime:from="offerTimelock.partialEndAt"></timer-notice>
+            <timer-notice message:from="titles.timer" endTime:from="offerTimelock"></timer-notice>
             <div class="list-group-item">
                 {{> *confirmSummary}}
             </div>

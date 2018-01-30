@@ -203,5 +203,5 @@
                  tx:from="tx"
                  portfolio:from="portfolio"
                  issuance:from="issuance"
-                 offerTimelock:from="offer.timelockInfo" />
+                 offerTimelock:from="offer.timelockInfo.partialEndAt" />
 {{/if}}

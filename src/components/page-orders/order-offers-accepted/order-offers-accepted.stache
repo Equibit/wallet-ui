@@ -171,5 +171,6 @@
   <collect-asset on:send="sendTransaction(scope.arguments)"
                  tx:from="tx"
                  portfolio:from="portfolio"
-                 issuance:from="issuance" />
+                 issuance:from="issuance"
+                 offerTimelock:from="offer.timelockInfo.fullEndAt" />
 {{/if}}
