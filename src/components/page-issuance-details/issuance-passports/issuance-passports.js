@@ -25,13 +25,13 @@ export const ViewModel = DefineMap.extend({
     value: new DefineList([
       { name: 'Issuer Direct' },
       { name: 'Investor ID Services' },
-      { name: 'Investor ABD Lorem' },
-      { name: 'Abc Lorem Ipsum' },
-      { name: 'Abc Lorem Ipsum' },
-      { name: 'Abc Lorem Ipsum' },
-      { name: 'Abc Lorem Ipsum' },
-      { name: 'Dolor Sit Amet' },
-      { name: 'Dolor Sit Amet' }
+      { name: 'Investor ABD Lorem' }
+      // { name: 'Abc Lorem Ipsum' },
+      // { name: 'Abc Lorem Ipsum' },
+      // { name: 'Abc Lorem Ipsum' },
+      // { name: 'Abc Lorem Ipsum' },
+      // { name: 'Dolor Sit Amet' },
+      // { name: 'Dolor Sit Amet' }
     ])
   },
   userPassports: {

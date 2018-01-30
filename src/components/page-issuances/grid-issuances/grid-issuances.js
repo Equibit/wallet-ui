@@ -26,8 +26,8 @@ export const ViewModel = DefineMap.extend({
         return value
       }
       Issuance.getList(this.queryParams).then(rows => {
-        if (rows.total) {
-          this.pagination.total = rows.total
+        if (rows.total || rows.count) {
+          this.pagination.total = rows.total || rows.count
         }
         resolve(rows)
         if (rows && rows[0]) {
