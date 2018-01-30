@@ -1,4 +1,6 @@
+<can-import from="~/components/common/time-remaining/" />
+
 <div class="list-group-item">
     <strong>Time left to {{message}}</strong>
-    <div class="timer timer--active"><span class="icon icon-clock"></span>12:30:00</div>
+    <time-remaining endTime:from="endTime"></time-remaining>
 </div>

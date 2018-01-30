@@ -22,6 +22,7 @@ import algebra from '../algebra'
 import i18n from '../../i18n/i18n'
 import { makeTransaction } from './transaction-make'
 import { createHtlc1 } from './transaction-create-htlc1'
+import { blockTime } from '~/constants'
 
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (amount, toAddress, txouts, options) {
@@ -221,6 +222,10 @@ const Transaction = DefineMap.extend('Transaction', {
   },
   get issuanceTypeDisplay () {
     return this.issuanceType === 'common_shares' ? 'Common Shares' : this.issuanceType
+  },
+  get timelockExpiresAt () {
+    const ctime = this.createdAt ? this.createdAt.getTime() : Date.now()
+    return new Date(ctime + (this.timelock || 0) * blockTime[this.currencyType])
   }
 })
 
