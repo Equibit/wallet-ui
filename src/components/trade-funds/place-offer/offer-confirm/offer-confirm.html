@@ -22,8 +22,33 @@
   import OfferFormData from "~/components/trade-funds/place-offer/form-data";
   import DefineMap from 'can-define/map/map';
   import 'bootstrap';
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
 
-  const vm = new DefineMap({"formData": new OfferFormData({"type":"BUY","portfolio":{"_id":"5a4d58449335c6096fccf07f","name":"My Portfolio","addressesMeta":[]},"order": {"_id":"5a3835e19c11e146f0c28025","userId":"5a330cd41d8c50ce5d899536","issuanceId":"5a3423cb8b4b64431143ed75","issuanceAddress":"mxdSJUzQJz9EXvjHnTcVz9ZQVhz22n4AEw","type":"SELL","btcAddress":"mqC2yEcyaANJgxsBYRVhuBRidx6k4z1xAe","eqbAddress":"mp2mGUTHwgM6RGVqGiKNifv8FJxZ7jj8Zw","portfolioId":"5a341d6e8b4b64431143ed64","quantity":3500,"price":2.4,"status":"OPEN","isFillOrKill":true,"goodFor":7,"companyName":"Aperture Science","issuanceName":"Bouncy Goo","issuanceType":"bonds"},"transactionFee":0})});
+  const vm = new DefineMap({
+    "formData": new OfferFormData({
+      "portfolio": {"_id": "5a4d58449335c6096fccf07f", "name": "My Portfolio", "addressesMeta": []},
+      "order": {
+        "_id": "5a3835e19c11e146f0c28025",
+        "userId": "5a330cd41d8c50ce5d899536",
+        "issuanceId": "5a3423cb8b4b64431143ed75",
+        "issuanceAddress": "mxdSJUzQJz9EXvjHnTcVz9ZQVhz22n4AEw",
+        "type": "SELL",
+        "btcAddress": "mqC2yEcyaANJgxsBYRVhuBRidx6k4z1xAe",
+        "eqbAddress": "mp2mGUTHwgM6RGVqGiKNifv8FJxZ7jj8Zw",
+        "portfolioId": "5a341d6e8b4b64431143ed64",
+        "quantity": 3500,
+        "price": 2.4,
+        "status": "OPEN",
+        "isFillOrKill": true,
+        "goodFor": 7,
+        "companyName": "Aperture Science",
+        "issuanceName": "Bouncy Goo",
+        "issuanceType": "bonds"
+      },
+      "transactionFee": 0
+    })
+  });
 
   // Enable live-reload:
   stache.async($('#demo-html').html()).then(template => {

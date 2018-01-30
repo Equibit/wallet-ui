@@ -78,7 +78,7 @@
               </tr>
               <tr>
                   <td class="input-value"></td>
-                  <td class="column-local-currency-value font-numeric text-danger">{{format-micro(formData.fee)}}</td>
+                  <td class="column-local-currency-value font-numeric text-danger">- {{format-micro(formData.fee)}}</td>
                   <td class="column-local-currency-type font-numeric text-danger">μEQB</td>
                   <td class="column-local-currency-value font-numeric text-danger">- {{format(convertToUSD(formData.totalAmountBtc).value, '', 2)}}</td>
                   <td class="column-local-currency-type font-numeric text-danger">{{i18n('usd')}}</td>

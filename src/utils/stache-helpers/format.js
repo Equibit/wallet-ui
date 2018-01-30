@@ -54,7 +54,6 @@ stache.registerHelper('local-currency', function (value, type) {
   }
   return localCurrency(value, type)
 })
-
 stache.registerHelper('local-currency-symbol', function () {
   return 'USD'
 })
@@ -68,10 +67,14 @@ stache.registerHelper('coin', function (value, precision) {
 })
 
 // Satoshi to user selected units
-stache.registerHelper('btc-user-units', function (value, precision) {
+stache.registerHelper('user-units', function (value, precision) {
   if (typeof precision !== 'number') {
     precision = 2
   }
-  // todo: use unit selector here.
+  // todo: use unit selector here (from Session.current)
   return toMaxPrecision(value / 100000000, precision)
+})
+stache.registerHelper('user-units-symbol', function (value) {
+  // todo: use unit selector here (from Session.current)
+  return value === 'EQB' ? 'EQB' : 'BTC'
 })

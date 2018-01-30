@@ -3,16 +3,14 @@
 
 <!-- TO -->
 <label class="">{{i18n('to')}}</label>
-<p class="input-value break-word"><strong>{{formData.address}}</strong></p>
+<p class="input-value break-word"><strong>{{formData.order.btcAddress}}</strong></p>
 
 <div class="row">
     <div class="col-xs-12 no-padding">
         <label for="">{{i18n('paymentFor')}}</label>
-        <span class="input-value">{{formData.issuanceName}}</span>
+        <span class="input-value">{{formData.order.issuanceName}}</span>
     </div>
 </div>
-
-
 
 <!-- WHAT -->
 <div class="table-responsive">

@@ -44,8 +44,9 @@ export const ViewModel = DefineMap.extend({
     }
   },
   newOrderType: 'string',
-
   isModalShown: 'boolean',
+
+  // Add new order modal:
   showModal (newOrderType) {
     // Note: we need to re-insert the modal content:
     this.newOrderType = newOrderType || 'SELL'
@@ -53,18 +54,17 @@ export const ViewModel = DefineMap.extend({
     this.isModalShown = true
   },
 
-  modalType: 'string',
   order: '*',
   isBuySellShown: 'boolean',
+
+  // Create an offer modal:
   openBuySellModal (args) {
-    const type = args[1]
-    const order = args[2]
-    this.modalType = type
-    this.order = order
+    this.order = args[1]
     // Note: we need to re-insert the modal content:
     this.isBuySellShown = false
     this.isBuySellShown = true
   },
+
   get userPortfolioForIssuance () {
     const userHasPortfolioIssuances = this.session &&
       this.session.portfolios &&
@@ -127,10 +127,9 @@ export const ViewModel = DefineMap.extend({
    */
   // HTLC 1: place payment.
   placeOffer (args) {
-    typeforce(typeforce.tuple('OfferFormData', 'String'), [args[1], args[2]])
+    typeforce('OfferFormData', args[1])
     const formData = args[1]
-    const type = args[2]
-    console.log(`placeOffer: ${type}`, formData)
+    console.log('placeOffer: ', formData)
 
     const secret = generateSecret()
     return Promise.all([
@@ -143,7 +142,7 @@ export const ViewModel = DefineMap.extend({
       // Note: we need to store the refundAddr on the offer because it will be used in HTLC.
       const refundAddr = addr.BTC
       const changeAddr = change.BTC
-      const offer = createHtlcOffer(formData, type, secret, formData.timelock, Session.current.user, this.issuance, receiveAddr, refundAddr)
+      const offer = createHtlcOffer(formData, secret, formData.timelock, Session.current.user, this.issuance, receiveAddr, refundAddr)
       const tx = Transaction.createHtlc1(offer, formData.order, this.portfolio, this.issuance, changeAddr)
 
       // Here we have all info about the transaction we want to create (fees, etc).
@@ -200,9 +199,9 @@ function generateSecret () {
   return cryptoUtils.randomBytes(32)
 }
 
-function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbAddress, refundBtcAddress) {
+function createHtlcOffer (formData, secret, timelock, user, issuance, eqbAddress, refundBtcAddress) {
   typeforce(typeforce.tuple(
-    'OfferFormData', 'String', 'Buffer', 'Number', 'User', 'Issuance', types.Address, types.Address),
+    'OfferFormData', 'Buffer', 'Number', 'User', 'Issuance', types.Address, types.Address),
     arguments
   )
 
@@ -218,7 +217,7 @@ function createHtlcOffer (formData, type, secret, timelock, user, issuance, eqbA
     secretEncrypted,
     hashlock,
     timelock,
-    type,
+    type: formData.order.type === 'SELL' ? 'BUY' : 'SELL',
     quantity: formData.quantity,
     price: formData.order.price,
     issuanceId: issuance._id,
