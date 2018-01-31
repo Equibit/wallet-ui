@@ -22,7 +22,7 @@ import FormData from './form-data'
 import Transaction from '../../../models/transaction/transaction'
 import Session from '../../../models/session'
 import { translate } from '../../../i18n/'
-import hub, { dispatchAlertError }  from '../../../utils/event-hub'
+import hub, { dispatchAlertError } from '../../../utils/event-hub'
 import utils from '../../../models/portfolio-utils'
 const { importAddr } = utils
 
