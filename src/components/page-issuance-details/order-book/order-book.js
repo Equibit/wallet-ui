@@ -103,13 +103,18 @@ export const ViewModel = DefineMap.extend({
 
     return Promise.all([Session.current.issuancesPromise, this.portfolio.getNextAddress()])
       .then(([issuances, addr]) => {
+        // Note: we need issuance keys to sign BitMessage which we do further below. Not sure why we grab it from session.
         // todo: figure out a better way to "sync" this issuance with the list of issuances in Session.
-        const issuance = issuances.filter(issuance => issuance._id === this.issuance._id)[0]
+        // const issuance = issuances.filter(issuance => issuance._id === this.issuance._id)[0]
+        const issuance = this.issuance
         const receiveAddr = addr.BTC
         return createOrder(formData, type, receiveAddr, Session.current.user, this.portfolio, issuance)
       })
       .then(order => {
-        return this.sendMessage(order, this.issuance.keys.keyPair)
+        // Note: for a sell order we use issuance keys which should be attached to this.issuance (both authorized and bought).
+        // todo: figure out what keys to use for a BUY order.
+        const keyPair = order.type === 'SELL' ? this.issuance.keys.keyPair : this.portfolio.keys.BTC.keyPair
+        return this.sendMessage(order, keyPair)
           .then(() => order.save())
           .then(() => dispatchAlertOrder(hub, route))
           .then(() => order)
