@@ -280,6 +280,25 @@ const Session = DefineMap.extend('Session', {
       .then(() => resolve(false), () => resolve(false))
       return true
     }
+  },
+
+  /**
+   * Is used in order-book and orders-grid to check if user can create an offer.
+   * @param issuanceAddress
+   * @returns Boolean
+   */
+  hasIssuanceUtxo (issuanceAddress) {
+    const userHasPortfolioIssuances = this.portfolios &&
+      this.portfolios[0].securities &&
+      this.portfolios[0].securities.filter(sec => {
+        return sec.data.issuance.issuance_address === issuanceAddress
+      }).length > 0
+    const userHasAuthorizedIssuancesUtxo = this.issuances &&
+      this.issuances.filter(issuance => {
+        return issuance.issuanceAddress === issuanceAddress && issuance.utxo && issuance.utxo.length
+      }).length > 0
+
+    return userHasPortfolioIssuances || userHasAuthorizedIssuancesUtxo
   }
 })
 

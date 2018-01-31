@@ -99,12 +99,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     if (~this.userOfferOrderIds.indexOf(row._id)) {
       return 'Offer exists'
     }
-    if (!this.session.portfolios ||
-        !this.session.portfolios[0].securities ||
-        !this.session.portfolios[0].securities.filter(sec => {
-          return sec.data.issuance.issuance_address === this.issuanceAddress
-        }).length
-    ) {
+    if (!this.session.hasIssuanceUtxo(this.issuanceAddress)) {
       return 'No securities'
     }
     // TODO create a condition that shows that the number of shares

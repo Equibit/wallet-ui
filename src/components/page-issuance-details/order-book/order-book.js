@@ -66,18 +66,7 @@ export const ViewModel = DefineMap.extend({
   },
 
   get userPortfolioForIssuance () {
-    const userHasPortfolioIssuances = this.session &&
-      this.session.portfolios &&
-      this.session.portfolios[0].securities &&
-      this.session.portfolios[0].securities.filter(sec => {
-        return sec.data.issuance.issuance_address === this.issuance.issuanceAddress
-      })[0]
-    const userHasAuthorizedIssuancesUtxo = this.session &&
-      this.session.issuances &&
-      this.session.issuances.filter(issuance => {
-        return issuance.issuanceAddress === this.issuance.issuanceAddress && issuance.utxo && issuance.utxo.length
-      })[0]
-    return userHasPortfolioIssuances || userHasAuthorizedIssuancesUtxo
+    return this.session.hasIssuanceUtxo(this.issuance.issuanceAddress)
   },
   isViewAllShown: 'boolean',
   showViewAll () {
