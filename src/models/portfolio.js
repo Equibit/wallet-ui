@@ -423,7 +423,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
   },
 
   getEmptyEqb (amount) {
-    return this.getTxouts(amount, 'EQB')
+    const utxo = getUnspentOutputsForAmount(this.utxoEmptyEqb, amount)
+    return utxo
   },
 
   /**
