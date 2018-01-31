@@ -140,6 +140,7 @@ export default {
   city: 'City',
   codeVerificationLabel: 'Enter Code',
   codeVerifiedMessage: 'Code Verified',
+  commonShares: 'Common Shares',
   company: 'Company',
   companyInformation: 'Company Information',
   companyAdd: 'Add a Company',
