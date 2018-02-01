@@ -25,7 +25,7 @@ function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
 
   const htlcConfig = currencyType === 'EQB'
     ? prepareHtlcConfig3(order, offer, portfolio, issuance, secret, changeAddr)
-    : prepareHtlcConfig3Btc(order, offer, portfolio, issuance, secret, changeAddr)
+    : prepareHtlcConfig3Btc(order, offer, portfolio, secret, changeAddr)
   const tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
   const txData = prepareTxData(htlcConfig, tx, issuance)
 
@@ -91,7 +91,7 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
   return { buildConfig, txInfo }
 }
 
-function prepareHtlcConfig3Btc (order, offer, portfolio, issuance, secret, changeAddr) {
+function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
   const amount = offer.quantity * offer.price
   const toAddress = offer.btcAddress
 

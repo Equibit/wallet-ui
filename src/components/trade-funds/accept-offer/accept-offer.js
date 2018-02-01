@@ -30,7 +30,8 @@ export const ViewModel = DefineMap.extend({
   // Flow type: Ask | Bid
   flowType: {
     get () {
-      return this.tx && this.tx.type === 'SELL' ? 'Ask' : 'Bid'
+      // If we accept an offer during Ask flow we send securities (EQB):
+      return this.tx && this.tx.currencyType === 'EQB' ? 'Ask' : 'Bid'
     }
   },
 

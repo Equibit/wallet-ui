@@ -29,7 +29,7 @@
                   </div>
                   <div class="offer-timeline-event offer-timeline-event--pending">
                     <span class="icon icon-check-pending"></span>
-                    Awaiting buyer to collect {{#if isAskFlow}}securities{{else}}payment{{/if}}
+                    {{#if isAskFlow}}Awaiting buyer to collect securities{{else}}Awaiting seller to collect payment{{/if}}
                   </div>
                 </div>
 
@@ -78,7 +78,7 @@
                   </div>
                   <div class="offer-timeline-event">
                     <span class="icon icon-check-progress"></span>
-                    Buyer collected the {{#if isAskFlow}}securities{{else}}payment{{/if}} on
+                    {{#if isAskFlow}}Buyer collected the securities{{else}}Seller collected the payment{{/if}} on
                     <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event offer-timeline-event--pending">
@@ -119,7 +119,7 @@
                   </div>
                   <div class="offer-timeline-event">
                     <span class="icon icon-check-done"></span>
-                    Buyer collected the {{#if isAskFlow}}securities{{else}}payment{{/if}} on
+                    {{#if isAskFlow}}Buyer collected the securities{{else}}Seller collected the payment{{/if}} on
                     <span class="offer-date">{{offer.dateDisplay}}</span>
                   </div>
                   <div class="offer-timeline-event">

@@ -395,7 +395,7 @@ describe('models/transaction/utils', function () {
           order = htlcOfferMock.order
           offer = htlcOfferMock.offer
           amount = offer.quantity * offer.price
-          htlcConfig = prepareHtlcConfig4(order, offer, portfolio, issuance, htlcOfferMock.secretHex)
+          htlcConfig = prepareHtlcConfig4(order, offer, portfolio, htlcOfferMock.secretHex)
           buildConfig = htlcConfig.buildConfig
         })
         it('should have one vin of BTC payment', function () {
@@ -430,7 +430,7 @@ describe('models/transaction/utils', function () {
           order = htlcOfferMock.order
           offer = htlcOfferMock.offer
           amount = offer.quantity * offer.price
-          htlcConfig = prepareHtlcConfig4(order, offer, portfolio, issuance, htlcOfferMock.secretHex)
+          htlcConfig = prepareHtlcConfig4(order, offer, portfolio, htlcOfferMock.secretHex)
           buildConfig = htlcConfig.buildConfig
           txInfo = htlcConfig.txInfo
         })
