@@ -70,6 +70,9 @@ export const ViewModel = DefineMap.extend({
   secret: 'string',
   isModalShown: 'boolean',
 
+  /**
+   * For Ask flow its collecting securities, for Bid flow - collecting payment.
+   */
   // HTLC 3:
   // 1. Generate addr for empty EQB (to pay the fee) change.
   // 2. Prepare tx config and create htlc3 transaction.
@@ -90,9 +93,10 @@ export const ViewModel = DefineMap.extend({
       'String'
     ), [order, offer, issuance, user, portfolio, secret])
 
+    const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
     return portfolio.getNextAddress()
-      .then(({EQB}) => {
-        const txData = createHtlc3(order, offer, portfolio, issuance, secret, EQB)
+      .then(addrPair => {
+        const txData = createHtlc3(order, offer, portfolio, issuance, secret, addrPair[currencyType])
         const tx = new Transaction(txData)
         this.secret = secret
 
