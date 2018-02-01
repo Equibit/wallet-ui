@@ -132,7 +132,7 @@ function prepareHtlcConfig2Btc (offer, order, portfolio, issuance, changeAddr) {
   // UTXO:
   const utxoInfo = portfolio.getTxouts(amount + fee, 'BTC')
   if (!utxoInfo.sum) {
-    throw new Error(`Not enough BTC to cover the cost ${(amount + fee)/100000000}`)
+    throw new Error(`Not enough BTC to cover the cost ${(amount + fee) / 100000000}`)
   }
   const availableAmount = utxoInfo.sum
   const utxo = utxoInfo.txouts
@@ -147,7 +147,7 @@ function prepareHtlcConfig2Btc (offer, order, portfolio, issuance, changeAddr) {
     vout: [{
       // main output:
       value: amount,
-      scriptPubKey: htlcScript,
+      scriptPubKey: htlcScript
     }, {
       // change from the main output:
       value: availableAmount - amount - fee,

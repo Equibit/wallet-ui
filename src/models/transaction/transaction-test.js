@@ -253,12 +253,12 @@ describe('models/transaction/utils', function () {
     })
     describe('prepareHtlcConfig2Btc', function () {
       describe('buildConfig', function () {
-        let amount, order, buildConfig
+        let amount, buildConfig
         before(function () {
           htlcOfferMock = mockHtlcOffer('Bid')
           htlcConfig = prepareHtlcConfig2Btc(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.EQB)
           amount = htlcOfferMock.offer.quantity * htlcOfferMock.offer.price
-          order = htlcOfferMock.orderBid
+          // order = htlcOfferMock.orderBid
           buildConfig = htlcConfig.buildConfig
         })
         it('should have one vin for BTC', function () {
@@ -285,12 +285,12 @@ describe('models/transaction/utils', function () {
       })
 
       describe('txInfo', function () {
-        let txInfo, amount, order, offer, buildConfig
+        let txInfo, amount, offer, buildConfig
         before(function () {
           htlcOfferMock = mockHtlcOffer('Bid')
           htlcConfig = prepareHtlcConfig2Btc(htlcOfferMock.offer, htlcOfferMock.orderBid, portfolio, issuance, changeAddrPair.EQB)
           amount = htlcOfferMock.offer.quantity * htlcOfferMock.offer.price
-          order = htlcOfferMock.orderBid
+          // order = htlcOfferMock.orderBid
           offer = htlcOfferMock.offer
           buildConfig = htlcConfig.buildConfig
           txInfo = htlcConfig.txInfo
