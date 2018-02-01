@@ -59,6 +59,12 @@ export const ViewModel = DefineMap.extend({
     return moment(this.date).format('MM/DD @h:mm A')   // 04/29 @2:30 pm
   },
 
+  isAskFlow: {
+    get () {
+      return this.order.type === 'SELL'
+    }
+  },
+
   // For collect-asset modal:
   tx: '*',
   secret: 'string',

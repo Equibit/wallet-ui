@@ -38,6 +38,12 @@ export const ViewModel = DefineMap.extend({
     }
   },
 
+  isAskFlow: {
+    get () {
+      return this.order.type === 'SELL'
+    }
+  },
+
   // For collect-asset modal:
   offer: '*',
   tx: '*',
