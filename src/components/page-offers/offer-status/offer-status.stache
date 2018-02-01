@@ -19,7 +19,7 @@
               <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
             </div>
             <div class="offer-timeline-event offer-timeline-event--pending">
-              <span class="icon icon-check-pending"></span>Awaiting seller to accept offer
+              <span class="icon icon-check-pending"></span>Awaiting {{#if isAskFlow}}seller{{else}}buyer{{/if}} to accept offer
             </div>
           </div>
 
@@ -52,7 +52,8 @@
               <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
             </div>
             <div class="offer-timeline-event">
-              <span class="icon icon-check-progress"></span>Seller accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
+              <span class="icon icon-check-progress"></span>
+              {{#if isAskFlow}}Seller{{else}}Buyer{{/if}} accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
             </div>
             <div class="offer-timeline-event offer-timeline-event--pending">
               <span class="icon icon-check-pending"></span>
@@ -94,7 +95,8 @@
               <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
             </div>
             <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>Seller accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
+              <span class="icon icon-check-done"></span>
+              {{#if isAskFlow}}Seller{{else}}Buyer{{/if}} accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
             </div>
             <div class="offer-timeline-event">
               <span class="icon icon-check-done"></span>
@@ -127,7 +129,8 @@
               <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
             </div>
             <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>Seller accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
+              <span class="icon icon-check-done"></span>
+              {{#if isAskFlow}}Seller{{else}}Buyer{{/if}} accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
             </div>
             <div class="offer-timeline-event">
               <span class="icon icon-check-done"></span>
