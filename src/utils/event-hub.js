@@ -15,7 +15,7 @@ const dispatchAlertError = err => {
     'kind': 'danger',
     'title': 'System error',
     'message': `Sorry, an error occurred. Message: ${err.message}`,
-    'displayInterval': 20000
+    'displayInterval': 100000
   })
 }
 

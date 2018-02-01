@@ -103,7 +103,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       before(function () {
         const secret = generateSecret()
         // const changeBtcAddressPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
-        htlcOffer = createHtlcOffer(formData, secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
+        htlcOffer = createHtlcOffer(formData, secret, timelock, Session.current.user, issuance, {BTC: refundBtcAddress, EQB: eqbAddress})
       })
 
       describe('createHtlcOffer', function () {

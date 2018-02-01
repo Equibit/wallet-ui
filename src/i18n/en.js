@@ -77,6 +77,8 @@ export default {
 
   // Alphabetically
   about: 'About',
+  acceptOfferAndSendPayment: 'Accept Offer and Send Payment',
+  acceptOfferAndSendSecurities: 'Accept Offer and Send Securities',
   acceptPassports: 'Accept Passports',
   acceptedOffers: 'Accepted Offers',
   acceptedDate: 'Accepted Date',
@@ -140,6 +142,7 @@ export default {
   city: 'City',
   codeVerificationLabel: 'Enter Code',
   codeVerifiedMessage: 'Code Verified',
+  commonShares: 'Common Shares',
   company: 'Company',
   companyInformation: 'Company Information',
   companyAdd: 'Add a Company',

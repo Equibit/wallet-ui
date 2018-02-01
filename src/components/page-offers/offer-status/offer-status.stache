@@ -14,7 +14,8 @@
               <span class="icon icon-check-open"></span>Offer posted on <span class="offer-date">{{dateDisplay}}</span>
             </div>
             <div class="offer-timeline-event">
-              <span class="icon icon-check-open"></span>Payment offer sent
+              <span class="icon icon-check-open"></span>
+              {{#if isAskFlow}}Payment{{else}}Securities{{/if}} offer sent
               <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
             </div>
             <div class="offer-timeline-event offer-timeline-event--pending">
@@ -46,16 +47,20 @@
               <span class="icon icon-check-progress"></span>Offer posted on <span class="offer-date">{{dateDisplay}}</span>
             </div>
             <div class="offer-timeline-event">
-              <span class="icon icon-check-progress"></span>Payment offer sent
+              <span class="icon icon-check-progress"></span>
+              {{#if isAskFlow}}Payment{{else}}Securities{{/if}} offer sent
               <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
             </div>
             <div class="offer-timeline-event">
               <span class="icon icon-check-progress"></span>Seller accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
             </div>
             <div class="offer-timeline-event offer-timeline-event--pending">
-              <span class="icon icon-check-pending"></span>You can now collect the securities
+              <span class="icon icon-check-pending"></span>
+              You can now collect the {{#if isAskFlow}}securities{{else}}payment{{/if}}
               <div class="offer-deal-action">
-                <a href="" class="btn btn-xs btn-primary" on:click="collectSecurities()">Collect Securities</a>
+                <a href="" class="btn btn-xs btn-primary" on:click="collectSecurities()">
+                  Collect {{#if isAskFlow}}Securities{{else}}Payment{{/if}}
+                </a>
               </div>
             </div>
           </div>
@@ -63,7 +68,7 @@
           <!--Timer-->
           <div class="col-xs-12 col-sm-3">
             <div class="timer-container">
-              <label>Time left to collect the securities</label>
+              <label>Time left to collect the {{#if isAskFlow}}securities{{else}}payment{{/if}}</label>
               <time-remaining endTime:from="offer.timelockInfo.partialEndAt"></time-remaining>
             </div>
           </div>
@@ -84,14 +89,16 @@
               <span class="icon icon-check-done"></span>Offer posted on <span class="offer-date">{{dateDisplay}}</span>
             </div>
             <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>Payment offer sent
+              <span class="icon icon-check-done"></span>
+              {{#if isAskFlow}}Payment{{else}}Securities{{/if}} offer sent
               <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
             </div>
             <div class="offer-timeline-event">
               <span class="icon icon-check-done"></span>Seller accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
             </div>
             <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>Securities collected
+              <span class="icon icon-check-done"></span>
+              {{#if isAskFlow}}Securities{{else}}Payment{{/if}} collected
               <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId3}}">(View Transaction)</a>
             </div>
             <div class="offer-timeline-event">
@@ -115,18 +122,21 @@
               <span class="icon icon-check-done"></span>Offer posted on <span class="offer-date">{{dateDisplay}}</span>
             </div>
             <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>Payment offer sent
+              <span class="icon icon-check-done"></span>
+              {{#if isAskFlow}}Payment{{else}}Securities{{/if}} offer sent
               <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
             </div>
             <div class="offer-timeline-event">
               <span class="icon icon-check-done"></span>Seller accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
             </div>
             <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>Securities collected
+              <span class="icon icon-check-done"></span>
+              {{#if isAskFlow}}Securities{{else}}Payment{{/if}} collected
               <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId3}}">(View Transaction)</a>
             </div>
             <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>Payment collected
+              <span class="icon icon-check-done"></span>
+              {{#if isAskFlow}}Payment{{else}}Securities{{/if}} collected
             </div>
             <div class="offer-timeline-event">
               <span class="icon icon-hand-shake"></span>Deal Closed

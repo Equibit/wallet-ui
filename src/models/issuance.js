@@ -10,7 +10,7 @@
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
-import superModel from './super-model'
+import { superModelNoCache as superModel } from './super-model'
 import algebra from './algebra'
 import utils from './portfolio-utils'
 import Session from '~/models/session'

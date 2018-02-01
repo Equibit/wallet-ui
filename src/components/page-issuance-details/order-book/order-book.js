@@ -66,18 +66,7 @@ export const ViewModel = DefineMap.extend({
   },
 
   get userPortfolioForIssuance () {
-    const userHasPortfolioIssuances = this.session &&
-      this.session.portfolios &&
-      this.session.portfolios[0].securities &&
-      this.session.portfolios[0].securities.filter(sec => {
-        return sec.data.issuance.issuance_address === this.issuance.issuanceAddress
-      })[0]
-    const userHasAuthorizedIssuancesUtxo = this.session &&
-      this.session.issuances &&
-      this.session.issuances.filter(issuance => {
-        return issuance.issuanceAddress === this.issuance.issuanceAddress && issuance.utxo && issuance.utxo.length
-      })[0]
-    return userHasPortfolioIssuances || userHasAuthorizedIssuancesUtxo
+    return this.session.hasIssuanceUtxo(this.issuance.issuanceAddress)
   },
   isViewAllShown: 'boolean',
   showViewAll () {
@@ -98,18 +87,25 @@ export const ViewModel = DefineMap.extend({
   placeOrder (args) {
     typeforce(typeforce.tuple('FormData', 'String'), [args[1], args[2]])
     const formData = args[1]
+    // Type of the order: SELL | BUY
     const type = args[2]
+    const flowType = type === 'SELL' ? 'Ask' : 'Bid'
     console.log(`placeOrder: ${type}`, formData)
 
     return Promise.all([Session.current.issuancesPromise, this.portfolio.getNextAddress()])
       .then(([issuances, addr]) => {
+        // Note: we need issuance keys to sign BitMessage which we do further below. Not sure why we grab it from session.
         // todo: figure out a better way to "sync" this issuance with the list of issuances in Session.
-        const issuance = issuances.filter(issuance => issuance._id === this.issuance._id)[0]
-        const receiveAddr = addr.BTC
+        // const issuance = issuances.filter(issuance => issuance._id === this.issuance._id)[0]
+        const issuance = this.issuance
+        const receiveAddr = flowType === 'Ask' ? addr.BTC : addr.EQB
         return createOrder(formData, type, receiveAddr, Session.current.user, this.portfolio, issuance)
       })
       .then(order => {
-        return this.sendMessage(order, this.issuance.keys.keyPair)
+        // Note: for a sell order we use issuance keys which should be attached to this.issuance (both authorized and bought).
+        // todo: figure out what keys to use for a BUY order.
+        const keyPair = flowType === 'Ask' ? this.issuance.keys.keyPair : this.portfolio.keys.BTC.keyPair
+        return this.sendMessage(order, keyPair)
           .then(() => order.save())
           .then(() => dispatchAlertOrder(hub, route))
           .then(() => order)
@@ -131,18 +127,19 @@ export const ViewModel = DefineMap.extend({
     const formData = args[1]
     console.log('placeOffer: ', formData)
 
+    const flowType = formData.order.type === 'SELL' ? 'Ask' : 'Bid'
+
     const secret = generateSecret()
     return Promise.all([
-      // EQB address to receive securities, BTC address for refund
+      // Ask flow: EQB address to receive securities, BTC address for refund
       this.portfolio.getNextAddress(),
       // Change address:
       this.portfolio.getNextAddress(true)
-    ]).then(([addr, change]) => {
-      const receiveAddr = addr.EQB
-      // Note: we need to store the refundAddr on the offer because it will be used in HTLC.
-      const refundAddr = addr.BTC
-      const changeAddr = change.BTC
-      const offer = createHtlcOffer(formData, secret, formData.timelock, Session.current.user, this.issuance, receiveAddr, refundAddr)
+    ]).then(([addrPair, change]) => {
+      // Note: we need to store the refund address on the offer because it will be used in HTLC.
+      // Bid flow: change address for Empty EQB.
+      const changeAddr = flowType === 'Ask' ? change.BTC : change.EQB
+      const offer = createHtlcOffer(formData, secret, formData.timelock, Session.current.user, this.issuance, addrPair)
       const tx = Transaction.createHtlc1(offer, formData.order, this.portfolio, this.issuance, changeAddr)
 
       // Here we have all info about the transaction we want to create (fees, etc).
@@ -180,8 +177,8 @@ function createOrder (formData, type, addr, user, portfolio, issuance) {
     // todo: why do we need issuanceAddress at all??
     issuanceAddress: issuance.issuanceAddress,
     type,
-    btcAddress: addr,             // to receive payment
-    eqbAddress: '',               // will be populated when we create a transaction (from UTXO)
+    btcAddress: type === 'SELL' ? addr : '',            // to receive payment
+    eqbAddress: type === 'BUY' ? addr : '',             // will be populated when we create a transaction (from UTXO)
     portfolioId: portfolio._id,
     quantity: formData.quantity,
     price: formData.priceInUnits,
@@ -199,11 +196,32 @@ function generateSecret () {
   return cryptoUtils.randomBytes(32)
 }
 
-function createHtlcOffer (formData, secret, timelock, user, issuance, eqbAddress, refundBtcAddress) {
+/**
+ * Ask flow:
+ *    - send (lock) payment
+ *    - from: utxo
+ *    - refund: new btcAddress (refundAddress)
+ *    - receive securities to a new EQB address (receiveAddress)
+ * Bid flow:
+ *    - send (lock) securities
+ *    - from: utxo
+ *    - refund: utxo (the same as from address)
+ *    - receive payment to a new BTC address (receiveAddress)
+ *
+ * @param formData
+ * @param secret
+ * @param timelock
+ * @param user
+ * @param issuance
+ * @param addrPair
+ */
+// function createHtlcOffer (formData, secret, timelock, user, issuance, receiveAddress, refundAddress) {
+function createHtlcOffer (formData, secret, timelock, user, issuance, addrPair) {
   typeforce(typeforce.tuple(
-    'OfferFormData', 'Buffer', 'Number', 'User', 'Issuance', types.Address, types.Address),
+    'OfferFormData', 'Buffer', 'Number', 'User', 'Issuance', {EQB: types.Address, BTC: types.Address}),
     arguments
   )
+  const flowType = formData.order.type === 'SELL' ? 'Ask' : 'Bid'
 
   const secretEncrypted = user.encrypt(secret.toString('hex'))
   const hashlock = cryptoUtils.sha256(secret).toString('hex')
@@ -211,13 +229,14 @@ function createHtlcOffer (formData, secret, timelock, user, issuance, eqbAddress
     userId: user._id,
     orderId: formData.order._id,
     issuanceAddress: issuance.issuanceAddress,
-    btcAddress: refundBtcAddress,
-    // Main addr for receiving securities:
-    eqbAddress,
+    // Ask: refund address | Bid: main receiving address:
+    btcAddress: addrPair.BTC,
+    // Ask: main address for receiving securities | Bid: will be populated from utxo.
+    eqbAddress: flowType === 'Ask' ? addrPair.EQB : '',
     secretEncrypted,
     hashlock,
     timelock,
-    type: formData.order.type === 'SELL' ? 'BUY' : 'SELL',
+    type: flowType === 'Ask' ? 'BUY' : 'SELL',
     quantity: formData.quantity,
     price: formData.order.price,
     issuanceId: issuance._id,
@@ -232,8 +251,11 @@ function createHtlcOffer (formData, secret, timelock, user, issuance, eqbAddress
 }
 
 function saveOffer (offer, tx) {
-  // todo: what should offer know about the transaction?
   offer.htlcTxId1 = tx.txId
+  // Bid flow: save eqbAddress from transaction (from utxo):
+  if (offer.type === 'SELL') {
+    offer.eqbAddress = tx.fromAddress
+  }
   return offer.save()
 }
 

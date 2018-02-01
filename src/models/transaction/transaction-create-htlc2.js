@@ -2,7 +2,7 @@ import typeforce from 'typeforce'
 import { merge, pick } from 'ramda'
 import { eqbTxBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { buildTransaction } from './transaction-build'
-import { prepareTxData } from './transaction-create-htlc1'
+import { prepareHtlcConfigBtc, prepareTxData } from './transaction-create-htlc1'
 
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 // const simpleHashlockContract = eqbTxBuilder.simpleHashlockContract
@@ -17,20 +17,29 @@ function createHtlc2 (offer, order, portfolio, issuance, changeAddr) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
   typeforce(typeforce.tuple('Number', 'String'), [offer.timelock, offer.hashlock])
 
-  const htlcConfig = prepareHtlcConfig2(offer, order, portfolio, issuance, changeAddr)
-  const tx = buildTransaction('EQB')(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+  const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
+
+  const htlcConfig = currencyType === 'EQB'
+    ? prepareHtlcConfigEqb(offer, order, portfolio, issuance, changeAddr)
+    : prepareHtlcConfigBtc(offer, order, portfolio, changeAddr)
+  const tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
   const txData = prepareTxData(htlcConfig, tx, issuance)
+
+  txData.htlcStep = 2
+  txData.description = order.type === 'SELL' ? 'Sending securities (HTLC #2)' : 'Sending payment (HTLC #2)'
 
   return txData
 }
 
-// HTLC-2 is an EQB transaction from <order creator> to <offer creator>
-// case #1: Buy Offer / Sell Order. EQB currency type.
-function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyEqb) {
+// HTLC-2 is an blockchain transaction from <order creator> to <offer creator>
+//    - Ask flow (Sell order / Buy offer). EQB currency type.
+//    - Bid flow (Buy order / Sell offer). BTC currency type.
+function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmptyEqb) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
 
   const amount = offer.quantity
-  const toAddress = offer.eqbAddress
+  // We reuse this method for both HTLC1 (Bid) and HTLC2 (Ask), so toAddress will be different:
+  const toAddress = order.type === 'SELL' ? offer.eqbAddress : order.eqbAddress
 
   // todo: calculate transaction fee:
   const fee = 1000
@@ -39,7 +48,7 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
   // Note: timelock for the 2nd tx should be twice smaller:
   const timelock = Math.floor(offer.timelock / 2)
   const hashlock = offer.hashlock
-  const htlcStep = 2
+  // const htlcStep = 2
 
   // UTXO:
   // todo: validate that issuance and portfolio have enough utxo (results in a non-empty array).
@@ -99,10 +108,9 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
     fee,
     type: order.type,
     currencyType: 'EQB',
-    description: `Selling securities (HTLC #${htlcStep})`,
+    // description: `Selling securities (HTLC #${htlcStep})`,
     hashlock: offer.hashlock,
-    timelock: timelock,
-    htlcStep
+    timelock: timelock
   }
 
   return { buildConfig, txInfo }
@@ -110,5 +118,5 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
 
 export {
   createHtlc2,
-  prepareHtlcConfig2
+  prepareHtlcConfigEqb
 }
