@@ -55,8 +55,9 @@ export const ViewModel = DefineMap.extend({
 
     return Promise.all([
       Session.current.issuancesPromise,
+      portfolio.getNextAddress(),
       portfolio.getNextAddress(true)
-    ]).then(([issuances, changeAddrPair]) => {
+    ]).then(([issuances, addrPair, changeAddrPair]) => {
       // todo: figure out a better way to find the issuance with preloaded UTXO.
       const issuance = this.order.type === 'SELL'
         ? issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
@@ -64,6 +65,11 @@ export const ViewModel = DefineMap.extend({
 
       // Change address (Empty EQB for transaction fee or BTC for change):
       const changeAddr = this.order.type === 'SELL' ? changeAddrPair.EQB : changeAddrPair.BTC
+
+      // Refund address for Bid flow:
+      if (this.order.type === 'BUY') {
+        this.order.btcAddress = addrPair.BTC
+      }
 
       console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddr`, offer, this.order, portfolio, issuance, changeAddr)
       const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddr)
@@ -108,7 +114,9 @@ export const ViewModel = DefineMap.extend({
 
 function updateOrder (order, tx) {
   // Address is defined during tx creation, now we save it (for refund and change):
-  order.eqbAddress = tx.fromAddress
+  if (order.type === 'SELL') {
+    order.eqbAddress = tx.fromAddress
+  }
   return order.save()
 }
 

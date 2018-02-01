@@ -2,7 +2,7 @@ import typeforce from 'typeforce'
 import { merge, pick } from 'ramda'
 import { eqbTxBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { buildTransaction } from './transaction-build'
-import { prepareTxData } from './transaction-create-htlc1'
+import { prepareHtlcConfigBtc, prepareTxData } from './transaction-create-htlc1'
 
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 // const simpleHashlockContract = eqbTxBuilder.simpleHashlockContract
@@ -20,10 +20,13 @@ function createHtlc2 (offer, order, portfolio, issuance, changeAddr) {
   const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
 
   const htlcConfig = currencyType === 'EQB'
-    ? prepareHtlcConfig2(offer, order, portfolio, issuance, changeAddr)
-    : prepareHtlcConfig2Btc(offer, order, portfolio, issuance, changeAddr)
+    ? prepareHtlcConfigEqb(offer, order, portfolio, issuance, changeAddr)
+    : prepareHtlcConfigBtc(offer, order, portfolio, changeAddr)
   const tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
   const txData = prepareTxData(htlcConfig, tx, issuance)
+
+  txData.htlcStep = 2
+  txData.description = order.type === 'SELL' ? 'Sending securities (HTLC #2)' : 'Sending payment (HTLC #2)'
 
   return txData
 }
@@ -31,11 +34,12 @@ function createHtlc2 (offer, order, portfolio, issuance, changeAddr) {
 // HTLC-2 is an blockchain transaction from <order creator> to <offer creator>
 //    - Ask flow (Sell order / Buy offer). EQB currency type.
 //    - Bid flow (Buy order / Sell offer). BTC currency type.
-function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyEqb) {
+function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmptyEqb) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
 
   const amount = offer.quantity
-  const toAddress = offer.eqbAddress
+  // We reuse this method for both HTLC1 (Bid) and HTLC2 (Ask), so toAddress will be different:
+  const toAddress = order.type === 'SELL' ? offer.eqbAddress : order.eqbAddress
 
   // todo: calculate transaction fee:
   const fee = 1000
@@ -44,7 +48,7 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
   // Note: timelock for the 2nd tx should be twice smaller:
   const timelock = Math.floor(offer.timelock / 2)
   const hashlock = offer.hashlock
-  const htlcStep = 2
+  // const htlcStep = 2
 
   // UTXO:
   // todo: validate that issuance and portfolio have enough utxo (results in a non-empty array).
@@ -104,73 +108,9 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
     fee,
     type: order.type,
     currencyType: 'EQB',
-    description: `Selling securities (HTLC #${htlcStep})`,
+    // description: `Selling securities (HTLC #${htlcStep})`,
     hashlock: offer.hashlock,
-    timelock: timelock,
-    htlcStep
-  }
-
-  return { buildConfig, txInfo }
-}
-
-function prepareHtlcConfig2Btc (offer, order, portfolio, issuance, changeAddr) {
-  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
-
-  const amount = offer.quantity * offer.price
-  const toAddress = offer.btcAddress
-
-  // todo: calculate transaction fee:
-  const fee = 1000
-
-  // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
-  // Note: timelock for the 2nd tx should be twice smaller:
-  const timelock = Math.floor(offer.timelock / 2)
-  const hashlock = offer.hashlock
-  const htlcStep = 2
-
-  // todo: should refund addr be a completely new one?
-  const refundAddress = changeAddr
-
-  // UTXO:
-  const utxoInfo = portfolio.getTxouts(amount + fee, 'BTC')
-  if (!utxoInfo.sum) {
-    throw new Error(`Not enough BTC to cover the cost ${(amount + fee) / 100000000}`)
-  }
-  const availableAmount = utxoInfo.sum
-  const utxo = utxoInfo.txouts
-    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
-
-  // HTLC SCRIPT:
-  const htlcScript = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
-  console.log(`htlcScript = ${htlcScript.toString('hex')}`)
-
-  const buildConfig = {
-    vin: utxo.map(pick(['txid', 'vout', 'keyPair'])),
-    vout: [{
-      // main output:
-      value: amount,
-      scriptPubKey: htlcScript
-    }, {
-      // change from the main output:
-      value: availableAmount - amount - fee,
-      address: changeAddr
-    }]
-  }
-
-  const txInfo = {
-    address: utxo[0].address,
-    addressTxid: utxo[0].txid,
-    addressVout: utxo[0].vout,
-    fromAddress: utxo[0].address,
-    toAddress,
-    amount,
-    fee,
-    type: order.type,
-    currencyType: 'BTC',
-    description: `Sending payment for securities (HTLC #${htlcStep})`,
-    hashlock: offer.hashlock,
-    timelock: timelock,
-    htlcStep
+    timelock: timelock
   }
 
   return { buildConfig, txInfo }
@@ -178,6 +118,5 @@ function prepareHtlcConfig2Btc (offer, order, portfolio, issuance, changeAddr) {
 
 export {
   createHtlc2,
-  prepareHtlcConfig2,
-  prepareHtlcConfig2Btc
+  prepareHtlcConfigEqb
 }
