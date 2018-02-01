@@ -26,6 +26,14 @@ import currencyConverter from '~/utils/btc-usd-converter'
 
 export const ViewModel = DefineMap.extend({
   tx: '*',
+
+  // Flow type: Ask | Bid
+  flowType: {
+    get () {
+      return this.tx && this.tx.type === 'SELL' ? 'Ask' : 'Bid'
+    }
+  },
+
   issuance: '*',
   portfolio: '*',
   offerTimelock: {
@@ -44,6 +52,7 @@ export const ViewModel = DefineMap.extend({
         quantityBtc: tx.amount / 100000000,
         quantity: tx.amount,
         fee: tx.fee,
+        totalAmount: (tx.amount + tx.fee),
         totalAmountBtc: (tx.amount + tx.fee) / 100000000,
         // timelock is in blocks (10min per block)
         timelock: tx.timelock / 6,

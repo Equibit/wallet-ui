@@ -77,6 +77,8 @@ export default {
 
   // Alphabetically
   about: 'About',
+  acceptOfferAndSendPayment: 'Accept Offer and Send Payment',
+  acceptOfferAndSendSecurities: 'Accept Offer and Send Securities',
   acceptPassports: 'Accept Passports',
   acceptedOffers: 'Accepted Offers',
   acceptedDate: 'Accepted Date',
