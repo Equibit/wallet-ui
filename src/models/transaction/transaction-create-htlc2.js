@@ -17,10 +17,12 @@ function createHtlc2 (offer, order, portfolio, issuance, changeAddr) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
   typeforce(typeforce.tuple('Number', 'String'), [offer.timelock, offer.hashlock])
 
-  const htlcConfig = order.type === 'SELL'
+  const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
+
+  const htlcConfig = currencyType === 'EQB'
     ? prepareHtlcConfig2(offer, order, portfolio, issuance, changeAddr)
     : prepareHtlcConfig2Btc(offer, order, portfolio, issuance, changeAddr)
-  const tx = buildTransaction('EQB')(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+  const tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
   const txData = prepareTxData(htlcConfig, tx, issuance)
 
   return txData
