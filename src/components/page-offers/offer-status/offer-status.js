@@ -61,7 +61,7 @@ export const ViewModel = DefineMap.extend({
 
   isAskFlow: {
     get () {
-      return this.order.type === 'SELL'
+      return this.order && this.order.type === 'SELL'
     }
   },
 
