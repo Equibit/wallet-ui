@@ -383,7 +383,7 @@ describe('models/transaction/utils', function () {
   })
 
   describe('HTLC-4 Collect payment (for the Sell order / Buy offer)', function () {
-    // const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
+    const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
     const fee = 1000
 
@@ -395,7 +395,7 @@ describe('models/transaction/utils', function () {
           order = htlcOfferMock.order
           offer = htlcOfferMock.offer
           amount = offer.quantity * offer.price
-          htlcConfig = prepareHtlcConfig4(order, offer, portfolio, issuance, htlcOfferMock.secretHex)
+          htlcConfig = prepareHtlcConfig4(order, offer, portfolio, htlcOfferMock.secretHex)
           buildConfig = htlcConfig.buildConfig
         })
         it('should have one vin of BTC payment', function () {
@@ -430,7 +430,7 @@ describe('models/transaction/utils', function () {
           order = htlcOfferMock.order
           offer = htlcOfferMock.offer
           amount = offer.quantity * offer.price
-          htlcConfig = prepareHtlcConfig4(order, offer, portfolio, issuance, htlcOfferMock.secretHex)
+          htlcConfig = prepareHtlcConfig4(order, offer, portfolio, htlcOfferMock.secretHex)
           buildConfig = htlcConfig.buildConfig
           txInfo = htlcConfig.txInfo
         })
