@@ -111,7 +111,9 @@ function prepareHtlcConfig3Btc (order, offer, portfolio, issuance, secret, chang
         secret,
         // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
         refundAddr: order.btcAddress,
-        timelock: order.timelock || Math.floor(offer.timelock / 2)
+        // todo: figure out what should be timelock here!
+        // timelock: order.timelock || Math.floor(offer.timelock / 2)
+        timelock: offer.timelock
       },
       sequence: '4294967295'
     }],

@@ -4,7 +4,7 @@
 
 <div class="confirm-summary">
 
-  <!-- FROM -->
+  <!-- TO -->
   <label class="">{{#eq formData.type 'BTC'}} {{i18n('sendPaymentTo')}} {{else}} {{i18n('sendSecuritiesTo')}} {{/eq}}</label>
   <p class="input-value break-word"><strong>{{formData.address}}</strong></p>
 

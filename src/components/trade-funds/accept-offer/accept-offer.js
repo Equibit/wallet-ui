@@ -47,7 +47,7 @@ export const ViewModel = DefineMap.extend({
       const issuance = this.issuance
       return new DefineMap({
         type: tx.currencyType,
-        address: tx.address,
+        address: tx.toAddress,
         issuanceName: issuance.companyName + ', ' + issuance.issuanceName,
         quantityBtc: tx.amount / 100000000,
         quantity: tx.amount,
