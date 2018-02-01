@@ -8,10 +8,17 @@ import orderFixturesData from '../fixtures/orders'
 import issuance from './mock-issuance'
 import './mock-session'
 
-const orderData = Object.assign({}, orderFixturesData[0], { issuance: issuance })
-const order = new Order(orderData)
-const formData = new (DefineMap.extend('OfferFormData', {seal: false}, {}))({
-  order,
+const orderDataAsk = Object.assign({}, orderFixturesData[0], { issuance: issuance })
+const orderAsk = new Order(orderDataAsk)
+const formDataAsk = new (DefineMap.extend('OfferFormData', {seal: false}, {}))({
+  order: orderAsk,
+  quantity: 500
+})
+
+const orderDataBid = Object.assign({}, orderFixturesData[1], { issuance: issuance })
+const orderBid = new Order(orderDataBid)
+const formDataBid = new (DefineMap.extend('OfferFormData', {seal: false}, {}))({
+  order: orderBid,
   quantity: 500
 })
 
@@ -22,23 +29,30 @@ const eqbAddress = 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'
 const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
 // const changeBtcAddressPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
 
-export default function () {
-  const offer = createHtlcOffer(formData, secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
+// type :: Ask | Bid
+export default function (type = 'Ask') {
+  const offer = type === 'Ask'
+    ? createHtlcOffer(formDataAsk, secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
+    : createHtlcOffer(formDataBid, secret, timelock, Session.current.user, issuance, eqbAddress, refundBtcAddress)
 
   offer.htlcTxId1 = 'e426a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301'
   offer.htlcTxId2 = 'e426a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301'
 
   return {
     offer,
-    order,
-    orderData,
-    formData,
+    order: orderAsk,
+    orderBid,
+    orderData: orderDataAsk,
+    orderDataBid,
+    formData: formDataAsk,
+    formDataBid,
     secretHex,
     timelock,
     eqbAddress,
     refundBtcAddress,
     htlcScript: '63a820169c59d82c28bbefc3ef6ae83b94c93ffa03d2c4bd2b9f6d33340fdd4fe27cd98876a914e88316256761f24413dab167e4c2e07a6b8f11ce670114b17576a914e88316256761f24413dab167e4c2e07a6b8f11ce6888ac',
     htlcScript2: '63a820169c59d82c28bbefc3ef6ae83b94c93ffa03d2c4bd2b9f6d33340fdd4fe27cd98876a914f5db705e49316357b6b27087daa63c1ae2771f66675ab17576a91441ab400b12f9311d00ff9bb98423481c921a0edb6888ac',
+    htlcScript2Btc: '63a820169c59d82c28bbefc3ef6ae83b94c93ffa03d2c4bd2b9f6d33340fdd4fe27cd98876a914e88316256761f24413dab167e4c2e07a6b8f11ce675ab17576a914a8d51b85759148bf787411b168b4eb380cc12bfd6888ac',
     htlcScript4: '',
     txHex: '010000000101e342ee9bf51d1b93e801a32d620368f3bc6fd68ed3ed5076f41e8716a926e2010000006b483045022100defa2356f931a2884f5e984263c75c94699153a14b4e4e02b413c25dd090e3f502206f72174308b0af2d03dc080719541d950d7972243d54aa3f243b0a0f1f2d2525012103687b195326cc57e054a5b780d3fb3383b2e113a0082be4a22f600acdc276a564ffffffff02b8880000000000005a63a820169c59d82c28bbefc3ef6ae83b94c93ffa03d2c4bd2b9f6d33340fdd4fe27cd98876a914e88316256761f24413dab167e4c2e07a6b8f11ce670114b17576a914e88316256761f24413dab167e4c2e07a6b8f11ce6888ace0099800000000001976a914a8d51b85759148bf787411b168b4eb380cc12bfd88ac00000000',
     txId: '5f4a1714b29e1fd37f24572b90f1b7b062828a53d6685b1290018c26ef9281ad',

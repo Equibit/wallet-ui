@@ -14,7 +14,7 @@
           <label for="">
             {{#eq formData.type 'BTC'}} {{i18n('paymentFor')}} {{else}} {{i18n('commonShares')}} {{/eq}}
           </label>
-          <span class="input-value">{{formData.order.issuanceName}}</span>
+          <span class="input-value">{{formData.order.companyName}}, {{formData.order.issuanceName}}</span>
       </div>
   </div>
 

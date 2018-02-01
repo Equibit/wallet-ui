@@ -58,9 +58,12 @@ export const ViewModel = DefineMap.extend({
       portfolio.getNextAddress(true)
     ]).then(([issuances, changeAddrPair]) => {
       // todo: figure out a better way to find the issuance with preloaded UTXO.
-      const issuance = issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
-      // Change address for Empty EQB (transaction fee):
-      const changeAddr = changeAddrPair.EQB
+      const issuance = this.order.type === 'SELL'
+        ? issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
+        : this.issuance
+
+      // Change address (Empty EQB for transaction fee or BTC for change):
+      const changeAddr = this.order.type === 'SELL' ? changeAddrPair.EQB : changeAddrPair.BTC
 
       console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddr`, offer, this.order, portfolio, issuance, changeAddr)
       const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddr)

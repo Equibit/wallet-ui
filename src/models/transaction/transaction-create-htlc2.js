@@ -17,15 +17,18 @@ function createHtlc2 (offer, order, portfolio, issuance, changeAddr) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
   typeforce(typeforce.tuple('Number', 'String'), [offer.timelock, offer.hashlock])
 
-  const htlcConfig = prepareHtlcConfig2(offer, order, portfolio, issuance, changeAddr)
+  const htlcConfig = order.type === 'SELL'
+    ? prepareHtlcConfig2(offer, order, portfolio, issuance, changeAddr)
+    : prepareHtlcConfig2Btc(offer, order, portfolio, issuance, changeAddr)
   const tx = buildTransaction('EQB')(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
   const txData = prepareTxData(htlcConfig, tx, issuance)
 
   return txData
 }
 
-// HTLC-2 is an EQB transaction from <order creator> to <offer creator>
-// case #1: Buy Offer / Sell Order. EQB currency type.
+// HTLC-2 is an blockchain transaction from <order creator> to <offer creator>
+//    - Ask flow (Sell order / Buy offer). EQB currency type.
+//    - Bid flow (Buy order / Sell offer). BTC currency type.
 function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyEqb) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
 
@@ -108,7 +111,71 @@ function prepareHtlcConfig2 (offer, order, portfolio, issuance, changeAddrEmptyE
   return { buildConfig, txInfo }
 }
 
+function prepareHtlcConfig2Btc (offer, order, portfolio, issuance, changeAddr) {
+  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
+
+  const amount = offer.quantity * offer.price
+  const toAddress = offer.btcAddress
+
+  // todo: calculate transaction fee:
+  const fee = 1000
+
+  // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
+  // Note: timelock for the 2nd tx should be twice smaller:
+  const timelock = Math.floor(offer.timelock / 2)
+  const hashlock = offer.hashlock
+  const htlcStep = 2
+
+  // todo: should refund addr be a completely new one?
+  const refundAddress = changeAddr
+
+  // UTXO:
+  const utxoInfo = portfolio.getTxouts(amount + fee, 'BTC')
+  if (!utxoInfo.sum) {
+    throw new Error(`Not enough BTC to cover the cost ${(amount + fee)/100000000}`)
+  }
+  const availableAmount = utxoInfo.sum
+  const utxo = utxoInfo.txouts
+    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+
+  // HTLC SCRIPT:
+  const htlcScript = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
+  console.log(`htlcScript = ${htlcScript.toString('hex')}`)
+
+  const buildConfig = {
+    vin: utxo.map(pick(['txid', 'vout', 'keyPair'])),
+    vout: [{
+      // main output:
+      value: amount,
+      scriptPubKey: htlcScript,
+    }, {
+      // change from the main output:
+      value: availableAmount - amount - fee,
+      address: changeAddr
+    }]
+  }
+
+  const txInfo = {
+    address: utxo[0].address,
+    addressTxid: utxo[0].txid,
+    addressVout: utxo[0].vout,
+    fromAddress: utxo[0].address,
+    toAddress,
+    amount,
+    fee,
+    type: order.type,
+    currencyType: 'BTC',
+    description: `Sending payment for securities (HTLC #${htlcStep})`,
+    hashlock: offer.hashlock,
+    timelock: timelock,
+    htlcStep
+  }
+
+  return { buildConfig, txInfo }
+}
+
 export {
   createHtlc2,
-  prepareHtlcConfig2
+  prepareHtlcConfig2,
+  prepareHtlcConfig2Btc
 }
