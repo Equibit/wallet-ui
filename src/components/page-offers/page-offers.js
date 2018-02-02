@@ -24,7 +24,11 @@ export const ViewModel = DefineMap.extend({
   offersPromise: {
     get (val) {
       if (Session.current) {
-        return Offer.getList({userId: Session.current.user._id})
+        return Offer.getList({
+          userId: Session.current.user._id,
+          $skip: 0,
+          $limit: 1000
+        })
       }
     }
   },

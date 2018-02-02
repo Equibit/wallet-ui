@@ -37,9 +37,10 @@ export const ViewModel = DefineMap.extend({
 
   issuance: '*',
   portfolio: '*',
+  offer: '*',
   offerTimelock: {
-    value: function () {
-      return this.tx.timelock * 2
+    get: function () {
+      return this.offer && this.offer.timelockInfo ? this.offer.timelockInfo.fullBlocksRemaining : this.tx.timelock * 2
     }
   },
   formData: {
@@ -56,9 +57,9 @@ export const ViewModel = DefineMap.extend({
         totalAmount: (tx.amount + tx.fee),
         totalAmountBtc: (tx.amount + tx.fee) / 100000000,
         // timelock is in blocks (10min per block)
-        timelock: tx.timelock / 6,
+        timelock: Math.floor(tx.timelock / 6),
         description: tx.description,
-        offerTimelock: this.offerTimelock / 6,
+        offerTimelock: Math.floor(this.offerTimelock / 6),
         portfolioName: this.portfolio.name
       })
     }
