@@ -79,12 +79,14 @@ function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr) {
     addressVout: utxo[0].vout,
     fromAddress: utxo[0].address,
     toAddress,
+    refundAddress,
     amount,
     fee,
     type: offer.type,
     currencyType: 'BTC',
     hashlock: offer.hashlock,
-    timelock: offer.timelock
+    timelock: offer.timelock,
+    buildConfig
   }
 
   return { buildConfig, txInfo }

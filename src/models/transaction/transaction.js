@@ -16,6 +16,7 @@
 
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
+import typeforce from 'typeforce'
 import feathersClient from '../feathers-client'
 import { superModelNoCache } from '../super-model'
 import algebra from '../algebra'
@@ -23,6 +24,9 @@ import i18n from '../../i18n/i18n'
 import { makeTransaction } from './transaction-make'
 import { createHtlc1 } from './transaction-create-htlc1'
 import { blockTime } from '~/constants'
+import { buildTransaction } from './transaction-build'
+import { eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
+const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
 const Transaction = DefineMap.extend('Transaction', {
   makeTransaction (amount, toAddress, txouts, options) {
@@ -226,6 +230,32 @@ const Transaction = DefineMap.extend('Transaction', {
   get timelockExpiresAt () {
     const ctime = this.createdAt ? this.createdAt.getTime() : Date.now()
     return new Date(ctime + (this.timelock || 0) * blockTime[this.currencyType])
+  },
+
+  // This is for rebuilding transaction hex:
+  buildConfig: {
+    serialize: false
+  },
+  // Rebuilds transaction hex (e.g. timelock was changed)
+  rebuild ({ timelock }) {
+    if (this._id) {
+      throw new Error('Cannot rebuild transaction because it was already submitted')
+    }
+    typeforce('Number', timelock)
+    if (!this.buildConfig) {
+      throw new Error('Cannot rebuild transaction (no build config)')
+    }
+    if (!this.buildConfig.vout[0].scriptPubKey) {
+      throw new Error('Cannot rebuild transaction (no existing vout scriptPubKey)')
+    }
+    const script = hashTimelockContract(this.toAddress, this.refundAddress, this.hashlock, timelock)
+    console.log(`script = ${script.toString('hex')}`)
+    this.buildConfig.vout[0].scriptPubKey = script
+    const tx = buildTransaction(this.currencyType)(this.buildConfig.vin, this.buildConfig.vout)
+
+    this.timelock = timelock
+    this.hex = tx.hex
+    this.txId = tx.txId
   }
 })
 

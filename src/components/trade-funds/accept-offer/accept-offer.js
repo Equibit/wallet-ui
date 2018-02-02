@@ -68,6 +68,7 @@ export const ViewModel = DefineMap.extend({
     return currencyConverter.convert(value, 'EQBUSD')
   },
   send (close) {
+    // Here timelock is in hours, but transaction works with blocks (10min per block).
     this.dispatch('send', [this.formData.timelock * 6, this.formData.description])
     close()
   }
