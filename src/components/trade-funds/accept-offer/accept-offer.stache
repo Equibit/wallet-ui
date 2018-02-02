@@ -21,7 +21,7 @@
         <div class="description">Please review and confirm your transaction.</div>
 
         <div class="list-group">
-            <timer-notice endTime:from="tx.timelockExpiresAt"></timer-notice>
+            <timer-notice endTime:from="offer.timelockInfo.fullEndAt"></timer-notice>
             <div class="list-group-item">
                 {{> *confirmSummary}}
             </div>

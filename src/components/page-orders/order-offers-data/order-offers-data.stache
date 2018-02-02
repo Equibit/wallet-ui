@@ -53,5 +53,6 @@
   <accept-offer on:send="sendSecurities(scope.arguments)"
                tx:from="tx"
                portfolio:from="portfolio"
-               issuance:from="issuance" />
+               issuance:from="issuance"
+               offer:from="offer" />
 {{/if}}

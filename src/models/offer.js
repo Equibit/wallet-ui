@@ -194,36 +194,42 @@ const Offer = DefineMap.extend('Offer', {
       return this.orderPromise.then(order => {
         const addresses = [
           this.btcAddress,
-          this.eqbAddressHolding,
-          this.eqbAddressTrading,
+          this.eqbAddress,
           order.btcAddress,
-          order.eqbAddressTrading,
-          order.eqbAddressHolding
+          order.eqbAddress
         ]
         return Transaction.getList({
           txId: { $in: [htlcTxId1, htlcTxId2] },
           address: {'$in': addresses}
         })
       })
-      .then(([step1, step2]) => {
-        if (step2 && step1.txId === htlcTxId2) {
-          const tx = step2
-          step2 = step1
-          step1 = tx
-        }
+      .then(txes => {
+        const step1 = txes.filter(t => t.htlcStep === 1)[0]
+        const step2 = txes.filter(t => t.htlcStep === 2)[0]
+
         const fullDuration = blockTime[step1.currencyType] * step1.timelock
         const fullEndAt = step1.createdAt.getTime() + fullDuration
-        let partialDuration, partialEndAt, safetyZone
+        const fullBlocksRemaining = Math.max(
+          Math.floor((fullEndAt - Date.now()) / blockTime[step1.currencyType]),
+          0
+        )
+        let partialDuration, partialEndAt, partialBlocksRemaining, safetyZone
         if (step2) {
           partialDuration = blockTime[step2.currencyType] * step2.timelock
           partialEndAt = step2.createdAt.getTime() + partialDuration
+          partialBlocksRemaining = Math.max(
+            Math.floor((partialEndAt - Date.now()) / blockTime[step2.currencyType]),
+            0
+          )
           safetyZone = fullEndAt - partialEndAt
         }
         return {
           fullDuration,
           fullEndAt,
+          fullBlocksRemaining,
           partialDuration,
           partialEndAt,
+          partialBlocksRemaining,
           safetyZone
         }
       })
