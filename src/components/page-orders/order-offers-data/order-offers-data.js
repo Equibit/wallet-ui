@@ -104,7 +104,6 @@ export const ViewModel = DefineMap.extend({
     try {
       // will update tx with new hex, txId and timelock.
       tx.rebuild({timelock})
-
     } catch (err) {
       console.log(err)
       dispatchAlertError({
