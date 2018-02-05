@@ -37,6 +37,7 @@ export default function (type = 'Ask') {
 
   offer.htlcTxId1 = 'e426a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301'
   offer.htlcTxId2 = 'e426a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301'
+  offer.timelock2 = timelock / 2
 
   return {
     offer,

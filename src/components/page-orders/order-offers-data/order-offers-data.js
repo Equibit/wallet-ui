@@ -101,15 +101,18 @@ export const ViewModel = DefineMap.extend({
     const order = this.order
     const offer = this.offer
     const tx = this.tx
-    try {
-      // will update tx with new hex, txId and timelock.
-      tx.rebuild({timelock})
-    } catch (err) {
-      console.log(err)
-      dispatchAlertError({
-        message: `Cannot re-build transaction with the provided timelock ${timelock}`
-      })
-      return
+
+    if (offer.timelock2 !== timelock) {
+      try {
+        // will update tx with new hex, txId and timelock.
+        tx.rebuild({timelock})
+      } catch (err) {
+        console.log(err)
+        dispatchAlertError({
+          message: `Cannot re-build transaction with the provided timelock ${timelock}`
+        })
+        return
+      }
     }
     typeforce('Offer', offer)
     typeforce('Transaction', tx)
