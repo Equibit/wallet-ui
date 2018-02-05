@@ -100,6 +100,9 @@ function prepareHtlcConfig4Eqb (order, offer, portfolio, secret, changeAddr) {
   const htlcStep = 4
   const amount = offer.quantity
 
+  // We unlock htlc1 here (so using timelock):
+  const timelock = offer.timelock
+
   // For EQB the fee comes from empty EQB.
   const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
   if (!utxoEmptyEqbInfo.sum) {
@@ -119,8 +122,7 @@ function prepareHtlcConfig4Eqb (order, offer, portfolio, secret, changeAddr) {
         secret,
         // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
         refundAddr: offer.eqbAddress,
-        // todo: figure out what timelock should be here.
-        timelock: Math.floor(offer.timelock / 2)
+        timelock
       },
       sequence: '4294967295'
     }],

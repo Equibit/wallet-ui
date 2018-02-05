@@ -36,6 +36,7 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
   // todo: calculate transaction fee:
   const fee = 1000
   const htlcStep = 3
+  const timelock = order.type === 'SELL' ? offer.timelock2 : offer.timelock
 
   // For EQB the fee comes from empty EQB.
   const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
@@ -56,7 +57,7 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
         secret,
         // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
         refundAddr: order.eqbAddress,
-        timelock: order.timelock || Math.floor(offer.timelock / 2)
+        timelock: timelock
       },
       sequence: '4294967295'
     }],
@@ -99,6 +100,9 @@ function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
   const fee = 1000
   const htlcStep = 3
 
+  // We unlock htlc2 here (so using timelock2):
+  const timelock = offer.timelock2
+
   // Note: we don't need our own UTXO since we are just unlocking HTLC payment.
 
   const buildConfig = {
@@ -111,9 +115,7 @@ function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
         secret,
         // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
         refundAddr: order.btcAddress,
-        // todo: figure out what should be timelock here!
-        // timelock: order.timelock || Math.floor(offer.timelock / 2)
-        timelock: offer.timelock
+        timelock
       },
       sequence: '4294967295'
     }],

@@ -46,8 +46,7 @@ function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr) {
   // todo: calculate transaction fee:
   const fee = 1000
 
-  // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
-  const timelock = offer.timelock
+  const timelock = order.type === 'SELL' ? offer.timelock : offer.timelock2
   const hashlock = offer.hashlock
 
   const utxoInfo = portfolio.getTxouts(amount + fee, 'BTC')

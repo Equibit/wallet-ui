@@ -44,11 +44,11 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
   // todo: calculate transaction fee:
   const fee = 1000
 
-  // todo: figure out # of blocks VS absolute timestamp: (144 blocks/day).
-  // Note: timelock for the 2nd tx should be twice smaller:
-  const timelock = Math.floor(offer.timelock / 2)
+  // Note: timelock for htlc2 should be smaller than htlc1 (e.g. 1/2):
+  // Since we reuse this method for both Ask/Bid flows timelock is different.
+  const timelock = order.type === 'SELL' ? offer.timelock2 : offer.timelock
+
   const hashlock = offer.hashlock
-  // const htlcStep = 2
 
   // UTXO:
   // todo: validate that issuance and portfolio have enough utxo (results in a non-empty array).

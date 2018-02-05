@@ -71,6 +71,9 @@ export const ViewModel = DefineMap.extend({
         this.order.btcAddress = addrPair.BTC
       }
 
+      // By default set htlc2 timelock to the half of htlc1 (user will be able to change it in the modal):
+      offer.timelock2 = Math.floor(offer.timelock / 2)
+
       console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddr`, offer, this.order, portfolio, issuance, changeAddr)
       const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddr)
       const tx = new Transaction(txData)
@@ -101,6 +104,7 @@ export const ViewModel = DefineMap.extend({
     try {
       // will update tx with new hex, txId and timelock.
       tx.rebuild({timelock})
+
     } catch (err) {
       console.log(err)
       dispatchAlertError({
@@ -133,6 +137,7 @@ function updateOffer (offer, tx) {
   offer.htlcTxId2 = tx.txId
   offer.htlcStep = 2
   offer.isAccepted = true
+  offer.timelock2 = tx.timelock
   return offer.save()
 }
 
