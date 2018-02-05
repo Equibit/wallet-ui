@@ -23,7 +23,7 @@ function createHtlc4 (order, offer, portfolio, issuance, secret, changeAddr) {
 
   const htlcConfig = currencyType === 'BTC'
     ? prepareHtlcConfig4(order, offer, portfolio, secret)
-    : prepareHtlcConfig4Eqb(order, offer, portfolio, secret, changeAddr)
+    : prepareHtlcConfig4Eqb(order, offer, portfolio, secret, issuance, changeAddr)
   // todo: generalize to both Ask and Bid.
   const tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
   const txData = prepareTxData(htlcConfig, tx, issuance)
@@ -89,10 +89,10 @@ function prepareHtlcConfig4 (order, offer, portfolio, secret) {
 }
 
 // Bid flow: buyer (order creator) collects locked securities.
-function prepareHtlcConfig4Eqb (order, offer, portfolio, secret, changeAddr) {
+function prepareHtlcConfig4Eqb (order, offer, portfolio, secret, issuance, changeAddr) {
   console.log('prepareHtlcConfig4', arguments)
   typeforce(
-    typeforce.tuple('Order', 'Offer', 'Portfolio', 'String', types.Address),
+    typeforce.tuple('Order', 'Offer', 'Portfolio', 'String', 'Issuance', types.Address),
     arguments
   )
   // todo: calculate transaction fee:
@@ -127,9 +127,10 @@ function prepareHtlcConfig4Eqb (order, offer, portfolio, secret, changeAddr) {
       sequence: '4294967295'
     }],
     vout: [{
-      // Main output for unlocked HTLC:
+      // Main output for unlocked HTLC securities:
       value: amount,
-      address: order.eqbAddress
+      address: order.eqbAddress,
+      issuanceTxId: issuance.issuanceTxId
     }, {
       // Regular change output:
       value: availableAmountEmptyEqb - fee,
