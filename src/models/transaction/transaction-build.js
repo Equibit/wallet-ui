@@ -1,5 +1,6 @@
 import { bitcoin, eqbTxBuilder, txBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import typeforce from 'typeforce'
+import { pick, merge } from 'ramda'
 
 function buildTransactionOld (currencyType) {
   return currencyType === 'BTC' ? buildTransactionBtcOld : buildTransactionEqb
@@ -65,16 +66,16 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
 function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testnet) {
   typeforce(typeforce.tuple('Array', 'Array', types.Network), [inputs, outputs, network])
   const vout = outputs.map(vout => {
-    vout.equibit = {
-      // TODO: pass payment currency type here.
-      payment_currency: 0,
-      payment_tx_id: '',
-      issuance_tx_id: (vout.issuanceTxId ? vout.issuanceTxId : '0000000000000000000000000000000000000000000000000000000000000000'),
-      issuance_json: (vout.issuanceJson ? JSON.stringify(vout.issuanceJson) : '')
-    }
-    delete vout.issuanceTxId
-    delete vout.issuanceJson
-    return vout
+    const res = merge(pick(['value', 'scriptPubKey', 'address'], vout), {
+      equibit: {
+        // TODO: pass payment currency type here.
+        payment_currency: 0,
+        payment_tx_id: '',
+        issuance_tx_id: (vout.issuanceTxId ? vout.issuanceTxId : '0000000000000000000000000000000000000000000000000000000000000000'),
+        issuance_json: (vout.issuanceJson ? JSON.stringify(vout.issuanceJson) : '')
+      }
+    })
+    return res
   })
   const tx = {
     version: 2,
