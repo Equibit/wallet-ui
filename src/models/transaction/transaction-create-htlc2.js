@@ -104,13 +104,15 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
     addressVout: utxo[0].vout,
     fromAddress: utxo[0].address,
     toAddress,
+    refundAddress,
     amount,
     fee,
     type: order.type,
     currencyType: 'EQB',
     // description: `Selling securities (HTLC #${htlcStep})`,
     hashlock: offer.hashlock,
-    timelock: timelock
+    timelock: timelock,
+    buildConfig
   }
 
   return { buildConfig, txInfo }
