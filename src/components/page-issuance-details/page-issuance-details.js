@@ -52,7 +52,7 @@ export const ViewModel = DefineMap.extend({
 
   // Type of the modal: SELL | BUY
   newOrderType: 'string',
-  
+
   investor () {
     this.mode = 'investor'
   },
