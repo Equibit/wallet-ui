@@ -234,6 +234,7 @@ const Transaction = DefineMap.extend('Transaction', {
 
   // This is for rebuilding transaction hex:
   buildConfig: {
+    type: '*',
     serialize: false
   },
   // Rebuilds transaction hex (e.g. timelock was changed)
