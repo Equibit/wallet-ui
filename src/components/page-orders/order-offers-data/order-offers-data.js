@@ -106,6 +106,7 @@ export const ViewModel = DefineMap.extend({
       dispatchAlertError({
         message: `Cannot re-build transaction with the provided timelock ${timelock}`
       })
+      return
     }
     typeforce('Offer', offer)
     typeforce('Transaction', tx)
