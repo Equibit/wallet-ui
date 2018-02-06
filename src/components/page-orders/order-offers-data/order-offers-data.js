@@ -46,12 +46,15 @@ export const ViewModel = DefineMap.extend({
     offer.isSelected = true
   },
 
+  // can only accept one at a time, this is set after clicking 'accept' but before the modal opens
+  acceptingOffer: '*',
   // Collect details and if everything is OK then open the modal.
   acceptOffer (offer) {
     const portfolio = Session.current.portfolios[0]
     console.log(`acceptOffer`, offer)
     typeforce('Offer', offer)
     typeforce('Portfolio', portfolio)
+    this.acceptingOffer = offer
 
     return Promise.all([
       Session.current.issuancesPromise,
@@ -79,7 +82,11 @@ export const ViewModel = DefineMap.extend({
       const tx = new Transaction(txData)
       // todo: show UI modal with tx details (amount, fee, etc)
       this.openAcceptOfferModal(offer, tx, issuance, portfolio)
-    }).catch(dispatchAlertError)
+      this.acceptingOffer = undefined
+    }).catch(err => {
+      this.acceptingOffer = undefined
+      dispatchAlertError(err)
+    })
   },
 
   openAcceptOfferModal (offer, tx, issuance, portfolio) {
