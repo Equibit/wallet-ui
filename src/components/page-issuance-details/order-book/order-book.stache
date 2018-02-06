@@ -73,14 +73,14 @@
 <small class="fineprint">{{i18n('disclaimerPriceData')}}</small>
 
 {{#if isModalShown}}
-  <place-order on:send="placeOrder(scope.arguments)"
+  <place-order sendFn:from="@placeOrder"
                portfolio:from="portfolio"
                type:from="newOrderType"
                issuance:from="issuance" />
 {{/if}}
 
 {{#if isBuySellShown}}
-  <place-offer on:send="placeOffer(scope.arguments)"
+  <place-offer sendFn:from="@placeOffer"
                portfolio:from="portfolio"
                order:from="order" />
 {{/if}}

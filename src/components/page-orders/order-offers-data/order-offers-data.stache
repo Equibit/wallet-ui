@@ -50,7 +50,7 @@
 </div>
 
 {{#if isModalShown}}
-  <accept-offer on:send="sendSecurities(scope.arguments)"
+  <accept-offer sendFn:from="@sendSecurities"
                tx:from="tx"
                portfolio:from="portfolio"
                issuance:from="issuance"

@@ -93,10 +93,8 @@ export const ViewModel = DefineMap.extend({
   },
 
   // HTLC 2: sending securities locked with secret hash.
-  sendSecurities (args) {
-    typeforce(typeforce.tuple('Number', '?String'), [args[1], args[2]])
-    const timelock = args[1]
-    const description = args[2]
+  sendSecurities (timelock, description) {
+    typeforce(typeforce.tuple('Number', '?String'), arguments)
 
     const order = this.order
     const offer = this.offer

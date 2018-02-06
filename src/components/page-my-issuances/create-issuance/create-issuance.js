@@ -52,17 +52,33 @@ export const ViewModel = DefineMap.extend({
   edit () {
     this.mode = 'edit'
   },
+  companyIsSaving: {
+    value: false
+  },
   saveCompany () {
+    this.companyIsSaving = true
     this.newCompany.validateAndSave().then(() => {
+      this.companyIsSaving = false
       this.mode = 'edit'
       this.formData.companies.push(this.newCompany)
       this.formData.issuance.selectedCompany = this.newCompany
+    }).catch(err => {
+      this.companyIsSaving = false
+      throw err
     })
   },
+  issuanceIsSaving: {
+    value: false
+  },
   create (close) {
+    this.issuanceIsSaving = true
     this.createIssuance(this.formData).then(issuance => {
       this.dispatch('created', [issuance])
+      this.issuanceIsSaving = false
       close()
+    }).catch(err => {
+      this.issuanceIsSaving = false
+      throw err
     })
   },
   /**
@@ -109,13 +125,9 @@ export const ViewModel = DefineMap.extend({
       // Save authorization transaction id:
       issuance.issuanceTxId = tx.txId
 
-      // Show the spinner:
-      // this.isSending = true
-
       return tx.save().then(() => [toAddress, changeAddr])
     }).then(([toAddress, changeAddr]) => {
       console.log('[createIssuance] transaction was saved')
-      // this.isSending = false
 
       // mark change address as used
       console.log(`[my-portfolio.send] marking change address as used ${changeAddr}...`)

@@ -61,7 +61,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         assert.equal(order.eqbAddress, unusedNextEqbAddress, 'EQB address')
         return Promise.resolve(order)
       }
-      vm.placeOrder([null, formData, 'SELL']).then(() => done())
+      vm.placeOrder(formData, 'SELL').then(() => done())
     })
 
     it.skip('Dispatches created alert to hub', function (done) {
@@ -72,7 +72,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
         done()
       }
       eventHub.on('alert', handler)
-      vm.placeOrder([null, formData, 'SELL']).then(() => {
+      vm.placeOrder(formData, 'SELL').then(() => {
         eventHub.off('alert', handler)
       })
     })
@@ -202,7 +202,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
           assert.ok(this.currencyType, 'Transaction currencyType')
           return Promise.resolve(this)
         }
-        vm.placeOffer([null, formData, 'BUY'])
+        vm.placeOffer(formData)
           .then(() => done())
       })
 
@@ -217,7 +217,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
           assert.equal(this.price, formData.order.price, 'Price from order')
           return Promise.resolve(this)
         }
-        vm.placeOffer([null, formData, 'BUY'])
+        vm.placeOffer(formData)
           .then(() => done())
       })
 
@@ -231,7 +231,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
           eventHub.off('alert', handler)
         }
         eventHub.on('alert', handler)
-        vm.placeOffer([null, formData, 'BUY'])
+        vm.placeOffer(formData)
           .then(() => done())
       })
     })

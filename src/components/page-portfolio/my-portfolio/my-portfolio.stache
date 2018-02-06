@@ -88,7 +88,7 @@
 </drag-panel>
 
 {{#if isSendFundsPopup}}
-  <send-popup (send)="send(%arguments)"
+  <send-popup sendFn:from="@send"
               (receiveform)="receiveFunds()"
               {portfolio}="portfolio" />
 {{/if}}

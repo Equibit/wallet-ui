@@ -3,6 +3,7 @@
 <can-import from="~/components/trade-funds/send-popup/send-form/" />
 <can-import from="~/components/trade-funds/send-popup/send-confirm-form/" />
 <can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/components/common/loading-indicator/" />
 
 <bootstrap-modal-content>
   <div class="modal-header">
@@ -46,8 +47,12 @@
       <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
     {{/is}}
     {{#is mode 'confirm'}}
-      <button ($click)="send(@close)" type="button" class="btn btn-primary">{{i18n('send')}}</button>
-      <button ($click)="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('edit')}}</button>
+      {{#if isSending}}
+        <loading-indicator style="position:relative;left:20px;"></loading-indicator>
+      {{else}}
+        <button ($click)="send(@close)" type="button" class="btn btn-primary">{{i18n('send')}}</button>
+        <button ($click)="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('edit')}}</button>
+      {{/if}}
     {{/is}}
 
     <!--<a class="pull-right">Advanced Send</a>-->

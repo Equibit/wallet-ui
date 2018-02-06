@@ -46,7 +46,7 @@ export const ViewModel = DefineMap.extend({
   formData: {
     get () {
       const tx = this.tx
-      const issuance = this.issuance
+      const issuance = this.issuance || {}
       return new DefineMap({
         type: tx.currencyType,
         address: tx.toAddress,
@@ -67,10 +67,23 @@ export const ViewModel = DefineMap.extend({
   convertToUSD: function (value) {
     return currencyConverter.convert(value, 'EQBUSD')
   },
+  sendFn: '*',
+  isSending: {
+    value: false
+  },
   send (close) {
     // Here timelock is in hours, but transaction works with blocks (10min per block).
-    this.dispatch('send', [this.formData.timelock * 6, this.formData.description])
-    close()
+    this.isSending = true
+    this.sendFn(this.formData.timelock * 6, this.formData.description)
+      .then(() => {
+        this.isSending = false
+        close()
+      })
+      .catch(err => {
+        this.isSending = false
+        close()
+        throw err
+      })
   }
 })
 
