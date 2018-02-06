@@ -180,7 +180,7 @@
 </div>
 
 {{#if isModalShown}}
-  <collect-asset on:send="sendTransaction(scope.arguments)"
+  <collect-asset sendFn:from="@sendTransaction"
                  tx:from="tx"
                  portfolio:from="portfolio"
                  issuance:from="issuance"

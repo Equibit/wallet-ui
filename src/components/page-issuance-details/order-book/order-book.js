@@ -81,14 +81,12 @@ export const ViewModel = DefineMap.extend({
    *   2. Create a new order.
    *   3. Send BitMessage message.
    *   4. Save the order and show notification.
-   * @param args
+   * @param formData
+   * @param {String} type Type of the order: SELL | BUY
    * @returns {Promise.<Order>}
    */
-  placeOrder (args) {
-    typeforce(typeforce.tuple('FormData', 'String'), [args[1], args[2]])
-    const formData = args[1]
-    // Type of the order: SELL | BUY
-    const type = args[2]
+  placeOrder (formData, type) {
+    typeforce(typeforce.tuple('FormData', 'String'), arguments)
     const flowType = type === 'SELL' ? 'Ask' : 'Bid'
     console.log(`placeOrder: ${type}`, formData)
 
@@ -118,13 +116,12 @@ export const ViewModel = DefineMap.extend({
    *   1. Generate a secret for HTLC and create an offer (do not save yet).
    *   2. Create HTLC transaction from the offer and save (send it to blockchain and save to DB).
    *   3. On success save offer to DB
-   * @param args
+   * @param formData
    * @returns {Promise.<Order>}
    */
   // HTLC 1: place payment.
-  placeOffer (args) {
-    typeforce('OfferFormData', args[1])
-    const formData = args[1]
+  placeOffer (formData) {
+    typeforce('OfferFormData', formData)
     console.log('placeOffer: ', formData)
 
     const flowType = formData.order.type === 'SELL' ? 'Ask' : 'Bid'

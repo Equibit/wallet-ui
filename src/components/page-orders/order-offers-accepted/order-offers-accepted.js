@@ -105,9 +105,8 @@ export const ViewModel = DefineMap.extend({
     this.isModalShown = true
   },
 
-  sendTransaction (args) {
-    typeforce('?String', args[1])
-    const description = args[1]
+  sendTransaction (description) {
+    typeforce('?String', description)
 
     const offer = this.offer
     const tx = this.tx
