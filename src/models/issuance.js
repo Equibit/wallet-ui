@@ -247,7 +247,7 @@ Issuance.List = DefineList.extend('IssuanceList', {
           if (utxoByAddr[issuance.address]) {
             issuance.utxo = utxoByAddr[issuance.address].txouts.filter(out => {
               // todo: do a more comprehensive filtering.
-              return out.equibit && out.equibit.issuance_json.search(issuance.issuanceName) !== -1 ||
+              return (out.equibit && out.equibit.issuance_json.search(issuance.issuanceName) !== -1) ||
                   // Case: authorized issuance was already sold and change was sent back to issuance address:
                   issuance.issuanceTxId === out.equibit.issuance_tx_id
             })
