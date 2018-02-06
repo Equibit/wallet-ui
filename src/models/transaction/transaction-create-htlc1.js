@@ -84,7 +84,7 @@ function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr) {
     type: offer.type,
     currencyType: 'BTC',
     hashlock: offer.hashlock,
-    timelock: offer.timelock,
+    timelock,
     buildConfig
   }
 
