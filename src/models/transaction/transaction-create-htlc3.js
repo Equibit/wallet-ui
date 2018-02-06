@@ -33,6 +33,12 @@ function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
 }
 
 function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAddr) {
+  const amount = offer.quantity
+  const toAddress = offer.eqbAddress
+  const refundAddr = order.eqbAddress
+  typeforce(types.Address, toAddress)
+  typeforce(types.Address, refundAddr)
+
   // todo: calculate transaction fee:
   const fee = 1000
   const htlcStep = 3
@@ -56,15 +62,15 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
       htlc: {
         secret,
         // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
-        refundAddr: order.eqbAddress,
+        refundAddr,
         timelock: timelock
       },
       sequence: '4294967295'
     }],
     vout: [{
       // Main output (unlocking HTLC securities):
-      value: offer.quantity,
-      address: offer.eqbAddress,
+      value: amount,
+      address: toAddress,
       issuanceTxId: issuance.issuanceTxId
     }, {
       // Regular change output:
@@ -75,16 +81,16 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
   buildConfig.vin = buildConfig.vin.concat(utxoEmptyEqb)
 
   const txInfo = {
-    address: offer.eqbAddress,
+    address: toAddress,
     addressTxid: buildConfig.vin[0].txid,
     addressVout: buildConfig.vin[0].vout,
     type: 'BUY',
     fee,
     currencyType: 'EQB',
-    amount: offer.quantity,
+    amount,
     description: `Collecting securities from HTLC (step #${htlcStep})`,
     fromAddress: order.eqbAddress,
-    toAddress: offer.eqbAddress,
+    toAddress,
     htlcStep
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
@@ -95,6 +101,9 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
 function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
   const amount = offer.quantity * offer.price
   const toAddress = offer.btcAddress
+  const refundAddr = order.btcAddress
+  typeforce(types.Address, toAddress)
+  typeforce(types.Address, refundAddr)
 
   // todo: calculate transaction fee:
   const fee = 1000
@@ -114,7 +123,7 @@ function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
       htlc: {
         secret,
         // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
-        refundAddr: order.btcAddress,
+        refundAddr,
         timelock
       },
       sequence: '4294967295'
@@ -133,7 +142,7 @@ function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
     type: 'SELL',
     fee,
     currencyType: 'BTC',
-    amount: offer.quantity,
+    amount,
     description: `Collecting payment from HTLC (step #${htlcStep})`,
     fromAddress: order.btcAddress,
     toAddress: offer.btcAddress,
