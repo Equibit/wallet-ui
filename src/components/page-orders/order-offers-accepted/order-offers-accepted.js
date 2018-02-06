@@ -38,10 +38,22 @@ export const ViewModel = DefineMap.extend({
     }
   },
 
+  isAskFlow: {
+    get () {
+      return this.order && this.order.type === 'SELL'
+    }
+  },
+
   // For collect-asset modal:
   offer: '*',
   tx: '*',
   isModalShown: 'boolean',
+
+  timelocks: {
+    get (val, resolve) {
+      Promise.all(this.offers.map(offer => offer.timelockInfoPromise)).then(resolve)
+    }
+  },
 
   // For demo:
   // offer: {
@@ -53,6 +65,8 @@ export const ViewModel = DefineMap.extend({
   // },
 
   // HTLC 4:
+  // - Ask flow: collect payment
+  // - Bid flow: collect securities
   // todo: its a BTC transaction for a SELL order. Generalize to check `order.type`.
   collectPayment (offer) {
     const order = this.order
@@ -69,14 +83,17 @@ export const ViewModel = DefineMap.extend({
       'String'
     ), [order, offer, issuance, user, portfolio, secret])
 
-    try {
-      const txData = createHtlc4(order, offer, portfolio, issuance, secret)
-      const tx = new Transaction(txData)
-      this.openModal(offer, tx)
-    } catch (err) {
-      dispatchAlertError(err)
-      console.error(err)
-    }
+    // Note: we need EQB change address only for the Bid flow (when collecting locked securities).
+    portfolio.getNextAddress(true).then(addrPair => {
+      try {
+        const txData = createHtlc4(order, offer, portfolio, issuance, secret, addrPair.EQB)
+        const tx = new Transaction(txData)
+        this.openModal(offer, tx)
+      } catch (err) {
+        dispatchAlertError(err)
+        console.error(err)
+      }
+    })
   },
 
   // Confirmation modal:
@@ -88,9 +105,8 @@ export const ViewModel = DefineMap.extend({
     this.isModalShown = true
   },
 
-  sendTransaction (args) {
-    typeforce('?String', args[1])
-    const description = args[1]
+  sendTransaction (description) {
+    typeforce('?String', description)
 
     const offer = this.offer
     const tx = this.tx

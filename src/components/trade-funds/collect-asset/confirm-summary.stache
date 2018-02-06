@@ -22,8 +22,8 @@
               <tr>
                   <td class="column-label">{{#eq formData.type 'BTC'}} {{i18n('amount')}} {{else}} {{i18n('quantity')}} {{/eq}}</td>
                   {{#eq formData.type 'BTC'}}
-                  <td class="column-digital-currency-value font-numeric">{{format-micro(formData.totalAmount)}}</td>
-                  <td class="column-digital-currency-type font-numeric">μBTC</td>
+                  <td class="column-digital-currency-value font-numeric">{{user-units(formData.totalAmount, 8)}}</td>
+                  <td class="column-digital-currency-type font-numeric">{{user-units-symbol('BTC'}}</td>
                   <td class="column-local-currency-value font-numeric">{{format(convertToUSD(formData.totalAmount).value, '', 2)}}</td>
                   <td class="column-local-currency-type font-numeric">{{i18n('usd')}}</td>
                   {{else}}
@@ -43,8 +43,8 @@
                           data-placement="right">
                       </span>
                   </td>
-                  <td class="column-digital-currency-value font-numeric text-muted">{{format-micro(formData.fee, '', 8)}}</td>
-                  <td class="column-digital-currency-type font-numeric text-muted">{{#eq formData.type 'BTC'}}μBTC{{else}}μEQB{{/eq}}</td>
+                  <td class="column-digital-currency-value font-numeric text-muted">{{user-units(formData.fee, 8)}}</td>
+                  <td class="column-digital-currency-type font-numeric text-muted">{{user-units-symbol(formData.type}}</td>
                   <td class="column-local-currency-value font-numeric text-muted">{{format(convertToUSD(formData.feeBtc).value, '', 2)}}</td>
                   <td class="column-local-currency-type font-numeric text-muted">{{i18n('usd')}}</td>
               </tr>
@@ -63,8 +63,8 @@
               {{#eq formData.type 'BTC'}}
               <tr>
                   <td class="input-value"><strong>{{formData.portfolioName}}</strong></td>
-                  <td class="column-digital-currency-value font-numeric text-success">+ {{format-micro(formData.quantity, '', 2)}}</td>
-                  <td class="column-digital-currency-type font-numeric text-success">μBTC</td>
+                  <td class="column-digital-currency-value font-numeric text-success">+ {{user-units(formData.quantity, 8)}}</td>
+                  <td class="column-digital-currency-type font-numeric text-success">{{user-units-symbol('BTC'}}</td>
                   <td class="column-local-currency-value font-numeric text-success">+ {{format(convertToUSD(formData.quantityBtc).value, '', 2)}}</td>
                   <td class="column-local-currency-type font-numeric text-success">{{i18n('usd')}}</td>
               </tr>
@@ -78,8 +78,8 @@
               </tr>
               <tr>
                   <td class="input-value"></td>
-                  <td class="column-local-currency-value font-numeric text-danger">{{format-micro(formData.fee)}}</td>
-                  <td class="column-local-currency-type font-numeric text-danger">μEQB</td>
+                  <td class="column-local-currency-value font-numeric text-danger">- {{user-units(formData.fee, 8)}}</td>
+                  <td class="column-local-currency-type font-numeric text-danger">{{user-units-symbol('EQB'}}</td>
                   <td class="column-local-currency-value font-numeric text-danger">- {{format(convertToUSD(formData.totalAmountBtc).value, '', 2)}}</td>
                   <td class="column-local-currency-type font-numeric text-danger">{{i18n('usd')}}</td>
               </tr>

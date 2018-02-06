@@ -6,6 +6,6 @@ stealTools.build({
 }, {
   bundleAssets: true,
   uglifyOptions: {
-    mangle: { 'keep_fnames': true }
+    keep_fnames: true
   }
 })

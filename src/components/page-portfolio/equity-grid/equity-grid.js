@@ -34,6 +34,9 @@ export const ViewModel = DefineMap.extend({
   rowsFormatted: {
     get () {
       return this.rows && this.rows.map(({utxo, data}) => {
+        if (!utxo && !data) {
+          return {}
+        }
         return {
           issuanceName: data.issuance.issuance_name,
           issuanceType: data.issuance.security_type,

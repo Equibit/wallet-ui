@@ -77,6 +77,8 @@ export default {
 
   // Alphabetically
   about: 'About',
+  acceptOfferAndSendPayment: 'Accept Offer and Send Payment',
+  acceptOfferAndSendSecurities: 'Accept Offer and Send Securities',
   acceptPassports: 'Accept Passports',
   acceptedOffers: 'Accepted Offers',
   acceptedDate: 'Accepted Date',
@@ -140,6 +142,7 @@ export default {
   city: 'City',
   codeVerificationLabel: 'Enter Code',
   codeVerifiedMessage: 'Code Verified',
+  commonShares: 'Common Shares',
   company: 'Company',
   companyInformation: 'Company Information',
   companyAdd: 'Add a Company',
@@ -285,8 +288,8 @@ export default {
   market: 'Market',
   marketCap: 'Market Cap',
   marketCapitalization: 'Market Capitalization',
-  marketMakeInitialOfferingTitle: 'Make your Initial Offering',
-  marketMakeInitialOfferingMessage: 'To begin your issuance place a sell order',
+  marketNoOrdersFoundTitle: 'No orders for this security were found',
+  marketSubmitOrderMessage: 'If you would like to make a trade, submit an order',
   marketNoInitialOfferingTitle: 'The initial offering is not available yet',
   marketNoInitialOfferingMessage: 'In the meantime you can opt to get notified when the IPO is ready.',
   marketSummary: 'Market Summary',

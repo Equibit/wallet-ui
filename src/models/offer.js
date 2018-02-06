@@ -10,12 +10,15 @@
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
-import superModel from './super-model'
+// import superModel from './super-model'
+import { superModelNoCache as superModel } from './super-model'
 import algebra from './algebra'
 import Issuance from './issuance'
 import Order from './order'
 import moment from 'moment'
 import { translate } from '../i18n/i18n'
+import Transaction from './transaction/'
+import { blockTime } from '~/constants'
 
 const Offer = DefineMap.extend('Offer', {
   _id: 'string',
@@ -51,14 +54,12 @@ const Offer = DefineMap.extend('Offer', {
   // For HTLC we need 2 or 3 addresses:
   // - Buy offer:
   //    1. btcAddress for our own refund.
-  //    2. eqbAddress (trading) for receiving securities from a seller.
-  //    3. eqbAddress (holding) to store the securities in the end.
+  //    2. eqbAddress for receiving securities from a seller.
   // - Sell offer:
-  //    1. eqbAddress for a refund (a holding address).
+  //    1. eqbAddress for a refund.
   //    2. btcAddress for receiving payment from a buyer.
   btcAddress: 'string',
-  eqbAddressTrading: 'string',
-  eqbAddressHolding: 'string',
+  eqbAddress: 'string',
 
   /**
    * @property {Number} models/offer.properties.type type
@@ -104,8 +105,10 @@ const Offer = DefineMap.extend('Offer', {
   secretEncrypted: 'string',
   secret: 'string',   // Revealed secret (after transaction #3)
   hashlock: 'string',
+  // HTLC1 timelock:
   timelock: 'number',
-  // htlcTxId: 'string',
+  // HTLC2 timelock:
+  timelock2: 'number',
   htlcTxId1: 'string',
   htlcTxId2: 'string',
   htlcTxId3: 'string',
@@ -180,7 +183,60 @@ const Offer = DefineMap.extend('Offer', {
       }
     }
   },
+  timelockInfo: {
+    get (val, resolve) {
+      this.timelockInfoPromise.then(resolve)
+    }
+  },
+  timelockInfoPromise: {
+    get () {
+      // Read these props synchronously to ensure this promise is regenerated on change
+      const htlcTxId1 = this.htlcTxId1
+      const htlcTxId2 = this.htlcTxId2
+      return this.orderPromise.then(order => {
+        const addresses = [
+          this.btcAddress,
+          this.eqbAddress,
+          order.btcAddress,
+          order.eqbAddress
+        ]
+        return Transaction.getList({
+          txId: { $in: [htlcTxId1, htlcTxId2] },
+          address: {'$in': addresses}
+        })
+      })
+      .then(txes => {
+        const step1 = txes.filter(t => t.htlcStep === 1)[0]
+        const step2 = txes.filter(t => t.htlcStep === 2)[0]
 
+        const fullDuration = blockTime[step1.currencyType] * step1.timelock
+        const fullEndAt = step1.createdAt.getTime() + fullDuration
+        const fullBlocksRemaining = Math.max(
+          Math.floor((fullEndAt - Date.now()) / blockTime[step1.currencyType]),
+          0
+        )
+        let partialDuration, partialEndAt, partialBlocksRemaining, safetyZone
+        if (step2) {
+          partialDuration = blockTime[step2.currencyType] * step2.timelock
+          partialEndAt = step2.createdAt.getTime() + partialDuration
+          partialBlocksRemaining = Math.max(
+            Math.floor((partialEndAt - Date.now()) / blockTime[step2.currencyType]),
+            0
+          )
+          safetyZone = fullEndAt - partialEndAt
+        }
+        return {
+          fullDuration,
+          fullEndAt,
+          fullBlocksRemaining,
+          partialDuration,
+          partialEndAt,
+          partialBlocksRemaining,
+          safetyZone
+        }
+      })
+    }
+  },
   // Extras:
 
   isSelected: {

@@ -16,12 +16,12 @@
       <tbody>
         <tr>
           <td>{{i18n('Bitcoin')}}</td>
-          <td class="text-right">{{btc-user-units(balance.cashBtc, 8)}}</td>
+          <td class="text-right">{{user-units(balance.cashBtc, 8)}}</td>
           <td class="text-right">{{local-currency(balance.cashBtc, 'BTC')}}</td>
         </tr>
         <tr>
           <td>{{i18n('equibit')}}</td>
-          <td class="text-right">{{btc-user-units(balance.cashEqb, 8)}}</td>
+          <td class="text-right">{{user-units(balance.cashEqb, 8)}}</td>
           <td class="text-right">{{local-currency(balance.cashEqb, 'EQB')}}</td>
         </tr>
       </tbody>

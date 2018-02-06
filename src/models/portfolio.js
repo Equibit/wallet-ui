@@ -254,7 +254,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
             }, null)
           }).catch(err => {
             console.error(err)
-            return this.lastSetSecurities && this.lastSetSecurities[idx]
+            return this.lastSetSecurities ? this.lastSetSecurities[idx] : {}
           })
         })
       )
@@ -388,7 +388,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       return feathersClient.service('portfolio-addresses')
         .create(portfolioAddressesCreateData)
         .then((results) => {
-          this.addressesMeta.push(portfolioAddressesCreateData)
+          this.addressesMeta.push(results)
           // console.log("new portfolioAddresses entry", results)
         })
         .then(() => addr)
@@ -423,7 +423,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
   },
 
   getEmptyEqb (amount) {
-    return this.getTxouts(amount, 'EQB')
+    const utxo = getUnspentOutputsForAmount(this.utxoEmptyEqb, amount)
+    return utxo
   },
 
   /**

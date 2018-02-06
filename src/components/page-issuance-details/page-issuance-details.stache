@@ -77,14 +77,12 @@
               {{^if hasOrders}}
                 <div class="well messages-container">
                   <div class="message-box no-border align-center">
+                    <div class="message-box-status">{{i18n('marketNoOrdersFoundTitle')}}</div>
+                    <p class="message-box-cause">{{i18n('marketSubmitOrderMessage')}}</p>
                     {{#is mode 'investor'}}
-                      <div class="message-box-status">{{i18n('marketNoInitialOfferingTitle')}}</div>
-                      <p class="message-box-cause">{{i18n('marketNoInitialOfferingMessage')}}</p>
-                      <button class="btn btn-primary">{{i18n('notifyMe')}}</button>
+                      <button class="btn btn-primary" on:click="placeSellOrder('BUY')">{{i18n('placeBuyOrder')}}</button>
                     {{else}}
-                      <div class="message-box-status">{{i18n('marketMakeInitialOfferingTitle')}}</div>
-                      <p class="message-box-cause">{{i18n('marketMakeInitialOfferingMessage')}}</p>
-                      <button class="btn btn-primary" on:click="placeSellOrder()">{{i18n('placeSellOrder')}}</button>
+                      <button class="btn btn-primary" on:click="placeSellOrder('SELL')">{{i18n('placeSellOrder')}}</button>
                     {{/is}}
                   </div>
                 </div>
@@ -93,6 +91,7 @@
               <!-- <candlestick-chart /> -->
               <order-book class="{{^if hasOrders}}hidden{{/if}}"
                           isModalShown:bind="isCreateOrderModalShown"
+                          newOrderType:from="newOrderType"
                           portfolio:from="portfolio"
                           issuance:from="issuance"
                           hasOrders:to="hasOrders"/>

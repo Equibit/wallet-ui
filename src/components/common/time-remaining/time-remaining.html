@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<script>window.useXhrTransport = true</script>
+<style>body { padding: 20px }</style>
+<div id="demo"></div>
+
+<script type="text/stache" id="demo-html">
+  <can-import from="~/styles/styles.less" />
+  <can-import from="wallet-ui/components/common/time-remaining/" />
+
+  <h2>Countdown to end time</h2>
+  <time-remaining endTime:from="endTime"></time-remaining>
+
+  <h2>Fixed display of time interval</h2>
+  <time-remaining timeInterval:from="fixedTime" status:from="'pending'"></time-remaining>
+</script>
+
+<script src="../../../../node_modules/steal/steal.js"
+        main="@empty">
+
+  import $ from 'jquery'
+  import stache from 'can-stache'
+  import reload from 'live-reload'
+  import DefineMap from 'can-define/map/map'
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
+
+  const vm = new DefineMap({
+    endTime: Date.now() + 5400000, // 1.5 hour countdown
+    fixedTime: 4800000 // 1 hr 20 minute fixed
+  })
+  window.vm = vm
+
+  // Enable live-reload:
+  stache.async($('#demo-html').html()).then(template => {
+    let render = () => $('#demo').html(template(vm))
+    render()
+    reload(render)
+  })
+</script>

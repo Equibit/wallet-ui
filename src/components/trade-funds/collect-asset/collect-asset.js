@@ -43,7 +43,7 @@ export const ViewModel = DefineMap.extend({
   portfolio: '*',
   offerTimelock: {
     value: function () {
-      return this.tx.timelock * 2
+      return this.tx.timelockExpiresAt
     }
   },
   formData: {
@@ -73,9 +73,22 @@ export const ViewModel = DefineMap.extend({
   convertToUSD: function (value) {
     return currencyConverter.convert(value, 'EQBUSD')
   },
+  sendFn: '*',
+  isSending: {
+    value: false
+  },
   send (close) {
-    this.dispatch('send', [this.formData.description])
-    close()
+    this.isSending = true
+    this.sendFn(this.formData.description)
+      .then(() => {
+        this.isSending = false
+        close()
+      })
+      .catch(err => {
+        this.isSending = false
+        close()
+        throw err
+      })
   }
 })
 

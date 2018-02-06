@@ -62,8 +62,8 @@ function prepareHtlc2Eqb (offer, order, portfolio, issuance, emptyEqbChangeAddr)
   const htlcStep = 2
 
   // Addresses for HTLC script:
-  const toAddressA = offer.eqbAddressTrading
-  const toAddressB = order.eqbAddressHolding
+  const toAddressA = offer.eqbAddress
+  const toAddressB = order.eqbAddress
 
   // todo: calculate fee.
   const transactionFee = 1000

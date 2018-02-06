@@ -51,7 +51,7 @@
 {{/if}}
 
 {{#if isSendFundsPopup}}
-  <send-popup (send)="sendIssuance(%arguments)"
+  <send-popup sendFn:from="@sendIssuance"
               {issuances}="issuances"
               issuance-only="true"
               {portfolio}="portfolio" />

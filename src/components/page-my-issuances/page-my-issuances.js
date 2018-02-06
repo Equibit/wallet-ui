@@ -48,8 +48,7 @@ export const ViewModel = DefineMap.extend({
     this.isSendFundsPopup = false
     this.isSendFundsPopup = true
   },
-  sendIssuance (args) {
-    const formData = args[1]
+  sendIssuance (formData) {
     console.log('send: ', formData)
     if (!formData) {
       console.error('Error: received no form data')

@@ -46,7 +46,13 @@ export const ViewModel = DefineMap.extend({
     }
   },
   hasOrders: 'boolean',
+
+  // To show Buy/Sell modal:
   isCreateOrderModalShown: 'boolean',
+
+  // Type of the modal: SELL | BUY
+  newOrderType: 'string',
+
   investor () {
     this.mode = 'investor'
   },
@@ -57,7 +63,8 @@ export const ViewModel = DefineMap.extend({
     this.isCreateOrderModalShown = false
     this.modeContent = modeContent
   },
-  placeSellOrder () {
+  placeSellOrder (type) {
+    this.newOrderType = type
     this.isCreateOrderModalShown = false
     this.isCreateOrderModalShown = true
   }

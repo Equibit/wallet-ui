@@ -59,11 +59,20 @@ export const ViewModel = DefineMap.extend({
     return moment(this.date).format('MM/DD @h:mm A')   // 04/29 @2:30 pm
   },
 
+  isAskFlow: {
+    get () {
+      return this.order && this.order.type === 'SELL'
+    }
+  },
+
   // For collect-asset modal:
   tx: '*',
   secret: 'string',
   isModalShown: 'boolean',
 
+  /**
+   * For Ask flow its collecting securities, for Bid flow - collecting payment.
+   */
   // HTLC 3:
   // 1. Generate addr for empty EQB (to pay the fee) change.
   // 2. Prepare tx config and create htlc3 transaction.
@@ -84,9 +93,10 @@ export const ViewModel = DefineMap.extend({
       'String'
     ), [order, offer, issuance, user, portfolio, secret])
 
+    const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
     return portfolio.getNextAddress()
-      .then(({EQB}) => {
-        const txData = createHtlc3(order, offer, portfolio, issuance, secret, EQB)
+      .then(addrPair => {
+        const txData = createHtlc3(order, offer, portfolio, issuance, secret, addrPair[currencyType])
         const tx = new Transaction(txData)
         this.secret = secret
 
@@ -102,9 +112,8 @@ export const ViewModel = DefineMap.extend({
     this.isModalShown = true
   },
 
-  sendTransaction (args) {
-    typeforce('?String', args[1])
-    const description = args[1]
+  sendTransaction (description) {
+    typeforce('?String', description)
 
     const offer = this.offer
     const tx = this.tx

@@ -26,29 +26,40 @@ import currencyConverter from '~/utils/btc-usd-converter'
 
 export const ViewModel = DefineMap.extend({
   tx: '*',
+
+  // Flow type: Ask | Bid
+  flowType: {
+    get () {
+      // If we accept an offer during Ask flow we send securities (EQB):
+      return this.tx && this.tx.currencyType === 'EQB' ? 'Ask' : 'Bid'
+    }
+  },
+
   issuance: '*',
   portfolio: '*',
+  offer: '*',
   offerTimelock: {
-    value: function () {
-      return this.tx.timelock * 2
+    get: function () {
+      return this.offer && this.offer.timelockInfo ? this.offer.timelockInfo.fullBlocksRemaining : this.tx.timelock * 2
     }
   },
   formData: {
     get () {
       const tx = this.tx
-      const issuance = this.issuance
+      const issuance = this.issuance || {}
       return new DefineMap({
         type: tx.currencyType,
-        address: tx.address,
+        address: tx.toAddress,
         issuanceName: issuance.companyName + ', ' + issuance.issuanceName,
         quantityBtc: tx.amount / 100000000,
         quantity: tx.amount,
         fee: tx.fee,
+        totalAmount: (tx.amount + tx.fee),
         totalAmountBtc: (tx.amount + tx.fee) / 100000000,
         // timelock is in blocks (10min per block)
-        timelock: tx.timelock / 6,
+        timelock: Math.floor(tx.timelock / 6),
         description: tx.description,
-        offerTimelock: this.offerTimelock / 6,
+        offerTimelock: Math.floor(this.offerTimelock / 6),
         portfolioName: this.portfolio.name
       })
     }
@@ -56,9 +67,23 @@ export const ViewModel = DefineMap.extend({
   convertToUSD: function (value) {
     return currencyConverter.convert(value, 'EQBUSD')
   },
+  sendFn: '*',
+  isSending: {
+    value: false
+  },
   send (close) {
-    this.dispatch('send', [this.formData.timelock * 6, this.formData.description])
-    close()
+    // Here timelock is in hours, but transaction works with blocks (10min per block).
+    this.isSending = true
+    this.sendFn(this.formData.timelock * 6, this.formData.description)
+      .then(() => {
+        this.isSending = false
+        close()
+      })
+      .catch(err => {
+        this.isSending = false
+        close()
+        throw err
+      })
   }
 })
 

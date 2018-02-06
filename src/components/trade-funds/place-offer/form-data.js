@@ -3,12 +3,6 @@ import Portfolio from '../../../models/portfolio'
 import Order from '../../../models/order'
 
 const FormData = DefineMap.extend('OfferFormData', {
-  /**
-   * @property {String} type
-   * ENUM ('SELL', 'BUY')
-   */
-  type: 'string',
-
   portfolio: Portfolio,
   order: Order,
   quantity: {
@@ -21,9 +15,9 @@ const FormData = DefineMap.extend('OfferFormData', {
     }
   },
   error: 'string',
-  transactionFee: {
+  fee: {
     type: 'number',
-    value: 0
+    value: 100
   },
   description: 'string',
   timelock: {
@@ -36,18 +30,18 @@ const FormData = DefineMap.extend('OfferFormData', {
   },
 
   get totalPriceWithFee () {
-    return this.totalPrice + this.transactionFee
+    return this.totalPrice + this.fee
   },
 
   hasFunds: {
     get () {
-      return (this.portfolio.balance.cashBtc - this.transactionFee) > 0
+      return (this.portfolio.balance.cashBtc - this.fee) > 0
     }
   },
   hasEnoughFunds: {
     // todo: for SELL offer we should check securities
     get () {
-      return this.portfolio.hasEnoughFunds(this.totalPrice + this.transactionFee, 'BTC')
+      return this.portfolio.hasEnoughFunds(this.totalPrice + this.fee, 'BTC')
     }
   },
   isValid: {

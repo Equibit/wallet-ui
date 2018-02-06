@@ -54,9 +54,22 @@ export const ViewModel = DefineMap.extend({
   edit () {
     this.mode = 'edit'
   },
+  sendFn: '*',
+  isSending: {
+    value: false
+  },
   send (close) {
-    this.dispatch('send', [this.formData, this.type])
-    close()
+    this.isSending = true
+    this.sendFn(this.formData, this.type)
+      .then(() => {
+        this.isSending = false
+        close()
+      })
+      .catch(err => {
+        this.isSending = false
+        close()
+        throw err
+      })
   }
 })
 

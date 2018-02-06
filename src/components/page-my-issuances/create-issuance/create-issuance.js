@@ -22,7 +22,9 @@ import FormData from './form-data'
 import Transaction from '../../../models/transaction/transaction'
 import Session from '../../../models/session'
 import { translate } from '../../../i18n/'
-import hub from '~/utils/event-hub'
+import hub, { dispatchAlertError } from '../../../utils/event-hub'
+import utils from '../../../models/portfolio-utils'
+const { importAddr } = utils
 
 export const ViewModel = DefineMap.extend({
   mode: {
@@ -50,19 +52,43 @@ export const ViewModel = DefineMap.extend({
   edit () {
     this.mode = 'edit'
   },
+  companyIsSaving: {
+    value: false
+  },
   saveCompany () {
+    this.companyIsSaving = true
     this.newCompany.validateAndSave().then(() => {
+      this.companyIsSaving = false
       this.mode = 'edit'
       this.formData.companies.push(this.newCompany)
       this.formData.issuance.selectedCompany = this.newCompany
+    }).catch(err => {
+      this.companyIsSaving = false
+      throw err
     })
+  },
+  issuanceIsSaving: {
+    value: false
   },
   create (close) {
+    this.issuanceIsSaving = true
     this.createIssuance(this.formData).then(issuance => {
       this.dispatch('created', [issuance])
+      this.issuanceIsSaving = false
       close()
+    }).catch(err => {
+      this.issuanceIsSaving = false
+      throw err
     })
   },
+  /**
+   * To create an new issuance we need:
+   * - generate a new address with the key path ".../<companyIndex> /<issuanceIndex> "
+   * - generate a new change address
+   * - create issuance authorization transaction
+   * - save new issuance in DB
+   * - mark both new addresses as used in portfolio-addresses
+   */
   createIssuance (formData) {
     if (!formData) {
       console.error('Error: received no form data')
@@ -80,6 +106,8 @@ export const ViewModel = DefineMap.extend({
     const currencyType = 'EQB'
     // todo: simplify, hide this in models.
     const companyHdNode = Session.current.user.generatePortfolioKeys(company.index).EQB
+
+    // New issuance address:
     const issuanceHdNode = companyHdNode.derive(issuance.index)
     const toAddress = issuanceHdNode.getAddress()
     // Save public issuance address:
@@ -88,7 +116,7 @@ export const ViewModel = DefineMap.extend({
 
     console.log(`createIssuance: toAddress=${toAddress}`, formData, issuance)
 
-    return this.portfolio.nextChangeAddress()
+    return importAddr(toAddress, 'EQB').then(() => this.portfolio.nextChangeAddress())
     .then(addrObj => addrObj[currencyType])
     .then((changeAddr) => {
       console.log(`toAddress=${toAddress}, changeAddr=${changeAddr}`)
@@ -97,16 +125,12 @@ export const ViewModel = DefineMap.extend({
       // Save authorization transaction id:
       issuance.issuanceTxId = tx.txId
 
-      // Show the spinner:
-      // this.isSending = true
-
       return tx.save().then(() => [toAddress, changeAddr])
     }).then(([toAddress, changeAddr]) => {
       console.log('[createIssuance] transaction was saved')
-      // this.isSending = false
 
       // mark change address as used
-      console.log('[my-portfolio.send] marking change address as used ...')
+      console.log(`[my-portfolio.send] marking change address as used ${changeAddr}...`)
       this.portfolio.markAsUsed(changeAddr, currencyType, true)
       return issuance.save()
     }).then(issuance => {
@@ -119,14 +143,17 @@ export const ViewModel = DefineMap.extend({
       })
       Session.current.refreshBalance()
       return issuance
-    })
+    }).catch(dispatchAlertError)
   },
   prepareTransaction (formData, issuance, toAddress, changeAddr) {
     const amount = formData.amount
     const currencyType = 'EQB'
     const issuanceJson = issuance.getJson()
-    const txouts = this.portfolio
-      .getTxouts(amount + formData.transactionFee, currencyType).txouts
+    const utxo = this.portfolio.getEmptyEqb(amount + formData.transactionFee)
+    if (utxo.sum < amount + formData.transactionFee) {
+      throw new Error('Not enough UTXO')
+    }
+    const txouts = utxo.txouts
       // .filter(a => !a.issuanceId)
       .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
     const options = {

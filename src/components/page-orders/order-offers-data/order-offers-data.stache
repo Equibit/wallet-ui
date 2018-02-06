@@ -1,12 +1,13 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/trade-funds/accept-offer/" />
+<can-import from="~/components/common/loading-indicator/" />
 
 <h2 class="subtitle">
   {{#is order.type 'SELL'}} {{i18n('buyOffers')}} {{else}} {{i18n('sellOffers')}} {{/is}}
   <span class="badge">{{offers.length}}</span>
 </h2>
 
-<div class="well stretch">
+<div class="well stretch {{#if acceptingOffer}}disabled{{/if}}">
 
   {{^if offers.length}}
   <div class="message-box no-border message-placeholder">
@@ -35,8 +36,12 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-xs-12">
-              <button class="btn btn-default btn-sm btn-primary btn-accept"
-                      on:click="acceptOffer(offer)">{{i18n('accept')}}</button>
+              {{#is offer acceptingOffer}}
+                <loading-indicator style="position:relative;margin:10px;margin-left:20px;margin-right:auto;"></loading-indicator>
+              {{else}}
+                <button class="btn btn-default btn-sm btn-primary btn-accept"
+                        on:click="acceptOffer(offer)">{{i18n('accept')}}</button>
+              {{/is}}
             </div>
           </div>
         </div>
@@ -50,8 +55,9 @@
 </div>
 
 {{#if isModalShown}}
-  <accept-offer on:send="sendSecurities(scope.arguments)"
+  <accept-offer sendFn:from="@sendSecurities"
                tx:from="tx"
                portfolio:from="portfolio"
-               issuance:from="issuance" />
+               issuance:from="issuance"
+               offer:from="offer" />
 {{/if}}

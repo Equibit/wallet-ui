@@ -79,9 +79,11 @@ describe('wallet-ui/components/page-orders/order-offers-data', function () {
       Offer.prototype.save = offerSave
     })
     it('should save transaction and offer', function (done) {
-      vm.offer = new Offer()
+      vm.offer = new Offer({
+        timelock2: 72
+      })
       vm.tx = new Transaction()
-      vm.sendSecurities([null, 144, 'description']).then(function () {
+      vm.sendSecurities(72, 'description').then(function () {
         assert.ok(txSaved)
         assert.ok(offerSaved)
         done()
