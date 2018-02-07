@@ -4,7 +4,7 @@
 <can-import from="~/components/common/bootstrap-slider/" />
 <can-import from="~/components/common/loading-indicator/" />
 <can-import from="bootstrap/dist/js/bootstrap" />
-<can-dynamic-import from="~/components/trade-funds/collect-asset/confirm-summary.stache!" @value:to="*confirmSummary" />
+<can-import from="~/components/trade-funds/collect-asset/confirm-summary.stache!" @value:to="scope.vars.confirmSummary" />
 
 
 <bootstrap-modal-content>
@@ -19,7 +19,9 @@
         <div class="list-group">
             <timer-notice message:from="titles.timer" endTime:from="offerTimelock"></timer-notice>
             <div class="list-group-item">
-                {{> *confirmSummary}}
+              {{#if scope.vars@confirmSummary}}
+                {{> scope.vars@confirmSummary}}
+              {{/if}}
             </div>
             <div class="list-group-item">
                 <label>{{i18n('description')}} <span class="icon icon-question"
