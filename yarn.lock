@@ -1394,7 +1394,7 @@ can-assign@^1.0.0, can-assign@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/can-assign/-/can-assign-1.1.1.tgz#c6c7b4b2bb266eb08cf119720792cf0cb81c42d3"
 
-can-attribute-encoder@^0.3.0, can-attribute-encoder@^0.3.2, can-attribute-encoder@^0.3.4:
+can-attribute-encoder@^0.3.0, can-attribute-encoder@^0.3.1, can-attribute-encoder@^0.3.2, can-attribute-encoder@^0.3.4:
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/can-attribute-encoder/-/can-attribute-encoder-0.3.4.tgz#feb273b452c764e1232fc6dfee33ea939ccd6f06"
   dependencies:
@@ -1633,6 +1633,10 @@ can-list@^3.1.0:
     can-types "^1.1.0"
     can-util "^3.9.0"
 
+can-log@^0.1.0:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/can-log/-/can-log-0.1.2.tgz#dd56d5ad39a2ed833778f3ea27ab7da5ba7cf94a"
+
 can-log@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/can-log/-/can-log-1.0.0.tgz#844b20c9c8db7cc8b771cc67b7e84730206379ec"
@@ -1711,7 +1715,7 @@ can-route-pushstate@^3.2.0:
     can-route "^3.1.0"
     can-util "^3.9.0"
 
-can-route@^3.0.5, can-route@^3.1.0, can-route@^3.2.4, can-route@^3.3.3:
+can-route@^3.0.5, can-route@^3.1.0, can-route@^3.2.0, can-route@^3.2.4, can-route@^3.3.3:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/can-route/-/can-route-3.3.4.tgz#6dd5ecdc1d49bcc91be33652140df4852252cb14"
   dependencies:
@@ -1823,7 +1827,7 @@ can-stache-key@^0.1.0, can-stache-key@^0.1.2:
     can-symbol "^1.0.0"
     can-util "^3.9.0"
 
-can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.10.0, can-stache@^3.13.5, can-stache@^3.14.9, can-stache@^3.3.0, can-stache@^3.3.3, can-stache@^3.7.3:
+can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.10.0, can-stache@^3.13.5, can-stache@^3.3.0, can-stache@^3.3.3, can-stache@^3.7.3:
   version "3.14.11"
   resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.14.11.tgz#a2641c903451222bdebb5d921e274899eeba53d5"
   dependencies:
@@ -1835,6 +1839,28 @@ can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, 
     can-observation "^3.3.1"
     can-reflect "^1.2.1"
     can-route "^3.3.3"
+    can-stache-key "^0.1.2"
+    can-symbol "^1.0.0"
+    can-util "^3.10.12"
+    can-view-callbacks "^3.2.0"
+    can-view-live "^3.2.0"
+    can-view-nodelist "^3.1.0"
+    can-view-parser "^3.8.1"
+    can-view-scope "^3.5.4"
+    can-view-target "^3.1.0"
+
+can-stache@^3.14.9:
+  version "3.14.9"
+  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.14.9.tgz#bbfb46bc872d9863715c64bb8d7fafa0b7d05d32"
+  dependencies:
+    can-attribute-encoder "^0.3.0"
+    can-compute "^3.3.1"
+    can-globals "<2.0.0"
+    can-log "^0.1.0"
+    can-namespace "1.0.0"
+    can-observation "^3.3.1"
+    can-reflect "^1.2.1"
+    can-route "^3.2.0"
     can-stache-key "^0.1.2"
     can-symbol "^1.0.0"
     can-util "^3.10.12"
@@ -1988,12 +2014,20 @@ can-view-nodelist@^3.1.0:
     can-namespace "1.0.0"
     can-util "^3.9.5"
 
-can-view-parser@^3.0.0, can-view-parser@^3.4.0, can-view-parser@^3.5.1, can-view-parser@^3.8.1:
+can-view-parser@^3.0.0, can-view-parser@^3.4.0, can-view-parser@^3.5.1, can-view-parser@^3.6.0:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/can-view-parser/-/can-view-parser-3.8.2.tgz#dbc9caee912b3ab94343c528c2b15a03edd5485b"
   dependencies:
     can-attribute-encoder "^0.3.4"
     can-log "^1.0.0"
+    can-namespace "1.0.0"
+
+can-view-parser@^3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/can-view-parser/-/can-view-parser-3.8.1.tgz#f8ff75c10746fc14224063976ff777a904f7340c"
+  dependencies:
+    can-attribute-encoder "^0.3.1"
+    can-log "^0.1.0"
     can-namespace "1.0.0"
 
 can-view-scope@^3.3.1, can-view-scope@^3.5.4:

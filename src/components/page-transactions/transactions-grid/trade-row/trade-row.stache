@@ -1,53 +1,44 @@
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-transactions/transactions-grid/transaction-row.stache!" @value:to="scope.vars.transactionRow" />
+
+
 <table class="table table-condensed">
-    <tbody>
+    <thead>
         <tr class="row-title row-title--top">
-            <td colspan="2" class="column-title">→ Trade</td>
+            <td colspan="2" class="column-title">→ {{i18n('trade')}}</td>
             <td colspan="4" class="column-description">
-                <span class="transaction-subject">Common Shares</span>
-                from
-                <a href="#">
-                    Imperial Brands, Series 1
+                <span class="transaction-subject">{{rows[0].issuanceTypeDisplay}}</span>
+                {{i18n('from')}}
+                <a href="{{routeUrl page='issuances' itemId=rows[0].issuanceId}}">
+                    {{rows[0].issuanceName}}
                 </a>
             </td>
         </tr>
-
-        <tr class="transaction-group">
-            <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
-            <td class="column-type">Sell</td>
-            <td class="column-description">You collected the payment</td>
-            <td class="column-securities">--</td>
-            <td class="column-cash">0.00470023</td>
-            <td class="column-cash">0.00000023</td>    
-        </tr>
-        <tr class="transaction-group">
-            <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
-            <td class="column-type">Sell</td>
-            <td class="column-description">Buyer collected the securities</td>
-            <td class="column-securities">- 385 Shares</td>
-            <td class="column-cash">--</td>
-            <td class="column-cash">--</td>    
-        </tr>
-        <tr class="transaction-group">
-            <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
-            <td class="column-type">Sell</td>
-            <td class="column-description">You sent the securities</td>
-            <td class="column-securities"><i class="text-muted">- 385 Shares</i></td>
-            <td class="column-cash">--</td>
-            <td class="column-cash">--</td>    
-        </tr>
-        <tr class="transaction-group">
-            <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
-            <td class="column-type">Sell</td>
-            <td class="column-description">Buyer sent the payment</td>
-            <td class="column-securities">--</td>
-            <td class="column-cash"><i class="text-muted">0.00470023</i></td>
-            <td class="column-cash">0.00000023</td>    
-        </tr>
+    </thead>
+    <tbody class="transaction-group">
+        {{#each rows row=value}}
+          {{#with (_id = row._id
+                  createdAt=row.createdAt
+                  fromAddress=row.fromAddress
+                  address=row.address
+                  customDescription=../transactionStepDescription(row)
+                  typeFormatted=row.typeFormatted
+                  isSecurity=row.isSecurity
+                  currencyType=row.currencyType
+                  issuanceTypeDisplay=null
+                  type=null
+                  issuanceUnitQuantity=row.issuanceUnitQuantity
+                  amountPlusFee=row.amountPlusFee)}}
+            {{#if scope.vars@transactionRow}}
+              {{>scope.vars@transactionRow}}
+            {{/if}}
+          {{/with}}
+        {{/each}}
+    </tbody>
 
         <tr class="row-title row-title--bottom">
             <td colspan="6"></td>
         </tr>
 
-    </tbody>
 </table>
 

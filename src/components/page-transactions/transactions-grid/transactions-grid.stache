@@ -2,10 +2,11 @@
 <can-import from="~/components/page-transactions/transactions-grid/trade-row/" />
 <can-import from="grid-component" />
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/page-transactions/transactions-grid/transaction-row.stache!" @value:to="scope.vars.transactionRow" />
 
-<grid-component {rows}="rows"
-                {pagination}="pagination"
-                {(selected-row)}="selectedRow">
+<grid-component rows:from="rowsCollated"
+                pagination:from="pagination"
+                selectedRow:bind="selectedRow">
 
   <div class="grid-responsive">
 
@@ -28,71 +29,21 @@
       <table class="table table-condensed grid-body">
         <tbody>
           {{#each rows as row}}
-          <tr class="{{#if row.isPending}}pending{{/if}} {{#if row.selected}}selected{{/if}} {{#is row.address row.fromAddress}}tx-out{{else}}tx-in{{/is}}"
-              on:click="selectRow(row, scope.element, scope.event)">
-            <td class="column-date"><span class="date-value">{{format-date-short(row.createdAt)}}</span></td>
-            <td class="column-type">
-              {{#if one-of(row.type, 'BUY', 'SELL', 'OUT', 'IN')}}
-                {{#is row.address row.fromAddress}} ↑ {{else}} ↓ {{/is}}
+            {{#if row.isTradeGroup}}
+            <tr>
+              <td colspan="6" class="no-padding">
+                <trade-row
+                  rows:from="row.rows"
+                  parentSelectRow:from="../@selectRow"></trade-row>
+              </td>
+            </tr>
+            {{else}}
+              {{#if scope.vars@transactionRow}}
+                {{>scope.vars@transactionRow row}}
               {{/if}}
-              {{row.typeFormatted}}
-            </td>
-            <td class="column-description">
-              <span class="transaction-subject">{{row.issuanceTypeDisplay}}</span>
-              {{#if companyName}}
-                from
-                <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug itemId=row.issuanceId}}">
-                  {{row.companyName}}, {{row.issuanceName}}
-                </a>
-              {{/if}}
-
-              {{#if htlcStep}}
-                <i>HTLC step #{{htlcStep}} of 4</i>
-              {{/if}}
-            </td>
-            <td class="column-securities tx-{{row.type}}">
-              {{#if row.isSecurity}}
-                <span>{{format(row.issuanceUnitQuantity, '', 0)}} {{*row.issuanceUnit}}</span>
-              {{else}}
-                - -
-              {{/if}}
-            </td>
-            <td class="column-cash tx-{{row.type}}">
-              {{#is row.currencyType 'BTC'}}
-                <span>{{coin(row.amountPlusFee, 8))}}</span>
-              {{else}}
-                - -
-              {{/is}}
-            </td>
-            <td class="column-cash tx-{{row.type}}">
-              {{#is row.currencyType 'EQB'}}
-                {{^is row.type 'IN'}}
-                  {{#if one-of(row.type, 'AUTH', 'CANCEL')}}
-                    <span>{{coin(row.amountPlusFee, 8))}}</span>
-                  {{else}}
-                    {{#if row.isSecurity}}
-                      <span>{{coin(row.fee, 8))}}</span>
-                    {{else}}
-                      <span>{{coin(row.amountPlusFee, 8))}}</span>
-                    {{/if}}
-                  {{/if}}
-                {{else}}
-                  - -
-                {{/is}}
-              {{else}}
-                - -
-              {{/is}}
-            </td>
-          </tr>
+            {{/if}}
           {{/each}}
 
-          <!-- Custom Row For Atomic Trade Transactions
-          <tr>
-            <td colspan="6" class="no-padding">
-              <trade-row></trade-row>
-            </td>
-          </tr>  
-          -->     
         </tbody>
       </table>
     </div>

@@ -168,6 +168,13 @@ const Transaction = DefineMap.extend('Transaction', {
   txId: 'string',
 
   /**
+   * @property {String} models/transaction.properties.offerId offerId
+   * @parent models/transaction.properties
+   * Offer ID in Equibit portfolio (for grouping trade transactions)
+   */
+  offerId: 'string',
+
+  /**
    * @property {Number} models/transaction.properties.amount amount
    * @parent models/transaction.properties
    * Amount in Satoshi
