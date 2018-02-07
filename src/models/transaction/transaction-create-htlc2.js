@@ -112,7 +112,8 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
     // description: `Selling securities (HTLC #${htlcStep})`,
     hashlock: offer.hashlock,
     timelock: timelock,
-    buildConfig
+    buildConfig,
+    offerId: offer._id
   }
 
   return { buildConfig, txInfo }

@@ -1,0 +1,27 @@
+@import '../../../../styles/bootstrap-custom/_variables.less';
+
+trade-row {
+	display: block;
+	.row-title--bottom {
+		border-bottom: @border-default;
+		height: 5px;
+	}
+
+	.column-title {
+		font-family: @font-family-bold;
+	}
+
+	.transaction-group tr {
+		background-color: @white;
+
+	}
+
+	.table > tbody > tr {
+		&.row-title--top {
+			> td {
+				border-bottom: 0;
+			}
+		}
+	}
+}
+

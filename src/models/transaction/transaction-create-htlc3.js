@@ -91,7 +91,8 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
     description: `Collecting securities from HTLC (step #${htlcStep})`,
     fromAddress: order.eqbAddress,
     toAddress,
-    htlcStep
+    htlcStep,
+    offerId: offer._id
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
 
@@ -146,7 +147,8 @@ function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
     description: `Collecting payment from HTLC (step #${htlcStep})`,
     fromAddress: order.btcAddress,
     toAddress: offer.btcAddress,
-    htlcStep
+    htlcStep,
+    offerId: offer._id
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
 

@@ -72,6 +72,27 @@ export const ViewModel = DefineMap.extend({
       })
     }
   },
+  get rowsCollated () {
+    if (this.rows) {
+      const _rows = this.rows.slice(0)
+      const buckets = {}
+      _rows.forEach((row, index) => {
+        if (row.offerId) {
+          if (buckets[row.offerId]) {
+            buckets[row.offerId].push(row)
+            _rows[index] = null
+          } else {
+            buckets[row.offerId] = [row]
+            _rows[index] = {
+              isTradeGroup: true,
+              rows: buckets[row.offerId]
+            }
+          }
+        }
+      })
+      return _rows.filter(row => row)
+    }
+  },
   selectedRow: {
     type: '*'
   },

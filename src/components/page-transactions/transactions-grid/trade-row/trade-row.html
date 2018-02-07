@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<script>window.useXhrTransport = true</script>
+<style>
+  body {
+    padding:  20px;
+    background-color:  white !important;
+  }
+</style>
+<div id='demo'></div>
+
+<script type='text/stache' id='demo-html'>
+  <can-import from='~/styles/styles.less' />
+  <can-import from='wallet-ui/components/page-transactions/transactions-grid/trade-row/' />
+  <trade-row rows:from="rows"></trade-row>
+</script>
+
+<script src='../../../../../node_modules/steal/steal.js'
+        main='@empty'>
+
+  import $ from 'jquery'
+  import stache from 'can-stache'
+  import reload from 'live-reload'
+  import DefineMap from 'can-define/map/map'
+  import canViewModel from 'can-view-model'
+  import Transaction from '~/models/transaction/'
+  window.canViewModel = canViewModel
+
+  const vm = new DefineMap({
+    // view model props here
+    rows: new Transaction.List([
+    {'_id': '5a66673365942a6f197bfb10', 'address': 'mjDtSqLuCGE6heT5uPQHAvwjVtvjAVPdRT', 'fromAddress': 'mrn3Fk6NHKvYFuSNVDoHxBdzX9dRFXXRJ4', 'toAddress': 'mjDtSqLuCGE6heT5uPQHAvwjVtvjAVPdRT', 'type': 'SELL', 'htlcStep': 1, 'hashlock': 'ccdbe6891c9e5e92861faa0cb68b917e78891bebb288ebdf56151f7347799bd8', 'timelock': 144, 'currencyType': 'BTC', 'companyName': 'Sinclair Pharmaceutical', 'companySlug': 'sinclair-pharmaceutical', 'issuanceId': '5a6665f365942a6f197bfb03', 'issuanceName': 'U6', 'issuanceType': 'common_shares', 'txId': 'd708ea24511a2f091addfb79ffaae7807e5d5c8dbd2b807e3d8c261281b1ec8b', 'amount': 16004, 'fee': 1000},
+    {'_id': '5a66673365942a6f197bfb0f', 'address': 'mrn3Fk6NHKvYFuSNVDoHxBdzX9dRFXXRJ4', 'fromAddress': 'mrn3Fk6NHKvYFuSNVDoHxBdzX9dRFXXRJ4', 'toAddress': 'mjDtSqLuCGE6heT5uPQHAvwjVtvjAVPdRT', 'type': 'BUY', 'htlcStep': 1, 'hashlock': 'ccdbe6891c9e5e92861faa0cb68b917e78891bebb288ebdf56151f7347799bd8', 'timelock': 144, 'currencyType': 'BTC', 'companyName': 'Sinclair Pharmaceutical', 'companySlug': 'sinclair-pharmaceutical', 'issuanceId': '5a6665f365942a6f197bfb03', 'issuanceName': 'U6', 'issuanceType': 'common_shares', 'txId': 'd708ea24511a2f091addfb79ffaae7807e5d5c8dbd2b807e3d8c261281b1ec8b', 'amount': 16004, 'fee': 1000, 'description': 'Buying securities (HTLC #1)'},
+    {'_id': '5a6666c665942a6f197bfb0b', 'address': 'mqxPmAAcpuNJ3iERaBxGr7i3UpK9HFnNUx', 'fromAddress': 'mqxPmAAcpuNJ3iERaBxGr7i3UpK9HFnNUx', 'toAddress': 'mvc9ZDzEKzRKMArrYD77fWHnE6niBWtuvU', 'type': 'SELL', 'htlcStep': 2, 'hashlock': 'c8ef9cf38a913a6dbf3c67e705571c886a56de9d03e1784dd4b01af1de02ef15', 'timelock': 72, 'currencyType': 'EQB', 'companyName': 'Sinclair Pharmaceutical', 'companySlug': 'sinclair-pharmaceutical', 'issuanceId': '5a6665f365942a6f197bfb03', 'issuanceName': 'U6', 'issuanceType': 'common_shares', 'txId': 'a65d3d7dfa439fd36d57de9acf9c6b91610316afed461026e96c661348f67ff7', 'amount': 9001, 'fee': 1000, 'description': 'Selling securities (HTLC #2)'},
+    {'_id': '5a6666ae65942a6f197bfb08', 'address': 'mjDtSqLuCGE6heT5uPQHAvwjVtvjAVPdRT', 'fromAddress': 'mvG1QgVwgDyFtBCQDkpb6CdFmzHkvD8PG7', 'toAddress': 'mjDtSqLuCGE6heT5uPQHAvwjVtvjAVPdRT', 'type': 'SELL', 'htlcStep': 1, 'hashlock': 'c8ef9cf38a913a6dbf3c67e705571c886a56de9d03e1784dd4b01af1de02ef15', 'timelock': 144, 'currencyType': 'BTC', 'companyName': 'Sinclair Pharmaceutical', 'companySlug': 'sinclair-pharmaceutical', 'issuanceId': '5a6665f365942a6f197bfb03', 'issuanceName': 'U6', 'issuanceType': 'common_shares', 'txId': '7356e9db85a264d0f85d787cff1bac046790b838f85de252123d495dbad4c155', 'amount': 18002, 'fee': 1000}
+    ])
+  })
+  window.vm = vm
+
+  // Enable live-reload:
+  stache.async($('#demo-html').html()).then(template => {
+    let render = () => $('#demo').html(template(vm))
+    render()
+    reload(render)
+  })
+</script>

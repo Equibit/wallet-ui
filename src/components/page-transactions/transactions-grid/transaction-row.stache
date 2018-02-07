@@ -1,0 +1,60 @@
+  <tr class="{{#if isPending}}pending{{/if}} {{#if selected}}selected{{/if}} {{#is address fromAddress}}tx-out{{else}}tx-in{{/is}}"
+      on:click="../selectRow(this, scope.element, scope.event)">
+    <td class="column-date"><span class="date-value">{{format-date-short(createdAt)}}</span></td>
+    <td class="column-type">
+      {{#if one-of(type, 'BUY', 'SELL', 'OUT', 'IN')}}
+        {{#is address fromAddress}} ↑ {{else}} ↓ {{/is}}
+      {{/if}}
+      {{typeFormatted}}
+    </td>
+    <td class="column-description">
+      {{#if customDescription}}
+        {{customDescription}}
+      {{else}}
+        <span class="transaction-subject">{{issuanceTypeDisplay}}</span>
+        {{#if companyName}}
+          from
+          <a href="{{routeUrl page='issuance-details' companySlug=companySlug itemId=issuanceId}}">
+            {{companyName}}, {{issuanceName}}
+          </a>
+        {{/if}}
+
+        {{#if hashlock}}
+          <i>HTLC step #{{htlcStep}} of 4</i>
+        {{/if}}
+      {{/if}}
+    </td>
+    <td class="column-securities tx-{{type}}">
+      {{#if isSecurity}}
+        <span>{{format(issuanceUnitQuantity, '', 0)}}</span>
+      {{else}}
+        - -
+      {{/if}}
+    </td>
+    <td class="column-cash tx-{{type}}">
+      {{#is currencyType 'BTC'}}
+        <span>{{coin(amountPlusFee, 8))}}</span>
+      {{else}}
+        - -
+      {{/is}}
+    </td>
+    <td class="column-cash tx-{{type}}">
+      {{#is currencyType 'EQB'}}
+        {{^is type 'IN'}}
+          {{#if one-of(type, 'AUTH', 'CANCEL')}}
+            <span>{{coin(amountPlusFee, 8))}}</span>
+          {{else}}
+            {{#if isSecurity}}
+              <span>{{coin(fee, 8))}}</span>
+            {{else}}
+              <span>{{coin(amountPlusFee, 8))}}</span>
+            {{/if}}
+          {{/if}}
+        {{else}}
+          - -
+        {{/is}}
+      {{else}}
+        - -
+      {{/is}}
+    </td>
+  </tr>

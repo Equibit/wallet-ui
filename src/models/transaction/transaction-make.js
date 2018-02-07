@@ -14,7 +14,7 @@ const buildTxEqb = eqbTxBuilder.builder.buildTx
  */
 function makeTransaction (
   amount, toAddress, txouts,
-  {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb, amountEqb}
+  {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb, amountEqb, offerId}
 ) {
   currencyType = currencyType.toUpperCase()
   const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']))
@@ -63,7 +63,8 @@ function makeTransaction (
     hex: txInfo.hex,
     txId: txInfo.txId,
     fromAddress: txouts[0].address,
-    toAddress
+    toAddress,
+    offerId
   }
 
   // add issuance details:
