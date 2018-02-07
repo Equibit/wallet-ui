@@ -253,7 +253,10 @@ function saveOffer (offer, tx) {
   if (offer.type === 'SELL') {
     offer.eqbAddress = tx.fromAddress
   }
-  return offer.save()
+  return offer.save().then(() => {
+    tx.offerId = offer._id
+    return tx.save()
+  }).then(() => offer)
 }
 
 function dispatchAlertOrder (hub, route) {
