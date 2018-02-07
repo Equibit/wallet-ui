@@ -69,6 +69,7 @@ export const ViewModel = DefineMap.extend({
       // Change address (Empty EQB for transaction fee or BTC for change):
       const changeAddr = this.order.type === 'SELL' ? changeAddrPair.EQB : changeAddrPair.BTC
 
+      // Todo: it looks like this should be stored on the Offer, because BTC change should be different every time (for every new offer of the same order).
       // Refund address for Bid flow:
       if (this.order.type === 'BUY') {
         this.order.btcAddress = addrPair.BTC
