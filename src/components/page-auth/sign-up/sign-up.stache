@@ -22,7 +22,7 @@
       <div class="checkbox">
         <label>
           <input type="checkbox" {($checked)}="agreedToTerms">
-          {{i18n('signupAgreeToTerms1')}} <a ($click)="showTerms('termsVisible')">{{i18n('signupAgreeToTerms2')}}s</a>
+          {{i18n('signupAgreeToTerms1')}} <a ($click)="showTerms('termsVisible')">{{i18n('signupAgreeToTerms2')}}</a>
           {{i18n('signupAgreeToTerms3')}} <a ($click)="showTerms('policyVisible')">{{i18n('signupAgreeToTerms4')}}</a>.
         </label>
       </div>
