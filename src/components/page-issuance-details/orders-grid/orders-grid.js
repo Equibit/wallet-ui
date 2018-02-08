@@ -157,7 +157,9 @@ export default Component.extend({
           (rows.length < this.viewModel.limit || orderPrice < pageEndPrice)
         ) {
           // clear cached set and refresh, because the newly created item belongs in the shown page
-          delete Order.connection.cacheConnection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
+          // todo: change back when cache behavior is used for the model connection.
+          // delete Order.connection.cacheConnection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
+          delete Order.connection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
           this.viewModel.trigger('limit')
         }
       })
@@ -165,7 +167,9 @@ export default Component.extend({
         const rows = this.viewModel.rows
         if (rows && (rows.indexOf(order) > -1 || rows.length === this.viewModel.limit - 1)) {
           // clear cached set and refresh, because we went from a full page to less than a full page
-          delete Order.connection.cacheConnection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
+          // todo: change back when cache behavior is used for the model connection.
+          // delete Order.connection.cacheConnection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
+          delete Order.connection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
           this.viewModel.trigger('limit')
         }
       })
