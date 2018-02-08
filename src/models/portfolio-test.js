@@ -132,13 +132,12 @@ describe('models/portfolio', function () {
   })
 })
 
-
 describe('portfolio-utils/filterUniqAddr', function () {
   it('should filter out dup addresses meta', function () {
     const dups = [
-      {"_id":"1","portfolioId":"5a590cd3e3673d2971171b29","index":0,"type":"EQB","updatedAt":"2018-01-30T18:58:43.981Z","createdAt":"2018-01-12T19:30:27.993Z","isUsed":true,"isChange":false},
-      {"_id":"2","portfolioId":"5a590cd3e3673d2971171b29","index":0,"type":"EQB","updatedAt":"2018-01-30T18:58:43.981Z","createdAt":"2018-01-12T19:30:27.993Z","isUsed":true,"isChange":false},
-      {"_id":"3","portfolioId":"5a590cd3e3673d2971171b29","index":0,"type":"BTC","updatedAt":"2018-01-30T18:58:43.981Z","createdAt":"2018-01-12T19:30:27.993Z","isUsed":true,"isChange":false}
+      {'_id': '1', 'portfolioId': '5a590cd3e3673d2971171b29', 'index': 0, 'type': 'EQB', 'updatedAt': '2018-01-30T18:58:43.981Z', 'createdAt': '2018-01-12T19:30:27.993Z', 'isUsed': true, 'isChange': false},
+      {'_id': '2', 'portfolioId': '5a590cd3e3673d2971171b29', 'index': 0, 'type': 'EQB', 'updatedAt': '2018-01-30T18:58:43.981Z', 'createdAt': '2018-01-12T19:30:27.993Z', 'isUsed': true, 'isChange': false},
+      {'_id': '3', 'portfolioId': '5a590cd3e3673d2971171b29', 'index': 0, 'type': 'BTC', 'updatedAt': '2018-01-30T18:58:43.981Z', 'createdAt': '2018-01-12T19:30:27.993Z', 'isUsed': true, 'isChange': false}
     ]
     const uniq = filterUniqAddr(dups)
     assert.equal(uniq.length, 2)
