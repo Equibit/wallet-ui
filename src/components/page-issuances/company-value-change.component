@@ -50,7 +50,9 @@
       </arrow-change>
       <span class="bid">
         <span class="hbid">{{format(issuance.highestBid, '')}}</span> / <span class="ask">{{format(issuance.lowestAsk, '')}}</span>
-        <span class="shares">({{issuance.highestNumShares}} / {{issuance.lowestNumShares}})</span>
+        <span class="shares">
+          ({{format(issuance.highestNumShares, '')}} / {{format(issuance.lowestNumShares, '')}})
+        </span>
       </span>
     </div>
   </view>
