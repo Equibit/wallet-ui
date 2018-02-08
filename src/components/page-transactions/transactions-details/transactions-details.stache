@@ -90,6 +90,7 @@
           TxID ({{transaction.currencyType}}) <span class="icon icon-link-external"></span>
         </a>
         {{#if transaction.transactionUrlTestNet}}
+          <br />
           <a href="{{transaction.transactionUrlTestNet}}" target="_blank">
             TestNet Explorer <span class="icon icon-link-external"></span>
           </a>

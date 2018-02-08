@@ -55,7 +55,11 @@
             {{/if}}
           {{/if}}
         {{else}}
-          - -
+          {{#if isSecurity}}
+            - -
+          {{else}}
+            <span>{{coin(amount, 8))}}</span>
+          {{/if}}
         {{/is}}
       {{else}}
         - -
