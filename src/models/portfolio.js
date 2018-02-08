@@ -14,7 +14,7 @@ import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
 import algebra from './algebra'
 // import Session from '~/models/session'
-import utils from './portfolio-utils'
+import utils, { filterUniqAddr } from './portfolio-utils'
 const {
   importAddr,
   getNextAddressIndex,
@@ -76,7 +76,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
             portfolioId: this._id
           }
         }).then((results) => {
-          const portfolioAddresses = results.data
+          const portfolioAddresses = filterUniqAddr(results.data)
           list.replace(portfolioAddresses)
           // console.log("portfolioAddresses", portfolioAddresses)
         })

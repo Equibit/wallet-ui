@@ -4,7 +4,7 @@ import Portfolio from './portfolio'
 import { omit } from 'ramda'
 import portfolio, { addressesMeta } from './mock/mock-portfolio'
 import listunspent from './mock/mock-listunspent'
-import utils from './portfolio-utils'
+import utils, { filterUniqAddr } from './portfolio-utils'
 const {
   // importAddr,
   getNextAddressIndex,
@@ -129,5 +129,18 @@ describe('models/portfolio', function () {
       const p = portfolios.findByAddress('n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA')
       assert.equal(p && p.name, 'My Portfolio')
     })
+  })
+})
+
+
+describe('portfolio-utils/filterUniqAddr', function () {
+  it('should filter out dup addresses meta', function () {
+    const dups = [
+      {"_id":"1","portfolioId":"5a590cd3e3673d2971171b29","index":0,"type":"EQB","updatedAt":"2018-01-30T18:58:43.981Z","createdAt":"2018-01-12T19:30:27.993Z","isUsed":true,"isChange":false},
+      {"_id":"2","portfolioId":"5a590cd3e3673d2971171b29","index":0,"type":"EQB","updatedAt":"2018-01-30T18:58:43.981Z","createdAt":"2018-01-12T19:30:27.993Z","isUsed":true,"isChange":false},
+      {"_id":"3","portfolioId":"5a590cd3e3673d2971171b29","index":0,"type":"BTC","updatedAt":"2018-01-30T18:58:43.981Z","createdAt":"2018-01-12T19:30:27.993Z","isUsed":true,"isChange":false}
+    ]
+    const uniq = filterUniqAddr(dups)
+    assert.equal(uniq.length, 2)
   })
 })
