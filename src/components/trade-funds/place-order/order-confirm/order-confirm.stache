@@ -12,7 +12,7 @@
   <div class="list-group-item order-summary">
     <dl class="dl-horizontal dl-stripped responsive">
       <dt>{{i18n('quantity')}}</dt>
-      <dd class="input-value">{{formData.quantity}} <small>{{i18n('securities')}}</small></dd>
+      <dd class="input-value">{{format(formData.quantity, '')}} <small>{{i18n('securities')}}</small></dd>
 
       <dt>{{#is type 'SELL'}} {{i18n('askPrice')}} {{else}} {{i18n('bidPrice')}} {{/is}}</dt>
       <dd class="input-value">{{format(formData.priceInUnits, '')}} <small>μBTC</small></dd>
