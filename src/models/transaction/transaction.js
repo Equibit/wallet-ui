@@ -23,7 +23,8 @@ import algebra from '../algebra'
 import i18n from '../../i18n/i18n'
 import { makeTransaction } from './transaction-make'
 import { createHtlc1 } from './transaction-create-htlc1'
-import { blockTime } from '~/constants'
+import { blockTime, testNetTxExplorerUrl } from '~/constants'
+import env from '~/environment'
 import { buildTransaction } from './transaction-build'
 import { eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
@@ -210,7 +211,10 @@ const Transaction = DefineMap.extend('Transaction', {
   get transactionUrl () {
     const txId = this.txId
     const nodeType = this.currencyType.toLowerCase()
-    return txId && `http://localhost:3030/proxycore?node=${nodeType}&method=gettransaction&params[]=${txId}&params[]=true`
+    return txId && `${env.api}/proxycore?node=${nodeType}&method=gettransaction&params[]=${txId}&params[]=true`
+  },
+  get transactionUrlTestNet () {
+    return this.txId && this.currencyType === 'BTC' && testNetTxExplorerUrl(this.txId)
   },
   isSecurity: {
     get () {
