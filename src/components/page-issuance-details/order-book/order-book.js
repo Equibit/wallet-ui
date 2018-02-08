@@ -284,11 +284,11 @@ function dispatchAlertOffer (hub, offer, route) {
 }
 
 function updateIssuanceStat(issuance, order) {
-  if (order.type === 'SELL' && issuance.lowestAsk > order.price) {
+  if (order.type === 'SELL' && (!issuance.lowestAsk || issuance.lowestAsk > order.price)) {
     issuance.lowestAsk = order.price
     issuance.lowestNumShares = order.quantity
   }
-  if (order.type === 'BUY' && issuance.highestBid < order.price) {
+  if (order.type === 'BUY' && (!issuance.highestBid || issuance.highestBid < order.price)) {
     issuance.highestBid = order.price
     issuance.highestNumShares = order.quantity
   }
