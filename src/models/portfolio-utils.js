@@ -107,3 +107,14 @@ export function filterUniqAddr (list) {
     return acc
   }, {res: [], map: {}}).res
 }
+
+export function containAddress (list, item) {
+  return list.reduce((acc, a) => {
+    return acc || (
+      item.portfolioId === a.portfolioId &&
+      item.index === a.index &&
+      item.type === a.type &&
+      item.isChange === a.isChange
+    )
+  }, false)
+}

@@ -14,7 +14,7 @@ import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
 import algebra from './algebra'
 // import Session from '~/models/session'
-import utils, { filterUniqAddr } from './portfolio-utils'
+import utils, { filterUniqAddr, containAddress } from './portfolio-utils'
 const {
   importAddr,
   getNextAddressIndex,
@@ -382,7 +382,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
         isChange
       }
     }
-    if (portfolioAddressesCreateData) {
+    if (portfolioAddressesCreateData && !containAddress(this.addressesMeta.get(), portfolioAddressesCreateData)) {
       // Save newly generated addresses to DB:
       console.log('[portfolio.getNextAddress] patching portfolio with updated addressesMeta ...')
       return feathersClient.service('portfolio-addresses')

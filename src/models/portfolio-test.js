@@ -4,7 +4,7 @@ import Portfolio from './portfolio'
 import { omit } from 'ramda'
 import portfolio, { addressesMeta } from './mock/mock-portfolio'
 import listunspent from './mock/mock-listunspent'
-import utils, { filterUniqAddr } from './portfolio-utils'
+import utils, { filterUniqAddr, containAddress } from './portfolio-utils'
 const {
   // importAddr,
   getNextAddressIndex,
@@ -141,5 +141,21 @@ describe('portfolio-utils/filterUniqAddr', function () {
     ]
     const uniq = filterUniqAddr(dups)
     assert.equal(uniq.length, 2)
+  })
+})
+
+describe('portfolio-utils/containAddress', function () {
+  it('should check if addr already exists', function () {
+    const newAddr =
+      {'portfolioId': '5a590cd3e3673d2971171b29', 'index': 0, 'type': 'EQB', 'isUsed': true, 'isChange': false}
+    const addresses = [
+      {'_id': '2', 'portfolioId': '5a590cd3e3673d2971171b29', 'index': 0, 'type': 'EQB', 'updatedAt': '2018-01-30T18:58:43.981Z', 'createdAt': '2018-01-12T19:30:27.993Z', 'isUsed': true, 'isChange': false},
+      {'_id': '3', 'portfolioId': '5a590cd3e3673d2971171b29', 'index': 0, 'type': 'BTC', 'updatedAt': '2018-01-30T18:58:43.981Z', 'createdAt': '2018-01-12T19:30:27.993Z', 'isUsed': true, 'isChange': false}
+    ]
+    assert.ok(containAddress(addresses, newAddr))
+    newAddr.type = 'BTC'
+    assert.ok(containAddress(addresses, newAddr))
+    newAddr.index = 1
+    assert.ok(!containAddress(addresses, newAddr))
   })
 })
