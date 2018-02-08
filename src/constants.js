@@ -12,6 +12,8 @@ export const blockTime = allConstants.blockTime = {
   EQB: 600000
 }
 
+export const testNetTxExplorerUrl = (txId) => `https://testnet.blockchain.info/tx/${txId}`
+
 export const supportedCurrencies = allConstants.supportedCurrencies = ['BTC', 'EQB']
 
 export default allConstants
