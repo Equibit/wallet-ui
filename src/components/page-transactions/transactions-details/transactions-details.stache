@@ -42,10 +42,12 @@
       <div class="col-xs-6 font-numeric">{{coin(transaction.amount)}}&nbsp;{{transaction.currencyType}}</div>
     </div>
 
+    {{#if transaction.fee}}
     <div class="row">
       <div class="col-xs-6 no-padding-left">{{i18n('transactionFee')}}</div>
       <div class="col-xs-6 font-numeric">- {{coin(transaction.fee)}}&nbsp;{{transaction.currencyType}}</div>
     </div>
+    {{/if}}
   </div>
 
    <hr />
