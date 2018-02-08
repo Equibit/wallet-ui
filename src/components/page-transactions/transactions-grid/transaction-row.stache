@@ -45,7 +45,11 @@
             <span>{{coin(amountPlusFee, 8))}}</span>
           {{else}}
             {{#if isSecurity}}
-              <span>{{coin(fee, 8))}}</span>
+              {{#if fee}}
+                <span>{{coin(fee, 8))}}</span>
+              {{else}}
+                - -
+              {{/if}}
             {{else}}
               <span>{{coin(amountPlusFee, 8))}}</span>
             {{/if}}
