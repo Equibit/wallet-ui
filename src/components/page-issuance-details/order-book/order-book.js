@@ -105,6 +105,7 @@ export const ViewModel = DefineMap.extend({
         const keyPair = flowType === 'Ask' ? this.issuance.keys.keyPair : this.portfolio.keys.BTC.keyPair
         return this.sendMessage(order, keyPair)
           .then(() => order.save())
+          .then(order => updateIssuanceStat(this.issuance, order))
           .then(() => dispatchAlertOrder(hub, route))
           .then(() => order)
       })
@@ -280,6 +281,18 @@ function dispatchAlertOffer (hub, offer, route) {
     'message': `<a href="${offerUrl}">${translate('viewDetails')}</a>`,
     'displayInterval': 10000
   })
+}
+
+function updateIssuanceStat(issuance, order) {
+  if (order.type === 'SELL' && issuance.lowestAsk > order.price) {
+    issuance.lowestAsk = order.price
+    issuance.lowestNumShares = order.quantity
+  }
+  if (order.type === 'BUY' && issuance.highestBid < order.price) {
+    issuance.highestBid = order.price
+    issuance.highestNumShares = order.quantity
+  }
+  return issuance.save()
 }
 
 export default Component.extend({
