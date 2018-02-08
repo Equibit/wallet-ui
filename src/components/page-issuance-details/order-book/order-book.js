@@ -283,7 +283,7 @@ function dispatchAlertOffer (hub, offer, route) {
   })
 }
 
-function updateIssuanceStat(issuance, order) {
+function updateIssuanceStat (issuance, order) {
   if (order.type === 'SELL' && (!issuance.lowestAsk || issuance.lowestAsk > order.price)) {
     issuance.lowestAsk = order.price
     issuance.lowestNumShares = order.quantity
