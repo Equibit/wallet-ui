@@ -156,15 +156,15 @@ const Issuance = DefineMap.extend('Issuance', {
         jurisdiction_country: company.domicile,
         jurisdiction_state_or_province: company.state,
         legal_name: company.name,
-        address: company.streetAddress + ' ' + company.streetAddress2,
-        city: company.city,
-        state_or_province: company.state,
-        zip_or_postal_code: company.postalCode,
-        country: company.domicile,
-        web: company.website,
-        public_key_web: company.website,
-        email: company.contactEmail,
-        phone: company.phoneNumber
+        public_key_web: company.website
+        // address: company.streetAddress + ' ' + company.streetAddress2,
+        // city: company.city,
+        // state_or_province: company.state,
+        // zip_or_postal_code: company.postalCode,
+        // country: company.domicile,
+        // web: company.website,
+        // email: company.contactEmail,
+        // phone: company.phoneNumber
       },
       issuance: {
         issuance_address: this.issuanceAddress,
