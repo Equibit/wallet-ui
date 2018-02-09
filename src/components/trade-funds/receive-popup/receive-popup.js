@@ -24,10 +24,12 @@ import feathersClient from '~/models/feathers-client'
 
 export const ViewModel = DefineMap.extend({
   /**
-   * Object with two portfolio adresses: BTC and EQB.
+   * Object with two portfolio addresses: BTC and EQB.
    */
   address: {
     type: '*',
+
+    // todo: we need to subscribe ONLY when generate a new address. This should be happening inside portfolio model.
     set (val) {
       val && val.BTC && feathersClient.service('/subscribe').create({
         addresses: [val.BTC]

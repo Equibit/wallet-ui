@@ -27,13 +27,13 @@ const EMPTY_ISSUANCE_TX_ID = '00000000000000000000000000000000000000000000000000
 
 const portfolioService = feathersClient.service('portfolios')
 
-const Portfolio = DefineMap.extend('Portfolio', {
+const Portfolio = DefineMap.extend('Portfolio', {seal: false}, {
   '*': {
     serialize: false
   },
   // can-define/define-helpers/ expects to be able to write this property for currently unknown cause
   // defining it now to aviod a bug, real fix requires more time and thought
-  _instanceDefinitions: '*',
+  // _instanceDefinitions: '*',
 
   /**
    * @property {String} models/portfolio.properties._id _id
@@ -372,6 +372,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
         isUsed: false,
         isChange
       }
+      // todo: test after demo and fix. Replace call from `components/trade-funds/receive-popup/receive-popup.js` with this.
+      // Subscribe to websocket tx events for this new address:
+      // feathersClient.service('/subscribe').create({
+      //   addresses: [addr.BTC]
+      // })
     }
     if (eqbAddrIndex.imported === false) {
       // Import addr as watch-only
@@ -384,15 +389,22 @@ const Portfolio = DefineMap.extend('Portfolio', {
         isUsed: false,
         isChange
       }
+      // todo: test after demo and fix. Replace call from `components/trade-funds/receive-popup/receive-popup.js` with this.
+      // Subscribe to websocket tx events for this new address:
+      // feathersClient.service('/subscribe').create({
+      //   addresses: [addr.EQB]
+      // })
     }
-    if (portfolioAddressesCreateData && !containAddress(this.addressesMeta.get(), portfolioAddressesCreateData)) {
+    if (portfolioAddressesCreateData) {
       // Save newly generated addresses to DB:
       console.log('[portfolio.getNextAddress] patching portfolio with updated addressesMeta ...')
       return feathersClient.service('portfolio-addresses')
         .create(portfolioAddressesCreateData)
         .then((results) => {
-          this.addressesMeta.push(results)
-          // console.log("new portfolioAddresses entry", results)
+          if (!containAddress(this.addressesMeta.get(), portfolioAddressesCreateData)) {
+            this.addressesMeta.push(results)
+            console.log(`new portfolioAddresses entry type=${results.type}, index=${results.index}`)
+          }
         })
         .then(() => addr)
     } else {
