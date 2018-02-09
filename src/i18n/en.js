@@ -344,8 +344,8 @@ export default {
   notificationsNone: 'There no notifications',
   notifyMe: 'Notify Me',
   noPartialFills: 'No partial fills allowed.',
-  noRestriction: 'Bearer Asset',
-  noRestrictionInfo: 'Securities can trade freely',
+  noRestriction: 'Bearer Form',
+  noRestrictionInfo: 'Securities can trade freely.',
   now: 'Now',
 
   offer: 'Offer',
@@ -447,8 +447,8 @@ export default {
   responses: 'Responses',
   restriction: 'Restriction',
   restrictionLevel: 'Restriction Level',
-  restrictionLevel1Name: 'Trading Passports',
-  restrictionLevel1Description: 'Securities can only be transferred to investors the issuer accepts.',
+  restrictionLevel1Name: 'Passport Restricted',
+  restrictionLevel1Description: 'Only investors bearing acceptable passports can receive securities.',
   // The following restriction level should not currently be used.  We may opt to change this in the future.
   // restrictionLevel2Name: 'Level 2',
   // restrictionLevel2Description: 'Equibit can be transferred to an address that is one degree of trust separation from the issuer.',

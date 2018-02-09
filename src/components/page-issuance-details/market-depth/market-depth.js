@@ -21,7 +21,9 @@ import MarketDepth from '~/models/market-depth'
 
 export const ViewModel = DefineMap.extend({
   dataPromise: {
-    value: MarketDepth.get({})
+    value: function () {
+      return MarketDepth.get({})
+    }
   },
   chartData: {
     get (lastVal, resolve) {
