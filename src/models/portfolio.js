@@ -31,6 +31,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
   '*': {
     serialize: false
   },
+  // can-define/define-helpers/ expects to be able to write this property for currently unknown cause
+  // defining it now to aviod a bug, real fix requires more time and thought
+  _instanceDefinitions: '*',
 
   /**
    * @property {String} models/portfolio.properties._id _id

@@ -289,6 +289,7 @@ const Session = DefineMap.extend('Session', {
    */
   hasIssuanceUtxo (issuanceAddress) {
     const userHasPortfolioIssuances = this.portfolios &&
+      this.portfolios[0] &&
       this.portfolios[0].securities &&
       this.portfolios[0].securities.filter(sec => {
         return sec.data.issuance.issuance_address === issuanceAddress
