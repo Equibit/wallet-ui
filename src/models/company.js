@@ -6,25 +6,24 @@ import algebra from './algebra'
 import Session from './session'
 
 const Company = DefineMap.extend('Company', {
-  requiredFields: ['name', 'domicile', 'streetAddress', 'city', 'state', 'postalCode']
+  requiredFields: ['name', 'domicile', 'registrationNumber']
 }, {
   _id: 'string',
   userId: 'string',
   index: 'number',
 
+  // Legal name:
   name: 'string',
   slug: 'string',
+
+  // Registration Number:
+  registrationNumber: 'string',
+
+  // Jurisdiction (Country):
   domicile: 'string',
 
-  streetAddress: 'string',
-  streetAddress2: 'string',
-  city: 'string',
+  // Jurisdiction (State/Province):
   state: 'string',
-  postalCode: 'string',
-
-  contactEmail: 'string',
-  website: 'string',
-  phoneNumber: 'string',
 
   error: {
     type: 'string',

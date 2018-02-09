@@ -322,6 +322,7 @@ export default {
   myIssuancesAddIssuance: 'Add Issuance',
 
   name: 'Name',
+  nameAndRegistration: 'Name and Registration',
   newIssuances: 'New Issuances',
   note: 'Note',
   notEnoughEqbIssuance: 'You don\'t have enough EQB to create an issuance',
@@ -439,6 +440,7 @@ export default {
   recoveryPhraseSetupRiskWarning: 'If you proceed without a backup, and forget your password you will lose access to your funds.',
   recoveryPhraseWarningMessage: 'If you don\'t have a backup recovery phrase, you can still access your account, but your funds won\'t be available.',
   recurring: 'Recurring',
+  registrationNumber: 'Registration Number',
   relatedCompanies: 'Related Companies',
   research: 'Research',
   receivePaymentFrom: 'Receive Payment From',

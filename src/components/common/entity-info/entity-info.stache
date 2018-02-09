@@ -1,35 +1,15 @@
 <div class="well">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="entity-name"><strong>{{entity.companyName}}</strong></div>
-		</div>
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <label>{{i18n('nameAndRegistration')}}</label>
+      <div>{{entity.name}}</div>
+      <div>{{entity.registrationNumber}}</div>
+    </div>
 
-		<div class="col-xs-12 col-md-6">
-			<label>{{i18n('domicile')}}</label>
-			<div class="entity-address">{{entity.streetAddress}}</div>
-
-			{{#if entity.streetAddress2}}
-			<div class="entity-address">{{entity.streetAddress2}}</div>
-        	{{/if}}
-
-			<div class="entity-city">{{entity.city}}, {{entity.state}} {{entity.postalCode}}</div>
-			<div class="entity-country">{{entity.domicile}}</div>
-		</div>
-
-		<div class="col-xs-12 col-md-6">
-			<label>{{i18n('contact')}}</label>
-
-      		{{#if entity.website}}
-  			<div class="entity-url"><a href="http://{{entity.website}}" target="_blank;">http://{{entity.website}}</a></div>
-      		{{/if}}
-
-      		{{#if entity.website}}
-			<div class="entity-email"><a href="mailto:{{entity.contactEmail}}">{{entity.contactEmail}}</a></div>
-      		{{/if}}
-
-      		{{#if entity.website}}
-			<div class="entity-phone">{{entity.phoneNumber}}</div>
-      		{{/if}}
-		</div>
-	</div>
+    <div class="col-xs-12 col-md-6">
+      <label>{{i18n('domicile')}}</label>
+      <div>{{entity.domicile}}</div>
+      <div>{{entity.state}}</div>
+    </div>
+  </div>
 </div>
