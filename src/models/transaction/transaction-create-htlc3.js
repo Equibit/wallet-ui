@@ -1,6 +1,7 @@
 import typeforce from 'typeforce'
 import { merge } from 'ramda'
 import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { TxId } from '../../utils/typeforce-types'
 import { buildTransaction } from './transaction-build'
 import { prepareTxData } from './transaction-create-htlc1'
 
@@ -40,6 +41,7 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
   const paymentTxId = offer.htlcTxId1
   typeforce(types.Address, toAddress)
   typeforce(types.Address, refundAddr)
+  typeforce(TxId, paymentTxId)
 
   // todo: calculate transaction fee:
   const fee = 1000

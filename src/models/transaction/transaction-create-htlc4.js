@@ -1,6 +1,7 @@
 import typeforce from 'typeforce'
 import { merge } from 'ramda'
 import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { TxId } from '../../utils/typeforce-types'
 import { buildTransaction } from './transaction-build'
 import { prepareTxData } from './transaction-create-htlc1'
 
@@ -101,6 +102,7 @@ function prepareHtlcConfig4Eqb (order, offer, portfolio, secret, issuance, chang
   const htlcStep = 4
   const amount = offer.quantity
   const paymentTxId = offer.htlcTxId2
+  typeforce(TxId, paymentTxId)
 
   // We unlock htlc1 here (so using timelock):
   const timelock = offer.timelock
