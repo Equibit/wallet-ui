@@ -1,6 +1,7 @@
 import typeforce from 'typeforce'
 import { merge } from 'ramda'
 import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { TxId } from '../../utils/typeforce-types'
 import { buildTransaction } from './transaction-build'
 import { prepareTxData } from './transaction-create-htlc1'
 
@@ -32,12 +33,15 @@ function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
   return txData
 }
 
+// EQB transaction:
 function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAddr) {
   const amount = offer.quantity
   const toAddress = offer.eqbAddress
   const refundAddr = order.eqbAddress
+  const paymentTxId = offer.htlcTxId1
   typeforce(types.Address, toAddress)
   typeforce(types.Address, refundAddr)
+  typeforce(TxId, paymentTxId)
 
   // todo: calculate transaction fee:
   const fee = 1000
@@ -71,7 +75,8 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
       // Main output (unlocking HTLC securities):
       value: amount,
       address: toAddress,
-      issuanceTxId: issuance.issuanceTxId
+      issuanceTxId: issuance.issuanceTxId,
+      paymentTxId
     }, {
       // Regular change output:
       value: availableAmountEmptyEqb - fee,
