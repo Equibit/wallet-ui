@@ -100,6 +100,7 @@ function prepareHtlcConfig4Eqb (order, offer, portfolio, secret, issuance, chang
   let fee = 1000
   const htlcStep = 4
   const amount = offer.quantity
+  const paymentTxId = offer.htlcTxId2
 
   // We unlock htlc1 here (so using timelock):
   const timelock = offer.timelock
@@ -131,7 +132,8 @@ function prepareHtlcConfig4Eqb (order, offer, portfolio, secret, issuance, chang
       // Main output for unlocked HTLC securities:
       value: amount,
       address: order.eqbAddress,
-      issuanceTxId: issuance.issuanceTxId
+      issuanceTxId: issuance.issuanceTxId,
+      paymentTxId
     }, {
       // Regular change output:
       value: availableAmountEmptyEqb - fee,

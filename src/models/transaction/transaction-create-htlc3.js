@@ -32,10 +32,12 @@ function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
   return txData
 }
 
+// EQB transaction:
 function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAddr) {
   const amount = offer.quantity
   const toAddress = offer.eqbAddress
   const refundAddr = order.eqbAddress
+  const paymentTxId = offer.htlcTxId1
   typeforce(types.Address, toAddress)
   typeforce(types.Address, refundAddr)
 
@@ -71,7 +73,8 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
       // Main output (unlocking HTLC securities):
       value: amount,
       address: toAddress,
-      issuanceTxId: issuance.issuanceTxId
+      issuanceTxId: issuance.issuanceTxId,
+      paymentTxId
     }, {
       // Regular change output:
       value: availableAmountEmptyEqb - fee,
