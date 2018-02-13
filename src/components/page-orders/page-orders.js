@@ -35,7 +35,8 @@ export const ViewModel = DefineMap.extend({
       if (order) {
         this.orders.selectItem(order)
       }
-      return order
+      // Returning undefined when falsey to avoid a typecasting issue in a child component
+      return order || undefined
     }
   }
 })
