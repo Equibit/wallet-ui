@@ -24,6 +24,9 @@ const Issuance = DefineMap.extend('Issuance', {
    * @parent models/issuance.properties
    * Id of the authorization transaction
    */
+  // Note: investor can authorize more shares of the issuance later, which will create a new `issuanceTxId`.
+  // But `issuanceAddress` will always be the same.
+  // todo: change this to array of txId when we implement the case for issuance gets authorized more than once.
   issuanceTxId: 'string',
 
   /**
@@ -33,7 +36,6 @@ const Issuance = DefineMap.extend('Issuance', {
    */
   userId: 'string',
 
-  // todo: `issuanceAddress` does not really make sense since one issuance will be broken into a lot of parts.
   /**
    * Issuance address identifies issuance in Blockchain. All OrderBook items will be linked by this address.
    * This is to find UTXO of the issuance; do not confuse with authorization txid (issuanceTxId).
