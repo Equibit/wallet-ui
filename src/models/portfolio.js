@@ -192,7 +192,7 @@ const Portfolio = DefineMap.extend('Portfolio', {seal: false}, {
       return Object.keys(eqbAddresses).reduce((acc, addr) => {
         const txouts = eqbAddresses[addr].txouts
         const securities = txouts.filter(out => {
-          return out.equibit.issuance_tx_id !== EMPTY_ISSUANCE_TX_ID
+          return out.equibit.issuance_tx_id && out.equibit.issuance_tx_id !== EMPTY_ISSUANCE_TX_ID
         })
         acc.push.apply(acc, securities)
         return acc
@@ -210,7 +210,7 @@ const Portfolio = DefineMap.extend('Portfolio', {seal: false}, {
       return Object.keys(eqbAddresses).reduce((acc, addr) => {
         const txouts = eqbAddresses[addr].txouts
         const emptyEqb = txouts.filter(out => {
-          return out.equibit.issuance_tx_id === EMPTY_ISSUANCE_TX_ID
+          return !out.equibit.issuance_tx_id || out.equibit.issuance_tx_id === EMPTY_ISSUANCE_TX_ID
         })
         acc.push.apply(acc, emptyEqb)
         return acc
@@ -243,11 +243,12 @@ const Portfolio = DefineMap.extend('Portfolio', {seal: false}, {
                 return acc
               }
               let issuanceJson
-              if (item.equibit.issuance_json) {
+              if (item.equibit.issuance_json || item.equibit.payload) {
                 try {
-                  issuanceJson = JSON.parse(item.equibit.issuance_json)
+                  let json = item.equibit.issuance_json || item.equibit.payload
+                  issuanceJson = JSON.parse(json)
                 } catch (e) {
-                  console.error('Error: cannot parse issuance_json: ', item.equibit.issuance_json)
+                  console.error('Error: cannot parse issuance_json: ', (item.equibit.issuance_json || item.equibit.payload))
                 }
               }
               return issuanceJson && {
