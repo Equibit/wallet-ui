@@ -525,7 +525,7 @@ Portfolio.algebra = algebra
 // Calculate securities quantity from utxo:
 const getSecuritiesAmount = utxo => {
   return utxo
-    .filter(out => (out.equibit && out.equibit.issuance_tx_id !== EMPTY_ISSUANCE_TX_ID))
+    .filter(out => (out.equibit && out.equibit.issuance_tx_id && out.equibit.issuance_tx_id !== EMPTY_ISSUANCE_TX_ID))
     .reduce((acc, out) => (acc + out.amount), 0)
 }
 
