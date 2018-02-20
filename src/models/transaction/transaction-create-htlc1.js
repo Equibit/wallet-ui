@@ -15,7 +15,7 @@ const hashTimelockContract = eqbTxBuilder.hashTimelockContract
  * For the given Offer creates HTLC transaction with H(x). Offer type is either 'BUY' or 'SELL'.
  * This is a high-level method to be called from a component VM.
  */
-function createHtlc1 (offer, order, portfolio, issuance, changeAddr) {
+function createHtlc1 (offer, order, portfolio, issuance, changeAddr, transactionFeeRate) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
 
   const currencyType = order.type === 'SELL' ? 'BTC' : 'EQB'

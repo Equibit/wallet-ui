@@ -132,16 +132,14 @@ export const ViewModel = DefineMap.extend({
       // Ask flow: EQB address to receive securities, BTC address for refund
       this.portfolio.getNextAddress(),
       // Change address:
-      this.portfolio.getNextAddress(true)
-    ]).then(([addrPair, change]) => {
+      this.portfolio.getNextAddress(true),
+      Session.current.transactionFeeRatesPromise
+    ]).then(([addrPair, change, transactionFeeRates]) => {
       // Note: we need to store the refund address on the offer because it will be used in HTLC.
       // Bid flow: change address for Empty EQB.
       const changeAddr = flowType === 'Ask' ? change.BTC : change.EQB
       const offer = createHtlcOffer(formData, secret, formData.timelock, Session.current.user, this.issuance, addrPair)
-      const tx = Transaction.createHtlc1(offer, formData.order, this.portfolio, this.issuance, changeAddr)
-
-      // Here we have all info about the transaction we want to create (fees, etc).
-      // We need to show a modal with the info here.
+      const tx = Transaction.createHtlc1(offer, formData.order, this.portfolio, this.issuance, changeAddr, transactionFeeRates.regular)
 
       return tx.save()
         .then(tx => saveOffer(offer, tx))

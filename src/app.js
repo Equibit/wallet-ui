@@ -69,6 +69,25 @@ const AppViewModel = DefineMap.extend({
     serialize: true
   },
 
+  // Rates for anonymous user: BTC/USD EQB/USD
+  ratesPromise: {
+    get () {
+      // BTC/USD ->
+      // BTC/CAD read from Session
+      // transaction fees BTC, EQB read from Session -> Model with realtime
+      return Promise.all(
+        TransactionFee.getList({}),
+        CurrencyRate.getList({})  // our own custom getList
+      )
+        //.then(([transactionFees, currencyRates]))
+    }
+  },
+  transactionFees: {
+    get (get, resolve) {
+      this.ratesPromise.then(([transactionFees, currencyRates]) => transactionFees).then(resolve)
+    }
+  },
+
   /**
    * @property {wallet-ui/app.session} wallet-ui/app.session session
    * @parent wallet-ui/app.properties
@@ -76,6 +95,8 @@ const AppViewModel = DefineMap.extend({
    */
   // TODO: consider using Session.current in a getter and do not pass session to other pages via template bindings.
   session: {
+    // 1. user prefs for local currency rates.
+    // 2. transaction fees are only needed for a logged in user. Also, might be that user prefers priority rates always.
     Type: Session,
     set (val) {
       this.subcribeToEvents()

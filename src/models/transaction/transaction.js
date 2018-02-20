@@ -34,7 +34,7 @@ const Transaction = DefineMap.extend('Transaction', {
     const txData = makeTransaction.apply(this, arguments)
     return new Transaction(txData)
   },
-  createHtlc1 (offer, order, portfolio, issuance, changeAddr) {
+  createHtlc1 (offer, order, portfolio, issuance, changeAddr, transactionFeeRate) {
     const txData = createHtlc1.apply(this, arguments)
     return new Transaction(txData)
   },
@@ -47,7 +47,7 @@ const Transaction = DefineMap.extend('Transaction', {
   unSubscribe () {
     feathersClient.service('/transactions').removeListener('created')
   },
-  calculateFee (tx) {
+  calculateFee (tx, rates) {
     // TODO: calculate based on the number of inputs/outputs and JSON size for eqb if applied.
     return 10000
   }

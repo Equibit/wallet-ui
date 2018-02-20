@@ -101,6 +101,13 @@ const Session = DefineMap.extend('Session', {
     }
   },
 
+  /**
+   * Rates to calculate transaction fee. Satoshi per byte.
+   */
+  feeRates: {
+
+  },
+
   portfolioRefreshPromise: '*',
   /**
    * @property {Function} models/session.prototype.refreshBalance refreshBalance
@@ -173,6 +180,16 @@ const Session = DefineMap.extend('Session', {
   rates: {
     get () {
       return (this.user && this.user.rates) || Session.defaultRates
+    }
+  },
+
+  // todo: connect to API
+  transactionFeeRatesPromise: {
+    get () {
+      return Promise.resolve({
+        priority: 20,
+        regular: 5
+      })
     }
   },
 
