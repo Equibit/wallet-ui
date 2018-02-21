@@ -23,11 +23,11 @@ const TransactionFee = DefineMap.extend('TransactionFee', {
 
   regular: 'number',
 
-  calculateFee (txHex, type='regular') {
+  calculateFee (txHex, type = 'regular') {
     if (!this.regular && !this.priority) {
       throw new Error({message: 'No fee rates defined'})
     }
-    const rate = type === regular ? this.regular : this.priority
+    const rate = type === 'regular' ? this.regular : this.priority
     return (txHex.length / 2) * rate
   }
 })

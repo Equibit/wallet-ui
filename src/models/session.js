@@ -184,11 +184,12 @@ const Session = DefineMap.extend('Session', {
   },
 
   // todo: connect to API
+  // Transaction fee rate, Satoshi per byte.
   transactionFeeRatesPromise: {
     get () {
       return Promise.resolve({
-        priority: 20,
-        regular: 5
+        priority: { EQB: 20, BTC: 20 },
+        regular: { EQB: 5, BTC: 5 }
       })
     }
   },

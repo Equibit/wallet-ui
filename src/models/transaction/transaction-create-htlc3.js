@@ -119,7 +119,6 @@ function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
     fee = amount - 1
   }
 
-
   // We unlock htlc2 here (so using timelock2):
   const timelock = offer.timelock2
 

@@ -70,23 +70,6 @@ const AppViewModel = DefineMap.extend({
   },
 
   // Rates for anonymous user: BTC/USD EQB/USD
-  ratesPromise: {
-    get () {
-      // BTC/USD ->
-      // BTC/CAD read from Session
-      // transaction fees BTC, EQB read from Session -> Model with realtime
-      return Promise.all(
-        TransactionFee.getList({}),
-        CurrencyRate.getList({})  // our own custom getList
-      )
-        //.then(([transactionFees, currencyRates]))
-    }
-  },
-  transactionFees: {
-    get (get, resolve) {
-      this.ratesPromise.then(([transactionFees, currencyRates]) => transactionFees).then(resolve)
-    }
-  },
 
   /**
    * @property {wallet-ui/app.session} wallet-ui/app.session session

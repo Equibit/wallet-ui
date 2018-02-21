@@ -73,11 +73,12 @@ describe('models/transaction/utils', function () {
   })
   describe('HTLC-1 Lock payment into HTLC', function () {
     const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
+    const transactionFeeRates = { EQB: 5, BTC: 10 }
     let htlcOfferMock, htlcConfig
     describe('prepareHtlcConfigBtc', function () {
       before(function () {
         htlcOfferMock = mockHtlcOffer()
-        htlcConfig = prepareHtlcConfigBtc(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC)
+        htlcConfig = prepareHtlcConfigBtc(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC, 2900)
       })
       it('should create buildConfig', function () {
         const amount = htlcOfferMock.offer.quantity * htlcOfferMock.orderData.price
@@ -88,7 +89,7 @@ describe('models/transaction/utils', function () {
         assert.ok(buildConfig.vin[0].keyPair, 'keyPair')
         assert.equal(buildConfig.vout[0].value, amount, 'amount of 35000')
         assert.equal(buildConfig.vout[0].scriptPubKey.toString('hex'), htlcOfferMock.htlcScript, 'scriptPubKey')
-        assert.equal(buildConfig.vout[1].value, 10000000 - amount - 1000, 'change amount of 9964000')
+        assert.equal(buildConfig.vout[1].value, 10000000 - amount - 2900, 'change amount of 9962000')
         assert.equal(buildConfig.vout[1].address, changeAddrPair.BTC, 'change address')
       })
       it('should create txInfo object', function () {
@@ -98,7 +99,7 @@ describe('models/transaction/utils', function () {
         assert.equal(txInfo.addressVout, '1', 'vin.0.vout')
         assert.equal(txInfo.amount, 35000, 'amount')
         assert.equal(txInfo.currencyType, 'BTC', 'currencyType')
-        assert.equal(txInfo.fee, 1000, 'fee')
+        assert.equal(txInfo.fee, 2900, 'fee')
         assert.equal(txInfo.fromAddress, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'fromAddress')
         assert.equal(txInfo.toAddress, 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'toAddress')
         assert.equal(txInfo.type, 'BUY', 'type')
@@ -112,7 +113,7 @@ describe('models/transaction/utils', function () {
         let tx
         before(function () {
           htlcOfferMock = mockHtlcOffer()
-          htlcConfig = prepareHtlcConfigBtc(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC)
+          htlcConfig = prepareHtlcConfigBtc(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC, 2900)
           tx = buildTransaction('BTC')(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
         })
         it('should return tx hex', function () {
@@ -127,7 +128,7 @@ describe('models/transaction/utils', function () {
       let txData, tx
       before(function () {
         htlcOfferMock = mockHtlcOffer()
-        htlcConfig = prepareHtlcConfigBtc(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC)
+        htlcConfig = prepareHtlcConfigBtc(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC, transactionFeeRates.BTC)
         tx = { hex: htlcOfferMock.txHex, txId: htlcOfferMock.txId }
         txData = prepareTxData(htlcConfig, tx, issuance)
       })
@@ -156,7 +157,7 @@ describe('models/transaction/utils', function () {
         before(function () {
           htlcOfferMock = mockHtlcOffer()
           tx = { hex: htlcOfferMock.txHex, txId: htlcOfferMock.txId }
-          txData = createHtlc1(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.BTC)
+          txData = createHtlc1(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.BTC, transactionFeeRates)
         })
         it('should define main props', function () {
           assert.equal(txData.amount, 35000, 'amount')
@@ -166,8 +167,10 @@ describe('models/transaction/utils', function () {
           assert.equal(txData.hashlock.length, 64)
           assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
         })
-        it('should define transaction hex and id', function () {
+        it('should define htlc1 transaction hex', function () {
           assert.equal(txData.hex, tx.hex, 'tx hex')
+        })
+        it('should define htlc1 transaction id', function () {
           assert.equal(txData.txId, tx.txId, 'txId')
         })
       })
@@ -214,9 +217,9 @@ describe('models/transaction/utils', function () {
           assert.equal(buildConfig.vout[1].value, issuance.utxo[0].amount - amount, 'change for securities of 149999500')
           assert.equal(buildConfig.vout[1].address, order.eqbAddress, 'change address for securities (eqbAddress)')
         })
-        it('should have correct empty EQB  change output', function () {
+        it('should have correct empty EQB change output', function () {
           const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
-          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 1000, 'change amount empty EQB of 219999000')
+          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 3000, 'change amount empty EQB of 219999000')
           assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for empty EQB')
         })
       })
@@ -243,7 +246,7 @@ describe('models/transaction/utils', function () {
           assert.equal(txInfo.type, 'SELL', 'type')
         })
         it('should have fee and from/to addresses', function () {
-          assert.equal(txInfo.fee, 1000, 'fee')
+          assert.equal(txInfo.fee, 3000, 'fee')
           assert.equal(txInfo.fromAddress, order.eqbAddress, 'fromAddress = order.eqbAddress')
           assert.equal(txInfo.toAddress, offer.eqbAddress, 'toAddress = offer.eqbAddress')
         })
@@ -262,15 +265,17 @@ describe('models/transaction/utils', function () {
         })
         it('should define main props', function () {
           assert.equal(txData.amount, 500, 'amount')
-          assert.equal(txData.fee, 1000, 'fee')
+          assert.equal(txData.fee, 3000, 'fee')
           assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
         })
         it('should define hashlock', function () {
           assert.equal(txData.hashlock.length, 64)
           assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
         })
-        it('should define transaction hex and id', function () {
+        it('should define htlc2 transaction hex', function () {
           assert.equal(txData.hex, tx.hex, 'tx hex')
+        })
+        it('should define htlc2 transaction id', function () {
           assert.equal(txData.txId, tx.txId, 'txId')
         })
       })
@@ -320,7 +325,7 @@ describe('models/transaction/utils', function () {
         })
         it.skip('should have correct empty EQB  change output', function () {
           const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
-          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 1000, 'change amount empty EQB of 219999000')
+          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 3000, 'change amount empty EQB of 219999000')
           assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for empty EQB')
         })
       })
@@ -374,8 +379,10 @@ describe('models/transaction/utils', function () {
           assert.equal(txData.hashlock.length, 64)
           assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
         })
-        it.skip('should define transaction hex and id', function () {
+        it.skip('should define htlc3 transaction hex', function () {
           assert.equal(txData.hex, tx.hex, 'tx hex')
+        })
+        it.skip('should define htlc3 transaction id', function () {
           assert.equal(txData.txId, tx.txId, 'txId')
         })
       })
