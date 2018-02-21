@@ -55,14 +55,31 @@ export const ViewModel = DefineMap.extend({
   },
 
   order: '*',
+  transactionFee: 'number',
   isBuySellShown: 'boolean',
 
   // Create an offer modal:
   openBuySellModal (args) {
-    this.order = args[1]
-    // Note: we need to re-insert the modal content:
-    this.isBuySellShown = false
-    this.isBuySellShown = true
+    const order = this.order = args[1]
+
+    // Estimate fee:
+    Session.current.transactionFeeRatesPromise.then(transactionFeeRates => {
+      const addr = 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo'
+      const secret = generateSecret()
+      const fakeOffer = new (function Offer(){
+        this.quantity = order.quantity
+        this.btcAddress = addr
+        this.timelock = 144
+        this.timelock2 = 144 / 2
+        this.hashlock = cryptoUtils.sha256(secret).toString('hex')
+      })
+      const tx = Transaction.createHtlc1(fakeOffer, order, this.portfolio, this.issuance, addr, transactionFeeRates.regular)
+      this.transactionFee = tx.fee
+
+      // Note: we need to re-insert the modal content:
+      this.isBuySellShown = false
+      this.isBuySellShown = true
+    })
   },
 
   get userPortfolioForIssuance () {

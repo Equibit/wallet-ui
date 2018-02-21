@@ -24,6 +24,7 @@ import FormData from './form-data'
 export const ViewModel = DefineMap.extend({
   portfolio: Portfolio,
   order: Order,
+  transactionFee: 'number',
   mode: {
     value: 'edit'
   },
@@ -42,7 +43,8 @@ export const ViewModel = DefineMap.extend({
       }
       return new FormData({
         portfolio: this.portfolio,
-        order: this.order
+        order: this.order,
+        fee: this.transactionFee
       })
     }
   },
