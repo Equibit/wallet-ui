@@ -32,9 +32,10 @@ const refundBtcAddress = 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'
 // type :: Ask | Bid
 export default function (type = 'Ask') {
   const offer = type === 'Ask'
-    ? createHtlcOffer(formDataAsk, secret, timelock, Session.current.user, issuance, {EQB: eqbAddress, BTC: refundBtcAddress})
-    : createHtlcOffer(formDataBid, secret, timelock, Session.current.user, issuance, {EQB: eqbAddress, BTC: refundBtcAddress})
+    ? createHtlcOffer(orderAsk, secret, timelock, 'description', Session.current.user, issuance, {EQB: eqbAddress, BTC: refundBtcAddress})
+    : createHtlcOffer(orderBid, secret, timelock, 'description', Session.current.user, issuance, {EQB: eqbAddress, BTC: refundBtcAddress})
 
+  offer.quantity = 500
   offer.htlcTxId1 = 'e426a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301'
   offer.htlcTxId2 = 'e426a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301'
   offer.timelock2 = timelock / 2
