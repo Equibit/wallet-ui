@@ -36,6 +36,7 @@
  *  - For this it should have access to available UTXO (e.g. portfolio for BTC/EQB or issuance)
  *  - To run build we need to know:
  *    - currencyType, amount, toAddress, htlcStep + info,
+ *    - transaction fee rate
  *  - Only the following types can be rebuilt: 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL'.
  *  - If `_id` is set then we canNOT rebuild (transaction was already sent).
  *
@@ -302,7 +303,7 @@ const Transaction = DefineMap.extend('Transaction', {
     this.hex = tx.hex
     this.txId = tx.txId
   },
-
+  // todo: incompleted...
   build () {
     this.hex = 'hex here'
     this.txId = 'txid here'

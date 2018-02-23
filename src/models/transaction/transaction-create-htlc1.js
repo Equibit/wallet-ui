@@ -21,11 +21,13 @@ function createHtlc1 (offer, order, portfolio, issuance, changeAddr, transaction
   const currencyType = order.type === 'SELL' ? 'BTC' : 'EQB'
   const transactionFeeRate = transactionFeeRates[currencyType]
 
+  // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
   let htlcConfig = order.type === 'SELL'
     ? prepareHtlcConfigBtc(offer, order, portfolio, changeAddr)
     : prepareHtlcConfigEqb(offer, order, portfolio, issuance, changeAddr)
   let tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
 
+  // Calculate fee and rebuild:
   const transactionFee = tx.hex.length / 2 * transactionFeeRate
   console.log(`transactionFee: ${tx.hex.length} / 2 * ${transactionFeeRate} = ${transactionFee}`)
   htlcConfig = order.type === 'SELL'
@@ -46,6 +48,8 @@ function createHtlc1 (offer, order, portfolio, issuance, changeAddr, transaction
 // HTLC-1 is a BTC transaction from <offer creator> to <order creator>
 function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr, transactionFee) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', types.Address, '?Number'), arguments)
+  typeforce('Number', offer.timelock)
+  typeforce('String', offer.hashlock)
 
   const amount = offer.quantity * order.price
   // We reuse this method for both HTLC1 (Ask) and HTLC2 (Bid), so toAddress will be different:

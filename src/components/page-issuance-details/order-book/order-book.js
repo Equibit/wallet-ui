@@ -89,14 +89,10 @@ export const ViewModel = DefineMap.extend({
 
     return Promise.all([
       // Ask flow: EQB address to receive securities, BTC address for refund
-      this.portfolio.getNextAddress(),
-      Session.current.transactionFeeRatesPromise
+      this.portfolio.getNextAddress()
+      // Session.current.transactionFeeRatesPromise
     ]).then(([addrPair, transactionFeeRates]) => {
-      // const flowType = order.type === 'SELL' ? 'Ask' : 'Bid'
       // Note: we need to store the refund address on the offer because it will be used in HTLC.
-      // Bid flow: change address for Empty EQB.
-      // const changeAddr = flowType === 'Ask' ? change.BTC : change.EQB
-
       // Note: we don't know the amount yet.
       this.offer = createHtlcOffer(order, secret, defaultTimelock, Session.current.user, '', this.issuance, addrPair)
 
