@@ -83,7 +83,7 @@
   <place-offer sendFn:from="@placeOffer"
                portfolio:from="portfolio"
                order:from="order"
-               transactionFee:from="transactionFee" />
+               offer:from="offer" />
 {{/if}}
 
 {{#if isViewAllShown}}
