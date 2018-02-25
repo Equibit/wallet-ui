@@ -94,7 +94,7 @@ export const ViewModel = DefineMap.extend({
     ]).then(([addrPair, transactionFeeRates]) => {
       // Note: we need to store the refund address on the offer because it will be used in HTLC.
       // Note: we don't know the amount yet.
-      this.offer = createHtlcOffer(order, secret, defaultTimelock, Session.current.user, '', this.issuance, addrPair)
+      this.offer = createHtlcOffer(order, secret, defaultTimelock, '', Session.current.user, this.issuance, addrPair)
 
       // Open modal (we need to re-insert the modal component):
       this.isBuySellShown = false
