@@ -132,10 +132,6 @@ export const ViewModel = DefineMap.extend({
         // const issuance = issuances.filter(issuance => issuance._id === this.issuance._id)[0]
         const issuance = this.issuance
         const receiveAddr = flowType === 'Ask' ? addr.BTC : addr.EQB
-        // listen for offers created/updated
-        feathersClient.service('/subscribe').create({
-          addresses: [addr.EQB]
-        })
         return createOrder(formData, type, receiveAddr, Session.current.user, this.portfolio, issuance)
       })
       .then(order => {
@@ -164,12 +160,6 @@ export const ViewModel = DefineMap.extend({
     typeforce('Offer', offer)
     typeforce('Transaction', tx)
     console.log('placeOffer: ', offer, tx)
-    // const tx = Transaction.createHtlc1(offer, order, this.portfolio, this.issuance, changeAddr, transactionFeeRates.regular)
-
-    // Listen to updates for this order
-    feathersClient.service('/subscribe').create({
-      addresses: [addrPair.EQB]
-    })
     return tx.save()
       .then(tx => saveOffer(offer, tx))
       .then(offer => dispatchAlertOffer(hub, offer, route))
