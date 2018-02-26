@@ -29,7 +29,6 @@ import Session from '../../../models/session'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
 import BitMessage from '../../../models/bit-message'
 import cryptoUtils from '../../../utils/crypto'
-import feathersClient from '../../../models/feathers-client'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
