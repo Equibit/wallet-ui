@@ -324,7 +324,7 @@ const Session = DefineMap.extend('Session', {
             addresses: newAddresses
           })
         }
-      })();
+      })()
 
       this._lastAddresses = results
       return results

@@ -16,7 +16,6 @@
 import typeforce from 'typeforce'
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
-import route from 'can-route'
 import './order-offers-accepted.less'
 import view from './order-offers-accepted.stache'
 import Session from '../../../models/session'
@@ -25,8 +24,7 @@ import Issuance from '../../../models/issuance'
 import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
 import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
-import hub, { dispatchAlertError } from '../../../utils/event-hub'
-import { translate } from '../../../i18n/i18n'
+import { dispatchAlertError } from '../../../utils/event-hub'
 
 export const ViewModel = DefineMap.extend({
   order: Order,

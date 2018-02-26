@@ -20,7 +20,6 @@ import view from './orders-grid.stache'
 import Order from '~/models/order'
 import Offer from '~/models/offer'
 import Session from '~/models/session'
-import sortedSetJSON from 'can-connect/helpers/sorted-set-json'
 
 export const ViewModel = DefineMap.extend({ seal: false }, {
   type: {
