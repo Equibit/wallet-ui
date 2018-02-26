@@ -71,7 +71,7 @@ export const ViewModel = DefineMap.extend({
 
       // Todo: it looks like this should be stored on the Offer, because BTC change should be different every time (for every new offer of the same order).
       // Refund address for Bid flow:
-      if (this.order.type === 'BUY') {
+      if (this.order.type === 'BUY' && !this.order.btcAddress) {
         this.order.btcAddress = addrPair.BTC
       }
 
