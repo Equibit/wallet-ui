@@ -56,8 +56,8 @@
               aria-expanded="false">
             <span class="sr-only">{{i18n('notifications')}}</span>
 
-            {{#if notifications.length}}
-              <notification-counter count:from="notifications.length" />
+            {{#if unreadNotifications.length}}
+              <notification-counter count:from="unreadNotifications.length" />
             {{/if}}
           </a>
           <div class="dropdown-menu popover bottom notifications-popover animated fadeIn">

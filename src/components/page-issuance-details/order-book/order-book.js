@@ -29,6 +29,7 @@ import Transaction from '../../../models/transaction/transaction'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
 import BitMessage from '../../../models/bit-message'
 import cryptoUtils from '../../../utils/crypto'
+import feathersClient from '../../../models/feathers-client'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
@@ -97,6 +98,10 @@ export const ViewModel = DefineMap.extend({
         // const issuance = issuances.filter(issuance => issuance._id === this.issuance._id)[0]
         const issuance = this.issuance
         const receiveAddr = flowType === 'Ask' ? addr.BTC : addr.EQB
+        // listen for offers created/updated
+        feathersClient.service('/subscribe').create({
+          addresses: [addr.EQB]
+        })
         return createOrder(formData, type, receiveAddr, Session.current.user, this.portfolio, issuance)
       })
       .then(order => {
@@ -140,9 +145,12 @@ export const ViewModel = DefineMap.extend({
       const offer = createHtlcOffer(formData, secret, formData.timelock, Session.current.user, this.issuance, addrPair)
       const tx = Transaction.createHtlc1(offer, formData.order, this.portfolio, this.issuance, changeAddr)
 
+      // Listen to updates for this order
+      feathersClient.service('/subscribe').create({
+        addresses: [addrPair.EQB]
+      })
       // Here we have all info about the transaction we want to create (fees, etc).
       // We need to show a modal with the info here.
-
       return tx.save()
         .then(tx => saveOffer(offer, tx))
         .then(offer => dispatchAlertOffer(hub, offer, route))

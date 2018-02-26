@@ -14,7 +14,7 @@ import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
 import algebra from './algebra'
 // import Session from '~/models/session'
-import utils, { filterUniqAddr, containAddress } from './portfolio-utils'
+import utils from './portfolio-utils'
 const {
   importAddr,
   getNextAddressIndex,
@@ -27,13 +27,10 @@ const EMPTY_ISSUANCE_TX_ID = '00000000000000000000000000000000000000000000000000
 
 const portfolioService = feathersClient.service('portfolios')
 
-const Portfolio = DefineMap.extend('Portfolio', {seal: false}, {
+const Portfolio = DefineMap.extend('Portfolio', {
   '*': {
     serialize: false
   },
-  // can-define/define-helpers/ expects to be able to write this property for currently unknown cause
-  // defining it now to aviod a bug, real fix requires more time and thought
-  // _instanceDefinitions: '*',
 
   /**
    * @property {String} models/portfolio.properties._id _id
@@ -79,7 +76,7 @@ const Portfolio = DefineMap.extend('Portfolio', {seal: false}, {
             portfolioId: this._id
           }
         }).then((results) => {
-          const portfolioAddresses = filterUniqAddr(results.data)
+          const portfolioAddresses = results.data
           list.replace(portfolioAddresses)
           // console.log("portfolioAddresses", portfolioAddresses)
         })
@@ -328,6 +325,7 @@ const Portfolio = DefineMap.extend('Portfolio', {seal: false}, {
   unrealizedPLPercent: {type: 'number', value: 0},
   createdAt: 'date',
   updatedAt: 'date',
+  importFrom: 'date',
 
   /**
    * @function {String} models/portfolio.properties.nextAddress nextAddress
@@ -373,11 +371,6 @@ const Portfolio = DefineMap.extend('Portfolio', {seal: false}, {
         isUsed: false,
         isChange
       }
-      // todo: test after demo and fix. Replace call from `components/trade-funds/receive-popup/receive-popup.js` with this.
-      // Subscribe to websocket tx events for this new address:
-      // feathersClient.service('/subscribe').create({
-      //   addresses: [addr.BTC]
-      // })
     }
     if (eqbAddrIndex.imported === false) {
       // Import addr as watch-only
@@ -390,11 +383,6 @@ const Portfolio = DefineMap.extend('Portfolio', {seal: false}, {
         isUsed: false,
         isChange
       }
-      // todo: test after demo and fix. Replace call from `components/trade-funds/receive-popup/receive-popup.js` with this.
-      // Subscribe to websocket tx events for this new address:
-      // feathersClient.service('/subscribe').create({
-      //   addresses: [addr.EQB]
-      // })
     }
     if (portfolioAddressesCreateData) {
       // Save newly generated addresses to DB:
@@ -402,10 +390,8 @@ const Portfolio = DefineMap.extend('Portfolio', {seal: false}, {
       return feathersClient.service('portfolio-addresses')
         .create(portfolioAddressesCreateData)
         .then((results) => {
-          if (!containAddress(this.addressesMeta.get(), portfolioAddressesCreateData)) {
-            this.addressesMeta.push(results)
-            console.log(`new portfolioAddresses entry type=${results.type}, index=${results.index}`)
-          }
+          this.addressesMeta.push(results)
+          // console.log("new portfolioAddresses entry", results)
         })
         .then(() => addr)
     } else {

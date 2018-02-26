@@ -1,22 +1,73 @@
+<can-import from="~/components/trade-funds/collect-asset/" />
+
 <div class="list-group list-group-simple notifications-list">
 
   {{#each notifications as notification}}
-    <a href="{{routeUrl page='transactions' itemId=notification.transactionId}}"
-       class="list-group-item {{#if notification.isRead}}read{{/if}}"
-       ($click)="read(notification)">
-      <div class="media">
-        <div class="media-left">
-          <span class="media-object icon icon-sell-open"></span>
-        </div>
-        <div class="media-body">
-          <h4 class="media-heading">{{title(notification.type)}}</h4>
-          <div class="media-description">for {{for(notification.address)}}</div>
-          <div class="media-cta btn-link">
-            Amount {{notification.amountFormatted}} {{notification.units}}
+    {{#switch(notification.type)}}
+      {{#case 'transaction'}}
+        <a href="{{routeUrl true}}"
+           class="list-group-item {{#if notification.isRead}}read{{/if}}"
+           on:click="read(notification)">
+          <div class="media">
+            <div class="media-left">
+              <span class="media-object icon icon-sell-open"></span>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">{{title(notification.data.type)}}</h4>
+              <div class="media-description">{{i18n('for')}} {{for(notification.data.address)}}</div>
+              <div class="media-cta btn-link">
+                <a href="{{routeUrl page='transactions' itemId=notification.data.transactionId}}">
+                  Amount {{notification.amountFormatted}} {{notification.units}}
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </a>
+        </a>
+      {{/case}}
+      {{#case 'offer'}}
+        <a href="{{routeUrl true}}"
+          class="list-group-item {{#if notification.isRead}}read{{/if}}"
+          on:click="read(notification)">
+          <div class="media">
+            {{#with data=notification.data}}
+            <div class="media-left">
+              <span class="media-object icon {{#eq data.htlcStep 3}}icon-done{{else}}icon-{{data.status.toLowerCase()}}{{/eq}}"></span>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">
+                {{#eq data.htlcStep 1}}{{i18n(data.type.toLowerCase())}}{{/eq}}
+                {{#eq data.htlcStep 2}}{{i18n(data.type.toLowerCase())}}{{/eq}}
+                {{i18n(data.action)}}</h4>
+              <div class="media-description">{{i18n('for')}} {{data.companyName}}, {{data.issuanceName}}</div>
+              <div class="media-cta btn-link">
+                {{#switch data.htlcStep}}
+                  {{#case 1}}
+                    <a href="{{routeUrl page='orders' itemId=data.orderId}}">
+                      {{i18n('quantity')}} {{format-int(data.quantity)}}
+                    </a>
+                  {{/case}}
+                  {{#case 2}}
+                  <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
+                    {{#eq data.type "SELL"}}
+                      {{i18n('dealFlowMessageTitleCollectPayment')}}
+                    {{else}}
+                      {{i18n('dealFlowMessageTitleCollectSecurities')}}
+                    {{/eq}}
+                  </a>
+                  {{/case}}
+                  {{#case 3}}
+                  <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
+                    {{i18n('dealFlowStep3')}}
+                  </a>
+                  {{/case}}
+                {{/switch}}
+              </div>
+            </div>
+            {{/with}}
+          </div>
+        </a>
+      {{/case}}
+    {{/switch}}
 
   {{else}}
     <div class="message-box no-border message-placeholder">
@@ -86,124 +137,10 @@
   </a>
    -->
 
-  <!--
-  <a href="#" class="list-group-item">
-    <div class="media">
-      <div class="media-left">
-        <span class="media-object icon icon-buy-progress"></span>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">Guarantee Received</h4>
-        <div class="media-description">for Imperial Brands, Series 1</div>
-        <div class="media-cta btn-link">Quantity 385</div>
-      </div>
-    </div>
-  </a>
-
-
-  <a href="#" class="list-group-item read">
-    <div class="media">
-      <div class="media-left">
-        <span class="media-object icon icon-sell-open"></span>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">Sell Offer Received</h4>
-        <div class="media-description">for Imperial Brands, Series 1</div>
-        <div class="media-cta btn-link">Quantity 385</div>
-      </div>
-    </div>
-  </a>
-
-  <a href="#" class="list-group-item read">
-    <div class="media">
-      <div class="media-left">
-        <span class="media-object icon icon-buy-progress"></span>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">Guarante Received</h4>
-        <div class="media-description">for Imperial Brands, Series 1</div>
-        <div class="media-cta btn-link">Quantity 385</div>
-      </div>
-    </div>
-  </a>
-
-  <a href="#" class="list-group-item read">
-    <div class="media">
-      <div class="media-left">
-        <span class="media-object icon icon-cancelled"></span>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">Buy Offer Cancelled</h4>
-        <div class="media-description">for Imperial Brands, Series 1</div>
-        <div class="media-cta btn-link">Quantity 385</div>
-      </div>
-    </div>
-  </a>
-
-  <a href="#" class="list-group-item">
-    <div class="media">
-      <div class="media-left">
-        <span class="media-object icon icon-cancelled"></span>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">Buy Offer Cancelled</h4>
-        <div class="media-description">for Imperial Brands, Series 1</div>
-        <div class="media-cta btn-link">Quantity 385</div>
-      </div>
-    </div>
-  </a>
-
-  <a href="#" class="list-group-item read">
-    <div class="media">
-      <div class="media-left">
-        <span class="media-object icon icon-rejected"></span>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">Buy Offer Rejected</h4>
-        <div class="media-description">for Imperial Brands, Series 1</div>
-        <div class="media-cta btn-link">Quantity 385</div>
-      </div>
-    </div>
-  </a>
-
-  <a href="#" class="list-group-item">
-    <div class="media">
-      <div class="media-left">
-        <span class="media-object icon icon-rejected"></span>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">Buy Offer Rejected</h4>
-        <div class="media-description">for Imperial Brands, Series 1</div>
-        <div class="media-cta btn-link">Quantity 385</div>
-      </div>
-    </div>
-  </a>
-
-  <a href="#" class="list-group-item read">
-    <div class="media">
-      <div class="media-left">
-        <span class="media-object icon icon-done"></span>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">Deal Closed</h4>
-        <div class="media-description">for Imperial Brands, Series 1</div>
-        <div class="media-cta btn-link">Quantity 385</div>
-      </div>
-    </div>
-  </a>
-
-  <a href="#" class="list-group-item">
-    <div class="media">
-      <div class="media-left">
-        <span class="media-object icon icon-done"></span>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">Deal Closed</h4>
-        <div class="media-description">for Imperial Brands, Series 1</div>
-        <div class="media-cta btn-link">Quantity 385</div>
-      </div>
-    </div>
-  </a>-->
-
-
 </div>
+
+{{#if offerModalShown}}
+<collect-asset
+  this:from="popupData"
+  />
+{{/if}}

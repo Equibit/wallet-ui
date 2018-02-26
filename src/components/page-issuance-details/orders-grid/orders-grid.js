@@ -156,20 +156,12 @@ export default Component.extend({
           order.type === this.viewModel.type &&
           (rows.length < this.viewModel.limit || orderPrice < pageEndPrice)
         ) {
-          // clear cached set and refresh, because the newly created item belongs in the shown page
-          // todo: change back when cache behavior is used for the model connection.
-          // delete Order.connection.cacheConnection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
-          delete Order.connection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
           this.viewModel.trigger('limit')
         }
       })
       Order.subscribeUpdated(this.viewModel.ordersRemovedCallback = order => {
         const rows = this.viewModel.rows
         if (rows && (rows.indexOf(order) > -1 || rows.length === this.viewModel.limit - 1)) {
-          // clear cached set and refresh, because we went from a full page to less than a full page
-          // todo: change back when cache behavior is used for the model connection.
-          // delete Order.connection.cacheConnection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
-          delete Order.connection.getSetData()[sortedSetJSON(this.viewModel.rows.__listSet)]
           this.viewModel.trigger('limit')
         }
       })

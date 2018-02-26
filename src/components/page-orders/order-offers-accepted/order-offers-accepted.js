@@ -113,33 +113,9 @@ export const ViewModel = DefineMap.extend({
     typeforce('Offer', offer)
     typeforce('Transaction', tx)
 
-    tx.description = description || tx.description
-    return tx.save()
-      .then(tx => updateOffer(offer, tx))
-      .then(({tx}) => dispatchAlert(hub, tx, route))
-      .catch(dispatchAlertError)
+    return tx.sendForOffer(description, offer)
   }
 })
-
-function updateOffer (offer, tx) {
-  offer.htlcStep = 4
-  offer.htlcTxId4 = tx.txId
-  return offer.save()
-}
-
-function dispatchAlert (hub, tx, route) {
-  if (!tx) {
-    return
-  }
-  const url = route.url({ page: 'transactions', itemId: tx.txId })
-  return hub.dispatch({
-    'type': 'alert',
-    'kind': 'success',
-    'title': translate('tradeWasUpdated'),
-    'message': `<a href="${url}">${translate('viewTransaction')}</a>`,
-    'displayInterval': 10000
-  })
-}
 
 export default Component.extend({
   tag: 'order-offers-accepted',

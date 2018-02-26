@@ -19,8 +19,44 @@ import moment from 'moment'
 import { translate } from '../i18n/i18n'
 import Transaction from './transaction/'
 import { blockTime } from '~/constants'
+import Session from './session'
 
 const Offer = DefineMap.extend('Offer', {
+  subscribe (cb) {
+    const makeCb = data => {
+      const offer = this.connection.hydrateInstance(data)
+
+      let txPromise
+      const txId = data['htlcTxId' + data.htlcStep]
+      if (txId) {
+        txPromise = Transaction.getList({
+          txId,
+          address: { $in: [offer.btcAddress, offer.eqbAddress] }
+        })
+      } else {
+        txPromise = Promise.resolve({})
+      }
+
+      Promise.all([
+        txPromise,
+        offer.orderPromise
+      ]).then(([txs, order]) => {
+        if ((offer.userId === Session.current.user._id ||
+            order.userId === Session.current.user._id) &&
+            txs[0].userId !== Session.current.user._id) {
+          data.tx = txs[0]
+          cb(data)
+        }
+      })
+    }
+    feathersClient.service('/offers').on('created', makeCb)
+    feathersClient.service('/offers').on('updated', makeCb)
+  },
+  unSubscribe () {
+    feathersClient.service('/offers').removeListener('created')
+    feathersClient.service('/offers').removeListener('updated')
+  }
+}, {
   _id: 'string',
 
   /**

@@ -22,9 +22,11 @@ import currencyConverter from '~/utils/btc-usd-converter'
 export const ViewModel = DefineMap.extend({
   formData: '*',
   convertToUSD: function (value) {
-    if (this.formData.type === 'BUY') {
+    if (this.formData.order.type === 'SELL') {
+      // A BUY offer to a SELL order will send funds in BTC
       return currencyConverter.convertMicroBTCToUSD.apply(null, arguments)
     } else {
+      // A SELL offer to a BUY order will send shares
       return currencyConverter.convert(value, 'EQBUSD')
     }
   }

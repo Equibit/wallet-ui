@@ -1453,7 +1453,7 @@ can-connect-feathers@^3.7.1:
     feathers-errors "^2.7.0"
     jwt-decode "^2.1.0"
 
-can-connect@^1.5.16, can-connect@^1.5.4:
+can-connect@^1.5.18, can-connect@^1.5.4:
   version "1.5.18"
   resolved "https://registry.yarnpkg.com/can-connect/-/can-connect-1.5.18.tgz#de089131c1a3997405e71ff72123a97ed5a11f6b"
   dependencies:

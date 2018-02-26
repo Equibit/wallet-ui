@@ -1,4 +1,6 @@
 @import '../../../styles/bootstrap-custom/_variables.less';
+@import (reference) '../../../styles/custom/_mixins.less';
+@import (reference) '../../../styles/custom/_icons.less';
 
 notifications-list,
 inbox-list {
@@ -21,7 +23,25 @@ inbox-list {
         background-color: transparent;
         border-color: @gray-lighter;
         color: @gray-light;
-        
+
+      }
+    }
+    &, &.read {
+      .icon-open {
+        .icon-sell-open;
+      }
+      .icon-trading {
+        .icon-buy;
+        background-color: @brand-progress;
+        border-color: @brand-progress;
+      }
+      .icon-done {
+        .icon-sell;
+        background-color: @brand-progress;
+        border-color: @brand-progress;
+      }
+      .icon-closed {
+        .icon-buy-open;
       }
     }
     &.no-link {
@@ -33,7 +53,7 @@ inbox-list {
   }
   .notification-time {
     float: right;
-    font-size: @font-size-xsmall;  
+    font-size: @font-size-xsmall;
   }
   @media (max-width: @screen-xs) {
     .media-body {
@@ -42,7 +62,7 @@ inbox-list {
     .notification-time {
       position: absolute;
       bottom: 0;
-      right: 0;  
+      right: 0;
     }
   }
 }

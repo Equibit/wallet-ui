@@ -16,6 +16,8 @@
 
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
+import route from 'can-route'
+import { translate } from '~/i18n/'
 import typeforce from 'typeforce'
 import feathersClient from '../feathers-client'
 import { superModelNoCache } from '../super-model'
@@ -27,6 +29,7 @@ import { blockTime, testNetTxExplorerUrl } from '~/constants'
 import env from '~/environment'
 import { buildTransaction } from './transaction-build'
 import { eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import hub, { dispatchAlertError } from '../../../utils/event-hub'
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
 const Transaction = DefineMap.extend('Transaction', {
@@ -268,8 +271,43 @@ const Transaction = DefineMap.extend('Transaction', {
     this.timelock = timelock
     this.hex = tx.hex
     this.txId = tx.txId
+  },
+  sendForOffer (description, offer, secret) {
+    typeforce('?String', description)
+    typeforce('Offer', offer)
+
+    this.description = description || this.description
+    return this.save()
+      .then(tx => updateOffer(offer, tx, secret))
+      .then(({tx}) => dispatchAlert(hub, tx, route))
+      .catch(dispatchAlertError)
   }
 })
+
+function updateOffer (offer, tx, secret) {
+  const newHtlcStep = ++offer.htlcStep
+
+  // reveal secret to the seller for step 3:
+  if (newHtlcStep === 3) {
+    offer.secret = secret
+  }
+  offer['htlcTxId' + newHtlcStep] = tx.txId
+  return offer.save().then(offer => ({ offer, tx }))
+}
+
+function dispatchAlert (hub, tx, route) {
+  if (!tx) {
+    return
+  }
+  const url = route.url({ page: 'transactions', itemId: tx._id })
+  return hub.dispatch({
+    'type': 'alert',
+    'kind': 'success',
+    'title': translate('tradeWasUpdated'),
+    'message': `<a href="${url}">${translate('viewTransaction')}</a>`,
+    'displayInterval': 10000
+  })
+}
 
 Transaction.List = DefineList.extend('TransactionList', {
   '#': Transaction

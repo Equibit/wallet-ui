@@ -25,6 +25,8 @@ import canMap from 'can-connect/can/map/map'
 import dataCallbacks from 'can-connect/data/callbacks/callbacks'
 import realtime from 'can-connect/real-time/real-time'
 import feathersAuthenticationSignedSession from 'feathers-authentication-signed/behavior'
+import diffArray from 'can-util/js/diff/'
+import Observation from 'can-observation'
 
 import Notification from './notification'
 import feathersClient from './feathers-client'
@@ -44,6 +46,17 @@ const behaviors = [
   dataCallbacks,
   realtime
 ]
+
+feathersClient.io.on('reconnect', function () {
+  if (Session.current) {
+    const addresses = Session.current.allAddresses
+    if (addresses.EQB.length + addresses.BTC.length > 0) {
+      feathersClient.service('/subscribe').create({
+        addresses: addresses.EQB.concat(addresses.BTC)
+      })
+    }
+  }
+})
 
 const Session = DefineMap.extend('Session', {
   /**
@@ -65,7 +78,15 @@ const Session = DefineMap.extend('Session', {
       console.log('[session.portfoliosPromise.get] ...')
       // TODO: report that portfolio.patch breaks Portfolio.connection.listStore if a set different from `{}` is used.
       // We do not need to provide userId since feathers does this for us (restricts to current user via JWT)
-      return Portfolio.getList({})
+      return Portfolio.getList({}).then(portfolios => {
+        portfolios.forEach(portfolio => {
+          if (portfolio.index !== 'undefined') {
+            portfolio.keys = this.user.generatePortfolioKeys(portfolio.index)
+            portfolio.rates = this.rates
+          }
+        })
+        return portfolios
+      })
     }
   },
 
@@ -89,14 +110,8 @@ const Session = DefineMap.extend('Session', {
       }
       console.log('[session.portfolios.get] ...')
       this.portfoliosPromise.then(portfolios => {
-        portfolios.forEach(portfolio => {
-          if (portfolio.index !== 'undefined') {
-            portfolio.keys = this.user.generatePortfolioKeys(portfolio.index)
-            portfolio.rates = this.rates
-          }
-        })
         console.log('[session.portfolios.get -> resolve] length=' + portfolios.length)
-        resolve(portfolios)
+        resolve && resolve(portfolios)
       })
     }
   },
@@ -181,9 +196,29 @@ const Session = DefineMap.extend('Session', {
     return currencyType === 'EQB' ? amount * this.rates.eqbToBtc : amount
   },
 
+  get notificationsPromise () {
+    const allAddresses = this.allAddresses
+    if (allAddresses.BTC.length + allAddresses.EQB.length > 0) {
+      return Notification.getList({
+        address: {
+          $in: allAddresses.BTC.concat(allAddresses.EQB)
+        },
+        $sort: {
+          createdAt: -1
+        }
+      })
+    } else {
+      return Promise.resolve([])
+    }
+  },
+
   notifications: {
-    Type: Notification.List,
-    value: new Notification.List([])
+    get (val, resolve) {
+      if (this.issuances && this.portfolios) {
+        this.notificationsPromise.then(resolve)
+      }
+      return []
+    }
   },
 
   // These are authorized issuances that belong to the current user.
@@ -246,6 +281,13 @@ const Session = DefineMap.extend('Session', {
     }
   },
 
+  _lastAddresses: {
+    type: '*',
+    value: {
+      BTC: [],
+      EQB: []
+    }
+  },
   /**
    * @property {Function} models/session.prototype.allAddresses allAddresses
    * @parent models/session.prototype
@@ -253,16 +295,39 @@ const Session = DefineMap.extend('Session', {
    */
   allAddresses: {
     get () {
-      const issuanceAddresses = this.issuances.reduce((acc, issuance) => {
+      const issuances = this.issuances
+      const portfolios = this.portfolios
+      const issuanceAddresses = issuances && issuances.reduce((acc, issuance) => {
         acc.push(issuance.address)
         return acc
       }, [])
-      return this.portfolios && this.portfolios.reduce((acc, portfolio) => {
+      let results = {EQB: issuanceAddresses, BTC: []}
+      results = portfolios ? portfolios.reduce((acc, portfolio) => {
         return {
           BTC: acc.BTC.concat(portfolio.addressesBtc.get()),
           EQB: acc.EQB.concat(portfolio.addressesEqb.get())
         }
-      }, {EQB: issuanceAddresses, BTC: []})
+      }, results) : results
+
+      // Ignore observations here because we don't want to re-run this getter when
+      // setting the _lastAddresses (which would happen normally because we're also
+      // reading from that property here)
+      Observation.ignore(() => {
+        const diffsBTC = diffArray(this._lastAddresses.BTC, results.BTC)
+        const diffsEQB = diffArray(this._lastAddresses.EQB, results.EQB)
+
+        let newAddresses = diffsBTC.reduce((diffs, patch) => diffs.concat(patch.insert), [])
+        newAddresses = diffsEQB.reduce((diffs, patch) => diffs.concat(patch.insert), newAddresses)
+
+        if (newAddresses.length > 0) {
+          feathersClient.service('/subscribe').create({
+            addresses: newAddresses
+          })
+        }
+      })();
+
+      this._lastAddresses = results
+      return results
     }
   },
 

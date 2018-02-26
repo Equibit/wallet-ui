@@ -16,12 +16,9 @@
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import moment from 'moment'
-import route from 'can-route'
 import typeforce from 'typeforce'
-import hub, { dispatchAlertError } from '../../../utils/event-hub'
 // import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 
-import { translate } from '../../../i18n/i18n'
 import './offer-status.less'
 import view from './offer-status.stache'
 import Order from '../../../models/order'
@@ -121,35 +118,9 @@ export const ViewModel = DefineMap.extend({
     typeforce('Offer', offer)
     typeforce('Transaction', tx)
 
-    tx.description = description || tx.description
-    return tx.save()
-      .then(tx => updateOffer(offer, secret, tx))
-      .then(({tx}) => dispatchAlert(hub, tx, route))
-      .catch(dispatchAlertError)
+    return tx.sendForOffer(description, offer, secret)
   }
 })
-
-function updateOffer (offer, secret, tx) {
-  offer.htlcStep = 3
-  // reveal secret to the seller:
-  offer.secret = secret
-  offer.htlcTxId3 = tx.txId
-  return offer.save().then(offer => ({ offer, tx }))
-}
-
-function dispatchAlert (hub, tx, route) {
-  if (!tx) {
-    return
-  }
-  const url = route.url({ page: 'transactions', itemId: tx._id })
-  return hub.dispatch({
-    'type': 'alert',
-    'kind': 'success',
-    'title': translate('tradeWasUpdated'),
-    'message': `<a href="${url}">${translate('viewTransaction')}</a>`,
-    'displayInterval': 10000
-  })
-}
 
 export default Component.extend({
   tag: 'offer-status',
