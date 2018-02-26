@@ -6,6 +6,40 @@
  *
  * @group models/transaction.properties 0 properties
  *
+ *  Blockchain transaction has:
+ *  - inputs
+ *    - (txid, vout) -> from address
+ *  - outputs
+ *    - amount, change, fee
+ *    - script -> to address
+ *
+ *  Transaction DB record should contain:
+ *  - Main props:
+ *    - address (to indicate what user this tx belongs to)
+ *    - amount (the amount of the main output)
+ *    - txId
+ *    - currencyType (BTC, EQB)
+ *    - type ('IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL')
+ *    - fromAddress, toAddress
+ *    - fee (if fromAddress === address)
+ *    - description
+ *  - Trade info:
+ *    - offerId, htlcStep, hashlock, timelock, refundAddress
+ *    - company info
+ *    - issuance info
+ *  - Blockchain tx info (not for storing in DB):
+ *    - hex, txid, vout
+ *  - Other:
+ *    - feeRate
+ *
+ *  Transaction should have a `build` method that could be called multiple times (e.g. change of timelock or transaction fee rate)
+ *  - For this it should have access to available UTXO (e.g. portfolio for BTC/EQB or issuance)
+ *  - To run build we need to know:
+ *    - currencyType, amount, toAddress, htlcStep + info,
+ *    - transaction fee rate
+ *  - Only the following types can be rebuilt: 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL'.
+ *  - If `_id` is set then we canNOT rebuild (transaction was already sent).
+ *
  * Cases to cover:
  *  - Auth issuance with change
  *  - Auth issuance without change
@@ -34,7 +68,7 @@ const Transaction = DefineMap.extend('Transaction', {
     const txData = makeTransaction.apply(this, arguments)
     return new Transaction(txData)
   },
-  createHtlc1 (offer, order, portfolio, issuance, changeAddr) {
+  createHtlc1 (offer, order, portfolio, issuance, changeAddr, transactionFeeRate) {
     const txData = createHtlc1.apply(this, arguments)
     return new Transaction(txData)
   },
@@ -47,7 +81,7 @@ const Transaction = DefineMap.extend('Transaction', {
   unSubscribe () {
     feathersClient.service('/transactions').removeListener('created')
   },
-  calculateFee (tx) {
+  calculateFee (tx, rates) {
     // TODO: calculate based on the number of inputs/outputs and JSON size for eqb if applied.
     return 10000
   }
@@ -268,6 +302,11 @@ const Transaction = DefineMap.extend('Transaction', {
     this.timelock = timelock
     this.hex = tx.hex
     this.txId = tx.txId
+  },
+  // todo: incompleted...
+  build () {
+    this.hex = 'hex here'
+    this.txId = 'txid here'
   }
 })
 

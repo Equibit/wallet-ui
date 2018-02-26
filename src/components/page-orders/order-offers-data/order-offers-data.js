@@ -59,8 +59,9 @@ export const ViewModel = DefineMap.extend({
     return Promise.all([
       Session.current.issuancesPromise,
       portfolio.getNextAddress(),
-      portfolio.getNextAddress(true)
-    ]).then(([issuances, addrPair, changeAddrPair]) => {
+      portfolio.getNextAddress(true),
+      Session.current.transactionFeeRatesPromise
+    ]).then(([issuances, addrPair, changeAddrPair, transactionFeeRates]) => {
       // todo: figure out a better way to find the issuance with preloaded UTXO.
       const issuance = this.order.type === 'SELL'
         ? issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
@@ -71,7 +72,7 @@ export const ViewModel = DefineMap.extend({
 
       // Todo: it looks like this should be stored on the Offer, because BTC change should be different every time (for every new offer of the same order).
       // Refund address for Bid flow:
-      if (this.order.type === 'BUY') {
+      if (this.order.type === 'BUY' && !this.order.btcAddress) {
         this.order.btcAddress = addrPair.BTC
       }
 
@@ -79,7 +80,7 @@ export const ViewModel = DefineMap.extend({
       offer.timelock2 = Math.floor(offer.timelock / 2)
 
       console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddr`, offer, this.order, portfolio, issuance, changeAddr)
-      const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddr)
+      const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddr, transactionFeeRates)
       const tx = new Transaction(txData)
       // todo: show UI modal with tx details (amount, fee, etc)
       this.openAcceptOfferModal(offer, tx, issuance, portfolio)

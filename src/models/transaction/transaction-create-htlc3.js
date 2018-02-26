@@ -112,8 +112,12 @@ function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
   typeforce(types.Address, refundAddr)
 
   // todo: calculate transaction fee:
-  const fee = 1000
+  let fee = 1000
   const htlcStep = 3
+
+  if (fee > amount) {
+    fee = amount - 1
+  }
 
   // We unlock htlc2 here (so using timelock2):
   const timelock = offer.timelock2

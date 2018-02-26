@@ -25,7 +25,7 @@ import view from './order-book.stache'
 import Order from '../../../models/order'
 import Offer from '../../../models/offer'
 import Session from '../../../models/session'
-import Transaction from '../../../models/transaction/transaction'
+// import Transaction from '../../../models/transaction/transaction'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
 import BitMessage from '../../../models/bit-message'
 import cryptoUtils from '../../../utils/crypto'
@@ -55,14 +55,48 @@ export const ViewModel = DefineMap.extend({
   },
 
   order: '*',
+  offer: '*',
   isBuySellShown: 'boolean',
 
   // Create an offer modal:
+  /**
+   * @property {Function} components/order-book/openBuySellModal openBuySellModal
+   * Opens offer modal
+   * The modal has two steps:
+   *    1. Ask user for the offer quantity.
+   *    2. Show tx details and ask for timelock and description.
+   * Fee estimation depends only on the quantity (step1) and rate.
+   * Keep in mind that in future user should be able to choose a rate (regular/priority/custom).
+   * The final transaction can be built only when user picks a timelock (step2).
+   * @param args
+   * @returns {Promise.<TResult>}
+   */
   openBuySellModal (args) {
-    this.order = args[1]
-    // Note: we need to re-insert the modal content:
-    this.isBuySellShown = false
-    this.isBuySellShown = true
+    // The popup modal will update amount and description.
+    // So, we have to build tx and estimate fee inside the modal.
+    // Here we
+    // 1. Create a new offer, setting amount either to 0 or to order.amount (based on fillOrKill).
+    // 2. Open dialog:
+    //    a. enter amount
+    //    b. choose default timelock, fee rate; create a transaction; build transaction
+    // 3. On confirm we:
+    //    - save transaction
+    //    - save offer
+
+    const order = this.order = args[1]
+    const secret = generateSecret()
+    const defaultTimelock = 288
+
+    // Ask flow: EQB address to receive securities, BTC address for refund
+    return this.portfolio.getNextAddress().then((addrPair) => {
+      // Note: we need to store the refund address on the offer because it will be used in HTLC.
+      // Note: we don't know the amount yet.
+      this.offer = createHtlcOffer(order, secret, defaultTimelock, '', Session.current.user, this.issuance, addrPair)
+
+      // Open modal (we need to re-insert the modal component):
+      this.isBuySellShown = false
+      this.isBuySellShown = true
+    }).catch(dispatchAlertError)
   },
 
   get userPortfolioForIssuance () {
@@ -121,32 +155,17 @@ export const ViewModel = DefineMap.extend({
    * @returns {Promise.<Order>}
    */
   // HTLC 1: place payment.
-  placeOffer (formData) {
-    typeforce('OfferFormData', formData)
-    console.log('placeOffer: ', formData)
+  placeOffer (offer, tx) {
+    typeforce('Offer', offer)
+    typeforce('Transaction', tx)
+    console.log('placeOffer: ', offer, tx)
+    // const tx = Transaction.createHtlc1(offer, order, this.portfolio, this.issuance, changeAddr, transactionFeeRates.regular)
 
-    const flowType = formData.order.type === 'SELL' ? 'Ask' : 'Bid'
-
-    const secret = generateSecret()
-    return Promise.all([
-      // Ask flow: EQB address to receive securities, BTC address for refund
-      this.portfolio.getNextAddress(),
-      // Change address:
-      this.portfolio.getNextAddress(true)
-    ]).then(([addrPair, change]) => {
-      // Note: we need to store the refund address on the offer because it will be used in HTLC.
-      // Bid flow: change address for Empty EQB.
-      const changeAddr = flowType === 'Ask' ? change.BTC : change.EQB
-      const offer = createHtlcOffer(formData, secret, formData.timelock, Session.current.user, this.issuance, addrPair)
-      const tx = Transaction.createHtlc1(offer, formData.order, this.portfolio, this.issuance, changeAddr)
-
-      // Here we have all info about the transaction we want to create (fees, etc).
-      // We need to show a modal with the info here.
-
-      return tx.save()
-        .then(tx => saveOffer(offer, tx))
-        .then(offer => dispatchAlertOffer(hub, offer, route))
-    }).catch(dispatchAlertError)
+    return tx.save()
+      .then(tx => saveOffer(offer, tx))
+      .then(offer => dispatchAlertOffer(hub, offer, route))
+      .then(() => { this.isBuySellShown = false })
+      .catch(dispatchAlertError)
   },
   sendMessage (order, keyPair) {
     const bitMessage = BitMessage.createFromOrder(order, keyPair)
@@ -214,18 +233,18 @@ function generateSecret () {
  * @param addrPair
  */
 // function createHtlcOffer (formData, secret, timelock, user, issuance, receiveAddress, refundAddress) {
-function createHtlcOffer (formData, secret, timelock, user, issuance, addrPair) {
+function createHtlcOffer (order, secret, timelock, description, user, issuance, addrPair) {
   typeforce(typeforce.tuple(
-    'OfferFormData', 'Buffer', 'Number', 'User', 'Issuance', {EQB: types.Address, BTC: types.Address}),
+    'Order', 'Buffer', 'Number', '?String', 'User', 'Issuance', {EQB: types.Address, BTC: types.Address}),
     arguments
   )
-  const flowType = formData.order.type === 'SELL' ? 'Ask' : 'Bid'
+  const flowType = order.type === 'SELL' ? 'Ask' : 'Bid'
 
   const secretEncrypted = user.encrypt(secret.toString('hex'))
   const hashlock = cryptoUtils.sha256(secret).toString('hex')
   const offer = new Offer({
     userId: user._id,
-    orderId: formData.order._id,
+    orderId: order._id,
     issuanceAddress: issuance.issuanceAddress,
     // Ask: refund address | Bid: main receiving address:
     btcAddress: addrPair.BTC,
@@ -235,13 +254,13 @@ function createHtlcOffer (formData, secret, timelock, user, issuance, addrPair) 
     hashlock,
     timelock,
     type: flowType === 'Ask' ? 'BUY' : 'SELL',
-    quantity: formData.quantity,
-    price: formData.order.price,
+    quantity: 0,
+    price: order.price,
     issuanceId: issuance._id,
     companyName: issuance.companyName,
     issuanceName: issuance.issuanceName,
     issuanceType: issuance.issuanceType,
-    description: formData.description,
+    description,
     htlcStep: 1
   })
   console.log('createHtlcOffer', arguments, offer)
