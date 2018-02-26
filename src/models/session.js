@@ -47,16 +47,18 @@ const behaviors = [
   realtime
 ]
 
-feathersClient.io.on('reconnect', function () {
-  if (Session.current) {
-    const addresses = Session.current.allAddresses
-    if (addresses.EQB.length + addresses.BTC.length > 0) {
-      feathersClient.service('/subscribe').create({
-        addresses: addresses.EQB.concat(addresses.BTC)
-      })
+if (feathersClient.io) {
+  feathersClient.io.on('reconnect', function () {
+    if (Session.current) {
+      const addresses = Session.current.allAddresses
+      if (addresses.EQB.length + addresses.BTC.length > 0) {
+        feathersClient.service('/subscribe').create({
+          addresses: addresses.EQB.concat(addresses.BTC)
+        })
+      }
     }
-  }
-})
+  })
+}
 
 const Session = DefineMap.extend('Session', {
   /**
