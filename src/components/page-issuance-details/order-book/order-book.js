@@ -87,11 +87,8 @@ export const ViewModel = DefineMap.extend({
     const secret = generateSecret()
     const defaultTimelock = 288
 
-    return Promise.all([
-      // Ask flow: EQB address to receive securities, BTC address for refund
-      this.portfolio.getNextAddress()
-      // Session.current.transactionFeeRatesPromise
-    ]).then(([addrPair, transactionFeeRates]) => {
+    // Ask flow: EQB address to receive securities, BTC address for refund
+    return this.portfolio.getNextAddress().then((addrPair) => {
       // Note: we need to store the refund address on the offer because it will be used in HTLC.
       // Note: we don't know the amount yet.
       this.offer = createHtlcOffer(order, secret, defaultTimelock, '', Session.current.user, this.issuance, addrPair)

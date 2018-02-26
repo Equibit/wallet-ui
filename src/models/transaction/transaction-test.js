@@ -25,6 +25,7 @@ import { createHtlc3, prepareHtlcConfig3 } from './transaction-create-htlc3'
 import { createHtlc4, prepareHtlcConfig4 } from './transaction-create-htlc4'
 
 describe('models/transaction/utils', function () {
+  const transactionFeeRates = { EQB: 5, BTC: 10 }
   describe('buildTransaction', function () {
     const expectedHex = '0100000002b5a4d2ee7ada7a30722d3224c8e29443e75fc3506612ae41ee853f2fe24b6756000000006b483045022100c5d7e56232d2eff6461ea45bb8e9ffee36675598adb853bf6f61e881b2c29282022000d4f1d3c3e091daa4dbece16fb1f27ee199fdbd2db4db940b9a4b6987e24ed6012102c149f0b80bbbb0811cd7f2d8c2eed5bae28de5e992064590a0a16eb1743bc469ffffffff79ea8eea8ee96dc748304f5d85163d28bfcc0f9760ee50e02664b6b52dd9da1e000000006b483045022100861ac9755c989a65726a1dbf46bf85dcf12928fc5f4bc42fede7142af4111fd30220385336eed4e26c52c605a18a60effee88bfc9d0306b09994dd85bf48607762f50121028fe426abec4cd47b05911e18e91cd751a1646d179217380e7799cd12268bf202ffffffff0201000000000000001976a9143ed6bbf121b09f20b46381ab7dbf547e18ffbc3b88ac02000000000000001976a914af407ff486847db48b9a2cb25b6e14d3044eaf4488ac00000000'
     const inputA = hdNode.derive(0)
@@ -73,7 +74,6 @@ describe('models/transaction/utils', function () {
   })
   describe('HTLC-1 Lock payment into HTLC', function () {
     const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
-    const transactionFeeRates = { EQB: 5, BTC: 10 }
     let htlcOfferMock, htlcConfig
     describe('prepareHtlcConfigBtc', function () {
       before(function () {
@@ -261,11 +261,11 @@ describe('models/transaction/utils', function () {
         before(function () {
           htlcOfferMock = mockHtlcOffer()
           tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
-          txData = createHtlc2(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.EQB)
+          txData = createHtlc2(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.EQB, transactionFeeRates)
         })
         it('should define main props', function () {
           assert.equal(txData.amount, 500, 'amount')
-          assert.equal(txData.fee, 3000, 'fee')
+          assert.equal(txData.fee, 2925, 'fee')
           assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
         })
         it('should define hashlock', function () {
