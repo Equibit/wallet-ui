@@ -17,21 +17,37 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './place-offer.less'
 import view from './place-offer.stache'
+import Session from '../../../models/session'
 import Portfolio from '../../../models/portfolio'
 import Order from '../../../models/order'
+import Transaction from '../../../models/transaction/transaction'
+import Issuance from '../../../models/issuance'
 import FormData from './form-data'
 
 export const ViewModel = DefineMap.extend({
   portfolio: Portfolio,
   order: Order,
+  issuance: Issuance,
+  transactionFeeRatesPromise: {
+    get () {
+      return Session.current.transactionFeeRatesPromise
+    }
+  },
+  transactionFeeRates: {
+    get (val, resolve) {
+      this.transactionFeeRatesPromise.then(resolve)
+    }
+  },
+  changeAddrPromise: {
+    get () {
+      return this.portfolio && this.portfolio.getNextAddress(true)
+    }
+  },
   mode: {
     value: 'edit'
   },
   formData: {
-    get (val) {
-      if (val) {
-        return val
-      }
+    value (val) {
       if (!this.portfolio) {
         console.error('Requires a portfolio')
         return
@@ -42,16 +58,34 @@ export const ViewModel = DefineMap.extend({
       }
       return new FormData({
         portfolio: this.portfolio,
-        order: this.order
+        order: this.order,
+        feeRates: this.transactionFeeRates,
+        fee: this.transaction && this.transaction.fee,
+        timelock: this.offer.timelock
       })
     }
   },
+  transaction: '*',
 
   next () {
     if (!this.formData.isValid) {
       return
     }
-    this.mode = 'confirm'
+    this.offer.quantity = this.formData.quantity
+    Promise.all([
+      this.transactionFeeRatesPromise,
+      this.changeAddrPromise
+    ]).then(([transactionFeeRates, changeAddrPair]) => {
+      const flowType = this.order.type === 'SELL' ? 'Ask' : 'Bid'
+      // Bid flow: change address for Empty EQB.
+      const changeAddr = flowType === 'Ask' ? changeAddrPair.BTC : changeAddrPair.EQB
+      const tx = Transaction.createHtlc1(
+        this.offer, this.order, this.portfolio, this.issuance, changeAddr,
+        transactionFeeRates.regular
+      )
+      this.transaction = tx
+      this.formData.fee = this.transaction.fee
+    }).then(() => { this.mode = 'confirm' })
   },
   edit () {
     this.mode = 'edit'
@@ -62,7 +96,11 @@ export const ViewModel = DefineMap.extend({
   },
   send (close) {
     this.isSending = true
-    this.sendFn(this.formData)
+    this.offer.timelock = this.formData.timelock
+    this.offer.description = this.formData.description
+    this.transaction.rebuild({timelock: this.offer.timelock})
+
+    this.sendFn(this.offer, this.transaction)
       .then(() => {
         this.isSending = false
         close()

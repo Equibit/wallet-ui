@@ -1,3 +1,11 @@
+import fixture from 'can-fixture'
+
+fixture({
+  'POST /portfolio-addresses': function (request) {
+    return request.data
+  }
+})
+
 export default [
   {
     'index': 0,

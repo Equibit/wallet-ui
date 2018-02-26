@@ -82,7 +82,9 @@
 {{#if isBuySellShown}}
   <place-offer sendFn:from="@placeOffer"
                portfolio:from="portfolio"
-               order:from="order" />
+               issuance:from="issuance"
+               order:from="order"
+               offer:from="offer" />
 {{/if}}
 
 {{#if isViewAllShown}}

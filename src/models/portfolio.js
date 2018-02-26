@@ -345,10 +345,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
   /**
    * Generates the next available address to receive cash or unrestricted securities.
    * @param isChange
-   * @returns {*}
+   * @returns {Promise | Object}
    */
   // getNextAddress :: Bool -> Object(EQB<String>,BTC<String>)
-  getNextAddress (isChange = false) {
+  getNextAddress (isChange = false, sync = false) {
     const changeIndex = isChange ? 1 : 0
     const btcAddrIndex = getNextAddressIndex(this.addressesMeta, 'BTC', isChange)
     const eqbAddrIndex = getNextAddressIndex(this.addressesMeta, 'EQB', isChange)
@@ -387,15 +387,23 @@ const Portfolio = DefineMap.extend('Portfolio', {
     if (portfolioAddressesCreateData) {
       // Save newly generated addresses to DB:
       console.log('[portfolio.getNextAddress] patching portfolio with updated addressesMeta ...')
-      return feathersClient.service('portfolio-addresses')
+      const resNewAddr = feathersClient.service('portfolio-addresses')
         .create(portfolioAddressesCreateData)
         .then((results) => {
           this.addressesMeta.push(results)
           // console.log("new portfolioAddresses entry", results)
         })
-        .then(() => addr)
+      if (sync) {
+        return addr
+      } else {
+        return resNewAddr.then(() => addr)
+      }
     } else {
-      return Promise.resolve(addr)
+      if (sync) {
+        return addr
+      } else {
+        return Promise.resolve(addr)
+      }
     }
   },
 

@@ -69,6 +69,8 @@ const AppViewModel = DefineMap.extend({
     serialize: true
   },
 
+  // Rates for anonymous user: BTC/USD EQB/USD
+
   /**
    * @property {wallet-ui/app.session} wallet-ui/app.session session
    * @parent wallet-ui/app.properties
@@ -76,6 +78,8 @@ const AppViewModel = DefineMap.extend({
    */
   // TODO: consider using Session.current in a getter and do not pass session to other pages via template bindings.
   session: {
+    // 1. user prefs for local currency rates.
+    // 2. transaction fees are only needed for a logged in user. Also, might be that user prefers priority rates always.
     Type: Session,
     set (val) {
       return val
