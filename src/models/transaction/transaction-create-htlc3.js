@@ -16,25 +16,35 @@ import { prepareTxData } from './transaction-create-htlc1'
  * Case #2: Buy (Bid) Order
  * - Buyer collects payment
  */
-function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr) {
+function createHtlc3 (order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates) {
   typeforce(
     typeforce.tuple('Order', 'Offer', 'Portfolio', 'Issuance', 'String', types.Address),
     arguments
   )
   console.log(`createHtlc3 arguments:`, arguments)
   const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
+  const transactionFeeRate = transactionFeeRates[currencyType]
 
-  const htlcConfig = currencyType === 'EQB'
+  // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
+  let htlcConfig = currencyType === 'EQB'
     ? prepareHtlcConfig3(order, offer, portfolio, issuance, secret, changeAddr)
     : prepareHtlcConfig3Btc(order, offer, portfolio, secret, changeAddr)
-  const tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+  let tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+
+  // Calculate fee and rebuild:
+  const transactionFee = tx.hex.length / 2 * transactionFeeRate
+  htlcConfig = currencyType === 'EQB'
+    ? prepareHtlcConfig3(order, offer, portfolio, issuance, secret, changeAddr, transactionFee)
+    : prepareHtlcConfig3Btc(order, offer, portfolio, secret, changeAddr, transactionFee)
+  tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+
   const txData = prepareTxData(htlcConfig, tx, issuance)
 
   return txData
 }
 
 // EQB transaction:
-function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAddr) {
+function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAddr, transactionFee) {
   const amount = offer.quantity
   const toAddress = offer.eqbAddress
   const refundAddr = order.eqbAddress
@@ -43,8 +53,8 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
   typeforce(types.Address, refundAddr)
   typeforce(TxId, paymentTxId)
 
-  // todo: calculate transaction fee:
-  const fee = 1000
+  // First build tx with the default rate, then based on the tx size calculate the real fee:
+  const fee = transactionFee || 3000
   const htlcStep = 3
   const timelock = order.type === 'SELL' ? offer.timelock2 : offer.timelock
 
@@ -104,15 +114,15 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
   return { buildConfig, txInfo }
 }
 
-function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
+function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr, transactionFee) {
   const amount = offer.quantity * offer.price
   const toAddress = offer.btcAddress
   const refundAddr = order.btcAddress
   typeforce(types.Address, toAddress)
   typeforce(types.Address, refundAddr)
 
-  // todo: calculate transaction fee:
-  let fee = 1000
+  // First build tx with the default rate, then based on the tx size calculate the real fee:
+  let fee = transactionFee || 1000
   const htlcStep = 3
 
   if (fee > amount) {

@@ -94,9 +94,11 @@ export const ViewModel = DefineMap.extend({
     ), [order, offer, issuance, user, portfolio, secret])
 
     const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
-    return portfolio.getNextAddress()
-      .then(addrPair => {
-        const txData = createHtlc3(order, offer, portfolio, issuance, secret, addrPair[currencyType])
+    return Promise.all([
+      portfolio.getNextAddress(),
+      Session.current.transactionFeeRatesPromise
+    ]).then(([addrPair, transactionFeeRates])=> {
+        const txData = createHtlc3(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
         const tx = new Transaction(txData)
         this.secret = secret
 
