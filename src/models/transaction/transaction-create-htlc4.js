@@ -16,7 +16,7 @@ import { prepareTxData } from './transaction-create-htlc1'
  */
 function createHtlc4 (order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates) {
   typeforce(
-    typeforce.tuple('Order', 'Offer', 'Portfolio', 'Issuance', 'String', typeforce.maybe(types.Address)),
+    typeforce.tuple('Order', 'Offer', 'Portfolio', 'Issuance', 'String', typeforce.maybe(types.Address), {EQB: 'Number', BTC: 'Number'}),
     arguments
   )
   console.log(`createHtlc4 arguments:`, arguments)
