@@ -83,10 +83,13 @@ export const ViewModel = DefineMap.extend({
       'String'
     ), [order, offer, issuance, user, portfolio, secret])
 
-    // Note: we need EQB change address only for the Bid flow (when collecting locked securities).
-    portfolio.getNextAddress(true).then(addrPair => {
+    return Promise.all([
+      // Note: we need EQB change address only for the Bid flow (when collecting locked securities).
+      portfolio.getNextAddress(true),
+      Session.current.transactionFeeRatesPromise
+    ]).then(([addrPair, transactionFeeRates]) => {
       try {
-        const txData = createHtlc4(order, offer, portfolio, issuance, secret, addrPair.EQB)
+        const txData = createHtlc4(order, offer, portfolio, issuance, secret, addrPair.EQB, transactionFeeRates.regular)
         const tx = new Transaction(txData)
         this.openModal(offer, tx)
       } catch (err) {
