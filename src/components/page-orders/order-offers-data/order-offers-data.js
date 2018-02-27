@@ -80,7 +80,7 @@ export const ViewModel = DefineMap.extend({
       offer.timelock2 = Math.floor(offer.timelock / 2)
 
       console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddr`, offer, this.order, portfolio, issuance, changeAddr)
-      const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddr, transactionFeeRates)
+      const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddr, transactionFeeRates.regular)
       const tx = new Transaction(txData)
       // todo: show UI modal with tx details (amount, fee, etc)
       this.openAcceptOfferModal(offer, tx, issuance, portfolio)
