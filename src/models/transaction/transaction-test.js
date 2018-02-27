@@ -353,7 +353,7 @@ describe('models/transaction/utils', function () {
           assert.equal(txInfo.description, 'Collecting securities from HTLC (step #3)')
         })
         it('should have fee and from/to addresses', function () {
-          assert.equal(txInfo.fee, 1000, 'fee')
+          assert.equal(txInfo.fee, 3000, 'fee')
           assert.equal(txInfo.fromAddress, order.eqbAddress, 'fromAddress = order.eqbAddress')
           assert.equal(txInfo.toAddress, offer.eqbAddress, 'toAddress = offer.eqbAddress')
         })
@@ -368,11 +368,14 @@ describe('models/transaction/utils', function () {
         before(function () {
           htlcOfferMock = mockHtlcOffer()
           tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
-          txData = createHtlc3(htlcOfferMock.order, htlcOfferMock.offer, portfolio, issuance, htlcOfferMock.secretHex, changeAddrPair.EQB)
+          txData = createHtlc3(
+            htlcOfferMock.order, htlcOfferMock.offer, portfolio, issuance,
+            htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
+          )
         })
         it('should define main props', function () {
           assert.equal(txData.amount, 500, 'amount')
-          assert.equal(txData.fee, 1000, 'fee')
+          assert.equal(txData.fee, 2570, 'fee')
           assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
         })
         it.skip('should define hashlock', function () {

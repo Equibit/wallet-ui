@@ -122,7 +122,7 @@ function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr, tra
   typeforce(types.Address, refundAddr)
 
   // First build tx with the default rate, then based on the tx size calculate the real fee:
-  let fee = transactionFee || 1000
+  let fee = transactionFee || 3000
   const htlcStep = 3
 
   if (fee > amount) {

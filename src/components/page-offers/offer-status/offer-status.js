@@ -97,13 +97,13 @@ export const ViewModel = DefineMap.extend({
     return Promise.all([
       portfolio.getNextAddress(),
       Session.current.transactionFeeRatesPromise
-    ]).then(([addrPair, transactionFeeRates])=> {
-        const txData = createHtlc3(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
-        const tx = new Transaction(txData)
-        this.secret = secret
+    ]).then(([addrPair, transactionFeeRates]) => {
+      const txData = createHtlc3(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
+      const tx = new Transaction(txData)
+      this.secret = secret
 
-        this.openModal(tx)
-      })
+      this.openModal(tx)
+    })
   },
 
   // Confirmation modal:
