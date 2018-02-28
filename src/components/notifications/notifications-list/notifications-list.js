@@ -69,6 +69,9 @@ export const ViewModel = DefineMap.extend({
       })
     })
   },
+  offerFor (notification) {
+    return Offer.get({ _id: notification.data.offerId })
+  },
   sendTransaction (description) {
     typeforce('?String', description)
 

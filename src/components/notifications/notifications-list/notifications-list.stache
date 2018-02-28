@@ -47,18 +47,47 @@
                     </a>
                   {{/case}}
                   {{#case 2}}
-                  <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
-                    {{#eq data.type "SELL"}}
-                      {{i18n('dealFlowMessageTitleCollectPayment')}}
-                    {{else}}
-                      {{i18n('dealFlowMessageTitleCollectSecurities')}}
-                    {{/eq}}
-                  </a>
+                    {{#with offerPromise=offerFor(notification)}}
+                      {{#if offerPromise.isResolved}}
+                        {{#eq offerPromise.value.htlcStep data.htlcStep}}
+                          <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
+                            {{#eq data.type "SELL"}}
+                              {{i18n('dealFlowMessageTitleCollectPayment')}}
+                            {{else}}
+                              {{i18n('dealFlowMessageTitleCollectSecurities')}}
+                            {{/eq}}
+                          </a>
+                        {{else}}
+                          <a href="{{routeUrl page='offers' itemId=data.offerId}}">
+                            {{#eq data.type "SELL"}}
+                              {{i18n('htlcUserCollectedPaymentDescription')}}
+                            {{else}}
+                              {{i18n('htlcUserCollectedSecuritiesDescription')}}
+                            {{/eq}}
+                          </a>
+                        {{/eq}}
+                      {{/if}}
+                    {{/with}}
                   {{/case}}
                   {{#case 3}}
-                  <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
-                    {{i18n('dealFlowStep3')}}
-                  </a>
+                    {{#with offerPromise=offerFor(notification)}}
+                      {{#if offerPromise.isResolved}}
+                        {{#eq offerPromise.value.htlcStep data.htlcStep}}
+                            <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
+                              {{i18n('dealFlowStep3')}}
+                            </a>
+                          </a>
+                        {{else}}
+                          <a href="{{routeUrl page='orders' itemId=data.orderId}}">
+                            {{#eq data.type "SELL"}}
+                              {{i18n('htlcUserCollectedSecuritiesDescription')}}
+                            {{else}}
+                              {{i18n('htlcUserCollectedPaymentDescription')}}
+                            {{/eq}}
+                          </a>
+                        {{/eq}}
+                      {{/if}}
+                    {{/with}}
                   {{/case}}
                 {{/switch}}
               </div>
