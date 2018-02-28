@@ -58,6 +58,7 @@ export const ViewModel = DefineMap.extend({
         }),
         Issuance.get({ _id: offer.issuanceId })
       ]).then(([txes, issuance]) => {
+        this.offerModalShown = false
         this.popupData = {
           tx: txes[0],
           issuance,
