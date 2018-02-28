@@ -70,19 +70,14 @@ export const ViewModel = DefineMap.extend({
       })
   },
 
-  sendFunds (formData) {
-    const currencyType = formData.fundsType
-    return this.portfolio.nextChangeAddress().then(addrObj => {
-      return addrObj[currencyType]
-    }).then(changeAddr => {
-      const tx = this.prepareTransaction(formData, changeAddr)
-      console.log('tx.hex: ' + tx.hex, tx)
+  sendFunds (tx, changeAddr) {
+    const currencyType = tx.currencyType
+    console.log('tx.hex: ' + tx.hex, tx)
 
-      // Show the spinner:
-      this.isSending = true
+    // Show the spinner:
+    this.isSending = true
 
-      return tx.save().then(() => changeAddr)
-    }).then(changeAddr => {
+    return tx.save().then(() => {
       console.log('[my-portfolio.send] transaction was saved')
       this.isSending = false
       Session.current.refreshBalance()
@@ -91,23 +86,6 @@ export const ViewModel = DefineMap.extend({
       console.log('[my-portfolio.send] marking change address as used ...')
       this.portfolio.markAsUsed(changeAddr, currencyType, true)
     })
-  },
-
-  prepareTransaction (formData, changeAddr) {
-    const amount = formData.quantity
-    const currencyType = formData.fundsType
-    const toAddress = formData.toAddress
-    const txouts = this.portfolio
-      .getTxouts(amount + formData.transactionFee, currencyType).txouts
-      .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
-    const options = {
-      fee: formData.transactionFee,
-      changeAddr,
-      type: 'OUT',
-      currencyType,
-      description: formData.description
-    }
-    return Transaction.makeTransaction(amount, toAddress, txouts, options)
   },
 
   nextAddress: {
