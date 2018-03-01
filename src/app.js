@@ -82,7 +82,6 @@ const AppViewModel = DefineMap.extend({
     // 2. transaction fees are only needed for a logged in user. Also, might be that user prefers priority rates always.
     Type: Session,
     set (val) {
-      this.subcribeToEvents()
       return val
     }
   },
@@ -118,21 +117,6 @@ const AppViewModel = DefineMap.extend({
     if (this.session) {
       this.session.refreshBalance()
     }
-  },
-
-  subcribeToEvents () {
-    Transaction.subscribe(data => {
-      console.log('AppVM.subcribeToEvents: Transaction', data)
-      this.session.notifications.push({
-        type: data.type,
-        address: data.address,
-        amount: data.amount,
-        issuanceType: data.issuanceType,
-        currencyType: data.currencyType,
-        transactionId: data._id
-      })
-      this.session.refreshBalance({transactionEvent: data})
-    })
   }
 })
 

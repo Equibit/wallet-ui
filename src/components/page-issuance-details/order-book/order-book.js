@@ -159,8 +159,6 @@ export const ViewModel = DefineMap.extend({
     typeforce('Offer', offer)
     typeforce('Transaction', tx)
     console.log('placeOffer: ', offer, tx)
-    // const tx = Transaction.createHtlc1(offer, order, this.portfolio, this.issuance, changeAddr, transactionFeeRates.regular)
-
     return tx.save()
       .then(tx => saveOffer(offer, tx))
       .then(offer => dispatchAlertOffer(hub, offer, route))
