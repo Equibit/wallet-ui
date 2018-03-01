@@ -1,5 +1,6 @@
 <can-import from="~/components/common/issuance-summary/issuance-summary.component" />
 <can-import from="~/components/common/button-group/" />
+<can-import from="~/components/common/validation-message.component" />
 <can-import from="~/utils/stache-helpers/" />
 
 <div class="form-group">
@@ -25,6 +26,10 @@
           <div class="col-xs-12 col-sm-2">
             <label for="inputQuantity" class="control-label">{{i18n('quantity')}}</label>
           </div>
+          {{^if formData.hasEnoughFunds}}
+            Not enough funds
+            <validation-message message:from="'Not enough funds'" />
+          {{/if}}
           <div class="col-xs-12 col-sm-9">
             <input type="text" class="form-control" id="inputQuantity" value:bind="formData.quantity">
           </div>

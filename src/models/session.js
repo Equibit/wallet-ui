@@ -355,18 +355,29 @@ const Session = DefineMap.extend('Session', {
     }
   },
 
+  // todo: move this to issuance model.
+  getUtxoForIssuance (issuanceAddress) {
+    const securities = this.portfolios &&
+      this.portfolios[0] &&
+      this.portfolios[0].securities
+    const utxoSecurities = securities && securities.filter(sec => {
+      return sec.issuanceAddress === issuanceAddress
+    })
+    return utxoSecurities
+  },
+  getAvailableAmountForIssuance (issuanceAddress) {
+    const utxo = this.getUtxoForIssuance (issuanceAddress)
+    return utxo && utxo.reduce((acc, {amount}) => (acc + amount), 0)
+  },
+
   /**
    * Is used in order-book and orders-grid to check if user can create an offer.
    * @param issuanceAddress
    * @returns Boolean
    */
   hasIssuanceUtxo (issuanceAddress) {
-    const userHasPortfolioIssuances = this.portfolios &&
-      this.portfolios[0] &&
-      this.portfolios[0].securities &&
-      this.portfolios[0].securities.filter(sec => {
-        return sec.issuanceAddress === issuanceAddress
-      }).length > 0
+    // todo: technically `issuance.utxo` should be populated for both investor and issuer cases.
+    const userHasPortfolioIssuances = this.getUtxoForIssuance(issuanceAddress).length > 0
     const userHasAuthorizedIssuancesUtxo = this.issuances &&
       this.issuances.filter(issuance => {
         return issuance.issuanceAddress === issuanceAddress && issuance.utxo && issuance.utxo.length

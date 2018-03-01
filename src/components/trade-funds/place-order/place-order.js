@@ -38,7 +38,8 @@ export const ViewModel = DefineMap.extend({
       }
       return new FormData({
         portfolio: this.portfolio,
-        // issuance: this.issuance,
+        issuance: this.issuance,
+        session: Session.current,
         authIssuancesOnly: this.authIssuancesOnly
         // rates: Session.current.rates
       })
