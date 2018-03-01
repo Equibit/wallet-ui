@@ -1,0 +1,48 @@
+<can-import from="bootstrap-canjs" />
+<can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/components/common/loading-indicator/" />
+
+<bootstrap-modal-content>
+  <div class="modal-header">
+    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+    <h3 class="modal-title"><span class="icon icon-cross rotate-90"></span> {{i18n('cancel')}} {{i18n('authorized')}}</h3>
+  </div>
+
+  <div class="modal-body">
+    <div class="description">
+      {{i18n('confirmCancelIssuance')}}
+      <table class="table table-condensed grid-header">
+        <thead>
+          <tr>
+            <th class="column-name">{{i18n('name')}}</th>
+            <th class="column-type">{{i18n('type')}}</th>
+            <th class="column-restriction">{{i18n('restriction')}}</th>
+            <th class="column-price">{{i18n('price')}} (uBTC)</th>
+            <th class="column-authorized">{{i18n('authorized')}}</th>
+            <th class="column-issued">{{i18n('issued')}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="column-name">{{cancelIssuance.issuanceName}}</td>
+            <td class="column-type">{{cancelIssuance.issuanceTypeDisplay}}</td>
+            <td class="column-restriction">Level 0{{cancelIssuance.restriction}}</td>
+            <td class="column-price font-numeric">{{format(cancelIssuance.utxoPriceTotal, '', 0)}}</td>
+            <td class="column-authorized font-numeric">{{format(cancelIssuance.sharesAuthorized, '', 0)}}</td>
+            <td class="column-issued font-numeric">{{format(cancelIssuance.sharesIssued, '', 0)}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    {{#if isCanceling}}
+      <loading-indicator style="position:relative;left:20px;"></loading-indicator>
+    {{else}}
+      <button ($click)="cancel(@close)" type="button" class="btn btn-primary">{{i18n('cancelYes')}}</button>
+      <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancelNo')}}</button>
+    {{/if}}
+  </div>
+</bootstrap-modal-content>

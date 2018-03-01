@@ -17,6 +17,9 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './issuance-list.less'
 import view from './issuance-list.stache'
+import hub from '~/utils/event-hub'
+import { translate } from '~/i18n/'
+import Session from '~/models/session'
 
 export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
@@ -43,6 +46,26 @@ export const ViewModel = DefineMap.extend({
   showModal () {
     this.isModalShown = false
     this.isModalShown = true
+  },
+  cancelFn () {
+    return this.cancelIssuance.cancel().then(() => {
+      hub.dispatch({
+        'type': 'alert',
+        'kind': 'success',
+        'title': translate('issuanceWasCanceled'),
+        'displayInterval': 12000
+      })
+      Session.current.refreshBalance()
+    })
+  },
+  cancelModalShowing: {
+    value: false
+  },
+  cancelIssuance: '*',
+  showCancelModal (issuance) {
+    this.cancelModalShowing = false
+    this.cancelIssuance = issuance
+    this.cancelModalShowing = true
   }
 })
 

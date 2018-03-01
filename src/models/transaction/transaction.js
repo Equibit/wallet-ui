@@ -176,6 +176,14 @@ const Transaction = DefineMap.extend('Transaction', {
   offerId: 'string',
 
   /**
+   * @property {Number} models/transaction.properties.costPerShare costPerShare
+   * @parent models/transaction.properties
+   * price from the related Offer ID in Equibit portfolio
+   * required if offerId is present
+   */
+  costPerShare: 'number',
+
+  /**
    * @property {Number} models/transaction.properties.amount amount
    * @parent models/transaction.properties
    * Amount in Satoshi

@@ -14,6 +14,7 @@ import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
 import algebra from './algebra'
 // import Session from '~/models/session'
+import Issuance from '~/models/issuance'
 import utils, { filterUniqAddr, containAddress } from './portfolio-utils'
 const {
   importAddr,
@@ -219,53 +220,46 @@ const Portfolio = DefineMap.extend('Portfolio', {seal: false}, {
   },
 
   securitiesPromise: '*',
-  lastSetSecurities: {},
-  // securities :: List<Object<UTXO,IssuanceJson>>
+  // issuances that current user's utxo are attached to/came from.
   securities: {
-    get (val, resolve) {
+    get (lastSetVal, resolve) {
       if (!this.utxoSecurities) {
         return
       }
-      this.securitiesPromise = Promise.all(
-        this.utxoSecurities.map((utxo, idx) => {
-          const txId = utxo.equibit.issuance_tx_id
-          return feathersClient.service('proxycore').find({
-            query: {
-              node: 'eqb',
-              method: 'gettransaction',
-              params: [txId, 'true']        // Note: have to use boolean as string! otherwise feathers will convert it to Number(1).
-            }
-          }).then(({ result }) => {
-            // Find `issuance_json` among result.details:
-            console.log('securities.get result:', result)
-            return result.details.reduce((acc, item) => {
-              if (acc) {
-                return acc
-              }
-              let issuanceJson
-              if (item.equibit.issuance_json || item.equibit.payload) {
-                try {
-                  let json = item.equibit.issuance_json || item.equibit.payload
-                  issuanceJson = JSON.parse(json)
-                } catch (e) {
-                  console.error('Error: cannot parse issuance_json: ', (item.equibit.issuance_json || item.equibit.payload))
-                }
-              }
-              return issuanceJson && {
-                utxo,
-                data: issuanceJson
-              }
-            }, null)
-          }).catch(err => {
-            console.error(err)
-            return this.lastSetSecurities ? this.lastSetSecurities[idx] : {}
-          })
-        })
-      )
-      .then(securities => {
-        this.lastSetSecurities = securities
-        resolve(securities)
+
+      // The number of issuances returned is a <= number of utxoSecurities
+      // each issuance will have a `utxo` property that's an array of related utxo from addresses controlled by current user
+      // the number of grouped utxo should be equal to number of issuances returned
+      const utxoGroupedByIssuanceTxId = {}
+      const issuanceTxIds = this.utxoSecurities.map(utxo => {
+        const txId = utxo && utxo.equibit && utxo.equibit.issuance_tx_id
+        utxoGroupedByIssuanceTxId[txId] = utxoGroupedByIssuanceTxId[txId] || []
+        utxoGroupedByIssuanceTxId[txId].push(utxo)
+        return txId
       })
+
+      if (!issuanceTxIds.length) {
+        return
+      }
+
+      const issuanceParams = {
+        issuanceTxId: {
+          $in: issuanceTxIds // ['2ec669da941f06d047d3ead54b2a2a563e7f28235622136f89e0668a27c7d478']
+        },
+        $limit: 100,
+        $skip: 0
+      }
+      this.securitiesPromise = Issuance.getList(issuanceParams)
+        .then(issuances => {
+          // now, for every issuance, attach its related utxoGroupedByIssuanceTxId group
+          issuances.forEach(issuance => {
+            issuance.utxo = utxoGroupedByIssuanceTxId[ issuance.issuanceTxId ]
+          })
+
+          // resolve the getter and promise with the issuances
+          resolve(issuances)
+          return issuances
+        })
     }
   },
 

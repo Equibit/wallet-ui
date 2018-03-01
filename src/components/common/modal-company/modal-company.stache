@@ -13,5 +13,4 @@
 	<div class="modal-body">
 		<entity-info></entity-info>
   </div>
-
 </bootstrap-modal-content>

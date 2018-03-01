@@ -97,7 +97,8 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
     fromAddress: order.eqbAddress,
     toAddress,
     htlcStep,
-    offerId: offer._id
+    offerId: offer._id,
+    costPerShare: offer.price
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
 
@@ -112,7 +113,10 @@ function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
   typeforce(types.Address, refundAddr)
 
   // todo: calculate transaction fee:
-  const fee = 1000
+  let fee = 1000
+  if (fee > amount) {
+    fee = amount - 1
+  }
   const htlcStep = 3
 
   // We unlock htlc2 here (so using timelock2):
@@ -153,7 +157,8 @@ function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr) {
     fromAddress: order.btcAddress,
     toAddress: offer.btcAddress,
     htlcStep,
-    offerId: offer._id
+    offerId: offer._id,
+    costPerShare: offer.price
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
 

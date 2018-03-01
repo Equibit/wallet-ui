@@ -2,6 +2,7 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="grid-component" />
 <can-import from="~/components/common/arrow-change.component" />
+<can-import from="~/components/page-portfolio/equity-grid/cancel-securities/" />
 
 <grid-component {rows}="rows"
                 {pagination}="pagination"
@@ -30,21 +31,21 @@
     <div class="grid-body-scroll">
       <table class="table table-condensed grid-body">
         <tbody>
-        {{#each rowsFormatted as row}}
+        {{#each rows as row}}
           <tr>
             <td class="column-company truncate">
               <a href="{{routeUrl page='issuance-details' companySlug=row.companySlug itemId=row._id}}">{{row.companyName}}</a>
             </td>
             <td class="column-issuance">{{row.issuanceName}}</td>
-            <td class="column-quantity">{{format(row.quantity, '', 0)}}</td>
-            <td class="column-cost">{{format(row.cost, '', 0)}}</td>
-            <td class="column-price">{{format(row.price, '', 0)}}</td>
-            <td class="column-value">{{local-currency(row.valueBtc, 'BTC')}}</td>
+            <td class="column-quantity">{{format(row.utxoAmountTotal, '', 0)}}</td>
+            <td class="column-cost">{{format(row.utxoCostTotal, '', 0)}}</td>
+            <td class="column-price">{{format(row.utxoPriceTotal, '', 0)}}</td>
+            <td class="column-value">{{local-currency(row.utxoBtcValueTotal, 'BTC')}}</td>
             <td class="column-pl">
-              <arrow-change class="no-arrow" change:from="row.profitLoss"></arrow-change>
+              <arrow-change class="no-arrow" change:from="row.utxoProfitLossTotal"></arrow-change>
             </td>
             <td class="column-action">
-              <a class="icon icon-cross icon-cancelled" ($click)="cancel(row)"></a>
+              <a class="icon icon-cross icon-cancelled" on:click="showCancelModal(row)"></a>
             </td>
           </tr>
         {{else}}
@@ -78,3 +79,7 @@
   </div>
 
 </grid-component>
+
+{{#if cancelModalShowing}}
+  <cancel-securities cancelFn:from="@cancelFn" cancelIssuance:from="cancelIssuance" />
+{{/if}}

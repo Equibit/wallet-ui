@@ -83,7 +83,8 @@ function prepareHtlcConfig4 (order, offer, portfolio, secret) {
     fromAddress: offer.btcAddress,
     toAddress: order.btcAddress,
     htlcStep,
-    offerId: offer._id
+    offerId: offer._id,
+    costPerShare: offer.price
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
 
@@ -156,7 +157,8 @@ function prepareHtlcConfig4Eqb (order, offer, portfolio, secret, issuance, chang
     fromAddress: offer.eqbAddress,
     toAddress: order.eqbAddress,
     htlcStep,
-    offerId: offer._id
+    offerId: offer._id,
+    costPerShare: offer.price
   }
   console.log(`createHtlc3: txInfo:`, txInfo)
 

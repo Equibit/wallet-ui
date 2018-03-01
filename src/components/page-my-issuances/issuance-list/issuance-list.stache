@@ -1,5 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/common/modal-company/" />
+<can-import from="~/components/page-my-issuances/issuance-list/cancel-authorized/" />
 
 {{#each issuanceByCompany as byCompany}}
   <div class="well">
@@ -7,7 +8,7 @@
       <div class="col-xs-12 col-sm-2 company-info">
         <div class="company-name"><strong>{{byCompany.companyName}}</strong></div>
         <div class="company-domicile">{{byCompany.domicile}}</div>
-        <a class="company-more-info" href="">{{i18n('more')}}</a>
+        <a class="company-more-info" href="" on:click="showModal()">{{i18n('more')}}</a>
       </div>
 
       <div class="col-xs-12 col-sm-10 issuances-info">
@@ -36,11 +37,11 @@
 							</td>
               <td class="column-type">{{issuance.issuanceTypeDisplay}}</td>
               <td class="column-restriction">Level 0{{issuance.restriction}}</td>
-              <td class="column-price font-numeric">- -</td>
+              <td class="column-price font-numeric">{{format(issuance.utxoPriceTotal, '', 0)}}</td>
               <td class="column-authorized font-numeric">{{format(issuance.sharesAuthorized, '', 0)}}</td>
               <td class="column-issued font-numeric">{{format(issuance.sharesIssued, '', 0)}}</td>
               <td class="column-action">
-                <a class="icon icon-cross icon-cancelled" ($click)="cancel(row)"></a>
+                <a class="icon icon-cross icon-cancelled" on:click="showCancelModal(issuance)"></a>
               </td>
             </tr>
             {{/each}}
@@ -54,4 +55,8 @@
 
 {{#if isModalShown}}
   <modal-company></modal-company>
+{{/if}}
+
+{{#if cancelModalShowing}}
+  <cancel-authorized cancelFn:from="@cancelFn" cancelIssuance:from="cancelIssuance" />
 {{/if}}

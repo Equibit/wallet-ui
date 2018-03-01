@@ -14,7 +14,11 @@ const buildTxEqb = eqbTxBuilder.builder.buildTx
  */
 function makeTransaction (
   amount, toAddress, txouts,
-  {fee, changeAddr, network, type, currencyType, description, issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb, amountEqb, offerId}
+  {
+    fee, changeAddr, network, type, currencyType, description,
+    issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb,
+    amountEqb, offerId, costPerShare
+  }
 ) {
   currencyType = currencyType.toUpperCase()
   const inputs = txouts.map(pick(['txid', 'vout', 'keyPair']))
@@ -26,6 +30,9 @@ function makeTransaction (
   if (changeAddr) {
     outputs.push({address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)})
   } else {
+    if (fee >= outputs[0].value) {
+      fee = outputs[0].value - 1
+    }
     // Case: cancel issuance with no change address (all issuance inputs will be emptied). Transaction fee is deducted here:
     outputs[0].value -= toSatoshi(fee)
   }
@@ -64,7 +71,8 @@ function makeTransaction (
     txId: txInfo.txId,
     fromAddress: txouts[0].address,
     toAddress,
-    offerId
+    offerId,
+    costPerShare
   }
 
   // add issuance details:
@@ -79,7 +87,7 @@ function addIssuanceDetails (issuance) {
   return {
     companyName: issuance.companyName,
     companySlug: issuance.companySlug,
-    issuanceId: issuance._id,
+    issuanceId: issuance._id || issuance.issuanceId,
     issuanceName: issuance.issuanceName,
     issuanceType: issuance.issuanceType,
     issuanceUnit: issuance.issuanceUnit
