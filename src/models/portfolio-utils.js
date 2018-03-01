@@ -41,6 +41,8 @@ const importMulti = (addresses, type, alreadyImportedAddresses) => {
     return true
   })
 }
+window.importAddr = importAddr
+window.importMulti = importMulti
 
 const fetchListunspent = ({ BTC = [], EQB = [] }) => {
   return feathersClient.service('/listunspent').find({

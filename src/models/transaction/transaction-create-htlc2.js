@@ -124,7 +124,8 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
     hashlock: offer.hashlock,
     timelock: timelock,
     buildConfig,
-    offerId: offer._id
+    offerId: offer._id,
+    costPerShare: offer.price
   }
 
   return { buildConfig, txInfo }

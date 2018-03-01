@@ -98,48 +98,15 @@ export const ViewModel = DefineMap.extend({
   },
 
   // To cancel an issuance we strip out issuance_tx_id and send as Empty EQB to a new EQB address.
-  cancelIssuance (args) {
-    // todo: update when we will group multiple utxo of one issuance.
-    const issuance = args[1]
-    const address = issuance.utxo.address
-    const amount = issuance.utxo.amount
-    const keyPair = this.portfolio.findAddress(address).keyPair
-    // Note: txouts contain one input which will be used for the fee as well.
-    const txouts = [{
-      txid: issuance.utxo.txid,
-      vout: issuance.utxo.vout,
-      address,
-      keyPair
-    }]
-    console.log('cancelIssuance', issuance, issuance.utxo)
-    this.portfolio.getNextAddress().then(({ EQB }) => {
-      const toAddress = EQB
-      const options = {
-        // todo: calculate fee
-        fee: 1000,
-        type: 'CANCEL',
-        currencyType: 'EQB',
-        description: `Canceling  ${issuance.issuanceName} of ${issuance.companyName}`,
-        issuance: {
-          companyName: issuance.companyName,
-          companySlug: issuance.companySlug,
-          issuanceId: issuance._id,
-          issuanceName: issuance.issuanceName,
-          issuanceType: issuance.issuanceType,
-          issuanceUnit: issuance.issuanceUnit
-        }
-      }
-      const tx = Transaction.makeTransaction(amount, toAddress, txouts, options)
-
-      return tx.save(() => {
-        this.portfolio.markAsUsed(toAddress, 'EQB', false)
-        hub.dispatch({
-          'type': 'alert',
-          'kind': 'success',
-          'title': translate('issuanceWasCanceled'),
-          'displayInterval': 12000
-        })
+  cancelIssuance (issuance) {
+    return issuance.cancel().then(() => {
+      hub.dispatch({
+        'type': 'alert',
+        'kind': 'success',
+        'title': translate('issuanceWasCanceled'),
+        'displayInterval': 12000
       })
+      Session.current.refreshBalance()
     })
   }
 })

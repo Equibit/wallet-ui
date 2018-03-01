@@ -153,6 +153,7 @@ export default {
   confirmOrder: 'Please review and confirm your order.',
   confirmOffer: 'Please review and confirm your offer.',
   confirmTransaction: 'Please review and confirm your transaction.',
+  confirmCancelIssuance: 'This action cannot be undone. Are you sure you want to cancel this issuance?',
   contact: 'Contact',
   copiedToClipboard: 'Copied to clipboard',
   copyAndShare: 'Copy and Share',

@@ -17,7 +17,6 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './equity-grid.less'
 import view from './equity-grid.stache'
-import Session from '../../../models/session'
 import Pagination from '~/models/pagination'
 
 // TODO: turn fixtures off
@@ -31,38 +30,21 @@ export const ViewModel = DefineMap.extend({
     })
   },
   rows: '*',
-  rowsFormatted: {
-    get () {
-      return this.rows && this.rows.map(({utxo, data}) => {
-        if (!utxo && !data) {
-          return {}
-        }
-        return {
-          issuanceName: data.issuance.issuance_name,
-          issuanceType: data.issuance.security_type,
-          // todo: tmp for demo.
-          issuanceUnit: 'SHARES',
-          amount: utxo.amount,
-          quantity: utxo.amount,
-          price: Math.floor(
-            Session.current.rates.securitiesToBtc * (utxo.amount / 100000000)
-          ),  // microBTC
-          valueBtc: Session.current.rates.securitiesToBtc * utxo.amount,
-          companyName: data.company.legal_name,
-          companySlug: data.company.legal_name && data.company.legal_name.toLowerCase().split(' ').join('-'),
-          utxo
-        }
-      })
-    }
-  },
   queryParams: {
     get () {
       let params = this.pagination.params
       return Object.assign({securityType: 'equity'}, params)
     }
   },
-  cancel (issuance) {
-    this.dispatch('cancel', [issuance])
+  cancelFn: '*',
+  cancelModalShowing: {
+    value: false
+  },
+  cancelIssuance: '*',
+  showCancelModal (issuance) {
+    this.cancelModalShowing = false
+    this.cancelIssuance = issuance
+    this.cancelModalShowing = true
   }
 })
 

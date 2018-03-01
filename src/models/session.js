@@ -377,7 +377,7 @@ const Session = DefineMap.extend('Session', {
       this.portfolios[0] &&
       this.portfolios[0].securities &&
       this.portfolios[0].securities.filter(sec => {
-        return sec.data.issuance.issuance_address === issuanceAddress
+        return sec.issuanceAddress === issuanceAddress
       }).length > 0
     const userHasAuthorizedIssuancesUtxo = this.issuances &&
       this.issuances.filter(issuance => {

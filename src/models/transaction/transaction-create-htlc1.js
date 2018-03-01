@@ -99,7 +99,8 @@ function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr, transactionF
     hashlock: offer.hashlock,
     timelock,
     buildConfig,
-    offerId: offer._id
+    offerId: offer._id,
+    costPerShare: offer.price
   }
 
   return { buildConfig, txInfo }

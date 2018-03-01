@@ -53,7 +53,8 @@ function prepareHtlc2Btc (offer, order, portfolio, issuance, changeAddr) {
     description: `Buying securities (HTLC #${htlcStep})`,
     issuance: issuance,
     htlcStep,
-    offerId: offer._id
+    offerId: offer._id,
+    costPerShare: offer.price
   }
 
   return { toAddressA, toAddressB, utxo, options }
@@ -91,7 +92,8 @@ function prepareHtlc2Eqb (offer, order, portfolio, issuance, emptyEqbChangeAddr)
     emptyEqbAmount: utxoEmptyEqbInfo.sum,
     emptyEqbUtxo,
     emptyEqbChangeAddr,
-    offerId: offer._id
+    offerId: offer._id,
+    costPerShare: offer.price
   }
 
   return { toAddressA, toAddressB, utxo, options }

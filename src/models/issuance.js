@@ -12,8 +12,9 @@ import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
 import { superModelNoCache as superModel } from './super-model'
 import algebra from './algebra'
-import utils from './portfolio-utils'
 import Session from '~/models/session'
+import Transaction from '~/models/transaction/transaction'
+import utils from './portfolio-utils'
 const { fetchListunspent, importMulti, getUnspentOutputsForAmount } = utils
 
 const Issuance = DefineMap.extend('Issuance', {
@@ -79,6 +80,13 @@ const Issuance = DefineMap.extend('Issuance', {
   highestNumShares: 'number',
   lowestNumShares: 'number',
 
+  currentPricePerShare: {
+    get () {
+      // TODO: lookup current price
+      return 1
+    }
+  },
+
   // meta data:
   volume24h: 'number',
   sharesAuthorized: 'number',
@@ -140,16 +148,116 @@ const Issuance = DefineMap.extend('Issuance', {
   get address () {
     return this.keys && this.keys.getAddress()
   },
-  // Array of UTXO from /listunspent
+
+  // Array of related UTXO from /listunspent belonging to addresses controlled by the current user.
+  // Also set in portfolio model as a list of utxo from portfolio.utxoSecurities, which are listunspent
+  // results from EQB addresses controlled by current user, used in page-portfolio/equity-grid component.
   utxo: {
     serialize: false
   },
-  // The available amount in satoshi.
-  availableAmount: {
+
+  // total number of shares issued to user as a buyer (or authorized
+  // by user as issuer, depending on user's relation to the issuance)
+  // NOTE: 1 company share = 1 utxo.amount = 1 EQB Satoshi
+  utxoAmountTotal: {
     get () {
       return this.utxo && this.utxo.reduce((acc, {amount}) => (acc + amount), 0)
     }
   },
+
+  // total cost in BTC Satoshi of all utxo at time of their purchase
+  utxoCostTotal: {
+    // TODO: need to also query transactions for each utxo where transaction.type === BUY
+    // and transaction.txId = utxo.txid
+    // need to also add a 'costPerShare' to transactions table
+    get () {
+      return this.utxo && this.utxo.reduce(
+        (acc, {amount, costPerShare}) => (acc + amount * costPerShare),
+        0
+      )
+    }
+  },
+
+  // total current value of the shares in BTC Satoshi
+  utxoPriceTotal: {
+    get () {
+      return this.currentPricePerShare * this.utxoAmountTotal
+    }
+  },
+
+  // total current value of the shares in BTC
+  utxoBtcValueTotal: {
+    get () {
+      return this.currentPricePerShare * this.utxoAmountTotal / 100000000
+    }
+  },
+
+  // total gains or losses in BTC Satoshi
+  utxoProfitLossTotal: {
+    get () {
+      return this.utxoPriceTotal - this.utxoCostTotal
+    }
+  },
+
+  cancel () {
+    const portfolio = Session && Session.current && Session.current.portfolios && Session.current.portfolios[0]
+
+    if (!this.utxo || !this.utxo.length) {
+      console.log('utxo MISSING on issuance during cancel:', this)
+      return Promise.reject(new Error('utxo missing from issuance'))
+    }
+
+    const txouts = []
+    this.utxo.forEach(utxo => {
+      const address = utxo.address
+      const cancelByIssuer = this.userId === Session.current.user._id
+      const keyInfo = cancelByIssuer ? this.keys : portfolio.findAddress(address)
+      const keyPair = keyInfo.keyPair
+      // Note: txouts contain one input which will be used for the fee as well.
+      txouts.push({
+        txid: utxo.txid,
+        vout: utxo.vout,
+        amount: utxo.amount,
+        address,
+        keyPair
+      })
+      console.log('cancelIssuance', this, utxo)
+    })
+
+    return portfolio.getNextAddress().then(({ EQB }) => {
+      const toAddress = EQB
+      const options = {
+        // todo: calculate fee
+        fee: 1000,
+        type: 'CANCEL',
+        currencyType: 'EQB',
+        description: `Canceling  ${this.issuanceName} of ${this.companyName}`,
+        issuance: {
+          companyName: this.companyName,
+          companySlug: this.companySlug,
+          issuanceId: this._id,
+          issuanceName: this.issuanceName,
+          issuanceType: this.issuanceType,
+          issuanceUnit: this.issuanceUnit
+        }
+      }
+      const tx = Transaction.makeTransaction(this.utxoAmountTotal, toAddress, txouts, options)
+
+      return tx.save(() => {
+        portfolio.markAsUsed(toAddress, 'EQB', false)
+      })
+    })
+  },
+
+  // The available amount in EQB Satoshi. 1 company share = 1 utxo.amount = 1 EQB Satoshi
+  // This is how many shares the issuer has available OR how many shares the buyer currently owns
+  // ALIAS of utxoAmountTotal TODO: stop using this and remove it
+  availableAmount: {
+    get () {
+      return this.utxoAmountTotal
+    }
+  },
+
   getJson () {
     const company = this.selectedCompany
     return {
@@ -250,7 +358,8 @@ Issuance.List = DefineList.extend('IssuanceList', {
             issuance.utxo = utxoByAddr[issuance.address].txouts.filter(out => {
               // todo: do a more comprehensive filtering.
               const json = out.equibit && out.equibit.issuance_json
-              return (json && json.search(issuance.issuanceName) !== -1) ||
+              // previously was json.search(). Search takes a regex, so characters like +, ., *, $, etc messed it up
+              return (json && json.indexOf(issuance.issuanceName) !== -1) ||
                   // Case: authorized issuance was already sold and change was sent back to issuance address:
                   issuance.issuanceTxId === out.equibit.issuance_tx_id
             })
