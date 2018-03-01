@@ -73,9 +73,8 @@
                     {{#with offerPromise=offerFor(notification)}}
                       {{#if offerPromise.isResolved}}
                         {{#eq offerPromise.value.htlcStep data.htlcStep}}
-                            <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
-                              {{i18n('dealFlowStep3')}}
-                            </a>
+                          <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
+                            {{i18n('dealFlowStep3')}}
                           </a>
                         {{else}}
                           <a href="{{routeUrl page='orders' itemId=data.orderId}}">
