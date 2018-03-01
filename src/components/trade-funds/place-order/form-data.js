@@ -68,10 +68,10 @@ const FormData = DefineMap.extend('FormData', {
   },
   hasEnoughFunds: {
     get () {
-      if (this.type === 'SELL' && this.amount) {
-        // return this.portfolio.hasEnoughFunds(this.amount + this.transactionFee, this.fundsType)
-        return this.availableAmount >= this.amount
+      if (this.type === 'SELL' && this.quantity) {
+        return this.availableAmount >= this.quantity
       }
+      return true
       // if (this.type === 'SECURITIES' && this.issuance) {
       //   // Need available shares amount and Empty EQB for the fee:
       //   return this.issuance.availableAmount >= this.amount && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
@@ -80,7 +80,7 @@ const FormData = DefineMap.extend('FormData', {
   },
   isValid: {
     get () {
-      return this.quantity && this.price && this.goodFor
+      return !!(this.quantity && this.price && this.goodFor && this.hasEnoughFunds)
     }
   }
 })
