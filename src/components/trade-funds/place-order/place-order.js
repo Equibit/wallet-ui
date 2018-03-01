@@ -15,6 +15,7 @@
 
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
+import Session from '../../../models/session'
 import './place-order.less'
 import view from './place-order.stache'
 import FormData from './form-data'

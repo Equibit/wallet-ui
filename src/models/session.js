@@ -366,7 +366,7 @@ const Session = DefineMap.extend('Session', {
     return utxoSecurities
   },
   getAvailableAmountForIssuance (issuanceAddress) {
-    const utxo = this.getUtxoForIssuance (issuanceAddress)
+    const utxo = this.getUtxoForIssuance(issuanceAddress)
     return utxo && utxo.reduce((acc, {amount}) => (acc + amount), 0)
   },
 
