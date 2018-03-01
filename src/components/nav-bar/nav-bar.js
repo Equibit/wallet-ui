@@ -31,6 +31,11 @@ export const ViewModel = DefineMap.extend({
   notifications: {
     type: '*'
   },
+  get unreadNotifications () {
+    return this.notifications
+      ? this.notifications.filter(n => !n.isRead)
+      : []
+  },
   isLoading: 'boolean',
   refresh: function () {},
   logout: function () {}

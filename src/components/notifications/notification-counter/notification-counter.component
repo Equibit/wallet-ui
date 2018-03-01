@@ -34,4 +34,10 @@
   <view>
       {{count}}
   </view>
+  <script type="view-model">
+    import DefineMap from 'can-define/map/'
+    export default DefineMap.extend({
+      count: 'number'
+    })
+  </script>
 </can-component>

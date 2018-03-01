@@ -14,36 +14,48 @@ import { prepareTxData } from './transaction-create-htlc1'
  * - To: BTC
  * - From: BTC
  */
-function createHtlc4 (order, offer, portfolio, issuance, secret, changeAddr) {
+function createHtlc4 (order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates) {
   typeforce(
-    typeforce.tuple('Order', 'Offer', 'Portfolio', 'Issuance', 'String', typeforce.maybe(types.Address)),
+    typeforce.tuple('Order', 'Offer', 'Portfolio', 'Issuance', 'String', typeforce.maybe(types.Address), {EQB: 'Number', BTC: 'Number'}),
     arguments
   )
   console.log(`createHtlc4 arguments:`, arguments)
   const currencyType = order.type === 'SELL' ? 'BTC' : 'EQB'
+  const transactionFeeRate = transactionFeeRates[currencyType]
 
-  const htlcConfig = currencyType === 'BTC'
+  // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
+  let htlcConfig = currencyType === 'BTC'
     ? prepareHtlcConfig4(order, offer, portfolio, secret)
     : prepareHtlcConfig4Eqb(order, offer, portfolio, secret, issuance, changeAddr)
   // todo: generalize to both Ask and Bid.
-  const tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+  let tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+
+  // Calculate fee and rebuild:
+  const transactionFee = tx.hex.length / 2 * transactionFeeRate
+  console.log(`transactionFee: ${tx.hex.length} / 2 * ${transactionFeeRate} = ${transactionFee}`)
+
+  htlcConfig = currencyType === 'BTC'
+    ? prepareHtlcConfig4(order, offer, portfolio, secret, transactionFee)
+    : prepareHtlcConfig4Eqb(order, offer, portfolio, secret, issuance, changeAddr, transactionFee)
+  // todo: generalize to both Ask and Bid.
+  tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+
   const txData = prepareTxData(htlcConfig, tx, issuance)
 
   return txData
 }
 
 // Ask flow: seller (order creator) collects locked payment.
-function prepareHtlcConfig4 (order, offer, portfolio, secret) {
+function prepareHtlcConfig4 (order, offer, portfolio, secret, transactionFee) {
   console.log('prepareHtlcConfig4', arguments)
   typeforce(
     typeforce.tuple('Order', 'Offer', 'Portfolio', 'String'),
     arguments
   )
-  // todo: calculate transaction fee:
-  let fee = 1000
   const htlcStep = 4
   const amount = offer.quantity * order.price
 
+  let fee = transactionFee || 3000
   if (fee > amount) {
     fee = amount - 1
   }
@@ -92,14 +104,13 @@ function prepareHtlcConfig4 (order, offer, portfolio, secret) {
 }
 
 // Bid flow: buyer (order creator) collects locked securities.
-function prepareHtlcConfig4Eqb (order, offer, portfolio, secret, issuance, changeAddr) {
+function prepareHtlcConfig4Eqb (order, offer, portfolio, secret, issuance, changeAddr, transactionFee) {
   console.log('prepareHtlcConfig4', arguments)
   typeforce(
     typeforce.tuple('Order', 'Offer', 'Portfolio', 'String', 'Issuance', types.Address),
     arguments
   )
-  // todo: calculate transaction fee:
-  let fee = 1000
+  const fee = transactionFee || 3000
   const htlcStep = 4
   const amount = offer.quantity
   const paymentTxId = offer.htlcTxId2

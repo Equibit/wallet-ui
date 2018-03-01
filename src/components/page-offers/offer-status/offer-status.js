@@ -16,12 +16,9 @@
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import moment from 'moment'
-import route from 'can-route'
 import typeforce from 'typeforce'
-import hub, { dispatchAlertError } from '../../../utils/event-hub'
 // import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 
-import { translate } from '../../../i18n/i18n'
 import './offer-status.less'
 import view from './offer-status.stache'
 import Order from '../../../models/order'
@@ -94,14 +91,16 @@ export const ViewModel = DefineMap.extend({
     ), [order, offer, issuance, user, portfolio, secret])
 
     const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
-    return portfolio.getNextAddress()
-      .then(addrPair => {
-        const txData = createHtlc3(order, offer, portfolio, issuance, secret, addrPair[currencyType])
-        const tx = new Transaction(txData)
-        this.secret = secret
+    return Promise.all([
+      portfolio.getNextAddress(),
+      Session.current.transactionFeeRatesPromise
+    ]).then(([addrPair, transactionFeeRates]) => {
+      const txData = createHtlc3(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
+      const tx = new Transaction(txData)
+      this.secret = secret
 
-        this.openModal(tx)
-      })
+      this.openModal(tx)
+    })
   },
 
   // Confirmation modal:
@@ -121,35 +120,9 @@ export const ViewModel = DefineMap.extend({
     typeforce('Offer', offer)
     typeforce('Transaction', tx)
 
-    tx.description = description || tx.description
-    return tx.save()
-      .then(tx => updateOffer(offer, secret, tx))
-      .then(({tx}) => dispatchAlert(hub, tx, route))
-      .catch(dispatchAlertError)
+    return tx.sendForOffer(description, offer, secret)
   }
 })
-
-function updateOffer (offer, secret, tx) {
-  offer.htlcStep = 3
-  // reveal secret to the seller:
-  offer.secret = secret
-  offer.htlcTxId3 = tx.txId
-  return offer.save().then(offer => ({ offer, tx }))
-}
-
-function dispatchAlert (hub, tx, route) {
-  if (!tx) {
-    return
-  }
-  const url = route.url({ page: 'transactions', itemId: tx._id })
-  return hub.dispatch({
-    'type': 'alert',
-    'kind': 'success',
-    'title': translate('tradeWasUpdated'),
-    'message': `<a href="${url}">${translate('viewTransaction')}</a>`,
-    'displayInterval': 10000
-  })
-}
 
 export default Component.extend({
   tag: 'offer-status',

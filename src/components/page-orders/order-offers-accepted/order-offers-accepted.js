@@ -16,7 +16,6 @@
 import typeforce from 'typeforce'
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
-import route from 'can-route'
 import './order-offers-accepted.less'
 import view from './order-offers-accepted.stache'
 import Session from '../../../models/session'
@@ -25,8 +24,7 @@ import Issuance from '../../../models/issuance'
 import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
 import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
-import hub, { dispatchAlertError } from '../../../utils/event-hub'
-import { translate } from '../../../i18n/i18n'
+import { dispatchAlertError } from '../../../utils/event-hub'
 
 export const ViewModel = DefineMap.extend({
   order: Order,
@@ -83,10 +81,13 @@ export const ViewModel = DefineMap.extend({
       'String'
     ), [order, offer, issuance, user, portfolio, secret])
 
-    // Note: we need EQB change address only for the Bid flow (when collecting locked securities).
-    portfolio.getNextAddress(true).then(addrPair => {
+    return Promise.all([
+      // Note: we need EQB change address only for the Bid flow (when collecting locked securities).
+      portfolio.getNextAddress(true),
+      Session.current.transactionFeeRatesPromise
+    ]).then(([addrPair, transactionFeeRates]) => {
       try {
-        const txData = createHtlc4(order, offer, portfolio, issuance, secret, addrPair.EQB)
+        const txData = createHtlc4(order, offer, portfolio, issuance, secret, addrPair.EQB, transactionFeeRates.regular)
         const tx = new Transaction(txData)
         this.openModal(offer, tx)
       } catch (err) {
@@ -113,33 +114,9 @@ export const ViewModel = DefineMap.extend({
     typeforce('Offer', offer)
     typeforce('Transaction', tx)
 
-    tx.description = description || tx.description
-    return tx.save()
-      .then(tx => updateOffer(offer, tx))
-      .then(({tx}) => dispatchAlert(hub, tx, route))
-      .catch(dispatchAlertError)
+    return tx.sendForOffer(description, offer)
   }
 })
-
-function updateOffer (offer, tx) {
-  offer.htlcStep = 4
-  offer.htlcTxId4 = tx.txId
-  return offer.save()
-}
-
-function dispatchAlert (hub, tx, route) {
-  if (!tx) {
-    return
-  }
-  const url = route.url({ page: 'transactions', itemId: tx.txId })
-  return hub.dispatch({
-    'type': 'alert',
-    'kind': 'success',
-    'title': translate('tradeWasUpdated'),
-    'message': `<a href="${url}">${translate('viewTransaction')}</a>`,
-    'displayInterval': 10000
-  })
-}
 
 export default Component.extend({
   tag: 'order-offers-accepted',

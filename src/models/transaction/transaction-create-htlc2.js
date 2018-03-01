@@ -13,16 +13,27 @@ const hashTimelockContract = eqbTxBuilder.hashTimelockContract
  * Creates HTLC transaction with H(x). Offer type is either 'BUY' or 'SELL'.
  * This is a high-level method to be called from a component VM.
  */
-function createHtlc2 (offer, order, portfolio, issuance, changeAddr) {
-  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
+function createHtlc2 (offer, order, portfolio, issuance, changeAddr, transactionFeeRates) {
+  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address, {EQB: 'Number', BTC: 'Number'}), arguments)
   typeforce(typeforce.tuple('Number', 'String'), [offer.timelock, offer.hashlock])
 
   const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
+  const transactionFeeRate = transactionFeeRates[currencyType]
 
-  const htlcConfig = currencyType === 'EQB'
+  // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
+  let htlcConfig = currencyType === 'EQB'
     ? prepareHtlcConfigEqb(offer, order, portfolio, issuance, changeAddr)
     : prepareHtlcConfigBtc(offer, order, portfolio, changeAddr)
-  const tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+  let tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+
+  // Calculate fee and rebuild:
+  const transactionFee = tx.hex.length / 2 * transactionFeeRate
+  console.log(`transactionFee: ${tx.hex.length} / 2 * ${transactionFeeRate} = ${transactionFee}`)
+  htlcConfig = currencyType === 'EQB'
+    ? prepareHtlcConfigEqb(offer, order, portfolio, issuance, changeAddr, transactionFee)
+    : prepareHtlcConfigBtc(offer, order, portfolio, changeAddr, transactionFee)
+  tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+
   const txData = prepareTxData(htlcConfig, tx, issuance)
 
   txData.htlcStep = 2
@@ -34,15 +45,15 @@ function createHtlc2 (offer, order, portfolio, issuance, changeAddr) {
 // HTLC-2 is an blockchain transaction from <order creator> to <offer creator>
 //    - Ask flow (Sell order / Buy offer). EQB currency type.
 //    - Bid flow (Buy order / Sell offer). BTC currency type.
-function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmptyEqb) {
-  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address), arguments)
+function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmptyEqb, transactionFee) {
+  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address, '?Number'), arguments)
 
   const amount = offer.quantity
   // We reuse this method for both HTLC1 (Bid) and HTLC2 (Ask), so toAddress will be different:
   const toAddress = order.type === 'SELL' ? offer.eqbAddress : order.eqbAddress
 
-  // todo: calculate transaction fee:
-  const fee = 1000
+  // First build tx with the default rate, then based on the tx size calculate the real fee:
+  const fee = transactionFee || 3000
 
   // Note: timelock for htlc2 should be smaller than htlc1 (e.g. 1/2):
   // Since we reuse this method for both Ask/Bid flows timelock is different.

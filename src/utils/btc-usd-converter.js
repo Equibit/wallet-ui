@@ -16,6 +16,9 @@ function refreshFromService (symbol) {
   return cachedPromises[symbol]
 }
 
+// CurrencyRate = DefineMap.extend({ symbol: enum (BTCUSD | BTCCAD | ...), value: 'number'})
+// CurrencyRate.getList({}) //{query: {symbol: $in: [BTCUSD, BTCCAD, ...]}}
+
 export default {
   convertBTCToUSD (btc) {
     return refreshFromService('BTCUSD').then(b => btc * b.averages.day)

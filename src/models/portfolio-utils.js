@@ -7,13 +7,13 @@ import feathersClient from './feathers-client'
  * @parent models/portfolio.properties
  * Imports the given address to the built-in wallet (to become watch-only for registering transactions).
  */
-const importAddr = (addr, currencyType) => {
+const importAddr = (addr, currencyType, rescan) => {
   // TODO: replace with a specific service (e.g. /import-address).
   return feathersClient.service('proxycore').find({
     query: {
       node: currencyType.toLowerCase(),
       method: 'importaddress',
-      params: [addr]
+      params: [addr, '', !!rescan]
     }
   }).then(res => {
     if (!res.error) {
