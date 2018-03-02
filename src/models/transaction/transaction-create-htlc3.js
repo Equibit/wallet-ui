@@ -67,12 +67,17 @@ function prepareHtlcConfig3 (order, offer, portfolio, issuance, secret, changeAd
   const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
     .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
 
+  // Two cases for the receiving addr:
+  // - investor: lookup keys in portfolio
+  // - issuer: lookup keys directly in issuance
+  const portfolioAddr = portfolio.findAddress(offer.eqbAddress)
+  const keyPair = portfolioAddr ? portfolioAddr.keyPair : issuance.keys.keyPair
   const buildConfig = {
     vin: [{
       // Main input of the locked HTLC amount:
       txid: offer.htlcTxId2,
       vout: 0,
-      keyPair: portfolio.findAddress(offer.eqbAddress).keyPair,
+      keyPair: keyPair,
       htlc: {
         secret,
         // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
