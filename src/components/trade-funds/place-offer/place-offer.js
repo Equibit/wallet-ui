@@ -26,7 +26,7 @@ import FormData from './form-data'
 
 export const ViewModel = DefineMap.extend({
   portfolio: {
-    type: Portfolio,
+    Type: Portfolio,
     // todo: use stream api in changeAddrPromise for a declarative style.
     set (val) {
       this.changeAddrPromise = val && val.getNextAddress && val.getNextAddress(true)

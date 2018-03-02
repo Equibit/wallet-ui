@@ -30,14 +30,9 @@ const FormData = DefineMap.extend('FormData', {
 
   error: 'string',
 
-  issuanceUtxo: {
-    get () {
-      return this.issuance && this.session.getUtxoForIssuance(this.issuance.issuanceAddress)
-    }
-  },
   availableAmount: {
     get () {
-      return this.issuance && this.session.getAvailableAmountForIssuance(this.issuance.issuanceAddress)
+      return this.issuance && this.issuance.availableAmount
     }
   },
 
@@ -62,8 +57,7 @@ const FormData = DefineMap.extend('FormData', {
 
   hasFunds: {
     get () {
-      return true
-      // return (this.portfolio.balance[this.fundsType === 'BTC' ? 'cashBtc' : 'cashEqb'] - this.transactionFee) > 0
+      return this.availableAmount
     }
   },
   hasEnoughFunds: {
@@ -72,10 +66,6 @@ const FormData = DefineMap.extend('FormData', {
         return this.availableAmount >= this.quantity
       }
       return true
-      // if (this.type === 'SECURITIES' && this.issuance) {
-      //   // Need available shares amount and Empty EQB for the fee:
-      //   return this.issuance.availableAmount >= this.amount && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
-      // }
     }
   },
   isValid: {
