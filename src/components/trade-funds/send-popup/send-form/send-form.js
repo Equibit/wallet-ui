@@ -32,7 +32,7 @@ export const ViewModel = DefineMap.extend({
   sharesToUsd: {
     // TODO: the rate depends on the selected issuance!
     value: {
-      rate: 110,
+      rate: this.issuance.currentPricePerShare,
       symbol: 'USD'
     }
   },
