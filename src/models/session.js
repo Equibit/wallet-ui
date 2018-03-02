@@ -357,17 +357,17 @@ const Session = DefineMap.extend('Session', {
 
   // todo: move this to issuance model.
   getUtxoForIssuance (issuanceAddress) {
-    const securities = this.portfolios &&
+    const securities = (this.portfolios &&
       this.portfolios[0] &&
-      this.portfolios[0].securities
-    const utxoSecurities = (securities && securities.filter(sec => {
-      return sec.issuanceAddress === issuanceAddress
-    })) || []
-    return utxoSecurities
+      this.portfolios[0].securities) || []
+    const issuance = ((new DefineList()).concat(securities, (this.issuances || []))).reduce((res, sec) => {
+      return res || (sec.issuanceAddress === issuanceAddress && sec)
+    }, null)
+    return issuance && issuance.utxo || []
   },
   getAvailableAmountForIssuance (issuanceAddress) {
     const utxo = this.getUtxoForIssuance(issuanceAddress)
-    return utxo && utxo.reduce((acc, {utxo}) => (acc + utxo.amount), 0)
+    return utxo.reduce((acc, utxo) => (acc + utxo.amount), 0)
   },
 
   /**
