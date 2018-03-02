@@ -60,11 +60,11 @@ export const ViewModel = DefineMap.extend({
     // const issuancesPromise = isIssuer ? Session.current.issuancesPromise : Session.current.portfolios[0].securitiesPromise
 
     return Promise.all([
-      // issuancesPromise,
+      // Session.current.issuancesPromise,
       portfolio.getNextAddress(),
       portfolio.getNextAddress(true),
       Session.current.transactionFeeRatesPromise
-    ]).then(([/*issuances,*/ addrPair, changeAddrPair, transactionFeeRates]) => {
+    ]).then(([addrPair, changeAddrPair, transactionFeeRates]) => {
       // todo: figure out a better way to find the issuance with preloaded UTXO.
       // const issuance = this.order.type === 'SELL'
       //   ? issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]

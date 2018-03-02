@@ -360,9 +360,9 @@ const Session = DefineMap.extend('Session', {
     const securities = this.portfolios &&
       this.portfolios[0] &&
       this.portfolios[0].securities
-    const utxoSecurities = securities && securities.filter(sec => {
+    const utxoSecurities = (securities && securities.filter(sec => {
       return sec.issuanceAddress === issuanceAddress
-    }) || []
+    })) || []
     return utxoSecurities
   },
   getAvailableAmountForIssuance (issuanceAddress) {
