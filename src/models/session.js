@@ -362,7 +362,7 @@ const Session = DefineMap.extend('Session', {
       this.portfolios[0].securities
     const utxoSecurities = securities && securities.filter(sec => {
       return sec.issuanceAddress === issuanceAddress
-    })
+    }) || []
     return utxoSecurities
   },
   getAvailableAmountForIssuance (issuanceAddress) {

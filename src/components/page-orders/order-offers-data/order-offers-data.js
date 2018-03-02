@@ -56,16 +56,26 @@ export const ViewModel = DefineMap.extend({
     typeforce('Portfolio', portfolio)
     this.acceptingOffer = offer
 
+    // const isIssuer = this.order.type === 'SELL' && this.issuance.userId === Session.current.user._id
+    // const issuancesPromise = isIssuer ? Session.current.issuancesPromise : Session.current.portfolios[0].securitiesPromise
+
     return Promise.all([
-      Session.current.issuancesPromise,
+      // issuancesPromise,
       portfolio.getNextAddress(),
       portfolio.getNextAddress(true),
       Session.current.transactionFeeRatesPromise
-    ]).then(([issuances, addrPair, changeAddrPair, transactionFeeRates]) => {
+    ]).then(([/*issuances,*/ addrPair, changeAddrPair, transactionFeeRates]) => {
       // todo: figure out a better way to find the issuance with preloaded UTXO.
-      const issuance = this.order.type === 'SELL'
-        ? issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
-        : this.issuance
+      // const issuance = this.order.type === 'SELL'
+      //   ? issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
+      //   : this.issuance
+
+      if (!this.issuance.utxo) {
+        const message = 'No UTXO for this issuance. Cannot accept the offer.'
+        console.error(message, this.issuance)
+        throw new Error(message)
+      }
+      const issuance = this.issuance
 
       // Change address (Empty EQB for transaction fee or BTC for change):
       const changeAddr = this.order.type === 'SELL' ? changeAddrPair.EQB : changeAddrPair.BTC

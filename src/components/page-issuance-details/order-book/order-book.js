@@ -89,6 +89,12 @@ export const ViewModel = DefineMap.extend({
 
     // Ask flow: EQB address to receive securities, BTC address for refund
     return this.portfolio.getNextAddress().then((addrPair) => {
+      // Case Issuer Ask Flow: when the original issuer buys an issuance it should go back to its issuance address (not to portfolio)
+      const isIssuer = order.type === 'SELL' && this.issuance.userId === Session.current.user._id
+      if (isIssuer) {
+        addrPair.EQB = this.issuance.issuanceAddress
+      }
+
       // Note: we need to store the refund address on the offer because it will be used in HTLC.
       // Note: we don't know the amount yet.
       this.offer = createHtlcOffer(order, secret, defaultTimelock, '', Session.current.user, this.issuance, addrPair)
@@ -233,7 +239,8 @@ function generateSecret () {
 // function createHtlcOffer (formData, secret, timelock, user, issuance, receiveAddress, refundAddress) {
 function createHtlcOffer (order, secret, timelock, description, user, issuance, addrPair) {
   typeforce(typeforce.tuple(
-    'Order', 'Buffer', 'Number', '?String', 'User', 'Issuance', {EQB: types.Address, BTC: types.Address}),
+    'Order', 'Buffer', 'Number', '?String', 'User', 'Issuance',
+    {EQB: types.Address, BTC: typeforce.maybe(types.Address)}),
     arguments
   )
   const flowType = order.type === 'SELL' ? 'Ask' : 'Bid'
