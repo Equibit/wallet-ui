@@ -13,8 +13,7 @@ import DefineMap from 'can-define/map/map'
 import accounting from 'accounting'
 import './send-form.less'
 import view from './send-form.stache'
-import { Currency } from '~/components/trade-funds/currency-converter/'
-import Session from '~/models/session'
+import { getDailyAverage } from '~/utils/currency-converter'
 import { toMaxPrecision } from '../../../../utils/formatter'
 
 export const ViewModel = DefineMap.extend({
@@ -38,11 +37,15 @@ export const ViewModel = DefineMap.extend({
     }
   },
 
-  get fundsToUsd () {
-    const val = this.formData.fundsType === 'EQB'
-      ? { rate: Session.current.rates.eqbToUsd, symbol: 'USD' }
-      : { rate: Session.current.rates.btcToUsd, symbol: 'USD' }
-    return new Currency(val)
+  fundsToUsd: {
+    get (val, resolve) {
+      getDailyAverage(this.formData.fundsType + 'USD').then(avg => {
+        resolve({
+          rate: avg,
+          symbol: 'USD'
+        })
+      })
+    }
   },
 
   get availableFunds () {

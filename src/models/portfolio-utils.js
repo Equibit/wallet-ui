@@ -99,6 +99,15 @@ export default {
   getAllUtxo
 }
 
+export {
+  importAddr,
+  importMulti,
+  fetchListunspent,
+  getNextAddressIndex,
+  getUnspentOutputsForAmount,
+  getAllUtxo
+}
+
 export function filterUniqAddr (list) {
   return list.reduce((acc, item) => {
     const key = `${item.portfolioId}-${item.index}-${item.type}-${item.isChange}`

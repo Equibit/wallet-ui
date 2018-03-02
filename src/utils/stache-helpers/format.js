@@ -2,6 +2,7 @@ import stache from 'can-stache'
 import accounting from 'accounting'
 import moment from 'moment'
 import { toMaxPrecision, localCurrency } from '../formatter'
+import Session from '~/models/session'
 
 stache.registerHelper('format', function (value, symbol, precision) {
   if (typeof precision === 'undefined') {
@@ -55,7 +56,7 @@ stache.registerHelper('local-currency', function (value, type) {
   return localCurrency(value, type)
 })
 stache.registerHelper('local-currency-symbol', function () {
-  return 'USD'
+  return Session.fiatCurrency()
 })
 
 // Satoshi to Bitcoins

@@ -37,7 +37,7 @@
             <td class="column-digital-currency-value font-numeric">{{formData.quantity}}</td>
             <td class="column-digital-currency-type font-numeric">{{i18n('shares')}}</td>
             <td class="column-local-currency-value font-numeric">$ {{formData.price}}</td>
-            <td class="column-local-currency-type font-numeric">{{i18n('usd')}}</td>
+            <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>
           </tr>
 
           {{else}}
@@ -46,7 +46,7 @@
             <td class="column-digital-currency-value font-numeric">{{formData.amountCoin}}</td>
             <td class="column-digital-currency-type font-numeric">{{#is formData.fundsType 'EQB'}}{{i18n('EQB')}}{{else}}{{i18n('BTC')}}{{/is}}</td>
             <td class="column-local-currency-value font-numeric">$ {{formData.price}}</td>
-            <td class="column-local-currency-type font-numeric">{{i18n('usd')}}</td>
+            <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>
           </tr>
           {{/is}}
 

@@ -1,6 +1,7 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import Session from '~/models/session'
+import currencyConverter from '~/utils/currency-converter'
 
 import './fixtures/portfolio'
 import './fixtures/listunspent'
@@ -9,6 +10,16 @@ import userMock from './mock/mock-user'
 describe('models/session', function () {
   describe('property getters', function () {
     const session = new Session({})
+    let totalInBtc
+    before(() => {
+      const BTCUSD = 10000
+      const EQBUSD = 1000
+      currencyConverter.injectRates({
+        BTCUSD,
+        EQBUSD
+      })
+      totalInBtc = 210000000 /* <- BTC */ + 560000000 /* <- EQB */ * EQBUSD / BTCUSD
+    })
     it('should populate portfolio', function (done) {
       session.on('portfolios', function () {
         assert.equal(session.portfolios.length, 1)
@@ -21,8 +32,7 @@ describe('models/session', function () {
       })
     })
     it('should populate balance', function (done) {
-      const totalInBtc = 770000000 * session.rates.eqbToBtc
-      session.on('balance', function (ev, newVal, oldVal) {
+      function balanceHandler (ev, newVal, oldVal) {
         console.log('on.balance', ev, newVal, oldVal)
         if (!session.balance || session.balance.isPending) {
           return
@@ -33,8 +43,10 @@ describe('models/session', function () {
           securities: 0
         })
         assert.equal(session.portfolios[0].balance.total, totalInBtc)
+        session.off('balance', balanceHandler)
         done()
-      })
+      }
+      session.on('balance', balanceHandler)
     })
 
     session.user = userMock

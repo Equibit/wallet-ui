@@ -22,7 +22,7 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './collect-asset.less'
 import view from './collect-asset.stache'
-import currencyConverter from '~/utils/btc-usd-converter'
+import currencyConverter from '~/utils/currency-converter'
 
 const titles = {
   BTC: {
@@ -71,7 +71,7 @@ export const ViewModel = DefineMap.extend({
     }
   },
   convertToUSD: function (value) {
-    return currencyConverter.convert(value, 'EQBUSD')
+    return currencyConverter.convertToUserFiat(value, 'EQB', currencyConverter.unit)
   },
   sendFn: '*',
   isSending: {

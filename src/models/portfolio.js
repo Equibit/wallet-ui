@@ -16,6 +16,7 @@ import algebra from './algebra'
 // import Session from '~/models/session'
 import Issuance from '~/models/issuance'
 import utils from './portfolio-utils'
+import currencyConverter from '~/utils/currency-converter'
 const {
   importAddr,
   getNextAddressIndex,
@@ -278,7 +279,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * The field `equibit.issuance_json` should always be empty for a portfolio. It can only be non-empty under a company.
    */
   balance: {
-    get () {
+    get (val, resolve) {
       if (!this.utxoByTypeByAddress) {
         console.log('portfolio.balance is undefined - no utxo yet...')
         return
@@ -286,8 +287,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
       const utxoByType = this.utxoByTypeByAddress
 
       // TODO: figure out how to evaluate securities.
+      const updatePromises = []
 
-      const { cashBtc, cashEqb, cashTotal, securities } = this.addresses.reduce((acc, addr) => {
+      const totals = this.addresses.reduce((acc, addr) => {
         const utxo = utxoByType[addr.type]
         if (utxo && utxo.addresses[addr.address]) {
           const amount = utxo.addresses[addr.address].amount
@@ -298,20 +300,29 @@ const Portfolio = DefineMap.extend('Portfolio', {
             acc.cashTotal += amount
           } else {
             // Check for securities:
-            const securitiesAmount = getSecuritiesAmount(txouts)
-            acc.securities += this.rates.securitiesToBtc * securitiesAmount
-            acc.cashEqb += amount - securitiesAmount
-            acc.cashTotal += this.rates.eqbToBtc * amount
+            updatePromises.push(getSecuritiesAmount(txouts).then(securitiesAmount => {
+              acc.securities += securitiesAmount.total
+              acc.cashEqb += amount - securitiesAmount.amount
+            }))
           }
         }
-        acc.total = acc.cashTotal + acc.securities
         return acc
-      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0, total: 0})
+      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0})
 
-      const total = cashTotal + securities
+      totals.total = totals.cashTotal + totals.securities
 
-      console.log(`portfolio.balance.total is ${total}`)
-      return new DefineMap({ cashBtc, cashEqb, cashTotal, securities, total })
+      const retVal = new DefineMap(totals)
+      updatePromises.unshift(currencyConverter.convertCryptoToCrypto(1, 'EQB', 'BTC'))
+
+      Promise.all(updatePromises).then(([eqbToBtc, ...rest]) => {
+        // once all the promises resolve, update the totals in the returned map
+        totals.cashTotal += totals.cashEqb * eqbToBtc
+        totals.total = totals.cashTotal + totals.securities
+        retVal.assign(totals)
+        resolve && resolve(retVal)
+      })
+      console.log(`portfolio.balance.total is ${totals.total}`)
+      return resolve ? undefined : retVal
     }
   },
 
@@ -512,9 +523,22 @@ Portfolio.algebra = algebra
 
 // Calculate securities quantity from utxo:
 const getSecuritiesAmount = utxo => {
-  return utxo
+  const issuanceUTXO = utxo
     .filter(out => (out.equibit && out.equibit.issuance_tx_id && out.equibit.issuance_tx_id !== EMPTY_ISSUANCE_TX_ID))
-    .reduce((acc, out) => (acc + out.amount), 0)
+
+  return Promise.all([
+    Issuance.getList({ issuanceTxId: { $in: issuanceUTXO.map(out => out.equibit.issuance_tx_id) } }),
+    currencyConverter.convertCryptoToCrypto(1, 'EQB', 'BTC')
+  ]).then(([issuances, eqbToBtcRate]) => {
+    const issuancesByTxId = issuances.reduce((all, iss) => { all[iss.issuanceTxId] = iss; return all }, {})
+
+    return issuanceUTXO.reduce((acc, out) => {
+      acc.total += out.amount * issuancesByTxId[out.equibit.issuance_tx_id].currentPricePerShare
+      acc.amount += out.amount
+      acc.btcEquivalentAmount += out.amount * eqbToBtcRate
+      return acc
+    }, { total: 0, amount: 0, btcEquivalentAmount: 0 })
+  })
 }
 
 export default Portfolio

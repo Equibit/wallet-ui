@@ -22,7 +22,7 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './accept-offer.less'
 import view from './accept-offer.stache'
-import currencyConverter from '~/utils/btc-usd-converter'
+import currencyConverter from '~/utils/currency-converter'
 
 export const ViewModel = DefineMap.extend({
   tx: '*',
@@ -65,7 +65,7 @@ export const ViewModel = DefineMap.extend({
     }
   },
   convertToUSD: function (value) {
-    return currencyConverter.convert(value, 'EQBUSD')
+    return currencyConverter.convertToUserFiat(value, 'EQB', currencyConverter.unit)
   },
   sendFn: '*',
   isSending: {

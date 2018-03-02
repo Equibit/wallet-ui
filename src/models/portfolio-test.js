@@ -5,6 +5,8 @@ import { omit } from 'ramda'
 import portfolio, { addressesMeta } from './mock/mock-portfolio'
 import listunspent from './mock/mock-listunspent'
 import utils, { filterUniqAddr, containAddress } from './portfolio-utils'
+import currencyConverter from '~/utils/currency-converter'
+
 const {
   // importAddr,
   getNextAddressIndex,
@@ -67,6 +69,11 @@ describe('models/portfolio', function () {
       {index: 1, type: 'EQB', address: 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU', isChange: false},
       {index: 0, type: 'EQB', address: 'muMQ9mZjBy2E45QcWb1YZgD45mP3TfN3gC', isChange: true}
     ]
+    currencyConverter.injectRates({
+      EQBUSD: 1000,
+      BTCUSD: 10000
+    })
+
     it('should populate addresses', function () {
       assert.equal(portfolio.addresses.length, 8)
       assert.deepEqual(omit(['keyPair', 'meta'], portfolio.addresses[0]), expectedAddresses[0])
@@ -79,7 +86,7 @@ describe('models/portfolio', function () {
       assert.deepEqual(portfolio.addressesEqb.get(), expectedAddressesEqb)
     })
 
-    it('should populate portfolio balance based on user\'s balance', function () {
+    it('should populate portfolio balance based on user\'s balance', function (done) {
       var expectedBalance = {
         cashBtc: 2.1 * 100000000,
         cashEqb: 5.6 * 100000000,
@@ -87,10 +94,20 @@ describe('models/portfolio', function () {
         cashTotal: 0, // calc below
         total: 0      // calc below
       }
-      expectedBalance.cashTotal = expectedBalance.cashBtc + expectedBalance.cashEqb * portfolio.rates.eqbToBtc
-      expectedBalance.total = expectedBalance.cashTotal + expectedBalance.securities
-      const balance = portfolio.balance
-      assert.deepEqual((balance.get ? balance.get() : balance), expectedBalance)
+      // bind on balance so it waits to deploy
+      const balanceHandler = (ev, balance) => {
+        assert.deepEqual((balance.get ? balance.get() : balance), expectedBalance)
+        portfolio.off('balance', balanceHandler)
+        done()
+      }
+      portfolio.on('balance', balanceHandler)
+
+      currencyConverter.convertCryptoToCrypto(expectedBalance.cashEqb, 'EQB', 'BTC')
+      .then(eqbCashBtc => {
+        expectedBalance.cashTotal = expectedBalance.cashBtc + eqbCashBtc
+        expectedBalance.total = expectedBalance.cashTotal + expectedBalance.securities
+        portfolio.get('balance')
+      })
     })
 
     it('should populate nextAddress', function (done) {

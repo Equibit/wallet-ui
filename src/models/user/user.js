@@ -155,6 +155,15 @@ const User = DefineMap.extend('User', {
     serialize: false
   },
 
+  fiatCurrency: {
+    type: 'string',
+    serialize: false,
+    value: function () {
+      // TODO this needs to become part of the user preferences
+      return 'USD'
+    }
+  },
+
   /**
    * @function models/user.prototype.generateWalletKeys generateWalletKeys
    * @parent models/user.prototype
