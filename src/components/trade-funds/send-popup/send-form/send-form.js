@@ -13,7 +13,8 @@ import DefineMap from 'can-define/map/map'
 import accounting from 'accounting'
 import './send-form.less'
 import view from './send-form.stache'
-import { getDailyAverage } from '~/utils/currency-converter'
+import { convertToUserFiat, satoshi, unit } from '~/utils/currency-converter'
+import Session from '~/models/session'
 import { toMaxPrecision } from '../../../../utils/formatter'
 
 export const ViewModel = DefineMap.extend({
@@ -31,18 +32,22 @@ export const ViewModel = DefineMap.extend({
 
   sharesToUsd: {
     // TODO: the rate depends on the selected issuance!
-    value: {
-      rate: this.issuance.currentPricePerShare,
-      symbol: 'USD'
+    get (val, resolve) {
+      convertToUserFiat(1, 'BTC', satoshi).then(avg => {
+        resolve({
+          rate: this.issuance.currentPricePerShare * avg,
+          symbol: Session.fiatCurrency()
+        })
+      })
     }
   },
 
   fundsToUsd: {
     get (val, resolve) {
-      getDailyAverage(this.formData.fundsType + 'USD').then(avg => {
+      convertToUserFiat(1, this.formData.fundsType, unit).then(avg => {
         resolve({
           rate: avg,
-          symbol: 'USD'
+          symbol: Session.fiatCurrency()
         })
       })
     }

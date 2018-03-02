@@ -98,3 +98,23 @@ exports.injectRates({
 })
 
 export default exports
+export let {
+  satoshi,
+  horlacher,
+  micro,
+  milli,
+  unit,
+  m,
+  u,
+  µ,
+  getDailyAverage,
+  convertCryptoToFiat,
+  convertFiatToCrypto,
+  convertToUserFiat,
+  convertFromUserFiat,
+  convertCryptoToCrypto,
+  // TODO steal-remove this function once the injection of EQBUSD is no longer needed
+  // This function is for testing and also lets us stub out EQB until the external service
+  //  starts serving averages for it.
+  injectRates
+} = exports
