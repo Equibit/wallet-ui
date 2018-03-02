@@ -363,7 +363,7 @@ const Session = DefineMap.extend('Session', {
     const issuance = ((new DefineList()).concat(securities, (this.issuances || []))).reduce((res, sec) => {
       return res || (sec.issuanceAddress === issuanceAddress && sec)
     }, null)
-    return issuance && issuance.utxo || []
+    return (issuance && issuance.utxo) || []
   },
   getAvailableAmountForIssuance (issuanceAddress) {
     const utxo = this.getUtxoForIssuance(issuanceAddress)
