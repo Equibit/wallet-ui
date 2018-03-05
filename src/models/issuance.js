@@ -14,8 +14,7 @@ import { superModelNoCache as superModel } from './super-model'
 import algebra from './algebra'
 import Session from '~/models/session'
 import Transaction from '~/models/transaction/transaction'
-import utils from './portfolio-utils'
-const { fetchListunspent, importMulti, getUnspentOutputsForAmount } = utils
+import { fetchListunspent, importMulti, getUnspentOutputsForAmount } from './portfolio-utils'
 
 const Issuance = DefineMap.extend('Issuance', {
   _id: 'string',
@@ -58,6 +57,9 @@ const Issuance = DefineMap.extend('Issuance', {
   companySlug: {
     get () {
       return this.companyName && this.companyName.toLowerCase().split(' ').join('-')
+    },
+    set (val) {
+      // ignore sets
     },
     serialize: true
   },
@@ -138,7 +140,7 @@ const Issuance = DefineMap.extend('Issuance', {
     serialize: false,
     get (lastSetVal) {
       if (!lastSetVal && typeof this.index !== 'undefined') {
-        const companyHdNode = Session.current.user && Session.current.user.generatePortfolioKeys(this.companyIndex).EQB
+        const companyHdNode = Session && Session.current.user && Session.current.user.generatePortfolioKeys(this.companyIndex).EQB
         return companyHdNode && companyHdNode.derive(this.index)
       } else {
         return lastSetVal

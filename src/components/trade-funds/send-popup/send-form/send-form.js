@@ -13,7 +13,7 @@ import DefineMap from 'can-define/map/map'
 import accounting from 'accounting'
 import './send-form.less'
 import view from './send-form.stache'
-import { Currency } from '~/components/trade-funds/currency-converter/'
+import { convertToUserFiat, satoshi, unit } from '~/utils/currency-converter'
 import Session from '~/models/session'
 import { toMaxPrecision } from '../../../../utils/formatter'
 
@@ -32,17 +32,25 @@ export const ViewModel = DefineMap.extend({
 
   sharesToUsd: {
     // TODO: the rate depends on the selected issuance!
-    value: {
-      rate: 110,
-      symbol: 'USD'
+    get (val, resolve) {
+      convertToUserFiat(1, 'BTC', satoshi).then(avg => {
+        resolve({
+          rate: this.issuance.currentPricePerShare * avg,
+          symbol: Session.fiatCurrency()
+        })
+      })
     }
   },
 
-  get fundsToUsd () {
-    const val = this.formData.fundsType === 'EQB'
-      ? { rate: Session.current.rates.eqbToUsd, symbol: 'USD' }
-      : { rate: Session.current.rates.btcToUsd, symbol: 'USD' }
-    return new Currency(val)
+  fundsToUsd: {
+    get (val, resolve) {
+      convertToUserFiat(1, this.formData.fundsType, unit).then(avg => {
+        resolve({
+          rate: avg,
+          symbol: Session.fiatCurrency()
+        })
+      })
+    }
   },
 
   get availableFunds () {

@@ -37,7 +37,6 @@ export const ViewModel = DefineMap.extend({
       portfolio = new Portfolio({name: 'My Portfolio'})
       portfolio.save().then(portfolio => {
         portfolio.keys = Session.current.user.generatePortfolioKeys(portfolio.index)
-        portfolio.rates = Session.current.rates
         this.portfolio = portfolio
         // Session.current.portfolios.push(portfolio)
         this.isReceiveFundsPopup = true

@@ -84,7 +84,6 @@ const Session = DefineMap.extend('Session', {
         portfolios.forEach(portfolio => {
           if (portfolio.index !== 'undefined') {
             portfolio.keys = this.user.generatePortfolioKeys(portfolio.index)
-            portfolio.rates = this.rates
           }
         })
         return portfolios
@@ -170,6 +169,7 @@ const Session = DefineMap.extend('Session', {
           isPending: true
         }
       }
+
       return this.portfolios.reduce((acc, portfolio) => {
         if (!portfolio.balance) {
           acc.isPending = true
@@ -193,13 +193,6 @@ const Session = DefineMap.extend('Session', {
     return this.user && this.user.isNewUser
   },
 
-  // TODO: add local currency switch support.
-  rates: {
-    get () {
-      return (this.user && this.user.rates) || Session.defaultRates
-    }
-  },
-
   // todo: connect to API
   // Transaction fee rate, Satoshi per byte.
   transactionFeeRatesPromise: {
@@ -209,11 +202,6 @@ const Session = DefineMap.extend('Session', {
         regular: { EQB: 5, BTC: 5 }
       })
     }
-  },
-
-  // TODO: use BTC switch here (uBTC / mBTC / BTC).
-  toBTC (amount, currencyType) {
-    return currencyType === 'EQB' ? amount * this.rates.eqbToBtc : amount
   },
 
   get notificationsPromise () {
@@ -388,16 +376,11 @@ const Session = DefineMap.extend('Session', {
   }
 })
 
-Session.defaultRates = {
-  btcToUsd: 5000,
-  eqbToUsd: 1000,
-  eqbToBtc: 1000 / 5000,
-  securitiesToBtc: 1 / 5
-}
-
-Session.blockIntervals = {
-  BTC: 600000,
-  EQB: 600000
+Session.fiatCurrency = function () {
+  // TODO use geolocation or reverse IP for lookup
+  return this.current && this.current.user
+    ? this.current.user.fiatCurrency
+    : 'USD'
 }
 
 const algebra = new set.Algebra(

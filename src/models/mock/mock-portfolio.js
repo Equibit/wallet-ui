@@ -1,5 +1,4 @@
 import Portfolio from '../portfolio'
-import rates from './mock-rates'
 import hdNode from './mock-keys'
 import listunspent, { listunspentZero, listunspentBtc } from './mock-listunspent'
 
@@ -35,8 +34,7 @@ const portfolio = new Portfolio({
   name: 'My Portfolio',
   _addressesMeta: addressesMeta,
   keys: portfolioKeys,
-  utxoByTypeByAddress: listunspent,
-  rates
+  utxoByTypeByAddress: listunspent
 })
 // Note: `portfolio.nextAddress()` makes a request and connection's real-time behavior requires the instance to be
 // in the instanceStore, thus adding a reference to keep it there.
@@ -48,8 +46,7 @@ const portfolioZero = new Portfolio({
   name: 'My Portfolio Empty',
   _addressesMeta: addressesMeta,
   keys: portfolioKeys,
-  utxoByTypeByAddress: listunspentZero,
-  rates
+  utxoByTypeByAddress: listunspentZero
 })
 
 const portfolioBtc = new Portfolio({
@@ -57,8 +54,7 @@ const portfolioBtc = new Portfolio({
   name: 'My Portfolio Empty',
   _addressesMeta: addressesMeta,
   keys: portfolioKeys,
-  utxoByTypeByAddress: listunspentBtc,
-  rates
+  utxoByTypeByAddress: listunspentBtc
 })
 
 export default portfolio

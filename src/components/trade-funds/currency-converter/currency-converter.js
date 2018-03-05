@@ -57,7 +57,7 @@ export const ViewModel = DefineMap.extend({
       return val
     },
     get () {
-      return accounting.formatMoney(this.input * this.currency.rate, '', this.precision)
+      return accounting.formatMoney(this.input * (this.currency ? this.currency.rate : 0), '', this.precision)
     }
   },
   get output () {

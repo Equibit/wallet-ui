@@ -17,17 +17,17 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './offer-confirm.less'
 import view from './offer-confirm.stache'
-import currencyConverter from '~/utils/btc-usd-converter'
+import currencyConverter from '~/utils/currency-converter'
 
 export const ViewModel = DefineMap.extend({
   formData: '*',
   convertToUSD: function (value) {
     if (this.formData.order.type === 'SELL') {
       // A BUY offer to a SELL order will send funds in BTC
-      return currencyConverter.convertMicroBTCToUSD.apply(null, arguments)
+      return currencyConverter.convertToUserFiat.apply(null, arguments)
     } else {
       // A SELL offer to a BUY order will send shares
-      return currencyConverter.convert(value, 'EQBUSD')
+      return currencyConverter.convertToUserFiat(value, 'EQB', currencyConverter.satoshi)
     }
   }
 })

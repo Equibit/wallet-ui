@@ -17,15 +17,15 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './portfolio-cash.less'
 import view from './portfolio-cash.stache'
-import Session from '~/models/session'
+import currencyConverter from '~/utils/currency-converter'
 
 export const ViewModel = DefineMap.extend({
   balance: {
     type: '*'
   },
   cashEqbInBtc: {
-    get () {
-      return this.balance && this.balance.cashEqb * Session.current.rates.eqbToBtc
+    get (val, resolve) {
+      currencyConverter.convertCryptoToCrypto(this.balance.cashEqb, 'EQB', 'BTC').then(resolve)
     }
   }
 })

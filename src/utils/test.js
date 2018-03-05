@@ -8,6 +8,7 @@ import '~/models/mock/mock-session'
 import './random-elements-test'
 import './test-mocha'
 import { localCurrency } from './formatter'
+import currencyConverter from '~/utils/currency-converter'
 // import { encode as scriptNumberEncode } from './script_number'
 
 describe('utils/crypto', function () {
@@ -62,6 +63,13 @@ describe('utils/stache-helpers', function () {
     })
   })
   describe('local-currency', function () {
+    before(function () {
+      currencyConverter.injectRates({
+        BTCUSD: 4000,
+        EQBUSD: 3
+      })
+    })
+
     it('should show BTC in local currency', function () {
       let frag = stache('{{local-currency(value, "BTC"}}')({value: 100000000})
       assert.equal(frag.textContent, '4,000.00')
@@ -80,6 +88,12 @@ describe('utils/stache-helpers', function () {
 })
 
 describe('utils/formatter', function () {
+  before(function () {
+    currencyConverter.injectRates({
+      BTCUSD: 4000,
+      EQBUSD: 3
+    })
+  })
   describe('localCurrency', function () {
     it('should convert satoshi to USD', function () {
       assert.equal(localCurrency(100000000, 'BTC'), '4,000.00')

@@ -1,10 +1,8 @@
 import User from '../user/user'
 import hdNode from './mock-keys'
-import rates from './mock-rates'
 
 const userMock = new User({
-  _id: 0,
-  rates
+  _id: 0
 })
 userMock.updatePasswordCache('123')
 userMock.cacheWalletKeys(hdNode)
