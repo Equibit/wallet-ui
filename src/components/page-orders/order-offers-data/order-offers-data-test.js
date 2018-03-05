@@ -3,9 +3,9 @@ import 'steal-mocha'
 import { ViewModel } from './order-offers-data'
 import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
-import Issuance from '../../../models/issuance'
 import Portfolio from '../../../models/portfolio'
 import mockHtlcOffer from '../../../models/mock/mock-htlc-offer'
+import issuance from '../../../models/mock/mock-issuance'
 
 describe('wallet-ui/components/page-orders/order-offers-data', function () {
   let vm, offer, order
@@ -14,7 +14,8 @@ describe('wallet-ui/components/page-orders/order-offers-data', function () {
     offer = htlcOfferMock.offer
     order = htlcOfferMock.order
     vm = new ViewModel({
-      order
+      order,
+      issuance
     })
   })
   describe('acceptOffer', function () {
@@ -51,7 +52,6 @@ describe('wallet-ui/components/page-orders/order-offers-data', function () {
     it('should set offer, tx and issuance and open the modal', function () {
       const offer = new Offer()
       const tx = new Transaction()
-      const issuance = new Issuance()
       assert.ok(!vm.isModalShown)
       vm.openAcceptOfferModal(offer, tx, issuance)
       assert.ok(vm.isModalShown)

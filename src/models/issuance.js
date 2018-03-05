@@ -139,9 +139,18 @@ const Issuance = DefineMap.extend('Issuance', {
   keys: {
     serialize: false,
     get (lastSetVal) {
+      // Two cases:
+      // - user is the issuer: to generate keys we use issuance company index
+      // - user is an investor: find utxo address in portfolio
       if (!lastSetVal && typeof this.index !== 'undefined') {
-        const companyHdNode = Session && Session.current.user && Session.current.user.generatePortfolioKeys(this.companyIndex).EQB
-        return companyHdNode && companyHdNode.derive(this.index)
+        if (Session && this.userId === Session.current.user._id) {
+          const companyHdNode = Session.current.user && Session.current.user.generatePortfolioKeys(this.companyIndex).EQB
+          return companyHdNode && companyHdNode.derive(this.index)
+        } else {
+          const portfolio = Session && Session.current.portfolios && Session.current.portfolios[0]
+          const addr = portfolio && portfolio.findAddress(this.utxo[0].address)
+          return addr && addr.keyPair && {keyPair: addr.keyPair}
+        }
       } else {
         return lastSetVal
       }

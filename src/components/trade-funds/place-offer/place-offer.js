@@ -25,7 +25,14 @@ import Issuance from '../../../models/issuance'
 import FormData from './form-data'
 
 export const ViewModel = DefineMap.extend({
-  portfolio: Portfolio,
+  portfolio: {
+    Type: Portfolio,
+    // todo: use stream api in changeAddrPromise for a declarative style.
+    set (val) {
+      this.changeAddrPromise = val && val.getNextAddress && val.getNextAddress(true)
+      return val
+    }
+  },
   order: Order,
   issuance: Issuance,
   transactionFeeRatesPromise: {
@@ -38,11 +45,8 @@ export const ViewModel = DefineMap.extend({
       this.transactionFeeRatesPromise.then(resolve)
     }
   },
-  changeAddrPromise: {
-    get () {
-      return this.portfolio && this.portfolio.getNextAddress(true)
-    }
-  },
+  // Is set by portfolio setter:
+  changeAddrPromise: '*',
   mode: {
     value: 'edit'
   },
@@ -68,7 +72,7 @@ export const ViewModel = DefineMap.extend({
   transaction: '*',
 
   next () {
-    if (!this.formData.isValid) {
+    if (!this.formData.isValid || !this.portfolio) {
       return
     }
     this.offer.quantity = this.formData.quantity
@@ -103,6 +107,12 @@ export const ViewModel = DefineMap.extend({
     this.sendFn(this.offer, this.transaction)
       .then(() => {
         this.isSending = false
+
+        // Mark change address as used:
+        this.changeAddrPromise.then(addr => {
+          const currencyType = this.order.type === 'SELL' ? 'BTC' : 'EQB'
+          this.portfolio.markAsUsed(addr[currencyType], currencyType, true)
+        })
         close()
       })
       .catch(err => {

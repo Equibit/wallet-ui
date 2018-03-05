@@ -20,6 +20,7 @@ const FormData = DefineMap.extend('FormData', {
   portfolio: Portfolio,
   rates: '*',
   issuance: Issuance,
+  session: '*',
   authIssuancesOnly: 'boolean',
 
   quantity: 'number',
@@ -28,6 +29,12 @@ const FormData = DefineMap.extend('FormData', {
   goodFor: 'number',
 
   error: 'string',
+
+  availableAmount: {
+    get () {
+      return this.issuance && this.issuance.availableAmount
+    }
+  },
 
   // Price in Satoshi
   get price () {
@@ -50,25 +57,20 @@ const FormData = DefineMap.extend('FormData', {
 
   hasFunds: {
     get () {
-      return true
-      // return (this.portfolio.balance[this.fundsType === 'BTC' ? 'cashBtc' : 'cashEqb'] - this.transactionFee) > 0
+      return this.availableAmount
     }
   },
   hasEnoughFunds: {
     get () {
+      if (this.type === 'SELL' && this.quantity) {
+        return this.availableAmount >= this.quantity
+      }
       return true
-      // if (this.type === 'FUNDS') {
-      //   return this.portfolio.hasEnoughFunds(this.amount + this.transactionFee, this.fundsType)
-      // }
-      // if (this.type === 'SECURITIES' && this.issuance) {
-      //   // Need available shares amount and Empty EQB for the fee:
-      //   return this.issuance.availableAmount >= this.amount && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
-      // }
     }
   },
   isValid: {
     get () {
-      return this.quantity && this.price && this.goodFor
+      return !!(this.quantity && this.price && this.goodFor && this.hasEnoughFunds)
     }
   }
 })

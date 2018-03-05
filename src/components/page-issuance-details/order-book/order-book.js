@@ -89,6 +89,12 @@ export const ViewModel = DefineMap.extend({
 
     // Ask flow: EQB address to receive securities, BTC address for refund
     return this.portfolio.getNextAddress().then((addrPair) => {
+      // Case Issuer Ask Flow: when the original issuer buys an issuance it should go back to its issuance address (not to portfolio)
+      const isIssuer = order.type === 'SELL' && this.issuance.userId === Session.current.user._id
+      if (isIssuer) {
+        addrPair.EQB = this.issuance.issuanceAddress
+      }
+
       // Note: we need to store the refund address on the offer because it will be used in HTLC.
       // Note: we don't know the amount yet.
       this.offer = createHtlcOffer(order, secret, defaultTimelock, '', Session.current.user, this.issuance, addrPair)
@@ -162,6 +168,7 @@ export const ViewModel = DefineMap.extend({
     return tx.save()
       .then(tx => saveOffer(offer, tx))
       .then(offer => dispatchAlertOffer(hub, offer, route))
+      .then(() => markAsUsed(this.portfolio, offer))
       .then(() => { this.isBuySellShown = false })
       .catch(dispatchAlertError)
   },
@@ -233,7 +240,8 @@ function generateSecret () {
 // function createHtlcOffer (formData, secret, timelock, user, issuance, receiveAddress, refundAddress) {
 function createHtlcOffer (order, secret, timelock, description, user, issuance, addrPair) {
   typeforce(typeforce.tuple(
-    'Order', 'Buffer', 'Number', '?String', 'User', 'Issuance', {EQB: types.Address, BTC: types.Address}),
+    'Order', 'Buffer', 'Number', '?String', 'User', 'Issuance',
+    {EQB: types.Address, BTC: typeforce.maybe(types.Address)}),
     arguments
   )
   const flowType = order.type === 'SELL' ? 'Ask' : 'Bid'
@@ -310,6 +318,19 @@ function updateIssuanceStat (issuance, order) {
     issuance.highestNumShares = order.quantity
   }
   return issuance.save()
+}
+
+function markAsUsed (portfolio, offer) {
+  // Ask flow:
+  // - offer.btcAddress is refundAddress
+  // - offer.eqbAddress is where securities will be sent by seller
+  // Note: change address is marked as used by placeOffer view model.
+  [
+    {address: offer.btcAddress, currencyType: 'BTC', isChange: false},
+    {address: offer.eqbAddress, currencyType: 'EQB', isChange: false}
+  ].forEach(({address, currencyType, isChange}) => {
+    portfolio.markAsUsed(address, currencyType, isChange)
+  })
 }
 
 export default Component.extend({
