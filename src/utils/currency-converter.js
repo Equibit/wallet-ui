@@ -33,7 +33,7 @@ const milliSymbol = canSymbol('milli')
 const unitSymbol = canSymbol('unit')
 
 const scalars = {
-  [satoshiSymbol]: 10000000,
+  [satoshiSymbol]: 100000000,
   [microSymbol]: 1000000,
   [milliSymbol]: 1000,
   [unitSymbol]: 1
