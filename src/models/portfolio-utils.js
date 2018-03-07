@@ -7,14 +7,11 @@ import feathersClient from './feathers-client'
  * @parent models/portfolio.properties
  * Imports the given address to the built-in wallet (to become watch-only for registering transactions).
  */
-const importAddr = (addr, currencyType, rescan) => {
-  // TODO: replace with a specific service (e.g. /import-address).
-  return feathersClient.service('proxycore').find({
-    query: {
-      node: currencyType.toLowerCase(),
-      method: 'importaddress',
-      params: [addr, '', !!rescan]
-    }
+const importAddr = (address, currencyType, rescan) => {
+  return feathersClient.service('import-address').create({
+    type: currencyType.toLowerCase(),
+    address,
+    rescan
   }).then(res => {
     if (!res.error) {
       console.log('The address was imported successfully', res)
@@ -41,13 +38,12 @@ const importMulti = (addresses, type, alreadyImportedAddresses) => {
     return true
   })
 }
-window.importAddr = importAddr
-window.importMulti = importMulti
 
-const fetchListunspent = ({ BTC = [], EQB = [] }) => {
+const fetchListunspent = ({ doImport = false, BTC = [], EQB = [] }) => {
   return feathersClient.service('/listunspent').find({
     // GET query params are lower cased:
     query: {
+      doImport,
       btc: uniq(BTC),
       eqb: uniq(EQB),
       byaddress: true

@@ -18,7 +18,6 @@ import Issuance from '~/models/issuance'
 import utils from './portfolio-utils'
 import currencyConverter from '~/utils/currency-converter'
 const {
-  importAddr,
   getNextAddressIndex,
   getUnspentOutputsForAmount,
   fetchListunspent,
@@ -137,6 +136,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
   },
 
+  doImport: { type: 'boolean', value: true },
+
   /**
    * @property {Function} models/session.prototype.listunspentPromise listunspentPromise
    * @parent models/session.prototype
@@ -146,8 +147,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
     stream: function () {
       const addrStream = this.toStream('.addresses').skipWhile(a => (!a || !a.length))
       return addrStream.merge(this.toStream('refresh')).map(() => {
+        // just once when we first login, tell server to import all the addresses
+        const doImport = this.doImport
+        this.doImport = false
+
         console.log('*** [portfolio.listunspentPromise] fetching balance...')
         return fetchListunspent({
+          doImport,
           BTC: this.addressesBtc.get(),
           EQB: this.addressesEqb.get()
         })
@@ -347,6 +353,15 @@ const Portfolio = DefineMap.extend('Portfolio', {
     return this.getNextAddress(true)
   },
 
+  createPortfilioAddressesRecord (portfolioAddressesCreateData) {
+    return feathersClient.service('portfolio-addresses')
+      .create(portfolioAddressesCreateData)
+      .then((results) => {
+        this.addressesMeta.push(results)
+        // console.log("new portfolioAddresses entry", results)
+      })
+  },
+
   /**
    * Generates the next available address to receive cash or unrestricted securities.
    * @param isChange
@@ -363,52 +378,38 @@ const Portfolio = DefineMap.extend('Portfolio', {
       BTC: btcNode.getAddress(),
       EQB: eqbNode.getAddress()
     }
-    var portfolioAddressesCreateData = null
+    const portfolioAddressesCreatePromises = []
 
     if (btcAddrIndex.imported === false) {
-      // Import addr as watch-only
-      importAddr(addr.BTC, 'btc')
-      // Mark address as generated/imported but not used yet:
-      portfolioAddressesCreateData = {
+      // Import addr as watch-only while creating the portfilio-addresses meta record
+      let createPromise = this.createPortfilioAddressesRecord({
+        importAddress: addr.BTC,
         portfolioId: this._id,
         index: btcAddrIndex.index,
         type: 'BTC',
         isUsed: false,
         isChange
-      }
+      })
+      // Mark address as generated/imported but not used yet:
+      portfolioAddressesCreatePromises.push(createPromise)
     }
     if (eqbAddrIndex.imported === false) {
-      // Import addr as watch-only
-      importAddr(addr.EQB, 'eqb')
-      // Mark address as generated/imported but not used yet:
-      portfolioAddressesCreateData = {
+      // Import addr as watch-only while creating the portfilio-addresses meta record
+      let createPromise = this.createPortfilioAddressesRecord({
+        importAddress: addr.EQB,
         portfolioId: this._id,
         index: eqbAddrIndex.index,
         type: 'EQB',
         isUsed: false,
         isChange
-      }
+      })
+      // Mark address as generated/imported but not used yet:
+      portfolioAddressesCreatePromises.push(createPromise)
     }
-    if (portfolioAddressesCreateData) {
-      // Save newly generated addresses to DB:
-      console.log('[portfolio.getNextAddress] patching portfolio with updated addressesMeta ...')
-      const resNewAddr = feathersClient.service('portfolio-addresses')
-        .create(portfolioAddressesCreateData)
-        .then((results) => {
-          this.addressesMeta.push(results)
-          // console.log("new portfolioAddresses entry", results)
-        })
-      if (sync) {
-        return addr
-      } else {
-        return resNewAddr.then(() => addr)
-      }
+    if (sync) {
+      return addr
     } else {
-      if (sync) {
-        return addr
-      } else {
-        return Promise.resolve(addr)
-      }
+      return Promise.all(portfolioAddressesCreatePromises).then(() => addr)
     }
   },
 
