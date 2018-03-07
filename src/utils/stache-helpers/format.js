@@ -44,6 +44,10 @@ stache.registerHelper('format-date-full', function (value) {
   return moment(value).format('MM/DD/YY @ hh:mm A')
 })
 
+stache.registerHelper('format-date-medium', function (value) {
+  return moment(value).format('MM/DD @hh:mm a') // 04/29 @3:56 pm
+})
+
 stache.registerHelper('format-date-short', function (value) {
   return moment(value).format('MM/DD/YY')
 })

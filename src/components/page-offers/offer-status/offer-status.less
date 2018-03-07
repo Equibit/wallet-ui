@@ -1,5 +1,6 @@
 @import '../../../styles/bootstrap-custom/_variables.less';
 //@import (reference) '../../../styles/custom/_mixins.less';
+@import (reference) '../../../styles/custom/_icons.less';
 
 offer-status {
 	display: block;
@@ -8,5 +9,9 @@ offer-status {
   .offer-status-box {
      margin-bottom: @padding-large-vertical;
   }
-
+  .contextual-bg-inactive {
+    .icon-expired {
+      .icon-variant-circle ("\ea07"; @white; @brand-danger; @brand-danger;);
+    }
+  }
 }

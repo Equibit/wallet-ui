@@ -25,6 +25,7 @@ import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
 import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
 import { dispatchAlertError } from '../../../utils/event-hub'
+import moment from 'moment'
 
 export const ViewModel = DefineMap.extend({
   order: Order,
@@ -115,6 +116,10 @@ export const ViewModel = DefineMap.extend({
     typeforce('Transaction', tx)
 
     return tx.sendForOffer(description, offer)
+  },
+
+  cancelOffer (offer) {
+    // TODO create a refund transaction to change address, then send to modal for cancellation
   }
 })
 

@@ -1,5 +1,6 @@
 @import '../../../styles/bootstrap-custom/_variables.less';
 @import (reference) '../../../styles/custom/_mixins.less';
+@import (reference) '../../../styles/custom/_icons.less';
 
 order-offers-accepted {
 	display: block;
@@ -25,5 +26,18 @@ order-offers-accepted {
     text-transform: initial;
     font-size: @font-size-xsmall;
     color: @gray;
+  }
+  .icon-expired {
+    .icon-variant-circle ("\ea07"; @white; @brand-danger; @brand-danger;);
+  }
+  .contextual-bg-progress {
+    .icon-expired {
+      .icon-variant-circle ("\ea07"; @white; @brand-progress; @brand-progress;);
+    }
+  }
+  .contextual-bg-inactive {
+    .icon-expired {
+      .icon-variant-circle ("\ea07"; @white; @brand-danger; @brand-danger;);
+    }
   }
 }
