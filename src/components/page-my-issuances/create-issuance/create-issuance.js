@@ -93,10 +93,11 @@ export const ViewModel = DefineMap.extend({
    * - save new issuance in DB
    * - mark new address (change) as used in portfolio-addresses
    */
-  createIssuance (formData) {
+  createIssuance () {
+    const formData = this.formData
     if (!formData) {
       console.error('Error: received no form data')
-      return Promise.rejecreateIssuancect(new Error('No form data provided'))
+      return Promise.reject(new Error('No form data provided'))
     }
     const issuance = formData.issuance
     const company = issuance.selectedCompany
