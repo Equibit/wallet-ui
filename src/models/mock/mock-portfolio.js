@@ -42,8 +42,7 @@ const portfolio = new Portfolio({
   name: 'My Portfolio',
   _addressesMeta: addressesMeta,
   keys: portfolioKeys,
-  utxoByTypeByAddress: listunspent,
-  balance
+  utxoByTypeByAddress: listunspent
 })
 // Note: `portfolio.nextAddress()` makes a request and connection's real-time behavior requires the instance to be
 // in the instanceStore, thus adding a reference to keep it there.
