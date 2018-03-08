@@ -398,7 +398,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
       const resNewAddr = feathersClient.service('portfolio-addresses')
         .create(portfolioAddressesCreateData)
         .then((results) => {
-          this.addressesMeta.push(results)
+          // To avoid address duplication due to the way addressesMeta is defined:
+          if (this.addressesMeta.filter(a => a._id === results._id).length === 0) {
+            this.addressesMeta.push(results)
+          }
           // console.log("new portfolioAddresses entry", results)
         })
       if (sync) {
