@@ -57,6 +57,7 @@ const FormData = DefineMap({
       return this.amount + this.transactionFee
     }
   },
+  changeAddr: '*',
 
   get amountEqb () {
     return this.amount / 100000000
