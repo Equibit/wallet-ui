@@ -128,7 +128,7 @@ export const ViewModel = DefineMap.extend({
       let tx = this.prepareTransaction(formData, issuance, toAddress, changeAddr, defaultFee)
       console.log(`transaction fee: ${tx.fee}`)
       // Rebuild with the estimated fee:
-      const realFee = tx.hex.length / 2 * transactionFeeRates.regular
+      const realFee = tx.hex.length / 2 * transactionFeeRates.regular.EQB
       tx = this.prepareTransaction(formData, issuance, toAddress, changeAddr, realFee)
       this.tx = tx
       formData.transactionFee = realFee
