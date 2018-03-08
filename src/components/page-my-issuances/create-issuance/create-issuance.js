@@ -44,10 +44,14 @@ export const ViewModel = DefineMap.extend({
     }
   },
   newCompany: '*',
+  issuance: '*',
+  tx: '*',
 
   // Methods:
   next () {
-    this.mode = 'confirm'
+    return this.createIssuance().then(() => {
+      this.mode = 'confirm'
+    })
   },
   edit () {
     this.mode = 'edit'
@@ -72,7 +76,7 @@ export const ViewModel = DefineMap.extend({
   },
   create (close) {
     this.issuanceIsSaving = true
-    this.createIssuance(this.formData).then(issuance => {
+    this.saveIssuance(this.formData).then(issuance => {
       this.dispatch('created', [issuance])
       this.issuanceIsSaving = false
       close()
@@ -87,23 +91,19 @@ export const ViewModel = DefineMap.extend({
    * - generate a new change address
    * - create issuance authorization transaction
    * - save new issuance in DB
-   * - mark both new addresses as used in portfolio-addresses
+   * - mark new address (change) as used in portfolio-addresses
    */
   createIssuance (formData) {
     if (!formData) {
       console.error('Error: received no form data')
-      return Promise.reject(new Error('No form data provided'))
+      return Promise.rejecreateIssuancect(new Error('No form data provided'))
     }
-    // build transaction
-    // save transaction
-    // save issuance
     const issuance = formData.issuance
     const company = issuance.selectedCompany
 
     // Define issuance index:
     issuance.index = formData.issuances.getNewIndex(company._id)
 
-    const currencyType = 'EQB'
     // todo: simplify, hide this in models.
     const companyHdNode = Session.current.user.generatePortfolioKeys(company.index).EQB
 
@@ -116,23 +116,39 @@ export const ViewModel = DefineMap.extend({
 
     console.log(`createIssuance: toAddress=${toAddress}`, formData, issuance)
 
-    return importAddr(toAddress, 'EQB').then(() => this.portfolio.nextChangeAddress())
-    .then(addrObj => addrObj[currencyType])
-    .then((changeAddr) => {
+    return Promise.all([
+      this.portfolio.nextChangeAddress(),
+      Session.current.transactionFeeRatesPromise,
+      importAddr(toAddress, 'EQB')
+    ]).then(([addrPair, transactionFeeRates]) => {
+      const changeAddr = addrPair.EQB
       console.log(`toAddress=${toAddress}, changeAddr=${changeAddr}`)
-      const tx = this.prepareTransaction(formData, issuance, toAddress, changeAddr)
+      const defaultFee = (this.tx && this.tx.fee) || 1000
+      let tx = this.prepareTransaction(formData, issuance, toAddress, changeAddr, defaultFee)
+      console.log(`transaction fee: ${tx.fee}`)
+      // Rebuild with the estimated fee:
+      const realFee = tx.hex.length / 2 * transactionFeeRates.regular
+      tx = this.prepareTransaction(formData, issuance, toAddress, changeAddr, realFee)
+      this.tx = tx
+      formData.transactionFee = realFee
 
       // Save authorization transaction id:
       issuance.issuanceTxId = tx.txId
+      this.issuance = issuance
 
-      return tx.save().then(() => [toAddress, changeAddr])
-    }).then(([toAddress, changeAddr]) => {
+      // Save change address for markAsUsed later:
+      formData.changeAddr = changeAddr
+    })
+  },
+  saveIssuance (formData) {
+    return this.tx.save().then(() => {
+      const changeAddr = formData.changeAddr
       console.log('[createIssuance] transaction was saved')
 
       // mark change address as used
       console.log(`[my-portfolio.send] marking change address as used ${changeAddr}...`)
-      this.portfolio.markAsUsed(changeAddr, currencyType, true)
-      return issuance.save()
+      this.portfolio.markAsUsed(changeAddr, 'EQB', true)
+      return this.issuance.save()
     }).then(issuance => {
       const msg = translate('issuanceAuthorized') + ': ' + issuance.issuanceName
       hub.dispatch({
@@ -145,19 +161,19 @@ export const ViewModel = DefineMap.extend({
       return issuance
     }).catch(dispatchAlertError)
   },
-  prepareTransaction (formData, issuance, toAddress, changeAddr) {
+  prepareTransaction (formData, issuance, toAddress, changeAddr, fee) {
     const amount = formData.amount
     const currencyType = 'EQB'
     const issuanceJson = issuance.getJson()
-    const utxo = this.portfolio.getEmptyEqb(amount + formData.transactionFee)
-    if (utxo.sum < amount + formData.transactionFee) {
+    const utxo = this.portfolio.getEmptyEqb(amount + fee)
+    if (utxo.sum < amount + fee) {
       throw new Error('Not enough UTXO')
     }
     const txouts = utxo.txouts
       // .filter(a => !a.issuanceId)
       .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
     const options = {
-      fee: formData.transactionFee,
+      fee: fee,
       changeAddr,
       type: 'AUTH', // for Authorization
       currencyType,

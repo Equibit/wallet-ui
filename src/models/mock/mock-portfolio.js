@@ -28,13 +28,22 @@ const portfolioKeys = {
   EQB: hdNode.derivePath("m/44'/73'/0'")
 }
 
+const balance = {
+  cashBtc: 1,
+  cashEqb: 3,
+  cashTotal: 4,
+  securities: 6,
+  total: 10
+}
+
 const portfolio = new Portfolio({
   _id: '595e5c58711b9e358f567edc',
   index: 0,
   name: 'My Portfolio',
   _addressesMeta: addressesMeta,
   keys: portfolioKeys,
-  utxoByTypeByAddress: listunspent
+  utxoByTypeByAddress: listunspent,
+  balance
 })
 // Note: `portfolio.nextAddress()` makes a request and connection's real-time behavior requires the instance to be
 // in the instanceStore, thus adding a reference to keep it there.
@@ -46,15 +55,17 @@ const portfolioZero = new Portfolio({
   name: 'My Portfolio Empty',
   _addressesMeta: addressesMeta,
   keys: portfolioKeys,
-  utxoByTypeByAddress: listunspentZero
+  utxoByTypeByAddress: listunspentZero,
+  balance
 })
 
 const portfolioBtc = new Portfolio({
   index: 0,
-  name: 'My Portfolio Empty',
+  name: 'My Portfolio BTC',
   _addressesMeta: addressesMeta,
   keys: portfolioKeys,
-  utxoByTypeByAddress: listunspentBtc
+  utxoByTypeByAddress: listunspentBtc,
+  balance
 })
 
 export default portfolio
