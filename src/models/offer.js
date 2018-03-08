@@ -85,7 +85,19 @@ const Offer = DefineMap.extend('Offer', {
   // ENUM ('OPEN', 'TRADING', 'CANCELLED', 'CLOSED')
   status: {
     type: 'string',
-    value: 'OPEN'
+    // TODO remove this getter when the service is updated to
+    // expire offers
+    get (lastSetVal) {
+      if (lastSetVal === 'OPEN' || lastSetVal === 'TRADING') {
+        if (this.timelockInfo && this.timelockInfo.partialBlocksRemaining === 0) {
+          return 'EXPIRED'
+        } else {
+          return lastSetVal
+        }
+      } else {
+        return lastSetVal || 'OPEN'
+      }
+    }
   },
 
   /**

@@ -25,7 +25,6 @@ import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
 import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
 import { dispatchAlertError } from '../../../utils/event-hub'
-import moment from 'moment'
 
 export const ViewModel = DefineMap.extend({
   order: Order,

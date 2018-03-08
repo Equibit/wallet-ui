@@ -1702,6 +1702,13 @@ can-reflect@^1.0.0, can-reflect@^1.1.0, can-reflect@^1.11.1, can-reflect@^1.2.0,
     can-namespace "^1.0.0"
     can-symbol "^1.3.0"
 
+can-reflect@^1.13.3:
+  version "1.13.3"
+  resolved "https://registry.yarnpkg.com/can-reflect/-/can-reflect-1.13.3.tgz#d9f7acd79b65823289292ce0c3377c7817e70571"
+  dependencies:
+    can-namespace "^1.0.0"
+    can-symbol "^1.3.0"
+
 can-route-pushstate@^3.2.0:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/can-route-pushstate/-/can-route-pushstate-3.2.3.tgz#a46c5a2ce265c15322c60ac6dccee5d61eab44c3"
@@ -1823,7 +1830,29 @@ can-stache-key@^0.1.0, can-stache-key@^0.1.2:
     can-symbol "^1.0.0"
     can-util "^3.9.0"
 
-can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.10.0, can-stache@^3.13.5, can-stache@^3.14.9, can-stache@^3.3.0, can-stache@^3.3.3, can-stache@^3.7.3:
+can-stache@3.14.12:
+  version "3.14.12"
+  resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.14.12.tgz#fbebe4329b66e721ff8ee2f399bb6f475826bd82"
+  dependencies:
+    can-attribute-encoder "^0.3.4"
+    can-compute "^3.3.1"
+    can-globals "<2.0.0"
+    can-log "^1.0.0"
+    can-namespace "1.0.0"
+    can-observation "^3.3.1"
+    can-reflect "^1.13.3"
+    can-route "^3.3.3"
+    can-stache-key "^0.1.2"
+    can-symbol "^1.0.0"
+    can-util "^3.10.12"
+    can-view-callbacks "^3.2.0"
+    can-view-live "^3.2.0"
+    can-view-nodelist "^3.1.0"
+    can-view-parser "^3.8.1"
+    can-view-scope "^3.5.4"
+    can-view-target "^3.1.0"
+
+can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.10.0, can-stache@^3.13.5, can-stache@^3.3.0, can-stache@^3.3.3, can-stache@^3.7.3:
   version "3.14.11"
   resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.14.11.tgz#a2641c903451222bdebb5d921e274899eeba53d5"
   dependencies:

@@ -528,6 +528,7 @@ export default {
   status: 'Status',
   statusCancelled: 'Cancelled',
   statusClosed: 'Closed',
+  statusExpired: 'Expired',
   statusNotSet: 'Not Set',
   statusOpen: 'Open',
   statusRejected: 'Rejected',
@@ -542,6 +543,7 @@ export default {
   statusTRADING: 'Trading',
   statusCANCELLED: 'Cancelled',
   statusCLOSED: 'Closed',
+  statusEXPIRED: 'Expired',
   subject: 'Subject',
 
   termsAndConditions: 'Terms & Conditions',
