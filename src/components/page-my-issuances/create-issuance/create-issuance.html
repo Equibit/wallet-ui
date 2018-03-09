@@ -16,7 +16,9 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
 
-        <create-issuance {portfolio}="portfolio"></create-issuance>
+        <create-issuance on:created="createIssuance(%arguments)"
+          issuances:from="issuances"
+          portfolio:from="portfolio"></create-issuance>
 
       </div>
     </div>
@@ -36,9 +38,11 @@
   import '~/models/fixtures/companies'
   import '~/models/mock/mock-session'
   import { portfolioBtc } from '~/models/mock/mock-portfolio'
+  import Issuance from '~/models/issuance'
 
   const vm = new DefineMap({
-    portfolio: portfolioBtc
+    portfolio: portfolioBtc,
+    issuances: new Issuance.List([])
   })
   window.vm = vm
 

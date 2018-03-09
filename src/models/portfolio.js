@@ -286,6 +286,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   balance: {
     get (val, resolve) {
+      if (val) {
+        return val
+      }
       if (!this.utxoByTypeByAddress) {
         console.log('portfolio.balance is undefined - no utxo yet...')
         return
@@ -357,8 +360,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
     return feathersClient.service('portfolio-addresses')
       .create(portfolioAddressesCreateData)
       .then((results) => {
-        this.addressesMeta.push(results)
-        // console.log("new portfolioAddresses entry", results)
+        // To avoid address duplication due to the way addressesMeta is defined
+        if (this.addressesMeta.filter(a => a._id === results._id).length === 0) {
+          this.addressesMeta.push(results)
+          // console.log("new portfolioAddresses entry", results)
+        }
       })
   },
 

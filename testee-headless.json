@@ -1,0 +1,11 @@
+{
+  "browsers": [{
+    "browser": "firefox",
+    "args": ["-headless"]
+  }],
+  "reporter": "Spec",
+  "coverage": {
+    "ignore": ["node_modules"],
+    "reporters": ["text-summary"]
+  }
+}
