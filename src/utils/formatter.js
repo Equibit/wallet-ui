@@ -12,7 +12,7 @@ const tmpRates = {
 }
 function setup () {
   // Circular dependency to Session, so in case it's not loaded yet
-  if (typeof Session !== 'undefined') {
+  if (typeof Session !== 'undefined' && Session.fiatCurrency) {
     tmpRates['BTC' + Session.fiatCurrency()] = 10000
     tmpRates['EQB' + Session.fiatCurrency()] = 1000
 
@@ -39,6 +39,10 @@ export function localCurrency (value, type = 'BTC', precision = 2) {
   const rates = tmpRates
   if (!rates) {
     console.warn('No currency rates available.')
+    return value
+  }
+  // Circular dependency guard:
+  if (!Session || !Session.fiatCurrency) {
     return value
   }
   const rateType = type === 'BTC'
