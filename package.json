@@ -24,6 +24,7 @@
     "lint": "standard",
     "lint:fix": "standard --fix",
     "test": "npm-run-all lint test:unit",
+    "test-headless": "npm-run-all lint test:unit:headless",
     "mocha": "mocha --compilers js:babel-core/register src/utils/test-mocha.js",
     "test:funcunit": "testee test/test-funcunit.html --browsers firefox --reporter Spec",
     "test:unit": "testee test/test.html --config testee.json",
