@@ -35,6 +35,8 @@ import User from './user/user'
 import Portfolio from './portfolio'
 import Issuance from './issuance'
 
+console.log('** Module session is resolved')
+
 const behaviors = [
   feathersAuthenticationSignedSession,
   dataParse,
@@ -387,12 +389,29 @@ const Session = DefineMap.extend('Session', {
   }
 })
 
-Session.fiatCurrency = function () {
-  // TODO use geolocation or reverse IP for lookup
-  return this.current && this.current.user
-    ? this.current.user.fiatCurrency
-    : 'USD'
-}
+// Session.fiatCurrency = function () {
+//   // TODO use geolocation or reverse IP for lookup
+//   return this.current && this.current.user
+//     ? this.current.user.fiatCurrency
+//     : 'USD'
+// }
+
+Object.defineProperty(Session, 'fiatCurrency', {
+  get: function () {
+    Observation.add(Session, 'fiatCurrency')
+    // TODO use geolocation or reverse IP for lookup
+    return this.current && this.current.user
+      ? this.current.user.fiatCurrency
+      : 'USD'
+  }
+})
+Session.on('created', function (ev, session) {
+  console.log('** Session created, dispatch fiatCurrency')
+  Session.dispatch('fiatCurrency', [session.fiatCurrency]);
+})
+Session.on('destroyed', function () {
+  Session.dispatch('fiatCurrency', [undefined]);
+})
 
 const algebra = new set.Algebra(
   set.comparators.id('accessToken')

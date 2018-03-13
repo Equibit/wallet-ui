@@ -13,21 +13,21 @@ const tmpRates = {
 function setup () {
   // Circular dependency to Session, so in case it's not loaded yet
   if (typeof Session !== 'undefined' && Session.fiatCurrency) {
-    tmpRates['BTC' + Session.fiatCurrency()] = 10000
-    tmpRates['EQB' + Session.fiatCurrency()] = 1000
+    tmpRates['BTC' + Session.fiatCurrency] = 10000
+    tmpRates['EQB' + Session.fiatCurrency] = 1000
 
     // TODO make usage patterns for this formatter async so it can call currencyConverter functions directly
-    currencyConverter.on('BTC' + Session.fiatCurrency(), (ev, rate) => {
-      tmpRates['BTC' + Session.fiatCurrency()] = rate
+    currencyConverter.on('BTC' + Session.fiatCurrency, (ev, rate) => {
+      tmpRates['BTC' + Session.fiatCurrency] = rate
     })
-    currencyConverter.on('EQB' + Session.fiatCurrency(), (ev, rate) => {
-      tmpRates['EQB' + Session.fiatCurrency()] = rate
+    currencyConverter.on('EQB' + Session.fiatCurrency, (ev, rate) => {
+      tmpRates['EQB' + Session.fiatCurrency] = rate
     })
-    currencyConverter.getDailyAverage('BTC' + Session.fiatCurrency()).then(avg => {
-      tmpRates['BTC' + Session.fiatCurrency()] = avg
+    currencyConverter.getDailyAverage('BTC' + Session.fiatCurrency).then(avg => {
+      tmpRates['BTC' + Session.fiatCurrency] = avg
     })
-    currencyConverter.getDailyAverage('EQB' + Session.fiatCurrency()).then(avg => {
-      tmpRates['EQB' + Session.fiatCurrency()] = avg
+    currencyConverter.getDailyAverage('EQB' + Session.fiatCurrency).then(avg => {
+      tmpRates['EQB' + Session.fiatCurrency] = avg
     })
   } else {
     setTimeout(setup, 100)
@@ -43,10 +43,11 @@ export function localCurrency (value, type = 'BTC', precision = 2) {
   }
   // Circular dependency guard:
   if (!Session || !Session.fiatCurrency) {
+    console.log('*** formatter.localCurrency: Session.fiatCurrency is not defined yet.')
     return value
   }
   const rateType = type === 'BTC'
-    ? 'BTC' + Session.fiatCurrency()
-    : (type === 'SECURITIES' ? 'securitiesToBtc' : 'EQB' + Session.fiatCurrency())
+    ? 'BTC' + Session.fiatCurrency
+    : (type === 'SECURITIES' ? 'securitiesToBtc' : 'EQB' + Session.fiatCurrency)
   return accounting.formatMoney(value / 100000000 * rates[rateType], '', precision)
 }

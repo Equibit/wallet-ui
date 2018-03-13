@@ -36,7 +36,7 @@ export const ViewModel = DefineMap.extend({
       convertToUserFiat(1, 'BTC', satoshi).then(avg => {
         resolve({
           rate: this.issuance.currentPricePerShare * avg,
-          symbol: Session.fiatCurrency()
+          symbol: Session.fiatCurrency
         })
       })
     }
@@ -47,7 +47,7 @@ export const ViewModel = DefineMap.extend({
       convertToUserFiat(1, this.formData.fundsType, unit).then(avg => {
         resolve({
           rate: avg,
-          symbol: Session.fiatCurrency()
+          symbol: Session.fiatCurrency
         })
       })
     }

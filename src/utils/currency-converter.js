@@ -5,6 +5,8 @@ import CID from 'can-cid'
 import Session from '~/models/session'
 import canSymbol from 'can-symbol'
 
+console.log('** Module currency-converter is resolved')
+
 const cachedPromises = {}
 const refreshTimeout = 5 * 60 * 1000
 
@@ -72,16 +74,20 @@ const exports = {
   convertToUserFiat (value, symbol, scaleSymbol) {
     // Circular dependency guard:
     if (!Session || !Session.fiatCurrency) {
+      console.log('*** formatter.convertToUserFiat: Session.fiatCurrency is not defined yet.')
       return Promise.resolve(value)
     }
-    return exports.convertCryptoToFiat(value, symbol + Session.fiatCurrency(), scaleSymbol)
+    console.log('** formatter.convertToUserFiat: Session.fiatCurrency is OK')
+    return exports.convertCryptoToFiat(value, symbol + Session.fiatCurrency, scaleSymbol)
   },
   convertFromUserFiat (value, symbol, scaleSymbol) {
     // Circular dependency guard:
     if (!Session || !Session.fiatCurrency) {
+      console.log('*** formatter.convertFromUserFiat: Session.fiatCurrency is not defined yet.')
       return Promise.resolve(value)
     }
-    return exports.convertFiatToCrypto(value, symbol + Session.fiatCurrency(), scaleSymbol)
+    console.log('** formatter.convertFromUserFiat: Session.fiatCurrency is OK')
+    return exports.convertFiatToCrypto(value, symbol + Session.fiatCurrency, scaleSymbol)
   },
   convertCryptoToCrypto (value, fromSymbol, toSymbol, fromScale = exports.unit, toScale = exports.unit) {
     return exports.convertToUserFiat(value, fromSymbol, fromScale)
