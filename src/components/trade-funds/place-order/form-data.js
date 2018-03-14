@@ -24,7 +24,12 @@ const FormData = DefineMap.extend('FormData', {
   authIssuancesOnly: 'boolean',
 
   quantity: 'number',
-  priceInUnits: 'number',
+  priceInUnits: {
+    type: 'number',
+    set (newVal) {
+      return parseFloat(parseFloat(newVal, 10).toFixed(2), 10)
+    }
+  },
   isFillOrKill: 'boolean',
   goodFor: 'number',
 

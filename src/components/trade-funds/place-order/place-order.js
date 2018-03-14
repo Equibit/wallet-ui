@@ -41,7 +41,8 @@ export const ViewModel = DefineMap.extend({
         portfolio: this.portfolio,
         issuance: this.issuance,
         session: Session.current,
-        authIssuancesOnly: this.authIssuancesOnly
+        authIssuancesOnly: this.authIssuancesOnly,
+        type: this.type
         // rates: Session.current.rates
       })
     }

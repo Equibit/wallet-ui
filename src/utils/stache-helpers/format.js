@@ -11,6 +11,10 @@ stache.registerHelper('format', function (value, symbol, precision) {
   return accounting.formatMoney(value, symbol, precision)
 })
 
+stache.registerHelper('to-fixed-2', function (value) {
+  return parseFloat(value, 10).toFixed(2)
+})
+
 stache.registerHelper('format-max', function (value, precision) {
   if (typeof precision === 'undefined') {
     precision = 2
