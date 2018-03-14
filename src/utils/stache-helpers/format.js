@@ -56,7 +56,7 @@ stache.registerHelper('local-currency', function (value, type) {
   return localCurrency(value, type)
 })
 stache.registerHelper('local-currency-symbol', function () {
-  return (Session && Session.fiatCurrency && Session.fiatCurrency()) || 'USD'
+  return (Session && Session.fiatCurrency && Session.fiatCurrency) || 'USD'
 })
 
 // Satoshi to Bitcoins

@@ -24,6 +24,8 @@ const {
   getAllUtxo
 } = utils
 
+console.log('** Module portfolio.js is resolved')
+
 const EMPTY_ISSUANCE_TX_ID = '0000000000000000000000000000000000000000000000000000000000000000'
 
 const portfolioService = feathersClient.service('portfolios')
@@ -321,11 +323,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
       totals.total = totals.cashTotal + totals.securities
 
       const retVal = new DefineMap(totals)
-      updatePromises.unshift(currencyConverter.convertCryptoToCrypto(1, 'EQB', 'BTC'))
+      // updatePromises.unshift(currencyConverter.convertCryptoToCrypto(1, 'EQB', 'BTC'))
 
-      Promise.all(updatePromises).then(([eqbToBtc, ...rest]) => {
+      Promise.all(updatePromises).then(() => {
         // once all the promises resolve, update the totals in the returned map
-        totals.cashTotal += totals.cashEqb * eqbToBtc
+        totals.cashTotal += totals.cashEqb // * eqbToBtc
         totals.total = totals.cashTotal + totals.securities
         retVal.assign(totals)
         resolve && resolve(retVal)
@@ -535,16 +537,18 @@ const getSecuritiesAmount = utxo => {
 
   return Promise.all([
     Issuance.getList({ issuanceTxId: { $in: issuanceUTXO.map(out => out.equibit.issuance_tx_id) } }),
-    currencyConverter.convertCryptoToCrypto(1, 'EQB', 'BTC')
-  ]).then(([issuances, eqbToBtcRate]) => {
+    // currencyConverter.convertCryptoToCrypto(1, 'EQB', 'BTC')
+  ]).then(([issuances]) => {
     const issuancesByTxId = issuances.reduce((all, iss) => { all[iss.issuanceTxId] = iss; return all }, {})
 
+    // `total` is BTC value of securities (should be in BTC Satoshi).
+    // `amount` is the number of shares in EQB Satoshi.
     return issuanceUTXO.reduce((acc, out) => {
       acc.total += out.amount * issuancesByTxId[out.equibit.issuance_tx_id].currentPricePerShare
       acc.amount += out.amount
-      acc.btcEquivalentAmount += out.amount * eqbToBtcRate
+      // acc.btcEquivalentAmount += out.amount * eqbToBtcRate
       return acc
-    }, { total: 0, amount: 0, btcEquivalentAmount: 0 })
+    }, { total: 0, amount: 0 })
   })
 }
 
