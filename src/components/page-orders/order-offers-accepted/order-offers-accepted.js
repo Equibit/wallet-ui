@@ -23,6 +23,7 @@ import Order from '../../../models/order'
 import Issuance from '../../../models/issuance'
 import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
+import { createHtlcRefund3 } from '../../../models/transaction/transaction-create-htlc3'
 import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
 import { dispatchAlertError } from '../../../utils/event-hub'
 
@@ -50,6 +51,25 @@ export const ViewModel = DefineMap.extend({
   timelocks: {
     get (val, resolve) {
       Promise.all(this.offers.map(offer => offer.timelockInfoPromise)).then(resolve)
+    }
+  },
+
+  titles: {
+    get () {
+      if (this.tx && this.tx.type === 'CANCEL') {
+        return {
+          BTC: {
+            header: 'dealFlowMessageTitleRecoverPayment',
+            timer: 'paymentRecoveryTimeLeftDescription',
+            button: 'dealFlowMessageTitleCancelAndRecoverPayment'
+          },
+          EQB: {
+            header: 'dealFlowMessageTitleRecoverSecurities',
+            timer: 'securitiesRecoveryTimeLeftDescription',
+            button: 'dealFlowMessageTitleCancelAndRecoverSecurities'
+          }
+        }
+      }
     }
   },
 
@@ -97,6 +117,33 @@ export const ViewModel = DefineMap.extend({
     })
   },
 
+  cancelOffer (offer) {
+    const order = this.order
+    const issuance = this.issuance
+    const user = Session.current.user
+    const portfolio = this.portfolio
+    const secret = ''
+    typeforce(typeforce.tuple(
+      'Order',
+      'Offer',
+      'Issuance',
+      'User',
+      'Portfolio',
+      'String'
+    ), [order, offer, issuance, user, portfolio, secret])
+
+    const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
+    return Promise.all([
+      portfolio.getNextAddress(),
+      Session.current.transactionFeeRatesPromise
+    ]).then(([addrPair, transactionFeeRates]) => {
+      const txData = createHtlcRefund3(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
+      const tx = new Transaction(txData)
+
+      this.openModal(offer, tx)
+    })
+  },
+
   // Confirmation modal:
   openModal (offer, tx) {
     typeforce('Transaction', tx)
@@ -115,10 +162,6 @@ export const ViewModel = DefineMap.extend({
     typeforce('Transaction', tx)
 
     return tx.sendForOffer(description, offer)
-  },
-
-  cancelOffer (offer) {
-    // TODO create a refund transaction to change address, then send to modal for cancellation
   }
 })
 

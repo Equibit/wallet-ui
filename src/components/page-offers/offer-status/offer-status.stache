@@ -282,5 +282,6 @@
                  tx:from="tx"
                  portfolio:from="portfolio"
                  issuance:from="issuance"
+                 titles:from="titles"
                  offerTimelock:from="offer.timelockInfo.partialEndAt" />
 {{/if}}

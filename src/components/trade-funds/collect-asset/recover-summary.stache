@@ -5,13 +5,7 @@
 <div class="confirm-summary">
 
   <!-- FROM -->
-  <label class="">
-    {{#eq formData.type 'BTC'}}
-      {{i18n('receivePaymentFrom')}}
-    {{else}}
-      {{i18n('receiveSecuritiesFrom')}}
-    {{/eq}}
-  </label>
+  <label class="">{{i18n('from')}}</label>
   <p class="input-value break-word"><strong>{{formData.address}}</strong></p>
 
   <div class="row">
@@ -82,16 +76,25 @@
                   <td class="column-local-currency-value"></td>
                   <td class="column-local-currency-type"></td>
               </tr>
-              <tr>
-                  <td class="input-value"></td>
-                  <td class="column-local-currency-value font-numeric text-danger">- {{user-units(formData.fee, 8)}}</td>
-                  <td class="column-local-currency-type font-numeric text-danger">{{user-units-symbol('EQB'}}</td>
-                  <td class="column-local-currency-value font-numeric text-danger">- {{local-currency(formData.totalAmountBtc)}}</td>
-                  <td class="column-local-currency-type font-numeric text-danger">{{local-currency-symbol()}}</td>
-              </tr>
               {{/eq}}
           </tbody>
       </table>
   </div>
 
+  <br>
+  <!-- FEE IS A "FROM" WHEN SENDING BACK TO YOURSELF -->
+  <label for="">{{i18n('from')}}</label>
+  <div class="table-responsive">
+      <table class="table table-simple">
+          <tbody>
+              <tr>
+                  <td class="input-value"><strong>{{formData.portfolioName}}</strong></td>
+                  <td class="column-digital-currency-value font-numeric text-danger">- {{user-units(formData.fee, 8)}}</td>
+                  <td class="column-digital-currency-type font-numeric text-danger">{{user-units-symbol(formData.type}}</td>
+                  <td class="column-local-currency-value font-numeric text-danger">- {{local-currency(formData.fee, 'EQB')}}</td>
+                  <td class="column-local-currency-type font-numeric text-danger">{{local-currency-symbol()}}</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
 </div>

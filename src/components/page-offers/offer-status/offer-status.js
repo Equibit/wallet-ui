@@ -26,7 +26,7 @@ import Offer from '../../../models/offer'
 import Issuance from '../../../models/issuance'
 import Session from '../../../models/session'
 import Transaction from '../../../models/transaction/transaction'
-import { createHtlc3 } from '../../../models/transaction/transaction-create-htlc3'
+import { createHtlc3, createHtlcRefund3 } from '../../../models/transaction/transaction-create-htlc3'
 
 const enumSetter = values => value => {
   if (values.indexOf) {
@@ -66,6 +66,26 @@ export const ViewModel = DefineMap.extend({
   tx: '*',
   secret: 'string',
   isModalShown: 'boolean',
+  isRecoverModalShown: 'boolean',
+
+  titles: {
+    get () {
+      if (this.tx.type === 'CANCEL') {
+        return {
+          BTC: {
+            header: 'dealFlowMessageTitleCollectPayment',
+            timer: '',
+            button: 'dealFlowMessageTitleCollectAndCloseDeal'
+          },
+          EQB: {
+            header: 'dealFlowMessageTitleCollectSecurities',
+            timer: '',
+            button: 'dealFlowMessageTitleCollectSecurities'
+          }
+        }
+      }
+    }
+  },
 
   /**
    * For Ask flow its collecting securities, for Bid flow - collecting payment.
@@ -103,8 +123,37 @@ export const ViewModel = DefineMap.extend({
     })
   },
 
+  recoverSecurities () {
+    const order = this.order
+    const offer = this.offer
+    const issuance = this.issuance
+    const user = Session.current.user
+    const portfolio = this.portfolio
+    const secret = user.decrypt(offer.secretEncrypted)
+    typeforce(typeforce.tuple(
+      'Order',
+      'Offer',
+      'Issuance',
+      'User',
+      'Portfolio',
+      'String'
+    ), [order, offer, issuance, user, portfolio, secret])
+
+    const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
+    return Promise.all([
+      portfolio.getNextAddress(),
+      Session.current.transactionFeeRatesPromise
+    ]).then(([addrPair, transactionFeeRates]) => {
+      const txData = createHtlcRefund3(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
+      const tx = new Transaction(txData)
+      this.secret = secret
+
+      this.openRecoverModal(tx)
+    })
+  },
+
   // Confirmation modal:
-  openModal (tx) {
+  openModal (tx, isRecover) {
     typeforce('Transaction', tx)
     this.tx = tx
     this.isModalShown = false

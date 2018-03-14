@@ -4,6 +4,39 @@
 
 <h3 class="subheading">{{i18n('acceptedOffers')}} <span class="badge">{{offers.length}}</span></h3>
 
+{{<offerAcceptedEvent}}
+  <div class="offer-timeline-event">
+    <span class="icon icon-check-{{state}}"></span>
+    {{i18n('offerAcceptedOn')}}
+    <span class="offer-date">{{offer.dateDisplay}}</span>
+  </div>
+{{/offerAcceptedEvent}}
+
+{{<assetsSentEvent}}
+  <div class="offer-timeline-event">
+    <span class="icon icon-check-{{state}}"></span>
+    {{#if ../isAskFlow}}
+      {{i18n('dealFlowMessageTitleSecuritiesSent')}}
+    {{else}}
+      {{i18n('dealFlowMessageTitlePaymentSent')}}
+    {{/if}}
+    <a href="{{routeUrl page='transactions' itemId=../offer.htlcTxId2}}">({{i18n('viewTransaction')}})</a>
+  </div>
+{{/assetsSentEvent}}
+
+{{<assetsCollectedEvent}}
+  <div class="offer-timeline-event">
+    <span class="icon icon-check-{{state}}"></span>
+    {{#if ../isAskFlow}}
+      {{i18n('htlcBuyerCollectedSecuritiesDescription')}}
+    {{else}}
+      {{i18n('htlcSellerCollectedPaymentDescription')}}
+    {{/if}}
+    {{i18n('on')}}
+    <span class="offer-date">{{../offer.dateDisplay}}</span>
+  </div>
+{{/assetsCollectedEvent}}
+
 <div class="accepted-offers">
 
   <div class="col-xs-12 accepted-offers-body no-padding">
@@ -19,18 +52,10 @@
               <div class="row">
                 <!--Events-->
                 <div class="col-xs-12 col-sm-9">
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-check-progress"></span>{{i18n('offerAcceptedOn')}} <span class="offer-date">{{offer.dateDisplay}}</span>
-                  </div>
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-check-progress"></span>
-                    {{#if ../isAskFlow}}
-                      {{i18n('securitiesSent'}}
-                    {{else}}
-                      {{i18n('paymentSent'}}
-                    {{/if}}
-                    <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId2}}">({{i18n('viewTransaction')}})</a>
-                  </div>
+                  {{#with state='progress'}}
+                    {{>offerAcceptedEvent}}
+                    {{>assetsSentEvent}}
+                  {{/with}}
                   {{#eq ../timelocks[offerIdx].partialBlocksRemaining 0}}
                     <div class="offer-timeline-event">
                       <span class="icon icon-expired"></span>
@@ -126,24 +151,11 @@
             <div class="col-xs-12 offer-timeline">
               <div class="row">
                 <div class="col-xs-12 col-sm-9">
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-check-progress"></span>{{i18n('offerAcceptedOn')}} <span class="offer-date">{{offer.dateDisplay}}</span>
-                  </div>
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-check-progress"></span>
-                    {{#if isAskFlow}}{{i18n('securitiesSent')}}{{else}}{{i18n('paymentSent')}}{{/if}}
-                    <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId2}}">({{i18n('viewTransaction')}})</a>
-                  </div>
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-check-progress"></span>
-                    {{#if isAskFlow}}
-                      {{i18n('htlcBuyerCollectedSecuritiesDescription')}}
-                    {{else}}
-                      {{i18n('htlcSellerCollectedPaymentDescription')}}
-                    {{/if}}
-                    {{i18n('on')}}
-                    <span class="offer-date">{{offer.dateDisplay}}</span>
-                  </div>
+                  {{#with state='progress'}}
+                    {{>offerAcceptedEvent}}
+                    {{>assetsSentEvent}}
+                    {{>assetsCollectedEvent}}
+                  {{/with}}
                   <div class="offer-timeline-event offer-timeline-event--pending">
                     <span class="icon icon-check-pending"></span>
                       {{#if isAskFlow}}
@@ -186,30 +198,11 @@
             <div class="col-xs-12 offer-timeline">
               <div class="row">
                 <div class="col-xs-12 col-sm-10">
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-check-done"></span>
-                    {{i18n('offerAcceptedOn')}}
-                    <span class="offer-date">{{offer.dateDisplay}}</span>
-                  </div>
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-check-done"></span>
-                    {{#if isAskFlow}}
-                      {{i18n('dealFlowMessageTitleSecuritiesSent')}}
-                    {{else}}
-                      {{i18n('dealFlowMessageTitlePaymentSent')}}
-                    {{/if}}
-                    <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId2}}">({{i18n('viewTransaction')}})</a>
-                  </div>
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-check-done"></span>
-                    {{#if isAskFlow}}
-                      {{i18n('htlcBuyerCollectedSecuritiesDescription')}}
-                    {{else}}
-                      {{i18n('htlcSellerCollectedPaymentDescription')}}
-                    {{/if}}
-                    {{i18n('on')}}
-                    <span class="offer-date">{{offer.dateDisplay}}</span>
-                  </div>
+                  {{#with state='done'}}
+                    {{>offerAcceptedEvent}}
+                    {{>assetsSentEvent}}
+                    {{>assetsCollectedEvent}}
+                  {{/with}}
                   <div class="offer-timeline-event">
                     <span class="icon icon-check-done"></span>
                     {{#if isAskFlow}}
@@ -276,5 +269,6 @@
                  tx:from="tx"
                  portfolio:from="portfolio"
                  issuance:from="issuance"
+                 titles:from="titles"
                  offerTimelock:from="offer.timelockInfo.fullEndAt" />
 {{/if}}
