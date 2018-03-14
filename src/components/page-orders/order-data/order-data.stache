@@ -8,7 +8,7 @@
 
 <h2 class="subtitle">
   {{#is order.type 'SELL'}} {{i18n('sellOrder')}} {{else}} {{i18n('buyOrder')}} {{/is}}
-  <div class="order-date">Created on 04/28/12 @1:00pm</div>
+  <div class="order-date">Created on {{format-date-full(order.createdAt)}}</div>
 </h2>
 
 <div class="well stretch">
@@ -30,14 +30,14 @@
       </div>
       <div class="col-xs-6 col-sm-6 sub-section">
         <label>{{i18n('askPrice')}}</label>
-        <span class="order-ask-price">{{format(order.price, '', 0)}} <small>μBTC</small></span>
+        <span class="order-ask-price">{{to-fixed-2(order.price)}} <small>μBTC</small></span>
       </div>
     </div>
 
     <div class="order-metadata section">
       <dl class="dl-horizontal dl-stripped responsive">
         <dt>{{i18n('totalPrice')}}</dt>
-        <dd>{{format(order.totalPrice, '', 0)}} <small>μBTC</small></dd>
+        <dd>{{to-fixed-2(order.totalPrice)}} <small>μBTC</small></dd>
 
         <dt>{{i18n('goodUntil')}}</dt>
         <dd>{{order.goodUntil}}</dd>

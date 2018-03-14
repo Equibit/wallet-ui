@@ -51,9 +51,7 @@ let i18n = new DefineMap(en)
 const localStorage = (typeof window !== 'undefined' && window.localStorage) || undefined
 
 let userLang = localStorage && localStorage.getItem('locale')
-if (userLang) {
-  setLang(userLang)
-}
+setLang(userLang || 'en')
 
 function setLang (lang) {
   let langOptions
