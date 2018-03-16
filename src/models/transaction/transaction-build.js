@@ -36,7 +36,7 @@ function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.tes
 // eslint-disable-next-line
 const addProp = (prop, val) => obj => (obj[prop] = val, obj)
 
-function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testnet) {
+function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testnet, locktime = 0) {
   console.log(`buildTransactionBtc`, arguments)
   typeforce(typeforce.arrayOf({txid: 'String', vout: 'Number', keyPair: 'ECPair'}), inputs)
   typeforce(typeforce.arrayOf({
@@ -48,7 +48,7 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
 
   const tx = {
     version: 1,
-    locktime: 0,
+    locktime,
     vin: inputs.map(addProp('sequence', '4294967295')),
     vout: outputs
   }
@@ -63,7 +63,7 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
   }
 }
 
-function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testnet) {
+function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testnet, locktime = 0) {
   typeforce(typeforce.tuple('Array', 'Array', types.Network), [inputs, outputs, network])
   const vout = outputs.map(vout => {
     const res = merge(pick(['value', 'scriptPubKey', 'address'], vout), {
@@ -79,7 +79,7 @@ function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testne
   })
   const tx = {
     version: 2,
-    locktime: 0,
+    locktime,
     vin: inputs,
     vout
   }

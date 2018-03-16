@@ -17,7 +17,7 @@ import { prepareTxData } from './transaction-create-htlc1'
  * - Buyer collects payment
  */
 const [ createHtlc3, createHtlcRefund3 ] = [false, true].map(isRefund => {
-  return function (order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates) {
+  return function (order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates, locktime = 0) {
     typeforce(
       typeforce.tuple('Order', 'Offer', 'Portfolio', 'Issuance', 'String', types.Address, {EQB: 'Number', BTC: 'Number'}),
       arguments
@@ -30,14 +30,14 @@ const [ createHtlc3, createHtlcRefund3 ] = [false, true].map(isRefund => {
     let htlcConfig = currencyType === 'EQB'
       ? (isRefund ? prepareHtlcRefundConfig3 : prepareHtlcConfig3)(order, offer, portfolio, issuance, secret, changeAddr)
       : (isRefund ? prepareHtlcRefundConfig3Btc : prepareHtlcConfig3Btc)(order, offer, portfolio, secret, changeAddr)
-    let tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+    let tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout, undefined, locktime)
 
     // Calculate fee and rebuild:
     const transactionFee = tx.hex.length / 2 * transactionFeeRate
     htlcConfig = currencyType === 'EQB'
       ? (isRefund ? prepareHtlcRefundConfig3 : prepareHtlcConfig3)(order, offer, portfolio, issuance, secret, changeAddr, transactionFee)
       : (isRefund ? prepareHtlcRefundConfig3Btc : prepareHtlcConfig3Btc)(order, offer, portfolio, secret, changeAddr, transactionFee)
-    tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+    tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout, undefined, locktime)
 
     const txData = prepareTxData(htlcConfig, tx, issuance)
 
@@ -68,7 +68,10 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
     }
     const availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
     const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
-      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+      .map(a => merge(a, {
+        keyPair: portfolio.findAddress(a.address).keyPair,
+        sequence: isRefund ? '0' : '4294967295'
+      }))
 
     // Two cases for the receiving addr:
     // - investor: lookup keys in portfolio
@@ -85,9 +88,9 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
           [isRefund ? 'secretHash' : 'secret']: isRefund ? offer.hashlock : secret,
           // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
           refundAddr,
-          timelock: timelock
+          timelock
         },
-        sequence: '4294967295'
+        sequence: isRefund ? '0' : '4294967295'
       }],
       vout: [{
         // Main output (unlocking HTLC securities):
@@ -157,7 +160,7 @@ const [ prepareHtlcConfig3Btc, prepareHtlcRefundConfig3Btc ] = [false, true].map
           refundAddr,
           timelock
         },
-        sequence: '4294967295'
+        sequence: isRefund ? '0' : '4294967295'
       }],
       vout: [{
         // Main output (unlocking HTLC payment). Note: there is no change for this transfer.

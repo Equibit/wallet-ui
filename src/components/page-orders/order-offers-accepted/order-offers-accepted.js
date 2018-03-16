@@ -26,6 +26,7 @@ import Transaction from '../../../models/transaction/transaction'
 import { createHtlcRefund3 } from '../../../models/transaction/transaction-create-htlc3'
 import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
 import { dispatchAlertError } from '../../../utils/event-hub'
+import feathersClient from '~/models/feathers-client'
 
 export const ViewModel = DefineMap.extend({
   order: Order,
@@ -135,9 +136,25 @@ export const ViewModel = DefineMap.extend({
     const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
     return Promise.all([
       portfolio.getNextAddress(),
-      Session.current.transactionFeeRatesPromise
-    ]).then(([addrPair, transactionFeeRates]) => {
-      const txData = createHtlcRefund3(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
+      Session.current.transactionFeeRatesPromise,
+      feathersClient.service('proxycore').find({
+        query: {
+          node: currencyType.toLowerCase(),
+          method: 'getblockchaininfo'
+        }
+      })
+    ]).then(([addrPair, transactionFeeRates, blockchainInfo]) => {
+      const txData = createHtlcRefund3(
+        order,
+        offer,
+        portfolio,
+        issuance,
+        secret,
+        addrPair[currencyType],
+        transactionFeeRates.regular,
+        blockchainInfo.result.blocks // <- locktime for next transaction -- if it's not late enough,
+                                     //  sending TX will throw "Locktime requirement not satisfied" error
+      )
       const tx = new Transaction(txData)
 
       this.openModal(offer, tx)
