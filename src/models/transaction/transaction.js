@@ -337,6 +337,9 @@ function updateOffer (offer, tx, secret) {
   if (newHtlcStep === 3) {
     offer.secret = secret
   }
+  if (tx.type === 'CANCEL') {
+    offer.status = 'CANCELLED'
+  }
   offer['htlcTxId' + newHtlcStep] = tx.txId
   return offer.save().then(offer => ({ offer, tx }))
 }

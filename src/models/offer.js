@@ -19,6 +19,7 @@ import moment from 'moment'
 import { translate } from '../i18n/i18n'
 import Transaction from './transaction/'
 import { blockTime } from '~/constants'
+import Session from '~/models/session'
 
 const Offer = DefineMap.extend('Offer', {
   _id: 'string',
@@ -84,20 +85,7 @@ const Offer = DefineMap.extend('Offer', {
 
   // ENUM ('OPEN', 'TRADING', 'CANCELLED', 'CLOSED')
   status: {
-    type: 'string',
-    // TODO remove this getter when the service is updated to
-    // expire offers
-    get (lastSetVal) {
-      if (lastSetVal === 'OPEN' || lastSetVal === 'TRADING') {
-        if (this.timelockInfo && this.timelockInfo.partialBlocksRemaining === 0) {
-          return 'EXPIRED'
-        } else {
-          return lastSetVal
-        }
-      } else {
-        return lastSetVal || 'OPEN'
-      }
-    }
+    type: 'string'
   },
 
   /**
@@ -158,7 +146,49 @@ const Offer = DefineMap.extend('Offer', {
     return moment(this.createdAt).format('MM/DD/YY @hh:mm a')
   },
   get statusDisplay () {
-    return translate(`status${this.status}`)
+    return translate(`status${this.statusWithExpiry}`)
+  },
+  // TODO the calculation of offer expiry should be a timed server process.
+  get isExpired () {
+    if (this.timelockInfo &&
+        ((this.htlcStep === 2 && this.timelockInfo.partialBlocksRemaining === 0) ||
+          (this.htlcStep === 3 && this.timelockInfo.fullBlocksRemaining === 0))) {
+      return true
+    } else {
+      return false
+    }
+  },
+  get statusWithExpiry () {
+    const status = this.status
+    if (status === 'OPEN' || status === 'TRADING') {
+      if (this.isExpired) {
+        return 'EXPIRED'
+      } else {
+        return status
+      }
+    } else {
+      return status || 'OPEN'
+    }
+  },
+  get htlcTransactions () {
+    const txesByStep = new DefineMap()
+    Transaction.getList({
+      txId: {
+        $in: [ this.htlcTxId1, this.htlcTxId2, this.htlcTxId3, this.htlcTxId4 ]
+      },
+      address: {
+        $in: [...Session.current.allAddresses.BTC, ...Session.current.allAddresses.EQB]
+      }
+    }).then(txes => {
+      const txesByTxId = {}
+      txes.forEach(tx => {
+        txesByTxId[tx.txId] = tx
+      });
+      [1, 2, 3, 4].forEach(i => {
+        txesByStep.set(i, txesByTxId[this['htlcTxId' + i]])
+      })
+    })
+    return txesByStep
   },
 
   issuancePromise: {
@@ -195,6 +225,10 @@ const Offer = DefineMap.extend('Offer', {
       }
     }
   },
+  // TODO timelockInfo is currently not observable, nor does it change once bound.
+  //  This is a problem because it contains "partialBlocksRemaining" and "fullBlocksRemaining",
+  //  which are both important for conditional views.  These values should be live and update,
+  //  especially once we get block height updating live from the server.
   timelockInfo: {
     get (val, resolve) {
       this.timelockInfoPromise.then(resolve)

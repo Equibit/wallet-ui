@@ -8,7 +8,7 @@
   <div class="offer-timeline-event">
     <span class="icon icon-check-{{state}}"></span>
     {{i18n('offerAcceptedOn')}}
-    <span class="offer-date">{{offer.dateDisplay}}</span>
+    <span class="offer-date">{{format-date-medium(offer.htlcTransactions.2.createdAt)}}</span>
   </div>
 {{/offerAcceptedEvent}}
 
@@ -33,7 +33,7 @@
       {{i18n('htlcSellerCollectedPaymentDescription')}}
     {{/if}}
     {{i18n('on')}}
-    <span class="offer-date">{{../offer.dateDisplay}}</span>
+    <span class="offer-date">{{format-date-medium(offer.htlcTransactions.3.createdAt)}}</span>
   </div>
 {{/assetsCollectedEvent}}
 
@@ -42,6 +42,34 @@
   <div class="col-xs-12 accepted-offers-body no-padding">
 
     {{#each offers offer=value offerIdx=index}}
+
+      {{#eq offer.status 'CANCELLED'}}
+        <div class="row timeline-container contextual-bg-danger">
+          <div class="col-xs-12 offer-quantity">Quantity <span class="offer-quantity-value">{{offer.quantity}}</span></div>
+          <div class="col-xs-12 offer-timeline">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="offer-timeline-event">
+                  <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-date">{{format-date-medium(offer.htlcTransactions.2.createdAt)}}</span>
+                </div>
+                <div class="offer-timeline-event">
+                  <span class="icon icon-check-progress"></span>Securities sent <a href="">(View Transaction)</a>
+                </div>
+                <div class="offer-timeline-event">
+                  <span class="icon icon-circle-warning"></span>Buyer time to collect the securities expired on <span class="offer-date">{{format-date-medium(offer.timelockInfo.partialEndAt)}}</span>
+                </div>
+                <div class="offer-timeline-event">
+                  <span class="icon icon-check-cancelled"></span>Recovered securities <a href="">(View Transaction)</a>
+                </div>
+                <div class="offer-timeline-event">
+                  <span class="icon icon-hand-stop"></span>You cancelled this deal on <span class="offer-date">{{format-date-medium(offer.htlcTransactions.3.createdAt)}}</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      {{else}}
 
       {{#switch offer.htlcStep}}
 
@@ -56,7 +84,7 @@
                     {{>offerAcceptedEvent}}
                     {{>assetsSentEvent}}
                   {{/with}}
-                  {{#eq ../timelocks[offerIdx].partialBlocksRemaining 0}}
+                  {{#if offer.isExpired}}
                     <div class="offer-timeline-event">
                       <span class="icon icon-expired"></span>
                       {{#if ../isAskFlow}}
@@ -88,7 +116,7 @@
                         {{i18n('dealFlowMessageTitleAwaitingPaymentCollectionSeller')}}
                       {{/if}}
                     </div>
-                  {{/eq}}
+                  {{/if}}
                 </div>
 
                 <!--Timer-->
@@ -222,34 +250,6 @@
 
         {{/case}}
 
-        <!--{{#case "CANCELLED"}}
-          <div class="row timeline-container contextual-bg-danger">
-            <div class="col-xs-12 offer-quantity">Quantity <span class="offer-quantity-value">{{offer.quantity}}</span></div>
-            <div class="col-xs-12 offer-timeline">
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-check-progress"></span>Offer accepted on <span class="offer-date">{{offer.dateDisplay}}</span>
-                  </div>
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-check-progress"></span>Securities sent <a href="">(View Transaction)</a>
-                  </div>
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-circle-warning"></span>Buyer time to collect the securities expired on <span class="offer-date">{{offer.dateDisplay}}</span>
-                  </div>
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-check-cancelled"></span>Recovered securities <a href="">(View Transaction)</a>
-                  </div>
-                  <div class="offer-timeline-event">
-                    <span class="icon icon-hand-stop"></span>You cancelled this deal on <span class="offer-date">{{offer.dateUpdatedDisplay}}</span>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        {{/case}}-->
-
         <!--{{#case "REJECTED"}}-->
           <!--&lt;!&ndash;p>REJECTED - N/A</p&ndash;&gt;-->
         <!--{{/case}}-->
@@ -258,7 +258,7 @@
           Something is wrong (no htlcStep on the offer) {{offer.htlcStep}}
         {{/default}}
       {{/switch}}
-
+      {{/eq}}
     {{/each}}
   </div>
 

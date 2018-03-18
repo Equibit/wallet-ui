@@ -228,6 +228,7 @@ export default {
   dealFlowMessageTitleSecuritiesOfferSent: 'Securities Offer Sent',
   dealFlowMessageTitleSecuritiesSent: 'Securities Sent',
   dealFlowMessageTitleSecuritiesReceived: 'Securities Received',
+  dealFlowMessageTitleUserCanRecoverOnExpiry: 'You can recover the funds once the offer expires.',
   dealFlowStepLabel: 'Deal Flow Step',
   dealFlowStep1: 'Exchange Guarantees',
   dealFlowStep2: 'Exchange Assets',

@@ -51,10 +51,6 @@ export const ViewModel = DefineMap.extend({
   status: {
     set: enumSetter(['OPEN', 'TRADING', 'CLOSED', 'CANCELLED', 'REJECTED'])
   },
-  date: '*',
-  get dateDisplay () {
-    return moment(this.date).format('MM/DD @h:mm A')   // 04/29 @2:30 pm
-  },
 
   isAskFlow: {
     get () {

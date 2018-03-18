@@ -8,7 +8,7 @@
   <div class="offer-timeline-event">
     <span class="icon icon-check-{{state}}"></span>
     {{i18n('dealFlowMessageTitleOfferPostedOn')}}
-    <span class="offer-date">{{../dateDisplay}}</span>
+    <span class="offer-date">{{format-date-medium(offer.htlcTransactions.1.createdAt)}}</span>
   </div>
 {{/postedEvent}}
 
@@ -34,7 +34,7 @@
     {{else}}
       {{i18n('dealFlowMessageTitleOfferAcceptedOnBuyer')}}
     {{/if}}
-    <span class="offer-date">{{../dateDisplay}}</span>
+    <span class="offer-date">{{format-date-medium(offer.htlcTransactions.2.createdAt)}}</span>
   </div>
 {{/offerAcceptedEvent}}
 
@@ -101,7 +101,7 @@
 
           <!--Events-->
           <div class="col-xs-12 col-sm-9">
-            {{#eq offer.timelockInfo.partialBlocksRemaining 0}}
+            {{#if offer.isExpired}}
               {{#with state='expired'}}
                 {{>postedEvent}}
                 {{>offerSentEvent}}
@@ -137,13 +137,13 @@
                   </a>
                 </div>
               </div>
-            {{/eq}}
+            {{/if}}
           </div>
 
           <!--Timer-->
           <div class="col-xs-12 col-sm-3">
             <div class="timer-container">
-              {{#eq offer.timelockInfo.partialBlocksRemaining 0}}
+              {{#if offer.isExpired}}
                 <label>{{i18n('timelockTitleOfferExpiration')}}</label>
                 <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
               {{else}}
@@ -155,7 +155,7 @@
                   {{/if}}
                 </label>
                 <time-remaining endTime:from="offer.timelockInfo.partialEndAt"></time-remaining>
-              {{/eq}}
+              {{/if}}
             </div>
           </div>
 
@@ -166,24 +166,52 @@
   {{/case}}
 
   {{#case 3}}
-    <div class="row timeline-container contextual-bg-success">
+    <div class="row timeline-container {{#eq offer.status 'CANCELLED'}}contextual-bg-danger{{else}}contextual-bg-success{{/eq}}">
       <div class="col-xs-12 offer-timeline">
         <div class="row">
 
           <!--Events-->
           <div class="col-xs-12 col-sm-9">
-            {{#with state='done'}}
-              {{>postedEvent}}
-              {{>offerSentEvent}}
-              {{>offerAcceptedEvent}}
-              {{>userReceivedEvent}}
-            {{/with}}
-
-            <div class="offer-timeline-event">
-              <span class="icon icon-hand-shake"></span>{{i18n('dealFlowMessageTitleDealClosed')}}
-            </div>
+            {{#eq offer.status 'CANCELLED'}}
+              {{#with state='cancelled'}}
+                {{>postedEvent}}
+                {{>offerSentEvent}}
+                {{>offerAcceptedEvent}}
+              {{/with}}
+              <div class="offer-timeline-event">
+                <span class="icon icon-circle-warning"></span>
+                {{i18n('dealFlowMessageTitleCollectionTimeExpiredOn')}}
+                <span class="offer-date">{{format-date-medium(offer.timelockInfo.partialEndAt)}}</span>.
+                <br>
+                <span class="offer-timeline-event--pending">{{i18n('dealFlowMessageTitleUserCanRecoverOnExpiry')}}</span>
+              </div>
+              <div class="offer-timeline-event">
+                <span class="icon icon-hand-stop"></span>
+                The seller collected the securities on
+                <span class="offer-date">{{format-date-medium(offer.timelockInfo.partialEndAt)}}</span>.
+              </div>
+            {{else}}
+              {{#with state='done'}}
+                {{>postedEvent}}
+                {{>offerSentEvent}}
+                {{>offerAcceptedEvent}}
+                {{>userReceivedEvent}}
+              {{/with}}
+              <div class="offer-timeline-event">
+                <span class="icon icon-hand-shake"></span>{{i18n('dealFlowMessageTitleDealClosed')}}
+              </div>
+            {{/eq}}
           </div>
 
+          <!-- Timer -->
+          {{#eq offer.status 'CANCELLED'}}
+            <div class="col-xs-12 col-sm-3">
+              <div class="timer-container">
+                <label>{{i18n('timelockTitleOfferExpiration')}}</label>
+                <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
+              </div>
+            </div>
+          {{/eq}}
         </div>
       </div>
     </div>
@@ -227,7 +255,7 @@
             <div class="offer-timeline-event">
               <span class="icon icon-circle-warning"></span>
               {{i18n('dealFlowMessageTitleOfferExipredOn')}}
-              <span class="offer-date">{{dateDisplay}}</span>
+              <span class="offer-date">{{format-date-medium(offer.timelockInfo.fullEndAt)}}</span>
             </div>
             <div class="offer-timeline-event">
               <span class="icon icon-check-cancelled"></span>
@@ -237,7 +265,7 @@
             <div class="offer-timeline-event">
               <span class="icon icon-hand-stop"></span>
               {{i18n('dealFlowMessageTitleDealCancelledOnUser')}}
-              <span class="offer-date">{{dateDisplay}}</span>
+              <span class="offer-date">{{format-date-medium(offer.htlcTransactions.4.createdAt)}}</span>
             </div>
           </div>
 
@@ -260,7 +288,7 @@
             <div class="offer-timeline-event">
               <span class="icon icon-circle-warning"></span>
               {{i18n('dealFlowMessageTitleOfferExipredOn')}}
-              <span class="offer-date">{{dateDisplay}}</span>
+              <span class="offer-date">{{format-date-medium(offer.timelockInfo.createdAt)}}</span>
             </div>
             <div class="offer-timeline-event offer-timeline-event--pending">
               <span class="icon icon-check-pending"></span>

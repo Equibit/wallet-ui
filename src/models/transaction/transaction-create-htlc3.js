@@ -87,6 +87,7 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
         htlc: {
           [isRefund ? 'secretHash' : 'secret']: isRefund ? offer.hashlock : secret,
           // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
+          receiverAddr: offer.eqbAddress,
           refundAddr,
           timelock
         },
