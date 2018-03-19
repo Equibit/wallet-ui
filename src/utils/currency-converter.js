@@ -70,18 +70,12 @@ const exports = {
       .catch(() => 0)
   },
   convertToUserFiat (value, symbol, scaleSymbol) {
-    // Circular dependency guard:
-    if (!Session || !Session.fiatCurrency) {
-      return Promise.resolve(value)
-    }
-    return exports.convertCryptoToFiat(value, symbol + Session.fiatCurrency(), scaleSymbol)
+    const fiatCurrency = (Session && Session.fiatCurrency && Session.fiatCurrency()) || 'USD'
+    return exports.convertCryptoToFiat(value, symbol + fiatCurrency, scaleSymbol)
   },
   convertFromUserFiat (value, symbol, scaleSymbol) {
-    // Circular dependency guard:
-    if (!Session || !Session.fiatCurrency) {
-      return Promise.resolve(value)
-    }
-    return exports.convertFiatToCrypto(value, symbol + Session.fiatCurrency(), scaleSymbol)
+    const fiatCurrency = (Session && Session.fiatCurrency && Session.fiatCurrency()) || 'USD'
+    return exports.convertFiatToCrypto(value, symbol + fiatCurrency, scaleSymbol)
   },
   convertCryptoToCrypto (value, fromSymbol, toSymbol, fromScale = exports.unit, toScale = exports.unit) {
     return exports.convertToUserFiat(value, fromSymbol, fromScale)
