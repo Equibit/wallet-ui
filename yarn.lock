@@ -7871,9 +7871,9 @@ steal@^1.4.5, steal@^1.6.2, steal@^1.6.4:
     vm-browserify "~0.0.4"
     zlib-browserify "~0.0.3"
 
-"steal@https://github.com/stealjs/steal/#cfd9fda42cddc283a2f187e9b493f9e56f802cae":
+steal@stealjs/steal#es-circ:
   version "1.10.0"
-  resolved "https://github.com/stealjs/steal/#cfd9fda42cddc283a2f187e9b493f9e56f802cae"
+  resolved "https://codeload.github.com/stealjs/steal/tar.gz/cfd9fda42cddc283a2f187e9b493f9e56f802cae"
   dependencies:
     assert "~1.4.1"
     buffer "~5.0.4"
