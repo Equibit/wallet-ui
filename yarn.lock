@@ -7871,6 +7871,29 @@ steal@^1.4.5, steal@^1.6.2, steal@^1.6.4:
     vm-browserify "~0.0.4"
     zlib-browserify "~0.0.3"
 
+"steal@https://github.com/stealjs/steal/#cfd9fda42cddc283a2f187e9b493f9e56f802cae":
+  version "1.10.0"
+  resolved "https://github.com/stealjs/steal/#cfd9fda42cddc283a2f187e9b493f9e56f802cae"
+  dependencies:
+    assert "~1.4.1"
+    buffer "~5.0.4"
+    console-browserify "~1.1.0"
+    constants-browserify "~1.0.0"
+    crypto-browserify "~3.11.0"
+    domain-browser "~1.1.2"
+    events "~1.1.1"
+    http-browserify "~1.7.0"
+    https-browserify "~1.0.0"
+    os-browserify "~0.3.0"
+    path-browserify "~0.0.0"
+    process "~0.11.9"
+    punycode "~2.0.1"
+    resolve "^1.1.7"
+    string_decoder "~1.0.0"
+    tty-browserify "~0.0.0"
+    vm-browserify "~0.0.4"
+    zlib-browserify "~0.0.3"
+
 stream-buffers@^0.2.3:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/stream-buffers/-/stream-buffers-0.2.6.tgz#181c08d5bb3690045f69401b9ae6a7a0cf3313fc"
