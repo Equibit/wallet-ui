@@ -35,6 +35,7 @@
     <can-import from="~/components/nav-footer/" />
 
     <bit-alerts/>
+    <h1>app.testCircularPortfolio={{testCircularPortfolio}}</h1>
 
     <bootstrap-modal></bootstrap-modal>
 

@@ -17,6 +17,7 @@ import DefineMap from 'can-define/map/map'
 import route from 'can-route'
 import 'can-route-pushstate'
 import Session from './models/session'
+import Portfolio from './models/portfolio'
 import Transaction from './models/transaction/transaction'
 // import '~/models/fixtures/fixtures';
 
@@ -116,6 +117,12 @@ const AppViewModel = DefineMap.extend({
   refresh () {
     if (this.session) {
       this.session.refreshBalance()
+    }
+  },
+  testCircularPortfolio: {
+    get () {
+      const portfolio = new Portfolio({})
+      return portfolio.testCircular
     }
   }
 })
