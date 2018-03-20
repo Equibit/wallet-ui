@@ -17,7 +17,7 @@ const FormData = DefineMap.extend('OfferFormData', {
   error: 'string',
   fee: {
     type: 'number',
-    value: 100
+    value: 1000
   },
   description: 'string',
   timelock: {
@@ -46,7 +46,7 @@ const FormData = DefineMap.extend('OfferFormData', {
   },
   isValid: {
     get () {
-      return !!this.quantity
+      return !!this.quantity && this.hasEnoughFunds
     }
   }
 })

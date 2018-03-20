@@ -3,6 +3,7 @@ import { merge, pick } from 'ramda'
 import { eqbTxBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { buildTransaction } from './transaction-build'
 import { prepareHtlcConfigEqb } from './transaction-create-htlc2'
+import ErrorData from '../error'
 
 // const simpleHashlockSigContract = eqbTxBuilder.simpleHashlockSigContract
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
@@ -64,7 +65,10 @@ function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr, transactionF
 
   const utxoInfo = portfolio.getTxouts(amount + fee, 'BTC')
   if (!utxoInfo.sum) {
-    throw new Error(`Not enough BTC for the amount ${amount + fee}`)
+    throw new ErrorData({
+      amount,
+      fee
+    }, `Not enough BTC for the amount ${amount + fee}`)
   }
   const availableAmount = utxoInfo.sum
   const utxo = utxoInfo.txouts

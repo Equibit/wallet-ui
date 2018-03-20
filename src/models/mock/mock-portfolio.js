@@ -55,7 +55,7 @@ const portfolioZero = new Portfolio({
   _addressesMeta: addressesMeta,
   keys: portfolioKeys,
   utxoByTypeByAddress: listunspentZero,
-  balance
+  // balance
 })
 
 const portfolioBtc = new Portfolio({

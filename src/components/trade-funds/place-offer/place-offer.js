@@ -23,6 +23,7 @@ import Order from '../../../models/order'
 import Transaction from '../../../models/transaction/transaction'
 import Issuance from '../../../models/issuance'
 import FormData from './form-data'
+import ErrorData from '../../../models/error'
 
 export const ViewModel = DefineMap.extend({
   portfolio: {
@@ -64,7 +65,7 @@ export const ViewModel = DefineMap.extend({
         portfolio: this.portfolio,
         order: this.order,
         feeRates: this.transactionFeeRates,
-        fee: this.transaction && this.transaction.fee,
+        fee: (this.transaction && this.transaction.fee) || Transaction.defaultFee,
         timelock: this.offer.timelock
       })
     }
@@ -89,7 +90,16 @@ export const ViewModel = DefineMap.extend({
       )
       this.transaction = tx
       this.formData.fee = this.transaction.fee
-    }).then(() => { this.mode = 'confirm' })
+    }).then(() => {
+      if (this.formData.isValid) {
+        this.mode = 'confirm'
+      }
+    }).catch(e => {
+      console.log('error:::', e)
+      if (e.data && e.data.fee) {
+        this.formData.fee = e.data.fee
+      }
+    })
   },
   edit () {
     this.mode = 'edit'
