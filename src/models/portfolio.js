@@ -504,12 +504,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
   refreshBalance: function () {
     this.dispatch('refresh')
     return this.securitiesPromise
-  },
-
-  testCircular: {
-    get () {
-      return currencyConverter.convertCryptoToCrypto(1, 'EQB', 'BTC')
-    }
   }
 })
 

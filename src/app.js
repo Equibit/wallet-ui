@@ -118,12 +118,6 @@ const AppViewModel = DefineMap.extend({
     if (this.session) {
       this.session.refreshBalance()
     }
-  },
-  testCircularPortfolio: {
-    get () {
-      const portfolio = new Portfolio({})
-      return portfolio.testCircular
-    }
   }
 })
 
