@@ -54,7 +54,7 @@ const portfolioZero = new Portfolio({
   name: 'My Portfolio Empty',
   _addressesMeta: addressesMeta,
   keys: portfolioKeys,
-  utxoByTypeByAddress: listunspentZero,
+  utxoByTypeByAddress: listunspentZero
   // balance
 })
 

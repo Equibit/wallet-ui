@@ -23,7 +23,6 @@ import Order from '../../../models/order'
 import Transaction from '../../../models/transaction/transaction'
 import Issuance from '../../../models/issuance'
 import FormData from './form-data'
-import ErrorData from '../../../models/error'
 
 export const ViewModel = DefineMap.extend({
   portfolio: {
