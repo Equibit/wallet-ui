@@ -36,9 +36,9 @@
   const vm = new DefineMap({
     tx: new DefineMap({
       address: 'mxdSJUzQJz9EXvjHnTcVz9ZQVhz22n4AEw',
-      amount: 3500,
-      type: 'BUY',
-      currencyType: 'BTC',
+      amount: 375000,
+      type: 'SELL',
+      currencyType: 'EQB',
       fee: 500,
       timelock: 20,
       description: '...'
@@ -50,7 +50,11 @@
     portfolio: new DefineMap({
       name: 'My Portfolio'
     }),
-    offerTimelock: 36
+    offerTimelock: 36,
+    offer: new DefineMap({
+      quantity: 1500,
+      price: 250
+    })
   })
 
   // Enable live-reload:
