@@ -31,7 +31,6 @@ stache.registerHelper('format-milli', function (value) {
 // Satoshi to uBTC
 stache.registerHelper('format-micro', function (satoshi) {
   return toMaxPrecision(satoshi / 100, 2)
-  // return toMaxPrecision(value * 1000 * 1000, 2)
 })
 
 stache.registerHelper('format-int', function (value) {
