@@ -24,7 +24,7 @@ export const ViewModel = DefineMap.extend({
   convertToUSD: function (value) {
     if (this.formData.order.type === 'SELL') {
       // A BUY offer to a SELL order will send funds in BTC
-      return currencyConverter.convertToUserFiat.apply(null, arguments)
+      return currencyConverter.convertToUserFiat(value, 'BTC', currencyConverter.satoshi)
     } else {
       // A SELL offer to a BUY order will send shares
       return currencyConverter.convertToUserFiat(value, 'EQB', currencyConverter.satoshi)
