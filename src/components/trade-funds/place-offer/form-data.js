@@ -2,6 +2,7 @@ import DefineMap from 'can-define/map/map'
 import Portfolio from '../../../models/portfolio'
 import Order from '../../../models/order'
 import Issuance from '../../../models/issuance'
+import { toMaxPrecision } from '../../../utils/formatter'
 
 const FormData = DefineMap.extend('OfferFormData', {
   portfolio: Portfolio,
@@ -9,12 +10,17 @@ const FormData = DefineMap.extend('OfferFormData', {
   issuance: Issuance,
   quantity: {
     type: 'number',
+    value: 0,
     get (val) {
       if (this.order.isFillOrKill) {
         return this.order.quantity
       }
       return val
     }
+  },
+  get uBtcPrice () {
+    // Price in order is in Satoshi:
+    return (this.order && toMaxPrecision(this.order.price / 100, 2)) || 0
   },
   error: 'string',
   fee: {
@@ -35,8 +41,14 @@ const FormData = DefineMap.extend('OfferFormData', {
     return this.order.type === 'SELL' ? 'BTC' : 'EQB'
   },
 
+  // In uBTC:
+  get uBtcTotalPrice () {
+    return this.uBtcPrice * this.quantity
+  },
+
+  // In Satoshi:
   get totalPrice () {
-    return this.order ? (this.order.price * this.quantity) : 0
+    return Math.floor(this.uBtcTotalPrice * 100)
   },
 
   get totalPriceWithFee () {
@@ -49,7 +61,6 @@ const FormData = DefineMap.extend('OfferFormData', {
     }
   },
   hasEnoughFunds: {
-    // todo: for SELL offer we should check securities
     get () {
       if (this.currencyType === 'BTC') {
         return this.portfolio.hasEnoughFunds(this.totalPrice + this.fee, 'BTC')
