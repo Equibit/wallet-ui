@@ -63,6 +63,7 @@ export const ViewModel = DefineMap.extend({
       return new FormData({
         portfolio: this.portfolio,
         order: this.order,
+        issuance: this.issuance,
         feeRates: this.transactionFeeRates,
         fee: (this.transaction && this.transaction.fee) || Transaction.defaultFee,
         timelock: this.offer.timelock
@@ -80,7 +81,7 @@ export const ViewModel = DefineMap.extend({
       this.transactionFeeRatesPromise,
       this.changeAddrPromise
     ]).then(([transactionFeeRates, changeAddrPair]) => {
-      const flowType = this.order.type === 'SELL' ? 'Ask' : 'Bid'
+      const flowType = this.formData.flowType
       // Bid flow: change address for Empty EQB.
       const changeAddr = flowType === 'Ask' ? changeAddrPair.BTC : changeAddrPair.EQB
       const tx = Transaction.createHtlc1(

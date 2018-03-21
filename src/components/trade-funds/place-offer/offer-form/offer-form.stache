@@ -42,7 +42,7 @@
           <input type="number" class="form-control" id="inputQuantityOffer" {{#if formData.order.isFillOrKill}}readonly{{/if}}
                  value:bind="formData.quantity">
           {{^if formData.hasEnoughFunds}}
-            <validation-message message:from="'Not enough funds'" />
+            <validation-message message:from="formData.errorMessage" />
           {{/if}}
         </div>
 

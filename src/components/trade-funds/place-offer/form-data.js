@@ -1,10 +1,12 @@
 import DefineMap from 'can-define/map/map'
 import Portfolio from '../../../models/portfolio'
 import Order from '../../../models/order'
+import Issuance from '../../../models/issuance'
 
 const FormData = DefineMap.extend('OfferFormData', {
   portfolio: Portfolio,
   order: Order,
+  issuance: Issuance,
   quantity: {
     type: 'number',
     get (val) {
@@ -25,6 +27,14 @@ const FormData = DefineMap.extend('OfferFormData', {
     value: 72 // 72 blocks ~= 12 hours on the BTC blockchain
   },
 
+  get flowType () {
+    return this.order.type === 'SELL' ? 'Ask' : 'Bid'
+  },
+
+  get currencyType () {
+    return this.order.type === 'SELL' ? 'BTC' : 'EQB'
+  },
+
   get totalPrice () {
     return this.order ? (this.order.price * this.quantity) : 0
   },
@@ -41,13 +51,20 @@ const FormData = DefineMap.extend('OfferFormData', {
   hasEnoughFunds: {
     // todo: for SELL offer we should check securities
     get () {
-      return this.portfolio.hasEnoughFunds(this.totalPrice + this.fee, 'BTC')
+      if (this.currencyType === 'BTC') {
+        return this.portfolio.hasEnoughFunds(this.totalPrice + this.fee, 'BTC')
+      } else {
+        return this.issuance.utxoAmountTotal >= this.quantity && this.portfolio.hasEnoughFunds(this.fee, 'EQB')
+      }
     }
   },
   isValid: {
     get () {
       return !!this.quantity && this.hasEnoughFunds
     }
+  },
+  get errorMessage () {
+    return this.currencyType === 'BTC' ? 'Not enough funds' : 'Not enough securities'
   }
 })
 
