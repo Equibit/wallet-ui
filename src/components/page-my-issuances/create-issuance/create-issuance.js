@@ -158,8 +158,12 @@ export const ViewModel = DefineMap.extend({
         'title': msg,
         'displayInterval': 10000
       })
-      Session.current.refreshBalance()
-      return issuance
+      // Add issuanceId to transaction and save it:
+      this.tx.issuanceId = issuance._id
+      return this.tx.save().then(() => {
+        Session.current.refreshBalance()
+        return issuance
+      })
     }).catch(dispatchAlertError)
   },
   prepareTransaction (formData, issuance, toAddress, changeAddr, fee) {
