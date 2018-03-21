@@ -330,6 +330,8 @@ const Transaction = DefineMap.extend('Transaction', {
   }
 })
 
+Transaction.defaultFee = 1000
+
 function updateOffer (offer, tx, secret) {
   const newHtlcStep = ++offer.htlcStep
 

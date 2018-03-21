@@ -37,6 +37,7 @@
   import orders from '~/models/fixtures/orders'
   import Order from '~/models/order'
   import portfolio from '~/models/mock/mock-portfolio'
+  // import { portfolioZero as portfolio } from '~/models/mock/mock-portfolio'
   import mockHtlcOffer from '~/models/mock/mock-htlc-offer'
   import issuance from '~/models/mock/mock-issuance'
   import '~/models/fixtures/portfolio-addresses'
@@ -48,7 +49,7 @@
 
   const vm = new DefineMap({
     portfolio,
-    order: new Order(orders[0]),
+    order: new Order(orders[1]),
     offer,
     issuance,
     sendFn: function () {
