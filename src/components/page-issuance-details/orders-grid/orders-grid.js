@@ -86,8 +86,9 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   // Possible reasons include:
   //  - User is not logged in
   //  - User was the one who posted the order (can't buy from / sell to yourself)
-  //  - User already made an offer against the order
+  //  - User already made an offer against the FillOrKill order
   //  - User has no shares to sell, for a buy order (not yet implemented)
+  // Note: for a partial order user can place multiple offers.
   whyUserCantOffer (row) {
     if (!this.session) {
       return 'Not logged in'
@@ -95,7 +96,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     if (row.userId === this.session.user._id) {
       return 'User is owner'
     }
-    if (~this.userOfferOrderIds.indexOf(row._id)) {
+    if (~this.userOfferOrderIds.indexOf(row._id) && row.isFillOrKill) {
       return 'Offer exists'
     }
     if (!this.session.hasIssuanceUtxo(this.issuanceAddress)) {
