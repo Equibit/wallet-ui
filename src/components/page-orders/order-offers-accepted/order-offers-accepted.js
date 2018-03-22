@@ -74,14 +74,10 @@ export const ViewModel = DefineMap.extend({
     }
   },
 
-  // For demo:
-  // offer: {
-  //   get () {
-  //     const offer = this.offers[0]
-  //     offer.htlcStep = 3
-  //     return offer
-  //   }
-  // },
+  isTransactionToUser (tx) {
+    const allAddresses = [...Session.current.allAddresses.BTC, ...Session.current.allAddresses.EQB]
+    return tx && allAddresses.indexOf(tx.toAddress)
+  },
 
   // HTLC 4:
   // - Ask flow: collect payment

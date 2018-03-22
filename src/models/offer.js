@@ -230,8 +230,12 @@ const Offer = DefineMap.extend('Offer', {
   //  which are both important for conditional views.  These values should be live and update,
   //  especially once we get block height updating live from the server.
   timelockInfo: {
-    get (val, resolve) {
-      this.timelockInfoPromise.then(resolve)
+    get () {
+      const timelockInfo = new DefineMap()
+      this.timelockInfoPromise.then(info => {
+        timelockInfo.assign(info)
+      })
+      return timelockInfo
     }
   },
   timelockInfoPromise: {

@@ -18,7 +18,9 @@
         <div class="description">{{i18n('confirmTransaction')}}</div>
 
         <div class="list-group">
-            <timer-notice message:from="i18n(titles.timer)" endTime:from="offerTimelock"></timer-notice>
+            {{^eq offerTimelock null}}
+                <timer-notice message:from="i18n(titles.timer)" endTime:from="offerTimelock"></timer-notice>
+            {{/eq}}
             <div class="list-group-item">
                 {{#eq tx.type 'CANCEL'}}
                   {{#if scope.vars@recoverSummary}}

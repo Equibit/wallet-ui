@@ -15,7 +15,6 @@
 
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
-import moment from 'moment'
 import typeforce from 'typeforce'
 // import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 
@@ -26,7 +25,9 @@ import Offer from '../../../models/offer'
 import Issuance from '../../../models/issuance'
 import Session from '../../../models/session'
 import Transaction from '../../../models/transaction/transaction'
-import { createHtlc3, createHtlcRefund3 } from '../../../models/transaction/transaction-create-htlc3'
+import { createHtlc3 } from '../../../models/transaction/transaction-create-htlc3'
+import { createHtlcRefund4 } from '../../../models/transaction/transaction-create-htlc4'
+import feathersClient from '~/models/feathers-client'
 
 const enumSetter = values => value => {
   if (values.indexOf) {
@@ -66,21 +67,26 @@ export const ViewModel = DefineMap.extend({
 
   titles: {
     get () {
-      if (this.tx.type === 'CANCEL') {
+      if (this.tx && this.tx.type === 'CANCEL') {
         return {
           BTC: {
-            header: 'dealFlowMessageTitleCollectPayment',
-            timer: '',
-            button: 'dealFlowMessageTitleCollectAndCloseDeal'
+            header: 'dealFlowMessageTitleRecoverPayment',
+            timer: 'paymentRecoveryTimeLeftDescription',
+            button: 'dealFlowMessageTitleCancelAndRecoverPayment'
           },
           EQB: {
-            header: 'dealFlowMessageTitleCollectSecurities',
-            timer: '',
-            button: 'dealFlowMessageTitleCollectSecurities'
+            header: 'dealFlowMessageTitleRecoverSecurities',
+            timer: 'securitiesRecoveryTimeLeftDescription',
+            button: 'dealFlowMessageTitleCancelAndRecoverSecurities'
           }
         }
       }
     }
+  },
+
+  isTransactionToUser (tx) {
+    const allAddresses = [...Session.current.allAddresses.BTC, ...Session.current.allAddresses.EQB]
+    return tx && allAddresses.indexOf(tx.toAddress)
   },
 
   /**
@@ -135,16 +141,32 @@ export const ViewModel = DefineMap.extend({
       'String'
     ), [order, offer, issuance, user, portfolio, secret])
 
-    const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
+    const currencyType = order.type === 'SELL' ? 'BTC' : 'EQB'
     return Promise.all([
       portfolio.getNextAddress(),
-      Session.current.transactionFeeRatesPromise
-    ]).then(([addrPair, transactionFeeRates]) => {
-      const txData = createHtlcRefund3(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
+      Session.current.transactionFeeRatesPromise,
+      feathersClient.service('proxycore').find({
+        query: {
+          node: currencyType.toLowerCase(),
+          method: 'getblockchaininfo'
+        }
+      })
+    ]).then(([addrPair, transactionFeeRates, blockchainInfo]) => {
+      const txData = createHtlcRefund4(
+        order,
+        offer,
+        portfolio,
+        issuance,
+        secret,
+        addrPair[currencyType],
+        transactionFeeRates.regular,
+        blockchainInfo.result.blocks // <- locktime for next transaction -- if it's not late enough,
+                                     //  sending TX will throw "Locktime requirement not satisfied" error
+      )
       const tx = new Transaction(txData)
       this.secret = secret
 
-      this.openRecoverModal(tx)
+      this.openModal(tx)
     })
   },
 

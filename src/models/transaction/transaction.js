@@ -317,10 +317,15 @@ const Transaction = DefineMap.extend('Transaction', {
     typeforce('?String', description)
     typeforce('Offer', offer)
 
+    const title = this.type === 'CANCEL'
+      ? (offer.htlcStep === 3 ? 'orderCancelled' : 'dealFlowMessageTitleDealCancelled')
+      : 'tradeWasUpdated'
+    const message = this.type === 'CANCEL' ? null : 'viewTransaction'
+
     this.description = description || this.description
     return this.save()
       .then(tx => updateOffer(offer, tx, secret))
-      .then(({tx}) => dispatchAlert(hub, tx, route))
+      .then(({tx}) => dispatchAlert(tx, title, message))
       .catch(dispatchAlertError)
   },
   // todo: incompleted...
@@ -344,7 +349,7 @@ function updateOffer (offer, tx, secret) {
   return offer.save().then(offer => ({ offer, tx }))
 }
 
-function dispatchAlert (hub, tx, route) {
+function dispatchAlert (tx, title, message) {
   if (!tx) {
     return
   }
@@ -352,8 +357,8 @@ function dispatchAlert (hub, tx, route) {
   return hub.dispatch({
     'type': 'alert',
     'kind': 'success',
-    'title': translate('tradeWasUpdated'),
-    'message': `<a href="${url}">${translate('viewTransaction')}</a>`,
+    'title': translate(title),
+    'message': message && `<a href="${url}">${translate(message)}</a>`,
     'displayInterval': 10000
   })
 }

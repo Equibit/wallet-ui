@@ -69,10 +69,11 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
         txid: offer.htlcTxId1,
         vout: 0,
         // todo: we can have a problem here with giving one BTC address to all offers.
-        keyPair: portfolio.findAddress(order.btcAddress).keyPair,
+        keyPair: portfolio.findAddress(isRefund ? offer.btcAddress : order.btcAddress).keyPair,
         htlc: {
           [isRefund ? 'secretHash' : 'secret']: isRefund ? offer.hashlock : secret,
           // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
+          receiverAddr: order.btcAddress,
           refundAddr: offer.btcAddress,
           timelock: offer.timelock
         },
@@ -94,14 +95,14 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
       fee,
       currencyType: 'BTC',
       amount: offer.quantity * order.price - fee,
-      description: `Collecting payment from HTLC (step #${htlcStep})`,
+      description: `${isRefund ? 'Refunding' : 'Collecting'} payment from HTLC (step #${htlcStep})`,
       fromAddress: offer.btcAddress,
-      toAddress: order.btcAddress,
+      toAddress: isRefund ? offer.btcAddress : order.btcAddress,
       htlcStep,
       offerId: offer._id,
       costPerShare: offer.price
     }
-    console.log(`createHtlc3: txInfo:`, txInfo)
+    console.log(`createHtlc4: txInfo:`, txInfo)
 
     return { buildConfig, txInfo }
   }
@@ -141,10 +142,11 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
         // Main input of the locked HTLC:
         txid: offer.htlcTxId1,
         vout: 0,
-        keyPair: portfolio.findAddress(order.eqbAddress).keyPair,
+        keyPair: portfolio.findAddress(isRefund ? offer.eqbAddress : order.eqbAddress).keyPair,
         htlc: {
           secret,
           // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
+          receiverAddr: order.eqbAddress,
           refundAddr: offer.eqbAddress,
           timelock
         },
@@ -172,14 +174,14 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
       fee,
       currencyType: 'EQB',
       amount: amount,
-      description: `Collecting securities from HTLC (step #${htlcStep})`,
+      description: `${isRefund ? 'Refunding' : 'Collecting'} securities from HTLC (step #${htlcStep})`,
       fromAddress: offer.eqbAddress,
-      toAddress: order.eqbAddress,
+      toAddress: isRefund ? offer.eqbAddress : order.eqbAddress,
       htlcStep,
       offerId: offer._id,
       costPerShare: offer.price
     }
-    console.log(`createHtlc3: txInfo:`, txInfo)
+    console.log(`createHtlc4: txInfo:`, txInfo)
 
     return { buildConfig, txInfo }
   }
