@@ -62,6 +62,7 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
     if (fee > amount) {
       fee = amount - 1
     }
+    const toAddress = isRefund ? offer.btcAddress : order.btcAddress
 
     const buildConfig = {
       vin: [{
@@ -83,12 +84,12 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
         // Main output for unlocked HTLC minus fee:
         value: amount - fee,
         // todo: should we send to a completely new BTC address? (e.g. multiple offers case)
-        address: isRefund ? offer.btcAddress : order.btcAddress
+        address: toAddress
       }]
     }
 
     const txInfo = {
-      address: order.btcAddress,
+      address: toAddress,
       addressTxid: buildConfig.vin[0].txid,
       addressVout: buildConfig.vin[0].vout,
       type: isRefund ? 'CANCEL' : 'SELL',
@@ -97,7 +98,7 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
       amount: offer.quantity * order.price - fee,
       description: `${isRefund ? 'Refunding' : 'Collecting'} payment from HTLC (step #${htlcStep})`,
       fromAddress: offer.btcAddress,
-      toAddress: isRefund ? offer.btcAddress : order.btcAddress,
+      toAddress,
       htlcStep,
       offerId: offer._id,
       costPerShare: offer.price
@@ -136,6 +137,7 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
         keyPair: portfolio.findAddress(a.address).keyPair,
         sequence: isRefund ? '0' : '4294967295'
       }))
+    const toAddress = isRefund ? offer.eqbAddress : order.eqbAddress
 
     const buildConfig = {
       vin: [{
@@ -155,7 +157,7 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
       vout: [{
         // Main output for unlocked HTLC securities:
         value: amount,
-        address: order.eqbAddress,
+        address: toAddress,
         issuanceTxId: issuance.issuanceTxId,
         paymentTxId
       }, {
@@ -167,7 +169,7 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
     buildConfig.vin = buildConfig.vin.concat(utxoEmptyEqb)
 
     const txInfo = {
-      address: order.eqbAddress,
+      address: toAddress,
       addressTxid: buildConfig.vin[0].txid,
       addressVout: buildConfig.vin[0].vout,
       type: isRefund ? 'CANCEL' : 'SELL',
@@ -176,7 +178,7 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
       amount: amount,
       description: `${isRefund ? 'Refunding' : 'Collecting'} securities from HTLC (step #${htlcStep})`,
       fromAddress: offer.eqbAddress,
-      toAddress: isRefund ? offer.eqbAddress : order.eqbAddress,
+      toAddress,
       htlcStep,
       offerId: offer._id,
       costPerShare: offer.price

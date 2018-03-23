@@ -172,13 +172,19 @@ const Offer = DefineMap.extend('Offer', {
   },
   get htlcTransactions () {
     const txesByStep = new DefineMap()
-    Transaction.getList({
-      txId: {
-        $in: [ this.htlcTxId1, this.htlcTxId2, this.htlcTxId3, this.htlcTxId4 ]
-      },
-      address: {
-        $in: [...Session.current.allAddresses.BTC, ...Session.current.allAddresses.EQB]
-      }
+    this.orderPromise.then(order => {
+      const addresses = [
+        this.btcAddress,
+        this.eqbAddress,
+        order.btcAddress,
+        order.eqbAddress
+      ]
+      return Transaction.getList({
+        txId: {
+          $in: [ this.htlcTxId1, this.htlcTxId2, this.htlcTxId3, this.htlcTxId4 ]
+        },
+        address: {'$in': addresses}
+      })
     }).then(txes => {
       const txesByTxId = {}
       txes.forEach(tx => {
