@@ -5,9 +5,9 @@
 
 <div class="form-group">
     <div class="btn-group order-buttons center-block">
-        <a href="#" class="btn btn-default btn-sm {{#is type 'SELL'}}btn-selected{{/is}}"
+        <a href="#" class="btn btn-default btn-sm {{#is formData.type 'SELL'}}btn-selected{{/is}}"
            on:click="switchType('SELL')">{{i18n('sell')}}</a>
-        <a href="#" class="btn btn-default btn-sm {{#is type 'BUY'}}btn-selected{{/is}}"
+        <a href="#" class="btn btn-default btn-sm {{#is formData.type 'BUY'}}btn-selected{{/is}}"
            on:click="switchType('BUY')">{{i18n('buy')}}</a>
     </div>
 </div>
@@ -39,7 +39,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-2">
             <label for="inputAskPrice" class="control-label">
-              {{#is type 'SELL'}} {{i18n('askPrice')}} {{else}} {{i18n('bidPrice')}} {{/is}}
+              {{#is formData.type 'SELL'}} {{i18n('askPrice')}} {{else}} {{i18n('bidPrice')}} {{/is}}
             </label>
           </div>
           <div class="col-xs-12 col-sm-9">

@@ -21,9 +21,8 @@ import view from './order-form.stache'
 export const ViewModel = DefineMap.extend({
   formData: '*',
   issuance: '*',
-  type: 'string',
   switchType (type) {
-    this.type = type
+    this.formData.type = type
   }
 })
 
