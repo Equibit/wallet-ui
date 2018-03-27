@@ -109,15 +109,17 @@
                       <a href="{{routeUrl page='transactions' itemId=offer.htlcTransactions3.txId}}">({{i18n('viewTransaction')}})</a>
                     </div>
                   {{else}}
-                    <div class="offer-timeline-event">
+                    <div class="offer-timeline-event button-only">
                       <span class="icon icon-check-expired"></span>
-                      <a href="" class="btn btn-xs btn-primary" on:click="cancelOffer(offer)">
-                        {{#if isAskFlow}}
-                          {{i18n('dealFlowMessageTitleRecoverUserSecurities')}}
-                        {{else}}
-                          {{i18n('dealFlowMessageTitleRecoverUserPayment')}}
-                        {{/if}}
-                      </a>
+                      <div class="offer-deal-action">
+                        <a href="" class="btn btn-xs btn-primary" on:click="cancelOffer(offer)">
+                          {{#if isAskFlow}}
+                            {{i18n('dealFlowMessageTitleRecoverUserSecurities')}}
+                          {{else}}
+                            {{i18n('dealFlowMessageTitleRecoverUserPayment')}}
+                          {{/if}}
+                        </a>
+                      </div>
                     </div>
                   {{/if}}
                 {{/if}}

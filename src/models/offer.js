@@ -172,6 +172,8 @@ const Offer = DefineMap.extend('Offer', {
   },
   get htlcTransactions () {
     const txesByStep = new DefineMap()
+    // make sure these vars get recorded by the observation
+    const { htlcTxId1, htlcTxId2, htlcTxId3, htlcTxId4 } = this
     this.orderPromise.then(order => {
       const addresses = [
         this.btcAddress,
@@ -181,7 +183,7 @@ const Offer = DefineMap.extend('Offer', {
       ]
       return Transaction.getList({
         txId: {
-          $in: [ this.htlcTxId1, this.htlcTxId2, this.htlcTxId3, this.htlcTxId4 ]
+          $in: [ htlcTxId1, htlcTxId2, htlcTxId3, htlcTxId4 ]
         },
         address: {'$in': addresses}
       })
@@ -237,7 +239,15 @@ const Offer = DefineMap.extend('Offer', {
   //  especially once we get block height updating live from the server.
   timelockInfo: {
     get () {
-      const timelockInfo = new DefineMap()
+      const timelockInfo = new DefineMap({
+        fullDuration: null,
+        fullEndAt: null,
+        fullBlocksRemaining: null,
+        partialDuration: null,
+        partialEndAt: null,
+        partialBlocksRemaining: null,
+        safetyZone: null
+      })
       this.timelockInfoPromise.then(info => {
         timelockInfo.assign(info)
       })

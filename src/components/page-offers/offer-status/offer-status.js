@@ -86,7 +86,7 @@ export const ViewModel = DefineMap.extend({
 
   isTransactionToUser (tx) {
     const allAddresses = [...Session.current.allAddresses.BTC, ...Session.current.allAddresses.EQB]
-    return tx && allAddresses.indexOf(tx.toAddress)
+    return tx && allAddresses.indexOf(tx.toAddress) > -1
   },
 
   /**

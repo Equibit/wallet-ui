@@ -125,6 +125,19 @@
                 {{i18n('dealFlowMessageTitleDealCancelledOnUser')}}
                 <span class="offer-date">{{format-date-medium(offer.htlcTransactions.4.createdAt)}}</span>
               </div>
+            {{else}}
+              {{#if isTransactionToUser(offer.htlcTransactions.3)}}
+                <div class="offer-timeline-event">
+                  <span class="icon icon-check-cancelled"></span>
+                  {{i18n('dealFlowMessageTitleRecoveredFunds')}}
+                  <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId3}}">({{i18n('viewTransaction')}})</a>
+                </div>
+              <div class="offer-timeline-event">
+                <span class="icon icon-hand-stop"></span>
+                {{i18n('dealFlowMessageTitleDealCancelledOnUser')}}
+                <span class="offer-date">{{format-date-medium(offer.htlcTransactions.3.createdAt)}}</span>
+              </div>
+              {{/if}}
             {{/if}}
           {{/eq}}
         </div>
