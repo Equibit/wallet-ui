@@ -19,7 +19,6 @@ import moment from 'moment'
 import { translate } from '../i18n/i18n'
 import Transaction from './transaction/'
 import { blockTime } from '~/constants'
-import Session from '~/models/session'
 
 const Offer = DefineMap.extend('Offer', {
   _id: 'string',
