@@ -151,6 +151,13 @@ const Transaction = DefineMap.extend('Transaction', {
   timelock: 'number',
 
   /**
+   * @property {Number} models/transaction.properties.confirmationBlockHeight confirmationBlockHeight
+   * @parent models/transaction.properties
+   * The block height of the blockchain at the time the transaction was confirmed (for calculating timelocks).
+   */
+  confirmationBlockHeight: 'number',
+
+  /**
    * @property {String} models/transaction.properties.refundAddress refundAddress
    * @parent models/transaction.properties
    * Refund address for HTLC transaction.
