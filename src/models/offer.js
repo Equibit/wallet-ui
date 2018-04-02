@@ -110,6 +110,15 @@ const Offer = DefineMap.extend('Offer', {
   timelock: 'number',
   // HTLC2 timelock:
   timelock2: 'number',
+
+  // blockheights when timelock and timelock2 expire
+  timelockExpiresBlockheight: 'number',
+  timelock2ExpiresBlockheight: 'number',
+
+  // date/time stamps when timelocks expired
+  timelockExpiredAt: 'date',
+  timelock2ExpiredAt: 'date',
+
   htlcTxId1: 'string',
   htlcTxId2: 'string',
   htlcTxId3: 'string',
