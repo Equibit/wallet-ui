@@ -344,7 +344,9 @@ const Offer = DefineMap.extend('Offer', {
 
         // Clean up the observation stack and update the bindings for the observation
         Observation.observationStack.pop()
-        this._computed.timelockInfoPromise.compute.updateBindings()
+        if (this._computed.timelockInfoPromise.compute.oldObserved) {
+          this._computed.timelockInfoPromise.compute.updateBindings()
+        }
 
         return {
           fullDuration,

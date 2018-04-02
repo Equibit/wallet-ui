@@ -21,6 +21,7 @@
                 </a>
               </div>
             </div>
+            <div class="media-right">{{format-time(notification.createdAt)}}</div>
           </div>
         </a>
       {{/case}}
@@ -35,63 +36,84 @@
             </div>
             <div class="media-body">
               <h4 class="media-heading">
-                {{#eq data.htlcStep 1}}{{i18n(data.type.toLowerCase())}}{{/eq}}
-                {{#eq data.htlcStep 2}}{{i18n(data.type.toLowerCase())}}{{/eq}}
+                {{^eq data.status "SAFETY_ZONE"}}
+                  {{#eq data.htlcStep 1}}{{i18n(data.type.toLowerCase())}}{{/eq}}
+                  {{#eq data.htlcStep 2}}{{i18n(data.type.toLowerCase())}}{{/eq}}
+                {{/eq}}
                 {{i18n(data.action)}}</h4>
               <div class="media-description">{{i18n('for')}} {{data.companyName}}, {{data.issuanceName}}</div>
               <div class="media-cta btn-link">
-                {{#switch data.htlcStep}}
-                  {{#case 1}}
+                {{#switch data.status}}
+                  {{#case "SAFETY_ZONE"}}
                     <a href="{{routeUrl page='orders' itemId=data.orderId}}">
-                      {{i18n('quantity')}} {{format-int(data.quantity)}}
+                      {{i18n('cancelDeal')}}
                     </a>
                   {{/case}}
-                  {{#case 2}}
-                    {{#with offerPromise=offerFor(notification)}}
-                      {{#if offerPromise.isResolved}}
-                        {{#eq offerPromise.value.htlcStep data.htlcStep}}
-                          <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
-                            {{#eq data.type "SELL"}}
-                              {{i18n('dealFlowMessageTitleCollectPayment')}}
-                            {{else}}
-                              {{i18n('dealFlowMessageTitleCollectSecurities')}}
-                            {{/eq}}
-                          </a>
-                        {{else}}
-                          <a href="{{routeUrl page='offers' itemId=data.offerId}}">
-                            {{#eq data.type "SELL"}}
-                              {{i18n('htlcUserCollectedPaymentDescription')}}
-                            {{else}}
-                              {{i18n('htlcUserCollectedSecuritiesDescription')}}
-                            {{/eq}}
-                          </a>
-                        {{/eq}}
-                      {{/if}}
-                    {{/with}}
+                  {{#case 'EXPIRED'}}
+                    <a href="{{routeUrl page='offers' itemId=data.offerId}}">
+                      {{#eq data.type 'BUY'}}
+                        {{i18n('recoverFunds')}}
+                      {{else}}
+                        {{i18n('dealFlowMessageTitleRecoverSecurities')}}
+                      {{/eq}}
+                    </a>
                   {{/case}}
-                  {{#case 3}}
-                    {{#with offerPromise=offerFor(notification)}}
-                      {{#if offerPromise.isResolved}}
-                        {{#eq offerPromise.value.htlcStep data.htlcStep}}
-                          <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
-                            {{i18n('dealFlowStep3')}}
-                          </a>
-                        {{else}}
-                          <a href="{{routeUrl page='orders' itemId=data.orderId}}">
-                            {{#eq data.type "SELL"}}
-                              {{i18n('htlcUserCollectedSecuritiesDescription')}}
+                  {{#default}}
+                    {{#switch data.htlcStep}}
+                      {{#case 1}}
+                        <a href="{{routeUrl page='orders' itemId=data.orderId}}">
+                          {{i18n('quantity')}} {{format-int(data.quantity)}}
+                        </a>
+                      {{/case}}
+                      {{#case 2}}
+                        {{#with offerPromise=offerFor(notification)}}
+                          {{#if offerPromise.isResolved}}
+                            {{#eq offerPromise.value.htlcStep data.htlcStep}}
+                              <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
+                                {{#eq data.type "SELL"}}
+                                  {{i18n('dealFlowMessageTitleCollectPayment')}}
+                                {{else}}
+                                  {{i18n('dealFlowMessageTitleCollectSecurities')}}
+                                {{/eq}}
+                              </a>
                             {{else}}
-                              {{i18n('htlcUserCollectedPaymentDescription')}}
+                              <a href="{{routeUrl page='offers' itemId=data.offerId}}">
+                                {{#eq data.type "SELL"}}
+                                  {{i18n('htlcUserCollectedPaymentDescription')}}
+                                {{else}}
+                                  {{i18n('htlcUserCollectedSecuritiesDescription')}}
+                                {{/eq}}
+                              </a>
                             {{/eq}}
-                          </a>
-                        {{/eq}}
-                      {{/if}}
-                    {{/with}}
-                  {{/case}}
+                          {{/if}}
+                        {{/with}}
+                      {{/case}}
+                      {{#case 3}}
+                        {{#with offerPromise=offerFor(notification)}}
+                          {{#if offerPromise.isResolved}}
+                            {{#eq offerPromise.value.htlcStep data.htlcStep}}
+                              <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
+                                {{i18n('dealFlowStep3')}}
+                              </a>
+                            {{else}}
+                              <a href="{{routeUrl page='orders' itemId=data.orderId}}">
+                                {{#eq data.type "SELL"}}
+                                  {{i18n('htlcUserCollectedSecuritiesDescription')}}
+                                {{else}}
+                                  {{i18n('htlcUserCollectedPaymentDescription')}}
+                                {{/eq}}
+                              </a>
+                            {{/eq}}
+                          {{/if}}
+                        {{/with}}
+                      {{/case}}
+                    {{/switch}}
+                  {{/default}}
                 {{/switch}}
               </div>
             </div>
             {{/with}}
+            <div class="media-right">{{format-time(notification.createdAt)}}</div>
           </div>
         </a>
       {{/case}}

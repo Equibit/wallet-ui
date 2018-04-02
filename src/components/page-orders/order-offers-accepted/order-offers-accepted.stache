@@ -60,7 +60,7 @@
                     {{else}}
                       {{i18n('paymentCollectionExpiredOn')}}
                     {{/if}}
-                    <span class="offer-date">{{format-date-medium(offer.htlcTransactions.2.updatedAt)}}</span>
+                    <span class="offer-date">{{format-date-medium(offer.timelock2ExpiredAt)}}</span>
                 </div>
                 {{! htlc3 and htlc4 occur in the order they were done, but htlc3 may be either the buyer or seller}}
                 {{#if isTransactionToUser(offer.htlcTransactions.3)}}
@@ -87,7 +87,7 @@
                   <div class="offer-timeline-event">
                     <span class="icon icon-circle-warning"></span>
                     {{i18n('dealFlowMessageTitleOfferExipredOn')}}
-                    <span class="offer-date">{{format-date-medium(offer.htlcTransactions.1.updatedAt)}}</span>
+                    <span class="offer-date">{{format-date-medium(offer.timelockExpiredAt)}}</span>
                   </div>
                   <div class="offer-timeline-event">
                     <span class="icon icon-hand-stop"></span>
@@ -151,7 +151,7 @@
                       {{else}}
                         {{i18n('paymentCollectionExpiredOn')}}
                       {{/if}}
-                      <span class="offer-date">{{format-date-medium(offer.htlcTransactions.2.updatedAt)}}</span>
+                      <span class="offer-date">{{format-date-medium(offer.timelock2ExpiredAt)}}</span>
                     </div>
                     <div class="offer-timeline-event offer-timeline-event--pending">
                       <span class="icon icon-check-expired"></span>
