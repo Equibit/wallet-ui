@@ -9,7 +9,6 @@
 
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
-import Observation from 'can-observation'
 import feathersClient from './feathers-client'
 // import superModel from './super-model'
 import { superModelNoCache as superModel } from './super-model'
