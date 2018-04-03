@@ -33,7 +33,7 @@ export const ViewModel = DefineMap.extend({
   },
   authIssuancesOnly: 'boolean',
   formData: {
-    get (val) {
+    value (val) {
       if (val) {
         return val
       }
@@ -41,7 +41,8 @@ export const ViewModel = DefineMap.extend({
         portfolio: this.portfolio,
         issuance: this.issuance,
         session: Session.current,
-        authIssuancesOnly: this.authIssuancesOnly
+        authIssuancesOnly: this.authIssuancesOnly,
+        type: this.type
         // rates: Session.current.rates
       })
     }
@@ -62,7 +63,7 @@ export const ViewModel = DefineMap.extend({
   },
   send (close) {
     this.isSending = true
-    this.sendFn(this.formData, this.type)
+    this.sendFn(this.formData, this.formData.type)
       .then(() => {
         this.isSending = false
         close()

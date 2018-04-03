@@ -11,6 +11,10 @@ stache.registerHelper('format', function (value, symbol, precision) {
   return accounting.formatMoney(value, symbol, precision)
 })
 
+stache.registerHelper('to-fixed-2', function (value) {
+  return parseFloat(value, 10).toFixed(2)
+})
+
 stache.registerHelper('format-max', function (value, precision) {
   if (typeof precision === 'undefined') {
     precision = 2
@@ -27,7 +31,6 @@ stache.registerHelper('format-milli', function (value) {
 // Satoshi to uBTC
 stache.registerHelper('format-micro', function (satoshi) {
   return toMaxPrecision(satoshi / 100, 2)
-  // return toMaxPrecision(value * 1000 * 1000, 2)
 })
 
 stache.registerHelper('format-int', function (value) {
@@ -60,7 +63,7 @@ stache.registerHelper('local-currency', function (value, type) {
   return localCurrency(value, type)
 })
 stache.registerHelper('local-currency-symbol', function () {
-  return Session.fiatCurrency()
+  return (Session && Session.fiatCurrency && Session.fiatCurrency()) || 'USD'
 })
 
 // Satoshi to Bitcoins

@@ -70,10 +70,20 @@ const exports = {
       .catch(() => 0)
   },
   convertToUserFiat (value, symbol, scaleSymbol) {
-    return exports.convertCryptoToFiat(value, symbol + Session.fiatCurrency(), scaleSymbol)
+    if (!Session || !Session.fiatCurrency) {
+      console.log('** convertToUserFiat: typeof Session: ' + typeof Session)
+      console.log('** convertToUserFiat: typeof Session.fiatCurrency: ' + typeof Session.fiatCurrency)
+    }
+    const fiatCurrency = (Session && Session.fiatCurrency && Session.fiatCurrency()) || 'USD'
+    return exports.convertCryptoToFiat(value, symbol + fiatCurrency, scaleSymbol)
   },
   convertFromUserFiat (value, symbol, scaleSymbol) {
-    return exports.convertFiatToCrypto(value, symbol + Session.fiatCurrency(), scaleSymbol)
+    if (!Session || !Session.fiatCurrency) {
+      console.log('** convertFromUserFiat: typeof Session: ' + typeof Session)
+      console.log('** convertFromUserFiat: typeof Session.fiatCurrency: ' + typeof Session.fiatCurrency)
+    }
+    const fiatCurrency = (Session && Session.fiatCurrency && Session.fiatCurrency()) || 'USD'
+    return exports.convertFiatToCrypto(value, symbol + fiatCurrency, scaleSymbol)
   },
   convertCryptoToCrypto (value, fromSymbol, toSymbol, fromScale = exports.unit, toScale = exports.unit) {
     return exports.convertToUserFiat(value, fromSymbol, fromScale)

@@ -51,21 +51,25 @@ export const ViewModel = DefineMap.extend({
         type: tx.currencyType,
         address: tx.toAddress,
         issuanceName: issuance.companyName + ', ' + issuance.issuanceName,
-        quantityBtc: tx.amount / 100000000,
         quantity: tx.amount,
         fee: tx.fee,
         totalAmount: (tx.amount + tx.fee),
-        totalAmountBtc: (tx.amount + tx.fee) / 100000000,
         // timelock is in blocks (10min per block)
         timelock: Math.floor(tx.timelock / 6),
         description: tx.description,
         offerTimelock: Math.floor(this.offerTimelock / 6),
-        portfolioName: this.portfolio.name
+        portfolioName: this.portfolio.name,
+        // For the Ask flow calc shares price in Satoshi:
+        price: this.flowType === 'Ask' ? tx.amount * this.offer.price : 0
       })
     }
   },
-  convertToUSD: function (value) {
-    return currencyConverter.convertToUserFiat(value, 'EQB', currencyConverter.unit)
+  convertToUSD: function (value, type) {
+    // This is used for:
+    // 1. BTC for Bid (both amount and fee in BTC)
+    // 2. BTC for Ask (price of shares in BTC)
+    // 3. EQB for Ask (fee of empty EQB)
+    return currencyConverter.convertToUserFiat(value, type, currencyConverter.satoshi)
   },
   sendFn: '*',
   isSending: {

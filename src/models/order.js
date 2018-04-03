@@ -165,6 +165,9 @@ const Order = DefineMap.extend('Order', {
   get goodForSec () {
     return this.goodFor * 24 * 3600
   },
+  get goodUntil () {
+    return moment(this.createdAt).add(this.goodFor, 'days').format('MMM D')
+  },
 
   //
   // Related models:
