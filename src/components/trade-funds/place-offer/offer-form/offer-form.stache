@@ -1,5 +1,6 @@
 <can-import from="~/components/common/fillkill-indicator/fillkill-indicator.component" />
 <can-import from="~/components/common/issuance-summary/issuance-summary.component" />
+<can-import from="~/components/common/validation-message.component" />
 <can-import from="~/utils/stache-helpers/" />
 
 <div class="list-group">
@@ -43,6 +44,9 @@
                  value:bind="formData.quantity">
           {{^if formData.hasEnoughFunds}}
             <validation-message message:from="formData.errorMessage" />
+          {{/if}}
+          {{^if formData.quantityIsVaild}}
+            <validation-message message:from="formData.quantityProblem" />
           {{/if}}
         </div>
 
