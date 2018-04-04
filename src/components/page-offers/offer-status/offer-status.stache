@@ -2,6 +2,162 @@
 <can-import from="~/components/trade-funds/collect-asset/" />
 <can-import from="~/components/common/time-remaining/" />
 
+{{! partials defined here}}
+{{! htlc1 completed line item}}
+{{<postedEvent}}
+  <div class="offer-timeline-event">
+    <span class="icon icon-check-{{state}}"></span>
+    {{i18n('dealFlowMessageTitleOfferPostedOn')}}
+    <span class="offer-date">{{format-date-medium(offer.htlcTransactions.1.createdAt)}}</span>
+  </div>
+{{/postedEvent}}
+
+{{! htlc1 completed line item}}
+{{<offerSentEvent}}
+  <div class="offer-timeline-event">
+    <span class="icon icon-check-{{state}}"></span>
+    {{#if isAskFlow}}
+      {{i18n('dealFlowMessageTitlePaymentOfferSent')}}
+    {{else}}
+      {{i18n('dealFlowMessageTitleSecuritiesOfferSent')}}
+    {{/if}}
+    <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">({{i18n('viewTransaction')}})</a>
+  </div>
+{{/offerSentEvent}}
+
+{{! htlc2 completed line item }}
+{{<offerAcceptedEvent}}
+  <div class="offer-timeline-event">
+    <span class="icon icon-check-{{state}}"></span>
+    {{#if isAskFlow}}
+      {{i18n('dealFlowMessageTitleOfferAcceptedOnSeller')}}
+    {{else}}
+      {{i18n('dealFlowMessageTitleOfferAcceptedOnBuyer')}}
+    {{/if}}
+    <span class="offer-date">{{format-date-medium(offer.htlcTransactions.2.createdAt)}}</span>
+  </div>
+{{/offerAcceptedEvent}}
+
+{{! htlc3 completed line item }}
+{{<userReceivedEvent}}
+  <div class="offer-timeline-event">
+    <span class="icon icon-check-{{state}}"></span>
+    {{#if isAskFlow}}
+      {{i18n('dealFlowMessageTitleSecuritiesCollected')}}
+    {{else}}
+      {{i18n('dealFlowMessageTitlePaymentCollected')}}
+    {{/if}}
+    <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId3}}">({{i18n('viewTransaction')}})</a>
+  </div>
+{{/userReceivedEvent}}
+
+{{<recoverButton}}
+  <div class="offer-deal-action">
+    <a href="" class="btn btn-xs btn-primary" on:click="recoverSecurities()">
+      {{#if isAskFlow}}
+        {{i18n('dealFlowMessageTitleRecoverPayment')}}
+      {{else}}
+        {{i18n('dealFlowMessageTitleRecoverSecurities')}}
+      {{/if}}
+    </a>
+  </div>
+{{/recoverButton}}
+{{! end partials defs }}
+
+{{#eq offer.status "CANCELLED"}}
+
+  <div class="row timeline-container contextual-bg-danger">
+    <div class="col-xs-12 offer-timeline">
+      <div class="row">
+        <!--Events-->
+        <div class="col-xs-12 col-sm-9">
+          {{#with state='cancelled'}}
+            {{>postedEvent}}
+            {{>offerSentEvent}}
+            {{>offerAcceptedEvent}}
+          {{/with}}
+          <div class="offer-timeline-event">
+            <span class="icon icon-circle-warning"></span>
+            {{i18n('dealFlowMessageTitleCollectionTimeExpiredOn')}}
+            <span class="offer-date">{{format-date-medium(offer.timelockInfo.partialEndAt)}}</span>.
+          </div>
+          {{^eq offer.timelockInfo.fullBlocksRemaining 0}}
+            <div class="offer-timeline-event offer-timeline-event--pending extends-previous-event">
+              <span class="icon icon-none-warning"></span>
+              {{i18n('dealFlowMessageTitleUserCanRecoverOnExpiry')}}
+            </div>
+          {{/eq}}
+          {{#unless isTransactionToUser(offer.htlcTransactions.3)}}
+            <div class="offer-timeline-event">
+              <span class="icon icon-hand-stop"></span>
+              {{#if isAskFlow}}
+                {{i18n('dealFlowMessageTitleSellerCancelledDealOn')}}
+              {{else}}
+                {{i18n('dealFlowMessageTitleBuyerCancelledDealOn')}}
+              {{/if}}
+              <span class="offer-date">{{format-date-medium(offer.timelockInfo.partialEndAt)}}</span>.
+            </div>
+          {{/unless}}
+          {{#eq offer.timelockInfo.fullBlocksRemaining 0}}
+            <div class="offer-timeline-event">
+              <span class="icon icon-circle-warning"></span>
+              {{i18n('dealFlowMessageTitleOfferExipredOn')}}
+              <span class="offer-date">{{format-date-medium(offer.timelockInfo.fullEndAt)}}</span>
+              {{#unless offer.htlcTransactions.4}}
+                {{#unless isTransactionToUser(offer.htlcTransactions.3)}}
+                  {{! with the full timelock expired and the user not having made a refund yet, allow refund. }}
+                  {{>recoverButton}}
+                {{/unless}}
+              {{/unless}}
+            </div>
+            {{#if offer.htlcTransactions.4}}
+              <div class="offer-timeline-event">
+                <span class="icon icon-check-cancelled"></span>
+                {{i18n('dealFlowMessageTitleRecoveredFunds')}}
+                {{#if isTransactionToUser(offer.htlcTransactions.3)}}
+                  <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId3}}">({{i18n('viewTransaction')}})</a>
+                {{else}}
+                  <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId4}}">({{i18n('viewTransaction')}})</a>
+                {{/if}}
+              </div>
+              <div class="offer-timeline-event">
+                <span class="icon icon-hand-stop"></span>
+                {{i18n('dealFlowMessageTitleDealCancelledOnUser')}}
+                <span class="offer-date">{{format-date-medium(offer.htlcTransactions.4.createdAt)}}</span>
+              </div>
+            {{else}}
+              {{#if isTransactionToUser(offer.htlcTransactions.3)}}
+                <div class="offer-timeline-event">
+                  <span class="icon icon-check-cancelled"></span>
+                  {{i18n('dealFlowMessageTitleRecoveredFunds')}}
+                  <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId3}}">({{i18n('viewTransaction')}})</a>
+                </div>
+              <div class="offer-timeline-event">
+                <span class="icon icon-hand-stop"></span>
+                {{i18n('dealFlowMessageTitleDealCancelledOnUser')}}
+                <span class="offer-date">{{format-date-medium(offer.htlcTransactions.3.createdAt)}}</span>
+              </div>
+              {{/if}}
+            {{/if}}
+          {{/eq}}
+        </div>
+
+        <!-- Timer -->
+        {{#unless offer.htlcTransactions.4}}
+          {{#unless isTransactionToUser(offer.htlcTransactions.3)}}
+          <div class="col-xs-12 col-sm-3">
+            <div class="timer-container">
+              <label>{{i18n('timelockTitleOfferExpiration')}}</label>
+              <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
+            </div>
+          </div>
+          {{/unless}}
+        {{/unless}}
+      </div>
+    </div>
+  </div>
+{{else}}
+
 {{#switch offer.htlcStep}}
   {{#case 1}}
     <div class="row timeline-container contextual-bg-info">
@@ -10,23 +166,30 @@
 
           <!--Events-->
           <div class="col-xs-12 col-sm-9">
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-open"></span>Offer posted on <span class="offer-date">{{dateDisplay}}</span>
-            </div>
+            {{#with state='open'}}{{>postedEvent}}{{/with}}
             <div class="offer-timeline-event">
               <span class="icon icon-check-open"></span>
-              {{#if isAskFlow}}Payment{{else}}Securities{{/if}} offer sent
-              <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
+              {{#if isAskFlow}}
+                {{i18n('dealFlowMessageTitlePaymentOfferSent')}}
+              {{else}}
+                {{i18n('dealFlowMessageTitleSecuritiesOfferSent')}}
+              {{/if}}
+              <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">({{i18n('viewTransaction')}})</a>
             </div>
             <div class="offer-timeline-event offer-timeline-event--pending">
-              <span class="icon icon-check-pending"></span>Awaiting {{#if isAskFlow}}seller{{else}}buyer{{/if}} to accept offer
+              <span class="icon icon-check-pending"></span>
+              {{#if isAskFlow}}
+                {{i18n('dealFlowMessageTitleAwaitingOfferAcceptanceSeller')}}
+              {{else}}
+                {{i18n('dealFlowMessageTitleAwaitingOfferAcceptanceSeller')}}
+              {{/if}}
             </div>
           </div>
 
           <!--Timer-->
           <div class="col-xs-12 col-sm-3">
             <div class="timer-container">
-              <label>Offer Expiration</label>
+              <label>{{i18n('timelockTitleOfferExpiration')}}</label>
               <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
             </div>
           </div>
@@ -37,74 +200,115 @@
   {{/case}}
 
   {{#case 2}}
-    <div class="row timeline-container contextual-bg-progress">
+    {{#unless offer.timelockInfoPromise.isPending}}
+    <div class="row timeline-container {{#eq offer.timelockInfo.partialBlocksRemaining 0}}contextual-bg-inactive{{else}}contextual-bg-progress{{/eq}}">
       <div class="col-xs-12 offer-timeline">
         <div class="row">
 
           <!--Events-->
           <div class="col-xs-12 col-sm-9">
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-progress"></span>Offer posted on <span class="offer-date">{{dateDisplay}}</span>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-progress"></span>
-              {{#if isAskFlow}}Payment{{else}}Securities{{/if}} offer sent
-              <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-progress"></span>
-              {{#if isAskFlow}}Seller{{else}}Buyer{{/if}} accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
-            </div>
-            <div class="offer-timeline-event offer-timeline-event--pending">
-              <span class="icon icon-check-pending"></span>
-              You can now collect the {{#if isAskFlow}}securities{{else}}payment{{/if}}
-              <div class="offer-deal-action">
-                <a href="" class="btn btn-xs btn-primary" on:click="collectSecurities()">
-                  Collect {{#if isAskFlow}}Securities{{else}}Payment{{/if}}
-                </a>
+            {{#eq offer.timelockInfo.partialBlocksRemaining 0}}
+              {{#with state='expired'}}
+                {{>postedEvent}}
+                {{>offerSentEvent}}
+                {{>offerAcceptedEvent}}
+              {{/with}}
+              <div class="offer-timeline-event">
+                <span class="icon icon-expired"></span>
+                {{i18n('dealFlowMessageTitleCollectionTimeExpiredOn')}}
+                <span class="offer-date">{{format-date-medium(offer.timelockInfo.partialEndAt)}}</span>
+                {{^eq offer.timelockInfo.fullBlocksRemaining 0}}
+                  <br>
+                  <span class="offer-timeline-event--pending">
+                    {{i18n('dealFlowMessageContentRecoverFunds')}}
+                  </span>
+                {{/eq}}
               </div>
-            </div>
+              {{#eq offer.timelockInfo.fullBlocksRemaining 0}}
+                <div class="offer-timeline-event">
+                  <span class="icon icon-expired"></span>
+                  {{i18n('dealFlowMessageTitleOfferExipredOn')}}
+                  <span class="offer-date">{{format-date-medium(offer.timelockInfo.fullEndAt)}}</span>
+                </div>
+                <div class="offer-timeline-event offer-timeline-event--pending">
+                  <span class="icon icon-check-expired"></span>
+                  {{#if isAskFlow}}
+                    {{i18n('cancelBidDealOnDescription')}}
+                  {{else}}
+                    {{i18n('cancelAskDealOnDescription')}}
+                  {{/if}}
+                  {{>recoverButton}}
+                </div>
+
+              {{/eq}}
+            {{else}}
+              {{#with state='progress'}}
+                {{>postedEvent}}
+                {{>offerSentEvent}}
+                {{>offerAcceptedEvent}}
+              {{/with}}
+              <div class="offer-timeline-event offer-timeline-event--pending">
+                <span class="icon icon-check-pending"></span>
+                {{#if isAskFlow}}
+                  {{i18n('dealFlowMessageContentCollectSecurities')}}
+                {{else}}
+                  {{i18n('dealFlowMessageContentCollectPayment')}}
+                {{/if}}
+                <div class="offer-deal-action">
+                  <a href="" class="btn btn-xs btn-primary" on:click="collectSecurities()">
+                    {{#if isAskFlow}}
+                      {{i18n('dealFlowMessageTitleCollectSecurities')}}
+                    {{else}}
+                      {{i18n('dealFlowMessageTitleCollectPayment')}}
+                    {{/if}}
+                  </a>
+                </div>
+              </div>
+            {{/eq}}
           </div>
 
           <!--Timer-->
+          {{^eq offer.timelockInfo.fullBlocksRemaining 0}}
           <div class="col-xs-12 col-sm-3">
             <div class="timer-container">
-              <label>Time left to collect the {{#if isAskFlow}}securities{{else}}payment{{/if}}</label>
-              <time-remaining endTime:from="offer.timelockInfo.partialEndAt"></time-remaining>
+              {{#eq offer.timelockInfo.partialBlocksRemaining 0}}
+                <label>{{i18n('timelockTitleOfferExpiration')}}</label>
+                <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
+              {{else}}
+                <label>
+                  {{#if isAskFlow}}
+                    {{i18n('securitiesCollectionTimeLeftDescription')}}
+                  {{else}}
+                    {{i18n('paymentCollectionTimeLeftDescription')}}
+                  {{/if}}
+                </label>
+                <time-remaining endTime:from="offer.timelockInfo.partialEndAt"></time-remaining>
+              {{/eq}}
             </div>
           </div>
+          {{/eq}}
 
         </div>
       </div>
     </div>
+    {{/unless}}
   {{/case}}
 
   {{#case 3}}
-    <div class="row timeline-container contextual-bg-success">
+    <div class="row timeline-container {{#eq offer.status 'CANCELLED'}}contextual-bg-danger{{else}}contextual-bg-success{{/eq}}">
       <div class="col-xs-12 offer-timeline">
         <div class="row">
 
           <!--Events-->
           <div class="col-xs-12 col-sm-9">
+            {{#with state='done'}}
+              {{>postedEvent}}
+              {{>offerSentEvent}}
+              {{>offerAcceptedEvent}}
+              {{>userReceivedEvent}}
+            {{/with}}
             <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>Offer posted on <span class="offer-date">{{dateDisplay}}</span>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>
-              {{#if isAskFlow}}Payment{{else}}Securities{{/if}} offer sent
-              <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>
-              {{#if isAskFlow}}Seller{{else}}Buyer{{/if}} accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>
-              {{#if isAskFlow}}Securities{{else}}Payment{{/if}} collected
-              <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId3}}">(View Transaction)</a>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-hand-shake"></span>Deal Closed
+              <span class="icon icon-hand-shake"></span>{{i18n('dealFlowMessageTitleDealClosed')}}
             </div>
           </div>
 
@@ -120,58 +324,15 @@
 
           <!--Events-->
           <div class="col-xs-12 col-sm-9">
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>Offer posted on <span class="offer-date">{{dateDisplay}}</span>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>
-              {{#if isAskFlow}}Payment{{else}}Securities{{/if}} offer sent
-              <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">(View Transaction)</a>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>
-              {{#if isAskFlow}}Seller{{else}}Buyer{{/if}} accepted the offer on <span class="offer-date">{{dateDisplay}}</span>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>
-              {{#if isAskFlow}}Securities{{else}}Payment{{/if}} collected
-              <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId3}}">(View Transaction)</a>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-done"></span>
-              {{#if isAskFlow}}Payment{{else}}Securities{{/if}} collected
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-hand-shake"></span>Deal Closed
-            </div>
-          </div>
+            {{#with state='done'}}
+              {{>postedEvent}}
+              {{>offerSentEvent}}
+              {{>offerAcceptedEvent}}
+              {{>userReceivedEvent}}
+            {{/with}}
 
-        </div>
-      </div>
-    </div>
-  {{/case}}
-
-  {{#case "CANCELLED"}}
-    <div class="row timeline-container contextual-bg-danger">
-      <div class="col-xs-12 offer-timeline">
-        <div class="row">
-
-          <!--Events-->
-          <div class="col-xs-12 col-sm-9">
             <div class="offer-timeline-event">
-              <span class="icon icon-check-cancelled"></span>Offer posted on <span class="offer-date">{{dateDisplay}}</span>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-cancelled"></span>Payment offer sent <a href="">(View Transaction)</a>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-circle-warning"></span>Offer expired on <span class="offer-date">{{dateDisplay}}</span>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-cancelled"></span>Recovered funds <a href="">(View Transaction)</a>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-hand-stop"></span>You cancelled this deal on <span class="offer-date">{{dateDisplay}}</span>
+              <span class="icon icon-hand-shake"></span>{{i18n('dealFlowMessageTitleDealClosed')}}
             </div>
           </div>
 
@@ -187,20 +348,20 @@
 
           <!--Events-->
           <div class="col-xs-12 col-sm-9">
+            {{#with state='expired'}}
+              {{>postedEvent}}
+              {{>offerSentEvent}}
+            {{/with}}
             <div class="offer-timeline-event">
-              <span class="icon icon-check-expired"></span>Offer posted on <span class="offer-date">{{dateDisplay}}</span>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-check-expired"></span>Payment offer sent <a href="">(View Transaction)</a>
-            </div>
-            <div class="offer-timeline-event">
-              <span class="icon icon-circle-warning"></span>Offer expired on <span class="offer-date">{{dateDisplay}}</span>
+              <span class="icon icon-circle-warning"></span>
+              {{i18n('dealFlowMessageTitleOfferExipredOn')}}
+              <span class="offer-date">{{format-date-medium(offer.timelockInfo.createdAt)}}</span>
             </div>
             <div class="offer-timeline-event offer-timeline-event--pending">
               <span class="icon icon-check-pending"></span>
-              Cancel deal to recover funds
+              {{i18n('dealFlowMessageTitleCancelDeal')}}
               <div class="offer-deal-action">
-                <a href="" class="btn btn-xs btn-primary" on:click="collectPayment(offer)">Cancel Deal</a>
+                <a href="" class="btn btn-xs btn-primary" on:click="collectPayment(offer)">{{i18n('cancelDeal')}}</a>
               </div>
             </div>
           </div>
@@ -210,11 +371,13 @@
     </div>
   {{/case}}
 {{/switch}}
+{{/eq}}
 
 {{#if isModalShown}}
   <collect-asset sendFn:from="@sendTransaction"
                  tx:from="tx"
                  portfolio:from="portfolio"
                  issuance:from="issuance"
-                 offerTimelock:from="offer.timelockInfo.partialEndAt" />
+                 titles:from="titles"
+                 {{^eq tx.type 'CANCEL'}}offerTimelock:from="offer.timelockInfo.partialEndAt"{{/eq}} />
 {{/if}}

@@ -19,6 +19,7 @@ import moment from 'moment'
 import { translate } from '../i18n/i18n'
 import Transaction from './transaction/'
 import { blockTime } from '~/constants'
+import BlockhainInfo from './blockchain-info'
 
 const Offer = DefineMap.extend('Offer', {
   _id: 'string',
@@ -84,8 +85,7 @@ const Offer = DefineMap.extend('Offer', {
 
   // ENUM ('OPEN', 'TRADING', 'CANCELLED', 'CLOSED')
   status: {
-    type: 'string',
-    value: 'OPEN'
+    type: 'string'
   },
 
   /**
@@ -109,6 +109,15 @@ const Offer = DefineMap.extend('Offer', {
   timelock: 'number',
   // HTLC2 timelock:
   timelock2: 'number',
+
+  // blockheights when timelock and timelock2 expire
+  timelockExpiresBlockheight: 'number',
+  timelock2ExpiresBlockheight: 'number',
+
+  // date/time stamps when timelocks expired
+  timelockExpiredAt: 'date',
+  timelock2ExpiredAt: 'date',
+
   htlcTxId1: 'string',
   htlcTxId2: 'string',
   htlcTxId3: 'string',
@@ -146,7 +155,57 @@ const Offer = DefineMap.extend('Offer', {
     return moment(this.createdAt).format('MM/DD/YY @hh:mm a')
   },
   get statusDisplay () {
-    return translate(`status${this.status}`)
+    return translate(`status${this.statusWithExpiry}`)
+  },
+  // TODO the calculation of offer expiry should be a timed server process.
+  get isExpired () {
+    if (this.timelockInfo &&
+        ((this.htlcStep === 2 && this.timelockInfo.partialBlocksRemaining === 0) ||
+          (this.htlcStep === 3 && this.timelockInfo.fullBlocksRemaining === 0))) {
+      return true
+    } else {
+      return false
+    }
+  },
+  get statusWithExpiry () {
+    const status = this.status
+    if (status === 'OPEN' || status === 'TRADING') {
+      if (this.isExpired) {
+        return 'EXPIRED'
+      } else {
+        return status
+      }
+    } else {
+      return status || 'OPEN'
+    }
+  },
+  get htlcTransactions () {
+    const txesByStep = new DefineMap()
+    // make sure these vars get recorded by the observation
+    const { htlcTxId1, htlcTxId2, htlcTxId3, htlcTxId4 } = this
+    this.orderPromise.then(order => {
+      const addresses = [
+        this.btcAddress,
+        this.eqbAddress,
+        order.btcAddress,
+        order.eqbAddress
+      ]
+      return Transaction.getList({
+        txId: {
+          $in: [ htlcTxId1, htlcTxId2, htlcTxId3, htlcTxId4 ]
+        },
+        address: {'$in': addresses}
+      })
+    }).then(txes => {
+      const txesByTxId = {}
+      txes.forEach(tx => {
+        txesByTxId[tx.txId] = tx
+      });
+      [1, 2, 3, 4].forEach(i => {
+        txesByStep.set(i, txesByTxId[this['htlcTxId' + i]])
+      })
+    })
+    return txesByStep
   },
 
   issuancePromise: {
@@ -183,16 +242,44 @@ const Offer = DefineMap.extend('Offer', {
       }
     }
   },
+  // TODO timelockInfo is currently not observable, nor does it change once bound.
+  //  This is a problem because it contains "partialBlocksRemaining" and "fullBlocksRemaining",
+  //  which are both important for conditional views.  These values should be live and update,
+  //  especially once we get block height updating live from the server.
   timelockInfo: {
-    get (val, resolve) {
-      this.timelockInfoPromise.then(resolve)
+    get () {
+      const timelockInfo = new DefineMap({
+        fullDuration: null,
+        fullEndAt: null,
+        fullBlocksRemaining: null,
+        partialDuration: null,
+        partialEndAt: null,
+        partialBlocksRemaining: null,
+        safetyZone: null
+      })
+      this.timelockInfoPromise.then(info => {
+        timelockInfo.assign(info)
+      })
+      return timelockInfo
     }
   },
   timelockInfoPromise: {
     get () {
       // Read these props synchronously to ensure this promise is regenerated on change
-      const htlcTxId1 = this.htlcTxId1
-      const htlcTxId2 = this.htlcTxId2
+      const {
+        htlcTxId1,
+        htlcTxId2,
+        timelockExpiresBlockheight,
+        timelock2ExpiresBlockheight,
+        timelockExpiredAt,
+        timelock2ExpiredAt } = this
+      const blockchainInfo = BlockhainInfo.infoBySymbol()
+      Object.keys(blockchainInfo).forEach(key => {
+        if (blockchainInfo[key] instanceof DefineMap) {
+          blockchainInfo[key].get('medianTime')
+          blockchainInfo[key].get('currentBlockHeight')
+        }
+      })
       return this.orderPromise.then(order => {
         const addresses = [
           this.btcAddress,
@@ -200,31 +287,67 @@ const Offer = DefineMap.extend('Offer', {
           order.btcAddress,
           order.eqbAddress
         ]
-        return Transaction.getList({
-          txId: { $in: [htlcTxId1, htlcTxId2] },
-          address: {'$in': addresses}
-        })
+        return Promise.all([
+          Transaction.getList({
+            txId: { $in: [htlcTxId1, htlcTxId2] },
+            address: {'$in': addresses}
+          }),
+          BlockhainInfo.infoBySymbol().promise
+        ])
       })
-      .then(txes => {
+      .then(([txes, blockchainInfo]) => {
         const step1 = txes.filter(t => t.htlcStep === 1)[0]
         const step2 = txes.filter(t => t.htlcStep === 2)[0]
 
-        const fullDuration = blockTime[step1.currencyType] * step1.timelock
-        const fullEndAt = step1.createdAt.getTime() + fullDuration
-        const fullBlocksRemaining = Math.max(
-          Math.floor((fullEndAt - Date.now()) / blockTime[step1.currencyType]),
-          0
-        )
+        // Number of blocks between now (current block height) and the expiration of the htlc1 timelock.
+        // Minimum 0
+        const fullBlocksRemaining = timelockExpiresBlockheight
+          ? Math.max(
+            timelockExpiresBlockheight -
+              blockchainInfo[step1.currencyType].currentBlockHeight,
+            0)
+          : step1.timelock + 1
+
+        // Time (ms) since the median time of the last block interval.
+        // This gives us a hint as to how far we are into the current block interval
+        // (i.e. how long until the next block is mined)
+        const fullTimeSinceLastMedian = Date.now() - blockchainInfo[step1.currencyType].mediantime * 1000
+        // How far we think we're into the current block mining period
+        // Minimum 0, maximum 1 (this is an interval)
+        const fullApproximateBlockShift = Math.min(fullTimeSinceLastMedian / blockTime[step1.currencyType] - 0.5, 1)
+
+        // What time (epoch ms) we estimate the block that expires the timelock will be mined
+        //   number of blocks left, minus shift interval, multiplied by the target block time (10 minutes for BTC/EQB)
+        // TODO: when we start recording the time the timelock expired, use it here when the timelock is expired,
+        //   rather than estimating (shouldn't be trying to estimate something that's already happened)
+        const fullEndAt = timelockExpiredAt
+          ? timelockExpiredAt.getTime()
+          : Date.now() + blockTime[step1.currencyType] * (fullBlocksRemaining - fullApproximateBlockShift)
+        // How long in total (ms) between when the transaction is created and when the timelock is estimated to expire.
+        const fullDuration = fullEndAt - step1.createdAt
+
+        // Compute partials, which are just like the "full" measures above, but for the htlc2 timelock.
+        // It's possible (but difficult to meet the conditions) that the partial timelock will expire *after*
+        //  the full.  Be careful where making that assumption.
         let partialDuration, partialEndAt, partialBlocksRemaining, safetyZone
         if (step2) {
-          partialDuration = blockTime[step2.currencyType] * step2.timelock
-          partialEndAt = step2.createdAt.getTime() + partialDuration
-          partialBlocksRemaining = Math.max(
-            Math.floor((partialEndAt - Date.now()) / blockTime[step2.currencyType]),
-            0
-          )
-          safetyZone = fullEndAt - partialEndAt
+          const partialTimeSinceLastMedian = Date.now() - blockchainInfo[step2.currencyType].mediantime * 1000
+          const partialApproximateBlockShift = Math.min(partialTimeSinceLastMedian / blockTime[step2.currencyType] - 0.5, 1)
+
+          partialBlocksRemaining = timelock2ExpiresBlockheight
+          ? Math.max(
+            timelock2ExpiresBlockheight -
+              blockchainInfo[step2.currencyType].currentBlockHeight,
+            0)
+          : step2.timelock + 1
+          partialEndAt = timelock2ExpiredAt
+            ? timelock2ExpiredAt.getTime()
+            : Date.now() + blockTime[step2.currencyType] * (partialBlocksRemaining - partialApproximateBlockShift)
+          partialDuration = partialEndAt * step2.createdAt
+          // How long (ms) between when the htlc2 timelock is expected to expire, and when the htlc1 timelock is expected to expire
+          safetyZone = Math.max(fullEndAt - partialEndAt, 0)
         }
+
         return {
           fullDuration,
           fullEndAt,

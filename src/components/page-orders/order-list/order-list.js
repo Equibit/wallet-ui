@@ -24,7 +24,8 @@ const labelStatusMap = {
   OPEN: 'info',
   TRADING: 'progress',
   CANCELLED: 'danger',
-  CLOSED: 'success'
+  CLOSED: 'success',
+  EXPIRED: 'inactive'
 }
 
 export const ViewModel = DefineMap.extend({

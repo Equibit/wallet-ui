@@ -21,13 +21,12 @@
 
     <div class="offer-status section">
       <h3 class="subheading">{{i18n('status')}}</h3>
-      <status-badge status:from="offer.status" />
+      <status-badge status:from="offer.statusWithExpiry" />
     </div>
 
     <div class="offer-status-details section">
       <offer-status offer:from="offer"
                     order:from="offer.order"
-                    issuance:from="offer.issuance"
-                    date:from="offer.updatedAt" />
+                    issuance:from="offer.issuance"/>
     </div>
 </div>

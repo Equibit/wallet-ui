@@ -157,7 +157,10 @@ const Order = DefineMap.extend('Order', {
     return moment(this.createdAt).add(this.goodFor, 'days').format('MMM D')
   },
   get statusDisplay () {
-    return translate(`status${this.status}`)
+    return translate(`status${this.statusWithExpiry}`)
+  },
+  get statusWithExpiry () {
+    return this.status
   },
   get goodForSec () {
     return this.goodFor * 24 * 3600

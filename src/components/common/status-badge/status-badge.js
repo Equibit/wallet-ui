@@ -33,6 +33,7 @@ export const ViewModel = DefineMap.extend({
         closed: translate('statusClosed'),
         cancelled: translate('statusCancelled'),
         rejected: translate('statusRejected'),
+        expired: translate('statusExpired'),
         unknown: 'Unknown'
       }
       return values[this.status.toLowerCase()] || values.unknown
@@ -48,6 +49,7 @@ export const ViewModel = DefineMap.extend({
         closed: 'success',
         cancelled: 'danger',
         rejected: 'default',
+        expired: 'default',
         unknown: 'default'
       }
       return values[this.status.toLowerCase()] || values.unknown

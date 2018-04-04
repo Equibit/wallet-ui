@@ -33,7 +33,15 @@ export const ViewModel = DefineMap.extend({
     set (val) {
       if (val === 'active') {
         this.interval = setInterval(() => {
+          const prevTime = this.currentTime
           this.currentTime = Date.now()
+          if (this.endTime &&
+            this.currentTime >= this.endTime &&
+            prevTime < this.endTime &&
+            this.timeExpiredHandler
+          ) {
+            this.timeExpiredHandler()
+          }
         }, 1000)
         return val
       } else {
@@ -67,7 +75,9 @@ export const ViewModel = DefineMap.extend({
       return [h, m, s].map(zp).join(':')
     }
   },
-  interval: '*'
+  interval: '*',
+  // Callback for 'active' status timers.  When the timer hits zero,
+  timeExpiredHandler: '*'
 })
 
 export default Component.extend({

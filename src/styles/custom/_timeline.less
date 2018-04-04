@@ -42,6 +42,7 @@
                     width: 1px;
                     position: absolute;
                     bottom: -12px;
+                    left: 48%;
                 }
                 .icon-circle(10px);
                 &.icon-hand-shake,
@@ -55,22 +56,41 @@
                 }
                 &.icon-hand-stop {
                     color: @brand-danger;
-                    margin-left: 3px;
+                    padding-left: 3px;
+                    margin-left: 0px;
                     margin-right: 7px;
+                }
+                &.icon-none-warning {
+                  &:before {
+                    content: '';
+                    color: @brand-danger;
+                    border: 0.5px solid @brand-danger;
+                    height: 20px;
+                  }
+                  display: inline-flex;
+                  justify-content: center;
                 }
             }
             &:last-of-type .icon:after {
                 display: none;
             }
+            &.extends-previous-event {
+              margin-top: -10px;
+            }
             .btn {
                 margin-top: 10px;
             }
+            &.button-only {
+              .btn {
+                margin-top: 0;
+              }
+            }
         }
-    
+
         .offer-date {
             color: @gray-base;
         }
-    
+
         .offer-timeline-event--pending {
             color: @gray-base;
             font-family: @font-family-bold;
@@ -78,7 +98,7 @@
     }
  }
 
-  
+
 /**
  * Offer Timers
  */
@@ -110,7 +130,7 @@
         .offer-deal-step {
             font-style: italic;
         }
-    } 
+    }
     &.contextual-bg-success {
         .offer-quantity {
             background-color: (fade(@brand-success, 15%));
@@ -126,4 +146,4 @@
             background-color: (fade(@brand-warning, 15%));
         }
     }
-} 
+}

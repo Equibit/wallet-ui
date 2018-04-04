@@ -26,14 +26,14 @@ import currencyConverter from '~/utils/currency-converter'
 
 const titles = {
   BTC: {
-    header: 'Collect Payment',
-    timer: 'collect payment',
-    button: 'Collect & Close Deal'
+    header: 'dealFlowMessageTitleCollectPayment',
+    timer: 'paymentCollectionTimeLeftDescription',
+    button: 'dealFlowMessageTitleCollectAndCloseDeal'
   },
   EQB: {
-    header: 'Collect Securities',
-    timer: 'collect securities',
-    button: 'Collect Securities'
+    header: 'dealFlowMessageTitleCollectSecurities',
+    timer: 'securitiesCollectionTimeLeftDescription',
+    button: 'dealFlowMessageTitleCollectSecurities'
   }
 }
 
@@ -42,9 +42,7 @@ export const ViewModel = DefineMap.extend({
   issuance: '*',
   portfolio: '*',
   offerTimelock: {
-    value: function () {
-      return this.tx.timelockExpiresAt
-    }
+    value: null
   },
   formData: {
     get () {
@@ -66,8 +64,8 @@ export const ViewModel = DefineMap.extend({
   },
   titles: {
     type: '*',
-    value () {
-      return titles[this.tx.currencyType || 'BTC']
+    get (lastSetVal) {
+      return lastSetVal ? lastSetVal[this.tx.currencyType || 'BTC'] : titles[this.tx.currencyType || 'BTC']
     }
   },
   convertToUSD: function (value) {

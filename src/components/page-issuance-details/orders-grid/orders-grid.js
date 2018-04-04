@@ -64,7 +64,9 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     }
   },
   get userOfferOrderIds () {
-    return this.userOffers.map(offer => offer.orderId)
+    return this.userOffers
+      .filter(offer => offer.status === 'OPEN' || offer.status === 'TRADING')
+      .map(offer => offer.orderId)
   },
   session: {
     value: function () {
