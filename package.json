@@ -17,7 +17,7 @@
   "scripts": {
     "start": "node start.js",
     "develop": "done-serve --static --develop --port 8080",
-    "build": "npm run remove-build && node build",
+    "build2": "npm run remove-build && node build",
     "remove-build": "make remove-build",
     "docs": "documentjs -f -d",
     "docs:publish": "npm run build && npm run docs && make docs-publish",
@@ -30,9 +30,9 @@
     "test:unit:headless": "testee test/test.html --config testee-headless.json",
     "test:unit:debug": "DEBUG=testee:* testee test/test.html --config testee.json",
     "qa": "npm run release:qa:patch",
-    "release:qa:patch": "npm test && npm run build && npm version patch && make release-qa",
-    "release:qa:minor": "npm test && npm run build && npm version minor && make release-qa",
-    "release:qa:major": "npm test && npm run build && npm version major && make release-qa",
+    "release:qa:patch": "npm test && npm run build2 && npm version patch && make release-qa",
+    "release:qa:minor": "npm test && npm run build2 && npm version minor && make release-qa",
+    "release:qa:major": "npm test && npm run build2 && npm version major && make release-qa",
     "deps-bundle": "steal-tools bundle --deps"
   },
   "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
