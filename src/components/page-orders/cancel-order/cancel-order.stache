@@ -1,5 +1,6 @@
 <can-import from="bootstrap-canjs" />
 <can-import from="~/components/common/modal/modal.less" />
+<can-import from="~/components/common/loading-indicator/" />
 <can-import from="~/utils/stache-helpers/" />
 
 <bootstrap-modal-content @close:to="closeModal">
@@ -16,7 +17,11 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" on:click="confirm()">{{i18n('cancelYes')}}</button>
-    <button type="button" class="btn btn-default" data-dismiss="modal" on:click="close()">{{i18n('cancelNo')}}</button>
+    {{#if isSavingCancel}}
+      <loading-indicator style="position:relative;left:20px;"></loading-indicator>
+    {{else}}
+      <button type="button" class="btn btn-primary" on:click="confirm()">{{i18n('cancelYes')}}</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" on:click="close()">{{i18n('cancelNo')}}</button>
+    {{/if}}
   </div>
 </bootstrap-modal-content>

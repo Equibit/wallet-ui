@@ -131,7 +131,7 @@ export default {
   cancelBidDealOnDescription: 'Cancel deal to recover your payment',
   cancelMessageDeal: 'This action cannot be undone. Only this specific deal will be cancelled. Your order and any other pending deals in this offer will remain in progress. Are you sure you want to continue?',
   cancelMessageOffer: 'This action cannot be undone. Any pending trades will be cancelled as well. Are you sure you want to continue?',
-  cancelMessageOrder: 'This action cannot be undone. Any pending trades will be cancelled as well. Are you sure you want to continue?',
+  cancelMessageOrder: 'This action cannot be undone. Are you sure you want to continue?',
   cancelOrder: 'Cancel Order',
   cancelOffer: 'Cancel Offer',
   canNotUndoActionMessage: 'This action cannot be undone. Are you sure you want to continue?',
