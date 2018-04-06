@@ -62,6 +62,7 @@ import { blockTime, testNetTxExplorerUrl } from '~/constants'
 import env from '~/environment'
 import { buildTransaction } from './transaction-build'
 import { eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import BlockchainInfo from '../blockchain-info'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
@@ -189,8 +190,6 @@ const Transaction = DefineMap.extend('Transaction', {
    * Blockchain type: BTC or EQB.
    */
   currencyType: 'string',
-
-  confirmations: 'number',
 
   /**
    * @property {String} models/transaction.properties.companyName companyName
@@ -339,6 +338,16 @@ const Transaction = DefineMap.extend('Transaction', {
   build () {
     this.hex = 'hex here'
     this.txId = 'txid here'
+  },
+
+  get currentBlockHeight () {
+    const blockchainInfo = BlockchainInfo.infoBySymbol()
+    return blockchainInfo[this.currencyType] && blockchainInfo[this.currencyType].currentBlockHeight
+  },
+  // If a transaction is mined it is confirmed (1). Every block on top adds one confirmation.
+  get numberOfConfirmations () {
+    return this.confirmationBlockHeight &&
+      ((this.currentBlockHeight && (this.currentBlockHeight - this.confirmationBlockHeight + 1)) || 1)
   }
 })
 
