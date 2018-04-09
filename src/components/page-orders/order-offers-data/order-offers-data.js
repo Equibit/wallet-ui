@@ -39,10 +39,6 @@ export const ViewModel = DefineMap.extend({
   portfolio: '*',
   isModalShown: 'boolean',
 
-  init () {
-    window.asdf = this
-  },
-
   orderIsCancelled: {
     get () {
       const order = this.order || {}
