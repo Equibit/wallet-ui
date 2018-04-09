@@ -1,5 +1,5 @@
 /**
- * @module {can.Component} components/page-issuances-details page-issuance-details
+ * @module {can.Component} components/page-issuance-details page-issuance-details
  * @parent components.pages
  *
  * Page Issuance Details

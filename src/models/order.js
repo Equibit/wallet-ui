@@ -62,6 +62,13 @@ const Order = DefineMap.extend('Order', {
    */
   type: 'string',
 
+  /**
+   * @property {Number} models/offer.properties.assetType assetType
+   * @parent models/offer.properties
+   * Type of the offer. Enum (ISSUANCE | EQUIBIT).
+   */
+  assetType: { type: 'string', default: 'ISSUANCE' },
+
   // For HTLC we need 2 or 3 addresses:
   // - Sell order:
   //    1. btcAddress for receiving payment from a buyer.

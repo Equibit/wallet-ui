@@ -70,6 +70,13 @@ const Offer = DefineMap.extend('Offer', {
   type: 'string',
 
   /**
+   * @property {Number} models/offer.properties.assetType assetType
+   * @parent models/offer.properties
+   * Type of the offer. Enum (ISSUANCE | EQUIBIT).
+   */
+  assetType: { type: 'string', default: 'ISSUANCE' },
+
+  /**
    * @property {Number} models/offer.properties.quantity quantity
    * @parent models/offer.properties
    * Quantity of units of the issuance in satoshi EQB
