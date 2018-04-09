@@ -39,11 +39,38 @@ export const ViewModel = DefineMap.extend({
   portfolio: '*',
   isModalShown: 'boolean',
 
+  init () {
+    window.asdf = this
+  },
+
+  orderIsCancelled: {
+    get () {
+      const order = this.order || {}
+      const status = order.status || ''
+      const isCancelled = status === 'CANCELLED'
+      return isCancelled
+    }
+  },
+
+  // something (bootstrap?) is deduping classnames so needed a helper.
+  collapsed (offer) {
+    var collapsed = ''
+    if (this.orderIsCancelled) {
+      collapsed = 'collapsed'
+    }
+    if (!offer || !offer.isSelected) {
+      collapsed = 'collapsed'
+    }
+    return collapsed
+  },
+
   expandOffer (offer) {
     this.offers.forEach(offer => {
       offer.isSelected = false
     })
-    offer.isSelected = true
+    if (!this.orderIsCancelled) {
+      offer.isSelected = true
+    }
   },
 
   // can only accept one at a time, this is set after clicking 'accept' but before the modal opens
