@@ -17,6 +17,7 @@ const FormData = DefineMap.extend('FormData', {
       return val || 'SELL'
     }
   },
+  assetType: 'string',
   portfolio: Portfolio,
   rates: '*',
   issuance: Issuance,

@@ -80,12 +80,14 @@
   <place-order sendFn:from="@placeOrder"
                portfolio:from="portfolio"
                type:from="newOrderType"
+               assetType:from="assetType"
                issuance:from="issuance" />
 {{/if}}
 
 {{#if isBuySellShown}}
   <place-offer sendFn:from="@placeOffer"
                portfolio:from="portfolio"
+               assetType:from="assetType"
                issuance:from="issuance"
                order:from="order"
                offer:from="offer" />
