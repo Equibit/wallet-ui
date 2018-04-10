@@ -19,7 +19,7 @@
         <place-order sendFn:from="@placeOrder"
                      portfolio:from="portfolio"
                      type:from="'SELL'"
-                     assetType:from="'ISSUANCE'"
+                     assetType:from="'EQUIBIT'"
                      issuance:from="issuance" />
       </div>
     </div>
@@ -39,10 +39,11 @@
   window.canViewModel = canViewModel
 
   const vm = new DefineMap({
-    issuance,
+    //issuance,
     portfolio,
     placeOrder () {
-      console.log('DEMO: Order placed')
+      console.log('DEMO: Order placed. Arguments: ', arguments)
+      return Promise.resolved(true)
     }
   })
   window.vm = vm

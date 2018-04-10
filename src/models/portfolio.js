@@ -7,6 +7,7 @@
  * @group models/portfolio.properties 0 properties
  */
 
+import typeforce from 'typeforce'
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import canDefineStream from 'can-define-stream-kefir'
@@ -15,14 +16,14 @@ import { superModelNoCache } from './super-model'
 import algebra from './algebra'
 // import Session from '~/models/session'
 import Issuance from '~/models/issuance'
-import utils from './portfolio-utils'
 import currencyConverter from '~/utils/currency-converter'
-const {
+import {
   getNextAddressIndex,
   getUnspentOutputsForAmount,
   fetchListunspent,
-  getAllUtxo
-} = utils
+  getAllUtxo,
+  getAvailableAmount
+} from './portfolio-utils'
 
 const EMPTY_ISSUANCE_TX_ID = '0000000000000000000000000000000000000000000000000000000000000000'
 
@@ -421,10 +422,13 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
   // Methods:
   hasEnoughFunds (amount, type) {
-    if (['BTC', 'EQB'].indexOf(type) === -1) {
-      console.error(`Invalid type ${type}. Expects "EQB" or "BTC"`)
-    }
+    typeforce(typeforce.oneOf(typeforce.value('BTC'), typeforce.value('EQB')), type)
     return amount === 0 || !!this.getTxouts(amount, type).txouts.length
+  },
+
+  availableAmount (type) {
+    typeforce(typeforce.oneOf(typeforce.value('BTC'), typeforce.value('EQB')), type)
+    return getAvailableAmount(this.utxoByType[type])
   },
 
   /**

@@ -38,7 +38,8 @@ const FormData = DefineMap.extend('FormData', {
 
   availableAmount: {
     get () {
-      return this.issuance && this.issuance.availableAmount
+      return (this.issuance && this.issuance.availableAmount) ||
+        (this.assetType === 'EQUIBIT' && this.portfolio)
     }
   },
 

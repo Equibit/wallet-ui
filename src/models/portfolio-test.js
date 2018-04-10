@@ -4,16 +4,17 @@ import Portfolio from './portfolio'
 import { omit } from 'ramda'
 import portfolio, { addressesMeta } from './mock/mock-portfolio'
 import listunspent from './mock/mock-listunspent'
-import utils, { filterUniqAddr, containAddress } from './portfolio-utils'
 import currencyConverter from '~/utils/currency-converter'
 
-const {
+import {
+  filterUniqAddr, containAddress,
   // importAddr,
   getNextAddressIndex,
   getUnspentOutputsForAmount,
   // fetchBalance,
-  getAllUtxo
-} = utils
+  getAllUtxo,
+  getAvailableAmount
+} from './portfolio-utils'
 
 describe('models/portfolio-utils', function () {
   describe('getNextAddressIndex', function () {
@@ -45,6 +46,17 @@ describe('models/portfolio-utils', function () {
     it('should return all three outputs', function () {
       const txouts3 = getUnspentOutputsForAmount(txouts, 4).txouts
       assert.deepEqual(txouts3, [{'amount': 1}, {'amount': 2}, {'amount': 3}])
+    })
+  })
+  
+  describe('getAvailableAmount', function () {
+    const txouts = [
+      {'amount': 1},
+      {'amount': 2},
+      {'amount': 3}
+    ]
+    it('should return the sum of all three outputs', function () {
+      assert.equal(getAvailableAmount(txouts), 6)
     })
   })
 

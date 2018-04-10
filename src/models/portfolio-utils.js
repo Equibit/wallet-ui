@@ -79,6 +79,12 @@ const getUnspentOutputsForAmount = (txouts, amount) => {
   }, {sum: 0, txouts: []})
 }
 
+const getAvailableAmount = (txouts) => {
+  return txouts.reduce((acc, a) => {
+    return acc + a.amount
+  }, 0)
+}
+
 const getAllUtxo = (addresses) => {
   return Object.keys(addresses).reduce((acc, addr) => {
     acc.push.apply(acc, addresses[addr].txouts)
@@ -101,7 +107,8 @@ export {
   fetchListunspent,
   getNextAddressIndex,
   getUnspentOutputsForAmount,
-  getAllUtxo
+  getAllUtxo,
+  getAvailableAmount
 }
 
 export function filterUniqAddr (list) {
