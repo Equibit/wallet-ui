@@ -51,7 +51,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         type: this.type,
         status: 'OPEN',
         $sort: { 'price': this.type === 'BUY' ? -1 : 1 },
-        issuanceAddress: this.issuanceAddress,
+        issuanceAddress: this.issuanceAddress
       }
       if (this.assetType !== 'ISSUANCE') {
         params.assetType = this.assetType
