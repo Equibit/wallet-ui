@@ -23,7 +23,9 @@ const data = times(i => {
 
     companyName: companies[i % 9],
     issuanceName: ['Series 1', 'Series 2'][i % 2],
-    issuanceType: ['common_shares', 'trust_units', 'preferred_shares'][i % 3]
+    issuanceType: ['common_shares', 'trust_units', 'preferred_shares'][i % 3],
+
+    assetType: ['ISSUANCE', 'EQUIBIT'][i < 25 ? 0 : 1]
   }
 }, 50)
 

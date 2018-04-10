@@ -30,14 +30,18 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       return val || 'SELL'
     }
   },
+  portfolio: '*',
   issuanceAddress: 'string',
+  assetType: {
+    default: 'ISSUANCE'
+  },
   limit: {
     type: 'number',
     value: 10
   },
   rowsPromise: {
     get () {
-      if (!this.issuanceAddress) {
+      if (this.assetType === 'ISSUANCE' && !this.issuanceAddress) {
         console.error('Orders require issuanceAddress!')
         return
       }
@@ -47,7 +51,10 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         type: this.type,
         status: 'OPEN',
         $sort: { 'price': this.type === 'BUY' ? -1 : 1 },
-        issuanceAddress: this.issuanceAddress
+        issuanceAddress: this.issuanceAddress,
+      }
+      if (this.assetType !== 'ISSUANCE') {
+        params.assetType = this.assetType
       }
       return Order.getList(params)
     }
@@ -91,6 +98,11 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   //  - User already made an offer against the FillOrKill order
   //  - User has no shares to sell, for a buy order (not yet implemented)
   // Note: for a partial order user can place multiple offers.
+  /**
+   * Identify whether user can place an offer for the row order:
+   * @param row {Order}
+   * @returns {String | null}
+   */
   whyUserCantOffer (row) {
     if (!this.session) {
       return 'Not logged in'
@@ -101,9 +113,18 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     if (~this.userOfferOrderIds.indexOf(row._id) && row.isFillOrKill) {
       return 'Offer exists'
     }
-    if (!this.session.hasIssuanceUtxo(this.issuanceAddress)) {
+    if (this.assetType === 'ISSUANCE' && !this.session.hasIssuanceUtxo(this.issuanceAddress)) {
       return 'No securities'
     }
+    if (this.assetType === 'EQUIBIT') {
+      if (this.type === 'SELL' && this.portfolio.hasEnoughFunds(row.totalPrice, 'BTC')) {
+        return 'No funds'
+      }
+      if (this.type === 'BUY' && this.portfolio.hasEnoughFunds(row.totalPrice, 'EQB')) {
+        return 'No empty equibits'
+      }
+    }
+
     // TODO create a condition that shows that the number of shares
     // a user holds for an issuance is zero.
     // if () {

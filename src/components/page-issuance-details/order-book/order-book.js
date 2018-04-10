@@ -32,6 +32,9 @@ import cryptoUtils from '../../../utils/crypto'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
+  assetType: {
+    default: 'ISSUANCE'
+  },
   issuance: '*',
   get session () {
     return Session.current
@@ -106,7 +109,8 @@ export const ViewModel = DefineMap.extend({
   },
 
   get userPortfolioForIssuance () {
-    return this.session.hasIssuanceUtxo(this.issuance.issuanceAddress)
+    return (this.assetType === 'ISSUANCE' && this.session.hasIssuanceUtxo(this.issuance.issuanceAddress))
+      || (this.assetType === 'EQUIBIT' && this.portfolio.utxoEmptyEqb.length)
   },
   isViewAllShown: 'boolean',
   showViewAll () {
