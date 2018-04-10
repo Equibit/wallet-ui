@@ -48,7 +48,7 @@ describe('models/portfolio-utils', function () {
       assert.deepEqual(txouts3, [{'amount': 1}, {'amount': 2}, {'amount': 3}])
     })
   })
-  
+
   describe('getAvailableAmount', function () {
     const txouts = [
       {'amount': 1},
