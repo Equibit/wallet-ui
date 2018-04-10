@@ -21,6 +21,7 @@ import Issuance from '~/models/issuance'
 
 export const ViewModel = DefineMap.extend({
   issuanceId: 'string',
+  portfolio: '*',
   issuancePromise: {
     get (val) {
       if (val) {

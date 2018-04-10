@@ -117,10 +117,10 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       return 'No securities'
     }
     if (this.assetType === 'EQUIBIT') {
-      if (this.type === 'SELL' && this.portfolio.hasEnoughFunds(row.totalPrice, 'BTC')) {
+      if (this.type === 'SELL' && !this.portfolio.hasEnoughFunds(row.totalPrice, 'BTC')) {
         return 'No funds'
       }
-      if (this.type === 'BUY' && this.portfolio.hasEnoughFunds(row.totalPrice, 'EQB')) {
+      if (this.type === 'BUY' && !this.portfolio.hasEnoughFunds(row.totalPrice, 'EQB')) {
         return 'No empty equibits'
       }
     }

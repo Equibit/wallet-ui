@@ -19,6 +19,7 @@ import './page-equibit.less'
 import view from './page-equibit.stache'
 
 export const ViewModel = DefineMap.extend({
+  portfolio: '*',
   hasOrders: 'boolean',
 
   // To show Buy/Sell modal:

@@ -11,7 +11,7 @@
 <can-import from="~/components/page-equibit/" />
 
 <nav-bar />
-<page-equibit />
+<page-equibit portfolio:from="portfolio" />
 </script>
 
 <script src="../../../node_modules/steal/steal.js"
@@ -22,8 +22,10 @@
   import reload from 'live-reload'
   import DefineMap from 'can-define/map/map'
   import '~/models/fixtures/orders'
+  import portfolio from '~/models/mock/mock-portfolio'
 
   const vm = new DefineMap({
+    portfolio
   })
 
   stache.async($('#demo-html').html()).then(template => {
