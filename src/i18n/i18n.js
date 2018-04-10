@@ -74,8 +74,16 @@ function setLang (lang) {
   if (typeof localStorage !== 'undefined') localStorage.setItem('locale', lang)
 }
 
-function translate (term, silent) {
-  return i18n[term] || term + (silent ? '' : ' (!i18n!)')
+function translate (term, slotReplacement) {
+  let text = i18n[term]
+  if (text) {
+    text = text.replace(/<\s*(.*?)\s*\/?\s*>/g, (match, token) => {
+      return slotReplacement[token] || match
+    })
+    return text
+  } else {
+    return term + ' (!i18n!)'
+  }
 }
 
 if (typeof window !== 'undefined') {
