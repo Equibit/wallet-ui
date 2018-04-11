@@ -375,8 +375,10 @@ describe('models/transaction/utils', function () {
         })
         it('should define main props', function () {
           assert.equal(txData.amount, 500, 'amount')
-          assert.equal(txData.fee, 2570, 'fee')
           assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
+        })
+        it('should calculate fee correctly based on tx hex size', function () {
+          assert.equal(txData.fee, 2580, 'fee')
         })
         it.skip('should define hashlock', function () {
           assert.equal(txData.hashlock.length, 64)
@@ -401,9 +403,10 @@ describe('models/transaction/utils', function () {
         })
         it('should define main props', function () {
           assert.equal(txData.amount, 500, 'amount')
-          // TODO should this actually be 2415?  I'm just copying what the output showed.
-          assert.equal(txData.fee, 2415, 'fee')
           assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
+        })
+        it('should calculate fee correctly based on tx hex size', function () {
+          assert.equal(txData.fee, 2405, 'fee')
         })
         it.skip('should define hashlock', function () {
           assert.equal(txData.hashlock.length, 64)
