@@ -15,7 +15,12 @@
 <div class="list-group">
 
   <div class="list-group-item order-header">
-    <issuance-summary issuance:from="issuance"/>
+    {{#is formData.assetType 'ISSUANCE'}}
+      <issuance-summary issuance:from="issuance"/>
+    {{/is}}
+    {{#is formData.assetType 'EQUIBIT'}}
+      <label>Empty Equibits</label>
+    {{/is}}
   </div>
 
   <div class="list-group-item order-fields">
