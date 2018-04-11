@@ -162,7 +162,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
   },
 
-  // TODO: all amounts should be in satoshi. ???
+  // Note: all amounts are in Satoshi.
   // Unspent Transaction Output map by blockchain type and by address.
   utxoByTypeByAddress: {
     get (val, resolve) {
