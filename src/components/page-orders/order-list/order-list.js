@@ -61,14 +61,29 @@ export const ViewModel = DefineMap.extend({
       return val
     }
   },
+  // dir = 1 or -1
+  sort (list, sortby, dir) {
+    return list.sort(function (a, b) {
+      if (a[sortby] < b[sortby]) {
+        return -1 * dir
+      } else if (a[sortby] > b[sortby]) {
+        return 1 * dir
+      } else {
+        return 0
+      }
+    })
+  },
   itemsFiltered: {
     get () {
       const isArchive = this.mode === 'ARCHIVE'
-      return this.items ? this.items.filter(item => {
-        return isArchive
-          ? ['CLOSED', 'CANCELLED'].indexOf(item.status) !== -1
-          : ['CLOSED', 'CANCELLED'].indexOf(item.status) === -1 && item.type === this.mode
-      }).sort((a, b) => a.createdAt < b.createdAt ? 1 : -1) : []
+      const items = this.items || []
+      const filtered = items.filter(item => {
+        const itemIsClosedOrCancelled = ['CLOSED', 'CANCELLED'].indexOf(item.status) !== -1
+        const itemTypeMatchesMode = item.type === this.mode
+        const itemNotClosedOrCancelledAndMatchesMode = !itemIsClosedOrCancelled && itemTypeMatchesMode
+        return isArchive ? itemIsClosedOrCancelled : itemNotClosedOrCancelledAndMatchesMode
+      })
+      return this.sort(filtered, 'createdAt', -1)
     }
   },
   switchMode (mode) {
