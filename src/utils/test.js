@@ -9,6 +9,7 @@ import './random-elements-test'
 import './test-mocha'
 import { localCurrency } from './formatter'
 import currencyConverter from '~/utils/currency-converter'
+import { setLang } from '~/i18n/'
 // import { encode as scriptNumberEncode } from './script_number'
 
 describe('utils/crypto', function () {
@@ -83,6 +84,43 @@ describe('utils/stache-helpers', function () {
     it('should show the local currency symbol', function () {
       let frag = stache('{{local-currency-symbol(}}')()
       assert.equal(frag.textContent, 'USD')
+    })
+  })
+
+  describe('i18n', function () {
+    before(function () {
+      setLang('en')
+    })
+    it('returns values for found keys', function () {
+      let frag = stache('{{i18n("testingStringFlat"}}')({})
+      assert.equal(frag.textContent, 'Testing string')
+    })
+    it('returns key for not-found keys', function () {
+      let frag = stache('{{i18n("testingStringThatDoesNotExist"}}')({})
+      assert.equal(frag.textContent, 'testingStringThatDoesNotExist')
+    })
+    it('interpolates slot tags', function () {
+      let frag = stache('{{#i18n("testingStringTaggedSelfClosing"}}<slot name="message">interpolated</slot>{{/i18n}}')({})
+      assert.equal(frag.textContent, 'Testing interpolated string')
+      frag = stache('{{#i18n("testingStringTaggedWithClose"}}<slot name="message">interpolated</slot>{{/i18n}}')({})
+      assert.equal(frag.textContent, 'Testing interpolated string')
+      frag = stache('{{#i18n("testingStringTaggedWithContent"}}<slot name="message">interpolated</slot>{{/i18n}}')({})
+      assert.equal(frag.textContent, 'Testing interpolated string')
+    })
+    it('interpolates content tags', function () {
+      let frag = stache('{{#i18n("testingStringContentTagged"}}<slot name="message">this is a slot!</slot>interpolated{{/i18n}}')({})
+      assert.equal(frag.textContent, 'Testing interpolated string')
+    })
+    it('leaves tags as-is if no corresponding slot', function () {
+      let frag = stache('{{#i18n("testingStringTaggedSelfClosing"}}{{/i18n}}')({})
+      assert.equal(frag.querySelectorAll('message').length, 1, 'Message tag still exists')
+      assert.equal(frag.textContent, 'Testing  string')
+      frag = stache('{{#i18n("testingStringTaggedWithClose"}}{{/i18n}}')({})
+      assert.equal(frag.querySelectorAll('message').length, 1, 'Message tag still exists')
+      assert.equal(frag.textContent, 'Testing  string')
+      frag = stache('{{#i18n("testingStringTaggedWithContent"}}{{/i18n}}')({})
+      assert.equal(frag.querySelectorAll('message').length, 1, 'Message tag still exists')
+      assert.equal(frag.textContent, 'Testing content string')
     })
   })
 })
