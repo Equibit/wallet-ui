@@ -26,7 +26,7 @@ stache.registerHelper('i18n', function (key, options) {
 
     // Iterate over the non-text nodes in the translation text
     Array.from(prefrag.children).forEach(node => {
-      if (node.nodeName === 'CONTENT') {
+      if (node.nodeName.toUpperCase() === 'CONTENT') {
         prefrag.replaceChild(childFrag, node)
       } else {
         const slotNodes = slotsMap[node.nodeName.toUpperCase()]
