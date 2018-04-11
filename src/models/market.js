@@ -41,7 +41,13 @@ const Market = DefineMap.extend('Market', {
    * @parent models/market.properties
    * Volume of shares in EQB
    */
-  shareVolume: 'number'
+  shareVolume: 'number',
+
+  // Empty EQB stats here (similar to issuance stats):
+  lowestAskEqb: 'number',
+  lowestNumSharesEqb: 'number',
+  highestBidEqb: 'number',
+  highestNumSharesEqb: 'number'
 })
 
 Market.List = DefineList.extend('MarketList', {

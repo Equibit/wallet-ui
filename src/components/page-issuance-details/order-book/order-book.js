@@ -152,7 +152,7 @@ export const ViewModel = DefineMap.extend({
 
         return this.sendMessage(order, keyPair)
           .then(() => order.save())
-          .then(order => updateIssuanceStat(this.issuance, order))
+          .then(order => updateIssuanceStat(this.assetType, this.issuance, order))
           .then(() => dispatchAlertOrder(hub, route))
           .then(() => order)
       })
@@ -321,7 +321,11 @@ function dispatchAlertOffer (hub, offer, route) {
   })
 }
 
-function updateIssuanceStat (issuance, order) {
+function updateIssuanceStat (assetType, issuance, order) {
+  // todo: stats should be updated on API side in order after-create hook.
+  if (assetType === 'EQUIBIT') {
+    return Promise.resolve(true)
+  }
   if (order.type === 'SELL' && (!issuance.lowestAsk || issuance.lowestAsk > order.price)) {
     issuance.lowestAsk = order.price
     issuance.lowestNumShares = order.quantity
