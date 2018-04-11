@@ -65,6 +65,20 @@
                            {(selected-item)}="formData.issuance" />
       </div>
 
+      {{^if formData.hasEnoughFunds}}
+
+        <div class="alert alert-danger">
+          {{i18n('notEnoughEqbForTransactionFee')}}
+          <br>
+          {{#i18n('transferFundsInstructionDescription')}}
+            <slot name="link">
+              <a href="#" on:click="openReceiveForm()">{{i18n('receiveForm'}}</a>
+            </slot>
+          {{/i18n)}}
+        </div>
+
+      {{/if}}
+
       {{#if formData.issuance}}
       <div class="row">
         <div class="col-xs-12 no-padding">
@@ -108,9 +122,17 @@
       {{^if formData.hasFunds}}
 
         <div class="alert alert-danger">
-          You don't have {{#is formData.fundsType 'BTC'}}Bitcoins{{else}}Equibits{{/is}} to send funds.
+          {{#i18n('notEnoughCurrencyToSend')}}
+            <slot name="currency">
+              {{#is formData.fundsType 'BTC'}}{{i18n('bitcoins')}}{{else}}{{i18n('equibits')}}{{/is}}
+            </slot>
+          {{/i18n}}
           <br>
-          Transfer funds first using the <a href="#" on:click="openReceiveForm()">Receive Form</a>.
+          {{#i18n('transferFundsInstructionDescription')}}
+            <slot name="link">
+              <a href="#" on:click="openReceiveForm()">{{i18n('receiveForm'}}</a>
+            </slot>
+          {{/i18n)}}
         </div>
 
       {{else}}
@@ -126,7 +148,7 @@
             <div class="input-group">
               <input type="number" class="form-control" value:bind="formData.amountCoin" aria-describedby="funds-quantity">
               <span class="input-group-addon" id="funds-quantity">
-                {{#is formData.fundsType 'EQB'}}Blank EQB{{else}}BTC{{/is}}
+                {{#is formData.fundsType 'EQB'}}{{i18n('blankEqb')}}{{else}}{{i18n('BTC')}}{{/is}}
               </span>
             </div>
           </div>
