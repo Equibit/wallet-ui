@@ -78,9 +78,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@equibit/wallet-crypto@0.20.0":
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/@equibit/wallet-crypto/-/wallet-crypto-0.20.0.tgz#c28f1b8288cd4a54a7cf3e9c70169f52815630be"
+"@equibit/wallet-crypto@0.24.0":
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/@equibit/wallet-crypto/-/wallet-crypto-0.24.0.tgz#c154ff761343b09a4193ffb9683d319ea731c10b"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -1731,7 +1731,14 @@ can-reflect-promise@^1.1.0:
     can-symbol "^1.0.0"
     can-util "^3.9.0"
 
-can-reflect@^1.0.0, can-reflect@^1.1.0, can-reflect@^1.11.1, can-reflect@^1.13.3, can-reflect@^1.2.0, can-reflect@^1.2.1, can-reflect@^1.2.6, can-reflect@^1.4.0, can-reflect@^1.4.1, can-reflect@^1.4.5:
+can-reflect@^1.0.0, can-reflect@^1.1.0, can-reflect@^1.11.1, can-reflect@^1.2.0, can-reflect@^1.2.1, can-reflect@^1.2.6, can-reflect@^1.4.0, can-reflect@^1.4.1, can-reflect@^1.4.5:
+  version "1.13.4"
+  resolved "https://registry.yarnpkg.com/can-reflect/-/can-reflect-1.13.4.tgz#3c6ab1c8ce3ab1eb73f9818d482ebde7ebf13072"
+  dependencies:
+    can-namespace "^1.0.0"
+    can-symbol "^1.3.0"
+
+can-reflect@^1.13.3:
   version "1.13.3"
   resolved "https://registry.yarnpkg.com/can-reflect/-/can-reflect-1.13.3.tgz#d9f7acd79b65823289292ce0c3377c7817e70571"
   dependencies:
@@ -1859,7 +1866,7 @@ can-stache-key@^0.1.0, can-stache-key@^0.1.2:
     can-symbol "^1.0.0"
     can-util "^3.9.0"
 
-can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.10.0, can-stache@^3.13.5, can-stache@^3.14.9, can-stache@^3.3.0, can-stache@^3.3.3, can-stache@^3.7.3:
+can-stache@^3.0.15, can-stache@^3.0.21, can-stache@^3.0.22, can-stache@^3.0.24, can-stache@^3.1.0, can-stache@^3.10.0, can-stache@^3.13.5, can-stache@^3.14.12, can-stache@^3.3.0, can-stache@^3.3.3, can-stache@^3.7.3:
   version "3.14.12"
   resolved "https://registry.yarnpkg.com/can-stache/-/can-stache-3.14.12.tgz#fbebe4329b66e721ff8ee2f399bb6f475826bd82"
   dependencies:

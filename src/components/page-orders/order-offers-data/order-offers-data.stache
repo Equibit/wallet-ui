@@ -8,50 +8,45 @@
 </h2>
 
 <div class="well stretch {{#if acceptingOffer}}disabled{{/if}}">
-
   {{^if offers.length}}
-  <div class="message-box no-border message-placeholder">
-    <div class="icon icon-info"></div>
-    <p class="message-box-cause">{{i18n('notFoundOffers')}}</p>
-  </div>
+    <div class="message-box no-border message-placeholder">
+      <div class="icon icon-info"></div>
+      <p class="message-box-cause">{{i18n('notFoundOffers')}}</p>
+    </div>
   {{else}}
-
-  <div class="panel-group accordion-wrapper" id="accordion" role="tablist" aria-multiselectable="true">
-
-    {{#each offers as offer}}
-      <div class="panel panel-default {{#if offer.isSelected}}active{{/if}}">
-      <div class="panel-heading panel-heading-clear" role="tab">
-        <h4 class="panel-title">
-          <a role="button" data-toggle="collapse" data-target="#panel-collapse-{{offer._id}}" data-parent="#accordion"
-             class="{{^if offer.isSelected}}collapsed{{/if}}"
-             on:click="expandOffer(offer)">
-            <div class="row">
-              <span class="offer-quantity"><label>{{i18n('quantity')}}</label>{{offer.quantity}}</span>
-              <span class="offer-date">{{offer.dateDisplay}}</span>
-            </div>
-          </a>
-        </h4>
-      </div>
-      <div id="panel-collapse-{{offer._id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-xs-12">
-              {{#is offer acceptingOffer}}
-                <loading-indicator style="position:relative;margin:10px;margin-left:20px;margin-right:auto;"></loading-indicator>
-              {{else}}
-                <button class="btn btn-default btn-sm btn-primary btn-accept"
-                        on:click="acceptOffer(offer)">{{i18n('accept')}}</button>
-              {{/is}}
+    <div class="panel-group accordion-wrapper" id="accordion" role="tablist" aria-multiselectable="true">
+      {{#each offers as offer}}
+        <div class="panel panel-default {{^if orderIsCancelled}}{{#if offer.isSelected}}active{{/if}}{{/if}}">
+          <div class="panel-heading panel-heading-clear" role="tab">
+            <h4 class="panel-title">
+              <a role="button" {{^if orderIsCancelled}}data-toggle="collapse"{{/if}} data-target="#panel-collapse-{{offer._id}}" data-parent="#accordion"
+                class="{{#if orderIsCancelled}}cursor-default{{/if}} {{collapsed(offer)}}"
+                on:click="expandOffer(offer)">
+                <div class="row">
+                  <span class="offer-quantity"><label>{{i18n('quantity')}}</label>{{offer.quantity}}</span>
+                  <span class="offer-date">{{offer.dateDisplay}}</span>
+                </div>
+              </a>
+            </h4>
+          </div>
+          <div id="panel-collapse-{{offer._id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-xs-12">
+                  {{#is offer acceptingOffer}}
+                    <loading-indicator style="position:relative;margin:10px;margin-left:20px;margin-right:auto;"></loading-indicator>
+                  {{else}}
+                    <button class="btn btn-default btn-sm btn-primary btn-accept"
+                            on:click="acceptOffer(offer)">{{i18n('accept')}}</button>
+                  {{/is}}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      {{/each}}
     </div>
-    {{/each}}
-
-  </div>
   {{/if}}
-
 </div>
 
 {{#if isModalShown}}

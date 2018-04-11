@@ -49,10 +49,12 @@
                     </strong>
                     for this transaction.
                 </label>
-                <bootstrap-slider type:from="'advanced'"
-                                  maxValue:from="formData.offerTimelock"
-                                  initialValue:from="formData.timelock"
-                                  value:to="formData.timelock"></bootstrap-slider>
+                {{#if formData.offerTimelock}}
+                    <bootstrap-slider type:from="'advanced'"
+                                      maxValue:from="formData.offerTimelock"
+                                      initialValue:from="formData.timelock"
+                                      value:to="formData.timelock"></bootstrap-slider>
+                {{/if}}
             </div>
             <div class="list-group-item">
                 <label>{{i18n('description')}} <span class="icon icon-question"

@@ -17,10 +17,13 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import './timer-notice.less'
 import view from './timer-notice.stache'
+import { translate } from '~/i18n/'
 
 export const ViewModel = DefineMap.extend({
   message: {
-    value: 'accept this offer'
+    value () {
+      return translate('offerAcceptanceTimeLeftDescription')
+    }
   },
   endTime: 'date'
 })

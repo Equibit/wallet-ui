@@ -25,17 +25,20 @@ export const ViewModel = DefineMap.extend({
   type: 'string',
   order: Order,
   ordersLength: 'number',
+  offersLoaded: 'boolean',
   offers: {
     get (val, resolve) {
       if (val) {
         return val
       }
+      this.offersLoaded = false
       if (this.order) {
         Offer.getList({orderId: this.order._id}).then(offers => {
           if (offers && offers[0]) {
             offers[0].isSelected = true
           }
           resolve(offers)
+          this.offersLoaded = true
         })
       }
     }
@@ -48,6 +51,19 @@ export const ViewModel = DefineMap.extend({
   acceptedOffers: {
     get () {
       return this.offers && this.offers.filter(o => o.isAccepted)
+    }
+  },
+  allowCancelOrder: {
+    get () {
+      const order = this.order
+      const orderIsOpen = order && order.status === 'OPEN'
+      const offersLoaded = this.offersLoaded
+      const acceptedOffers = this.acceptedOffers
+      const hasAcceptedAny = !!(acceptedOffers && acceptedOffers.length)
+      if (!orderIsOpen || !offersLoaded || hasAcceptedAny) {
+        return false
+      }
+      return true
     }
   },
   isModalShown: 'boolean',

@@ -14,6 +14,9 @@ inbox-list {
     .media-cta {
       margin-top: @padding-small-vertical;
     }
+    .media-right {
+      font-size: 0.7em;
+    }
     &.read {
       background-color: fade(@gray-lightest, 80%);
       .media-heading {
@@ -39,6 +42,9 @@ inbox-list {
         .icon-sell;
         background-color: @brand-progress;
         border-color: @brand-progress;
+      }
+      .icon-expired, .icon-safety_zone {
+        .icon-cancelled;
       }
       .icon-closed {
         .icon-buy-open;

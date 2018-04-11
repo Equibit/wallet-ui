@@ -23,8 +23,10 @@ import Order from '../../../models/order'
 import Issuance from '../../../models/issuance'
 import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
+import { createHtlcRefund3 } from '../../../models/transaction/transaction-create-htlc3'
 import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
 import { dispatchAlertError } from '../../../utils/event-hub'
+import feathersClient from '~/models/feathers-client'
 
 export const ViewModel = DefineMap.extend({
   order: Order,
@@ -53,14 +55,29 @@ export const ViewModel = DefineMap.extend({
     }
   },
 
-  // For demo:
-  // offer: {
-  //   get () {
-  //     const offer = this.offers[0]
-  //     offer.htlcStep = 3
-  //     return offer
-  //   }
-  // },
+  titles: {
+    get () {
+      if (this.tx && this.tx.type === 'CANCEL') {
+        return {
+          BTC: {
+            header: 'dealFlowMessageTitleRecoverPayment',
+            timer: 'paymentRecoveryTimeLeftDescription',
+            button: 'dealFlowMessageTitleCancelAndRecoverPayment'
+          },
+          EQB: {
+            header: 'dealFlowMessageTitleRecoverSecurities',
+            timer: 'securitiesRecoveryTimeLeftDescription',
+            button: 'dealFlowMessageTitleCancelAndRecoverSecurities'
+          }
+        }
+      }
+    }
+  },
+
+  isTransactionToUser (tx) {
+    const allAddresses = [...Session.current.allAddresses.BTC, ...Session.current.allAddresses.EQB]
+    return tx && allAddresses.indexOf(tx.toAddress) > -1
+  },
 
   // HTLC 4:
   // - Ask flow: collect payment
@@ -94,6 +111,49 @@ export const ViewModel = DefineMap.extend({
         dispatchAlertError(err)
         console.error(err)
       }
+    })
+  },
+
+  cancelOffer (offer) {
+    const order = this.order
+    const issuance = this.issuance
+    const user = Session.current.user
+    const portfolio = this.portfolio
+    const secret = ''
+    typeforce(typeforce.tuple(
+      'Order',
+      'Offer',
+      'Issuance',
+      'User',
+      'Portfolio',
+      'String'
+    ), [order, offer, issuance, user, portfolio, secret])
+
+    const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
+    return Promise.all([
+      portfolio.getNextAddress(),
+      Session.current.transactionFeeRatesPromise,
+      feathersClient.service('proxycore').find({
+        query: {
+          node: currencyType.toLowerCase(),
+          method: 'getblockchaininfo'
+        }
+      })
+    ]).then(([addrPair, transactionFeeRates, blockchainInfo]) => {
+      const txData = createHtlcRefund3(
+        order,
+        offer,
+        portfolio,
+        issuance,
+        secret,
+        addrPair[currencyType],
+        transactionFeeRates.regular,
+        blockchainInfo.result.blocks // <- locktime for next transaction -- if it's not late enough,
+                                     //  sending TX will throw "Locktime requirement not satisfied" error
+      )
+      const tx = new Transaction(txData)
+
+      this.openModal(offer, tx)
     })
   },
 

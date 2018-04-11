@@ -1,6 +1,6 @@
 {
   "name": "wallet-ui",
-  "version": "0.9.4",
+  "version": "0.9.8",
   "description": "Equibit Web Wallet UI",
   "homepage": "",
   "repository": {
@@ -17,7 +17,7 @@
   "scripts": {
     "start": "node start.js",
     "develop": "done-serve --static --develop --port 8080",
-    "build": "npm run remove-build && node build",
+    "build2": "npm run remove-build && node build",
     "remove-build": "make remove-build",
     "docs": "documentjs -f -d",
     "docs:publish": "npm run build && npm run docs && make docs-publish",
@@ -30,9 +30,9 @@
     "test:unit:headless": "testee test/test.html --config testee-headless.json",
     "test:unit:debug": "DEBUG=testee:* testee test/test.html --config testee.json",
     "qa": "npm run release:qa:patch",
-    "release:qa:patch": "npm test && npm run build && npm version patch && make release-qa",
-    "release:qa:minor": "npm test && npm run build && npm version minor && make release-qa",
-    "release:qa:major": "npm test && npm run build && npm version major && make release-qa",
+    "release:qa:patch": "npm test && npm run build2 && npm version patch && make release-qa",
+    "release:qa:minor": "npm test && npm run build2 && npm version minor && make release-qa",
+    "release:qa:major": "npm test && npm run build2 && npm version major && make release-qa",
     "deps-bundle": "steal-tools bundle --deps"
   },
   "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
@@ -96,7 +96,7 @@
     }
   },
   "dependencies": {
-    "@equibit/wallet-crypto": "0.20.0",
+    "@equibit/wallet-crypto": "0.24.0",
     "accounting": "^0.4.1",
     "bit-c3": "^0.3.0",
     "body-parser": "^1.18.2",
@@ -116,7 +116,7 @@
     "can-route-pushstate": "^3.2.0",
     "can-search-select": "^0.3.0",
     "can-set": "^1.5.1",
-    "can-stache": "^3.14.9",
+    "can-stache": "^3.14.12",
     "can-stache-converters": "^3.3.0",
     "can-stream": "^0.3.2",
     "can-stream-kefir": "^0.3.3",
