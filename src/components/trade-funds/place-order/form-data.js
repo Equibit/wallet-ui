@@ -3,6 +3,7 @@ import moment from 'moment'
 // import { translate } from '../../../i18n/i18n'
 import Issuance from '../../../models/issuance'
 import Portfolio from '../../../models/portfolio'
+import feathersClient from '~/models/feathers-client'
 
 const FormData = DefineMap.extend('FormData', {
   /**
@@ -60,6 +61,84 @@ const FormData = DefineMap.extend('FormData', {
     return moment().add(this.goodFor, 'days').format('MMM D')
   },
 
+  sellData: '*',
+  _sellDataPromise: '*',
+  get sellDataPromise () {
+    const prom = this._sellDataPromise
+    if (prom) {
+      return prom
+    }
+    const issuance = this.issuance || {}
+    const issuanceId = issuance._id
+    const portfolio = this.portfolio || {}
+    const userId = portfolio.userId
+
+    if (!issuanceId || !userId) {
+      return Promise.reject(new Error('Cannot Query data for selling issuance'))
+    }
+
+    const ordersService = feathersClient.service('orders')
+    const offersService = feathersClient.service('offers')
+
+    // query for offers and/or orders
+    const query = {
+      issuanceId,
+      userId,
+      type: 'SELL',
+      // TODO: not expired
+      status: { $in: ['OPEN', 'TRADING'] }
+    }
+
+    const promises = Promise.all([
+      ordersService.find({ query }),
+      offersService.find({ query })
+    ]).then(response => {
+      const sellIssuanceData = {}
+      sellIssuanceData.sellOrderTotal = response[0].data.reduce((total, obj) => total + (obj.quantity || 0), 0)
+      sellIssuanceData.sellOfferTotal = response[1].data.reduce((total, obj) => total + (obj.quantity || 0), 0)
+      sellIssuanceData.maxSellQuantity = issuance.utxoAmountTotal - sellIssuanceData.sellOrderTotal - sellIssuanceData.sellOfferTotal
+      this.sellData = sellIssuanceData
+      return this.sellData
+    })
+
+    return promises
+  },
+
+  quantityProblem: 'string',
+  get quantityIsVaild () {
+    const type = this.type
+    const quantity = this.quantity || 0
+    const issuance = this.issuance || {}
+    const sharesAuthorized = issuance.sharesAuthorized || 0
+    this.quantityProblem = ''
+
+    if (type === 'BUY' && quantity > sharesAuthorized) {
+      this.quantityProblem = 'Quantity cannot be more than the number of shares authorized.'
+      return false
+    }
+    if (type === 'BUY') {
+      return true
+    }
+    // else type === 'SELL'
+
+    const sellDataPromise = this.sellDataPromise
+    const sellData = sellDataPromise && this.sellData
+
+    if (!sellData) {
+      this.quantityProblem = 'checking sell data...'
+      // waiting for sellData info
+      return false
+    }
+
+    if (quantity > sellData.maxSellQuantity) {
+      this.quantityProblem = 'Quantity cannot be more than the number of shares owned and not trading.'
+      // can't sell more than owned (that are not pending)
+      return false
+    }
+
+    return true
+  },
+
   hasFunds: {
     get () {
       return this.availableAmount
@@ -75,7 +154,7 @@ const FormData = DefineMap.extend('FormData', {
   },
   isValid: {
     get () {
-      return !!(this.quantity && this.price && this.goodFor && this.hasEnoughFunds)
+      return !!(this.quantity && this.price && this.goodFor && this.hasEnoughFunds && this.quantityIsVaild)
     }
   }
 })

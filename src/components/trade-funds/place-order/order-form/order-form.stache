@@ -31,6 +31,9 @@
             {{^if formData.hasEnoughFunds}}
               <validation-message message:from="'Not enough funds'" />
             {{/if}}
+            {{^if formData.quantityIsVaild}}
+              <validation-message message:from="formData.quantityProblem" />
+            {{/if}}
           </div>
         </div>
       </div>
