@@ -6,7 +6,7 @@
 
   <div class="section">
     <label>{{i18n('status')}}</label>
-    <transaction-status {status}="status" {confirmations}="transaction.confirmations"></transaction-status>
+    <transaction-status status:from="status" confirmations:from="transaction.numberOfConfirmations"></transaction-status>
   </div>
 
   <div class="section">
