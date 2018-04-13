@@ -1,0 +1,60 @@
+@import '../../styles/bootstrap-custom/_variables.less';
+@import (reference) '../../styles/custom/_mixins.less';
+
+page-equibit {
+  display: block;
+  .page-layout;
+
+  .panel-title {
+    font-size: @font-size-h3 + 2;
+    display: inline-block;
+    padding-left: 30px;
+    margin-left: -5px;
+    margin-top: 5px;
+    background: no-repeat url('../../styles/img/empty-equibit.png');
+    background-size: contain;
+  }
+  .panel-heading {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .card .panel-body {
+    overflow-x: hidden;
+    @media (min-width: @screen-sm) {
+      height: calc(~"100vh - "200px);
+    }
+  }
+  company-value-change .well {
+    margin-bottom: @padding-xlarge-vertical;
+  }
+
+  candlestick-chart {
+    .well {
+      min-height: 485px;
+    }
+  }
+
+  // Actions brand-primary
+  .toolbar-actions {
+    button {
+      padding: 5px 15px;
+      display: flex;
+      &:hover {
+        text-decoration: none;
+      }
+      .icon {
+        font-size: 19px;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .actions-bar {
+    border-bottom: @border-default;
+  }
+
+  // Watchlist toggle
+  .icon-star-full{
+    color: @brand-warning;
+  }
+}

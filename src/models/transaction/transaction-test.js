@@ -43,7 +43,7 @@ describe('models/transaction/utils', function () {
       assert.equal(transactionInfo.hex, expectedHex)
     })
     // todo: figure out why tx-builder causes testee to crash (Internal error: too much recursion. Stack trace: /testee/testee.min.js:202:55582)
-    if (window.Testee) {
+    if (window.Testee1) {
       it.skip('skipping builtTransaction in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     } else {
       it('should create a transaction hex (tx-builder)', function () {
@@ -106,7 +106,7 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    if (window.Testee) {
+    if (window.Testee1) {
       it.skip('skipping builtTransaction HTLC in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     } else {
       describe('buildTransaction htlc', function () {
@@ -149,7 +149,7 @@ describe('models/transaction/utils', function () {
         assert.equal(txData.companySlug, issuance.companySlug, 'companySlug')
       })
     })
-    if (window.Testee) {
+    if (window.Testee1) {
       it.skip('skipping createHtlc1 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     } else {
       describe('createHtlc1', function () {
@@ -253,7 +253,7 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    if (window.Testee) {
+    if (window.Testee1) {
       it.skip('skipping createHtlc2 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     } else {
       describe('createHtlc2', function () {
@@ -360,7 +360,7 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    if (window.Testee) {
+    if (window.Testee1) {
       it.skip('skipping createHtlc3 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     } else {
       describe('createHtlc3', function () {
@@ -375,8 +375,10 @@ describe('models/transaction/utils', function () {
         })
         it('should define main props', function () {
           assert.equal(txData.amount, 500, 'amount')
-          assert.equal(txData.fee, 2570, 'fee')
           assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
+        })
+        it('should calculate fee correctly based on tx hex size', function () {
+          assert.equal(txData.fee, 2580, 'fee')
         })
         it.skip('should define hashlock', function () {
           assert.equal(txData.hashlock.length, 64)
@@ -401,9 +403,10 @@ describe('models/transaction/utils', function () {
         })
         it('should define main props', function () {
           assert.equal(txData.amount, 500, 'amount')
-          // TODO should this actually be 2415?  I'm just copying what the output showed.
-          assert.equal(txData.fee, 2415, 'fee')
           assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
+        })
+        it('should calculate fee correctly based on tx hex size', function () {
+          assert.equal(txData.fee, 2405, 'fee')
         })
         it.skip('should define hashlock', function () {
           assert.equal(txData.hashlock.length, 64)
@@ -565,7 +568,7 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    if (window.Testee) {
+    if (window.Testee1) {
       it.skip('skipping createHtlc4 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     } else {
       describe('createHtlc4', function () {

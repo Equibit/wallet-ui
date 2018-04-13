@@ -13,7 +13,9 @@
       <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
       <orders-grid type:from="'SELL'" limit:from="10"
+                   assetType:from="assetType"
                    session:from="session"
+                   portfolio:from="portfolio"
                    rows.length:to="hasSellOrders"
                    on:vm:buysell="openBuySellModal(scope.arguments)"
                    issuanceAddress:from="issuance.issuanceAddress" />
@@ -47,7 +49,9 @@
       <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
       <orders-grid type:from="'BUY'" limit:from="10"
+                   assetType:from="assetType"
                    session:from="session"
+                   portfolio:from="portfolio"
                    rows.length:to="hasBuyOrders"
                    on:vm:buysell="openBuySellModal(scope.arguments)"
                    issuanceAddress:from="issuance.issuanceAddress" />
@@ -76,12 +80,14 @@
   <place-order sendFn:from="@placeOrder"
                portfolio:from="portfolio"
                type:from="newOrderType"
+               assetType:from="assetType"
                issuance:from="issuance" />
 {{/if}}
 
 {{#if isBuySellShown}}
   <place-offer sendFn:from="@placeOffer"
                portfolio:from="portfolio"
+               assetType:from="assetType"
                issuance:from="issuance"
                order:from="order"
                offer:from="offer" />

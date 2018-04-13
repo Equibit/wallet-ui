@@ -32,6 +32,9 @@ import cryptoUtils from '../../../utils/crypto'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
+  assetType: {
+    default: 'ISSUANCE'
+  },
   issuance: '*',
   get session () {
     return Session.current
@@ -106,7 +109,8 @@ export const ViewModel = DefineMap.extend({
   },
 
   get userPortfolioForIssuance () {
-    return this.session.hasIssuanceUtxo(this.issuance.issuanceAddress)
+    return (this.assetType === 'ISSUANCE' && this.session.hasIssuanceUtxo(this.issuance.issuanceAddress)) ||
+      (this.assetType === 'EQUIBIT' && this.portfolio.utxoEmptyEqb.length)
   },
   isViewAllShown: 'boolean',
   showViewAll () {
@@ -137,15 +141,18 @@ export const ViewModel = DefineMap.extend({
         // const issuance = issuances.filter(issuance => issuance._id === this.issuance._id)[0]
         const issuance = this.issuance
         const receiveAddr = flowType === 'Ask' ? addr.BTC : addr.EQB
-        return createOrder(formData, type, receiveAddr, Session.current.user, this.portfolio, issuance)
+        return createOrder(formData, type, receiveAddr, Session.current.user, this.portfolio, this.assetType, issuance)
       })
       .then(order => {
         // Note: for a sell order we use issuance keys which should be attached to this.issuance (both authorized and bought).
         // todo: figure out what keys to use for a BUY order.
-        const keyPair = flowType === 'Ask' ? this.issuance.keys.keyPair : this.portfolio.keys.BTC.keyPair
+        const keyPair = flowType === 'Ask'
+          ? ((this.issuance && this.issuance.keys.keyPair) || this.portfolio.keys.EQB.keyPair)
+          : this.portfolio.keys.BTC.keyPair
+
         return this.sendMessage(order, keyPair)
           .then(() => order.save())
-          .then(order => updateIssuanceStat(this.issuance, order))
+          .then(order => updateIssuanceStat(this.assetType, this.issuance, order))
           .then(() => dispatchAlertOrder(hub, route))
           .then(() => order)
       })
@@ -184,33 +191,39 @@ export const ViewModel = DefineMap.extend({
   }
 })
 
-function createOrder (formData, type, addr, user, portfolio, issuance) {
+function createOrder (formData, type, addr, user, portfolio, assetType, issuance) {
   typeforce(typeforce.tuple(
     'FormData',
     'String',
     types.Address,
     'User',
     'Portfolio',
-    'Issuance'
+    'String',
+    typeforce.maybe('Issuance')
   ), arguments)
 
   const order = new Order({
     userId: user._id,
-    // todo: why do we need issuanceAddress at all??
-    issuanceAddress: issuance.issuanceAddress,
     type,
+    assetType,
     btcAddress: type === 'SELL' ? addr : '',            // to receive payment
     eqbAddress: type === 'BUY' ? addr : '',             // will be populated when we create a transaction (from UTXO)
     portfolioId: portfolio._id,
     quantity: formData.quantity,
     price: formData.priceInUnits,
     isFillOrKill: formData.isFillOrKill,
-    goodFor: formData.goodFor,
-    companyName: issuance.companyName,
-    issuanceId: issuance._id,
-    issuanceName: issuance.issuanceName,
-    issuanceType: issuance.issuanceType
+    goodFor: formData.goodFor
   })
+  if (issuance) {
+    order.assign({
+      // todo: why do we need issuanceAddress at all??
+      issuanceAddress: issuance.issuanceAddress,
+      companyName: issuance.companyName,
+      issuanceId: issuance._id,
+      issuanceName: issuance.issuanceName,
+      issuanceType: issuance.issuanceType
+    })
+  }
   return order
 }
 
@@ -308,7 +321,11 @@ function dispatchAlertOffer (hub, offer, route) {
   })
 }
 
-function updateIssuanceStat (issuance, order) {
+function updateIssuanceStat (assetType, issuance, order) {
+  // todo: stats should be updated on API side in order after-create hook.
+  if (assetType === 'EQUIBIT') {
+    return Promise.resolve(true)
+  }
   if (order.type === 'SELL' && (!issuance.lowestAsk || issuance.lowestAsk > order.price)) {
     issuance.lowestAsk = order.price
     issuance.lowestNumShares = order.quantity

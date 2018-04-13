@@ -34,7 +34,10 @@ function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.tes
 }
 
 function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testnet, locktime = 0) {
-  console.log(`buildTransactionBtc`, arguments)
+  console.log('*** buildTransactionBtc')
+  // Note: logging arguments like this breaks the test in Testee FF!
+  // console.log(`buildTransactionBtc`, arguments)
+
   typeforce(typeforce.arrayOf({txid: 'String', vout: 'Number', keyPair: 'ECPair'}), inputs)
   typeforce(typeforce.arrayOf({
     value: types.Satoshi,
@@ -67,6 +70,7 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
 }
 
 function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testnet, locktime = 0) {
+  console.log('*** buildTransactionEqb')
   typeforce(typeforce.tuple('Array', 'Array', types.Network), [inputs, outputs, network])
   const vout = outputs.map(vout => {
     const res = merge(pick(['value', 'scriptPubKey', 'address'], vout), {

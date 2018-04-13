@@ -18,19 +18,22 @@ import route from 'can-route'
 import 'can-route-pushstate'
 import Session from './models/session'
 import Transaction from './models/transaction/transaction'
-// import '~/models/fixtures/fixtures';
 
 //! steal-remove-start
+import canViewModel from 'can-view-model'
 window.route = route
+window.Session = Session
+window.canViewModel = canViewModel
 //! steal-remove-end
 
-var pages = {
+const pages = {
   home: 'public',
   loading: 'public',
   signup: 'public',
   login: 'public',
   research: 'public',
   issuances: 'public',
+  equibit: 'public',
   'issuance-details': 'public',
   'four-oh-one': 'public',
   'forgot-password': 'public',

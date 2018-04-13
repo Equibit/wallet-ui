@@ -6,13 +6,25 @@
 <div class="list-group">
 
   <div class="list-group-item order-header ">
-    <issuance-summary issuance:from="issuance"/>
+    {{#is formData.assetType 'ISSUANCE'}}
+      <issuance-summary issuance:from="issuance"/>
+    {{/is}}
+    {{#is formData.assetType 'EQUIBIT'}}
+      <label>Empty Equibits</label>
+    {{/is}}
   </div>
 
   <div class="list-group-item order-summary">
     <dl class="dl-horizontal dl-stripped responsive">
       <dt>{{i18n('quantity')}}</dt>
-      <dd class="input-value">{{format(formData.quantity, '')}} <small>{{i18n('securities')}}</small></dd>
+      <dd class="input-value">{{format(formData.quantity, '')}} <small>
+        {{#is formData.assetType 'ISSUANCE'}}
+          {{i18n('securities')}}
+        {{/is}}
+        {{#is formData.assetType 'EQUIBIT'}}
+          {{i18n('EQB')}}
+        {{/is}}
+      </small></dd>
 
       <dt>{{#is type 'SELL'}} {{i18n('askPrice')}} {{else}} {{i18n('bidPrice')}} {{/is}}</dt>
       <dd class="input-value">{{to-fixed-2(formData.priceInUnits)}} <small>μBTC</small></dd>

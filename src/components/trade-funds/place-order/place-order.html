@@ -16,8 +16,11 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
 
-        <place-order {issuance}="issuance"></place-order>
-
+        <place-order sendFn:from="@placeOrder"
+                     portfolio:from="portfolio"
+                     type:from="'SELL'"
+                     assetType:from="'EQUIBIT'"
+                     issuance:from="issuance" />
       </div>
     </div>
   </div>
@@ -31,14 +34,17 @@
   import reload from 'live-reload'
   import DefineMap from 'can-define/map/map'
   import canViewModel from 'can-view-model'
+  import issuance from '~/models/mock/mock-issuance'
+  import portfolio from '~/models/mock/mock-portfolio'
   window.canViewModel = canViewModel
-  import Issuance from '~/models/issuance'
-  import store from '~/models/fixtures/issuances'
-  window.store = store
 
-  const issuanceData = store.get({_id:0})
   const vm = new DefineMap({
-    issuance: new Issuance(issuanceData)
+    //issuance,
+    portfolio,
+    placeOrder () {
+      console.log('DEMO: Order placed. Arguments: ', arguments)
+      return Promise.resolved(true)
+    }
   })
   window.vm = vm
 

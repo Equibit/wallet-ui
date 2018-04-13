@@ -23,6 +23,9 @@ import FormData from './form-data'
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
   issuance: '*',
+  assetType: {
+    default: 'ISSUANCE'
+  },
   type: {
     get (val) {
       return val === 'BUY' ? val : 'SELL'
@@ -42,7 +45,8 @@ export const ViewModel = DefineMap.extend({
         issuance: this.issuance,
         session: Session.current,
         authIssuancesOnly: this.authIssuancesOnly,
-        type: this.type
+        type: this.type,
+        assetType: this.assetType
         // rates: Session.current.rates
       })
     }

@@ -1,0 +1,36 @@
+<can-import from="~/components/common/panel/" />
+<can-import from="~/utils/stache-helpers/" />
+<!--<can-import from="~/components/page-issuances/company-metadata/" />-->
+<can-import from="~/components/page-issuance-details/order-book/" />
+
+<div class="row">
+  <div class="col-xs-12">
+
+    <drag-panel class="panel panel-default card card-full">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel-heading panel-heading-clear actions-bar">
+            <h1 class="panel-title">EQB</h1>
+            <!--<company-value-change issuance:from="issuance" currency:from="'μBTC'" />-->
+            <ul class="nav navbar-nav navbar-right toolbar-actions">
+              <li><button class="btn btn-link"><span class="icon icon-star-empty"></span> {{i18n('watchListToggleAdd')}}</button>
+              <!--<button class="btn btn-link"><span class="icon icon-star-full"></span> {{i18n('watchListToggleRemove')}}</button>--></li>
+            </ul>
+          </div>
+
+          <div class="panel-body">
+            <!-- <candlestick-chart /> -->
+            <order-book class="{{^if hasOrders}}hidden{{/if}}"
+                        assetType:from="'EQUIBIT'"
+                        isModalShown:bind="isCreateOrderModalShown"
+                        newOrderType:from="newOrderType"
+                        portfolio:from="portfolio"
+                        hasOrders:to="hasOrders" />
+
+          </div>
+        </div>
+      </div>
+    </drag-panel>
+
+  </div>
+</div>

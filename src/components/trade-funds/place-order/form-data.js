@@ -18,6 +18,7 @@ const FormData = DefineMap.extend('FormData', {
       return val || 'SELL'
     }
   },
+  assetType: 'string',
   portfolio: Portfolio,
   rates: '*',
   issuance: Issuance,
@@ -38,7 +39,8 @@ const FormData = DefineMap.extend('FormData', {
 
   availableAmount: {
     get () {
-      return this.issuance && this.issuance.availableAmount
+      return (this.issuance && this.issuance.availableAmount) ||
+        (this.type === 'SELL' && this.assetType === 'EQUIBIT' && this.portfolio.availableAmount('EQB'))
     }
   },
 
