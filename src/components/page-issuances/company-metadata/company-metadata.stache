@@ -9,7 +9,11 @@
       <dd>{{issuance.domicile}}</dd>
 
       <dt>{{i18n('restriction')}}</dt>
-      <dd>Level {{issuance.restriction}}</dd>
+      <dd>{{#switch issuance.restriction}}
+        {{#case 1}}{{i18n('restrictionLevel1Name')}}{{/case}}
+        {{#case 3}}{{i18n('restrictionLevel3Name')}}{{/case}}
+        {{#default}}{{i18n('noRestriction')}}{{/default}}
+      {{/switch}}</dd>
 
       <dt>{{i18n('authorized')}}</dt>
       <dd>{{format(issuance.sharesAuthorized,'')}}</dd>
