@@ -13,7 +13,12 @@
 
 <div class="well stretch">
     <div class="order-header section">
-      <issuance-summary issuance:from="order" />
+
+      {{#is order.assetType 'EQUIBIT'}}
+        <label>{{i18n('blankEqb')}}</label>
+      {{else}}
+        <issuance-summary issuance:from="order" />
+      {{/is}}
     </div>
 
     <div class="order-summary section row">

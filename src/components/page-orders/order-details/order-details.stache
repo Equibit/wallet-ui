@@ -9,8 +9,12 @@
     <nav class="navbar toolbar">
       <div class="row">
         <p class="navbar-text">
-          <span class="details-company">{{order.companyName}}</span>
-          <span class="details-issuance-name">, {{order.issuanceName}}</span>
+          {{#is order.assetType 'EQUIBIT'}}
+            <span class="details-company">{{i18n('blankEqb')}}</span>
+          {{else}}
+            <span class="details-company">{{order.companyName}}</span>
+            <span class="details-issuance-name">, {{order.issuanceName}}</span>
+          {{/is}}
         </p>
         {{#if allowCancelOrder}}
           <ul class="nav navbar-nav navbar-right toolbar-actions">
