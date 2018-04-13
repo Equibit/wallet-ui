@@ -29,6 +29,7 @@ import Session from '../../../models/session'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
 import BitMessage from '../../../models/bit-message'
 import cryptoUtils from '../../../utils/crypto'
+import feathersClient from '~/models/feathers-client'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
@@ -304,8 +305,15 @@ function saveOffer (offer, tx) {
     offer.eqbAddress = tx.fromAddress
   }
   return offer.save().then(() => {
-    tx.offerId = offer._id
-    return tx.save()
+    // Update both the placed transaction and its corresponding
+    //  receiver transaction
+    return feathersClient.service('/transactions').patch(null, {
+      offerId: offer._id
+    }, {
+      query: {
+        txId: tx.txId
+      }
+    })
   }).then(() => offer)
 }
 

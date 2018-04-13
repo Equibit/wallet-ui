@@ -10,7 +10,7 @@
                 <span class="transaction-subject">{{rows[0].issuanceTypeDisplay}}</span>
                 {{i18n('from')}}
                 <a href="{{routeUrl page='issuances' itemId=rows[0].issuanceId}}">
-                    {{rows[0].issuanceName}}
+                    {{rows[0].companyName}}, {{rows[0].issuanceName}}
                 </a>
             </td>
         </tr>
@@ -26,7 +26,7 @@
                   isSecurity=row.isSecurity
                   currencyType=row.currencyType
                   issuanceTypeDisplay=null
-                  type=null
+                  type=tradeType(row)
                   issuanceUnitQuantity=row.issuanceUnitQuantity
                   amountPlusFee=row.amountPlusFee)}}
             {{#if scope.vars@transactionRow}}

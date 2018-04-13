@@ -45,6 +45,15 @@ export const ViewModel = DefineMap.extend({
   selectRow (object, el, ev) {
     const row = this.rows.filter(r => r._id === object._id)[0]
     this.parentSelectRow(row, el, ev)
+  },
+  tradeType (row) {
+    const userSent = row.address === row.fromAddress
+    const userReceived = row.address === row.toAddress
+    const isCollected = row.htlcStep >= 3
+
+    return isCollected
+      ? (userReceived ? 'IN' : 'OUT')
+      : (userSent ? 'USER-LOCK' : 'LOCK')
   }
 })
 
