@@ -125,7 +125,10 @@ export const ViewModel = DefineMap.extend({
   },
 
   openAcceptOfferModal (offer, tx, issuance, portfolio) {
-    typeforce(typeforce.tuple('Offer', 'Transaction', 'Issuance'), [offer, tx, issuance])
+    typeforce(typeforce.tuple('Offer', 'Transaction', '?Issuance'), [offer, tx, issuance])
+    if (offer.assetType === 'ISSUANCE') {
+      typeforce('Issuance', issuance)
+    }
     this.offer = offer
     this.tx = tx
     this.issuance = issuance

@@ -40,7 +40,9 @@ function createHtlc2 (offer, order, portfolio, issuance, changeAddr, transaction
   const txData = prepareTxData(htlcConfig, tx, issuance)
 
   txData.htlcStep = 2
-  txData.description = order.type === 'SELL' ? 'Sending securities (HTLC #2)' : 'Sending payment (HTLC #2)'
+  txData.description = order.type === 'SELL'
+    ? (order.assetType === 'ISSUANCE' ? 'Sending securities (HTLC #2)' : 'Sending blank EQB (HTLC #2)')
+    : 'Sending payment (HTLC #2)'
 
   return txData
 }
