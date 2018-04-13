@@ -14,8 +14,11 @@ const hashTimelockContract = eqbTxBuilder.hashTimelockContract
  * This is a high-level method to be called from a component VM.
  */
 function createHtlc2 (offer, order, portfolio, issuance, changeAddr, transactionFeeRates) {
-  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address, {EQB: 'Number', BTC: 'Number'}), arguments)
+  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', '?Issuance', types.Address, {EQB: 'Number', BTC: 'Number'}), arguments)
   typeforce(typeforce.tuple('Number', 'String'), [offer.timelock, offer.hashlock])
+  if (order.assetType === 'ISSUANCE') {
+    typeforce('Issuance', issuance)
+  }
 
   const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
   const transactionFeeRate = transactionFeeRates[currencyType]
@@ -46,9 +49,13 @@ function createHtlc2 (offer, order, portfolio, issuance, changeAddr, transaction
 //    - Ask flow (Sell order / Buy offer). EQB currency type.
 //    - Bid flow (Buy order / Sell offer). BTC currency type.
 function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmptyEqb, transactionFee) {
-  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address, '?Number'), arguments)
+  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', '?Issuance', types.Address, '?Number'), arguments)
+  if (order.assetType === 'ISSUANCE') {
+    typeforce('Issuance', issuance)
+  }
 
   const amount = offer.quantity
+  const assetType = order.assetType
   // We reuse this method for both HTLC1 (Bid) and HTLC2 (Ask), so toAddress will be different:
   const toAddress = order.type === 'SELL' ? offer.eqbAddress : order.eqbAddress
 
@@ -61,30 +68,53 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
 
   const hashlock = offer.hashlock
 
-  // UTXO:
-  // todo: validate that issuance and portfolio have enough utxo (results in a non-empty array).
-  const issuanceUtxoInfo = issuance.getTxoutsFor(offer.quantity)
-  if (!issuanceUtxoInfo.sum) {
-    throw new Error(`Not enough UTXO for the authorized issuance of the amount ${offer.quantity}`)
+  // Define UTXO for transaction input:
+  let utxo
+  let availableAmount
+  let availableAmountEmptyEqb
+  let changeAddr
+  let refundAddress
+
+  // Issuance case:
+  if (assetType === 'ISSUANCE') {
+    // todo: validate that issuance and portfolio have enough utxo (results in a non-empty array).
+    const issuanceUtxoInfo = issuance.getTxoutsFor(offer.quantity)
+    if (!issuanceUtxoInfo.sum) {
+      throw new Error(`Not enough UTXO for the authorized issuance of the amount ${offer.quantity}`)
+    }
+    availableAmount = issuanceUtxoInfo.sum
+    const issuanceUtxo = issuanceUtxoInfo.txouts
+      .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
+
+    // For Sell order we set both change addr for securities and the refund to the same holding address from where we send securities.
+    refundAddress = issuanceUtxo[0].address
+    changeAddr = refundAddress
+
+    // For EQB the fee comes from empty EQB.
+    const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
+    if (!utxoEmptyEqbInfo.sum) {
+      throw new Error(`Not enough empty EQB to cover the fee ${fee}`)
+    }
+    availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
+    const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
+      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+
+    utxo = issuanceUtxo.concat(utxoEmptyEqb)
   }
-  const availableAmount = issuanceUtxoInfo.sum
-  const issuanceUtxo = issuanceUtxoInfo.txouts
-    .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
 
-  // For Sell order we set both change addr for securities and the refund to the same holding address from where we send securities.
-  const refundAddress = issuanceUtxo[0].address
-  const changeAddr = refundAddress
-
-  // For EQB the fee comes from empty EQB.
-  const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
-  if (!utxoEmptyEqbInfo.sum) {
-    throw new Error(`Not enough empty EQB to cover the fee ${fee}`)
+  // Blank Equibit case:
+  if (assetType === 'EQUIBIT') {
+    const utxoInfo = portfolio.getEmptyEqb(amount + fee)
+    if (!utxoInfo.sum) {
+      throw new Error(`Not enough empty EQB to cover the amount + fee ${amount + fee}`)
+    }
+    availableAmount = utxoInfo.sum
+    utxo = utxoInfo.txouts
+      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+    // todo: generate a new address:
+    refundAddress = utxo[0].address
+    changeAddr = changeAddrEmptyEqb
   }
-  const availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
-  const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
-    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
-
-  const utxo = issuanceUtxo.concat(utxoEmptyEqb)
 
   // HTLC SCRIPT:
   const htlcScript = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
@@ -96,17 +126,20 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
       // main output:
       value: amount,
       scriptPubKey: htlcScript,
-      issuanceTxId: issuance.issuanceTxId
+      issuanceTxId: issuance && issuance.issuanceTxId
     }, {
       // change from the main output:
-      value: availableAmount - amount,
+      value: assetType === 'ISSUANCE' ? (availableAmount - amount) : (availableAmount - amount - fee),
       address: changeAddr,
-      issuanceTxId: issuance.issuanceTxId
-    }, {
+      issuanceTxId: issuance && issuance.issuanceTxId
+    }]
+  }
+  if (assetType === 'ISSUANCE') {
+    buildConfig.vout.push({
       // change for Empty EQB (for transaction fee):
       value: availableAmountEmptyEqb - fee,
       address: changeAddrEmptyEqb
-    }]
+    })
   }
 
   const txInfo = {

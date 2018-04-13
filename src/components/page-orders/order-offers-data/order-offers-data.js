@@ -93,7 +93,7 @@ export const ViewModel = DefineMap.extend({
       //   ? issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
       //   : this.issuance
 
-      if (!this.issuance.utxo) {
+      if (this.issuance && !this.issuance.utxo) {
         const message = 'No UTXO for this issuance. Cannot accept the offer.'
         console.error(message, this.issuance)
         throw new Error(message)
