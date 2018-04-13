@@ -428,7 +428,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
   availableAmount (type) {
     typeforce(typeforce.oneOf(typeforce.value('BTC'), typeforce.value('EQB')), type)
-    return getAvailableAmount(this.utxoByType[type])
+    return this.utxoByType && getAvailableAmount(this.utxoByType[type])
   },
 
   /**
