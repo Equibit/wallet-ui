@@ -228,7 +228,7 @@ const Offer = DefineMap.extend('Offer', {
       if (val) {
         return val
       }
-      this.issuancePromise.then(resolve)
+      this.issuancePromise && this.issuancePromise.then(resolve)
     }
   },
   orderPromise: {
