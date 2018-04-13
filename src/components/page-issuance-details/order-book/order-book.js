@@ -93,9 +93,11 @@ export const ViewModel = DefineMap.extend({
     // Ask flow: EQB address to receive securities, BTC address for refund
     return this.portfolio.getNextAddress().then((addrPair) => {
       // Case Issuer Ask Flow: when the original issuer buys an issuance it should go back to its issuance address (not to portfolio)
-      const isIssuer = order.type === 'SELL' && this.issuance.userId === Session.current.user._id
-      if (isIssuer) {
-        addrPair.EQB = this.issuance.issuanceAddress
+      if (order.assetType !== 'EQUIBIT') {
+        const isIssuer = order.type === 'SELL' && this.issuance.userId === Session.current.user._id
+        if (isIssuer) {
+          addrPair.EQB = this.issuance.issuanceAddress
+        }
       }
 
       // Note: we need to store the refund address on the offer because it will be used in HTLC.
@@ -253,10 +255,14 @@ function generateSecret () {
 // function createHtlcOffer (formData, secret, timelock, user, issuance, receiveAddress, refundAddress) {
 function createHtlcOffer (order, secret, timelock, description, user, issuance, addrPair) {
   typeforce(typeforce.tuple(
-    'Order', 'Buffer', 'Number', '?String', 'User', 'Issuance',
+    'Order', 'Buffer', 'Number', '?String', 'User', typeforce.maybe('Issuance'),
     {EQB: types.Address, BTC: typeforce.maybe(types.Address)}),
     arguments
   )
+  // Note: for Blank EQB trade there is no issuance.
+  if (order.assetType === 'ISSUANCE') {
+    typeforce('Issuance', issuance)
+  }
   const flowType = order.type === 'SELL' ? 'Ask' : 'Bid'
 
   const secretEncrypted = user.encrypt(secret.toString('hex'))
@@ -264,7 +270,6 @@ function createHtlcOffer (order, secret, timelock, description, user, issuance, 
   const offer = new Offer({
     userId: user._id,
     orderId: order._id,
-    issuanceAddress: issuance.issuanceAddress,
     // Ask: refund address | Bid: main receiving address:
     btcAddress: addrPair.BTC,
     // Ask: main address for receiving securities | Bid: will be populated from utxo.
@@ -273,15 +278,21 @@ function createHtlcOffer (order, secret, timelock, description, user, issuance, 
     hashlock,
     timelock,
     type: flowType === 'Ask' ? 'BUY' : 'SELL',
+    assetType: order.assetType,
     quantity: 0,
     price: order.price,
-    issuanceId: issuance._id,
-    companyName: issuance.companyName,
-    issuanceName: issuance.issuanceName,
-    issuanceType: issuance.issuanceType,
     description,
     htlcStep: 1
   })
+  if (issuance) {
+    offer.assign({
+      issuanceAddress: issuance.issuanceAddress,
+      issuanceId: issuance._id,
+      companyName: issuance.companyName,
+      issuanceName: issuance.issuanceName,
+      issuanceType: issuance.issuanceType
+    })
+  }
   console.log('createHtlcOffer', arguments, offer)
   return offer
 }

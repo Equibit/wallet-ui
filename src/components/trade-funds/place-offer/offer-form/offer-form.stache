@@ -5,7 +5,11 @@
 
 <div class="list-group">
   <div class="list-group-item order-header">
-    <issuance-summary issuance:from="formData.order" />
+    {{#is formData.order.assetType 'EQUIBIT'}}
+      <span class="details-company">{{i18n('blankEqb')}}</span>
+    {{else}}
+      <issuance-summary issuance:from="formData.order" />
+    {{/is}}
   </div>
 
   <div class="list-group-item order-fields">

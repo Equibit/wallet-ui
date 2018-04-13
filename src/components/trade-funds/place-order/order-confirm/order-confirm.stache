@@ -10,7 +10,7 @@
       <issuance-summary issuance:from="issuance"/>
     {{/is}}
     {{#is formData.assetType 'EQUIBIT'}}
-      <label>Empty Equibits</label>
+      <label>{{i18n('blankEqb')}}</label>
     {{/is}}
   </div>
 

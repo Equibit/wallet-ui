@@ -108,6 +108,11 @@ const FormData = DefineMap.extend('FormData', {
 
   quantityProblem: 'string',
   get quantityIsVaild () {
+    // Ignore this validation for blank EQB.
+    if (this.assetType === 'EQUIBIT') {
+      return true
+    }
+
     const type = this.type
     const quantity = this.quantity || 0
     const issuance = this.issuance || {}

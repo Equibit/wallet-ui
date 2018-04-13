@@ -17,7 +17,10 @@ const hashTimelockContract = eqbTxBuilder.hashTimelockContract
  * This is a high-level method to be called from a component VM.
  */
 function createHtlc1 (offer, order, portfolio, issuance, changeAddr, transactionFeeRates) {
-  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', 'Issuance', types.Address, {EQB: 'Number', BTC: 'Number'}), arguments)
+  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', typeforce.maybe('Issuance'), types.Address, {EQB: 'Number', BTC: 'Number'}), arguments)
+  if (order.assetType === 'ISSUANCE') {
+    typeforce('Issuance', issuance)
+  }
 
   const currencyType = order.type === 'SELL' ? 'BTC' : 'EQB'
   const transactionFeeRate = transactionFeeRates[currencyType]
@@ -99,6 +102,7 @@ function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr, transactionF
     amount,
     fee,
     type: offer.type,
+    assetType: order.assetType,
     currencyType: 'BTC',
     hashlock: offer.hashlock,
     timelock,
@@ -113,7 +117,8 @@ function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr, transactionF
 function prepareTxData (htlcConfig, tx, issuance) {
   return Object.assign(htlcConfig.txInfo, {
     hex: tx.hex,
-    txId: tx.txId,
+    txId: tx.txId
+  }, issuance && {
     issuanceId: issuance._id,
     companyName: issuance.companyName,
     companySlug: issuance.companySlug,

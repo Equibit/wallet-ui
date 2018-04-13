@@ -12,9 +12,19 @@
   <div class="row">
       <div class="col-xs-12 no-padding">
           <label for="">
-            {{#eq formData.type 'BTC'}} {{i18n('paymentFor')}} {{else}} {{i18n('commonShares')}} {{/eq}}
+            {{#is formData.type 'BTC'}}
+              {{i18n('paymentFor')}}
+            {{else}}
+              {{#is formData.order.assetType 'EQUIBIT'}}
+                {{i18n('blankEqb')}}
+              {{else}}
+                {{i18n('commonShares')}}
+              {{/is}}
+            {{/is}}
           </label>
-          <span class="input-value">{{formData.order.companyName}}, {{formData.order.issuanceName}}</span>
+          {{#is formData.order.assetType 'ISSUANCE'}}
+            <span class="input-value">{{formData.order.companyName}}, {{formData.order.issuanceName}}</span>
+          {{/is}}
       </div>
   </div>
 

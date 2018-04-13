@@ -101,6 +101,11 @@ const FormData = DefineMap.extend('OfferFormData', {
 
   quantityProblem: 'string',
   get quantityIsVaild () {
+    // Ignore this validation for blank EQB.
+    if (this.order.assetType === 'EQUIBIT') {
+      return true
+    }
+
     const type = this.type
     const quantity = this.quantity || 0
     const order = this.order || {}

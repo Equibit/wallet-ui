@@ -20,7 +20,7 @@
 
           <div class="panel-body">
             <!-- <candlestick-chart /> -->
-            <order-book class="{{^if hasOrders}}hidden{{/if}}"
+            <order-book class=""
                         assetType:from="'EQUIBIT'"
                         isModalShown:bind="isCreateOrderModalShown"
                         newOrderType:from="newOrderType"

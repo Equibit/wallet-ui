@@ -129,6 +129,13 @@ const Transaction = DefineMap.extend('Transaction', {
   type: 'string',
 
   /**
+   * @property {?Enum} models/transaction.properties.assetType assetType
+   * @parent models/transaction.properties
+   * Asset type for a trade. One of: [ 'ISSUANCE', 'EQUIBIT' ]
+   */
+  assetType: 'string',
+
+  /**
    * @property {Number} models/transaction.properties.htlcStep htlcStep
    * @parent models/transaction.properties
    * Atomic swap consists of 4 transactions. This indicates current "step".

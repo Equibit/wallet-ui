@@ -26,7 +26,11 @@
         <a href="#" class="list-group-item {{#eq item ../selectedItem}}active{{/eq}}" on:click="selectItem(item)">
           <div class="row">
             <div class="col-xs-8">
-              <h4 class="list-group-item-heading list-issuance">{{item.companyName}}, {{item.issuanceName}}</h4>
+              {{#is item.assetType 'EQUIBIT'}}
+                <h4 class="list-group-item-heading list-issuance">{{i18n('blankEqb')}}</h4>
+              {{else}}
+                <h4 class="list-group-item-heading list-issuance">{{item.companyName}}, {{item.issuanceName}}</h4>
+              {{/is}}
               <div class="list-issuance-type">{{item.issuanceTypeDisplay}}</div>
               <div class="list-quantity-price">{{format(item.quantity, '', 0)}} @{{to-fixed-2(item.price)}} <small>μBTC</small></div>
             </div>

@@ -119,6 +119,7 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
     amount,
     fee,
     type: order.type,
+    assetType: order.assetType,
     currencyType: 'EQB',
     // description: `Selling securities (HTLC #${htlcStep})`,
     hashlock: offer.hashlock,
