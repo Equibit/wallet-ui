@@ -3,7 +3,7 @@
 <can-import from="grid-component" />
 
 <grid-component class="{{#if rowsPromise.isPending}}loading{{/if}}">
-  <div class="grid-responsive">
+  <div class="grid-responsive order-type-{{../type}}">
   {{#is ../type 'SELL'}}
 
     <div class="grid-header-container">
@@ -16,7 +16,7 @@
             <th class="column-quantity">
               {{i18n('quantity')}} {{#is ../assetType 'EQUIBIT'}}, EQB{{/is}}
             </th>
-            <th class="column-price">{{i18n('askPrice')}} {{#is ../assetType 'EQUIBIT'}}, μBTC{{/is}}</th>
+            <th class="column-price">{{i18n('askPrice')}}, μBTC</th>
           </tr>
         </thead>
       </table>
@@ -88,7 +88,7 @@
                 {{row.quantity}}
               {{/is}}
             </td>
-            <td class="column-price">{{row.price}}</td>
+            <td class="column-price">{{format-micro(row.price)}}</td>
           </tr>
         {{/each}}
         </tbody>
@@ -101,7 +101,7 @@
       <table class="table table-condensed grid-header">
         <thead>
         <tr>
-          <th class="column-price">{{i18n('bidPrice')}} {{#is ../assetType 'EQUIBIT'}}, μBTC{{/is}}</th>
+          <th class="column-price">{{i18n('bidPrice')}}, μBTC</th>
           <th class="column-quantity">
             {{i18n('quantity')}} {{#is ../assetType 'EQUIBIT'}}, EQB{{/is}}
           </th>
@@ -118,7 +118,7 @@
         <tbody>
         {{#each ../rows row=value index=index}}
           <tr class="order-row percentage-red percentage-{{../../marketWidth[index]}}">
-            <td class="column-price">{{row.price}}</td>
+            <td class="column-price">{{format-micro(row.price)}}</td>
             <td class="column-quantity">
               {{#is ../assetType 'EQUIBIT'}}
                 {{coin(row.quantity)}}
