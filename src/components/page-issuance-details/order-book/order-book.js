@@ -34,7 +34,9 @@ import feathersClient from '~/models/feathers-client'
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
   assetType: {
-    default: 'ISSUANCE'
+    get (val) {
+      return val || 'ISSUANCE'
+    }
   },
   issuance: '*',
   get session () {
