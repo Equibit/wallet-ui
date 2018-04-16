@@ -62,7 +62,7 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
     typeforce(TxId, paymentTxId)
 
     // First build tx with the default rate, then based on the tx size calculate the real fee:
-    const fee = transactionFee || 3000
+    let fee = transactionFee || 3000
     const htlcStep = 3
     const timelock = order.type === 'SELL' ? offer.timelock2 : offer.timelock
 
@@ -115,7 +115,10 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
     } else {
       // For blank EQB subtract fee from the main output:
       // todo: check against the minimum fee value.
-      buildConfig.vout[0].value = amount > fee ? (amount - fee) : (amount - 1)
+      if (amount < fee) {
+        fee = 1
+      }
+      buildConfig.vout[0].value = amount - fee
     }
 
     const description = `${isRefund ? 'Refunding' : 'Collecting'} ${assetType === 'ISSUANCE' ? 'securities' : 'Blank EQB'} from HTLC (step #${htlcStep})`
