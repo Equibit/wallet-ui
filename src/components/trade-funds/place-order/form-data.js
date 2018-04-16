@@ -62,7 +62,7 @@ const FormData = DefineMap.extend('FormData', {
 
   // Note:
   // - For issuances we use Ask Price per issuance share (per 1 Satoshi unit).
-  // - For blank EQB we use Ask Price per user unit (e.g. user unit is uEQB, then price would be in uBTC per uEQB)
+  // - For blank EQB we use Ask Price per EQB (N uBTC per 1 EQB).
   get totalPriceInUnits () {
     return this.assetType === 'ISSUANCE'
       ? this.quantity * this.priceInUnits
