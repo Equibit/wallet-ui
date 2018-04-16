@@ -618,7 +618,8 @@ describe('models/transaction/utils', function () {
     })
 
     describe('createHtlc4 for Blank EQB', function () {
-      let txData, tx, amount, order, offer
+      const fee = 2250
+      let txData, amount, order, offer
       before(function () {
         htlcOfferMock = mockHtlcOffer()
         order = htlcOfferMock.orderBlankEqb
@@ -628,12 +629,14 @@ describe('models/transaction/utils', function () {
       })
       it('should define amount', function () {
         assert.equal(txData.amount, 32750)
+        assert.equal(txData.amount, amount - fee)
       })
       it('should define assetType', function () {
         assert.equal(txData.assetType, 'EQUIBIT')
       })
       it('should calculate fee correctly based on tx hex size', function () {
         assert.equal(txData.fee, 2250)
+        assert.equal(txData.fee, fee)
       })
     })
   })
