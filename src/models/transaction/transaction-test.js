@@ -419,6 +419,33 @@ describe('models/transaction/utils', function () {
           assert.equal(txData.txId, tx.txId, 'txId')
         })
       })
+
+      describe('createHtlc3 for Blank EQB', function () {
+        let txData, tx
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          tx = { hex: htlcOfferMock.txHexBlankEqb, txId: htlcOfferMock.txIdBlankEqb }
+          txData = createHtlc3(
+            htlcOfferMock.orderBlankEqb, htlcOfferMock.offer, portfolio, null,
+            htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
+          )
+        })
+        it('should define amount', function () {
+          assert.equal(txData.amount, 500)
+        })
+        it('should define assetType', function () {
+          assert.equal(txData.assetType, 'EQUIBIT')
+        })
+        it('should calculate fee (for amount smaller than regular fee)', function () {
+          assert.equal(txData.fee, 1)
+        })
+        it('should define htlc3 transaction hex', function () {
+          assert.equal(txData.hex, tx.hex)
+        })
+        it('should define htlc3 transaction id', function () {
+          assert.equal(txData.txId, tx.txId)
+        })
+      })
     }
 
     describe('prepareHtlcRefundConfig3', function () {
@@ -568,29 +595,49 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    if (window.Testee1) {
-      it.skip('skipping createHtlc4 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
-    } else {
-      describe('createHtlc4', function () {
-        const fee = 2250
-        let txData, tx, amount, order, offer
-        before(function () {
-          htlcOfferMock = mockHtlcOffer()
-          order = htlcOfferMock.order
-          offer = htlcOfferMock.offer
-          amount = offer.quantity * offer.price
-          tx = { hex: htlcOfferMock.txHex4, txId: htlcOfferMock.txId4 }
-          txData = createHtlc4(order, offer, portfolio, issuance, htlcOfferMock.secretHex, null, transactionFeeRates)
-        })
-        it('should define main props', function () {
-          assert.equal(txData.amount, amount - fee, 'amount minus fee')
-          assert.equal(txData.fee, fee, 'fee')
-        })
-        it('should define transaction hex and id', function () {
-          assert.equal(txData.hex, tx.hex, 'tx hex')
-          assert.equal(txData.txId, tx.txId, 'txId')
-        })
+    // it.skip('skipping createHtlc4 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
+    describe('createHtlc4', function () {
+      const fee = 2250
+      let txData, tx, amount, order, offer
+      before(function () {
+        htlcOfferMock = mockHtlcOffer()
+        order = htlcOfferMock.order
+        offer = htlcOfferMock.offer
+        amount = offer.quantity * offer.price
+        tx = { hex: htlcOfferMock.txHex4, txId: htlcOfferMock.txId4 }
+        txData = createHtlc4(order, offer, portfolio, issuance, htlcOfferMock.secretHex, null, transactionFeeRates)
       })
-    }
+      it('should define main props', function () {
+        assert.equal(txData.amount, amount - fee, 'amount minus fee')
+        assert.equal(txData.fee, fee, 'fee')
+      })
+      it('should define transaction hex and id', function () {
+        assert.equal(txData.hex, tx.hex, 'tx hex')
+        assert.equal(txData.txId, tx.txId, 'txId')
+      })
+    })
+
+    describe('createHtlc4 for Blank EQB', function () {
+      const fee = 2250
+      let txData, amount, order, offer
+      before(function () {
+        htlcOfferMock = mockHtlcOffer()
+        order = htlcOfferMock.orderBlankEqb
+        offer = htlcOfferMock.offer
+        amount = offer.quantity * offer.price
+        txData = createHtlc4(order, offer, portfolio, null, htlcOfferMock.secretHex, null, transactionFeeRates)
+      })
+      it('should define amount', function () {
+        assert.equal(txData.amount, 32750)
+        assert.equal(txData.amount, amount - fee)
+      })
+      it('should define assetType', function () {
+        assert.equal(txData.assetType, 'EQUIBIT')
+      })
+      it('should calculate fee correctly based on tx hex size', function () {
+        assert.equal(txData.fee, 2250)
+        assert.equal(txData.fee, fee)
+      })
+    })
   })
 })

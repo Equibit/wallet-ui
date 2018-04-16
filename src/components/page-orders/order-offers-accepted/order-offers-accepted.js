@@ -92,11 +92,13 @@ export const ViewModel = DefineMap.extend({
     typeforce(typeforce.tuple(
       'Order',
       'Offer',
-      'Issuance',
       'User',
       'Portfolio',
       'String'
-    ), [order, offer, issuance, user, portfolio, secret])
+    ), [order, offer, user, portfolio, secret])
+    if (order.assetType === 'ISSUANCE') {
+      typeforce('Issuance', issuance)
+    }
 
     return Promise.all([
       // Note: we need EQB change address only for the Bid flow (when collecting locked securities).
@@ -123,11 +125,13 @@ export const ViewModel = DefineMap.extend({
     typeforce(typeforce.tuple(
       'Order',
       'Offer',
-      'Issuance',
       'User',
       'Portfolio',
       'String'
-    ), [order, offer, issuance, user, portfolio, secret])
+    ), [order, offer, user, portfolio, secret])
+    if (order.assetType === 'ISSUANCE') {
+      typeforce('Issuance', issuance)
+    }
 
     const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
     return Promise.all([

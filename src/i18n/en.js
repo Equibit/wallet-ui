@@ -78,6 +78,7 @@ export default {
 
   // Alphabetically
   about: 'About',
+  acceptOfferAndSendEquibits: 'Accept Offer and Send Equibits',
   acceptOfferAndSendPayment: 'Accept Offer and Send Payment',
   acceptOfferAndSendSecurities: 'Accept Offer and Send Securities',
   acceptPassports: 'Accept Passports',
@@ -121,6 +122,7 @@ export default {
   bonds: 'Bonds',
   breakdown: 'Breakdown',
   blankEqb: 'Blank EQB',
+  blankEqbCollectionTimeLeftDescription: 'Time left to collect the equibits',
   BTC: 'BTC',
   buy: 'Buy',
   buyOffer: 'Buy Offer',
@@ -206,6 +208,7 @@ export default {
   dealFlowMessageTitleCollectAndCloseDeal: 'Collect & Close Deal',
   dealFlowMessageTitleCollectPayment: 'Collect Payment',
   dealFlowMessageTitleCollectSecurities: 'Collect Securities',
+  dealFlowMessageTitleCollectBlankEqb: 'Collect EQB',
   dealFlowMessageTitleCollectionTimeExpiredOn: 'Your time to collect the securities ended on',
   dealFlowMessageTitleDealCancelledOnUser: 'You cancelled this deal on',
   dealFlowMessageTitleConfirmDealBuyer: 'Awaiting Confirmation from Buyer',
@@ -403,6 +406,7 @@ export default {
 
   offer: 'Offer',
   offerAcceptedOn: 'Offer accepted on',
+  offerAcceptanceTimeLeftDescription: 'Time left to accept the offer',
   offerDescriptionPopoverMessage: 'Enter a short description for your own records.',
   offerPlacedByUserPopoverMessage: 'You placed an offer to this order.',
   offerTooltipTimelockAsk: 'This is the time frame the buyer will have to collect the securities.',
@@ -503,6 +507,7 @@ export default {
   research: 'Research',
   receivePaymentFrom: 'Receive Payment From',
   receiveSecuritiesFrom: 'Receive Securities From',
+  receiveEquibitsFrom: 'Receive Equibits From',
   resendVerificationEmail: 'Re-send Verification',
   responses: 'Responses',
   restriction: 'Restriction',
@@ -535,6 +540,7 @@ export default {
   sendAllFunds: 'Send All Funds',
   sendOfferPayment: 'Send Offer Payment',
   sendOfferSecurities: 'Send Offer Securities',
+  sendEquibitsTo: 'Send Equibits to',
   sendPaymentTo: 'Send Payment to',
   sendSecuritiesTo: 'Send Securities to',
   sentOn: 'Sent On',

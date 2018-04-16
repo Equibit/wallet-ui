@@ -35,6 +35,7 @@ function setup () {
 }
 setup()
 
+// Satoshi to local currency:
 export function localCurrency (value, type = 'BTC', precision = 2) {
   const rates = tmpRates
   if (!rates) {

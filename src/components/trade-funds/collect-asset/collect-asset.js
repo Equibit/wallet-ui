@@ -34,6 +34,11 @@ const titles = {
     header: 'dealFlowMessageTitleCollectSecurities',
     timer: 'securitiesCollectionTimeLeftDescription',
     button: 'dealFlowMessageTitleCollectSecurities'
+  },
+  blankEqb: {
+    header: 'dealFlowMessageTitleCollectBlankEqb',
+    timer: 'blankEqbCollectionTimeLeftDescription',
+    button: 'dealFlowMessageTitleCollectBlankEqb'
   }
 }
 
@@ -50,10 +55,12 @@ export const ViewModel = DefineMap.extend({
       const issuance = this.issuance
       return new DefineMap({
         type: tx.currencyType,
+        assetType: tx.assetType,
         address: tx.fromAddress,
-        issuanceName: issuance.companyName + ', ' + issuance.issuanceName,
+        issuanceName: issuance && (issuance.companyName + ', ' + issuance.issuanceName),
         quantityBtc: tx.amount / 100000000,
         quantity: tx.amount,
+        amountMinusFee: tx.amount - tx.fee,
         fee: tx.fee,
         totalAmount: (tx.amount + tx.fee),
         totalAmountBtc: (tx.amount + tx.fee) / 100000000,
@@ -65,7 +72,8 @@ export const ViewModel = DefineMap.extend({
   titles: {
     type: '*',
     get (lastSetVal) {
-      return lastSetVal ? lastSetVal[this.tx.currencyType || 'BTC'] : titles[this.tx.currencyType || 'BTC']
+      let titleProp = this.tx.currencyType === 'EQB' && this.tx.assetType === 'EQUIBIT' ? 'blankEqb' : this.tx.currencyType
+      return lastSetVal ? lastSetVal[titleProp] : titles[titleProp || 'BTC']
     }
   },
   convertToUSD: function (value) {

@@ -93,7 +93,7 @@ export const ViewModel = DefineMap.extend({
       //   ? issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
       //   : this.issuance
 
-      if (!this.issuance.utxo) {
+      if (this.issuance && !this.issuance.utxo) {
         const message = 'No UTXO for this issuance. Cannot accept the offer.'
         console.error(message, this.issuance)
         throw new Error(message)
@@ -125,7 +125,10 @@ export const ViewModel = DefineMap.extend({
   },
 
   openAcceptOfferModal (offer, tx, issuance, portfolio) {
-    typeforce(typeforce.tuple('Offer', 'Transaction', 'Issuance'), [offer, tx, issuance])
+    typeforce(typeforce.tuple('Offer', 'Transaction', '?Issuance'), [offer, tx, issuance])
+    if (offer.assetType === 'ISSUANCE') {
+      typeforce('Issuance', issuance)
+    }
     this.offer = offer
     this.tx = tx
     this.issuance = issuance
