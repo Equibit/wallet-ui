@@ -256,7 +256,10 @@ const Transaction = DefineMap.extend('Transaction', {
   // Won't be stored in DB. If a failure occurs the error will be immediately shown to user without creating a DB entry.
   hex: 'string',
 
-  isPending: 'boolean',
+  get isPending () {
+    return !this.confirmationBlockHeight
+  },
+
   createdAt: { type: 'date', serialize: false },
   updatedAt: { type: 'date', serialize: false },
 

@@ -12,6 +12,7 @@ import '../../../models/mock/mock-session'
 import issuance from '../../../models/mock/mock-issuance'
 import portfolio from '../../../models/mock/mock-portfolio'
 import orderFixturesData from '../../../models/fixtures/orders'
+import feathersClient from '~/models/feathers-client'
 
 import { ViewModel, createHtlcOffer, generateSecret } from './order-book'
 
@@ -174,7 +175,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
 
     // todo: figure out why testee gets max stack overflow because of this test.
     describe('placeOffer', function () {
-      let _offerSave, _transactionSave, offer, tx
+      let _offerSave, _transactionSave, _feathersPatch, offer, tx
 
       before(function () {
         offer = new Offer({})
@@ -189,10 +190,14 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       beforeEach(function () {
         _offerSave = Offer.prototype.save
         _transactionSave = Transaction.prototype.save
+        _feathersPatch = feathersClient.service('/transactions').patch
         Offer.prototype.save = function () {
           return Promise.resolve(this)
         }
         Transaction.prototype.save = function () {
+          return Promise.resolve(this)
+        }
+        feathersClient.service('/transactions').patch = function () {
           return Promise.resolve(this)
         }
       })
@@ -200,6 +205,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       afterEach(function () {
         Offer.prototype.save = _offerSave
         Transaction.prototype.save = _transactionSave
+        feathersClient.service('/transactions').patch = _feathersPatch
       })
 
       it('calls transaction.save()', function (done) {

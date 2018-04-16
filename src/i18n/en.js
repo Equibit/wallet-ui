@@ -637,7 +637,7 @@ export default {
   trades: 'Trades',
   transactionAuth: 'Authorization',
   transactionBuy: 'Buy',
-  transactionCancel: 'Cancelation',
+  transactionCancel: 'Cancellation',
   transactionFee: 'Transaction Fee',
   transactionFeePopoverMessage: 'This fee will be paid to miners for validating the transaction.',
   transaction: 'Transaction',
