@@ -420,7 +420,7 @@ describe('models/transaction/utils', function () {
         })
       })
 
-      describe.only('createHtlc3 for Blank EQB', function () {
+      describe('createHtlc3 for Blank EQB', function () {
         let txData, tx
         before(function () {
           htlcOfferMock = mockHtlcOffer()
