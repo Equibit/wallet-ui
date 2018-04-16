@@ -17,7 +17,6 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './market-eqb.less'
 import view from './market-eqb.stache'
-import MarketCap from '~/models/market-cap'
 
 export const ViewModel = DefineMap.extend({
   title: {
