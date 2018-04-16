@@ -72,7 +72,7 @@
                     {{else}}
                       {{i18n('dealFlowMessageTitleRecoveredFunds')}}
                     {{/if}}
-                    <a href="{{routeUrl page='transactions' itemId=offer.htlcTransactions3.txId}}">({{i18n('viewTransaction')}})</a>
+                    <a href="{{routeUrl page='transactions' itemId=offer.htlcTransactions.3.txId}}">({{i18n('viewTransaction')}})</a>
                   </div>
                   <div class="offer-timeline-event">
                     <span class="icon icon-hand-stop"></span>
@@ -106,7 +106,7 @@
                       {{else}}
                         {{i18n('dealFlowMessageTitleRecoveredFunds')}}
                       {{/if}}
-                      <a href="{{routeUrl page='transactions' itemId=offer.htlcTransactions3.txId}}">({{i18n('viewTransaction')}})</a>
+                      <a href="{{routeUrl page='transactions' itemId=offer.htlcTransactions.3.txId}}">({{i18n('viewTransaction')}})</a>
                     </div>
                   {{else}}
                     <div class="offer-timeline-event button-only">
