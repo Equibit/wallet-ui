@@ -110,7 +110,7 @@ const Order = DefineMap.extend('Order', {
   price: 'number',
 
   get priceMutliplier () {
-    return this.assetType === 'EQUIBIT' ? 1/100000000 : 1
+    return this.assetType === 'EQUIBIT' ? 1 / 100000000 : 1
   },
 
   // ENUM ('OPEN', 'TRADING', 'CANCELLED', 'CLOSED')
@@ -161,7 +161,7 @@ const Order = DefineMap.extend('Order', {
    */
   totalPrice: {
     get () {
-        return this.quantity * this.price * this.priceMutliplier
+      return this.quantity * this.price * this.priceMutliplier
     }
   },
   get issuanceTypeDisplay () {
