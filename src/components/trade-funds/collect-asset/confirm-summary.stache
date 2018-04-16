@@ -37,7 +37,7 @@
                   {{#eq formData.type 'BTC'}}
                     <td class="column-label">{{i18n('amount')}}</td>
                     <td class="column-digital-currency-value font-numeric">{{user-units(formData.totalAmount, 8)}}</td>
-                    <td class="column-digital-currency-type font-numeric">{{user-units-symbol('BTC'}}</td>
+                    <td class="column-digital-currency-type font-numeric">{{user-units-symbol('BTC')}}</td>
                     <td class="column-local-currency-value font-numeric">{{local-currency(formData.totalAmount).value)}}</td>
                     <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>
                   {{else}}
@@ -97,8 +97,8 @@
                   {{#is formData.assetType 'EQUIBIT'}}
                     <td class="column-digital-currency-value font-numeric text-success">+ {{user-units(formData.amountMinusFee, 8)}}</td>
                     <td class="column-digital-currency-type font-numeric text-success">{{i18n('EQB')}}</td>
-                    <td class="column-local-currency-value font-numeric text-danger">- {{local-currency(formData.amountMinusFee, 'EQB')}}</td>
-                    <td class="column-local-currency-type font-numeric text-danger">{{local-currency-symbol()}}</td>
+                    <td class="column-local-currency-value font-numeric text-success">+ {{local-currency(formData.amountMinusFee, 'EQB')}}</td>
+                    <td class="column-local-currency-type font-numeric text-success">{{local-currency-symbol()}}</td>
                   {{else}}
                     <td class="column-digital-currency-value font-numeric text-success">+ {{format(formData.quantity, '')}}</td>
                     <td class="column-digital-currency-type font-numeric text-success">{{i18n('shares')}}</td>

@@ -49,10 +49,12 @@ export const ViewModel = DefineMap.extend({
       const issuance = this.issuance || {}
       return new DefineMap({
         type: tx.currencyType,
+        assetType: tx.assetType,
         address: tx.toAddress,
-        issuanceName: issuance.companyName + ', ' + issuance.issuanceName,
+        issuanceName: issuance && (issuance.companyName + ', ' + issuance.issuanceName),
         quantity: tx.amount,
         fee: tx.fee,
+        amountMinusFee: (tx.amount - tx.fee),
         totalAmount: (tx.amount + tx.fee),
         // timelock is in blocks (10min per block)
         timelock: Math.floor(tx.timelock / 6),

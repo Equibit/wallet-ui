@@ -78,6 +78,7 @@ export default {
 
   // Alphabetically
   about: 'About',
+  acceptOfferAndSendEquibits: 'Accept Offer and Send Equibits',
   acceptOfferAndSendPayment: 'Accept Offer and Send Payment',
   acceptOfferAndSendSecurities: 'Accept Offer and Send Securities',
   acceptPassports: 'Accept Passports',
@@ -405,6 +406,7 @@ export default {
 
   offer: 'Offer',
   offerAcceptedOn: 'Offer accepted on',
+  offerAcceptanceTimeLeftDescription: 'Time left to accept the offer',
   offerDescriptionPopoverMessage: 'Enter a short description for your own records.',
   offerPlacedByUserPopoverMessage: 'You placed an offer to this order.',
   offerTooltipTimelockAsk: 'This is the time frame the buyer will have to collect the securities.',
@@ -538,6 +540,7 @@ export default {
   sendAllFunds: 'Send All Funds',
   sendOfferPayment: 'Send Offer Payment',
   sendOfferSecurities: 'Send Offer Securities',
+  sendEquibitsTo: 'Send Equibits to',
   sendPaymentTo: 'Send Payment to',
   sendSecuritiesTo: 'Send Securities to',
   sentOn: 'Sent On',
