@@ -419,6 +419,33 @@ describe('models/transaction/utils', function () {
           assert.equal(txData.txId, tx.txId, 'txId')
         })
       })
+
+      describe.only('createHtlc3 for Blank EQB', function () {
+        let txData, tx
+        before(function () {
+          htlcOfferMock = mockHtlcOffer()
+          tx = { hex: htlcOfferMock.txHexBlankEqb, txId: htlcOfferMock.txIdBlankEqb }
+          txData = createHtlc3(
+            htlcOfferMock.orderBlankEqb, htlcOfferMock.offer, portfolio, null,
+            htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
+          )
+        })
+        it('should define amount', function () {
+          assert.equal(txData.amount, 500)
+        })
+        it('should define assetType', function () {
+          assert.equal(txData.assetType, 'EQUIBIT')
+        })
+        it('should calculate fee correctly based on tx hex size', function () {
+          assert.equal(txData.fee, 1475)
+        })
+        it('should define htlc3 transaction hex', function () {
+          assert.equal(txData.hex, tx.hex)
+        })
+        it('should define htlc3 transaction id', function () {
+          assert.equal(txData.txId, tx.txId)
+        })
+      })
     }
 
     describe('prepareHtlcRefundConfig3', function () {
