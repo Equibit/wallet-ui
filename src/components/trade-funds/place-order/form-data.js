@@ -41,6 +41,8 @@ const FormData = DefineMap.extend('FormData', {
       return val
     }
   },
+
+  // Note: Currently in uBTC.
   priceInUnits: {
     type: 'number',
     set (newVal) {

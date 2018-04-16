@@ -215,7 +215,8 @@ function createOrder (formData, type, addr, user, portfolio, assetType, issuance
     eqbAddress: type === 'BUY' ? addr : '',             // will be populated when we create a transaction (from UTXO)
     portfolioId: portfolio._id,
     quantity: formData.quantity,
-    price: formData.priceInUnits,
+    // Note: the price is always in Satoshi (not in user units)!
+    price: formData.price,
     isFillOrKill: formData.isFillOrKill,
     goodFor: formData.goodFor
   })
