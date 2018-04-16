@@ -26,6 +26,16 @@ const FormData = DefineMap.extend('FormData', {
   authIssuancesOnly: 'boolean',
 
   quantity: 'number',
+
+  // For blank EQB we show quantity in EQB for flexible conversion to BTC.
+  quantityInCoins: {
+    type: 'number',
+    // Currently in uEQB. Set quantity which is in Satoshi:
+    set (val) {
+      this.quantity = Math.floor(val * 100000000)
+      return val
+    }
+  },
   priceInUnits: {
     type: 'number',
     set (newVal) {
@@ -50,8 +60,13 @@ const FormData = DefineMap.extend('FormData', {
     return this.priceInUnits * 100
   },
 
+  // Note:
+  // - For issuances we use Ask Price per issuance share (per 1 Satoshi unit).
+  // - For blank EQB we use Ask Price per user unit (e.g. user unit is uEQB, then price would be in uBTC per uEQB)
   get totalPriceInUnits () {
-    return this.quantity * this.priceInUnits
+    return this.assetType === 'ISSUANCE'
+      ? this.quantity * this.priceInUnits
+      : this.quantityInCoins * this.priceInUnits
   },
 
   get totalPrice () {

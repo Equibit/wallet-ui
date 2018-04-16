@@ -13,8 +13,10 @@
             <th class="column-action-buttons"></th>
             <th class="column-partial">{{i18n('partial')}}</th>
             <th class="column-datetime">{{i18n('dateAndTime2')}}</th>
-            <th class="column-quantity">{{i18n('quantity')}}</th>
-            <th class="column-price">{{i18n('askPrice')}}</th>
+            <th class="column-quantity">
+              {{i18n('quantity')}} {{#is ../assetType 'EQUIBIT'}}, EQB{{/is}}
+            </th>
+            <th class="column-price">{{i18n('askPrice')}} {{#is ../assetType 'EQUIBIT'}}, μBTC{{/is}}</th>
           </tr>
         </thead>
       </table>
@@ -79,7 +81,13 @@
             </td>
             <td class="column-partial">{{yes-no(not(~row.isFillOrKill))}}</td>
             <td class="column-datetime">{{format-time(row.createdAt)}}</td>
-            <td class="column-quantity">{{row.quantity}}</td>
+            <td class="column-quantity">
+              {{#is ../assetType 'EQUIBIT'}}
+                {{coin(row.quantity)}}
+              {{else}}
+                {{row.quantity}}
+              {{/is}}
+            </td>
             <td class="column-price">{{row.price}}</td>
           </tr>
         {{/each}}
@@ -93,8 +101,10 @@
       <table class="table table-condensed grid-header">
         <thead>
         <tr>
-          <th class="column-price">{{i18n('bidPrice')}}</th>
-          <th class="column-quantity">{{i18n('quantity')}}</th>
+          <th class="column-price">{{i18n('bidPrice')}} {{#is ../assetType 'EQUIBIT'}}, μBTC{{/is}}</th>
+          <th class="column-quantity">
+            {{i18n('quantity')}} {{#is ../assetType 'EQUIBIT'}}, EQB{{/is}}
+          </th>
           <th class="column-datetime">{{i18n('dateAndTime2')}}</th>
           <th class="column-partial">{{i18n('partial')}}</th>
           <th class="column-action-buttons"></th>
@@ -109,7 +119,13 @@
         {{#each ../rows row=value index=index}}
           <tr class="order-row percentage-red percentage-{{../../marketWidth[index]}}">
             <td class="column-price">{{row.price}}</td>
-            <td class="column-quantity">{{row.quantity}}</td>
+            <td class="column-quantity">
+              {{#is ../assetType 'EQUIBIT'}}
+                {{coin(row.quantity)}}
+              {{else}}
+                {{row.quantity}}
+              {{/is}}
+            </td>
             <td class="column-datetime">{{format-time(row.createdAt)}}</td>
             <td class="column-partial">{{yes-no(not(~row.isFillOrKill))}}</td>
             <td class="column-action-buttons">
