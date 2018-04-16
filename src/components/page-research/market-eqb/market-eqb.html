@@ -1,0 +1,18 @@
+<style>body { padding: 20px }</style>
+<script>window.useXhrTransport = true</script>
+
+<script type="text/stache" can-autorender id="demo-html">
+  <can-import from="~/components/page-research/market-eqb/" />
+  <can-import from="~/styles/styles.less" />
+
+  <div class="row">
+    <div class="col-md-4">
+      <market-eqb />
+    </div>
+  </div>
+</script>
+
+<script src="../../../../node_modules/steal/steal.js"
+        main="can-view-autorender" deps-bundle>
+  import '~/models/fixtures/'
+</script>

@@ -1,0 +1,19 @@
+<can-import from="~/components/common/panel/" />
+<can-import from="wallet-ui/components/common/barchart/" />
+<can-import from="wallet-ui/components/common/loading-indicator/" />
+<can-import from="~/utils/stache-helpers/" />
+
+<drag-panel class="panel panel-default card card-half">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{i18n('marketCapitalizationEqb')}} <small>{{i18n('last24hours')}}</small></h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div style="margin-top:90px">
+          <a href="{{routeUrl page='equibit'}}" type="button" class="btn btn-primary">{{i18n('buyEqb')}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</drag-panel>

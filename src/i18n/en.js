@@ -346,6 +346,7 @@ export default {
   market: 'Market',
   marketCap: 'Market Cap',
   marketCapitalization: 'Market Capitalization',
+  marketCapitalizationEqb: 'EQB Market Capitalization',
   marketNoOrdersFoundTitle: 'No orders for this security were found',
   marketSubmitOrderMessage: 'If you would like to make a trade, submit an order',
   marketNoInitialOfferingTitle: 'The initial offering is not available yet',
