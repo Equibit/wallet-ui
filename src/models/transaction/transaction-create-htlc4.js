@@ -17,9 +17,13 @@ import { prepareTxData } from './transaction-create-htlc1'
 const [createHtlc4, createHtlcRefund4] = [false, true].map(isRefund => {
   return function (order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates, locktime = 0) {
     typeforce(
-      typeforce.tuple('Order', 'Offer', 'Portfolio', 'Issuance', 'String', typeforce.maybe(types.Address), {EQB: 'Number', BTC: 'Number'}),
+      typeforce.tuple('Order', 'Offer', 'Portfolio', '?Issuance', 'String', typeforce.maybe(types.Address), {EQB: 'Number', BTC: 'Number'}),
       arguments
     )
+    if (order.assetType === 'ISSUANCE') {
+      typeforce('Issuance', issuance)
+    }
+
     console.log(`createHtlc4 arguments:`, arguments)
     const currencyType = order.type === 'SELL' ? 'BTC' : 'EQB'
     const transactionFeeRate = transactionFeeRates[currencyType]
@@ -47,7 +51,7 @@ const [createHtlc4, createHtlcRefund4] = [false, true].map(isRefund => {
   }
 })
 
-// Ask flow: seller (order creator) collects locked payment.
+// BTC. Ask flow: seller (order creator) collects locked payment.
 const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefund => {
   return function (order, offer, portfolio, secret, transactionFee) {
     console.log('prepareHtlcConfig4', arguments)
@@ -55,6 +59,7 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
       typeforce.tuple('Order', 'Offer', 'Portfolio', 'String'),
       arguments
     )
+    const assetType = order.assetType
     const htlcStep = 4
     const amount = offer.quantity * order.price
 
@@ -93,6 +98,7 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
       addressTxid: buildConfig.vin[0].txid,
       addressVout: buildConfig.vin[0].vout,
       type: isRefund ? 'CANCEL' : 'SELL',
+      assetType,
       fee,
       currencyType: 'BTC',
       amount: offer.quantity * order.price - fee,
@@ -109,7 +115,7 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
   }
 })
 
-// Bid flow: buyer (order creator) collects locked securities.
+// EQB. Bid flow: buyer (order creator) collects locked securities.
 const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(isRefund => {
   return function (order, offer, portfolio, secret, issuance, changeAddr, transactionFee) {
     console.log('prepareHtlcConfig4', arguments)
@@ -117,7 +123,8 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
       typeforce.tuple('Order', 'Offer', 'Portfolio', 'String', 'Issuance', types.Address),
       arguments
     )
-    const fee = transactionFee || 3000
+    const assetType = order.assetType
+    let fee = transactionFee || 3000
     const htlcStep = 4
     const amount = offer.quantity
     const paymentTxId = offer.htlcTxId2
@@ -126,17 +133,6 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
     // We unlock htlc1 here (so using timelock):
     const timelock = offer.timelock
 
-    // For EQB the fee comes from empty EQB.
-    const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
-    if (!utxoEmptyEqbInfo.sum) {
-      throw new Error('Not enough empty EQB to cover the fee')
-    }
-    const availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
-    const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
-      .map(a => merge(a, {
-        keyPair: portfolio.findAddress(a.address).keyPair,
-        sequence: isRefund ? '0' : '4294967295'
-      }))
     const toAddress = isRefund ? offer.eqbAddress : order.eqbAddress
 
     const buildConfig = {
@@ -158,25 +154,48 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
         // Main output for unlocked HTLC securities:
         value: amount,
         address: toAddress,
-        issuanceTxId: issuance.issuanceTxId,
+        issuanceTxId: issuance && issuance.issuanceTxId,
         paymentTxId
-      }, {
+      }]
+    }
+    if (assetType === 'ISSUANCE') {
+      // For EQB the fee comes from empty EQB.
+      const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
+      if (!utxoEmptyEqbInfo.sum) {
+        throw new Error('Not enough empty EQB to cover the fee')
+      }
+      const availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
+      const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
+        .map(a => merge(a, {
+          keyPair: portfolio.findAddress(a.address).keyPair,
+          sequence: isRefund ? '0' : '4294967295'
+        }))
+
+      buildConfig.vin = buildConfig.vin.concat(utxoEmptyEqb)
+      buildConfig.vout.push({
         // Regular change output:
         value: availableAmountEmptyEqb - fee,
         address: changeAddr
-      }]
+      })
+    } else {
+      // For blank EQB subtract fee from the main output:
+      // todo: check against the minimum fee value.
+      if (amount < fee) {
+        fee = 1
+      }
+      buildConfig.vout[0].value = amount - fee
     }
-    buildConfig.vin = buildConfig.vin.concat(utxoEmptyEqb)
 
     const txInfo = {
       address: toAddress,
       addressTxid: buildConfig.vin[0].txid,
       addressVout: buildConfig.vin[0].vout,
       type: isRefund ? 'CANCEL' : 'SELL',
+      assetType,
       fee,
       currencyType: 'EQB',
       amount: amount,
-      description: `${isRefund ? 'Refunding' : 'Collecting'} securities from HTLC (step #${htlcStep})`,
+      description: `${isRefund ? 'Refunding' : 'Collecting'} ${assetType === 'ISSUANCE' ? 'securities' : 'Blank EQB'} from HTLC (step #${htlcStep})`,
       fromAddress: offer.eqbAddress,
       toAddress,
       htlcStep,
