@@ -20,7 +20,7 @@
           <td class="text-right">{{local-currency(balance.cashBtc, 'BTC')}}</td>
         </tr>
         <tr>
-          <td>{{i18n('equibit')}}</td>
+          <td><a href="{{routeUrl page='equibit'}}">{{i18n('equibit')}}</a></td>
           <td class="text-right">{{user-units(balance.cashEqb, 8)}}</td>
           <td class="text-right">{{local-currency(balance.cashEqb, 'EQB')}}</td>
         </tr>
