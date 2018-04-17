@@ -617,7 +617,7 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    describe('createHtlc4 for Blank EQB', function () {
+    describe.skip('createHtlc4 for Blank EQB', function () {
       const fee = 2250
       let txData, amount, order, offer
       before(function () {
