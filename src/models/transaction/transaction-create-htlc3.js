@@ -147,7 +147,7 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
 
 const [ prepareHtlcConfig3Btc, prepareHtlcRefundConfig3Btc ] = [false, true].map(isRefund => {
   return function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr, transactionFee) {
-    const amount = offer.quantity * offer.price
+    const amount = offer.quantity * offer.price * offer.priceMutliplier
     const toAddress = isRefund ? order.btcAddress : offer.btcAddress
     const refundAddr = order.btcAddress
     typeforce(types.Address, toAddress)
