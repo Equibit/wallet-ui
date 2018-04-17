@@ -87,8 +87,13 @@ const Offer = DefineMap.extend('Offer', {
    * @property {Number} models/offer.properties.price price
    * @parent models/offer.properties
    * Price of one unit of the issuance, in satoshi BTC
+   * For Blank EQB order this price is per 1 EQB. Thus we are using priceMutliplier to calculate total price.
    */
   price: 'number',
+
+  get priceMutliplier () {
+    return this.assetType === 'EQUIBIT' ? 1 / 100000000 : 1
+  },
 
   // ENUM ('OPEN', 'TRADING', 'CANCELLED', 'CLOSED')
   status: {
@@ -142,9 +147,9 @@ const Offer = DefineMap.extend('Offer', {
   },
 
   // Computed props:
-
+  // Note: For Blank EQB we store price per coin in `price`, `priceMutliplier` accounts on this.
   get totalPrice () {
-    return this.quantity * this.price
+    return this.quantity * this.price * this.priceMutliplier
   },
   get issuanceTypeDisplay () {
     return Issuance.typesMap[this.issuanceType] || this.issuanceType

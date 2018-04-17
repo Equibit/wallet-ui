@@ -12,10 +12,16 @@
     <div class="offer-metadata section">
       <dl class="dl-horizontal dl-stripped responsive no-top-border">
         <dt>{{i18n('quantity')}}</dt>
-        <dd class="offer-bid-quantity">{{format(offer.quantity, '', 0)}}</dd>
+        <dd class="offer-bid-quantity">
+          {{#is offer.assetType 'EQUIBIT'}}
+            {{coin(offer.quantity)}}
+          {{else}}
+            {{format(offer.quantity, '', 0)}}
+          {{/is}}
+        </dd>
 
         <dt>{{i18n('totalPrice')}}</dt>
-        <dd>{{format(offer.totalPrice, '', 0)}} <small>μBTC</small></dd>
+        <dd>{{format(format-micro(offer.totalPrice), '', 0)}} <small>μBTC</small></dd>
       </dl>
     </div>
 

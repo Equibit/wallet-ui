@@ -19,11 +19,17 @@
   <div class="order-summary section row">
     <div class="col-xs-6">
       <label>{{i18n('quantity')}}</label>
-      <span class="order-quantity">{{format(order.quantity, '', 0)}}</span>
+      <span class="order-quantity">
+        {{#is offer.assetType 'EQUIBIT'}}
+          {{coin(offer.quantity)}}
+        {{else}}
+          {{format(offer.quantity, '', 0)}}
+        {{/is}}
+      </span>
     </div>
     <div class="col-xs-6 sub-section">
       <label>{{i18n('askPrice')}}</label>
-      <span class="order-ask-price">{{format(order.price, '', 0)}} <small>μBTC</small></span>
+      <span class="order-ask-price">{{format(format-micro(order.price), '', 0)}} <small>μBTC</small></span>
     </div>
 
     {{#if order.isFillOrKill}}
