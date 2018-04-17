@@ -17,14 +17,14 @@
   <div class="list-group-item order-summary">
     <dl class="dl-horizontal dl-stripped responsive">
       <dt>{{i18n('quantity')}}</dt>
-      <dd class="input-value">{{format(formData.quantity, '')}} <small>
+      <dd class="input-value">
         {{#is formData.assetType 'ISSUANCE'}}
-          {{i18n('securities')}}
+          {{format(formData.quantity, '')}} <small>{{i18n('securities')}}</small>
         {{/is}}
         {{#is formData.assetType 'EQUIBIT'}}
-          {{i18n('EQB')}}
+          {{coin(formData.quantity)}} <small>{{i18n('EQB')}}</small>
         {{/is}}
-      </small></dd>
+      </dd>
 
       <dt>{{#is type 'SELL'}} {{i18n('askPrice')}} {{else}} {{i18n('bidPrice')}} {{/is}}</dt>
       <dd class="input-value">{{to-fixed-2(formData.priceInUnits)}} <small>μBTC</small></dd>
