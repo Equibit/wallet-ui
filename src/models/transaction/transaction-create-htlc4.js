@@ -61,7 +61,7 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
     )
     const assetType = order.assetType
     const htlcStep = 4
-    const amount = offer.quantity * order.price
+    const amount = offer.quantity * order.price * order.priceMutliplier
 
     let fee = transactionFee || 3000
     if (fee > amount) {
@@ -101,7 +101,7 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
       assetType,
       fee,
       currencyType: 'BTC',
-      amount: offer.quantity * order.price - fee,
+      amount: offer.quantity * order.price * order.priceMutliplier - fee,
       description: `${isRefund ? 'Refunding' : 'Collecting'} payment from HTLC (step #${htlcStep})`,
       fromAddress: offer.btcAddress,
       toAddress,

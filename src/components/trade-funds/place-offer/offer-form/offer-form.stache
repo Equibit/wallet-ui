@@ -20,7 +20,16 @@
           <label for="inputQuantity" class="control-label">{{i18n('quantity')}}</label>
         </div>
         <div class="col-xs-12 col-sm-4">
-          <input type="number" class="form-control" id="inputQuantity" readonly value:from="formData.order.quantity">
+          {{#is formData.order.assetType 'EQUIBIT'}}
+            <div class="input-group">
+              <input type="text" class="form-control" id="inputQuantity" readonly
+                     value:bind="formData.orderQuantityInCoins">
+              <div class="input-group-addon">EQB</div>
+            </div>
+          {{else}}
+            <input type="number" class="form-control" id="inputQuantity" readonly
+                   value:from="formData.order.quantity">
+          {{/is}}
         </div>
 
         <div class="col-xs-12 col-sm-2">
@@ -44,8 +53,18 @@
           <label for="inputQuantityOffer" class="control-label">{{i18n('quantity')}}</label>
         </div>
         <div class="col-xs-12 col-sm-4">
-          <input type="number" class="form-control" id="inputQuantityOffer" {{#if formData.order.isFillOrKill}}readonly{{/if}}
-                 value:bind="formData.quantity">
+
+          {{#is formData.order.assetType 'EQUIBIT'}}
+            <div class="input-group">
+              <input type="text" class="form-control" id="inputQuantityOffer" {{#if formData.order.isFillOrKill}}readonly{{/if}}
+                     value:bind="formData.quantityInCoins">
+              <div class="input-group-addon">EQB</div>
+            </div>
+          {{else}}
+            <input type="number" class="form-control" id="inputQuantityOffer" {{#if formData.order.isFillOrKill}}readonly{{/if}}
+                   value:bind="formData.quantity">
+          {{/is}}
+
           {{^if formData.hasEnoughFunds}}
             <validation-message message:from="formData.errorMessage" />
           {{/if}}

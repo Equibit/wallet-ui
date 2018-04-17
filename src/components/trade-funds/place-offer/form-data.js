@@ -19,6 +19,18 @@ const FormData = DefineMap.extend('OfferFormData', {
       return val
     }
   },
+  // For blank EQB we show quantity in EQB for flexible conversion to BTC.
+  quantityInCoins: {
+    type: 'number',
+    // Currently in uEQB. Set quantity which is in Satoshi:
+    set (val) {
+      this.quantity = Math.floor(val * 100000000)
+      return val
+    }
+  },
+  get orderQuantityInCoins () {
+    return this.order && toMaxPrecision(this.order.quantity / 100000000, 8)
+  },
   get uBtcPrice () {
     // Price in order is in Satoshi:
     return (this.order && toMaxPrecision(this.order.price / 100, 2)) || 0
@@ -44,7 +56,7 @@ const FormData = DefineMap.extend('OfferFormData', {
 
   // In uBTC:
   get uBtcTotalPrice () {
-    return this.uBtcPrice * this.quantity
+    return this.uBtcPrice * this.quantity * this.order.priceMutliplier
   },
 
   // In Satoshi:

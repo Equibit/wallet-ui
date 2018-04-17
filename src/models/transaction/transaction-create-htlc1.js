@@ -55,7 +55,7 @@ function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr, transactionF
   typeforce('Number', offer.timelock)
   typeforce('String', offer.hashlock)
 
-  const amount = offer.quantity * order.price
+  const amount = offer.quantity * order.price * order.priceMutliplier
   // We reuse this method for both HTLC1 (Ask) and HTLC2 (Bid), so toAddress will be different:
   const toAddress = order.type === 'SELL' ? order.btcAddress : offer.btcAddress
   const refundAddress = order.type === 'SELL' ? offer.btcAddress : order.btcAddress
