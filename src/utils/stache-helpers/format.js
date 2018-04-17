@@ -16,7 +16,7 @@ stache.registerHelper('to-fixed-2', function (value) {
 })
 
 stache.registerHelper('format-max', function (value, precision) {
-  if (typeof precision === 'undefined') {
+  if (typeof precision !== 'number') {
     precision = 2
   }
   return toMaxPrecision(value, precision)

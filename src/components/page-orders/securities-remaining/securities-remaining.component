@@ -17,6 +17,11 @@
     export default DefineMap.extend("SecuritiesRemainingVM", {
       quantity: 'number',
       filledQuantity: 'number',
+      format: {
+        get (val) {
+          return val || 'INT'
+        }
+      },
       get remainingQuantity () {
         return this.quantity - this.filledQuantity
       }
@@ -50,11 +55,23 @@
       <tbody>
         <tr class="top-row">
           <th>Filled</th>
-          <td class="text-success">{{format-int(filledQuantity)}}</td>
+          <td class="text-success">
+            {{#is format 'INT'}}
+              {{format-int(filledQuantity)}}
+            {{else}}
+              {{format-max(filledQuantity)}}
+            {{/is}}
+          </td>
         </tr>
         <tr>
           <th>Remaining</th>
-          <td class="text-danger">{{format-int(remainingQuantity)}}</td>
+          <td class="text-danger">
+            {{#is format 'INT'}}
+              {{format-int(remainingQuantity)}}
+            {{else}}
+              {{format-max(remainingQuantity)}}
+            {{/is}}
+          </td>
         </tr>
       </tbody>
     </table>

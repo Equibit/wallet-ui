@@ -28,11 +28,12 @@
             <div class="col-xs-8">
               {{#is item.assetType 'EQUIBIT'}}
                 <h4 class="list-group-item-heading list-issuance">{{i18n('blankEqb')}}</h4>
+                <div class="list-quantity-price">{{coin(item.quantity)}} @{{to-fixed-2(format-micro(item.price))}} <small>μBTC</small></div>
               {{else}}
                 <h4 class="list-group-item-heading list-issuance">{{item.companyName}}, {{item.issuanceName}}</h4>
+                <div class="list-issuance-type">{{item.issuanceTypeDisplay}}</div>
+                <div class="list-quantity-price">{{format(item.quantity, '', 0)}} @{{to-fixed-2(item.price)}} <small>μBTC</small></div>
               {{/is}}
-              <div class="list-issuance-type">{{item.issuanceTypeDisplay}}</div>
-              <div class="list-quantity-price">{{format(item.quantity, '', 0)}} @{{to-fixed-2(item.price)}} <small>μBTC</small></div>
             </div>
 
             <div class="col-xs-4">
