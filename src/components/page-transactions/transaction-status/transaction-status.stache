@@ -1,7 +1,7 @@
 <can-import from="~/components/common/status-badge/" />
 <can-import from="~/components/common/grid/grid.less" />
 
-<status-badge {status}="status"></status-badge>
+<status-badge status:from="status"></status-badge>
 
 {{#if confirmations}}
   {{confirmations}} Confirmations
