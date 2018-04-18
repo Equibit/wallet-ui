@@ -303,14 +303,21 @@ export default {
   helpTransactionFeeEquibit: 'Required by Equibit miners.',
   history: 'History',
   hours: 'Hours',
+
   htlcBuyerSentPaymentDescription: 'Buyer sent the payment',
-  htlcUserSentPaymentDescription: 'You sent the payment',
-  htlcSellerSentSecuritiesDescription: 'Seller sent the securities',
-  htlcUserSentSecuritiesDescription: 'You sent the securities',
-  htlcBuyerCollectedSecuritiesDescription: 'Buyer collected the securities',
-  htlcUserCollectedSecuritiesDescription: 'You collected the securities',
-  htlcUserCollectedPaymentDescription: 'You collected the payment',
   htlcSellerCollectedPaymentDescription: 'Seller collected the payment',
+  htlcUserCollectedPaymentDescription: 'You collected the payment',
+  htlcUserSentPaymentDescription: 'You sent the payment',
+
+  htlcBuyerCollectedSecuritiesDescription: 'Buyer collected the securities',
+  htlcSellerSentSecuritiesDescription: 'Seller sent the securities',
+  htlcUserCollectedSecuritiesDescription: 'You collected the securities',
+  htlcUserSentSecuritiesDescription: 'You sent the securities',
+
+  htlcBuyerCollectedEquibitsDescription: 'Buyer collected the equibits',
+  htlcSellerSentEquibitsDescription: 'Seller sent the equibits',
+  htlcUserCollectedEquibitsDescription: 'You collected the equibits',
+  htlcUserSentEquibitsDescription: 'You sent the equibits',
 
   inbox: 'Inbox',
   inboxEmtpy: 'Your Inbox is Empty',

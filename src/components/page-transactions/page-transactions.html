@@ -7,7 +7,7 @@
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
   <can-import from="wallet-ui/components/page-transactions/" />
-  <page-transactions {addresses}="addresses" {portfolios}="portfolios"></page-transactions>
+  <page-transactions addresses:from="addresses" portfolios:from="portfolios"></page-transactions>
 </script>
 
 <script src="../../../node_modules/steal/steal.js"
@@ -16,7 +16,7 @@
   import stache from 'can-stache'
   import reload from 'live-reload'
   import DefineMap from 'can-define/map/map'
-  import '~/models/fixtures/transactions'
+  import '~/models/fixtures/transactions2'
   import 'can-route'
   import canViewModel from 'can-view-model'
   window.canViewModel = canViewModel

@@ -17,6 +17,12 @@
           <a href="{{routeUrl page='issuance-details' companySlug=companySlug itemId=issuanceId}}">
             {{companyName}}, {{issuanceName}}
           </a>
+        {{else}}
+          {{#is currencyType 'BTC'}}
+            {{i18n('Bitcoin')}}
+          {{else}}
+            <a href="{{routeUrl page='equibit'}}">{{i18n('Equibit')}}</a>
+          {{/is}}
         {{/if}}
 
         {{#if hashlock}}
