@@ -2,7 +2,7 @@
 
 <div class="list-group list-group-simple notifications-list">
 
-  {{#each notifications as notification}}
+  {{#each notifications notification=value}}
     {{#switch(notification.type)}}
       {{#case 'transaction'}}
         <a href="{{routeUrl true}}"
