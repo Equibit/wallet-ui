@@ -31,7 +31,9 @@ export const ViewModel = DefineMap.extend({
     const userSent = row.address === row.fromAddress
     const userReceived = row.address === row.toAddress
     const sentOrCollected = row.htlcStep < 3 ? 'Sent' : 'Collected'
-    const paymentOrSecurities = row.isSecurity ? 'Securities' : 'Payment'
+    const paymentOrSecurities = row.assetType === 'EQUIBIT'
+      ? 'Equibits'
+      : (row.isSecurity ? 'Securities' : 'Payment')
 
     const sellerBuyerOrUser = row.htlcStep < 3
       ? (userSent ? 'User' : (row.isSecurity ? 'Seller' : 'Buyer'))

@@ -25,7 +25,9 @@ export const ViewModel = DefineMap.extend({
     return statusEnum[this.confirmations < 3 ? 0 : 1]
   },
   confirmations: {
-    default: 0
+    get (val) {
+      return val || 0
+    }
   }
 })
 

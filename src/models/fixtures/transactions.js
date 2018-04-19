@@ -1,5 +1,5 @@
 import fixture from 'can-fixture'
-import Transaction from '../transaction'
+import Transaction from '../transaction/transaction'
 import R from 'ramda'
 
 const store = fixture.store(R.times(i => {
@@ -8,6 +8,7 @@ const store = fixture.store(R.times(i => {
     address: 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6',
     toAddress: '1BxbH4WFyN1xKDUCMQbTuQrE61dJhBV5vs',
     type: ['BUY', 'BUY', 'SELL', 'IN', 'OUT'][i % 5],
+    assetType: ['ISSUANCE', 'EQUIBIT'][i === 9 ? 1 : 0],
     currencyType: ['EQB', 'EQB', 'EQB', 'EQB', 'EQB', 'EQB', 'BTC'][i % 7],
     companyName: ['Imperial Brands', 'IBM', 'EQB', null, 'Marks & Spencer', 'General Electric', null][i % 7],
     companySlug: 'imperial-brands',
