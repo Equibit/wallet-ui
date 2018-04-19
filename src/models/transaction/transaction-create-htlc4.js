@@ -67,6 +67,8 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
     if (fee > amount) {
       fee = amount - 1
     }
+
+    // Note: we are reusing the existing address which has the locked funds, and just unlock them.
     const toAddress = isRefund ? offer.btcAddress : order.btcAddress
 
     const buildConfig = {
