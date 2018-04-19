@@ -85,6 +85,7 @@
         "offerId": "5ad611a7caec64f9617eb989",
         "orderId": "5ad61149caec64f9617eb984",
         "type": "BUY",
+        "assetType": "EQUIBIT",
         "status": "TRADING",
         "action": "dealFlowMessageTitleCollectPayment",
         "htlcStep": 3,

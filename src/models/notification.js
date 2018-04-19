@@ -18,6 +18,7 @@ const Notification = DefineMap.extend('Notification', {
 }, {
   _id: 'string',
   type: 'string',
+  assetType: 'string',
   address: 'string',
   data: DefineMap,
 

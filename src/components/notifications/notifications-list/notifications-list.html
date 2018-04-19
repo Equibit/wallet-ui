@@ -20,6 +20,9 @@
   import reload from 'live-reload'
   import DefineMap from 'can-define/map/map'
   import data from '~/components/notifications/notifications-list/notifications.json'
+  import '~/models/fixtures/offers'
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
 
   const vm = new DefineMap({
     notifications: data.data
