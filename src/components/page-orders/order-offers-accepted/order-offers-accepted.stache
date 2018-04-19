@@ -248,14 +248,22 @@
                       {{#if isAskFlow}}
                         {{i18n('dealFlowMessageContentCollectPayment')}}
                       {{else}}
-                        {{i18n('dealFlowMessageContentCollectSecurities')}}
+                        {{#is assetType 'EQUIBIT'}}
+                          {{i18n('dealFlowMessageContentCollectEquibits')}}
+                        {{else}}
+                          {{i18n('dealFlowMessageContentCollectSecurities')}}
+                        {{/is}}
                       {{/if}}
                     <div class="offer-deal-action">
                       <a href="" class="btn btn-xs btn-primary" on:click="collectPayment(offer)">
                       {{#if isAskFlow}}
                         {{i18n('dealFlowMessageTitleCollectPayment')}}
                       {{else}}
-                        {{i18n('dealFlowMessageTitleCollectSecurities')}}
+                        {{#is assetType 'EQUIBIT'}}
+                          {{i18n('dealFlowMessageTitleCollectEquibits')}}
+                        {{else}}
+                          {{i18n('dealFlowMessageTitleCollectSecurities')}}
+                        {{/is}}
                       {{/if}}
                       </a>
                     </div>
@@ -268,7 +276,11 @@
                       {{#if isAskFlow}}
                         {{i18n('paymentCollectionTimeLeftDescription')}}
                       {{else}}
-                        {{i18n('securitiesCollectionTimeLeftDescription')}}
+                        {{#is assetType 'EQUIBIT'}}
+                          {{i18n('securitiesCollectionTimeLeftDescriptionEquibits')}}
+                        {{else}}
+                          {{i18n('securitiesCollectionTimeLeftDescription')}}
+                        {{/is}}
                       {{/if}}
                     </label>
                     <time-remaining endTime:from="timelocks[offerIdx].fullEndAt"></time-remaining>
