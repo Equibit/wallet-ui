@@ -68,7 +68,7 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
       fee = amount - 1
     }
 
-    // Note: we are reusing the existing address which has the locked funds, and just unlock them.
+    // todo: this receiving BTC address can be used for multiple offers, so we should use a newly generated address (per offer) when we unlock the payment.
     const toAddress = isRefund ? offer.btcAddress : order.btcAddress
 
     const buildConfig = {
