@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <style>body { padding: 20px; background: white !important;}</style>
+<script>window.useXhrTransport = true</script>
 
 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
@@ -7,26 +8,30 @@
 
 <script type="text/stache" id="demo-html">
   <can-import from="~/styles/styles.less" />
-  <can-import from="wallet-ui/components/notifications/notifications-list/" />
-  <notifications-list></notifications-list>
+  <can-import from="~/components/notifications/notifications-list/" />
+  <notifications-list notifications:from="notifications"></notifications-list>
 </script>
 
 <script src="../../../../node_modules/steal/steal.js"
         main="@empty">
 
-  import $ from 'jquery';
-  import stache from 'can-stache';
-  import reload from 'live-reload';
-  import DefineMap from 'can-define/map/map';
+  import $ from 'jquery'
+  import stache from 'can-stache'
+  import reload from 'live-reload'
+  import DefineMap from 'can-define/map/map'
+  import data from '~/components/notifications/notifications-list/notifications.json'
+  import '~/models/fixtures/offers'
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
 
   const vm = new DefineMap({
-    // view model props here
-  });
+    notifications: data.data
+  })
 
   // Enable live-reload:
   stache.async($('#demo-html').html()).then(template => {
-    let render = () => $('#demo').html(template(vm));
-    render();
-    reload(render);
-  });
+    let render = () => $('#demo').html(template(vm))
+    render()
+    reload(render)
+  })
 </script>

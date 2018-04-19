@@ -2,7 +2,7 @@
 
 <div class="list-group list-group-simple notifications-list">
 
-  {{#each notifications as notification}}
+  {{#each notifications notification=value}}
     {{#switch(notification.type)}}
       {{#case 'transaction'}}
         <a href="{{routeUrl true}}"
@@ -41,7 +41,12 @@
                   {{#eq data.htlcStep 2}}{{i18n(data.type.toLowerCase())}}{{/eq}}
                 {{/eq}}
                 {{i18n(data.action)}}</h4>
-              <div class="media-description">{{i18n('for')}} {{data.companyName}}, {{data.issuanceName}}</div>
+              <div class="media-description">{{i18n('for')}}
+                {{#is data.assetType 'EQUIBIT'}}
+                  {{i18n('blankEqb')}}
+                {{else}}
+                  {{data.companyName}}, {{data.issuanceName}}</div>
+                {{/is}}
               <div class="media-cta btn-link">
                 {{#switch data.status}}
                   {{#case "SAFETY_ZONE"}}
