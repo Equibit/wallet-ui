@@ -69,6 +69,20 @@
   }
 }
 
+.loading-overlay {
+  .modal-backdrop;
+  margin-top: 56px;
+  background-color: white;
+  opacity: 0.5;
+  text-align: center;
+  position: absolute;
+  > * {
+    position: relative;
+    top: 48%;
+    font-size: 2em;
+  }
+}
+
 // Removes external margins and modal decoration for small devices
 @media (max-width: @screen-sm) {
   .modal-dialog {

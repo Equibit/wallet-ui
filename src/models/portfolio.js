@@ -17,6 +17,7 @@ import algebra from './algebra'
 // import Session from '~/models/session'
 import Issuance from '~/models/issuance'
 import currencyConverter from '~/utils/currency-converter'
+import Session from '~/models/session'
 import {
   getNextAddressIndex,
   getUnspentOutputsForAmount,
@@ -24,6 +25,10 @@ import {
   getAllUtxo,
   getAvailableAmount
 } from './portfolio-utils'
+import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+const { ECPair } = bitcoin
+// TODO is there a better way to get at this constructor?
+const BigInteger = ECPair.makeRandom().d.constructor
 
 const EMPTY_ISSUANCE_TX_ID = '0000000000000000000000000000000000000000000000000000000000000000'
 
@@ -103,21 +108,62 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @parent models/portfolio.properties
    * A list of address objects that includes real addresses, amount and txouts.
    */
+  addressesPromise: '*',
   addresses: {
     get () {
       // TODO: make sure this getter is cached (maybe change to a stream derived from addressesMeta).
       console.log('[portfolio.addresses] deriving addresses...')
-      return (this.keys && this.addressesMeta && this.addressesMeta.map(meta => {
-        const keysNode = this.keys[meta.type].derive(meta.isChange ? 1 : 0).derive(meta.index)
-        return {
-          index: meta.index,
-          address: keysNode.getAddress(),
-          type: meta.type,
-          isChange: meta.isChange,
-          keyPair: keysNode.keyPair,
-          meta: meta
-        }
-      })) || new DefineList([])
+
+      const addresses = new DefineList()
+      addresses.set('isPending', 0)
+      const { keys, addressesMeta } = this
+      const tempAddresses = []
+
+      this.addressesPromise = this.derivationWorkerPromise.then(derivationWorker => {
+        return new Promise(resolve => {
+          if (keys && addressesMeta) {
+            addresses.isPending = addressesMeta.length
+            addressesMeta.forEach((meta, idx) => {
+              const uuid = Math.random()
+              const cb = ev => {
+                if (ev.data.uuid === uuid) {
+                  derivationWorker.removeEventListener('message', cb)
+
+                  tempAddresses[idx] = {
+                    index: meta.index,
+                    address: ev.data.address,
+                    type: meta.type,
+                    isChange: meta.isChange,
+                    keyPair: new ECPair(
+                      BigInteger.fromByteArrayUnsigned(ev.data.keyPairD),
+                      null,
+                      { network: ev.data.keyPairNetwork }
+                    ),
+                    meta
+                  }
+                  addresses.isPending--
+                  if (!addresses.isPending) {
+                    addresses.replace(tempAddresses)
+                    this.dispatch('refresh')
+                    resolve(addresses)
+                  }
+                }
+              }
+              derivationWorker.addEventListener('message', cb)
+              derivationWorker.postMessage({
+                eventType: 'derive',
+                base58Key: Session.current.user.decrypt(Session.current.user.encryptedKey),
+                portfolioIndex: this.index,
+                coinType: meta.type,
+                isChange: meta.isChange,
+                keyIndex: meta.index,
+                uuid
+              })
+            })
+          }
+        })
+      })
+      return addresses
     }
   },
 
@@ -266,6 +312,21 @@ const Portfolio = DefineMap.extend('Portfolio', {
           return issuances
         })
     }
+  },
+
+  derivationWorkerPromise: {
+    value () {
+      return new Promise(function (resolve) {
+        const worker = new window.Worker(System.stealURL + '?main=wallet-ui/workers/derive-keys-worker')
+        worker.onmessage = ev => {
+          if (ev.data.eventType === 'moduleReady') {
+            worker.onmessage = null
+            resolve(worker)
+          }
+        }
+      })
+    },
+    serialize: false
   },
 
   /**
