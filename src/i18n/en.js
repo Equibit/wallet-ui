@@ -555,6 +555,7 @@ export default {
   sendModalDescription: 'Send securities or funds from your account.',
   sendAll: 'Send All',
   sendAllFunds: 'Send All Funds',
+  sendOfferEquibits: 'Send Offer Equibits',
   sendOfferPayment: 'Send Offer Payment',
   sendOfferSecurities: 'Send Offer Securities',
   sendEquibitsTo: 'Send Equibits to',

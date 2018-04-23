@@ -54,6 +54,10 @@ const FormData = DefineMap.extend('OfferFormData', {
     return this.order.type === 'SELL' ? 'BTC' : 'EQB'
   },
 
+  get assetType () {
+    return this.order.assetType
+  },
+
   // In uBTC:
   get uBtcTotalPrice () {
     return this.uBtcPrice * this.quantity * this.order.priceMutliplier
@@ -118,7 +122,7 @@ const FormData = DefineMap.extend('OfferFormData', {
       return true
     }
 
-    const type = this.type
+    const type = this.order.type
     const quantity = this.quantity || 0
     const order = this.order || {}
     const orderQuantity = order.quantity || 0
@@ -161,7 +165,11 @@ const FormData = DefineMap.extend('OfferFormData', {
       if (this.currencyType === 'BTC') {
         return this.portfolio.hasEnoughFunds(this.totalPrice + this.fee, 'BTC')
       } else {
-        return this.issuance.utxoAmountTotal >= this.quantity && this.portfolio.hasEnoughFunds(this.fee, 'EQB')
+        if (this.order.assetType === 'EQUIBIT') {
+          return this.portfolio.hasEnoughFunds(this.quantity + this.fee, 'EQB')
+        } else {
+          return this.issuance.utxoAmountTotal >= this.quantity && this.portfolio.hasEnoughFunds(this.fee, 'EQB')
+        }
       }
     }
   },
