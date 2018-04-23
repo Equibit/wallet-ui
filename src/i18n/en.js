@@ -482,6 +482,9 @@ export default {
   portfolio: 'Portfolio',
 
   quantity: 'Quantity',
+  quantityErrorMoreThanOrdered: 'Quantity cannot be more than the number of shares ordered.',
+  quantityErrorMoreThanOwned: 'Quantity cannot be more than the number of shares owned and not trading.',
+  quantityMessageCheckingSellData: 'checking sell data...',
   quarterly: 'Quarterly',
 
   receive: 'Receive',
