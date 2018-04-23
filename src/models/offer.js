@@ -172,7 +172,8 @@ const Offer = DefineMap.extend('Offer', {
   // TODO the calculation of offer expiry should be a timed server process.
   get isExpired () {
     if (this.timelockInfo &&
-        ((this.htlcStep === 2 && this.timelockInfo.partialBlocksRemaining === 0) ||
+        ((this.htlcStep === 1 && this.timelockInfo.fullBlocksRemaining === 0) ||
+          (this.htlcStep === 2 && this.timelockInfo.partialBlocksRemaining === 0) ||
           (this.htlcStep === 3 && this.timelockInfo.fullBlocksRemaining === 0))) {
       return true
     } else {

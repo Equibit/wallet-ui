@@ -168,14 +168,16 @@
 
         <!-- Timer -->
         {{#unless offer.htlcTransactions.4}}
-          {{#unless isTransactionToUser(offer.htlcTransactions.3)}}
-          <div class="col-xs-12 col-sm-3">
-            <div class="timer-container">
-              <label>{{i18n('timelockTitleOfferExpiration')}}</label>
-              <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
+          {{#if offer.htlcTransactions.3}}
+            {{#unless isTransactionToUser(offer.htlcTransactions.3)}}
+            <div class="col-xs-12 col-sm-3">
+              <div class="timer-container">
+                <label>{{i18n('timelockTitleOfferExpiration')}}</label>
+                <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
+              </div>
             </div>
-          </div>
-          {{/unless}}
+            {{/unless}}
+          {{/if}}
         {{/unless}}
       </div>
     </div>
@@ -199,8 +201,8 @@
                 <span class="icon icon-circle-warning"></span>
                 {{i18n('dealFlowMessageTitleOfferExipredOn')}}
                 <span class="offer-date">{{format-date-medium(offer.timelockInfo.fullEndAt)}}</span>
+                {{>recoverButton}}
               </div>
-              {{>recoverButton}}
             {{else}}
               {{#with state='open'}}
                 {{>postedEvent}}
@@ -218,12 +220,14 @@
           </div>
 
           <!--Timer-->
+          {{#unless offer.isExpired}}
           <div class="col-xs-12 col-sm-3">
             <div class="timer-container">
               <label>{{i18n('timelockTitleOfferExpiration')}}</label>
               <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
             </div>
           </div>
+          {{/unless}}
 
         </div>
       </div>
