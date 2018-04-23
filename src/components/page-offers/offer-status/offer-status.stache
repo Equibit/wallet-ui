@@ -212,7 +212,7 @@
                   {{#if isAskFlow}}
                     {{i18n('dealFlowMessageTitleAwaitingOfferAcceptanceSeller')}}
                   {{else}}
-                    {{i18n('dealFlowMessageTitleAwaitingOfferAcceptanceSeller')}}
+                    {{i18n('dealFlowMessageTitleAwaitingOfferAcceptanceBuyer')}}
                   {{/if}}
                 </div>
               {{/with}}
