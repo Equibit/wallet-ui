@@ -54,7 +54,7 @@ export const ViewModel = DefineMap.extend({
       BUY: [null, 'BTC', 'EQB', 'EQB', 'BTC'],
       SELL: [null, 'EQB', 'BTC', 'BTC', 'EQB']
     }
-    const nextHtlcStep = notification.data.htlcStep + 1;
+    const nextHtlcStep = notification.data.htlcStep + 1
     const currencyType = currencyTypesByOfferTypeAndStep[notification.data.type][nextHtlcStep]
 
     Promise.all([
