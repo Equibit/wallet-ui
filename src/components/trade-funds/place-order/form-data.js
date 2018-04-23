@@ -4,6 +4,7 @@ import moment from 'moment'
 import Issuance from '../../../models/issuance'
 import Portfolio from '../../../models/portfolio'
 import feathersClient from '~/models/feathers-client'
+import {translate} from '~/i18n/'
 
 const FormData = DefineMap.extend('FormData', {
   /**
@@ -98,29 +99,25 @@ const FormData = DefineMap.extend('FormData', {
     const userId = portfolio.userId
 
     if (!issuanceId || !userId) {
-      return Promise.reject(new Error('Cannot Query data for selling issuance'))
+      return Promise.reject(new Error(translate('sellingSecuritiesCannotQuery')))
     }
 
     const ordersService = feathersClient.service('orders')
-    const offersService = feathersClient.service('offers')
 
-    // query for offers and/or orders
+    // query for orders
     const query = {
       issuanceId,
       userId,
       type: 'SELL',
-      // TODO: not expired
       status: { $in: ['OPEN', 'TRADING'] }
     }
 
     const promises = Promise.all([
-      ordersService.find({ query }),
-      offersService.find({ query })
+      ordersService.find({ query })
     ]).then(response => {
       const sellIssuanceData = {}
       sellIssuanceData.sellOrderTotal = response[0].data.reduce((total, obj) => total + (obj.quantity || 0), 0)
-      sellIssuanceData.sellOfferTotal = response[1].data.reduce((total, obj) => total + (obj.quantity || 0), 0)
-      sellIssuanceData.maxSellQuantity = issuance.utxoAmountTotal - sellIssuanceData.sellOrderTotal - sellIssuanceData.sellOfferTotal
+      sellIssuanceData.maxSellQuantity = issuance.utxoAmountTotal - sellIssuanceData.sellOrderTotal
       this.sellData = sellIssuanceData
       return this.sellData
     })
@@ -142,7 +139,7 @@ const FormData = DefineMap.extend('FormData', {
     this.quantityProblem = ''
 
     if (type === 'BUY' && quantity > sharesAuthorized) {
-      this.quantityProblem = 'Quantity cannot be more than the number of shares authorized.'
+      this.quantityProblem = translate('sellingSecuritiesQuantityGTSharesAuthorized')
       return false
     }
     if (type === 'BUY') {
@@ -154,13 +151,13 @@ const FormData = DefineMap.extend('FormData', {
     const sellData = sellDataPromise && this.sellData
 
     if (!sellData) {
-      this.quantityProblem = 'checking sell data...'
+      this.quantityProblem = translate('sellingSecuritiesCheckingSellData')
       // waiting for sellData info
       return false
     }
 
     if (quantity > sellData.maxSellQuantity) {
-      this.quantityProblem = 'Quantity cannot be more than the number of shares owned and not trading.'
+      this.quantityProblem = translate('sellingSecuritiesQuantityGTSharesOwned')
       // can't sell more than owned (that are not pending)
       return false
     }
