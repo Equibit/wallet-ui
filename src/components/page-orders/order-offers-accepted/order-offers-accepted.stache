@@ -12,11 +12,18 @@
   </div>
 {{/offerAcceptedEvent}}
 
+{{#is assetType 'EQUIBIT'}}
+{{else}}
+{{/is}}
 {{<assetsSentEvent}}
   <div class="offer-timeline-event">
     <span class="icon icon-check-{{state}}"></span>
     {{#if ../isAskFlow}}
-      {{i18n('dealFlowMessageTitleSecuritiesSent')}}
+      {{#is ../assetType 'EQUIBIT'}}
+        {{i18n('dealFlowMessageTitleSecuritiesSentEqb')}}
+      {{else}}
+        {{i18n('dealFlowMessageTitleSecuritiesSent')}}
+      {{/is}}
     {{else}}
       {{i18n('dealFlowMessageTitlePaymentSent')}}
     {{/if}}
@@ -28,7 +35,11 @@
   <div class="offer-timeline-event">
     <span class="icon icon-check-{{state}}"></span>
     {{#if ../isAskFlow}}
-      {{i18n('htlcBuyerCollectedSecuritiesDescription')}}
+      {{#is ../assetType 'EQUIBIT'}}
+        {{i18n('htlcBuyerCollectedEquibitsDescription')}}
+      {{else}}
+        {{i18n('htlcBuyerCollectedSecuritiesDescription')}}
+      {{/is}}
     {{else}}
       {{i18n('htlcSellerCollectedPaymentDescription')}}
     {{/if}}
@@ -56,7 +67,11 @@
                 <div class="offer-timeline-event">
                   <span class="icon icon-circle-warning"></span>
                     {{#if isAskFlow}}
-                      {{i18n('securitiesCollectionExpiredOn')}}
+                      {{#is assetType 'EQUIBIT'}}
+                        {{i18n('securitiesCollectionExpiredOnEqb')}}
+                      {{else}}
+                        {{i18n('securitiesCollectionExpiredOn')}}
+                      {{/is}}
                     {{else}}
                       {{i18n('paymentCollectionExpiredOn')}}
                     {{/if}}
@@ -68,7 +83,11 @@
                   <div class="offer-timeline-event">
                     <span class="icon icon-check-cancelled"></span>
                     {{#if isAskFlow}}
-                      {{i18n('dealFlowMessageTitleRecoveredSecurities')}}
+                      {{#is assetType 'EQUIBIT'}}
+                        {{i18n('dealFlowMessageTitleRecoveredSecuritiesEqb')}}
+                      {{else}}
+                        {{i18n('dealFlowMessageTitleRecoveredSecurities')}}
+                      {{/is}}
                     {{else}}
                       {{i18n('dealFlowMessageTitleRecoveredFunds')}}
                     {{/if}}
@@ -102,7 +121,11 @@
                     <div class="offer-timeline-event">
                       <span class="icon icon-check-cancelled"></span>
                       {{#if isAskFlow}}
-                        {{i18n('dealFlowMessageTitleRecoveredSecurities')}}
+                        {{#is assetType 'EQUIBIT'}}
+                          {{i18n('dealFlowMessageTitleRecoveredSecuritiesEqb')}}
+                        {{else}}
+                          {{i18n('dealFlowMessageTitleRecoveredSecurities')}}
+                        {{/is}}
                       {{else}}
                         {{i18n('dealFlowMessageTitleRecoveredFunds')}}
                       {{/if}}
@@ -170,7 +193,11 @@
                     <div class="offer-timeline-event offer-timeline-event--pending">
                       <span class="icon icon-check-pending"></span>
                       {{#if ../isAskFlow}}
-                        {{i18n('dealFlowMessageTitleAwaitingSecuritiesCollectionBuyer')}}
+                        {{#is ../assetType 'EQUIBIT'}}
+                          {{i18n('dealFlowMessageTitleAwaitingSecuritiesCollectionBuyerEqb')}}
+                        {{else}}
+                          {{i18n('dealFlowMessageTitleAwaitingSecuritiesCollectionBuyer')}}
+                        {{/is}}
                       {{else}}
                         {{i18n('dealFlowMessageTitleAwaitingPaymentCollectionSeller')}}
                       {{/if}}
@@ -307,7 +334,11 @@
                     {{#if isAskFlow}}
                       {{i18n('dealFlowMessageTitlePaymentCollected')}}
                     {{else}}
-                      {{i18n('dealFlowMessageTitleSecuritiesCollected')}}
+                      {{#is assetType 'EQUIBIT'}}
+                        {{i18n('dealFlowMessageTitleSecuritiesCollectedEqb')}}
+                      {{else}}
+                        {{i18n('dealFlowMessageTitleSecuritiesCollected')}}
+                      {{/is}}
                     {{/if}}
                     <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId4}}">({{i18n('viewTransaction')}})</a>
                   </div>

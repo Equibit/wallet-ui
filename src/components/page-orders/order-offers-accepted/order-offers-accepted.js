@@ -44,6 +44,10 @@ export const ViewModel = DefineMap.extend({
     }
   },
 
+  get assetType () {
+    return this.order && this.order.assetType
+  },
+
   // For collect-asset modal:
   offer: '*',
   tx: '*',
