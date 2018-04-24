@@ -122,9 +122,12 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
   return function (order, offer, portfolio, secret, issuance, changeAddr, transactionFee) {
     console.log('prepareHtlcConfig4', arguments)
     typeforce(
-      typeforce.tuple('Order', 'Offer', 'Portfolio', 'String', 'Issuance', types.Address),
+      typeforce.tuple('Order', 'Offer', 'Portfolio', 'String', '?Issuance', types.Address),
       arguments
     )
+    if (order.assetType === 'ISSUANCE') {
+      typeforce('ISSUANCE', issuance)
+    }
     const assetType = order.assetType
     let fee = transactionFee || 3000
     const htlcStep = 4

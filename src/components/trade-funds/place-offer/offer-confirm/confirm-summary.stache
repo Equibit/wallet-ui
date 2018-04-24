@@ -7,7 +7,13 @@
 
   <!-- TO -->
   <label class="">{{i18n('to')}}</label>
-  <p class="input-value break-word"><strong>{{formData.order.btcAddress}}</strong></p>
+  <p class="input-value break-word"><strong>
+    {{#is formData.type 'BTC'}}
+      {{formData.order.btcAddress}}
+    {{else}}
+      {{formData.order.eqbAddress}}
+    {{/is}}
+  </strong></p>
 
   <div class="row">
       <div class="col-xs-12 no-padding">
