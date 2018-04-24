@@ -9,6 +9,7 @@ import userMock from './mock/mock-user'
 
 describe('models/session', function () {
   describe('property getters', function () {
+    this.timeout(5000)
     const session = new Session({})
     let totalInBtc
     before(() => {
@@ -26,9 +27,12 @@ describe('models/session', function () {
         assert.equal(session.portfolios[0].keys.BTC.keyPair.compressed, true)
         assert.equal(session.portfolios[0].keys.EQB.keyPair.compressed, true)
         assert.equal(session.portfolios[0].addressesMeta[0].type, 'BTC')
-        assert.equal(session.portfolios[0].addresses[0].address, 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA')
-        assert.equal(session.portfolios[0].addresses[1].address, 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA')
-        done()
+        session.portfolios[0].get('addresses')
+        session.portfolios[0].addressesPromise.then(addresses => {
+          assert.equal(addresses[0].address, 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA')
+          assert.equal(addresses[1].address, 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA')
+          done()
+        })
       })
     })
     it('should populate balance', function (done) {

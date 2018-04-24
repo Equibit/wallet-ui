@@ -70,6 +70,7 @@ describe('models/portfolio-utils', function () {
 
 describe('models/portfolio', function () {
   describe('instance properties', function () {
+    this.timeout(5000)
     const expectedAddresses = [
       {index: 0, type: 'BTC', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', isChange: false},
       {index: 1, type: 'BTC', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', isChange: false},
@@ -84,6 +85,11 @@ describe('models/portfolio', function () {
     currencyConverter.injectRates({
       EQBUSD: 1000,
       BTCUSD: 10000
+    })
+
+    before(function (done) {
+      portfolio.get('addresses')
+      portfolio.addressesPromise.then(() => done())
     })
 
     it('should populate addresses', function () {

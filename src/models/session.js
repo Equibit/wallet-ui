@@ -182,7 +182,7 @@ const Session = DefineMap.extend('Session', {
       }
 
       return this.portfolios.reduce((acc, portfolio) => {
-        if (!portfolio.balance) {
+        if (!portfolio.balance || portfolio.balance.isPending) {
           acc.isPending = true
           return acc
         }

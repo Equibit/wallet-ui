@@ -11,6 +11,7 @@ import typeforce from 'typeforce'
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import canDefineStream from 'can-define-stream-kefir'
+import Observation from 'can-observation'
 import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
 import algebra from './algebra'
@@ -109,59 +110,89 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * A list of address objects that includes real addresses, amount and txouts.
    */
   addressesPromise: '*',
+  _addresses: '*',
   addresses: {
     get () {
       // TODO: make sure this getter is cached (maybe change to a stream derived from addressesMeta).
       console.log('[portfolio.addresses] deriving addresses...')
 
-      const addresses = new DefineList()
-      addresses.set('isPending', 0)
       const { keys, addressesMeta } = this
-      const tempAddresses = []
+      const addresses = new DefineList(new Array(addressesMeta.length).fill(null));
+      addresses.set('isPending', 0)
+      let _addresses
+      Observation.ignore(() => {
+        _addresses = this._addresses = this._addresses || { BTC: [[],[]], EQB: [[],[]], _flat: new DefineList() }
+      })()
+      let tempAddresses = []
+      // Quick short circuit.  If addressesMeta hasn't changed since last call, return same addresses
+      if(_addresses._flat.length === addressesMeta.length) {
+        return _addresses._flat
+      }
 
-      this.addressesPromise = this.derivationWorkerPromise.then(derivationWorker => {
-        return new Promise(resolve => {
-          if (keys && addressesMeta) {
-            addresses.isPending = addressesMeta.length
-            addressesMeta.forEach((meta, idx) => {
-              const uuid = Math.random()
-              const cb = ev => {
-                if (ev.data.uuid === uuid) {
-                  derivationWorker.removeEventListener('message', cb)
+      this.addressesPromise = new Promise(resolve => {
+        if (keys && addressesMeta) {
+          addresses.isPending = addressesMeta.length
+          addressesMeta.forEach((meta, idx) => {
+            if(
+              _addresses[meta.type] &&
+              _addresses[meta.type][meta.isChange ? 1 : 0] &&
+              _addresses[meta.type][meta.isChange ? 1 : 0][meta.index]
+            ) {
+              // address has already been derived.  use cached value
+              //  but still check for pending = 0
+              addresses[idx] = tempAddresses[idx] = _addresses[meta.type][meta.isChange ? 1 : 0][meta.index]
+              addresses.isPending--
+              if (!addresses.isPending) {
+                addresses.replace(tempAddresses)
+                _addresses._flat = addresses
+                this.dispatch('refresh')
+                resolve(addresses)
+              }
+            } else {
+              // use the worker thread to derive this address,
+              //  decrement pending when return message received
+              _addresses[meta.type] = _addresses[meta.type] || [[], []]
+              this.derivationWorkerPromise.then(derivationWorker => {
+                const uuid = Math.random()
+                const cb = ev => {
+                  if (ev.data.uuid === uuid) {
+                    derivationWorker.removeEventListener('message', cb)
 
-                  tempAddresses[idx] = {
-                    index: meta.index,
-                    address: ev.data.address,
-                    type: meta.type,
-                    isChange: meta.isChange,
-                    keyPair: new ECPair(
-                      BigInteger.fromByteArrayUnsigned(ev.data.keyPairD),
-                      null,
-                      { network: ev.data.keyPairNetwork }
-                    ),
-                    meta
-                  }
-                  addresses.isPending--
-                  if (!addresses.isPending) {
-                    addresses.replace(tempAddresses)
-                    this.dispatch('refresh')
-                    resolve(addresses)
+                    tempAddresses[idx] = _addresses[meta.type][meta.isChange ? 1 : 0][meta.index] = {
+                      index: meta.index,
+                      address: ev.data.address,
+                      type: meta.type,
+                      isChange: meta.isChange,
+                      keyPair: new ECPair(
+                        BigInteger.fromByteArrayUnsigned(ev.data.keyPairD),
+                        null,
+                        { network: ev.data.keyPairNetwork }
+                      ),
+                      meta
+                    }
+                    addresses.isPending--
+                    if (!addresses.isPending) {
+                      addresses.replace(tempAddresses)
+                      _addresses._flat = addresses
+                      this.dispatch('refresh')
+                      resolve(addresses)
+                    }
                   }
                 }
-              }
-              derivationWorker.addEventListener('message', cb)
-              derivationWorker.postMessage({
-                eventType: 'derive',
-                base58Key: Session.current.user.decrypt(Session.current.user.encryptedKey),
-                portfolioIndex: this.index,
-                coinType: meta.type,
-                isChange: meta.isChange,
-                keyIndex: meta.index,
-                uuid
+                derivationWorker.addEventListener('message', cb)
+                derivationWorker.postMessage({
+                  eventType: 'derive',
+                  base58Key: Session.current.user.decrypt(Session.current.user.encryptedKey),
+                  portfolioIndex: this.index,
+                  coinType: meta.type,
+                  isChange: meta.isChange,
+                  keyIndex: meta.index,
+                  uuid
+                })
               })
-            })
-          }
-        })
+            }
+          })
+        }
       })
       return addresses
     }
@@ -174,12 +205,12 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   addressesBtc: {
     get () {
-      return this.addresses.filter(a => a.type === 'BTC').map(a => a.address)
+      return this.addresses.filter(a => a && a.type === 'BTC').map(a => a.address)
     }
   },
   addressesEqb: {
     get () {
-      return this.addresses.filter(a => a.type === 'EQB').map(a => a.address)
+      return this.addresses.filter(a => a && a.type === 'EQB').map(a => a.address)
     }
   },
 
@@ -361,6 +392,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
       const updatePromises = []
 
       const totals = this.addresses.reduce((acc, addr) => {
+        if(!addr) {
+          acc.isPending = true
+          return acc
+        }
         const utxo = utxoByType[addr.type]
         if (utxo && utxo.addresses[addr.address]) {
           const amount = utxo.addresses[addr.address].amount
@@ -521,7 +556,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @returns {*}
    */
   findAddress (addr) {
-    return this.addresses.reduce((acc, a) => (a.address === addr ? a : acc), null)
+    return this.addresses.reduce((acc, a) => ((a && a.address === addr) ? a : acc), null)
   },
 
   /**
