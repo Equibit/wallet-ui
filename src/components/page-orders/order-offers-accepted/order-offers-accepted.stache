@@ -304,7 +304,7 @@
                         {{i18n('paymentCollectionTimeLeftDescription')}}
                       {{else}}
                         {{#is assetType 'EQUIBIT'}}
-                          {{i18n('securitiesCollectionTimeLeftDescriptionEquibits')}}
+                          {{i18n('securitiesCollectionTimeLeftDescriptionEqb')}}
                         {{else}}
                           {{i18n('securitiesCollectionTimeLeftDescription')}}
                         {{/is}}
