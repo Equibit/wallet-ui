@@ -54,7 +54,8 @@ export const ViewModel = DefineMap.extend({
       BUY: [null, 'BTC', 'EQB', 'EQB', 'BTC'],
       SELL: [null, 'EQB', 'BTC', 'BTC', 'EQB']
     }
-    const currencyType = currencyTypesByOfferTypeAndStep[notification.data.type][notification.data.htlcStep]
+    const nextHtlcStep = notification.data.htlcStep + 1
+    const currencyType = currencyTypesByOfferTypeAndStep[notification.data.type][nextHtlcStep]
 
     Promise.all([
       this.offerFor(notification),
@@ -73,7 +74,7 @@ export const ViewModel = DefineMap.extend({
       ])
       .then(([issuance, timelockInfo]) => {
         const secret = offer.htlcStep === 3 ? offer.secret : Session.current.user.decrypt(offer.secretEncrypted)
-        const createFn = ([null, null, null, createHtlc3, createHtlc4][notification.data.htlcStep + 1])
+        const createFn = ([null, null, null, createHtlc3, createHtlc4][nextHtlcStep])
         const txData = createFn(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
         const tx = new Transaction(txData)
 

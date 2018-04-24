@@ -189,7 +189,7 @@ const [ prepareHtlcConfig3Btc, prepareHtlcRefundConfig3Btc ] = [false, true].map
     }
 
     const txInfo = {
-      address: isRefund ? order.eqbAddress : offer.eqbAddress,
+      address: isRefund ? order.btcAddress : offer.btcAddress,
       addressTxid: buildConfig.vin[0].txid,
       addressVout: buildConfig.vin[0].vout,
       type: isRefund ? 'CANCEL' : 'SELL',

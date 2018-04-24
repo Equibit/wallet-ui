@@ -64,6 +64,7 @@ import { buildTransaction } from './transaction-build'
 import { eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import BlockchainInfo from '../blockchain-info'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
+import Session from '~/models/session'
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
 const Transaction = DefineMap.extend('Transaction', {
@@ -401,7 +402,18 @@ Transaction.connection = superModelNoCache({
   feathersService: feathersClient.service('/transactions'),
   name: 'transactions',
   algebra
-})
+}, [
+  // option behaviors
+  function (baseConnection) {
+    return {
+      createdInstance (instance, props) {
+        // don't wait for balance to refresh because it takes a while
+        Session.current.refreshBalance(instance)
+        return baseConnection.createdInstance.apply(this, arguments)
+      }
+    }
+  }
+])
 
 Transaction.algebra = algebra
 
