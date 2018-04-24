@@ -19,7 +19,11 @@
     {{#if isAskFlow}}
       {{i18n('dealFlowMessageTitlePaymentOfferSent')}}
     {{else}}
-      {{i18n('dealFlowMessageTitleSecuritiesOfferSent')}}
+      {{#is assetType 'EQUIBIT'}}
+        {{i18n('dealFlowMessageTitleSecuritiesOfferSentEqb')}}
+      {{else}}
+        {{i18n('dealFlowMessageTitleSecuritiesOfferSent')}}
+      {{/is}}
     {{/if}}
     <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">({{i18n('viewTransaction')}})</a>
   </div>
@@ -180,7 +184,11 @@
               {{#if isAskFlow}}
                 {{i18n('dealFlowMessageTitlePaymentOfferSent')}}
               {{else}}
-                {{i18n('dealFlowMessageTitleSecuritiesOfferSent')}}
+                {{#is assetType 'EQUIBIT'}}
+                  {{i18n('dealFlowMessageTitleSecuritiesOfferSentEqb')}}
+                {{else}}
+                  {{i18n('dealFlowMessageTitleSecuritiesOfferSent')}}
+                {{/is}}
               {{/if}}
               <a href="{{routeUrl page='transactions' itemId=offer.htlcTxId1}}">({{i18n('viewTransaction')}})</a>
             </div>
