@@ -390,6 +390,7 @@ export default {
   notEnoughEqbPopoverMessage: 'Not enough EQB',
   notEnoughFunds: 'You don\'t have enough funds to send. Use the total available minus the transaction fee.',
   notEnoughFundsPopoverMessage: 'Not enough funds',
+  notEnoughSecuritiesPopoverMessage: 'Not enough securities',
   notEnoughSecurities: 'You don\'t have enough securities to send. Use the total available.',
   notFound401Title: 'This Page is Password Protected',
   notFound401Description: 'Please log in to access it.',
@@ -556,6 +557,13 @@ export default {
   sendSecuritiesTo: 'Send Securities to',
   sentOn: 'Sent On',
   sell: 'Sell',
+
+  sellingSecuritiesCannotQuery: 'Cannot Query data for selling issuance',
+  sellingSecuritiesCheckingSellData: 'checking sell data...',
+  sellingSecuritiesQuantityGTSharesAuthorized: 'Quantity cannot be more than the number of shares authorized.',
+  sellingSecuritiesQuantityGTSharesOrdered: 'Quantity cannot be more than the number of shares ordered.',
+  sellingSecuritiesQuantityGTSharesOwned: 'Quantity cannot be more than the number of shares owned and not trading.',
+
   sellOffer: 'Sell Offer',
   sellOffers: 'Sell Offers',
   sellOrder: 'Sell Order',
