@@ -117,15 +117,15 @@ const Portfolio = DefineMap.extend('Portfolio', {
       console.log('[portfolio.addresses] deriving addresses...')
 
       const { keys, addressesMeta } = this
-      const addresses = new DefineList(new Array(addressesMeta.length).fill(null));
+      const addresses = new DefineList(new Array(addressesMeta.length).fill(null))
       addresses.set('isPending', 0)
       let _addresses
       Observation.ignore(() => {
-        _addresses = this._addresses = this._addresses || { BTC: [[],[]], EQB: [[],[]], _flat: new DefineList() }
+        _addresses = this._addresses = this._addresses || { BTC: [[], []], EQB: [[], []], _flat: new DefineList() }
       })()
       let tempAddresses = []
       // Quick short circuit.  If addressesMeta hasn't changed since last call, return same addresses
-      if(_addresses._flat.length === addressesMeta.length) {
+      if (_addresses._flat.length === addressesMeta.length) {
         return _addresses._flat
       }
 
@@ -133,7 +133,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
         if (keys && addressesMeta) {
           addresses.isPending = addressesMeta.length
           addressesMeta.forEach((meta, idx) => {
-            if(
+            if (
               _addresses[meta.type] &&
               _addresses[meta.type][meta.isChange ? 1 : 0] &&
               _addresses[meta.type][meta.isChange ? 1 : 0][meta.index]
@@ -392,7 +392,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       const updatePromises = []
 
       const totals = this.addresses.reduce((acc, addr) => {
-        if(!addr) {
+        if (!addr) {
           acc.isPending = true
           return acc
         }
