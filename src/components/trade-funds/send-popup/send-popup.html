@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<script>window.useXhrTransport = true</script>
 <div id="demo"></div>
 <style>
   body { padding: 20px }
@@ -16,7 +17,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
 
-        <send-popup {portfolio}="portfolio"></send-popup>
+        <send-popup portfolio:from="portfolio" issuances:from="issuances"></send-popup>
 
       </div>
     </div>
@@ -30,13 +31,15 @@
   import reload from 'live-reload';
   import DefineMap from 'can-define/map/map';
   import '~/models/mock/mock-session'
-  // import mockPortfolio from '~/models/mock/mock-portfolio'
-  import { portfolioBtc } from '~/models/mock/mock-portfolio'
+  import portfolio from '~/models/mock/mock-portfolio'
+  // import { portfolioBtc } from '~/models/mock/mock-portfolio'
+  import { data as issuances } from '~/models/fixtures/issuances'
   import canViewModel from 'can-view-model'
   window.canViewModel = canViewModel
 
   const vm = new DefineMap({
-    portfolio: portfolioBtc
+    portfolio,
+    issuances: issuances.slice(0, 5)
   });
 
   // Enable live-reload:
