@@ -68,13 +68,7 @@
       {{^if formData.hasEnoughFunds}}
 
         <div class="alert alert-danger">
-          {{i18n('notEnoughEqbForTransactionFee')}}
-          <br>
-          {{#i18n('transferFundsInstructionDescription')}}
-            <slot name="link">
-              <a href="#" on:click="openReceiveForm()">{{i18n('receiveForm'}}</a>
-            </slot>
-          {{/i18n)}}
+          {{i18n('notEnoughEqbForTransactionFee')}} <a href="#">{{i18n('buyEqb')}}</a>
         </div>
 
       {{/if}}
