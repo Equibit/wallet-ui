@@ -41,6 +41,8 @@
   const authIssuances = issuances.slice(1, 5)
 
   portfolio.securities = new Issuance.List([issuances[0]])
+  // Mock securities UTXO:
+  portfolio.utxoByType.EQB[0].equibit.issuance_tx_id = issuances[0].issuanceTxId
 
   const vm = new DefineMap({
     portfolio,

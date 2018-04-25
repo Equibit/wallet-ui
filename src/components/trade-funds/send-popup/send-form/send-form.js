@@ -95,7 +95,7 @@ export const ViewModel = DefineMap.extend({
 
   formatIssuanceInput (issuance) {
     // ${issuance.marketCap} uBTC
-    return `${issuance.companyName} | ${issuance.issuanceName} | ${issuance.isSecurity ? 'Authorized' : 'My Portfolio'} ${formatShares(issuance.availableAmount)} Shares`
+    return `${issuance.companyName} | ${issuance.issuanceName} | ${formatShares(issuance.availableAmount)} ${issuance.isSecurity ? 'Authorized Shares' : 'Shares from My Portfolio'}`
   },
 
   sendAllFunds () {

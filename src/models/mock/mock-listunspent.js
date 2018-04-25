@@ -60,8 +60,8 @@ const listunspent = {
           'amount': 220000000,
           'equibit': {
             'payment_currency': 0,
-            'payment_tx_id': 'a34f6c88e534fbbb00357f8bbbaf15dad9b34a20a837b510ef4b4a08cf72333b',
-            'issuance_tx_id': 'e8d9a1f6fb447f4db49778a65af6c93fc019eb2b5c0fd338835a56e2136ade82',
+            'payment_tx_id': '',
+            'issuance_tx_id': '0000000000000000000000000000000000000000000000000000000000000000',
             'issuance_json': ''
           }
         }]
