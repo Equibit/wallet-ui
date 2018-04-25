@@ -31,15 +31,20 @@
   import reload from 'live-reload';
   import DefineMap from 'can-define/map/map';
   import '~/models/mock/mock-session'
+  import Issuance from '~/models/issuance'
   import portfolio from '~/models/mock/mock-portfolio'
   // import { portfolioBtc } from '~/models/mock/mock-portfolio'
   import { data as issuances } from '~/models/fixtures/issuances'
   import canViewModel from 'can-view-model'
   window.canViewModel = canViewModel
 
+  const authIssuances = issuances.slice(1, 5)
+
+  portfolio.securities = new Issuance.List([issuances[0]])
+
   const vm = new DefineMap({
     portfolio,
-    issuances: issuances.slice(0, 5)
+    issuances: authIssuances
   });
 
   // Enable live-reload:

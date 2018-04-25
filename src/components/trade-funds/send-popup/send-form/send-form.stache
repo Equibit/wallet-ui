@@ -57,12 +57,12 @@
       <div class="form-group">
         <label for="">{{i18n('issuance')}}</label>
         <!--<input type="text" class="form-control" placeholder="Enter Company Name" {($value)}="formData.issuance.companyName">-->
-        <can-search-select {items}="issuances"
-                           {format}="@formatIssuance"
-                           {format-input}="@formatIssuanceInput"
-                           btn-class="caret"
-                           filter-prop-name="companyName"
-                           {(selected-item)}="formData.issuance" />
+        <can-search-select items:from="allIssuances"
+                           format:from="@formatIssuance"
+                           formatInput:from="@formatIssuanceInput"
+                           btnClass:from="'caret'"
+                           filterPropName:from="companyName"
+                           selectedItem:bind="formData.issuance" />
       </div>
 
       {{^if formData.hasEnoughFunds}}

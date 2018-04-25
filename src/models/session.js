@@ -62,7 +62,7 @@ if (feathersClient.io) {
 
 const Session = DefineMap.extend('Session', {
   /**
-   * @property {Function} models/session.prototype.user user
+   * @property {User} models/session.prototype.user user
    * @parent models/session.prototype
    * User instance.
    */
@@ -71,7 +71,7 @@ const Session = DefineMap.extend('Session', {
   },
 
   /**
-   * @property {Function} models/session.prototype.portfoliosPromise portfoliosPromise
+   * @property {Promise} models/session.prototype.portfoliosPromise portfoliosPromise
    * @parent models/session.prototype
    * Promise for portfolios live list.
    */
@@ -92,7 +92,7 @@ const Session = DefineMap.extend('Session', {
   },
 
   /**
-   * @property {Function} models/session.prototype.portfoliosMeta portfoliosMeta
+   * @property {Portfolios.List} models/session.prototype.portfoliosMeta portfoliosMeta
    * @parent models/session.prototype
    * List of user's portfolios info.
    * ```
@@ -148,7 +148,7 @@ const Session = DefineMap.extend('Session', {
   },
 
   /**
-   * @property {Function} models/session.prototype.balance balance
+   * @property {Object} models/session.prototype.balance balance
    * @parent models/session.prototype
    * User balance contains a summary from all portfolios.
    * ```
@@ -252,6 +252,11 @@ const Session = DefineMap.extend('Session', {
       })
     }
   },
+  /**
+   * @property {Issuance.List} models/session.prototype.issuances issuances
+   * @parent models/session.prototype
+   * Issuances that belong to the user (authorized by him), but are not a part of his portfolio (as investor).
+   */
   issuances: {
     type: function (val) {
       if (val instanceof Issuance.List) {

@@ -25,8 +25,15 @@ import FormData from './form-data'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
+  // Authorized issuances:
   issuances: {
     Type: Issuance.List
+  },
+  // Investor issuances:
+  securities: {
+    get () {
+      return this.portfolio && this.portfolio.securities
+    }
   },
   tx: '*',
   changeAddr: '*',
