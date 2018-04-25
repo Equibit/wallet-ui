@@ -31,13 +31,14 @@ export const ViewModel = DefineMap.extend({
     const userSent = row.address === row.fromAddress
     const userReceived = row.address === row.toAddress
     const sentOrCollected = row.htlcStep < 3 ? 'Sent' : 'Collected'
-    const paymentOrSecurities = row.assetType === 'EQUIBIT'
-      ? 'Equibits'
-      : (row.isSecurity ? 'Securities' : 'Payment')
+    const isPayment = row.currencyType === 'BTC'
+    const paymentOrSecurities = isPayment
+      ? 'Payment'
+      : (row.isSecurity ? 'Securities' : 'Equibits')
 
     const sellerBuyerOrUser = row.htlcStep < 3
-      ? (userSent ? 'User' : (row.isSecurity ? 'Seller' : 'Buyer'))
-      : (userReceived ? 'User' : (row.isSecurity ? 'Buyer' : 'Seller'))
+      ? (userSent ? 'User' : (isPayment ? 'Buyer' : 'Seller'))
+      : (userReceived ? 'User' : (isPayment ? 'Seller' : 'Buyer'))
 
     const i18nKey = `htlc${sellerBuyerOrUser}${sentOrCollected}${paymentOrSecurities}Description`
     return translate(i18nKey)

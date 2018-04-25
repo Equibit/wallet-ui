@@ -29,9 +29,12 @@ body {
   import mockHtlcOffer from '~/models/mock/mock-htlc-offer'
   import issuance from '~/models/mock/mock-issuance'
   import Offer from '~/models/offer'
+  import canViewModel from 'can-view-model'
+  window.canViewModel = canViewModel
 
-  const offer = mockHtlcOffer()
-  offer.htlcStep = 2
+  const offer = mockHtlcOffer().offer
+  offer.htlcStep = 3
+  offer.assetType = 'EQUIBIT'
 
   const vm = new DefineMap({
     order: offer.order,

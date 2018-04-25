@@ -24,16 +24,14 @@
             {{#eq formData.type 'BTC'}}
               {{i18n('paymentFor')}}
             {{else}}
-              {{#is formData.assetType 'EQUIBIT'}}
-                {{i18n('blankEqb')}}
-              {{else}}
+              {{#is formData.assetType 'ISSUANCE'}}
                 {{i18n('commonShares')}}
               {{/is}}
             {{/eq}}
           </label>
-          {{#is formData.assetType 'ISSUANCE'}}
-            <span class="input-value">{{formData.issuanceName}}</span>
-          {{/is}}
+          <span class="input-value">
+            {{#is formData.assetType 'ISSUANCE'}} {{formData.issuanceName}} {{else}} {{i18n('blankEqb')}} {{/is}}
+          </span>
       </div>
   </div>
 
