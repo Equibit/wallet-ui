@@ -58,7 +58,12 @@ const FormData = DefineMap.extend({
     }
   },
   quantity: {
-    get () {
+    // two way conversion b/w quantity and securities:
+    set (val) {
+      this.securities = val
+      return val
+    },
+    get (val) {
       return this.amountCoin * 100000000
     }
   },

@@ -84,11 +84,9 @@
             <input type="number" class="form-control" value:bind="formData.quantity">
           </div>
         </div>
-
         <div class="col-sm-2 col-xs-12 no-padding">
           <span class="rate-arrows icon icon-enlarge"></span>
         </div>
-
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
             <!--<currency-converter {(input)}="formData.amount" {currency}="sharesToUsd" />-->
@@ -97,7 +95,6 @@
                                 currency:from="formData.sharesToEqb"/>
           </div>
         </div>
-
         <div class="col-sm-12 no-padding">
           {{^if formData.hasEnoughFunds}}
             <validation-message
@@ -109,12 +106,10 @@
         </div>
       </div>
       {{/if}}
-
     {{/is}}
 
     {{#is formData.type 'FUNDS'}}
       {{^if formData.hasFunds}}
-
         <div class="alert alert-danger">
           {{#i18n('notEnoughCurrencyToSend')}}
             <slot name="currency">
@@ -128,15 +123,12 @@
             </slot>
           {{/i18n)}}
         </div>
-
       {{else}}
       <br>
       <div class="row">
-
         <div class="col-xs-12 no-padding">
           <label>{{i18n('amount')}}</label>
         </div>
-
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
             <div class="input-group">
@@ -147,11 +139,9 @@
             </div>
           </div>
         </div>
-
         <div class="col-sm-2 col-xs-12 no-padding">
           <span class="rate-arrows icon icon-enlarge"></span>
         </div>
-
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
             <currency-converter input:bind="formData.amountCoin" currency:from="fundsToUsd" output:to="formData.price"/>
