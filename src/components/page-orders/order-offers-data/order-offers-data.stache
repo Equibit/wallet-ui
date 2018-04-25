@@ -27,7 +27,7 @@
                     {{#is offer.assetType 'EQUIBIT'}}
                       {{coin(offer.quantity)}}
                     {{else}}
-                      {{offer.quantity}}
+                      {{format(offer.quantity, '', 0)}}
                     {{/is}}
                   </span>
                   <span class="offer-date">{{offer.dateDisplay}}</span>
