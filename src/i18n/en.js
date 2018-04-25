@@ -414,7 +414,7 @@ export default {
   notFoundOrdersBuy: 'No Buy Orders Found',
   notFoundOrdersSell: 'No Sell Orders Found',
   notifications: 'Notifications',
-  notificationsNone: 'There no notifications',
+  notificationsNone: 'There are no notifications',
   notifyMe: 'Notify Me',
   noPartialFills: 'No partial fills allowed.',
   noRestriction: 'Bearer Form',
