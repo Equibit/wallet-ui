@@ -65,7 +65,7 @@
                            selectedItem:bind="formData.issuance" />
       </div>
 
-      {{^if formData.hasEnoughFunds}}
+      {{^if formData.hasEnoughEqbFee}}
 
         <div class="alert alert-danger">
           {{i18n('notEnoughEqbForTransactionFee')}} <a href="#">{{i18n('buyEqb')}}</a>

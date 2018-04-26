@@ -90,6 +90,12 @@ const FormData = DefineMap.extend({
       }
     }
   },
+  hasEnoughEqbFee: {
+    get () {
+      // Need available shares amount and Empty EQB for the fee:
+      return this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
+    }
+  },
   transactionFee: {
     type: 'number',
     // todo: calculate fee
