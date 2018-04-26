@@ -11,7 +11,7 @@ import typeforce from 'typeforce'
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import canDefineStream from 'can-define-stream-kefir'
-import Observation from 'can-observation'
+import Kefir from 'kefir'
 import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
 import algebra from './algebra'
@@ -109,56 +109,57 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @parent models/portfolio.properties
    * A list of address objects that includes real addresses, amount and txouts.
    */
-  addressesPromise: '*',
+  addressesPromise: {
+    stream () {
+      let resolvePromise
+      let promise = new Promise(resolve => { resolvePromise = resolve })
+      return this.toStream('.addresses.isPending').map(val => {
+        const lastPromise = promise
+        if (!val) {
+          // not pending now, resolve the promise and remove it
+          resolvePromise && resolvePromise(this.addresses)
+          promise = null
+          return lastPromise
+        } else if (!lastPromise) {
+          // from not pending to pending, create new promise
+          promise = new Promise(resolve => { resolvePromise = resolve })
+          return promise
+        } else {
+          // pending to pending, continue
+          return lastPromise
+        }
+      }).toProperty(() => promise)
+    }
+  },
   _addresses: '*',
   addresses: {
-    get () {
+    stream () {
       // TODO: make sure this getter is cached (maybe change to a stream derived from addressesMeta).
       console.log('[portfolio.addresses] deriving addresses...')
 
-      const { keys, addressesMeta } = this
-      const addresses = new DefineList(new Array(addressesMeta.length).fill(null))
-      addresses.set('isPending', 0)
-      let _addresses
-      Observation.ignore(() => {
-        _addresses = this._addresses = this._addresses || { BTC: [[], []], EQB: [[], []], _flat: new DefineList() }
-      })()
+      let resolvePromise = null
+      let addresses = new DefineList()
       let tempAddresses = []
-      // Quick short circuit.  If addressesMeta hasn't changed since last call, return same addresses
-      if (_addresses._flat.length === addressesMeta.length) {
-        return _addresses._flat
-      }
 
-      this.addressesPromise = new Promise(resolve => {
-        if (keys && addressesMeta) {
-          addresses.isPending = addressesMeta.length
-          addressesMeta.forEach((meta, idx) => {
-            if (
-              _addresses[meta.type] &&
-              _addresses[meta.type][meta.isChange ? 1 : 0] &&
-              _addresses[meta.type][meta.isChange ? 1 : 0][meta.index]
-            ) {
-              // address has already been derived.  use cached value
-              //  but still check for pending = 0
-              addresses[idx] = tempAddresses[idx] = _addresses[meta.type][meta.isChange ? 1 : 0][meta.index]
-              addresses.isPending--
-              if (!addresses.isPending) {
-                addresses.replace(tempAddresses)
-                _addresses._flat = addresses
-                this.dispatch('refresh')
-                resolve(addresses)
-              }
-            } else {
-              // use the worker thread to derive this address,
-              //  decrement pending when return message received
-              _addresses[meta.type] = _addresses[meta.type] || [[], []]
+      return Kefir.stream(emitter => {
+        const streamHandler = metaAddresses => {
+          metaAddresses.forEach(meta => {
+            let idx = this.addressesMeta.indexOf(meta)
+            if (idx < 0) {
+              idx = addresses.length
+            }
+
+            if (!tempAddresses[idx]) {
+              tempAddresses[idx] = true
+              addresses.set('isPending', (addresses.isPending || 0) + 1)
+
               this.derivationWorkerPromise.then(derivationWorker => {
                 const uuid = Math.random()
                 const cb = ev => {
                   if (ev.data.uuid === uuid) {
                     derivationWorker.removeEventListener('message', cb)
 
-                    tempAddresses[idx] = _addresses[meta.type][meta.isChange ? 1 : 0][meta.index] = {
+                    addresses.set(idx, {
                       index: meta.index,
                       address: ev.data.address,
                       type: meta.type,
@@ -169,13 +170,15 @@ const Portfolio = DefineMap.extend('Portfolio', {
                         { network: ev.data.keyPairNetwork }
                       ),
                       meta
-                    }
+                    })
                     addresses.isPending--
                     if (!addresses.isPending) {
-                      addresses.replace(tempAddresses)
-                      _addresses._flat = addresses
                       this.dispatch('refresh')
-                      resolve(addresses)
+                      emitter.emit(addresses)
+                      if (resolvePromise) {
+                        resolvePromise(addresses)
+                        resolvePromise = null
+                      }
                     }
                   }
                 }
@@ -192,9 +195,15 @@ const Portfolio = DefineMap.extend('Portfolio', {
               })
             }
           })
+          return addresses
         }
-      })
-      return addresses
+        this.toStream('.addressesMeta add').onValue(streamHandler)
+        if (this.addressesMeta) {
+          streamHandler(this.addressesMeta)
+        }
+
+        emitter.emit(addresses)
+      }).toProperty(() => { return addresses })
     }
   },
 
@@ -604,6 +613,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
   refreshBalance: function () {
     this.dispatch('refresh')
     return this.securitiesPromise
+  },
+
+  init () {
+    this.on('addressesPromise', () => {})
   }
 })
 

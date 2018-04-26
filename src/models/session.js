@@ -215,10 +215,17 @@ const Session = DefineMap.extend('Session', {
     }
   },
 
+  _notificationsPromise: '*',
   get notificationsPromise () {
     const allAddresses = this.allAddresses
+    if (allAddresses.isPending) {
+      return Observation.ignore(() => {
+        return this._notificationsPromise
+      })()
+    }
+    let retval
     if (allAddresses.BTC.length + allAddresses.EQB.length > 0) {
-      return Notification.getList({
+      retval = Notification.getList({
         address: {
           $in: allAddresses.BTC.concat(allAddresses.EQB)
         },
@@ -227,8 +234,10 @@ const Session = DefineMap.extend('Session', {
         }
       })
     } else {
-      return Promise.resolve([])
+      retval = Promise.resolve([])
     }
+    this._notificationsPromise = retval
+    return retval
   },
 
   notifications: {
@@ -322,10 +331,12 @@ const Session = DefineMap.extend('Session', {
       }, [])
       let results = {EQB: issuanceAddresses, BTC: []}
       results = portfolios ? portfolios.reduce((acc, portfolio) => {
-        return {
+        const ret = {
           BTC: acc.BTC.concat(portfolio.addressesBtc.get()),
           EQB: acc.EQB.concat(portfolio.addressesEqb.get())
         }
+        Object.defineProperty(ret, 'isPending', { enumerable: false, value: acc.isPending || portfolio.addresses.isPending })
+        return ret
       }, results) : results
 
       // Ignore observations here because we don't want to re-run this getter when
