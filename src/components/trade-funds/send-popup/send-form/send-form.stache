@@ -61,7 +61,7 @@
                            format:from="@formatIssuance"
                            formatInput:from="@formatIssuanceInput"
                            btnClass:from="'caret'"
-                           filterPropName:from="companyName"
+                           filterPropName:from="'companyName'"
                            selectedItem:bind="formData.issuance" />
       </div>
 

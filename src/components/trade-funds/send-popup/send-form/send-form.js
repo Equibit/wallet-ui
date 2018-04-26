@@ -21,20 +21,22 @@ import { toMaxPrecision } from '../../../../utils/formatter'
 export const ViewModel = DefineMap.extend({
   formData: '*',
   portfolio: '*',
-  securities: Issuance.List,
+  securities: {
+    get (val) {
+      return val || new Issuance.List([])
+    }
+  },
   issuances: {
     get (val) {
       return val || new Issuance.List([])
     }
   },
 
-  allIssuances: {
-    get () {
-      return this.securities.forEach(s => {
-        s.isSecurity = true
-        return s
-      }).concat(this.issuances)
-    }
+  get allIssuances () {
+    return this.issuances.concat(this.securities.forEach(s => {
+      s.isSecurity = true
+      return s
+    })).filter(s => s.availableAmount > 0)
   },
 
   sharesToUsd: {
@@ -89,13 +91,13 @@ export const ViewModel = DefineMap.extend({
       <span class="issuance issuance-company">${issuance.companyName}</span> 
       <span class="issuance issuance-name">${issuance.issuanceName}</span>
       <span class="issuance issuance-quantity">
-        ${issuance.isSecurity ? 'Authorized' : 'My Portfolio'} ${formatShares(issuance.availableAmount)}
+        ${issuance.isSecurity ? 'My Portfolio' : 'Authorized'} ${formatShares(issuance.availableAmount)}
       </span>`
   },
 
   formatIssuanceInput (issuance) {
     // ${issuance.marketCap} uBTC
-    return `${issuance.companyName} | ${issuance.issuanceName} | ${formatShares(issuance.availableAmount)} ${issuance.isSecurity ? 'Authorized Shares' : 'Shares from My Portfolio'}`
+    return `${issuance.companyName} | ${issuance.issuanceName} | ${formatShares(issuance.availableAmount)} ${issuance.isSecurity ? 'Shares in My Portfolio' : 'Authorized Shares'}`
   },
 
   sendAllFunds () {

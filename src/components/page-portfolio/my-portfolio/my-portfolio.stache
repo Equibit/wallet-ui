@@ -16,7 +16,7 @@
     <div class="message-box no-border">
       <div class="message-box-status">{{i18n('placeholderPortfolioNoFundsTitle')}}</div>
       <p class="message-box-cause">{{i18n('placeholderPortfolioNoFundsDescription')}}</p>
-      <a class="btn btn-primary"($click)="receiveFunds()"><span class="icon icon-download"></span> {{i18n('receive')}}</a>
+      <a class="btn btn-primary" on:click="receiveFunds()"><span class="icon icon-download"></span> {{i18n('receive')}}</a>
     </div>
   </div>
 
@@ -100,8 +100,9 @@
 
 {{#if isSendFundsPopup}}
   <send-popup sendFn:from="@send"
-              (receiveform)="receiveFunds()"
-              {portfolio}="portfolio" />
+              on:vm:receiveform="receiveFunds()"
+              portfolio:from="portfolio"
+              issuances:from="issuances" />
 {{/if}}
 
 {{#if isReceiveFundsPopup}}
