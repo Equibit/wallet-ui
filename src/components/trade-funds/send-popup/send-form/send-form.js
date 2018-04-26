@@ -23,6 +23,12 @@ export const ViewModel = DefineMap.extend({
   portfolio: '*',
   securities: {
     get (val) {
+      if (val && val.length) {
+        val.forEach(s => {
+          s.isSecurity = true
+          return s
+        })
+      }
       return val || new Issuance.List([])
     }
   },
@@ -33,10 +39,8 @@ export const ViewModel = DefineMap.extend({
   },
 
   get allIssuances () {
-    return this.issuances.concat(this.securities.forEach(s => {
-      s.isSecurity = true
-      return s
-    })).filter(s => s.availableAmount > 0)
+    // todo: technically we can have the same issuance in both lists which becomes confusing here.
+    return this.issuances.concat(this.securities).filter(s => s.availableAmount > 0)
   },
 
   sharesToUsd: {
