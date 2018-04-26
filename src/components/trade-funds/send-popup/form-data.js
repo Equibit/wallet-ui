@@ -60,11 +60,12 @@ const FormData = DefineMap.extend({
   quantity: {
     // two way conversion b/w quantity and securities:
     set (val) {
+      Math.round(val)
       this.securities = val
       return val
     },
     get (val) {
-      return this.amountCoin * 100000000
+      return Math.round(this.amountCoin * 100000000)
     }
   },
   securities: {
@@ -92,7 +93,7 @@ const FormData = DefineMap.extend({
   },
   hasEnoughEqbFee: {
     get () {
-      // Need available shares amount and Empty EQB for the fee:
+      // Need Empty EQB for the fee:
       return this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
     }
   },
