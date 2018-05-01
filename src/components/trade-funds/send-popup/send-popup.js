@@ -19,12 +19,22 @@ import { merge } from 'ramda'
 import './send-popup.less'
 import view from './send-popup.stache'
 import Session from '../../../models/session'
+import Issuance from '../../../models/issuance'
 import Transaction from '../../../models/transaction/transaction'
 import FormData from './form-data'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
-  issuances: '*',
+  // Authorized issuances:
+  issuances: {
+    Type: Issuance.List
+  },
+  // Investor issuances:
+  securities: {
+    get () {
+      return this.portfolio && this.portfolio.securities
+    }
+  },
   tx: '*',
   changeAddr: '*',
   formData: {

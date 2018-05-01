@@ -225,11 +225,20 @@ const Portfolio = DefineMap.extend('Portfolio', {
   },
 
   securitiesPromise: '*',
-  // issuances that current user's utxo are attached to/came from.
+
+  /**
+   * @property {String} models/portfolio.properties.securities securities
+   * @parent models/portfolio.properties
+   * Issuances that current user's utxo are attached to/came from (user owns them as an investor).
+   */
   securities: {
     get (lastSetVal, resolve) {
       if (!this.utxoSecurities) {
         return
+      }
+      // For testing:
+      if (lastSetVal) {
+        return lastSetVal
       }
 
       // The number of issuances returned is a <= number of utxoSecurities

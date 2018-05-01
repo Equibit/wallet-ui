@@ -37,7 +37,11 @@ const FormData = DefineMap.extend({
   rates: '*',
   issuance: Issuance,
   issuanceOnly: 'boolean',
+
+  // todo: calculate price in a getter instead of currency-converter?
+  // Note: The price is set by currency-converter component.
   price: 'number',
+
   description: 'string',
 
   toAddress: {
@@ -58,8 +62,14 @@ const FormData = DefineMap.extend({
     }
   },
   quantity: {
-    get () {
-      return this.amountCoin * 100000000
+    // two way conversion b/w quantity and securities:
+    set (val) {
+      Math.round(val)
+      this.securities = val
+      return val
+    },
+    get (val) {
+      return Math.round(this.amountCoin * 100000000)
     }
   },
   securities: {
@@ -83,6 +93,12 @@ const FormData = DefineMap.extend({
         // Need available shares amount and Empty EQB for the fee:
         return this.issuance.availableAmount >= this.quantity && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
       }
+    }
+  },
+  hasEnoughEqbFee: {
+    get () {
+      // Need Empty EQB for the fee:
+      return this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
     }
   },
   transactionFee: {

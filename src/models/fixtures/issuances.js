@@ -12,6 +12,7 @@ const data = _.times(90, function (i) {
     companyName: companies[i % 9],
     companySlug: companies[i % 9].toLowerCase().split(' ').join('-'),
     domicile: ['USA', 'UK', 'Poland', 'Sweden', 'France'][i % 5],
+    issuanceTxId: 'e8d9a1f6fb447f4db49778a65af6c93fc019eb2b5c0fd338835a56e2136ade82',
     issuanceName: ['Series 1', 'Series 2'][i % 2],
     issuanceType: ['common_shares', 'trust_units', 'preferred_shares'][i % 3],
     restriction: ['1', '2', 'None'][i % 3],

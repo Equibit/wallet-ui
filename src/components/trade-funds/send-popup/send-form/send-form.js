@@ -13,29 +13,41 @@ import DefineMap from 'can-define/map/map'
 import accounting from 'accounting'
 import './send-form.less'
 import view from './send-form.stache'
-import { convertToUserFiat, satoshi, unit } from '~/utils/currency-converter'
+import { convertToUserFiat, satoshi, unit } from '../../../../utils/currency-converter'
 import Session from '~/models/session'
+import Issuance from '~/models/issuance'
 import { toMaxPrecision } from '../../../../utils/formatter'
 
 export const ViewModel = DefineMap.extend({
-  formData: {
-    type: '*'
+  formData: '*',
+  portfolio: '*',
+  securities: {
+    get (val) {
+      if (val && val.length) {
+        val.forEach(s => {
+          s.isSecurity = true
+          return s
+        })
+      }
+      return val || new Issuance.List([])
+    }
   },
-
   issuances: {
-    type: '*'
+    get (val) {
+      return val || new Issuance.List([])
+    }
   },
 
-  portfolio: {
-    type: '*'
+  get allIssuances () {
+    // Note: the same issuance cannot be in both lists (business requirement).
+    return this.issuances.concat(this.securities).filter(s => s.availableAmount > 0)
   },
 
   sharesToUsd: {
-    // TODO: the rate depends on the selected issuance!
     get (val, resolve) {
       convertToUserFiat(1, 'BTC', satoshi).then(avg => {
         resolve({
-          rate: this.issuance.currentPricePerShare * avg,
+          rate: this.formData.issuance.currentPricePerShare * avg,
           symbol: Session.fiatCurrency()
         })
       })
@@ -78,12 +90,17 @@ export const ViewModel = DefineMap.extend({
 
   formatIssuance (issuance) {
     // ${issuance.marketCap} uBTC
-    return `<span class="issuance issuance-company">${issuance.companyName}</span> <span class="issuance issuance-name">${issuance.issuanceName}</span> <span class="issuance issuance-quantity">available ${formatShares(issuance.availableAmount)}</span>`
+    return `
+      <span class="issuance issuance-company">${issuance.companyName}</span> 
+      <span class="issuance issuance-name">${issuance.issuanceName}</span>
+      <span class="issuance issuance-quantity">
+        ${issuance.isSecurity ? 'My Portfolio' : ''} ${formatShares(issuance.availableAmount)}
+      </span>`
   },
 
   formatIssuanceInput (issuance) {
     // ${issuance.marketCap} uBTC
-    return `${issuance.companyName} | ${issuance.issuanceName} | available ${formatShares(issuance.availableAmount)} Shares`
+    return `${issuance.companyName} | ${issuance.issuanceName} | ${formatShares(issuance.availableAmount)} ${issuance.isSecurity ? 'Shares in My Portfolio' : 'Authorized Shares'}`
   },
 
   sendAllFunds () {

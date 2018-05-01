@@ -17,17 +17,19 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './my-portfolio.less'
 import view from './my-portfolio.stache'
-import hub from '~/utils/event-hub'
+import hub from '../../../utils/event-hub'
 import { translate } from '~/i18n/'
 import Portfolio from '../../../models/portfolio'
-import Session from '~/models/session'
-import Transaction from '~/models/transaction/transaction'
+import Issuance from '../../../models/issuance'
+import Session from '../../../models/session'
+import Transaction from '../../../models/transaction/transaction'
 import { merge } from 'ramda'
 
 let portfolio
 
 export const ViewModel = DefineMap.extend({
   portfolio: Portfolio,
+  issuances: Issuance.List,
   isSending: 'boolean',
   isSendFundsPopup: 'boolean',
   isReceiveFundsPopup: 'boolean',
