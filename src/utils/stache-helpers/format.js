@@ -5,7 +5,7 @@ import { toMaxPrecision, localCurrency } from '../formatter'
 import Session from '~/models/session'
 
 stache.registerHelper('format', function (value, symbol, precision) {
-  if (typeof precision === 'undefined') {
+  if (typeof precision !== 'number') {
     precision = 2
   }
   return accounting.formatMoney(value, symbol, precision)
@@ -57,7 +57,7 @@ stache.registerHelper('format-date-short', function (value) {
 
 // Satoshi to local currency:
 stache.registerHelper('local-currency', function (value, type) {
-  if (typeof type !== 'string') {
+  if (!type || typeof type !== 'string') {
     type = 'BTC'
   }
   return localCurrency(value, type)
