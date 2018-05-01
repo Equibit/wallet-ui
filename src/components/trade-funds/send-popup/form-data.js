@@ -37,7 +37,11 @@ const FormData = DefineMap.extend({
   rates: '*',
   issuance: Issuance,
   issuanceOnly: 'boolean',
+
+  // todo: calculate price in a getter instead of currency-converter?
+  // Note: The price is set by currency-converter component.
   price: 'number',
+
   description: 'string',
 
   toAddress: {

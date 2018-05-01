@@ -57,7 +57,7 @@ stache.registerHelper('format-date-short', function (value) {
 
 // Satoshi to local currency:
 stache.registerHelper('local-currency', function (value, type) {
-  if (!type) {
+  if (typeof type !== 'string') {
     type = 'BTC'
   }
   return localCurrency(value, type)

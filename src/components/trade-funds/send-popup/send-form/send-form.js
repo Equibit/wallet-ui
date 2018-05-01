@@ -13,7 +13,7 @@ import DefineMap from 'can-define/map/map'
 import accounting from 'accounting'
 import './send-form.less'
 import view from './send-form.stache'
-import { convertToUserFiat, satoshi, unit } from '~/utils/currency-converter'
+import { convertToUserFiat, satoshi, unit } from '../../../../utils/currency-converter'
 import Session from '~/models/session'
 import Issuance from '~/models/issuance'
 import { toMaxPrecision } from '../../../../utils/formatter'
@@ -39,16 +39,15 @@ export const ViewModel = DefineMap.extend({
   },
 
   get allIssuances () {
-    // todo: technically we can have the same issuance in both lists which becomes confusing here.
+    // Note: the same issuance cannot be in both lists (business requirement).
     return this.issuances.concat(this.securities).filter(s => s.availableAmount > 0)
   },
 
   sharesToUsd: {
-    // TODO: the rate depends on the selected issuance!
     get (val, resolve) {
       convertToUserFiat(1, 'BTC', satoshi).then(avg => {
         resolve({
-          rate: this.issuance.currentPricePerShare * avg,
+          rate: this.formData.issuance.currentPricePerShare * avg,
           symbol: Session.fiatCurrency()
         })
       })
@@ -95,7 +94,7 @@ export const ViewModel = DefineMap.extend({
       <span class="issuance issuance-company">${issuance.companyName}</span> 
       <span class="issuance issuance-name">${issuance.issuanceName}</span>
       <span class="issuance issuance-quantity">
-        ${issuance.isSecurity ? 'My Portfolio' : 'Authorized'} ${formatShares(issuance.availableAmount)}
+        ${issuance.isSecurity ? 'My Portfolio' : ''} ${formatShares(issuance.availableAmount)}
       </span>`
   },
 
