@@ -23,6 +23,7 @@ import { createHtlc1, prepareHtlcConfigBtc, prepareTxData } from './transaction-
 import { createHtlc2, prepareHtlcConfigEqb } from './transaction-create-htlc2'
 import { createHtlc3, createHtlcRefund3, prepareHtlcConfig3, prepareHtlcRefundConfig3 } from './transaction-create-htlc3'
 import { createHtlc4, prepareHtlcConfig4 } from './transaction-create-htlc4'
+import { createTransfer } from './transaction-transfer'
 
 describe('models/transaction/utils', function () {
   const transactionFeeRates = { EQB: 5, BTC: 10 }
@@ -637,6 +638,34 @@ describe('models/transaction/utils', function () {
       it('should calculate fee correctly based on tx hex size', function () {
         assert.equal(txData.fee, 2250)
         assert.equal(txData.fee, fee)
+      })
+    })
+
+    describe.only('create a transfer tx', function () {
+      let txData, amount, toAddress, changeAddr, expectedTxId
+      describe('for ISSUANCE', function () {
+        before(function () {
+          amount = 1000
+          toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
+          changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
+          txData = createTransfer('ISSUANCE', amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates)
+          expectedTxId = '3af989cb41bd24a9086023db1f1fd0d5c6ddf4c12d8b9129c42f983615a11e5b'
+        })
+        it('should define amount', function () {
+          assert.equal(txData.amount, amount)
+        })
+        it('should define assetType', function () {
+          assert.equal(txData.assetType, 'ISSUANCE')
+        })
+        it('should define currencyType', function () {
+          assert.equal(txData.currencyType, 'EQB')
+        })
+        it('should calculate fee correctly based on tx hex size', function () {
+          assert.equal(txData.fee, 2605)
+        })
+        it('should define tx id', function () {
+          assert.equal(txData.txId, expectedTxId)
+        })
       })
     })
   })
