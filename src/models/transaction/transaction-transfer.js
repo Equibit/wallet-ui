@@ -90,7 +90,7 @@ function prepareConfigBtc (
     toAddress,
     amount,
     fee,
-    type: 'TRANSFER',
+    type: 'OUT',
     currencyType: 'BTC',
     buildConfig
   }
