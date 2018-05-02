@@ -189,7 +189,7 @@ function prepareConfigEqb (
     toAddress,
     amount,
     fee,
-    type: 'TRANSFER',
+    type: 'OUT',
     assetType,
     currencyType: 'EQB',
     buildConfig
