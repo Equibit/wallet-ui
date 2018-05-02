@@ -72,12 +72,12 @@ export const ViewModel = DefineMap.extend({
       const availableFunds = toMaxPrecision(funds - this.formData.transactionFee, 8)
       return availableFunds < 0 ? 0 : availableFunds
     }
-    if (this.formData.type === 'SECURITIES' && this.formData.issuance) {
+    if (this.formData.type === 'ISSUANCE' && this.formData.issuance) {
       return this.formData.issuance.availableAmount
     }
   },
 
-  // ENUM ('SECURITIES', 'FUNDS')
+  // ENUM ('ISSUANCE', 'FUNDS')
   setType (val, el) {
     this.formData.type = val
     el.blur()
@@ -104,7 +104,7 @@ export const ViewModel = DefineMap.extend({
   },
 
   sendAllFunds () {
-    if (this.formData.type === 'SECURITIES') {
+    if (this.formData.type === 'ISSUANCE') {
       this.formData.securities = this.availableFunds
     } else {
       this.formData.amountCoin = this.availableFunds / 100000000

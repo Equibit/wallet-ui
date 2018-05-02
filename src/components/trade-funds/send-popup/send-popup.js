@@ -22,6 +22,7 @@ import Session from '../../../models/session'
 import Issuance from '../../../models/issuance'
 import Transaction from '../../../models/transaction/transaction'
 import FormData from './form-data'
+import { createTransfer } from '../../../models/transaction/transaction-transfer'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
@@ -109,17 +110,26 @@ export const ViewModel = DefineMap.extend({
     const amount = formData.quantity
     const currencyType = formData.fundsType
     const toAddress = formData.toAddress
-    const txouts = this.portfolio
-      .getTxouts(amount + formData.transactionFee, currencyType).txouts
-      .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
-    const options = {
-      fee,
-      changeAddr,
-      type: 'OUT',
-      currencyType,
-      description: formData.description
-    }
-    return Transaction.makeTransaction(amount, toAddress, txouts, options)
+
+    // const txouts = this.portfolio
+    //   .getTxouts(amount + formData.transactionFee, currencyType).txouts
+    //   .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
+    // let options = {
+    //   fee,
+    //   changeAddr,
+    //   type: 'OUT',
+    //   currencyType,
+    //   description: formData.description
+    // }
+    // if (this.formData.issuance) {
+    //   options = Object.assign(options, {
+    //     issuanceTxId: this.formData.issuance.issuanceTxId
+    //   })
+    // }
+    // return Transaction.makeTransaction(amount, toAddress, txouts, options)
+
+    const txData = createTransfer(this.type, amount)
+    const tx = new Transaction(txData)
   }
 })
 
