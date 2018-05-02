@@ -207,7 +207,10 @@ const Offer = DefineMap.extend('Offer', {
         txId: {
           $in: [ htlcTxId1, htlcTxId2, htlcTxId3, htlcTxId4 ]
         },
-        address: {'$in': addresses}
+        $or: [
+          {fromAddress: {'$in': addresses}},
+          {toAddress: {'$in': addresses}}
+        ]
       })
     }).then(txes => {
       const txesByTxId = {}
@@ -303,7 +306,10 @@ const Offer = DefineMap.extend('Offer', {
         return Promise.all([
           Transaction.getList({
             txId: { $in: [htlcTxId1, htlcTxId2] },
-            address: {'$in': addresses}
+            $or: [
+              {fromAddress: {'$in': addresses}},
+              {toAddress: {'$in': addresses}}
+            ]
           }),
           BlockhainInfo.infoBySymbol().promise
         ])

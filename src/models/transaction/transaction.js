@@ -65,6 +65,7 @@ import { eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import BlockchainInfo from '../blockchain-info'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
 import Session from '~/models/session'
+import TransactionNote from './note'
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
 const Transaction = DefineMap.extend('Transaction', {
@@ -96,14 +97,6 @@ const Transaction = DefineMap.extend('Transaction', {
    * Id of a Transaction record in DB.
    */
   _id: 'string',
-
-  /**
-   * @property {String} models/transaction.properties.address address
-   * @parent models/transaction.properties
-   * Address to link transaction to a user. Its either one of the inputs (for a sender) or outputs (for a receiver).
-   * We create two entries in our DB - one for the sender and one for the receiver.
-   */
-  address: 'string',
 
   // The following txid and vout are for address validation and won't be stored in DB
   addressTxid: 'string',
@@ -252,7 +245,21 @@ const Transaction = DefineMap.extend('Transaction', {
    * @parent models/transaction.properties
    * Transaction description
    */
-  description: 'string',
+  description: {
+    get (val, resolve) {
+      if (typeof val !== 'undefined') {
+        return resolve ? resolve(val) : val
+      } else if (!this.isNew()) {
+        TransactionNote.getList({
+          address: {$in: Session.current.allAddresses[this.currencyType]},
+          txId: this.txId
+        }).then(result => resolve(result[0] && result[0].description))
+      } else {
+        // description is undefined
+        resolve && resolve()
+      }
+    }
+  },
 
   // Won't be stored in DB. If a failure occurs the error will be immediately shown to user without creating a DB entry.
   hex: 'string',

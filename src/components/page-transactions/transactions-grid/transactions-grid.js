@@ -44,7 +44,10 @@ export const ViewModel = DefineMap.extend({
     get () {
       return Object.assign({},
         this.pagination.params,
-        {address: {'$in': this.addresses.get()}}
+        {$or:
+        [{fromAddress: {'$in': this.addresses.get()}},
+        {toAddress: {'$in': this.addresses.get()}}]
+        }
       )
     }
   },
