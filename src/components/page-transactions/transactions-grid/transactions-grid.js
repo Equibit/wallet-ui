@@ -99,6 +99,9 @@ export const ViewModel = DefineMap.extend({
   selectedRow: {
     type: '*'
   },
+  isUserAddress (address) {
+    return this.addresses.indexOf(address) > -1
+  },
   selectRowDefault (row) {
     if (route.data.itemId) {
       const found = this.rows.filter(a => {

@@ -327,6 +327,13 @@ export default {
   htlcUserCollectedEquibitsDescription: 'You collected the equibits',
   htlcUserSentEquibitsDescription: 'You sent the equibits',
 
+  htlcSellerRefundedSecuritiesDescription: 'Seller recovered the securities',
+  htlcSellerRefundedEquibitsDescription: 'Seller recovered the equibits',
+  htlcBuyerRefundedPaymentDescription: 'Buyer recovered the payment',
+  htlcUserRefundedSecuritiesDescription: 'You recovered the securities',
+  htlcUserRefundedPaymentDescription: 'You recovered the payment',
+  htlcUserRefundedEquibitsDescription: 'You recovered the equibits',
+
   inbox: 'Inbox',
   inboxEmtpy: 'Your Inbox is Empty',
   inboxMessagesPlaceholder: 'Messages sent to you will show here',
@@ -683,6 +690,9 @@ export default {
   transactionHistoryMessage: 'Transactions will show when you trade, or send and receive funds to your portfolios.',
   transactionIds: 'Transaction IDs',
   transactionIn: 'Transfer In',
+  transactionLock: 'Lock',
+  transactionUnlock: 'Collect',
+  transactionRefund: 'Refund',
   transactionOut: 'Transfer Out',
   transactionSell: 'Sell',
   transferFundsInstructionDescription: 'Transfer funds first using the <link/>.',

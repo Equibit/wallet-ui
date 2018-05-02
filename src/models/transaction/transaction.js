@@ -166,6 +166,22 @@ const Transaction = DefineMap.extend('Transaction', {
    */
   refundAddress: 'string',
 
+  get typeForUser () {
+    const isFromUser = Session.current.allAddresses[this.currencyType].indexOf(this.fromAddress) > -1
+    switch (this.type) {
+      case 'TRADE':
+        if (this.htlcStep < 3) {
+          return isFromUser ? 'USER-LOCK' : 'LOCK'
+        } else {
+          return isFromUser ? 'USER-UNLOCK' : 'UNLOCK'
+        }
+      case 'TRANSFER':
+        return isFromUser ? 'OUT' : 'IN'
+      default:
+        return this.type
+    }
+  },
+
   /**
    * @property {String} models/transaction.properties.typeFormatted typeFormatted
    * @parent models/transaction.properties
@@ -174,14 +190,17 @@ const Transaction = DefineMap.extend('Transaction', {
   typeFormatted: {
     get () {
       const typeString = {
-        BUY: i18n['transactionBuy'],
         IN: i18n['transactionIn'],
         OUT: i18n['transactionOut'],
-        SELL: i18n['transactionSell'],
+        LOCK: i18n['transactionLock'],
+        'USER-LOCK': i18n['transactionLock'],
+        UNLOCK: i18n['transactionUnlock'],
+        'USER-UNLOCK': i18n['transactionUnlock'],
+        REFUND: i18n['transactionRefund'],
         AUTH: i18n['transactionAuth'],
         CANCEL: i18n['transactionCancel']
       }
-      return typeString[this.type]
+      return typeString[this.typeForUser]
     }
   },
 
