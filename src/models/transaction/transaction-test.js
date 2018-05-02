@@ -641,7 +641,7 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    describe.only('create a transfer tx', function () {
+    describe('create a transfer tx', function () {
       let txData, amount, toAddress, changeAddr, expectedTxId
       describe('for ISSUANCE', function () {
         before(function () {
@@ -662,6 +662,56 @@ describe('models/transaction/utils', function () {
         })
         it('should calculate fee correctly based on tx hex size', function () {
           assert.equal(txData.fee, 2605)
+        })
+        it('should define tx id', function () {
+          assert.equal(txData.txId, expectedTxId)
+        })
+      })
+
+      describe('for BTC', function () {
+        before(function () {
+          amount = 1000
+          toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
+          changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
+          txData = createTransfer('BTC', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
+          expectedTxId = '7f5f9a3c889c9fd41b01581f584b204d979a59384a728beb50b54a279a4b45ab'
+        })
+        it('should define amount', function () {
+          assert.equal(txData.amount, amount)
+        })
+        it('should define no assetType', function () {
+          assert.ok(!txData.assetType)
+        })
+        it('should define currencyType', function () {
+          assert.equal(txData.currencyType, 'BTC')
+        })
+        it('should calculate fee correctly based on tx hex size', function () {
+          assert.equal(txData.fee, 2250)
+        })
+        it('should define tx id', function () {
+          assert.equal(txData.txId, expectedTxId)
+        })
+      })
+
+      describe('for empty EQB', function () {
+        before(function () {
+          amount = 1000
+          toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
+          changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
+          txData = createTransfer('EQB', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
+          expectedTxId = '1053a2f4175d6027e1b5e6131b1cf1222deefd83b64b0affa4eee50471987e3b'
+        })
+        it('should define amount', function () {
+          assert.equal(txData.amount, amount)
+        })
+        it('should define no assetType', function () {
+          assert.equal(txData.assetType, 'EQUIBIT')
+        })
+        it('should define currencyType', function () {
+          assert.equal(txData.currencyType, 'EQB')
+        })
+        it('should calculate fee correctly based on tx hex size', function () {
+          assert.equal(txData.fee, 1510)
         })
         it('should define tx id', function () {
           assert.equal(txData.txId, expectedTxId)
