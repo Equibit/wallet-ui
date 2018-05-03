@@ -24,6 +24,7 @@ import Transaction from '~/models/transaction/'
 import Offer from '~/models/offer'
 import Order from '~/models/order'
 import Issuance from '~/models/issuance'
+import { translate } from '~/i18n/'
 import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
 import { createHtlc3 } from '../../../models/transaction/transaction-create-htlc3'
 
@@ -33,9 +34,9 @@ export const ViewModel = DefineMap.extend({
   },
   title (type) {
     return ({
-      'IN': 'Transfer Received',
-      'CANCEL': 'Cancellation of an issuance',
-      'AUTH': 'Authentication of a new issuance'
+      'TRANSFER': translate('notificationTitleTransferTransaction'),
+      'CANCEL': translate('notificationTitleCancelTransaction'),
+      'AUTH': translate('notificationTitleAuthTransaction')
     })[type] || ('Unknown Type ' + type)
   },
   'for' (addr) {
