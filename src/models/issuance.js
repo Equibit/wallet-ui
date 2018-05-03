@@ -71,6 +71,7 @@ const Issuance = DefineMap.extend('Issuance', {
   },
   issuanceUnit: 'string',   // ['SHARES', 'BTC', 'UNITS'] ?
   restriction: 'number',
+  isCancelled: 'boolean',
 
   marketCap: 'number',
   change: 'number',
