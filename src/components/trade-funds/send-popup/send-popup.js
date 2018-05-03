@@ -115,7 +115,7 @@ export const ViewModel = DefineMap.extend({
     const options = {
       fee,
       changeAddr,
-      type: 'OUT',
+      type: 'TRANSFER',
       currencyType,
       description: formData.description
     }

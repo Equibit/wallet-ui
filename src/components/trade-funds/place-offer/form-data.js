@@ -119,20 +119,20 @@ const FormData = DefineMap.extend('OfferFormData', {
       return true
     }
 
-    const type = this.order.type
+    const orderType = this.order.type
     const quantity = this.quantity || 0
     const order = this.order || {}
     const orderQuantity = order.quantity || 0
     this.quantityProblem = ''
 
-    if (type === 'BUY' && quantity > orderQuantity) {
+    if (orderType === 'SELL' && quantity > orderQuantity) {
       this.quantityProblem = translate('sellingSecuritiesQuantityGTSharesOrdered')
       return false
     }
-    if (type === 'BUY') {
+    if (orderType === 'SELL') {
       return true
     }
-    // else type === 'SELL'
+    // else orderType === 'SELL'
 
     const sellDataPromise = this.sellDataPromise
     const sellData = sellDataPromise && this.sellData

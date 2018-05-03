@@ -19,7 +19,7 @@
  *    - amount (the amount of the main output)
  *    - txId
  *    - currencyType (BTC, EQB)
- *    - type ('IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL')
+ *    - type ('TRADE', 'TRANSFER', 'REFUND', 'AUTH', 'CANCEL')
  *    - fromAddress, toAddress
  *    - fee (if fromAddress === address)
  *    - description
@@ -37,7 +37,7 @@
  *  - To run build we need to know:
  *    - currencyType, amount, toAddress, htlcStep + info,
  *    - transaction fee rate
- *  - Only the following types can be rebuilt: 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL'.
+ *  - Only the following types can be rebuilt: 'TRANSFER' (if from the user), 'TRADE', 'REFUND', 'AUTH', 'CANCEL'.
  *  - If `_id` is set then we canNOT rebuild (transaction was already sent).
  *
  * Cases to cover:
@@ -119,7 +119,7 @@ const Transaction = DefineMap.extend('Transaction', {
   /**
    * @property {Enum} models/transaction.properties.type type
    * @parent models/transaction.properties
-   * Transaction type. One of: [ 'IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL' ]
+   * Transaction type. One of: [ 'TRADE', 'TRANSFER', 'REFUND', 'AUTH', 'CANCEL' ]
    */
   type: 'string',
 
@@ -310,7 +310,7 @@ const Transaction = DefineMap.extend('Transaction', {
     }
   },
   get amountPlusFee () {
-    return (this.type === 'OUT' || this.type === 'AUTH') ? this.amount + this.fee : this.amount
+    return (['OUT', 'AUTH', 'USER-LOCK'].indexOf(this.typeForUser) > -1) ? this.amount + this.fee : this.amount
   },
   // TODO: valuate issuance.
   get valuationNow () {
@@ -360,10 +360,10 @@ const Transaction = DefineMap.extend('Transaction', {
     typeforce('?String', description)
     typeforce('Offer', offer)
 
-    const title = this.type === 'CANCEL'
+    const title = this.type === 'REFUND'
       ? (offer.htlcStep === 3 ? 'orderCancelled' : 'dealFlowMessageTitleDealCancelled')
       : 'tradeWasUpdated'
-    const message = this.type === 'CANCEL' ? null : 'viewTransaction'
+    const message = this.type === 'REFUND' ? null : 'viewTransaction'
 
     this.description = description || this.description
     return this.save()
@@ -397,7 +397,7 @@ function updateOffer (offer, tx, secret) {
   if (newHtlcStep === 3) {
     offer.secret = secret
   }
-  if (tx.type === 'CANCEL') {
+  if (tx.type === 'REFUND') {
     offer.status = 'CANCELLED'
   }
   offer['htlcTxId' + newHtlcStep] = tx.txId

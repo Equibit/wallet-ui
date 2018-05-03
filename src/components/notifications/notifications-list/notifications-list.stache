@@ -13,7 +13,7 @@
               <span class="media-object icon icon-sell-open"></span>
             </div>
             <div class="media-body">
-              <h4 class="media-heading">{{title(notification.data.type)}}</h4>
+              <h4 class="media-heading">{{title(notification.data.typeForUser)}}</h4>
               <div class="media-description">{{i18n('for')}} {{for(notification.data.address)}}</div>
               <div class="media-cta btn-link">
                 <a href="{{routeUrl page='transactions' itemId=notification.data.transactionId}}">
