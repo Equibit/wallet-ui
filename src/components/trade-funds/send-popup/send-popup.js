@@ -108,9 +108,10 @@ export const ViewModel = DefineMap.extend({
   prepareTransaction (formData, changeAddr, transactionFeeRates) {
     const amount = formData.quantity
     const toAddress = formData.toAddress
+    const type = formData.type === 'FUNDS' ? formData.fundsType : 'ISSUANCE'
 
     const txData = createTransfer(
-      formData.type, amount, toAddress, changeAddr,
+      type, amount, toAddress, changeAddr,
       this.portfolio, formData.issuance, transactionFeeRates, formData.description
     )
     return new Transaction(txData)
