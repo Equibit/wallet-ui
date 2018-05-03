@@ -104,7 +104,7 @@ export const ViewModel = DefineMap.extend({
       hub.dispatch({
         'type': 'alert',
         'kind': 'success',
-        'title': translate('issuanceWasCanceled'),
+        'title': translate('issuanceWasCancelled'),
         'displayInterval': 12000
       })
       Session.current.refreshBalance()
