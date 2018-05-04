@@ -9,7 +9,7 @@ describe('components/trade-funds/send-popup/send-popup', function () {
   const formData = new FormData({
     portfolio,
     issuance,
-    type: 'SECURITIES',
+    type: 'ISSUANCE',
     issuanceOnly: true
   })
   describe('availableFunds', function () {

@@ -11,7 +11,7 @@
       <p class="input-value break-word"><strong>{{formData.toAddress}}</strong></p>
     </div>
 
-    {{#is formData.type 'SECURITIES'}}
+    {{#is formData.type 'ISSUANCE'}}
       <div class="row">
         <div class="col-xs-12 no-padding">
           <label for="">{{formData.issuance.issuanceTypeDisplay}} {{i18n('from')}}</label>
@@ -31,7 +31,7 @@
       <table class="table table-simple">
         <tbody>
 
-          {{#is formData.type 'SECURITIES'}}
+          {{#is formData.type 'ISSUANCE'}}
           <tr>
             <td class="column-label">{{i18n('quantity')}}</td>
             <td class="column-digital-currency-value font-numeric">{{format(formData.quantity, '', 0)}}</td>
@@ -84,7 +84,7 @@
       <table class="table table-simple">
         <tbody>
           <tr>
-            {{#is formData.type 'SECURITIES'}}
+            {{#is formData.type 'ISSUANCE'}}
               <td class="column-label input-value"><strong>{{i18n('myIssuances')}}</strong></td>
               <td class="column-digital-currency-value font-numeric text-danger ">- {{format(formData.quantity, '', 0)}}</td>
               <td class="column-digital-currency-type font-numeric text-danger">{{i18n('shares')}}</td>
@@ -103,7 +103,7 @@
             {{/is}}
           </tr>
           <tr>
-            {{#is formData.type 'SECURITIES'}}
+            {{#is formData.type 'ISSUANCE'}}
               <td class="column-label input-value">{{i18n('myPortfolio')}}</td>
               <td class="column-digital-currency-value font-numeric text-danger ">- {{coin(formData.transactionFee)}}</td>
               <td class="column-digital-currency-type font-numeric text-danger">{{i18n('EQB')}}</td>
