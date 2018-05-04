@@ -126,7 +126,7 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
       arguments
     )
     if (order.assetType === 'ISSUANCE') {
-      typeforce('ISSUANCE', issuance)
+      typeforce('Issuance', issuance)
     }
     const assetType = order.assetType
     let fee = transactionFee || 3000
