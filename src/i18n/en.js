@@ -4,7 +4,7 @@ export default {
   timestampDetailed: 'MMMM Do YYYY, h:mm:ss a',
 
   // Alert messages:
-  accountCreated: 'Account Created',
+  accountCreated: 'Wallet Created',
   changesSaved: 'Changes Saved',
   messagesErrorContentMissing: '<strong>Content is missing.</strong> Please add content for your message.',
   messagesErrorSubjectMissing: '<strong>Subject is missing.</strong> Please add a subject for your message.',
@@ -503,6 +503,8 @@ export default {
   quantity: 'Quantity',
   quantityErrorMoreThanOrdered: 'Quantity cannot be more than the number of shares ordered.',
   quantityErrorMoreThanOwned: 'Quantity cannot be more than the number of shares owned and not trading.',
+  quantityFilledLabel: 'Filled',
+  quantityRemainingLabel: 'Remaining',
   quantityMessageCheckingSellData: 'checking sell data...',
   quarterly: 'Quarterly',
 

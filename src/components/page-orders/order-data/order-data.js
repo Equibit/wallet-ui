@@ -23,7 +23,7 @@ export const ViewModel = DefineMap.extend({
   offers: '*',
   get filledQuantity () {
     return this.order && this.offers && this.offers.reduce((sum, offer) => {
-      return sum + offer.quantity
+      return sum + (offer.status === 'TRADING' || offer.status === 'CLOSED' ? offer.quantity : 0)
     }, 0)
   }
 })

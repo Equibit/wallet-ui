@@ -54,7 +54,7 @@
     <table class="table table-condensed">
       <tbody>
         <tr class="top-row">
-          <th>Filled</th>
+          <th>{{i18n('quantityFilledLabel'}}</th>
           <td class="text-success">
             {{#is format 'INT'}}
               {{format-int(filledQuantity)}}
@@ -64,7 +64,7 @@
           </td>
         </tr>
         <tr>
-          <th>Remaining</th>
+          <th>{{i18n('quantityRemainingLabel')}}</th>
           <td class="text-danger">
             {{#is format 'INT'}}
               {{format-int(remainingQuantity)}}
