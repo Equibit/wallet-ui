@@ -26,19 +26,19 @@ export const ViewModel = DefineMap.extend({
   status: {
     get () {
       // TODO: set status based on the number of confirmations (3 is enough for `completed`).
-      return this.transaction && (this.transaction.type === 'OUT' || this.transaction.type === 'IN')
+      return this.transaction && (this.transaction.type === 'TRANSFER')
         ? 'progress'
         : 'progress'
     }
   },
   to: {
     get () {
-      return this.transaction.type === 'IN' ? this.portfolioName : this.transaction.toAddress
+      return this.transaction.typeForUser === 'IN' ? this.portfolioName : this.transaction.toAddress
     }
   },
   from: {
     get () {
-      return this.transaction.type === 'OUT' ? this.portfolioName : this.transaction.fromAddress
+      return this.transaction.typeForUser === 'OUT' ? this.portfolioName : this.transaction.fromAddress
     }
   },
   portfolios: {
@@ -46,8 +46,9 @@ export const ViewModel = DefineMap.extend({
   },
   portfolioName: {
     get () {
-      const portfolio = this.portfolios && this.portfolios.findByAddress(this.transaction.address)
-      return (portfolio && portfolio.name) || this.transaction.address
+      const portfolio = this.portfolios &&
+        (this.portfolios.findByAddress(this.transaction.fromAddress) || this.portfolios.findByAddress(this.transaction.toAddress))
+      return (portfolio && portfolio.name) || (this.transaction.typeForUser === 'OUT' ? this.transaction.fromAddress : this.transaction.toAddress)
     }
   }
 })

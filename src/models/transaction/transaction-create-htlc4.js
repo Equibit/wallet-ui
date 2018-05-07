@@ -68,6 +68,7 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
       fee = amount - 1
     }
 
+    const fromAddress = isRefund ? order.btcAddress : offer.btcAddress
     // todo: this receiving BTC address can be used for multiple offers, so we should use a newly generated address (per offer) when we unlock the payment.
     const toAddress = isRefund ? offer.btcAddress : order.btcAddress
 
@@ -99,13 +100,13 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
       address: toAddress,
       addressTxid: buildConfig.vin[0].txid,
       addressVout: buildConfig.vin[0].vout,
-      type: isRefund ? 'CANCEL' : 'SELL',
+      type: isRefund ? 'REFUND' : 'TRADE',
       assetType,
       fee,
       currencyType: 'BTC',
       amount: offer.quantity * order.price * order.priceMutliplier - fee,
       description: `${isRefund ? 'Refunding' : 'Collecting'} payment from HTLC (step #${htlcStep})`,
-      fromAddress: offer.btcAddress,
+      fromAddress,
       toAddress,
       htlcStep,
       offerId: offer._id,
@@ -138,6 +139,7 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
     // We unlock htlc1 here (so using timelock):
     const timelock = offer.timelock
 
+    const fromAddress = isRefund ? order.eqbAddress : offer.eqbAddress
     const toAddress = isRefund ? offer.eqbAddress : order.eqbAddress
 
     const buildConfig = {
@@ -192,16 +194,15 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
     }
 
     const txInfo = {
-      address: toAddress,
       addressTxid: buildConfig.vin[0].txid,
       addressVout: buildConfig.vin[0].vout,
-      type: isRefund ? 'CANCEL' : 'SELL',
+      type: isRefund ? 'REFUND' : 'TRADE',
       assetType,
       fee,
       currencyType: 'EQB',
       amount: amount,
       description: `${isRefund ? 'Refunding' : 'Collecting'} ${assetType === 'ISSUANCE' ? 'securities' : 'Blank EQB'} from HTLC (step #${htlcStep})`,
-      fromAddress: offer.eqbAddress,
+      fromAddress,
       toAddress,
       htlcStep,
       offerId: offer._id,

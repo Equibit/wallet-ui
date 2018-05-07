@@ -153,7 +153,7 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
     refundAddress,
     amount,
     fee,
-    type: order.type,
+    type: 'TRADE',
     assetType: order.assetType,
     currencyType: 'EQB',
     // description: `Selling securities (HTLC #${htlcStep})`,

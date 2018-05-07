@@ -7,7 +7,8 @@ import portfolio from '../../../models/mock/mock-portfolio'
 describe('components/page-transactions/transactions-details', function () {
   const portfolios = new Portfolio.List([portfolio])
   const transaction = {
-    type: 'IN',
+    type: 'TRANSFER',
+    typeForUser: 'IN',
     address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA',
     fromAddress: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA',
     toAddress: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA'

@@ -44,7 +44,10 @@ export const ViewModel = DefineMap.extend({
     get () {
       return Object.assign({},
         this.pagination.params,
-        {address: {'$in': this.addresses.get()}}
+        {$or:
+        [{fromAddress: {'$in': this.addresses.get()}},
+        {toAddress: {'$in': this.addresses.get()}}]
+        }
       )
     }
   },
@@ -95,6 +98,9 @@ export const ViewModel = DefineMap.extend({
   },
   selectedRow: {
     type: '*'
+  },
+  isUserAddress (address) {
+    return this.addresses.indexOf(address) > -1
   },
   selectRowDefault (row) {
     if (route.data.itemId) {

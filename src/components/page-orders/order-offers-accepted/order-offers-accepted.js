@@ -61,7 +61,7 @@ export const ViewModel = DefineMap.extend({
 
   titles: {
     get () {
-      if (this.tx && this.tx.type === 'CANCEL') {
+      if (this.tx && this.tx.type === 'REFUND') {
         return {
           BTC: {
             header: 'dealFlowMessageTitleRecoverPayment',
