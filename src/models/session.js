@@ -236,10 +236,7 @@ const Session = DefineMap.extend('Session', {
       if (val && val.then) {
         return val
       }
-      return this.user && Issuance.getList({
-        userId: this.user._id,
-        isCancelled: false
-      }).then(issuances => {
+      return this.user && Issuance.getList({userId: this.user._id}).then(issuances => {
         // todo: consider putting this into Issuance init (or utxo getter/value).
         console.log(`Session.issuancesPromise: deriving keys and loading UTXO... issuances=${issuances.length}`)
         issuances.forEach(issuance => {
