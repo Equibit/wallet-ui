@@ -95,7 +95,7 @@ describe('models/transaction/utils', function () {
       })
       it('should create txInfo object', function () {
         const txInfo = htlcConfig.txInfo
-        assert.equal(txInfo.address, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'address')
+        assert.equal(txInfo.fromAddress, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'address')
         assert.equal(txInfo.addressTxid, 'e226a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301', 'vin.0.txid')
         assert.equal(txInfo.addressVout, '1', 'vin.0.vout')
         assert.equal(txInfo.amount, 35000, 'amount')
@@ -103,7 +103,7 @@ describe('models/transaction/utils', function () {
         assert.equal(txInfo.fee, 2900, 'fee')
         assert.equal(txInfo.fromAddress, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'fromAddress')
         assert.equal(txInfo.toAddress, 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'toAddress')
-        assert.equal(txInfo.type, 'BUY', 'type')
+        assert.equal(txInfo.type, 'TRADE', 'type')
       })
     })
 
@@ -237,14 +237,13 @@ describe('models/transaction/utils', function () {
           txInfo = htlcConfig.txInfo
         })
         it('should have main address info', function () {
-          assert.equal(txInfo.address, order.eqbAddress, 'address = order.eqbAddress')
           assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
           assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
         })
         it('should have amount, types and desc', function () {
           assert.equal(txInfo.amount, amount, 'amount of 500')
           assert.equal(txInfo.currencyType, 'EQB', 'currencyType')
-          assert.equal(txInfo.type, 'SELL', 'type')
+          assert.equal(txInfo.type, 'TRADE', 'type')
         })
         it('should have fee and from/to addresses', function () {
           assert.equal(txInfo.fee, 3000, 'fee')
@@ -343,14 +342,13 @@ describe('models/transaction/utils', function () {
           txInfo = htlcConfig.txInfo
         })
         it('should have main address info', function () {
-          assert.equal(txInfo.address, offer.eqbAddress, 'address = offer.eqbAddress')
           assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
           assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
         })
         it('should have amount, types and desc', function () {
           assert.equal(txInfo.amount, amount, 'amount of 500')
           assert.equal(txInfo.currencyType, 'EQB', 'currencyType')
-          assert.equal(txInfo.type, 'BUY', 'type')
+          assert.equal(txInfo.type, 'TRADE', 'type')
           assert.equal(txInfo.description, 'Collecting securities from HTLC (step #3)')
         })
         it('should have fee and from/to addresses', function () {
@@ -506,19 +504,18 @@ describe('models/transaction/utils', function () {
           txInfo = htlcConfig.txInfo
         })
         it('should have main address info', function () {
-          assert.equal(txInfo.address, order.eqbAddress, 'address = order.eqbAddress')
           assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
           assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
         })
         it('should have amount, types and desc', function () {
           assert.equal(txInfo.amount, amount, 'amount of 500')
           assert.equal(txInfo.currencyType, 'EQB', 'currencyType')
-          assert.equal(txInfo.type, 'CANCEL', 'type')
+          assert.equal(txInfo.type, 'REFUND', 'type')
           assert.equal(txInfo.description, 'Refunding securities from HTLC (step #3)')
         })
         it('should have fee and from/to addresses', function () {
           assert.equal(txInfo.fee, 3000, 'fee')
-          assert.equal(txInfo.fromAddress, order.eqbAddress, 'fromAddress = order.eqbAddress')
+          assert.equal(txInfo.fromAddress, offer.eqbAddress, 'fromAddress = offer.eqbAddress')
           assert.equal(txInfo.toAddress, order.eqbAddress, 'toAddress = order.eqbAddress')
         })
       })
@@ -578,14 +575,13 @@ describe('models/transaction/utils', function () {
           txInfo = htlcConfig.txInfo
         })
         it('should have main address info', function () {
-          assert.equal(txInfo.address, order.btcAddress, 'address = order.eqbAddress')
           assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
           assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
         })
         it('should have amount, types and desc', function () {
           assert.equal(txInfo.amount, amount - fee, 'amount minus fee')
           assert.equal(txInfo.currencyType, 'BTC', 'currencyType')
-          assert.equal(txInfo.type, 'SELL', 'type')
+          assert.equal(txInfo.type, 'TRADE', 'type')
           assert.equal(txInfo.description, 'Collecting payment from HTLC (step #4)')
         })
         it('should have fee and from/to addresses', function () {

@@ -104,7 +104,7 @@ export const ViewModel = DefineMap.extend({
       hub.dispatch({
         'type': 'alert',
         'kind': 'success',
-        'title': translate('issuanceWasCanceled'),
+        'title': translate('issuanceWasCancelled'),
         'displayInterval': 12000
       })
       Session.current.refreshBalance()
@@ -150,7 +150,7 @@ const sendIssuance = (portfolio, formData) => {
     changeAddr,
     changeAddrEmptyEqb,
     amountEqb,
-    type: 'OUT',
+    type: 'TRANSFER',
     currencyType,
     description: formData.description,
     // TODO: issuanceTxId should not just be from the UTXO. This should be a txid of the authorization transaction!

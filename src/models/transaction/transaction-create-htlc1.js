@@ -101,7 +101,7 @@ function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr, transactionF
     refundAddress,
     amount,
     fee,
-    type: offer.type,
+    type: 'TRADE',
     assetType: order.assetType,
     currencyType: 'BTC',
     hashlock: offer.hashlock,

@@ -22,15 +22,17 @@ import Session from '~/models/session'
 
 export const ViewModel = DefineMap.extend({
   rows: '*',
+  isUserAddress: '*',
   session: {
     value: function () {
       return Session.current
     }
   },
   transactionStepDescription (row) {
-    const userSent = row.address === row.fromAddress
-    const userReceived = row.address === row.toAddress
-    const sentOrCollected = row.htlcStep < 3 ? 'Sent' : 'Collected'
+    const userSent = this.isUserAddress(row.fromAddress)
+    const userReceived = this.isUserAddress(row.toAddress)
+    const isRefund = row.type === 'REFUND'
+    const sentOrCollected = row.htlcStep < 3 ? 'Sent' : (isRefund ? 'Refunded' : 'Collected')
     const isPayment = row.currencyType === 'BTC'
     const paymentOrSecurities = isPayment
       ? 'Payment'
@@ -38,7 +40,7 @@ export const ViewModel = DefineMap.extend({
 
     const sellerBuyerOrUser = row.htlcStep < 3
       ? (userSent ? 'User' : (isPayment ? 'Buyer' : 'Seller'))
-      : (userReceived ? 'User' : (isPayment ? 'Seller' : 'Buyer'))
+      : (userReceived ? 'User' : (isPayment ^ isRefund ? 'Seller' : 'Buyer'))
 
     const i18nKey = `htlc${sellerBuyerOrUser}${sentOrCollected}${paymentOrSecurities}Description`
     return translate(i18nKey)
@@ -50,8 +52,8 @@ export const ViewModel = DefineMap.extend({
     this.parentSelectRow(row, el, ev)
   },
   tradeType (row) {
-    const userSent = row.address === row.fromAddress
-    const userReceived = row.address === row.toAddress
+    const userSent = this.isUserAddress(row.fromAddress)
+    const userReceived = this.isUserAddress(row.toAddress)
     const isCollected = row.htlcStep >= 3
 
     return isCollected

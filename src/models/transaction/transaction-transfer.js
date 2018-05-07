@@ -82,7 +82,6 @@ function prepareConfigBtc (
   }
 
   const txInfo = {
-    address: utxo[0].address,
     // These two are for API validations:
     addressTxid: utxo[0].txid,
     addressVout: utxo[0].vout,
@@ -182,7 +181,6 @@ function prepareConfigEqb (
   }
 
   const txInfo = {
-    address: utxo[0].address,
     addressTxid: utxo[0].txid,
     addressVout: utxo[0].vout,
     fromAddress: utxo[0].address,

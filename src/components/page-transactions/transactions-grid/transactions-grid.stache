@@ -34,7 +34,8 @@
               <td colspan="6" class="no-padding">
                 <trade-row
                   rows:from="row.rows"
-                  parentSelectRow:from="../@selectRow"></trade-row>
+                  parentSelectRow:from="../@selectRow"
+                  isUserAddress:from="../@isUserAddress"></trade-row>
               </td>
             </tr>
             {{else}}

@@ -4,7 +4,7 @@ export default {
   timestampDetailed: 'MMMM Do YYYY, h:mm:ss a',
 
   // Alert messages:
-  accountCreated: 'Account Created',
+  accountCreated: 'Wallet Created',
   changesSaved: 'Changes Saved',
   messagesErrorContentMissing: '<strong>Content is missing.</strong> Please add content for your message.',
   messagesErrorSubjectMissing: '<strong>Subject is missing.</strong> Please add a subject for your message.',
@@ -327,6 +327,13 @@ export default {
   htlcUserCollectedEquibitsDescription: 'You collected the equibits',
   htlcUserSentEquibitsDescription: 'You sent the equibits',
 
+  htlcSellerRefundedSecuritiesDescription: 'Seller recovered the securities',
+  htlcSellerRefundedEquibitsDescription: 'Seller recovered the equibits',
+  htlcBuyerRefundedPaymentDescription: 'Buyer recovered the payment',
+  htlcUserRefundedSecuritiesDescription: 'You recovered the securities',
+  htlcUserRefundedPaymentDescription: 'You recovered the payment',
+  htlcUserRefundedEquibitsDescription: 'You recovered the equibits',
+
   inbox: 'Inbox',
   inboxEmtpy: 'Your Inbox is Empty',
   inboxMessagesPlaceholder: 'Messages sent to you will show here',
@@ -415,6 +422,9 @@ export default {
   notFoundOrdersSell: 'No Sell Orders Found',
   notifications: 'Notifications',
   notificationsNone: 'There are no notifications',
+  notificationTitleTransferTransaction: 'Transfer received',
+  notificationTitleCancelTransaction: 'Cancellation of an issuance',
+  notificationTitleAuthTransaction: 'Authentication of a new issuance',
   notifyMe: 'Notify Me',
   noPartialFills: 'No partial fills allowed.',
   noRestriction: 'Bearer Form',
@@ -685,6 +695,9 @@ export default {
   transactionHistoryMessage: 'Transactions will show when you trade, or send and receive funds to your portfolios.',
   transactionIds: 'Transaction IDs',
   transactionIn: 'Transfer In',
+  transactionLock: 'Lock',
+  transactionUnlock: 'Collect',
+  transactionRefund: 'Refund',
   transactionOut: 'Transfer Out',
   transactionSell: 'Sell',
   transferFundsInstructionDescription: 'Transfer funds first using the <link/>.',
