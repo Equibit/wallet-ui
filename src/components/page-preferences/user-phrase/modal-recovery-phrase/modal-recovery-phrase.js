@@ -58,6 +58,8 @@ export const ViewModel = DefineMap.extend({
     }
   },
   isCorrect: 'boolean',
+  errorFields: {},
+  lastErrorFields: {},
   view () {
     this.mode = 'view'
   },
@@ -88,6 +90,7 @@ export const ViewModel = DefineMap.extend({
       })
     } else {
       this.errorMessage = translate('recoveryPhraseSetupIncorrectEntry')
+      this.lastErrorFields = this.errorFields
     }
   },
   risk () {

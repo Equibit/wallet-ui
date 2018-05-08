@@ -73,7 +73,10 @@
       <h4 class="title">{{i18n('recoveryPhraseSetupTitle')}}</h4>
     </div>
     <p class="instruction">{{i18n('recoveryPhraseSetupInstruction2')}}</p>
-    <phrase-input phrase:from="phrase" isCorrect:to="../isCorrect"></phrase-input>
+    <phrase-input phrase:from="phrase"
+                  lastErrorFields:from="../lastErrorFields"
+                  errorFields:to="../errorFields"
+                  isCorrect:to="../isCorrect"></phrase-input>
     <div><validation-message message:from="../errorMessage" /></div>
   </div>
 

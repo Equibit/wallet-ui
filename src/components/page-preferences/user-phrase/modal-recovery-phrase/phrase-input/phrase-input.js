@@ -43,9 +43,17 @@ export const ViewModel = DefineMap.extend({
   },
   isCorrect: {
     get () {
-      return this.enteredWords && this.enteredWords.length === 4 && this.checkWords.values.reduce((acc, word, index) => {
-        return acc && word === this.enteredWords[index]
-      }, true)
+      return this.enteredWords &&
+        this.enteredWords.length === 4 &&
+        this.errorFields.filter(x => x).length < 1
+    }
+  },
+  lastErrorFields: {},
+  errorFields: {
+    get () {
+      return this.checkWords.values.map((word, index) => {
+        return word === this.enteredWords.get(index) ? undefined : word
+      })
     }
   }
 })

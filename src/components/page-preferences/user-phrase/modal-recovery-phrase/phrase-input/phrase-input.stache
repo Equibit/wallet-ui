@@ -1,6 +1,6 @@
 <div class="row">
   {{#each checkWords.indexes index=value}}
-  <div class="col-sm-3 col-xs-12 word-display">
+  <div class="col-sm-3 col-xs-12 word-display{{#if lastErrorFields[scope.index]}} has-error{{/unless}}">
     <label for="phrase-input1">Word #{{sum(index, 1}}</label>
     <input value:bind="enteredWords[scope.index]" type="text" class="form-control" id="phrase-input1">
   </div>
