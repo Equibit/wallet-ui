@@ -26,7 +26,6 @@ export const ViewModel = DefineMap.extend({
   phrase: {
     type: '*'
   },
-  parentVm: {},
   checkWords: {
     stream () {
       return this.toStream('.phrase').map(() => {

@@ -73,7 +73,7 @@
       <h4 class="title">{{i18n('recoveryPhraseSetupTitle')}}</h4>
     </div>
     <p class="instruction">{{i18n('recoveryPhraseSetupInstruction2')}}</p>
-    <phrase-input phrase:from="phrase"
+    <phrase-input phrase:from="../phrase"
                   this:to="../inputVm"
                   isCorrect:to="../isCorrect"></phrase-input>
   </div>

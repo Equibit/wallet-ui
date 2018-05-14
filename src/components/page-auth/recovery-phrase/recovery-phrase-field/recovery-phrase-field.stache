@@ -4,5 +4,5 @@
 <div class="form-group">
   <label for="authRecoveryPhrase">{{i18n('recoveryPhraseLabel')}}</label>
   <input value:bind="mnemonic" type="text" class="form-control" id="authRecoveryPhrase">
-  <validation-message {message}="error" />
+  <validation-message message:from="error" />
 </div>
