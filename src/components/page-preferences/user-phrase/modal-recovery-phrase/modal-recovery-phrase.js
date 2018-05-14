@@ -58,8 +58,7 @@ export const ViewModel = DefineMap.extend({
     }
   },
   isCorrect: 'boolean',
-  errorFields: {},
-  lastErrorFields: {},
+  inputVm: {},
   view () {
     this.mode = 'view'
   },
@@ -79,6 +78,7 @@ export const ViewModel = DefineMap.extend({
   },
   end () {
     this.errorMessage = ''
+    this.inputVm.dispatch('validate', {}) // need a data argument here for streams to pick up the event
     if (this.isCorrect) {
       User.connection.updateData({
         _id: this.user._id,
@@ -90,7 +90,6 @@ export const ViewModel = DefineMap.extend({
       })
     } else {
       this.errorMessage = translate('recoveryPhraseSetupIncorrectEntry')
-      this.lastErrorFields = this.errorFields
     }
   },
   risk () {

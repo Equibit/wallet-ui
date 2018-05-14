@@ -533,6 +533,8 @@ export default {
   recoveryPhraseSetupRiskTitle: 'Do You Understand the Risk?',
   recoveryPhraseSetupRiskWarning: 'If you proceed without a backup, and forget your password you will lose access to your funds.',
   recoveryPhraseWarningMessage: 'If you don\'t have a backup recovery phrase, you can still access your account, but your funds won\'t be available.',
+  recoveryPhraseWordMissing: 'Word is missing',
+  recoveryPhraseWordIncorrect: 'Invalid word',
   recurring: 'Recurring',
   registrationNumber: 'Registration Number',
   relatedCompanies: 'Related Companies',

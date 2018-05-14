@@ -5,20 +5,13 @@ import { ViewModel } from './phrase-input'
 describe('components/page-preferences/user-phrase/modal-recovery-phrase/phrase-input', function () {
   const phrase = 'one two three four five six seven eight nine ten eleven twelve'
 
-  describe('phraseArray', function () {
-    const vm = new ViewModel({ phrase })
-    it('should split words by space', function () {
-      assert.deepEqual(vm.phraseArray, vm.phrase.split(' '))
-    })
-  })
-
   describe('checkWords', function () {
     const vm = new ViewModel({ phrase })
     it('should contain random indexes and values', function () {
       console.log('vm.checkWords', vm.checkWords)
       assert.equal(vm.checkWords.indexes.length, 4)
       assert.equal(vm.checkWords.values.length, 4)
-      assert.ok(vm.phraseArray.indexOf(vm.checkWords.values[0]) !== -1)
+      assert.ok(vm.phrase.indexOf(vm.checkWords.values[0]) !== -1)
     })
   })
   describe('isCorrect', function () {
