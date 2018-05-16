@@ -5,6 +5,7 @@ import Issuance from '../../../models/issuance'
 import { toMaxPrecision } from '../../../utils/formatter'
 import feathersClient from '~/models/feathers-client'
 import {translate} from '~/i18n/'
+import { toMaxPrecision } from  '../../../utils/formatter'
 
 const FormData = DefineMap.extend('OfferFormData', {
   portfolio: Portfolio,
@@ -25,6 +26,9 @@ const FormData = DefineMap.extend('OfferFormData', {
     type: 'number',
     // Currently in uEQB. Set quantity which is in Satoshi:
     set (val) {
+      if (this.order.isFillOrKill) {
+        val = toMaxPrecision(this.order.quantity / 100000000, 8)
+      }
       this.quantity = Math.floor(val * 100000000)
       return val
     }
