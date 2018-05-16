@@ -4,6 +4,47 @@
   "skip": 0,
   "data": [
     {
+      "isRead": false,
+      "_id": "5afc87e496881699e41815b4",
+      "address": "mmT2BAdnAXcPAgsm983nyKjAi8BPkc8JN3",
+      "type": "offer",
+      "data": {
+        "offerId": "5afc87e496881699e41815b3",
+        "orderId": "5adf9e71c40502825c9bfded",
+        "type": "SELL",
+        "assetType": "EQUIBIT",
+        "action": "dealFlowMessageTitleOfferReceived",
+        "status": "OPEN",
+        "htlcStep": 1,
+        "quantity": 200000000,
+        "price": 2400
+      },
+      "createdAt": "2018-05-16T19:35:00.766Z",
+      "updatedAt": "2018-05-16T19:35:00.766Z",
+      "__v": 0
+    },
+    {
+      "isRead": false,
+      "_id": "5afb70e796881699e41815ac",
+      "address": "mh1Jn5WwKjD3cm53jkGuLXRUePx52PqBJM",
+      "type": "offer",
+      "data": {
+        "offerId": "5afb70e796881699e41815ab",
+        "orderId": "5afb70b796881699e41815a4",
+        "type": "BUY",
+        "action": "dealFlowMessageTitleOfferReceived",
+        "status": "OPEN",
+        "htlcStep": 1,
+        "quantity": 3200,
+        "price": 2500,
+        "companyName": "VAZ",
+        "issuanceName": "2107"
+      },
+      "createdAt": "2018-05-15T23:44:39.536Z",
+      "updatedAt": "2018-05-15T23:44:39.536Z",
+      "__v": 0
+    },
+    {
       "_id": "5ad7a62364af0691b3182246",
       "isRead": false,
       "address": "ms9K2ZrZcwdR7qHvCP2RbBkwNyHkukB4FH",

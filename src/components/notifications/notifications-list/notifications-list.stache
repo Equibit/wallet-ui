@@ -67,7 +67,12 @@
                     {{#switch data.htlcStep}}
                       {{#case 1}}
                         <a href="{{routeUrl page='orders' itemId=data.orderId}}">
-                          {{i18n('quantity')}} {{format-int(data.quantity)}}
+                          {{i18n('quantity')}}
+                          {{#is data.assetType 'EQUIBIT'}}
+                            {{coin(data.quantity)}}@{{data.price}}
+                          {{else}}
+                            {{format-int(data.quantity)}}
+                          {{/is}}
                         </a>
                       {{/case}}
                       {{#case 2}}
