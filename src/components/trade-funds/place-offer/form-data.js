@@ -5,7 +5,6 @@ import Issuance from '../../../models/issuance'
 import { toMaxPrecision } from '../../../utils/formatter'
 import feathersClient from '~/models/feathers-client'
 import {translate} from '~/i18n/'
-import { toMaxPrecision } from  '../../../utils/formatter'
 
 const FormData = DefineMap.extend('OfferFormData', {
   portfolio: Portfolio,
