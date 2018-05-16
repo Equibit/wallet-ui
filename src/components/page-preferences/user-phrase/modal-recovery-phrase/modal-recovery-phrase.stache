@@ -73,8 +73,9 @@
       <h4 class="title">{{i18n('recoveryPhraseSetupTitle')}}</h4>
     </div>
     <p class="instruction">{{i18n('recoveryPhraseSetupInstruction2')}}</p>
-    <phrase-input phrase:from="phrase" isCorrect:to="../isCorrect"></phrase-input>
-    <div><validation-message message:from="../errorMessage" /></div>
+    <phrase-input phrase:from="../phrase"
+                  this:to="../inputVm"
+                  isCorrect:to="../isCorrect"></phrase-input>
   </div>
 
   <div class="modal-footer">
