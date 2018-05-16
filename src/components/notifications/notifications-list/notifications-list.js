@@ -70,7 +70,7 @@ export const ViewModel = DefineMap.extend({
       }
 
       return Promise.all([
-        Issuance.get({ _id: offer.issuanceId }),
+        offer.issuanceId && Issuance.get({ _id: offer.issuanceId }),
         offer.timelockInfoPromise
       ])
       .then(([issuance, timelockInfo]) => {
