@@ -89,7 +89,7 @@ function prepareConfigBtc (
     toAddress,
     amount,
     fee,
-    type: 'OUT',
+    type: 'TRANSFER',
     currencyType: 'BTC',
     buildConfig
   }
@@ -187,7 +187,7 @@ function prepareConfigEqb (
     toAddress,
     amount,
     fee,
-    type: 'OUT',
+    type: 'TRANSFER',
     assetType,
     currencyType: 'EQB',
     buildConfig
