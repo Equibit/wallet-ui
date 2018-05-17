@@ -11,14 +11,14 @@ describe('wallet-ui/components/page-orders/order-list', function () {
     })
     assert.ok(vm.itemsFiltered.length > 0, 'Sanity check: filtered items exist')
 
-    assert.equal(vm.selectedIndex, 0, 'First item selected')
+    console.log('First item selected', vm.selectedItem, vm.itemsFiltered[0])
+    assert.equal(vm.selectedItem._id, vm.itemsFiltered[0]._id, 'First item selected')
 
-    vm.selectedIndex = 1
-    assert.equal(vm.selectedItem, vm.itemsFiltered[vm.selectedIndex], 'Second item selected manually')
+    vm.selectItem(vm.itemsFiltered[1])
+    assert.equal(vm.selectedItem._id, vm.itemsFiltered[1]._id, 'Second item selected manually')
 
     vm.mode = 'BUY'
-    assert.equal(vm.selectedIndex, 0, 'Selected index is zero after mode change')
-    assert.equal(vm.selectedItem, vm.itemsFiltered[vm.selectedIndex], 'First item selected automatically')
+    assert.equal(vm.selectedItem._id, vm.itemsFiltered[0]._id, 'First item is selected after mode change')
   })
 
   it('sets selected item based on itemId on route', function () {
@@ -30,8 +30,7 @@ describe('wallet-ui/components/page-orders/order-list', function () {
     route.attr('itemId', item._id)
     const vm = new ViewModel()
     vm.items = items
-    assert.equal(vm.selectedIndex, 1, 'Selected index is correct')
-    assert.equal(vm.selectedItem, item, 'Item is selected')
+    assert.deepEqual(vm.selectedItem, vm.itemsFiltered[1], 'Correct item is selected')
   })
 
   it('sets initial mode to BUY if item id\'d on route is BUY', function () {
@@ -44,7 +43,7 @@ describe('wallet-ui/components/page-orders/order-list', function () {
     const vm = new ViewModel()
     vm.items = items
     assert.equal(vm.mode, 'BUY', 'Initial mode is BUY')
-    assert.equal(vm.selectedItem, item, 'Item is selected')
+    assert.deepEqual(vm.selectedItem, item, 'Item is selected')
   })
 
   it('orders filtered items by most recent', function () {
