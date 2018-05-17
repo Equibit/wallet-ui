@@ -33,6 +33,7 @@ export const ViewModel = DefineMap.extend({
   isSending: 'boolean',
   isSendFundsPopup: 'boolean',
   isReceiveFundsPopup: 'boolean',
+  isRecoveryPhrasePopup: 'boolean',
   receiveFunds () {
     this.isReceiveFundsPopup = false
     if (!this.portfolio) {
@@ -41,11 +42,23 @@ export const ViewModel = DefineMap.extend({
         portfolio.keys = Session.current.user.generatePortfolioKeys(portfolio.index)
         this.portfolio = portfolio
         // Session.current.portfolios.push(portfolio)
-        this.isReceiveFundsPopup = true
+        if (Session.current.user.hasRecordedMnemonic) {
+          this.isReceiveFundsPopup = true
+        } else {
+          this.isRecoveryPhrasePopup = true
+        }
       })
     } else {
-      this.isReceiveFundsPopup = true
+      if (Session.current.user.hasRecordedMnemonic) {
+        this.isReceiveFundsPopup = true
+      } else {
+        this.isRecoveryPhrasePopup = true
+      }
     }
+  },
+  recoveryPhraseDone () {
+    this.isRecoveryPhrasePopup = false
+    this.isReceiveFundsPopup = true
   },
   receiveDone () {
     if (!this.portfolio) {
