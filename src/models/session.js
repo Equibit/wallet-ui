@@ -132,19 +132,21 @@ const Session = DefineMap.extend('Session', {
    */
   refreshBalance: function (options) {
     // Mark portfolio address as used:
-    if (options && options.transactionEvent && options.transactionEvent.type === 'IN') {
-      const { address, currencyType } = options.transactionEvent
-      this.portfolios[0].markAsUsed(address, currencyType)
-    }
-    if (this.portfolios && this.portfolios[0]) {
-      this.portfolioRefreshPromise = this.portfolios[0].refreshBalance()
-    }
-    // load company/issuance UTXO:
-    this.issuancesPromise = Math.random()
-    return Promise.all([
-      this.portfolioRefreshPromise,
-      this.issuancesPromise
-    ])
+    return this.portfoliosPromise.then(portfolios => {
+      if (options && options.transactionEvent && options.transactionEvent.type === 'IN') {
+        const { address, currencyType } = options.transactionEvent
+        portfolios[0].markAsUsed(address, currencyType)
+      }
+      if (this.portfolios && this.portfolios[0]) {
+        this.portfolioRefreshPromise = portfolios[0].refreshBalance()
+      }
+      // load company/issuance UTXO:
+      this.issuancesPromise = Math.random()
+      return Promise.all([
+        this.portfolioRefreshPromise,
+        this.issuancesPromise
+      ])
+    })
   },
 
   /**
@@ -310,10 +312,10 @@ const Session = DefineMap.extend('Session', {
     get () {
       const issuances = this.issuances
       const portfolios = this.portfolios
-      const issuanceAddresses = issuances && issuances.reduce((acc, issuance) => {
+      const issuanceAddresses = issuances ? issuances.reduce((acc, issuance) => {
         acc.push(issuance.address)
         return acc
-      }, [])
+      }, []) : []
       let results = {EQB: issuanceAddresses, BTC: []}
       results = portfolios ? portfolios.reduce((acc, portfolio) => {
         return {

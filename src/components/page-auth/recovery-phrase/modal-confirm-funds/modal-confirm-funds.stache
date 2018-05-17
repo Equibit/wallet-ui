@@ -1,24 +1,8 @@
 <can-import from="~/utils/stache-helpers/" />
-<can-import from="~/components/page-auth/recovery-phrase/recovery-phrase-prompt/" />
 
-<bootstrap-modal-content class="modal-authentication">
-  {{#is mode 'confirm'}}
-    <div class="modal-header">
-      <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
-      <h3 class="modal-title"><span class="icon icon-warning text-warning"></span> {{i18n('Confirm Funds')}}</h3>
-    </div>
-
-    <div class="modal-body">
-      <p class="single-paragraph">{{i18n('confirmFundsMessage')}}</p>
-    </div>
-
-    <div class="modal-footer">
-      <button class="btn btn-primary" type="submit" data-dismiss="modal">{{i18n('correctYes')}}</button>
-      <button ($click)="prompt()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('tryAgainNo')}}</button>
-    </div>
-  {{/is}}
-
-  {{#is mode 'prompt'}}
-    <recovery-phrase-prompt></recovery-phrase-prompt>
-  {{/is}}
-</bootstrap-modal-content>
+<p class="single-paragraph">{{i18n('confirmFundsMessage')}}</p>
+<br>
+<div>
+  <button on:click="dismiss()" class="btn btn-primary" data-dismiss="modal">{{i18n('correctYes')}}</button>
+  <button on:click="prompt()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('tryAgainNo')}}</button>
+</div>

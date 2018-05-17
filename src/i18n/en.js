@@ -302,6 +302,7 @@ export default {
   from: 'From',
   funds: 'Funds',
   fundsSent: 'Funds sent',
+  fundsRecoveredMsg: 'Funds Recovered',
 
   goodFor: 'Good For',
   goodUntil: 'Good Until',
