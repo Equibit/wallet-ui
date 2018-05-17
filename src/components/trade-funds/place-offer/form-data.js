@@ -25,6 +25,9 @@ const FormData = DefineMap.extend('OfferFormData', {
     type: 'number',
     // Currently in uEQB. Set quantity which is in Satoshi:
     set (val) {
+      if (this.order.isFillOrKill) {
+        val = toMaxPrecision(this.order.quantity / 100000000, 8)
+      }
       this.quantity = Math.floor(val * 100000000)
       return val
     }
