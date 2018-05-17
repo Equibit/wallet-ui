@@ -17,7 +17,9 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import view from './recovery-phrase.stache'
 import route from 'can-route'
-import i18n from '../../../i18n/i18n'
+import hub from '~/utils/event-hub'
+import { translate } from '../../../i18n/i18n'
+import Session from '~/models/session'
 
 export const ViewModel = DefineMap.extend({
   user: {
@@ -25,6 +27,7 @@ export const ViewModel = DefineMap.extend({
   },
   mnemonic: 'string',
   error: 'string',
+  pending: 'boolean',
   mode: {
     value: 'prompt',
     set (val) {
@@ -43,20 +46,59 @@ export const ViewModel = DefineMap.extend({
       ev.preventDefault()
     }
     if (!this.mnemonic) {
-      this.error = i18n.validationMnemonicEmpty
+      this.error = translate('validationMnemonicEmpty')
       return
     }
+    this.pending = true
     this.user.generateWalletKeys(this.mnemonic)
       .then(() => {
+        const noop = () => {}
         this.user.isRecovered = true
-        route.data.page = 'portfolio'
+        return Session.current.portfoliosPromise.then(portfolios => {
+          if (portfolios[0]) {
+            portfolios[0].keys = Session.current.user.generatePortfolioKeys(0)
+            return portfolios[0].addressesMetaPromise.then(() => {
+              portfolios[0].on('listunspentPromise', noop)
+              portfolios[0].refreshBalance()
+              return portfolios[0].listunspentPromise
+            })
+          } else {
+            return Promise.resolve({
+              BTC: { summary: { total: 0 } },
+              EQB: { summary: { total: 0 } }
+            })
+          }
+        }).then(balance => {
+          const total = Object.keys(balance).reduce((total, key) => {
+            total += balance[key].summary.total
+            return total
+          }, 0)
+          Session.current.portfoliosPromise.then(portfolios => {
+            portfolios[0] && portfolios[0].off('listunspentPromise', noop)
+          })
+          if (total > 0) {
+            route.data.page = 'portfolio'
+            hub.dispatch({
+              'type': 'alert',
+              'kind': 'success',
+              'title': translate('fundsRecoveredMsg'),
+              'displayInterval': 10000
+            })
+          } else {
+            this.mode = 'confirm'
+          }
+        })
       })
+      .then(() => { this.pending = false }, () => { this.pending = false })
   },
   confirmNoPhrase () {
     this.user.generateWalletKeys()
       .then(() => {
         route.data.page = 'portfolio'
       })
+  },
+  get disableButton () {
+    return this.error || this.pending
   }
 })
 

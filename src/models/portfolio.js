@@ -73,15 +73,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     get () {
       const list = this._addressesMeta
       if (!list.length) {
-        feathersClient.service('portfolio-addresses').find({
-          query: {
-            portfolioId: this._id
-          }
-        }).then((results) => {
-          const portfolioAddresses = results.data
-          list.replace(portfolioAddresses)
-          // console.log("portfolioAddresses", portfolioAddresses)
-        })
+        this.get('addressesMetaPromise')
       }
       return list
     }
@@ -93,6 +85,17 @@ const Portfolio = DefineMap.extend('Portfolio', {
     // TODO: should this be an observable list? can it be updated via websocket?
     // Note: this is not an observable list to not trigger linstunspent request.
     // value: []
+  },
+  get addressesMetaPromise () {
+    return feathersClient.service('portfolio-addresses').find({
+      query: {
+        portfolioId: this._id
+      }
+    }).then((results) => {
+      const portfolioAddresses = results.data
+      this._addressesMeta.replace(portfolioAddresses)
+      return portfolioAddresses
+    })
   },
 
   keys: '*',

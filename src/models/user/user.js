@@ -184,7 +184,7 @@ const User = DefineMap.extend('User', {
   },
 
   /**
-   * @function models/user.prototype.generateWalletKeys generateWalletKeys
+   * @function models/user.prototype.cacheWalletKeys cacheWalletKeys
    * @parent models/user.prototype
    * Cache BTC and EQB keys in a closure.
    */

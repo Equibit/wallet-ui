@@ -17,6 +17,7 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './modal-confirm-funds.less'
 import view from './modal-confirm-funds.stache'
+import route from 'can-route'
 
 export const ViewModel = DefineMap.extend({
   mode: {
@@ -27,6 +28,9 @@ export const ViewModel = DefineMap.extend({
   },
   prompt () {
     this.mode = 'prompt'
+  },
+  dismiss () {
+    route.data.page = 'portfolio'
   }
 })
 

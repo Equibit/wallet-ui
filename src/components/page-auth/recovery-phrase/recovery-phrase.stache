@@ -1,15 +1,16 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/page-auth/recovery-phrase/recovery-phrase-field/" />
+<can-import from="~/components/page-auth/recovery-phrase/modal-confirm-funds/" />
 
 {{#is mode 'prompt'}}
-  <form ($submit)="recoverFunds(%event)">
+  <form on:submit="recoverFunds(scope.event)">
     <h2>{{i18n('recoveryPhrasePromptTitle')}}</h2>
     <p>{{i18n('recoveryPhrasePromptInstruction')}}</p>
-    <recovery-phrase-field {^mnemonic}="mnemonic"
-                           {(error)}="error"></recovery-phrase-field>
+    <recovery-phrase-field mnemonic:to="mnemonic"
+                           error:bind="error"></recovery-phrase-field>
 
-    <button class="btn btn-primary" type="submit">{{i18n('recoverFunds')}}</button>
-    <button ($click)="switch('warning')" class="btn btn-link pull-right">{{i18n('recoveryPhrasePromptNot')}}</button>
+    <button class="btn btn-primary" disabled:from="disableButton" type="submit">{{i18n('recoverFunds')}}</button>
+    <button on:click="switch('warning')" disabled:from="pending" class="btn btn-link pull-right">{{i18n('recoveryPhrasePromptNot')}}</button>
   </form>
 {{/is}}
 
@@ -17,6 +18,10 @@
   <h2><span class="icon icon-warning text-warning"></span> {{i18n('warning')}}</h2>
   <p>{{i18n('recoveryPhraseWarningMessage')}}</p>
 
-  <button ($click)="confirmNoPhrase()" class="btn btn-primary">{{i18n('continue')}}</button>
-  <button ($click)="switch('prompt')" class="btn btn-default">{{i18n('back')}}</button>
+  <button on:click="confirmNoPhrase()" class="btn btn-primary">{{i18n('continue')}}</button>
+  <button on:click="switch('prompt')" class="btn btn-default">{{i18n('back')}}</button>
+{{/is}}
+
+{{#is mode 'confirm'}}
+  <modal-confirm-funds mode:bind="mode" />
 {{/is}}
