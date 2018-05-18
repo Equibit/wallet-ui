@@ -40,7 +40,8 @@ export const ViewModel = DefineMap.extend({
       return val || 'SELL'
     },
     set () {
-      this.selectedIndex = 0
+      // Reset selected item:
+      this.selectedItem = null
     },
     value () {
       return 'SELL'
@@ -93,21 +94,17 @@ export const ViewModel = DefineMap.extend({
     return labelStatusMap[status] || labelStatusMap.OPEN
   },
   selectItem (item) {
-    this.selectedIndex = this.itemsFiltered.indexOf(item)
-  },
-  selectedIndex: {
-    type: 'number'
+    this.selectedItem = item
   },
   selectedItem: {
-    get () {
+    get (val) {
       if (!this.itemsFiltered || !this.itemsFiltered.length) {
         return null
       }
-      if (!this.selectedIndex) {
-        this.selectedIndex = 0
+      if (!val) {
+        val = this.itemsFiltered[0]
       }
-
-      return this.itemsFiltered[this.selectedIndex]
+      return val
     }
   }
 })

@@ -27,7 +27,7 @@
                   <td class="column-local-currency-value font-numeric">{{local-currency(formData.totalAmount))}}</td>
                   <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>
                   {{else}}
-                  <td class="column-digital-currency-value font-numeric">{{format(formData.quantity, '')}}</td>
+                  <td class="column-digital-currency-value font-numeric">{{format(formData.quantity, '', 0)}}</td>
                   <td class="column-digital-currency-type font-numeric">{{i18n('shares')}}</td>
                   <td class="column-local-currency-value font-numeric">{{local-currency(formData.quantityBtc))}}</td>
                   <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>
@@ -71,7 +71,7 @@
               {{else}}
               <tr>
                   <td class="input-value"><strong>{{formData.portfolioName}}</strong></td>
-                  <td class="column-digital-currency-value font-numeric text-success">+ {{format(formData.quantity, '')}}</td>
+                  <td class="column-digital-currency-value font-numeric text-success">+ {{format(formData.quantity, '', 0)}}</td>
                   <td class="column-digital-currency-type font-numeric text-success">{{i18n('shares')}}</td>
                   <td class="column-local-currency-value"></td>
                   <td class="column-local-currency-type"></td>
