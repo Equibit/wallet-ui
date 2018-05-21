@@ -57,7 +57,13 @@ const FormData = DefineMap.extend('FormData', {
 
   availableAmount: {
     get () {
-      return (this.issuance && this.issuance.availableAmount) ||
+      if (this.issuance && this.issuance.utxo === undefined) {
+        // if issuance is new and hasn't loaded utxo, 'not enough funds' message will show when selling.
+        // this will load them so the value is up to date.
+        let list = new Issuance.List([ this.issuance ])
+        list.loadUTXO()
+      }
+      return (this.issuance && this.issuance.utxoAmountTotal) ||
         (this.type === 'SELL' && this.assetType === 'EQUIBIT' && this.portfolio.availableAmount('EQB'))
     }
   },

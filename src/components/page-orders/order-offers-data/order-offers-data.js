@@ -79,6 +79,14 @@ export const ViewModel = DefineMap.extend({
     typeforce('Portfolio', portfolio)
     this.acceptingOffer = offer
 
+    var waitForUTXO = Promise.resolve([])
+    if (this.issuance && this.issuance.utxo === undefined) {
+      // if issuance is new and hasn't loaded utxo, 'cannot accept' message will show when accepting.
+      // this will load them so the value is up to date.
+      let list = new Issuance.List([ this.issuance ])
+      waitForUTXO = list.loadUTXO()
+    }
+
     // const isIssuer = this.order.type === 'SELL' && this.issuance.userId === Session.current.user._id
     // const issuancesPromise = isIssuer ? Session.current.issuancesPromise : Session.current.portfolios[0].securitiesPromise
 
@@ -86,8 +94,9 @@ export const ViewModel = DefineMap.extend({
       // Session.current.issuancesPromise,
       portfolio.getNextAddress(),
       portfolio.getNextAddress(true),
-      Session.current.transactionFeeRatesPromise
-    ]).then(([addrPair, changeAddrPair, transactionFeeRates]) => {
+      Session.current.transactionFeeRatesPromise,
+      waitForUTXO
+    ]).then(([addrPair, changeAddrPair, transactionFeeRates, utxoLoaded]) => {
       // todo: figure out a better way to find the issuance with preloaded UTXO.
       // const issuance = this.order.type === 'SELL'
       //   ? issuances.filter(issuance => issuance._id === this.order.issuanceId)[0]
