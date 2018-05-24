@@ -34,6 +34,13 @@ export const ViewModel = DefineMap.extend({
   isSendFundsPopup: 'boolean',
   isReceiveFundsPopup: 'boolean',
   isRecoveryPhrasePopup: 'boolean',
+  isAuthModalPopup: 'boolean',
+  secondFactorCode: 'string',
+  user: {
+    value () {
+      return Session.current.user
+    }
+  },
   receiveFunds () {
     this.isReceiveFundsPopup = false
     if (!this.portfolio) {
@@ -42,19 +49,29 @@ export const ViewModel = DefineMap.extend({
         portfolio.keys = Session.current.user.generatePortfolioKeys(portfolio.index)
         this.portfolio = portfolio
         // Session.current.portfolios.push(portfolio)
-        if (Session.current.user.hasRecordedMnemonic) {
-          this.isReceiveFundsPopup = true
-        } else {
-          this.isRecoveryPhrasePopup = true
-        }
+        this.showFirstModal()
       })
     } else {
-      if (Session.current.user.hasRecordedMnemonic) {
-        this.isReceiveFundsPopup = true
-      } else {
-        this.isRecoveryPhrasePopup = true
-      }
+      this.showFirstModal()
     }
+  },
+  showFirstModal () {
+    this.isReceiveFundsPopup = false
+    this.isAuthModalPopup = false
+    this.isRecoveryPhrasePopup = false
+
+    if (this.user.hasRecordedMnemonic) {
+      this.isReceiveFundsPopup = true
+    } else if (this.user.twoFactorValidatedSession) {
+      this.isRecoveryPhrasePopup = true
+    } else {
+      this.isAuthModalPopup = true
+    }
+  },
+  codeVerified (args) {
+    const code = args[1]
+    this.secondFactorCode = code
+    this.isRecoveryPhrasePopup = true
   },
   recoveryPhraseDone () {
     this.isRecoveryPhrasePopup = false

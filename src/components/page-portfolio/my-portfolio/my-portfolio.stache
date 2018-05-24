@@ -30,8 +30,7 @@
   <portfolio-toolbar balance:from="portfolio.balance.total"
                      isSending:from="isSending"
                      sendFundsPopup:to="isSendFundsPopup"
-                     receiveFundsPopup:to="isReceiveFundsPopup"
-                     recoveryPhrasePopup:to="isRecoveryPhrasePopup"/>
+                     receiveFunds:from="@receiveFunds"/>
 
   <div class="panel-body">
     {{^if portfolio.availableAmount('EQB')}}
@@ -112,6 +111,11 @@
   <receive-popup on:done="receiveDone()"
                  address:from="nextAddress" />
   {{/if}}
+{{/if}}
+
+{{#if isAuthModalPopup}}
+  <modal-authentication user:from="user" on:verified="codeVerified(scope.arguments)"
+                        on:close="this.set('isAuthModalPopup', false)"></modal-authentication>
 {{/if}}
 
 {{#if isRecoveryPhrasePopup}}

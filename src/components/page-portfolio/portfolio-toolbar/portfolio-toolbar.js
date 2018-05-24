@@ -17,27 +17,17 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './portfolio-toolbar.less'
 import view from './portfolio-toolbar.stache'
-import Session from '~/models/session'
 
 export const ViewModel = DefineMap.extend({
   balance: 'number',
   sendFundsPopup: 'boolean',
-  receiveFundsPopup: 'boolean',
-  recoveryPhrasePopup: 'boolean',
+  showFirstModal: '*',
   isSending: 'boolean',
   sendFunds () {
     this.sendFundsPopup = false
     this.sendFundsPopup = true
   },
-  receiveFunds () {
-    if (Session.current.user.hasRecordedMnemonic) {
-      this.receiveFundsPopup = false
-      this.receiveFundsPopup = true
-    } else {
-      this.recoveryPhrasePopup = false
-      this.recoveryPhrasePopup = true
-    }
-  }
+  receiveFunds: '*'
 })
 
 export default Component.extend({

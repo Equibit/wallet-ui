@@ -76,6 +76,7 @@
     <phrase-input phrase:from="../phrase"
                   this:to="../inputVm"
                   isCorrect:to="../isCorrect"></phrase-input>
+    <div><validation-message message:from="../errorMessage" /></div>
   </div>
 
   <div class="modal-footer">
