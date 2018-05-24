@@ -16,7 +16,8 @@ describe('wallet-ui/components/page-transactions/transactions-grid', function ()
         fromAddress: {'$in': [1, 2, 3, 4]}
       }, {
         toAddress: {'$in': [1, 2, 3, 4]}
-      }]
+      }],
+      $sort: { createdAt: -1 }
     })
   })
 })
