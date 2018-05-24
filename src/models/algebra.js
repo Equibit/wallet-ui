@@ -9,6 +9,19 @@ export default new set.Algebra(
   {
     address: function () {
       return true
+    },
+    $or: function (propValue, propSet, fullValue, fullSet, propName, options) {
+      return propSet.reduce((match, prop) => {
+        return match || Object.keys(prop).reduce((match, clausePropName) => {
+          if (!match) {
+            return match
+          } else if (prop[clausePropName].$in) {
+            return prop[clausePropName].$in.indexOf(fullValue[clausePropName]) > -1
+          } else {
+            return prop[clausePropName] === fullValue[clausePropName]
+          }
+        }, true)
+      }, false)
     }
   }
   // set.comparators.sort('$sort', function ($sort, cm1, cm2) {
