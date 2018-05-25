@@ -31,6 +31,7 @@ import { translate } from '../../../i18n/i18n'
 export const ViewModel = DefineMap.extend({
   order: Order,
   offers: Offer.List,
+  filledQuantity: 'number',
 
   // For accept-offer modal:
   offer: Offer,
@@ -46,6 +47,15 @@ export const ViewModel = DefineMap.extend({
       const isCancelled = status === 'CANCELLED'
       return isCancelled
     }
+  },
+
+  canAccept (offer) {
+    const order = this.order || {}
+    const quantity = order.quantity || 0
+    const filledQuantity = this.filledQuantity || 0
+    const remainingQuantity = quantity - filledQuantity
+    const offerQuantity = (offer && offer.quantity) || 0
+    return offerQuantity <= remainingQuantity
   },
 
   // something (bootstrap?) is deduping classnames so needed a helper.

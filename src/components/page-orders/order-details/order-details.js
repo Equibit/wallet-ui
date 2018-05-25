@@ -25,6 +25,7 @@ export const ViewModel = DefineMap.extend({
   type: 'string',
   order: Order,
   ordersLength: 'number',
+  filledQuantity: 'number',
   offersLoaded: 'boolean',
   offers: {
     get (val, resolve) {
