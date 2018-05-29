@@ -26,10 +26,12 @@ import Pagination from '../../../models/pagination'
 
 export const ViewModel = DefineMap.extend({
   pagination: {
-    value: new Pagination({
-      skip: 0,
-      limit: 50
-    })
+    value: function () {
+      return new Pagination({
+        skip: 0,
+        limit: 50
+      })
+    }
   },
   addresses: {
     type: '*',
@@ -44,9 +46,11 @@ export const ViewModel = DefineMap.extend({
     get () {
       return Object.assign({},
         this.pagination.params,
-        {$or:
-        [{fromAddress: {'$in': this.addresses.get()}},
-        {toAddress: {'$in': this.addresses.get()}}]
+        {
+          $or:
+          [{fromAddress: {'$in': this.addresses.get()}},
+            {toAddress: {'$in': this.addresses.get()}}],
+          $sort: { createdAt: -1 }
         }
       )
     }

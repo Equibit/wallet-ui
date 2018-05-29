@@ -287,7 +287,7 @@ const Transaction = DefineMap.extend('Transaction', {
     return !this.confirmationBlockHeight
   },
 
-  createdAt: { type: 'date', serialize: false },
+  createdAt: { type: 'date', serialize: true }, // serialize for can-connect real time to sort it
   updatedAt: { type: 'date', serialize: false },
 
   // Extras:
