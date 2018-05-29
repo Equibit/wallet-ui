@@ -442,6 +442,7 @@ export default {
   offerTooltipSafetyZoneAsk: 'This is the time frame you will have to recover the assets, if the buyer hasn\'t claimed them.',
   offerTooltipSafetyZoneBid: 'This is the time frame you will have to recover the payment, if the seller hasn\'t claimed it.',
   offerWasCreated: 'Your offer was created',
+  offerTooBig: 'Cannot accept Offer: quantity is greater than remaining order quantity.',
   or: 'Or',
   order: 'Order',
   orderBook: 'Order Book',
