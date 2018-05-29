@@ -108,22 +108,20 @@ const FormData = DefineMap.extend('FormData', {
       return Promise.reject(new Error(translate('sellingSecuritiesCannotQuery')))
     }
 
-    const ordersService = feathersClient.service('orders')
+    const sellOrdersQuantityOpen = feathersClient.service('sell-orders-quantity-open')
 
-    // query for orders
+    // query for sellOrdersQuantityOpen
     const query = {
-      issuanceId,
-      userId,
-      type: 'SELL',
-      status: { $in: ['OPEN', 'TRADING'] }
+      assetType: 'ISSUANCE',
+      issuanceId
     }
 
     const promises = Promise.all([
-      ordersService.find({ query })
+      sellOrdersQuantityOpen.find({ query })
     ]).then(response => {
       const sellIssuanceData = {}
-      sellIssuanceData.sellOrderTotal = response[0].data.reduce((total, obj) => total + (obj.quantity || 0), 0)
-      sellIssuanceData.maxSellQuantity = issuance.utxoAmountTotal - sellIssuanceData.sellOrderTotal
+      sellIssuanceData.sellOrdersQuantityOpen = response[0].data.sellOrdersQuantityOpen
+      sellIssuanceData.maxSellQuantity = issuance.utxoAmountTotal - sellIssuanceData.sellOrdersQuantityOpen
       this.sellData = sellIssuanceData
       return this.sellData
     })
