@@ -136,17 +136,17 @@ const User = DefineMap.extend('User', {
    * @parent models/user.properties
    * Whether the user has used 2FA to validate accounts this session
    */
-  twoFactorValidatedSession: { type: 'boolean', default: false },
+  twoFactorValidatedSession: { type: 'boolean', default: false, serialize: false },
 
   /**
    * @property {Boolean} models/user.properties.emailVerified emailVerified
    * @parent models/user.properties
    * Whether the user has a verified email address
    */
-  emailVerified: { type: 'boolean', default: false },
+  emailVerified: { type: 'boolean', default: false, serialize: false },
 
   /**
-   * @property {Date} models/user.properties.isNewUser isRecovered
+   * @property {Date} models/user.properties.isRecovered isRecovered
    * @parent models/user.properties
    * Indicates whether user keys were recovered from a seed.
    */
@@ -155,12 +155,29 @@ const User = DefineMap.extend('User', {
     serialize: false
   },
 
+  /**
+   * @property {String} models/user.properties.fiatCurrency fiatCurrency
+   * @parent models/user.properties
+   * the user's preference for which fiat currency to convert the value of crypto assets to.
+   */
   fiatCurrency: {
     type: 'string',
     serialize: false,
     value: function () {
       // TODO this needs to become part of the user preferences
       return 'USD'
+    }
+  },
+
+  /**
+   * @property {Date} models/user.properties.autoLogoutTime autoLogoutTime
+   * @parent models/user.properties
+   * Time in ms until the session is logged out automatically.  Settable via user preferences.
+   */
+  autoLogoutTime: {
+    type: 'number',
+    value () {
+      return 300000 // 5 minutes default
     }
   },
 

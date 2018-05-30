@@ -17,13 +17,48 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './user-autologout.less'
 import view from './user-autologout.stache'
+import feathersClient from '~/models/feathers-client'
+import hub from '~/utils/event-hub'
+import { translate } from '~/i18n/'
 
 export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
+  error: 'string',
+  autoLogoutMinutes: {
+    type: 'string',
+    value () {
+      return (this.user.autoLogoutTime / 1000 / 60).toString()
+    }
+  },
   showModal () {
     // Note: we need to re-insert the modal content:
     this.isModalShown = false
     this.isModalShown = true
+  },
+  validateAndSave (close) {
+    if (this.autoLogoutMinutes === '' || this.autoLogoutMinutes == null) {
+      this.error = translate('autoLogoutTimeMissingMessage')
+    } else if (+this.autoLogoutMinutes > 30) {
+      this.error = translate('autoLogoutTimeTooLongMessage')
+    } else if (+this.autoLogoutMinutes < 1) {
+      this.error = translate('autoLogoutTimeTooShortMessage')
+    } else {
+      this.error = null
+      feathersClient.service('/users').patch(
+        this.user._id,
+        { autoLogoutTime: this.autoLogoutMinutes * 60 * 1000 }
+      )
+      .then(() => {
+        hub.dispatch({
+          'type': 'alert',
+          'kind': 'success',
+          'title': translate('changesSaved'),
+          'displayInterval': 10000
+        })
+        close && close()
+      })
+      .catch(e => { this.error = e.message })
+    }
   }
 })
 
