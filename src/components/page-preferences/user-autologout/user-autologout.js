@@ -27,12 +27,17 @@ export const ViewModel = DefineMap.extend({
   autoLogoutMinutes: {
     type: 'string',
     value () {
-      return (this.user.autoLogoutTime / 1000 / 60).toString()
+      return this.msToMinutes(this.user.autoLogoutTime).toString()
     }
+  },
+  msToMinutes (ms) {
+    return (ms / 1000 / 60)
   },
   showModal () {
     // Note: we need to re-insert the modal content:
     this.isModalShown = false
+    this.autoLogoutMinutes = this.msToMinutes(this.user.autoLogoutTime).toString()
+    this.error = null
     this.isModalShown = true
   },
   validateAndSave (close) {
@@ -48,7 +53,8 @@ export const ViewModel = DefineMap.extend({
         this.user._id,
         { autoLogoutTime: this.autoLogoutMinutes * 60 * 1000 }
       )
-      .then(() => {
+      .then(user => {
+        this.user.set(user)
         hub.dispatch({
           'type': 'alert',
           'kind': 'success',

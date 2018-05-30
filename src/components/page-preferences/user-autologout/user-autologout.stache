@@ -7,7 +7,7 @@
       <span class="icon icon-clock"></span>{{i18n('autoLogout')}}
     </div>
     <div class="col-sm-7 col-xs-12 section-column">
-      <span class="input-value">{{autoLogoutMinutes}} {{i18n('minutes')}}</span>
+      <span class="input-value">{{msToMinutes(user.autoLogoutTime)}} {{i18n('minutes')}}</span>
     </div>
     <div class="col-sm-2 col-xs-12 section-column section-cta">
       <button ($click)="showModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
