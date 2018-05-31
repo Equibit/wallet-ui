@@ -1,10 +1,7 @@
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="~/components/common/panel/" />
 <can-import from="~/components/page-portfolio/portfolio-toolbar/" />
-<can-import from="~/components/page-portfolio/portfolio-breakdown/" />
 <can-import from="~/components/page-portfolio/portfolio-cash/" />
-<can-import from="~/components/page-portfolio/equity-grid/" />
-<can-import from="~/components/page-portfolio/bonds-grid/" />
 <can-import from="~/components/trade-funds/send-popup/" />
 <can-import from="~/components/trade-funds/receive-popup/" />
 <can-import from="~/components/page-preferences/user-phrase/modal-recovery-phrase/" />
@@ -45,53 +42,18 @@
     {{/if}}
 
     <div class="row">
-      <div class="col-lg-3 col-md-6 col-xs-12 balances section">
+      <div class="col-xs-5 balances section">
 
         <div class="row">
           <div class="col-xs-12 summary-section no-padding-right no-padding-left">
             <label>{{i18n('totalCash')}}</label>
             <span>{{user-units(portfolio.balance.cashTotal, 8)}} <small>BTC</small></span>
           </div>
-          <div class="col-xs-12 summary-section no-padding-right no-padding-left">
-            <label>{{i18n('totalSecurities')}}</label>
-            <span>{{user-units(portfolio.balance.securities, 8)}} <small>BTC</small></span>
-          </div>
-          <div class="col-xs-12 summary-section no-padding-right no-padding-left">
-            <label>{{i18n('unrealizedPL')}}</label>
-            <arrow-change class="change" change:from="portfolio.unrealizedPL">
-              <span class="percentage">({{portfolio.unrealizedPLPercent}}%)</span>
-            </arrow-change>
-          </div>
         </div>
 
       </div>
-      <div class="col-lg-4 col-md-6 col-xs-12 section ">
+      <div class="col-xs-7 section ">
         <portfolio-cash balance:from="portfolio.balance" />
-      </div>
-
-      <div class="col-lg-5 col-xs-12 section">
-        <portfolio-breakdown balance:from="portfolio.balance" />
-      </div>
-
-
-      <div class="col-xs-12">
-        <h2 class="subtitle">{{i18n('securities')}}</h2>
-        <div class="well">
-
-          <div class="row">
-            <div class="col-xs-12 section no-padding">
-              <h3 class="subheading">{{i18n('Equity')}}</h3>
-              <equity-grid cancelFn:from="@cancelIssuance"
-                           rows:from="portfolio.securities" />
-            </div>
-
-            <div class="col-xs-12 no-padding">
-              <h3 class="subheading">{{i18n('Bonds')}}</h3>
-              <bonds-grid />
-            </div>
-          </div>
-
-        </div>
       </div>
     </div>
   </div>
