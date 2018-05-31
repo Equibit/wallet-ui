@@ -45,6 +45,7 @@ export const ViewModel = DefineMap.extend({
       return new FormData({
         portfolio: this.portfolio,
         issuanceOnly: this.issuanceOnly,
+        fundsOnly: this.fundsOnly,
         rates: Session.current.rates
       })
     }
@@ -53,6 +54,7 @@ export const ViewModel = DefineMap.extend({
     value: 'edit'
   },
   issuanceOnly: 'boolean',
+  fundsOnly: 'boolean',
   toAddress: '*',
   next () {
     this.formData.validate()

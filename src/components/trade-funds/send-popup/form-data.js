@@ -15,6 +15,9 @@ const FormData = DefineMap.extend({
       if (this.issuanceOnly) {
         return 'ISSUANCE'
       }
+      if (this.fundsOnly) {
+        return 'FUNDS'
+      }
       return val
     }
   },
@@ -37,6 +40,7 @@ const FormData = DefineMap.extend({
   rates: '*',
   issuance: Issuance,
   issuanceOnly: 'boolean',
+  fundsOnly: 'boolean',
 
   // todo: calculate price in a getter instead of currency-converter?
   // Note: The price is set by currency-converter component.
