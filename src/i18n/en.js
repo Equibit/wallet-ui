@@ -511,7 +511,7 @@ export default {
   quarterly: 'Quarterly',
 
   receive: 'Receive',
-  receiveInfo: 'Use a unique address to add funds or securities to your account.',
+  receiveInfo: 'Use a unique address to add funds to your account.',
   receiveForm: 'Receive Form',
   received: 'Received',
   recordDate: 'Record Date',
