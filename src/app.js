@@ -27,6 +27,7 @@ window.canViewModel = canViewModel
 //! steal-remove-end
 
 const pages = {
+
   home: 'public',
   loading: 'public',
   signup: 'public',

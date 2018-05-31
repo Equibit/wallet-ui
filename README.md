@@ -4,6 +4,7 @@
 
 Welcome to the wallet-ui DoneJS application!
 
+HELLO
 
 ## Getting started
 
