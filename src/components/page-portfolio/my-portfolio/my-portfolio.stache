@@ -64,7 +64,6 @@
   <send-popup sendFn:from="@send"
               on:vm:receiveform="receiveFunds()"
               portfolio:from="portfolio"
-              issuances:from="issuances"
               fundsOnly="true"/>
 {{/if}}
 

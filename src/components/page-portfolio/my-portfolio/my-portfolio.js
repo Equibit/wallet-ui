@@ -83,25 +83,8 @@ export const ViewModel = DefineMap.extend({
     }
     this.isReceiveFundsPopup = false
   },
-  send (formData) {
-    console.log('send: ', formData)
-    if (!formData) {
-      console.error('Error: received no form data')
-      return
-    }
-    return (formData.type === 'SECURITIES' ? sendIssuance(this.portfolio, formData) : this.sendFunds(formData))
-      .then(() => {
-        const msg = formData.type === 'SECURITIES' ? translate('securitiesSent') : translate('fundsSent')
-        hub.dispatch({
-          'type': 'alert',
-          'kind': 'success',
-          'title': msg,
-          'displayInterval': 5000
-        })
-      })
-  },
 
-  sendFunds (tx, changeAddr) {
+  send (tx, changeAddr) {
     const currencyType = tx.currencyType
     console.log('tx.hex: ' + tx.hex, tx)
 
