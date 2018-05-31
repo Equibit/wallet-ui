@@ -26,7 +26,11 @@
       {{#is mode 'confirm'}}
         {{i18n('confirmTransaction')}}
       {{else}}
-        {{i18n('sendModalDescription')}}
+        {{#if formsData.fundsOnly}}
+          {{i18n('sendModalDescription')}}
+        {{else}}
+          {{i18n('sendFundsModalDescription')}}
+        {{/if}}
       {{/is}}
     </div>
 

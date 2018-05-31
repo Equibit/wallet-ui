@@ -574,6 +574,7 @@ export default {
   semiAnnually: 'Semi-Annually',
   send: 'Send',
   sendModalDescription: 'Send securities or funds from your account.',
+  sendFundsModalDescription: 'Send funds from your account.',
   sendAll: 'Send All',
   sendAllFunds: 'Send All Funds',
   sendOfferEquibits: 'Send Offer Equibits',
