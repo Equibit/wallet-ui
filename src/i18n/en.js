@@ -109,6 +109,9 @@ export default {
   authorityEditWarning: 'Updating this information will only take effect in passports issued after this update.',
   authorityInformation: 'Authority Information',
   authoritiesNotFound: 'No authorities found',
+  autoLogoutTimeMissingMessage: 'Auto logout time is missing',
+  autoLogoutTimeTooLongMessage: 'Enter a time up to 30 minutes',
+  autoLogoutTimeTooShortMessage: 'Enter a time at least 1 minute',
 
   balance: 'Balance',
   bidPrice: 'Bid Price',
