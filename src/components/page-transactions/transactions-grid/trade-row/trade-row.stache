@@ -11,10 +11,7 @@
                 <span class="transaction-subject">{{i18n('blankEqb')}}</span>
                 {{i18n('from')}} <a href="{{routeUrl page='equibit'}}">{{i18n('Equibit')}}</a>
               {{else}}
-                <span class="transaction-subject">{{rows[0].issuanceTypeDisplay}}</span> {{i18n('from')}}
-                <a href="{{routeUrl page='issuances' itemId=rows[0].issuanceId}}">
-                    {{rows[0].companyName}}, {{rows[0].issuanceName}}
-                </a>
+                <span class="transaction-subject">{{rows[0].issuanceTypeDisplay}}</span>
               {{/is}}
             </td>
         </tr>
