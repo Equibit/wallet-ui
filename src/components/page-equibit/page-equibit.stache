@@ -12,10 +12,6 @@
           <div class="panel-heading panel-heading-clear actions-bar">
             <h1 class="panel-title">EQB</h1>
             <!--<company-value-change issuance:from="issuance" currency:from="'μBTC'" />-->
-            <ul class="nav navbar-nav navbar-right toolbar-actions">
-              <li><button class="btn btn-link"><span class="icon icon-star-empty"></span> {{i18n('watchListToggleAdd')}}</button>
-              <!--<button class="btn btn-link"><span class="icon icon-star-full"></span> {{i18n('watchListToggleRemove')}}</button>--></li>
-            </ul>
           </div>
 
           <div class="panel-body">
