@@ -1,6 +1,4 @@
 <can-import from="~/components/nav-bar/login-buttons.component" />
-<can-import from="~/components/nav-bar/main-nav.component" />
-<can-import from="~/components/nav-bar/search-form.component" />
 <can-import from="~/components/notifications/notifications-list/" />
 <can-import from="~/components/notifications/notification-counter/notification-counter.component" />
 <can-import from="~/components/inbox/inbox-list/" />
@@ -10,41 +8,12 @@
 <nav class="navbar navbar-inverse">
 
     <div class="navbar-header">
-      <a class="header-logo" href="{{routeUrl page='research'}}">{{i18n('equibitAppName')}}</a>
-
-      <div class="main-nav-container hidden-xxs">
-        <main-nav page:from="page"/>
-      </div>
+      <a class="header-logo" href="{{routeUrl page='equibit'}}">{{i18n('equibitAppName')}}</a>
 
       <ul class="nav navbar-nav add-nav navbar-right">
         {{#if isLoggedIn}}
         <li>
           <a href="#" class="icon icon-refresh {{#if isLoading}}spin-effect{{/if}}" role="button" on:click="refresh()"></a>
-        </li>
-
-        <li class="dropdown">
-          <a href="#"
-              class="dropdown-toggle icon icon-drawer2"
-              data-toggle="dropdown"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false">
-            <span class="sr-only">{{i18n('inbox')}}</span>
-
-            <notification-counter count:from="notifications.length" />
-          </a>
-          <div class="dropdown-menu popover popover--inbox bottom notifications-popover animated fadeIn">
-            <span class="arrow"></span>
-            <div class="popover-title">
-              {{i18n('inbox')}}
-              <a href="{{routeUrl page='my-inbox'}}" class="btn-view-all pull-right">View All</a>
-              <span class="icon icon-cross pull-right"></span>
-            </div>
-
-            <div class="popover-body">
-              <inbox-list />
-            </div>
-          </div>
         </li>
 
         <li class="dropdown">
@@ -74,19 +43,6 @@
         </li>
         {{/if}}
 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle icon icon-cog" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          </a>
-          <ul class="dropdown-menu settings-nav default-menu animated fadeIn">
-            <label>{{i18n('bitcoinDisplayUnit')}}</label>
-            <div class="btn-group">
-              <a href="#" class="btn btn-default">{{i18n('bitcoinDisplayUnitMicro')}}</a>
-              <a href="#" class="btn btn-default btn-selected">{{i18n('bitcoinDisplayUnitMilli')}}</a>
-              <a href="#" class="btn btn-default">{{i18n('bitcoinDisplayUnitFull')}}</a>
-          </div>
-          </ul>
-        </li>
-
         {{#if isLoggedIn}}
         <li class="dropdown">
           <a href="#" class="dropdown-toggle icon icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
@@ -94,8 +50,6 @@
             <li><a href="{{routeUrl page='portfolio'}}">{{i18n('myPortfolio')}}</a></li>
             <li><a href="{{routeUrl page='orders'}}">{{i18n('myOrders')}}</a></li>
             <li><a href="{{routeUrl page='offers'}}">{{i18n('myOffers')}}</a></li>
-            <li><a href="{{routeUrl page='my-issuances'}}">{{i18n('myIssuances')}}</a></li>
-            <li><a href="{{routeUrl page='my-trading-passports'}}">{{i18n('tradingPassports')}}</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="{{routeUrl page='transactions'}}">{{i18n('transactions')}}</a></li>
             <li><a href="{{routeUrl page='preferences'}}">{{i18n('userPreferences')}}</a></li>
@@ -128,22 +82,10 @@
       </div>
       {{/if}}
 
-      <div class="search-container visible-lg">
-        <search-form />
-      </div>
-
     </div>
 
     <!-- Toggle Items -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-      <div class="main-nav-container visible-xxs">
-        <main-nav page:from="page"/>
-      </div>
-
-      <div class="search-container navbar-right hidden-lg">
-        <search-form />
-      </div>
 
       {{#if isLoggedIn}}
       <div class="currency-container navbar-right visible-xs">
