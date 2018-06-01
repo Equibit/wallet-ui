@@ -1,5 +1,4 @@
 <can-import from="~/components/nav-bar/login-buttons.component" />
-<can-import from="~/components/nav-bar/search-form.component" />
 <can-import from="~/components/notifications/notifications-list/" />
 <can-import from="~/components/notifications/notification-counter/notification-counter.component" />
 <can-import from="~/components/inbox/inbox-list/" />
