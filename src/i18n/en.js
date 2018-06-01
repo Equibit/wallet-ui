@@ -89,6 +89,8 @@ export default {
   additionalDetails: 'Additional Details',
   addressEQB: 'Address EQB',
   addressBTC: 'Address BTC',
+  addressDescriptionEQB: 'Funds (EQB)',
+  addressDescriptionBTC: 'Funds (BTC)',
   amount: 'Amount',
   annually: 'Annualy',
   archived: 'Archived',
