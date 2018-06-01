@@ -84,6 +84,9 @@ export const ViewModel = DefineMap.extend({
     this.isReceiveFundsPopup = false
   },
 
+  // removed ability to send issuances from this page
+  // in commit fa099252e5f305eacc90382946869088112d3fc9
+
   send (tx, changeAddr) {
     const currencyType = tx.currencyType
     console.log('tx.hex: ' + tx.hex, tx)
