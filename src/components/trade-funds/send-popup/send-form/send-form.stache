@@ -26,6 +26,7 @@
   <div class="list-group-item">
     {{^if formData.issuanceOnly}}
     <div class="row">
+      {{^if formData.fundsOnly}}
       <div class="col-sm-6 col-xs-12 no-padding">
         <div class="form-group">
           <label for="">{{i18n('send')}}</label><br>
@@ -37,6 +38,7 @@
           </div>
         </div>
       </div>
+      {{/if}}
       <div class="col-sm-6 col-xs-12 no-padding">
         {{#is formData.type 'FUNDS'}}
           <div class="form-group">
