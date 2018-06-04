@@ -25,6 +25,13 @@
               <button on:click="company()" type="button" class="btn btn-primary btn-sm">{{i18n('addNew')}}</button>
             </div>
           </div>
+
+          {{if formData.issuanceNameMissing}}
+            <div class="col-xs-offset-3 col-xs-12">
+              <validation-message
+                message="required" />
+            </div>
+          {{/if}}
         </div>
       </div>
     </div>

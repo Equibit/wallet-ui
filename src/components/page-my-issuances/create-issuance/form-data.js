@@ -67,6 +67,19 @@ const FormData = DefineMap({
   },
   get transactionFeeEqb () {
     return this.transactionFee / 100000000
+  },
+  submissionAttempted: 'boolean',
+  get companyMissing () {
+    return this.submissionAttempted && !this.issuance.selectedCompany
+  },
+  get issuanceNameMissing () {
+    return this.submissionAttempted && !this.issuance.issuanceName
+  },
+  get issuanceTypeMissing () {
+    return this.submissionAttempted && !this.issuance.issuanceTypeItem
+  },
+  get restrictionLevelMissing () {
+    return this.submissionAttempted && !this.issuance.restriction
   }
 })
 
