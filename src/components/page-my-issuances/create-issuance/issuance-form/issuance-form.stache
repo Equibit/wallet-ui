@@ -28,7 +28,7 @@
           {{#if formData.companyMissing}}
             <div class="col-xs-offset-3 col-xs-12">
               <validation-message
-                message="required" />
+                message="{{i18n('requiredFieldError')}}" />
             </div>
           {{/if}}
         </div>
@@ -49,7 +49,7 @@
           {{#if formData.issuanceNameMissing}}
             <div class="col-xs-offset-3 col-xs-12">
               <validation-message
-                message="required" />
+                message="{{i18n('requiredFieldError')}}" />
             </div>
           {{/if}}
         </div>
@@ -73,7 +73,7 @@
           {{#if formData.issuanceTypeMissing}}
             <div class="col-xs-offset-3 col-xs-12">
               <validation-message
-                message="required" />
+                message="{{i18n('requiredFieldError')}}" />
             </div>
           {{/if}}
         </div>
@@ -163,7 +163,7 @@
           {{#if formData.restrictionLevelMissing}}
             <div class="col-xs-offset-3 col-xs-12">
               <validation-message
-                message="required" />
+                message="{{i18n('requiredFieldError')}}" />
             </div>
           {{/if}}
         </div>
