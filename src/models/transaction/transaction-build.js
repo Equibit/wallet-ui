@@ -60,7 +60,7 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
   }
   const bufferTx = txBuilder.builder.buildTx(tx)
   const hex = bufferTx.toString('hex')
-  const txId = eqbTxBuilder.getTxId(bufferTx)
+  const txId = eqbTxBuilder.getTxId({})(bufferTx)
   console.log(`[buildTransactionBtc] hex = ${hex}, \ntxid = ${txId}`)
 
   return {
@@ -92,7 +92,7 @@ function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testne
   }
   const bufferTx = eqbTxBuilder.builder.buildTx(tx)
   const hex = bufferTx.toString('hex')
-  const txId = eqbTxBuilder.getTxId(bufferTx)
+  const txId = eqbTxBuilder.getTxId({sha: 'SHA3_256'})(bufferTx)
   console.log(`[buildTransactionEqb] hex = ${hex}, \ntxid = ${txId}`)
 
   return {

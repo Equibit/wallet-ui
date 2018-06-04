@@ -649,7 +649,7 @@ describe('models/transaction/utils', function () {
           toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
           changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
           txData = createTransfer('ISSUANCE', amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates)
-          expectedTxId = '3af989cb41bd24a9086023db1f1fd0d5c6ddf4c12d8b9129c42f983615a11e5b'
+          expectedTxId = '79de6c0044d77da6902e9e7d836d25ef7765472b13531e6548c08a9f3f2d6cee'
         })
         it('should define amount', function () {
           assert.equal(txData.amount, amount)
@@ -699,7 +699,7 @@ describe('models/transaction/utils', function () {
           toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
           changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
           txData = createTransfer('EQB', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
-          expectedTxId = '1053a2f4175d6027e1b5e6131b1cf1222deefd83b64b0affa4eee50471987e3b'
+          expectedTxId = '746ba9c40df3dd173d6ef25a0dfae66e15291d6c93ed4a3d03b2f9587f5496b8'
         })
         it('should define amount', function () {
           assert.equal(txData.amount, amount)
