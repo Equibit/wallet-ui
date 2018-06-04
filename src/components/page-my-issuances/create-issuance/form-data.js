@@ -70,22 +70,22 @@ const FormData = DefineMap({
   },
   submissionAttempted: 'boolean',
   companyMissing: {
-    get: function() {
+    get: function () {
       return this.submissionAttempted && !this.issuance.companyId
     }
   },
   issuanceNameMissing: {
-    get: function() {
+    get: function () {
       return this.submissionAttempted && !this.issuance.issuanceName
     }
   },
   issuanceTypeMissing: {
-    get: function() {
+    get: function () {
       return this.submissionAttempted && !this.issuance.issuanceTypeItem
     }
   },
   restrictionLevelMissing: {
-    get: function() {
+    get: function () {
       return this.submissionAttempted && typeof this.issuance.restriction === 'undefined'
     }
   }
