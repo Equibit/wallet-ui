@@ -1,6 +1,7 @@
 import { bitcoin, eqbTxBuilder, txBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import typeforce from 'typeforce'
 import { pick, merge } from 'ramda'
+const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
 function buildTransactionOld (currencyType) {
   return currencyType === 'BTC' ? buildTransactionBtcOld : buildTransactionEqb
@@ -46,6 +47,10 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
   }), outputs)
   typeforce(types.Network, network)
 
+  const options = {
+    hashTimelockContract
+  }
+
   const tx = {
     version: 1,
     locktime,
@@ -58,7 +63,7 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
     }),
     vout: outputs
   }
-  const bufferTx = txBuilder.builder.buildTx(tx)
+  const bufferTx = txBuilder.builder.buildTx(tx, options)
   const hex = bufferTx.toString('hex')
   const txId = eqbTxBuilder.getTxId({})(bufferTx)
   console.log(`[buildTransactionBtc] hex = ${hex}, \ntxid = ${txId}`)
