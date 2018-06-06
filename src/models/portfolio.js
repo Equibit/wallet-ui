@@ -443,6 +443,14 @@ const Portfolio = DefineMap.extend('Portfolio', {
     return this.utxoByType && getAvailableAmount(this.utxoByType[type])
   },
 
+  errorRetrievingFunds (type) {
+    typeforce(typeforce.oneOf(typeforce.value('BTC'), typeforce.value('EQB')), type)
+    if (this.utxoByTypeByAddress) {
+      return !this.utxoByTypeByAddress[type]
+    }
+    return false
+  },
+
   /**
    * @function getTxouts
    * Returns txouts that contain enough funds in them.

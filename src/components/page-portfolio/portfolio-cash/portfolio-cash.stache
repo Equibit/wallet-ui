@@ -16,13 +16,23 @@
       <tbody>
         <tr>
           <td>{{i18n('Bitcoin')}}</td>
-          <td class="text-right">{{user-units(balance.cashBtc, 8)}}</td>
-          <td class="text-right">{{local-currency(balance.cashBtc, 'BTC')}}</td>
+          {{#if btcError}}
+            <td class="text-right funds-error">Could not retrieve funds</td>
+            <td class="text-right funds-error">0</td>
+          {{else}}
+            <td class="text-right">{{user-units(balance.cashBtc, 8)}}</td>
+            <td class="text-right">{{local-currency(balance.cashBtc, 'BTC')}}</td>
+          {{/if}}
         </tr>
         <tr>
           <td><a href="{{routeUrl page='equibit'}}">{{i18n('equibit')}}</a></td>
-          <td class="text-right">{{user-units(balance.cashEqb, 8)}}</td>
-          <td class="text-right">{{local-currency(balance.cashEqb, 'EQB')}}</td>
+          {{#if eqbError}}
+            <td class="text-right funds-error">Could not retrieve funds</td>
+            <td class="text-right funds-error">0</td>
+          {{else}}
+            <td class="text-right">{{user-units(balance.cashEqb, 8)}}</td>
+            <td class="text-right">{{local-currency(balance.cashEqb, 'EQB')}}</td>
+          {{/if}}
         </tr>
       </tbody>
     </table>

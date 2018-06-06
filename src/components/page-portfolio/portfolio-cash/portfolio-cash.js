@@ -23,6 +23,12 @@ export const ViewModel = DefineMap.extend({
   balance: {
     type: '*'
   },
+  eqbError: {
+    type: '*'
+  },
+  btcError: {
+    type: '*'
+  },
   cashEqbInBtc: {
     get (val, resolve) {
       currencyConverter.convertCryptoToCrypto(this.balance.cashEqb, 'EQB', 'BTC').then(resolve)
