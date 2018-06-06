@@ -184,8 +184,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
     get () {
       if (this.utxoByTypeByAddress) {
         return {
-          BTC: getAllUtxo(this.utxoByTypeByAddress.BTC.addresses),
-          EQB: getAllUtxo(this.utxoByTypeByAddress.EQB.addresses)
+          BTC: this.utxoByTypeByAddress.BTC ? getAllUtxo(this.utxoByTypeByAddress.BTC.addresses) : [],
+          EQB: this.utxoByTypeByAddress.EQB ? getAllUtxo(this.utxoByTypeByAddress.EQB.addresses) : []
         }
       }
     }
