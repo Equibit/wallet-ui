@@ -561,6 +561,7 @@ export default {
   restrictionLevel3Name: 'Restricted',
   restrictionLevel3Description: 'No secondary market. Securities can only be returned to the issuer.',
   results: 'Results',
+  retrieveFundsError: 'Could not retrieve funds.',
 
   safetyZone: 'Safety Zone',
   safetyZoneDescription: 'Time left to safely recover your securities',

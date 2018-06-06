@@ -17,7 +17,7 @@
         <tr>
           <td>{{i18n('Bitcoin')}}</td>
           {{#if btcError}}
-            <td class="text-right funds-error">Could not retrieve funds</td>
+            <td class="text-right funds-error">{{i18n('retrieveFundsError')}}</td>
             <td class="text-right funds-error">0</td>
           {{else}}
             <td class="text-right">{{user-units(balance.cashBtc, 8)}}</td>
@@ -27,7 +27,7 @@
         <tr>
           <td><a href="{{routeUrl page='equibit'}}">{{i18n('equibit')}}</a></td>
           {{#if eqbError}}
-            <td class="text-right funds-error">Could not retrieve funds</td>
+            <td class="text-right funds-error">{{i18n('retrieveFundsError')}}</td>
             <td class="text-right funds-error">0</td>
           {{else}}
             <td class="text-right">{{user-units(balance.cashEqb, 8)}}</td>
