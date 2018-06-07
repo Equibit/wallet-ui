@@ -13,6 +13,14 @@ issuance-confirm {
 		color: @gray;
 	}
 	.dl-stripped {
+    dt, dd {
+      height: unset;
+      min-height: 30px;
+    }
+    dt::before, dd::before, dt::after, dd::after {
+      content: unset;
+      display: unset;
+    }
 		.restriction-levels {
 			border-bottom: 0;
 			font-size: @font-size-small;
@@ -24,11 +32,11 @@ issuance-confirm {
 			}
 			.restriction-info {
 				color: @gray;
-	
+
 			}
 		}
 	}
-	
+
 	hr {
 		border-top: @border-default;
 	}
