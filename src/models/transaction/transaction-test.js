@@ -285,7 +285,11 @@ describe('models/transaction/utils', function () {
   describe('HTLC-3 Collect securities (for the Sell order / Buy offer)', function () {
     const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
-
+    // The createHTLC3 (+ refund, + blank EQB) child suites may need a little extra time to run the setups.
+    //  The default 2000ms timeout often fails, so here
+    //  the timeout is set to 5000ms instead.  Future changes may
+    //  require this timeout to grow even more.  Note that this change
+    this.timeout(5000)
     describe('prepareHtlcConfig3', function () {
       describe('buildConfig', function () {
         let amount, order, offer, buildConfig
