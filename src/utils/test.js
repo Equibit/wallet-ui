@@ -123,6 +123,27 @@ describe('utils/stache-helpers', function () {
       assert.equal(frag.textContent, 'Testing content string')
     })
   })
+
+  describe('format', function () {
+    describe('format-coin', function () {
+      it('Format whole number with comma by seperated thousands', function () {
+        let number = stache('{{format-coin(value)}}')({value: 5000})
+        assert.equal(number.textContent, '5,000')
+      })
+      it('Format decimal number with comma by seperated thousands', function () {
+        let number = stache('{{format-coin(value)}}')({value: 5000.11})
+        assert.equal(number.textContent, '5,000.11')
+      })
+      it('Format precision decimal number with comma by seperated thousands', function () {
+        let number = stache('{{format-coin(value, precision)}}')({value: 5000.12345678, precision: 8})
+        assert.equal(number.textContent, '5,000.12345678')
+      })
+      it('Format precision decimal number with less decimal values than the precision with comma by seperated thousands', function () {
+        let number = stache('{{format-coin(value, precision)}}')({value: 5000.1234, precision: 8})
+        assert.equal(number.textContent, '5,000.1234')
+      })
+    })
+  })
 })
 
 describe('utils/formatter', function () {

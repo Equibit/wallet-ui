@@ -60,7 +60,7 @@
             {{#is format 'INT'}}
               {{format-int(filledQuantity)}}
             {{else}}
-              {{format-max(filledQuantity)}}
+              {{format-coin(filledQuantity))}}
             {{/is}}
           </td>
         </tr>
@@ -70,7 +70,7 @@
             {{#is format 'INT'}}
               {{format-int(remainingQuantity)}}
             {{else}}
-              {{format-max(remainingQuantity)}}
+              {{format-coin(remainingQuantity)}}
             {{/is}}
           </td>
         </tr>
