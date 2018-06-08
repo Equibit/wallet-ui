@@ -172,7 +172,8 @@ const Offer = DefineMap.extend('Offer', {
   // TODO the calculation of offer expiry should be a timed server process.
   get isExpired () {
     if (this.timelockInfo &&
-        ((this.htlcStep === 2 && this.timelockInfo.partialBlocksRemaining === 0) ||
+        ((this.htlcStep === 1 && this.timelockInfo.fullBlocksRemaining === 0) ||
+          (this.htlcStep === 2 && this.timelockInfo.partialBlocksRemaining === 0) ||
           (this.htlcStep === 3 && this.timelockInfo.fullBlocksRemaining === 0))) {
       return true
     } else {
@@ -206,7 +207,10 @@ const Offer = DefineMap.extend('Offer', {
         txId: {
           $in: [ htlcTxId1, htlcTxId2, htlcTxId3, htlcTxId4 ]
         },
-        address: {'$in': addresses}
+        $or: [
+          {fromAddress: {'$in': addresses}},
+          {toAddress: {'$in': addresses}}
+        ]
       })
     }).then(txes => {
       const txesByTxId = {}
@@ -302,7 +306,10 @@ const Offer = DefineMap.extend('Offer', {
         return Promise.all([
           Transaction.getList({
             txId: { $in: [htlcTxId1, htlcTxId2] },
-            address: {'$in': addresses}
+            $or: [
+              {fromAddress: {'$in': addresses}},
+              {toAddress: {'$in': addresses}}
+            ]
           }),
           BlockhainInfo.infoBySymbol().promise
         ])

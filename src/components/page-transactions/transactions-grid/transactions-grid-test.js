@@ -12,7 +12,12 @@ describe('wallet-ui/components/page-transactions/transactions-grid', function ()
     assert.deepEqual(vm.queryParams, {
       $limit: 50,
       $skip: 0,
-      address: {'$in': [1, 2, 3, 4]}
+      $or: [{
+        fromAddress: {'$in': [1, 2, 3, 4]}
+      }, {
+        toAddress: {'$in': [1, 2, 3, 4]}
+      }],
+      $sort: { createdAt: -1 }
     })
   })
 })

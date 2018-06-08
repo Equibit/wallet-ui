@@ -7,7 +7,7 @@
 
 <bootstrap-modal-content>
   <div class="modal-header">
-    <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
+    <button on:click="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
 
     {{#is mode 'edit'}}
       <h3 class="modal-title"><span class="icon icon-upload"></span> {{i18n('send')}}</h3>
@@ -26,32 +26,37 @@
       {{#is mode 'confirm'}}
         {{i18n('confirmTransaction')}}
       {{else}}
-        {{i18n('sendModalDescription')}}
+        {{#if formsData.fundsOnly}}
+          {{i18n('sendModalDescription')}}
+        {{else}}
+          {{i18n('sendFundsModalDescription')}}
+        {{/if}}
       {{/is}}
     </div>
 
     {{#is mode 'edit'}}
-      <send-form (receiveform)="openReceiveForm(@close)"
-                 {form-data}="formData"
-                 {portfolio}="portfolio"
-                 {issuances}="issuances" />
+      <send-form on:vm:receiveform="openReceiveForm(@close)"
+                 formData:from="formData"
+                 portfolio:from="portfolio"
+                 issuances:from="issuances"
+                 securities:from="securities" />
     {{else}}
-      <send-confirm-form {form-data}="formData" {issuances}="issuances" />
+      <send-confirm-form formData:from="formData" issuances:from="issuances" securities:from="securities" />
     {{/is}}
 
   </div>
   <div class="modal-footer">
 
     {{#is mode 'edit'}}
-      <button ($click)="next()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
-      <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+      <button on:click="next()" type="button" class="btn btn-primary">{{i18n('next')}}</button>
+      <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
     {{/is}}
     {{#is mode 'confirm'}}
       {{#if isSending}}
         <loading-indicator style="position:relative;left:20px;"></loading-indicator>
       {{else}}
-        <button ($click)="send(@close)" type="button" class="btn btn-primary">{{i18n('send')}}</button>
-        <button ($click)="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('edit')}}</button>
+        <button on:click="send(@close)" type="button" class="btn btn-primary">{{i18n('send')}}</button>
+        <button on:click="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('edit')}}</button>
       {{/if}}
     {{/is}}
 

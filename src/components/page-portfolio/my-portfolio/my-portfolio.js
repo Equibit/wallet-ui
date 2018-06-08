@@ -17,20 +17,30 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
 import './my-portfolio.less'
 import view from './my-portfolio.stache'
-import hub from '~/utils/event-hub'
+import hub from '../../../utils/event-hub'
 import { translate } from '~/i18n/'
 import Portfolio from '../../../models/portfolio'
-import Session from '~/models/session'
-import Transaction from '~/models/transaction/transaction'
+import Issuance from '../../../models/issuance'
+import Session from '../../../models/session'
+import Transaction from '../../../models/transaction/transaction'
 import { merge } from 'ramda'
 
 let portfolio
 
 export const ViewModel = DefineMap.extend({
   portfolio: Portfolio,
+  issuances: Issuance.List,
   isSending: 'boolean',
   isSendFundsPopup: 'boolean',
   isReceiveFundsPopup: 'boolean',
+  isRecoveryPhrasePopup: 'boolean',
+  isAuthModalPopup: 'boolean',
+  secondFactorCode: 'string',
+  user: {
+    value () {
+      return Session.current.user
+    }
+  },
   receiveFunds () {
     this.isReceiveFundsPopup = false
     if (!this.portfolio) {
@@ -39,11 +49,33 @@ export const ViewModel = DefineMap.extend({
         portfolio.keys = Session.current.user.generatePortfolioKeys(portfolio.index)
         this.portfolio = portfolio
         // Session.current.portfolios.push(portfolio)
-        this.isReceiveFundsPopup = true
+        this.showFirstModal()
       })
     } else {
-      this.isReceiveFundsPopup = true
+      this.showFirstModal()
     }
+  },
+  showFirstModal () {
+    this.isReceiveFundsPopup = false
+    this.isAuthModalPopup = false
+    this.isRecoveryPhrasePopup = false
+
+    if (this.user.hasRecordedMnemonic) {
+      this.isReceiveFundsPopup = true
+    } else if (this.user.twoFactorValidatedSession) {
+      this.isRecoveryPhrasePopup = true
+    } else {
+      this.isAuthModalPopup = true
+    }
+  },
+  codeVerified (args) {
+    const code = args[1]
+    this.secondFactorCode = code
+    this.isRecoveryPhrasePopup = true
+  },
+  recoveryPhraseDone () {
+    this.isRecoveryPhrasePopup = false
+    this.isReceiveFundsPopup = true
   },
   receiveDone () {
     if (!this.portfolio) {
@@ -51,25 +83,11 @@ export const ViewModel = DefineMap.extend({
     }
     this.isReceiveFundsPopup = false
   },
-  send (formData) {
-    console.log('send: ', formData)
-    if (!formData) {
-      console.error('Error: received no form data')
-      return
-    }
-    return (formData.type === 'SECURITIES' ? sendIssuance(this.portfolio, formData) : this.sendFunds(formData))
-      .then(() => {
-        const msg = formData.type === 'SECURITIES' ? translate('securitiesSent') : translate('fundsSent')
-        hub.dispatch({
-          'type': 'alert',
-          'kind': 'success',
-          'title': msg,
-          'displayInterval': 5000
-        })
-      })
-  },
 
-  sendFunds (tx, changeAddr) {
+  // removed ability to send issuances from this page
+  // in commit fa099252e5f305eacc90382946869088112d3fc9
+
+  send (tx, changeAddr) {
     const currencyType = tx.currencyType
     console.log('tx.hex: ' + tx.hex, tx)
 
@@ -102,7 +120,7 @@ export const ViewModel = DefineMap.extend({
       hub.dispatch({
         'type': 'alert',
         'kind': 'success',
-        'title': translate('issuanceWasCanceled'),
+        'title': translate('issuanceWasCancelled'),
         'displayInterval': 12000
       })
       Session.current.refreshBalance()
@@ -148,7 +166,7 @@ const sendIssuance = (portfolio, formData) => {
     changeAddr,
     changeAddrEmptyEqb,
     amountEqb,
-    type: 'OUT',
+    type: 'TRANSFER',
     currencyType,
     description: formData.description,
     // TODO: issuanceTxId should not just be from the UTXO. This should be a txid of the authorization transaction!

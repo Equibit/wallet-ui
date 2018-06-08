@@ -210,6 +210,12 @@ const Issuance = DefineMap.extend('Issuance', {
     }
   },
 
+  // This indicates whether the issuance is a security of a portfolio (user is an investor) or its an authorized issuance (user is an issuer).
+  isSecurity: {
+    serialize: false,
+    type: 'boolean'
+  },
+
   cancel () {
     const portfolio = Session && Session.current && Session.current.portfolios && Session.current.portfolios[0]
 

@@ -58,6 +58,7 @@ export const ViewModel = DefineMap.extend({
     }
   },
   isCorrect: 'boolean',
+  inputVm: {},
   view () {
     this.mode = 'view'
   },
@@ -77,6 +78,7 @@ export const ViewModel = DefineMap.extend({
   },
   end () {
     this.errorMessage = ''
+    this.inputVm.dispatch('validate', {}) // need a data argument here for streams to pick up the event
     if (this.isCorrect) {
       User.connection.updateData({
         _id: this.user._id,

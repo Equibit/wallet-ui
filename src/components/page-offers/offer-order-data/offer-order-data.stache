@@ -20,7 +20,7 @@
     <div class="col-xs-6">
       <label>{{i18n('quantity')}}</label>
       <span class="order-quantity">
-        {{#is offer.assetType 'EQUIBIT'}}
+        {{#is order.assetType 'EQUIBIT'}}
           {{coin(order.quantity)}}
         {{else}}
           {{format(order.quantity, '', 0)}}

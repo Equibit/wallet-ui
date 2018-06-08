@@ -1,4 +1,5 @@
 <can-import from="~/utils/stache-helpers/" />
+<can-import from="~/components/common/validation-message.component" />
 
 <div class="well">
   <div class="row section">
@@ -6,7 +7,7 @@
       <span class="icon icon-clock"></span>{{i18n('autoLogout')}}
     </div>
     <div class="col-sm-7 col-xs-12 section-column">
-      <span class="input-value">5 {{i18n('minutes')}}</span>
+      <span class="input-value">{{msToMinutes(user.autoLogoutTime)}} {{i18n('minutes')}}</span>
     </div>
     <div class="col-sm-2 col-xs-12 section-column section-cta">
       <button ($click)="showModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
@@ -18,7 +19,7 @@
 {{#if isModalShown}}
   <bootstrap-modal-content class="user-autologout">
     <div class="modal-header">
-      <button ($click)="close()" type="button" class="close" aria-label="Close">
+      <button on:click="close()" type="button" class="close" aria-label="Close">
         <span class="icon icon-cross rotate-90"></span></button>
         <h4 class="modal-title"><span class="icon icon-key"></span> {{i18n('autoLogout')}}</h4>
     </div>
@@ -32,17 +33,18 @@
           <div class="form-group">
             <label for="autoLogoutTime">{{i18n('autoLogoutLabel')}}</label>
             <div class="input-group">
-              <input type="number" class="form-control" id="autoLogoutTime">
+              <input type="number" value:bind="autoLogoutMinutes" on:change="../set('error', null)" class="form-control" id="autoLogoutTime">
               <span class="input-group-addon">{{i18n('minutes')}}</span>
             </div>
+            <validation-message message:from="error" />
           </div>
         </div>
       </div>
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary">{{i18n('save')}}</button>
-      <button ($click)="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
+      <button on:click="validateAndSave(@close)" type="button" class="btn btn-primary">{{i18n('save')}}</button>
+      <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
     </div>
   </bootstrap-modal-content>
 {{/if}}

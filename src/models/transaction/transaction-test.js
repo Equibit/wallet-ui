@@ -23,6 +23,7 @@ import { createHtlc1, prepareHtlcConfigBtc, prepareTxData } from './transaction-
 import { createHtlc2, prepareHtlcConfigEqb } from './transaction-create-htlc2'
 import { createHtlc3, createHtlcRefund3, prepareHtlcConfig3, prepareHtlcRefundConfig3 } from './transaction-create-htlc3'
 import { createHtlc4, prepareHtlcConfig4 } from './transaction-create-htlc4'
+import { createTransfer } from './transaction-transfer'
 
 describe('models/transaction/utils', function () {
   const transactionFeeRates = { EQB: 5, BTC: 10 }
@@ -94,7 +95,7 @@ describe('models/transaction/utils', function () {
       })
       it('should create txInfo object', function () {
         const txInfo = htlcConfig.txInfo
-        assert.equal(txInfo.address, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'address')
+        assert.equal(txInfo.fromAddress, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'address')
         assert.equal(txInfo.addressTxid, 'e226a916871ef47650edd38ed66fbcf36803622da301e8931b1df59bee42e301', 'vin.0.txid')
         assert.equal(txInfo.addressVout, '1', 'vin.0.vout')
         assert.equal(txInfo.amount, 35000, 'amount')
@@ -102,7 +103,7 @@ describe('models/transaction/utils', function () {
         assert.equal(txInfo.fee, 2900, 'fee')
         assert.equal(txInfo.fromAddress, 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', 'fromAddress')
         assert.equal(txInfo.toAddress, 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', 'toAddress')
-        assert.equal(txInfo.type, 'BUY', 'type')
+        assert.equal(txInfo.type, 'TRADE', 'type')
       })
     })
 
@@ -236,14 +237,13 @@ describe('models/transaction/utils', function () {
           txInfo = htlcConfig.txInfo
         })
         it('should have main address info', function () {
-          assert.equal(txInfo.address, order.eqbAddress, 'address = order.eqbAddress')
           assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
           assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
         })
         it('should have amount, types and desc', function () {
           assert.equal(txInfo.amount, amount, 'amount of 500')
           assert.equal(txInfo.currencyType, 'EQB', 'currencyType')
-          assert.equal(txInfo.type, 'SELL', 'type')
+          assert.equal(txInfo.type, 'TRADE', 'type')
         })
         it('should have fee and from/to addresses', function () {
           assert.equal(txInfo.fee, 3000, 'fee')
@@ -285,7 +285,11 @@ describe('models/transaction/utils', function () {
   describe('HTLC-3 Collect securities (for the Sell order / Buy offer)', function () {
     const changeAddrPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
     let htlcOfferMock, htlcConfig
-
+    // The createHTLC3 (+ refund, + blank EQB) child suites may need a little extra time to run the setups.
+    //  The default 2000ms timeout often fails, so here
+    //  the timeout is set to 5000ms instead.  Future changes may
+    //  require this timeout to grow even more.  Note that this change
+    this.timeout(5000)
     describe('prepareHtlcConfig3', function () {
       describe('buildConfig', function () {
         let amount, order, offer, buildConfig
@@ -342,14 +346,13 @@ describe('models/transaction/utils', function () {
           txInfo = htlcConfig.txInfo
         })
         it('should have main address info', function () {
-          assert.equal(txInfo.address, offer.eqbAddress, 'address = offer.eqbAddress')
           assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
           assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
         })
         it('should have amount, types and desc', function () {
           assert.equal(txInfo.amount, amount, 'amount of 500')
           assert.equal(txInfo.currencyType, 'EQB', 'currencyType')
-          assert.equal(txInfo.type, 'BUY', 'type')
+          assert.equal(txInfo.type, 'TRADE', 'type')
           assert.equal(txInfo.description, 'Collecting securities from HTLC (step #3)')
         })
         it('should have fee and from/to addresses', function () {
@@ -505,19 +508,18 @@ describe('models/transaction/utils', function () {
           txInfo = htlcConfig.txInfo
         })
         it('should have main address info', function () {
-          assert.equal(txInfo.address, order.eqbAddress, 'address = order.eqbAddress')
           assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
           assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
         })
         it('should have amount, types and desc', function () {
           assert.equal(txInfo.amount, amount, 'amount of 500')
           assert.equal(txInfo.currencyType, 'EQB', 'currencyType')
-          assert.equal(txInfo.type, 'CANCEL', 'type')
+          assert.equal(txInfo.type, 'REFUND', 'type')
           assert.equal(txInfo.description, 'Refunding securities from HTLC (step #3)')
         })
         it('should have fee and from/to addresses', function () {
           assert.equal(txInfo.fee, 3000, 'fee')
-          assert.equal(txInfo.fromAddress, order.eqbAddress, 'fromAddress = order.eqbAddress')
+          assert.equal(txInfo.fromAddress, offer.eqbAddress, 'fromAddress = offer.eqbAddress')
           assert.equal(txInfo.toAddress, order.eqbAddress, 'toAddress = order.eqbAddress')
         })
       })
@@ -577,14 +579,13 @@ describe('models/transaction/utils', function () {
           txInfo = htlcConfig.txInfo
         })
         it('should have main address info', function () {
-          assert.equal(txInfo.address, order.btcAddress, 'address = order.eqbAddress')
           assert.equal(txInfo.addressTxid, buildConfig.vin[0].txid, 'addressTxid = vin.0.txid')
           assert.equal(txInfo.addressVout, buildConfig.vin[0].vout, 'addressVout = vin.0.vout')
         })
         it('should have amount, types and desc', function () {
           assert.equal(txInfo.amount, amount - fee, 'amount minus fee')
           assert.equal(txInfo.currencyType, 'BTC', 'currencyType')
-          assert.equal(txInfo.type, 'SELL', 'type')
+          assert.equal(txInfo.type, 'TRADE', 'type')
           assert.equal(txInfo.description, 'Collecting payment from HTLC (step #4)')
         })
         it('should have fee and from/to addresses', function () {
@@ -637,6 +638,84 @@ describe('models/transaction/utils', function () {
       it('should calculate fee correctly based on tx hex size', function () {
         assert.equal(txData.fee, 2250)
         assert.equal(txData.fee, fee)
+      })
+    })
+
+    describe('create a transfer tx', function () {
+      let txData, amount, toAddress, changeAddr, expectedTxId
+      describe('for ISSUANCE', function () {
+        before(function () {
+          amount = 1000
+          toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
+          changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
+          txData = createTransfer('ISSUANCE', amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates)
+          expectedTxId = '3af989cb41bd24a9086023db1f1fd0d5c6ddf4c12d8b9129c42f983615a11e5b'
+        })
+        it('should define amount', function () {
+          assert.equal(txData.amount, amount)
+        })
+        it('should define assetType', function () {
+          assert.equal(txData.assetType, 'ISSUANCE')
+        })
+        it('should define currencyType', function () {
+          assert.equal(txData.currencyType, 'EQB')
+        })
+        it('should calculate fee correctly based on tx hex size', function () {
+          assert.equal(txData.fee, 2605)
+        })
+        it('should define tx id', function () {
+          assert.equal(txData.txId, expectedTxId)
+        })
+      })
+
+      describe('for BTC', function () {
+        before(function () {
+          amount = 1000
+          toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
+          changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
+          txData = createTransfer('BTC', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
+          expectedTxId = '7f5f9a3c889c9fd41b01581f584b204d979a59384a728beb50b54a279a4b45ab'
+        })
+        it('should define amount', function () {
+          assert.equal(txData.amount, amount)
+        })
+        it('should define no assetType', function () {
+          assert.ok(!txData.assetType)
+        })
+        it('should define currencyType', function () {
+          assert.equal(txData.currencyType, 'BTC')
+        })
+        it('should calculate fee correctly based on tx hex size', function () {
+          assert.equal(txData.fee, 2250)
+        })
+        it('should define tx id', function () {
+          assert.equal(txData.txId, expectedTxId)
+        })
+      })
+
+      describe('for empty EQB', function () {
+        before(function () {
+          amount = 1000
+          toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
+          changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
+          txData = createTransfer('EQB', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
+          expectedTxId = '1053a2f4175d6027e1b5e6131b1cf1222deefd83b64b0affa4eee50471987e3b'
+        })
+        it('should define amount', function () {
+          assert.equal(txData.amount, amount)
+        })
+        it('should define no assetType', function () {
+          assert.equal(txData.assetType, 'EQUIBIT')
+        })
+        it('should define currencyType', function () {
+          assert.equal(txData.currencyType, 'EQB')
+        })
+        it('should calculate fee correctly based on tx hex size', function () {
+          assert.equal(txData.fee, 1510)
+        })
+        it('should define tx id', function () {
+          assert.equal(txData.txId, expectedTxId)
+        })
       })
     })
   })

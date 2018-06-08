@@ -62,7 +62,7 @@ if (feathersClient.io) {
 
 const Session = DefineMap.extend('Session', {
   /**
-   * @property {Function} models/session.prototype.user user
+   * @property {User} models/session.prototype.user user
    * @parent models/session.prototype
    * User instance.
    */
@@ -71,7 +71,7 @@ const Session = DefineMap.extend('Session', {
   },
 
   /**
-   * @property {Function} models/session.prototype.portfoliosPromise portfoliosPromise
+   * @property {Promise} models/session.prototype.portfoliosPromise portfoliosPromise
    * @parent models/session.prototype
    * Promise for portfolios live list.
    */
@@ -92,7 +92,7 @@ const Session = DefineMap.extend('Session', {
   },
 
   /**
-   * @property {Function} models/session.prototype.portfoliosMeta portfoliosMeta
+   * @property {Portfolios.List} models/session.prototype.portfoliosMeta portfoliosMeta
    * @parent models/session.prototype
    * List of user's portfolios info.
    * ```
@@ -143,23 +143,25 @@ const Session = DefineMap.extend('Session', {
    */
   refreshBalance: function (options) {
     // Mark portfolio address as used:
-    if (options && options.transactionEvent && options.transactionEvent.type === 'IN') {
-      const { address, currencyType } = options.transactionEvent
-      this.portfolios[0].markAsUsed(address, currencyType)
-    }
-
-    // Force portfolio to refresh balance
-    this.portfolioRefreshPromise = Math.random()
-    // load company/issuance UTXO:
-    this.issuancesPromise = Math.random()
-    return Promise.all([
-      this.portfolioRefreshPromise,
-      this.issuancesPromise
-    ])
+    return this.portfoliosPromise.then(portfolios => {
+      if (options && options.transactionEvent && options.transactionEvent.type === 'IN') {
+        const { address, currencyType } = options.transactionEvent
+        portfolios[0].markAsUsed(address, currencyType)
+      }
+      if (this.portfolios && this.portfolios[0]) {
+        this.portfolioRefreshPromise = portfolios[0].refreshBalance()
+      }
+      // load company/issuance UTXO:
+      this.issuancesPromise = Math.random()
+      return Promise.all([
+        this.portfolioRefreshPromise,
+        this.issuancesPromise
+      ])
+    })
   },
 
   /**
-   * @property {Function} models/session.prototype.balance balance
+   * @property {Object} models/session.prototype.balance balance
    * @parent models/session.prototype
    * User balance contains a summary from all portfolios.
    * ```
@@ -272,6 +274,11 @@ const Session = DefineMap.extend('Session', {
       })
     }
   },
+  /**
+   * @property {Issuance.List} models/session.prototype.issuances issuances
+   * @parent models/session.prototype
+   * Issuances that belong to the user (authorized by him), but are not a part of his portfolio (as investor).
+   */
   issuances: {
     type: function (val) {
       if (val instanceof Issuance.List) {
@@ -325,10 +332,10 @@ const Session = DefineMap.extend('Session', {
     get () {
       const issuances = this.issuances
       const portfolios = this.portfolios
-      const issuanceAddresses = issuances && issuances.reduce((acc, issuance) => {
+      const issuanceAddresses = issuances ? issuances.reduce((acc, issuance) => {
         acc.push(issuance.address)
         return acc
-      }, [])
+      }, []) : []
       let results = {EQB: issuanceAddresses, BTC: []}
       results = portfolios ? portfolios.reduce((acc, portfolio) => {
         const ret = {

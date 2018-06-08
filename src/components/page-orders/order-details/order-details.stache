@@ -27,12 +27,13 @@
     <div class="panel-body">
       <div class="row order-details-body">
         <div class="col-xs-12 col-lg-8 order-data">
-          <order-data order:from="order" offers:from="acceptedOffers" class="stretch"/>
+          <order-data order:from="order" offers:from="acceptedOffers" class="stretch" filledQuantity:to="filledQuantity" />
         </div>
 
         <div class="col-xs-12 col-lg-4 offers-data">
           <order-offers-data class="stretch"
                             order:from="order"
+                            filledQuantity:from="filledQuantity"
                             offers:from="newOffers"
                             issuance:from="order.issuance"/>
         </div>

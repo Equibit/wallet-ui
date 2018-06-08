@@ -24,6 +24,7 @@ import Transaction from '~/models/transaction/'
 import Offer from '~/models/offer'
 import Order from '~/models/order'
 import Issuance from '~/models/issuance'
+import { translate } from '~/i18n/'
 import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
 import { createHtlc3 } from '../../../models/transaction/transaction-create-htlc3'
 
@@ -33,9 +34,9 @@ export const ViewModel = DefineMap.extend({
   },
   title (type) {
     return ({
-      'IN': 'Transfer Received',
-      'CANCEL': 'Cancellation of an issuance',
-      'AUTH': 'Authentication of a new issuance'
+      'TRANSFER': translate('notificationTitleTransferTransaction'),
+      'CANCEL': translate('notificationTitleCancelTransaction'),
+      'AUTH': translate('notificationTitleAuthTransaction')
     })[type] || ('Unknown Type ' + type)
   },
   'for' (addr) {
@@ -54,7 +55,8 @@ export const ViewModel = DefineMap.extend({
       BUY: [null, 'BTC', 'EQB', 'EQB', 'BTC'],
       SELL: [null, 'EQB', 'BTC', 'BTC', 'EQB']
     }
-    const currencyType = currencyTypesByOfferTypeAndStep[notification.data.type][notification.data.htlcStep]
+    const nextHtlcStep = notification.data.htlcStep + 1
+    const currencyType = currencyTypesByOfferTypeAndStep[notification.data.type][nextHtlcStep]
 
     Promise.all([
       this.offerFor(notification),
@@ -68,12 +70,12 @@ export const ViewModel = DefineMap.extend({
       }
 
       return Promise.all([
-        Issuance.get({ _id: offer.issuanceId }),
+        offer.issuanceId && Issuance.get({ _id: offer.issuanceId }),
         offer.timelockInfoPromise
       ])
       .then(([issuance, timelockInfo]) => {
         const secret = offer.htlcStep === 3 ? offer.secret : Session.current.user.decrypt(offer.secretEncrypted)
-        const createFn = ([null, null, null, createHtlc3, createHtlc4][notification.data.htlcStep + 1])
+        const createFn = ([null, null, null, createHtlc3, createHtlc4][nextHtlcStep])
         const txData = createFn(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
         const tx = new Transaction(txData)
 

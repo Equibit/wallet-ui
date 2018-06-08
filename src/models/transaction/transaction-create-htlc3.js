@@ -52,6 +52,7 @@ const [ createHtlc3, createHtlcRefund3 ] = [false, true].map(isRefund => {
 const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRefund => {
   return function (order, offer, portfolio, issuance, secret, changeAddr, transactionFee) {
     const amount = offer.quantity
+    const fromAddress = isRefund ? offer.eqbAddress : order.eqbAddress
     const toAddress = isRefund ? order.eqbAddress : offer.eqbAddress
     const refundAddr = order.eqbAddress
     const paymentTxId = offer.htlcTxId1
@@ -124,16 +125,15 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
     const description = `${isRefund ? 'Refunding' : 'Collecting'} ${assetType === 'ISSUANCE' ? 'securities' : 'Blank EQB'} from HTLC (step #${htlcStep})`
 
     const txInfo = {
-      address: toAddress,
       addressTxid: buildConfig.vin[0].txid,
       addressVout: buildConfig.vin[0].vout,
-      type: isRefund ? 'CANCEL' : 'BUY',
+      type: isRefund ? 'REFUND' : 'TRADE',
       assetType,
       fee,
       currencyType: 'EQB',
       amount,
       description,
-      fromAddress: order.eqbAddress,
+      fromAddress,
       toAddress,
       htlcStep,
       offerId: offer._id,
@@ -148,6 +148,7 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
 const [ prepareHtlcConfig3Btc, prepareHtlcRefundConfig3Btc ] = [false, true].map(isRefund => {
   return function prepareHtlcConfig3Btc (order, offer, portfolio, secret, changeAddr, transactionFee) {
     const amount = offer.quantity * offer.price * offer.priceMutliplier
+    const fromAddress = isRefund ? offer.btcAddress : order.btcAddress
     const toAddress = isRefund ? order.btcAddress : offer.btcAddress
     const refundAddr = order.btcAddress
     typeforce(types.Address, toAddress)
@@ -189,15 +190,14 @@ const [ prepareHtlcConfig3Btc, prepareHtlcRefundConfig3Btc ] = [false, true].map
     }
 
     const txInfo = {
-      address: isRefund ? order.eqbAddress : offer.eqbAddress,
       addressTxid: buildConfig.vin[0].txid,
       addressVout: buildConfig.vin[0].vout,
-      type: isRefund ? 'CANCEL' : 'SELL',
+      type: isRefund ? 'REFUND' : 'TRADE',
       fee,
       currencyType: 'BTC',
       amount,
       description: `${isRefund ? 'Refunding' : 'Collecting'} payment from HTLC (step #${htlcStep})`,
-      fromAddress: order.btcAddress,
+      fromAddress,
       toAddress,
       htlcStep,
       offerId: offer._id,

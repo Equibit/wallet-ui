@@ -48,7 +48,7 @@ function prepareHtlc2Btc (offer, order, portfolio, issuance, changeAddr) {
   const options = {
     fee: transactionFee,
     changeAddr: changeAddr,
-    type: offer.type,
+    type: 'TRADE',
     currencyType: 'BTC',
     description: `Buying securities (HTLC #${htlcStep})`,
     issuance: issuance,
@@ -84,7 +84,7 @@ function prepareHtlc2Eqb (offer, order, portfolio, issuance, emptyEqbChangeAddr)
   const options = {
     fee: transactionFee,
     changeAddr: order.btcAddress,
-    type: offer.type,
+    type: 'TRADE',
     currencyType: 'EQB',
     description: `Buying securities (HTLC #${htlcStep})`,
     issuance: issuance,

@@ -65,10 +65,10 @@ export const ViewModel = DefineMap.extend({
       .then(() => {
         if (isNewUser) {
           this.user.generateWalletKeys()
-          this.routeWithAlert(isNewUser)
-          return
+          this.routeWithAlert('portfolio', isNewUser)
+        } else {
+          this.routeWithAlert('recovery-phrase')
         }
-        route.data.page = 'recovery-phrase'
       })
       .catch(e => {
         console.error(e)
@@ -82,8 +82,8 @@ export const ViewModel = DefineMap.extend({
   togglePassword () {
     this.passwordVisible = !this.passwordVisible
   },
-  routeWithAlert (isNewUser) {
-    route.data.page = 'portfolio'
+  routeWithAlert (routeName, isNewUser) {
+    route.data.page = routeName
     hub.dispatch({
       'type': 'alert',
       'kind': 'success',

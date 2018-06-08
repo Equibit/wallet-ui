@@ -53,10 +53,11 @@ export const ViewModel = DefineMap.extend({
     set: enumSetter(['OPEN', 'TRADING', 'CLOSED', 'CANCELLED', 'REJECTED'])
   },
 
-  isAskFlow: {
-    get () {
-      return this.order && this.order.type === 'SELL'
-    }
+  get isAskFlow () {
+    return this.order && this.order.type === 'SELL'
+  },
+  get assetType () {
+    return this.order && this.order.assetType
   },
 
   // For collect-asset modal:
@@ -67,7 +68,7 @@ export const ViewModel = DefineMap.extend({
 
   titles: {
     get () {
-      if (this.tx && this.tx.type === 'CANCEL') {
+      if (this.tx && this.tx.type === 'REFUND') {
         return {
           BTC: {
             header: 'dealFlowMessageTitleRecoverPayment',

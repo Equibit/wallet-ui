@@ -4,6 +4,7 @@ import Order from '../../../models/order'
 import Issuance from '../../../models/issuance'
 import { toMaxPrecision } from '../../../utils/formatter'
 import feathersClient from '~/models/feathers-client'
+import {translate} from '~/i18n/'
 
 const FormData = DefineMap.extend('OfferFormData', {
   portfolio: Portfolio,
@@ -24,6 +25,9 @@ const FormData = DefineMap.extend('OfferFormData', {
     type: 'number',
     // Currently in uEQB. Set quantity which is in Satoshi:
     set (val) {
+      if (this.order.isFillOrKill) {
+        val = toMaxPrecision(this.order.quantity / 100000000, 8)
+      }
       this.quantity = Math.floor(val * 100000000)
       return val
     }
@@ -54,6 +58,10 @@ const FormData = DefineMap.extend('OfferFormData', {
     return this.order.type === 'SELL' ? 'BTC' : 'EQB'
   },
 
+  get assetType () {
+    return this.order.assetType
+  },
+
   // In uBTC:
   get uBtcTotalPrice () {
     return this.uBtcPrice * this.quantity * this.order.priceMutliplier
@@ -81,29 +89,25 @@ const FormData = DefineMap.extend('OfferFormData', {
     const userId = portfolio.userId
 
     if (!issuanceId || !userId) {
-      return Promise.reject(new Error('Cannot Query data for selling issuance'))
+      return Promise.reject(new Error(translate('sellingSecuritiesCannotQuery')))
     }
 
     const ordersService = feathersClient.service('orders')
-    const offersService = feathersClient.service('offers')
 
-    // query for offers and/or orders
+    // query for orders
     const query = {
       issuanceId,
       userId,
       type: 'SELL',
-      // TODO: not expired
       status: { $in: ['OPEN', 'TRADING'] }
     }
 
     const promises = Promise.all([
-      ordersService.find({ query }),
-      offersService.find({ query })
+      ordersService.find({ query })
     ]).then(response => {
       const sellIssuanceData = {}
       sellIssuanceData.sellOrderTotal = response[0].data.reduce((total, obj) => total + (obj.quantity || 0), 0)
-      sellIssuanceData.sellOfferTotal = response[1].data.reduce((total, obj) => total + (obj.quantity || 0), 0)
-      sellIssuanceData.maxSellQuantity = issuance.utxoAmountTotal - sellIssuanceData.sellOrderTotal - sellIssuanceData.sellOfferTotal
+      sellIssuanceData.maxSellQuantity = issuance.utxoAmountTotal - sellIssuanceData.sellOrderTotal
       this.sellData = sellIssuanceData
       return this.sellData
     })
@@ -118,32 +122,32 @@ const FormData = DefineMap.extend('OfferFormData', {
       return true
     }
 
-    const type = this.type
+    const orderType = this.order.type
     const quantity = this.quantity || 0
     const order = this.order || {}
     const orderQuantity = order.quantity || 0
     this.quantityProblem = ''
 
-    if (type === 'BUY' && quantity > orderQuantity) {
-      this.quantityProblem = 'Quantity cannot be more than the number of shares ordered.'
+    if (orderType === 'SELL' && quantity > orderQuantity) {
+      this.quantityProblem = translate('sellingSecuritiesQuantityGTSharesOrdered')
       return false
     }
-    if (type === 'BUY') {
+    if (orderType === 'SELL') {
       return true
     }
-    // else type === 'SELL'
+    // else orderType === 'SELL'
 
     const sellDataPromise = this.sellDataPromise
     const sellData = sellDataPromise && this.sellData
 
     if (!sellData) {
-      this.quantityProblem = 'checking sell data...'
+      this.quantityProblem = translate('sellingSecuritiesCheckingSellData')
       // waiting for sellData info
       return false
     }
 
     if (quantity > sellData.maxSellQuantity) {
-      this.quantityProblem = 'Quantity cannot be more than the number of shares owned and not trading.'
+      this.quantityProblem = translate('sellingSecuritiesQuantityGTSharesOwned')
       // can't sell more than owned (that are not pending)
       return false
     }
@@ -161,7 +165,11 @@ const FormData = DefineMap.extend('OfferFormData', {
       if (this.currencyType === 'BTC') {
         return this.portfolio.hasEnoughFunds(this.totalPrice + this.fee, 'BTC')
       } else {
-        return this.issuance.utxoAmountTotal >= this.quantity && this.portfolio.hasEnoughFunds(this.fee, 'EQB')
+        if (this.order.assetType === 'EQUIBIT') {
+          return this.portfolio.hasEnoughFunds(this.quantity + this.fee, 'EQB')
+        } else {
+          return this.issuance.utxoAmountTotal >= this.quantity && this.portfolio.hasEnoughFunds(this.fee, 'EQB')
+        }
       }
     }
   },
@@ -171,7 +179,7 @@ const FormData = DefineMap.extend('OfferFormData', {
     }
   },
   get errorMessage () {
-    return this.currencyType === 'BTC' ? 'Not enough funds' : 'Not enough securities'
+    return this.currencyType === 'BTC' ? translate('notEnoughFundsPopoverMessage') : translate('notEnoughSecuritiesPopoverMessage')
   }
 })
 

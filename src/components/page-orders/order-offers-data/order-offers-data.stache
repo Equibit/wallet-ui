@@ -27,7 +27,7 @@
                     {{#is offer.assetType 'EQUIBIT'}}
                       {{coin(offer.quantity)}}
                     {{else}}
-                      {{offer.quantity}}
+                      {{format(offer.quantity, '', 0)}}
                     {{/is}}
                   </span>
                   <span class="offer-date">{{offer.dateDisplay}}</span>
@@ -42,8 +42,12 @@
                   {{#is offer acceptingOffer}}
                     <loading-indicator style="position:relative;margin:10px;margin-left:20px;margin-right:auto;"></loading-indicator>
                   {{else}}
-                    <button class="btn btn-default btn-sm btn-primary btn-accept"
-                            on:click="acceptOffer(offer)">{{i18n('accept')}}</button>
+                    {{#if canAccept(offer)}}
+                      <button class="btn btn-default btn-sm btn-primary btn-accept"
+                              on:click="acceptOffer(offer)">{{i18n('accept')}}</button>
+                    {{else}}
+                      {{i18n('offerTooBig')}}
+                    {{/if}}
                   {{/is}}
                 </div>
               </div>

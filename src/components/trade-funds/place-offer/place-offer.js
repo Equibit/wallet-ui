@@ -72,6 +72,12 @@ export const ViewModel = DefineMap.extend({
   },
   transaction: '*',
 
+  get sendOfferTitle () {
+    return this.order.type === 'SELL'
+      ? 'sendOfferPayment'
+      : (this.order.assetType === 'EQUIBIT' ? 'sendOfferEquibits' : 'sendOfferSecurities')
+  },
+
   next () {
     if (!this.formData.isValid || !this.portfolio) {
       return

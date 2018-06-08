@@ -15,16 +15,26 @@
 
 import Component from 'can-component'
 import DefineMap from 'can-define/map/map'
-import { merge } from 'ramda'
 import './send-popup.less'
 import view from './send-popup.stache'
 import Session from '../../../models/session'
+import Issuance from '../../../models/issuance'
 import Transaction from '../../../models/transaction/transaction'
 import FormData from './form-data'
+import { createTransfer } from '../../../models/transaction/transaction-transfer'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
-  issuances: '*',
+  // Authorized issuances:
+  issuances: {
+    Type: Issuance.List
+  },
+  // Investor issuances:
+  securities: {
+    get () {
+      return this.portfolio && this.portfolio.securities
+    }
+  },
   tx: '*',
   changeAddr: '*',
   formData: {
@@ -35,6 +45,7 @@ export const ViewModel = DefineMap.extend({
       return new FormData({
         portfolio: this.portfolio,
         issuanceOnly: this.issuanceOnly,
+        fundsOnly: this.fundsOnly,
         rates: Session.current.rates
       })
     }
@@ -43,6 +54,7 @@ export const ViewModel = DefineMap.extend({
     value: 'edit'
   },
   issuanceOnly: 'boolean',
+  fundsOnly: 'boolean',
   toAddress: '*',
   next () {
     this.formData.validate()
@@ -55,17 +67,17 @@ export const ViewModel = DefineMap.extend({
       Session.current.transactionFeeRatesPromise
     ]).then(([addrObj, transactionFeeRates]) => {
       const changeAddr = addrObj[currencyType]
-      const transactionFeeRate = transactionFeeRates.regular[currencyType]
-      let tx = this.prepareTransaction(this.formData, changeAddr, 3000)
+      // const transactionFeeRate = transactionFeeRates.regular[currencyType]
+      // let tx = this.prepareTransaction(this.formData, changeAddr, 3000)
 
       // Calculate fee and rebuild:
-      const transactionFee = tx.hex.length / 2 * transactionFeeRate
-      tx = this.prepareTransaction(this.formData, changeAddr, transactionFee)
+      // const transactionFee = tx.hex.length / 2 * transactionFeeRate
+      const tx = this.prepareTransaction(this.formData, changeAddr, transactionFeeRates.regular)
       this.tx = tx
 
       this.changeAddr = changeAddr
       this.formData.transactionFee = tx.fee
-      console.log(`transactionFee=${transactionFee}, tx.hex=${tx.hex}`, tx)
+      console.log(`tx.fee=${tx.fee}, tx.hex=${tx.hex}`, tx)
       this.mode = 'confirm'
     })
   },
@@ -95,21 +107,16 @@ export const ViewModel = DefineMap.extend({
     close()
   },
 
-  prepareTransaction (formData, changeAddr, fee) {
+  prepareTransaction (formData, changeAddr, transactionFeeRates) {
     const amount = formData.quantity
-    const currencyType = formData.fundsType
     const toAddress = formData.toAddress
-    const txouts = this.portfolio
-      .getTxouts(amount + formData.transactionFee, currencyType).txouts
-      .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
-    const options = {
-      fee,
-      changeAddr,
-      type: 'OUT',
-      currencyType,
-      description: formData.description
-    }
-    return Transaction.makeTransaction(amount, toAddress, txouts, options)
+    const type = formData.type === 'FUNDS' ? formData.fundsType : 'ISSUANCE'
+
+    const txData = createTransfer(
+      type, amount, toAddress, changeAddr,
+      this.portfolio, formData.issuance, transactionFeeRates, formData.description
+    )
+    return new Transaction(txData)
   }
 })
 

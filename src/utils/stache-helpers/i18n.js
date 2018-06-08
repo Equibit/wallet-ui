@@ -19,15 +19,21 @@ stache.registerHelper('i18n', function (key, options) {
 
     // First move all of the <slot> tag content into a dictionary by slot name
     const slotsMap = {}
-    Array.from(childFrag.querySelectorAll('slot')).forEach(slot => {
-      slotsMap[slot.getAttribute('name').toUpperCase()] = slot.childNodes
-      slot.parentNode.removeChild(slot)
-    })
+    if (childFrag) {
+      Array.from(childFrag.querySelectorAll('slot')).forEach(slot => {
+        slotsMap[slot.getAttribute('name').toUpperCase()] = slot.childNodes
+        slot.parentNode.removeChild(slot)
+      })
+    }
 
     // Iterate over the non-text nodes in the translation text
     Array.from(prefrag.children).forEach(node => {
       if (node.nodeName.toUpperCase() === 'CONTENT') {
-        prefrag.replaceChild(childFrag, node)
+        if (childFrag) {
+          prefrag.replaceChild(childFrag, node)
+        } else {
+          prefrag.removeChild(node)
+        }
       } else {
         const slotNodes = slotsMap[node.nodeName.toUpperCase()]
         // If the node is not found, do not replace.

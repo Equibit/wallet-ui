@@ -17,7 +17,7 @@
   <div class="list-group-item">
     <div class="form-group">
       <label for="">{{i18n('to')}}</label>
-      <input type="text" class="form-control" placeholder="Paste address" {($value)}="formData.toAddress">
+      <input type="text" class="form-control" placeholder="Paste address" value:bind="formData.toAddress">
       {{!OR <button class="btn btn-default">Scan</button>}}
       <validation-message {message}="formData.toAddressError" />
     </div>
@@ -26,25 +26,27 @@
   <div class="list-group-item">
     {{^if formData.issuanceOnly}}
     <div class="row">
+      {{^if formData.fundsOnly}}
       <div class="col-sm-6 col-xs-12 no-padding">
         <div class="form-group">
           <label for="">{{i18n('send')}}</label><br>
           <div class="btn-group" role="group" aria-label="...">
-            <button ($click)="setType('SECURITIES', %element)" type="button"
-                    class="btn btn-default {{#is formData.type 'SECURITIES'}}active{{/is}}">{{i18n('securities')}}</button>
-            <button ($click)="setType('FUNDS', %element)" type="button"
+            <button on:click="setType('ISSUANCE', %element)" type="button"
+                    class="btn btn-default {{#is formData.type 'ISSUANCE'}}active{{/is}}">{{i18n('securities')}}</button>
+            <button on:click="setType('FUNDS', %element)" type="button"
                     class="btn btn-default {{#is formData.type 'FUNDS'}}active{{/is}}">{{i18n('funds')}}</button>
           </div>
         </div>
       </div>
+      {{/if}}
       <div class="col-sm-6 col-xs-12 no-padding">
         {{#is formData.type 'FUNDS'}}
           <div class="form-group">
             <label for="">{{i18n('selectType')}}</label><br>
             <div class="btn-group" role="group" aria-label="...">
-              <button ($click)="setFundsType('EQB', %element)" type="button"
+              <button on:click="setFundsType('EQB', %element)" type="button"
                       class="btn btn-default {{#is formData.fundsType 'EQB'}}active{{/is}}">{{i18n('equibit')}}</button>
-              <button ($click)="setFundsType('BTC', %element)" type="button"
+              <button on:click="setFundsType('BTC', %element)" type="button"
                       class="btn btn-default {{#is formData.fundsType 'BTC'}}active{{/is}}">{{i18n('bitcoin')}}</button>
             </div>
           </div>
@@ -53,28 +55,22 @@
     </div>
     {{/if}}
 
-    {{#is formData.type 'SECURITIES'}}
+    {{#is formData.type 'ISSUANCE'}}
       <div class="form-group">
         <label for="">{{i18n('issuance')}}</label>
         <!--<input type="text" class="form-control" placeholder="Enter Company Name" {($value)}="formData.issuance.companyName">-->
-        <can-search-select {items}="issuances"
-                           {format}="@formatIssuance"
-                           {format-input}="@formatIssuanceInput"
-                           btn-class="caret"
-                           filter-prop-name="companyName"
-                           {(selected-item)}="formData.issuance" />
+        <can-search-select items:from="allIssuances"
+                           format:from="@formatIssuance"
+                           formatInput:from="@formatIssuanceInput"
+                           btnClass:from="'caret'"
+                           filterPropName:from="'companyName'"
+                           selectedItem:bind="formData.issuance" />
       </div>
 
-      {{^if formData.hasEnoughFunds}}
+      {{^if formData.hasEnoughEqbFee}}
 
         <div class="alert alert-danger">
-          {{i18n('notEnoughEqbForTransactionFee')}}
-          <br>
-          {{#i18n('transferFundsInstructionDescription')}}
-            <slot name="link">
-              <a href="#" on:click="openReceiveForm()">{{i18n('receiveForm'}}</a>
-            </slot>
-          {{/i18n)}}
+          {{i18n('notEnoughEqbForTransactionFee')}} <a href="#">{{i18n('buyEqb')}}</a>
         </div>
 
       {{/if}}
@@ -90,20 +86,18 @@
             <input type="number" class="form-control" value:bind="formData.quantity">
           </div>
         </div>
-
         <div class="col-sm-2 col-xs-12 no-padding">
           <span class="rate-arrows icon icon-enlarge"></span>
         </div>
-
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
             <!--<currency-converter {(input)}="formData.amount" {currency}="sharesToUsd" />-->
             <currency-converter input:bind="formData.securities"
-                                precision="8"
-                                currency:from="formData.sharesToEqb"/>
+                                output:to="formData.price"
+                                precision="2"
+                                currency:from="sharesToUsd"/>
           </div>
         </div>
-
         <div class="col-sm-12 no-padding">
           {{^if formData.hasEnoughFunds}}
             <validation-message
@@ -115,12 +109,10 @@
         </div>
       </div>
       {{/if}}
-
     {{/is}}
 
     {{#is formData.type 'FUNDS'}}
       {{^if formData.hasFunds}}
-
         <div class="alert alert-danger">
           {{#i18n('notEnoughCurrencyToSend')}}
             <slot name="currency">
@@ -134,15 +126,12 @@
             </slot>
           {{/i18n)}}
         </div>
-
       {{else}}
       <br>
       <div class="row">
-
         <div class="col-xs-12 no-padding">
           <label>{{i18n('amount')}}</label>
         </div>
-
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
             <div class="input-group">
@@ -153,11 +142,9 @@
             </div>
           </div>
         </div>
-
         <div class="col-sm-2 col-xs-12 no-padding">
           <span class="rate-arrows icon icon-enlarge"></span>
         </div>
-
         <div class="col-sm-5 col-xs-12 no-padding">
           <div class="form-group">
             <currency-converter input:bind="formData.amountCoin" currency:from="fundsToUsd" output:to="formData.price"/>

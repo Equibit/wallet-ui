@@ -7,7 +7,13 @@
 
   <!-- TO -->
   <label class="">{{i18n('to')}}</label>
-  <p class="input-value break-word"><strong>{{formData.order.btcAddress}}</strong></p>
+  <p class="input-value break-word"><strong>
+    {{#is formData.type 'BTC'}}
+      {{formData.order.btcAddress}}
+    {{else}}
+      {{formData.order.eqbAddress}}
+    {{/is}}
+  </strong></p>
 
   <div class="row">
       <div class="col-xs-12 no-padding">
@@ -33,19 +39,24 @@
       <table class="table table-simple">
           <tbody>
               <tr>
-                  {{#eq formData.order.type 'SELL'}}
+                {{#eq formData.order.type 'SELL'}}
                   <td class="column-label">{{i18n('amount')}}</td>
                   <td class="column-digital-currency-value font-numeric">{{user-units(formData.totalPrice, 8)}}</td>
                   <td class="column-digital-currency-type font-numeric">{{user-units-symbol()}}</td>
-                  <td class="column-local-currency-value font-numeric">{{format(convertToUSD(formData.totalPrice).value, '', 2)}}</td>
+                  <td class="column-local-currency-value font-numeric">{{local-currency(formData.totalPrice)}}</td>
                   <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>
+                {{else}}
+                  <td class="column-label">{{i18n('quantity')}}</td>
+                  {{#is formData.assetType 'EQUIBIT'}}
+                    <td class="column-digital-currency-value font-numeric">{{format(formData.quantityInCoins, '', 0)}}</td>
+                    <td class="column-digital-currency-type font-numeric">EQB</td>
                   {{else}}
-                    <td class="column-label">{{i18n('quantity')}}</td>
-                  <td class="column-digital-currency-value font-numeric">{{format(formData.quantity, '', 0)}}</td>
-                  <td class="column-digital-currency-type font-numeric">{{i18n('shares')}}</td>
-                  <td class="column-local-currency-value font-numeric">{{format(convertToUSD(formData.quantity).value, '', 2)}}</td>
+                    <td class="column-digital-currency-value font-numeric">{{format(formData.quantity, '', 0)}}</td>
+                    <td class="column-digital-currency-type font-numeric">{{i18n('shares')}}</td>
+                  {{/is}}
+                  <td class="column-local-currency-value font-numeric">{{local-currency(formData.totalPrice)}}</td>
                   <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>
-                  {{/eq}}
+                {{/eq}}
               </tr>
 
               <tr>
@@ -61,7 +72,7 @@
                   <td class="column-digital-currency-type font-numeric">
                     {{#eq formData.order.type 'SELL'}} {{user-units-symbol()}} {{else}} {{user-units-symbol('EQB')}} {{/eq}}
                   </td>
-                  <td class="column-local-currency-value font-numeric">{{format(convertToUSD(formData.fee).value, '', 2)}}</td>
+                  <td class="column-local-currency-value font-numeric">{{local-currency(formData.fee)}}</td>
                   <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>
               </tr>
 
@@ -76,19 +87,24 @@
   <div class="table-responsive">
       <table class="table table-simple">
           <tbody>
-              {{#eq formData.order.type 'SELL'}}
+            {{#eq formData.order.type 'SELL'}}
               <tr>
                   <td class="input-value"><strong>{{formData.portfolio.name}}</strong></td>
                   <td class="column-digital-currency-value font-numeric text-danger">- {{user-units(formData.totalPriceWithFee, 8)}}</td>
                   <td class="column-digital-currency-type font-numeric text-danger">{{user-units-symbol()}}</td>
-                  <td class="column-local-currency-value font-numeric text-danger">- {{format(convertToUSD(formData.totalPriceWithFee).value, '', 2)}}</td>
+                  <td class="column-local-currency-value font-numeric text-danger">- {{local-currency(formData.totalPriceWithFee)}}</td>
                   <td class="column-local-currency-type font-numeric text-danger">{{local-currency-symbol()}}</td>
               </tr>
-              {{else}}
+            {{else}}
               <tr>
                   <td class="input-value"><strong>{{formData.portfolio.name}}</strong></td>
-                  <td class="column-digital-currency-value font-numeric text-danger">- {{format(formData.quantity, '', 0)}}</td>
-                  <td class="column-digital-currency-type font-numeric text-danger">{{i18n('shares')}}</td>
+                  {{#is formData.assetType 'EQUIBIT'}}
+                    <td class="column-digital-currency-value font-numeric text-danger">- {{format(formData.quantityInCoins, '', 0)}}</td>
+                    <td class="column-digital-currency-type font-numeric text-danger">EQB</td>
+                  {{else}}
+                    <td class="column-digital-currency-value font-numeric text-danger">- {{format(formData.quantity, '', 0)}}</td>
+                    <td class="column-digital-currency-type font-numeric text-danger">{{i18n('shares')}}</td>
+                  {{/is}}
                   <td class="column-local-currency-value"></td>
                   <td class="column-local-currency-type"></td>
               </tr>
@@ -96,10 +112,10 @@
                   <td class="input-value"></td>
                   <td class="column-local-currency-value font-numeric text-danger">- {{user-units(formData.fee, 8)}}</td>
                   <td class="column-local-currency-type font-numeric text-danger">{{user-units-symbol('EQB')}}</td>
-                  <td class="column-local-currency-value font-numeric text-danger">- {{format(convertToUSD(formData.totalPriceWithFee).value, '', 2)}}</td>
+                  <td class="column-local-currency-value font-numeric text-danger">- {{local-currency(formData.totalPriceWithFee)}}</td>
                   <td class="column-local-currency-type font-numeric text-danger">{{local-currency-symbol()}}</td>
               </tr>
-              {{/eq}}
+            {{/eq}}
           </tbody>
       </table>
   </div>

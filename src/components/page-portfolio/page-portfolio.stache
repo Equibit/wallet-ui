@@ -1,14 +1,7 @@
-<can-import from="~/components/page-portfolio/portfolio-summary/" />
-<can-import from="~/components/page-portfolio/watch-list/" />
 <can-import from="~/components/page-portfolio/my-portfolio/" />
 
 <div class="row">
-  <div class="col-md-4 col-sm-6 col-xs-12">
-    <portfolio-summary {balance}="balance" {issuances}="issuances" />
-    <watch-list />
-  </div>
-
-  <div class="col-md-8 col-sm-6 col-xs-12">
-    <my-portfolio {portfolio}="portfolios.0" />
+  <div class="col-xs-12">
+    <my-portfolio portfolio:from="portfolios.0" issuances:from="issuances" />
   </div>
 </div>

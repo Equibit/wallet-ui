@@ -2348,9 +2348,9 @@ colors@1.0.3, colors@1.0.x:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.0.3.tgz#0433f44d809680fdeb60ed260f1b0c262e82a40b"
 
-colors@^1.1.2:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.2.1.tgz#f4a3d302976aaf042356ba1ade3b1a2c62d9d794"
+colors@^1.2.1:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.3.0.tgz#5f20c9fef6945cb1134260aab33bfbdc8295e04e"
 
 combined-stream@1.0.6, combined-stream@^1.0.5, combined-stream@~1.0.5:
   version "1.0.6"
@@ -6727,9 +6727,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@1.9.2:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.9.2.tgz#96bc2132f7a32338e6078aeb29727178c6335827"
+prettier@1.11.1:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.11.1.tgz#61e43fc4cd44e68f2b0dfc2c38cd4bb0fccdcc75"
 
 pretty-bytes@^4.0.2:
   version "4.0.2"
@@ -6803,9 +6803,9 @@ public-encrypt@^4.0.0:
     setimmediate ">= 1.0.2 < 2"
     slice-stream ">= 1.0.0 < 2"
 
-pump@^1.0.2:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/pump/-/pump-1.0.3.tgz#5dfe8311c33bbf6fc18261f9f34702c47c08a954"
+pump@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/pump/-/pump-3.0.0.tgz#b4a2116815bde2f4e1ea602354e8c75565107a64"
   dependencies:
     end-of-stream "^1.1.0"
     once "^1.3.1"
@@ -7926,14 +7926,14 @@ steal-tools@0.16.X:
     yargs "^4.3.2"
 
 steal-tools@^1.11.7:
-  version "1.11.7"
-  resolved "https://registry.yarnpkg.com/steal-tools/-/steal-tools-1.11.7.tgz#65aa1c8d96bcea8da6b9f8c4d2e4d73728d58f49"
+  version "1.11.9"
+  resolved "https://registry.yarnpkg.com/steal-tools/-/steal-tools-1.11.9.tgz#a10a22933cb6068fedb095627e5da8869b60b148"
   dependencies:
     babel-standalone "^6.23.1"
     bitovi-source-map "0.4.2-bitovi.2"
     chokidar "^2.0.0"
     clean-css "^4.1.9"
-    colors "^1.1.2"
+    colors "^1.2.1"
     find-line-column "^0.5.2"
     fs-extra "~5.0.0"
     glob "^7.1.1"
@@ -7946,9 +7946,9 @@ steal-tools@^1.11.7:
     multimatch "^2.1.0"
     normalize-path "^2.1.1"
     pdenodeify "^0.1.0"
-    prettier "1.9.2"
-    pump "^1.0.2"
-    steal "^1.10.1"
+    prettier "1.11.1"
+    pump "^3.0.0"
+    steal "^1.11.4"
     steal-bundler "^0.3.6"
     steal-parse-amd "^1.0.0"
     through2 "^2.0.0"
@@ -7958,8 +7958,8 @@ steal-tools@^1.11.7:
     uglify-es "3.1.3"
     urix "^0.1.0"
     winston "^2.2.0"
-    ws "^4.0.0"
-    yargs "^10.0.3"
+    ws "^5.1.1"
+    yargs "^11.0.0"
 
 steal@0.16.X, steal@^0.16.9:
   version "0.16.44"
@@ -7969,7 +7969,30 @@ steal@0.16.X, steal@^0.16.9:
     steal-systemjs "^0.17.5"
     system-json "^0.1.0"
 
-steal@^1.10.1, steal@^1.4.5, steal@^1.6.2:
+steal@^1.10.1, steal@^1.11.4:
+  version "1.11.8"
+  resolved "https://registry.yarnpkg.com/steal/-/steal-1.11.8.tgz#3df7b3b65e1787f260f798aa6e1fb5190ce2bb77"
+  dependencies:
+    assert "~1.4.1"
+    buffer "~5.0.4"
+    console-browserify "~1.1.0"
+    constants-browserify "~1.0.0"
+    crypto-browserify "~3.11.0"
+    domain-browser "~1.1.2"
+    events "~1.1.1"
+    http-browserify "~1.7.0"
+    https-browserify "~1.0.0"
+    os-browserify "~0.3.0"
+    path-browserify "~0.0.0"
+    process "~0.11.9"
+    punycode "~2.0.1"
+    resolve "^1.1.7"
+    string_decoder "~1.0.0"
+    tty-browserify "~0.0.0"
+    vm-browserify "~0.0.4"
+    zlib-browserify "~0.0.3"
+
+steal@^1.4.5, steal@^1.6.2:
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/steal/-/steal-1.10.1.tgz#fa50f97ecea18fdbf80c97c636dafdc2feb8489a"
   dependencies:
@@ -8208,6 +8231,13 @@ test-exclude@^4.1.1:
 testee-client@^0.5.0:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/testee-client/-/testee-client-0.5.1.tgz#3b87c676a2db661b0888ba22424403cb5f0205e4"
+  dependencies:
+    feathers-rest "^1.5.0"
+    superagent "^3.0.0"
+
+testee-client@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/testee-client/-/testee-client-0.5.3.tgz#84d602981e90636f86bc54524f06f581f9dd0316"
   dependencies:
     feathers-rest "^1.5.0"
     superagent "^3.0.0"
@@ -8844,12 +8874,11 @@ ws@^1.0.0, ws@~1.1.5:
     options ">=0.0.5"
     ultron "1.0.x"
 
-ws@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-4.1.0.tgz#a979b5d7d4da68bf54efe0408967c324869a7289"
+ws@^5.1.1:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-5.2.0.tgz#9fd95e3ac7c76f6ae8bcc868a0e3f11f1290c33e"
   dependencies:
     async-limiter "~1.0.0"
-    safe-buffer "~5.1.0"
 
 ws@~3.3.1:
   version "3.3.3"
@@ -8906,9 +8935,9 @@ yargs-parser@^2.4.1:
     camelcase "^3.0.0"
     lodash.assign "^4.0.6"
 
-yargs-parser@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-8.1.0.tgz#f1376a33b6629a5d063782944da732631e966950"
+yargs-parser@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-9.0.2.tgz#9ccf6a43460fe4ed40a9bb68f48d43b8a68cc077"
   dependencies:
     camelcase "^4.1.0"
 
@@ -8927,9 +8956,9 @@ yargs@^1.3.1:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-1.3.3.tgz#054de8b61f22eefdb7207059eaef9d6b83fb931a"
 
-yargs@^10.0.3:
-  version "10.1.2"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-10.1.2.tgz#454d074c2b16a51a43e2fb7807e4f9de69ccb5c5"
+yargs@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-11.0.0.tgz#c052931006c5eee74610e5fc0354bedfd08a201b"
   dependencies:
     cliui "^4.0.0"
     decamelize "^1.1.1"
@@ -8942,7 +8971,7 @@ yargs@^10.0.3:
     string-width "^2.0.0"
     which-module "^2.0.0"
     y18n "^3.2.1"
-    yargs-parser "^8.1.0"
+    yargs-parser "^9.0.2"
 
 yargs@^4.3.2:
   version "4.8.1"

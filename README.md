@@ -7,11 +7,15 @@ Welcome to the wallet-ui DoneJS application!
 
 ## Getting started
 
-To install all dependencies, (e.g. after cloning it from a Git repository) run
+To install all dependencies, (e.g. after cloning it from a Git repository) run Yarn (notice, there is yarn.lock file):
 
 ```
-npm install donejs -g
-npm install
+$ yarn
+```
+
+To install donejs CLI tools run:
+```
+$ npm install donejs -g
 ```
 
 ## Running tests

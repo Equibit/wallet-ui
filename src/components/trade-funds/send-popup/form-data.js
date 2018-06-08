@@ -8,12 +8,15 @@ import Portfolio from '../../../models/portfolio'
 const FormData = DefineMap.extend({
   /**
    * @property {String} type
-   * ENUM ('SECURITIES', 'FUNDS')
+   * ENUM ('ISSUANCE', 'FUNDS')
    */
   type: {
     get (val) {
       if (this.issuanceOnly) {
-        return 'SECURITIES'
+        return 'ISSUANCE'
+      }
+      if (this.fundsOnly) {
+        return 'FUNDS'
       }
       return val
     }
@@ -27,7 +30,7 @@ const FormData = DefineMap.extend({
     type: 'string',
     value: 'EQB',
     get (val) {
-      if (this.type === 'SECURITIES') {
+      if (this.type === 'ISSUANCE') {
         return 'EQB'
       }
       return val
@@ -37,7 +40,12 @@ const FormData = DefineMap.extend({
   rates: '*',
   issuance: Issuance,
   issuanceOnly: 'boolean',
+  fundsOnly: 'boolean',
+
+  // todo: calculate price in a getter instead of currency-converter?
+  // Note: The price is set by currency-converter component.
   price: 'number',
+
   description: 'string',
 
   toAddress: {
@@ -58,8 +66,14 @@ const FormData = DefineMap.extend({
     }
   },
   quantity: {
-    get () {
-      return this.amountCoin * 100000000
+    // two way conversion b/w quantity and securities:
+    set (val) {
+      Math.round(val)
+      this.securities = val
+      return val
+    },
+    get (val) {
+      return Math.round(this.amountCoin * 100000000)
     }
   },
   securities: {
@@ -79,10 +93,16 @@ const FormData = DefineMap.extend({
       if (this.type === 'FUNDS') {
         return this.portfolio.hasEnoughFunds(this.totalAmount, this.fundsType)
       }
-      if (this.type === 'SECURITIES' && this.issuance) {
+      if (this.type === 'ISSUANCE' && this.issuance) {
         // Need available shares amount and Empty EQB for the fee:
         return this.issuance.availableAmount >= this.quantity && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
       }
+    }
+  },
+  hasEnoughEqbFee: {
+    get () {
+      // Need Empty EQB for the fee:
+      return this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
     }
   },
   transactionFee: {
@@ -105,7 +125,7 @@ const FormData = DefineMap.extend({
   },
   isValid: {
     get () {
-      return !this.toAddressError && (this.hasEnoughFunds || this.type === 'SECURITIES') && this.amountCoin > 0
+      return !this.toAddressError && (this.hasEnoughFunds || this.type === 'ISSUANCE') && this.amountCoin > 0
     }
   },
   validate () {

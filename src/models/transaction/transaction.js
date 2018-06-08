@@ -19,7 +19,7 @@
  *    - amount (the amount of the main output)
  *    - txId
  *    - currencyType (BTC, EQB)
- *    - type ('IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL')
+ *    - type ('TRADE', 'TRANSFER', 'REFUND', 'AUTH', 'CANCEL')
  *    - fromAddress, toAddress
  *    - fee (if fromAddress === address)
  *    - description
@@ -37,7 +37,7 @@
  *  - To run build we need to know:
  *    - currencyType, amount, toAddress, htlcStep + info,
  *    - transaction fee rate
- *  - Only the following types can be rebuilt: 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL'.
+ *  - Only the following types can be rebuilt: 'TRANSFER' (if from the user), 'TRADE', 'REFUND', 'AUTH', 'CANCEL'.
  *  - If `_id` is set then we canNOT rebuild (transaction was already sent).
  *
  * Cases to cover:
@@ -64,6 +64,8 @@ import { buildTransaction } from './transaction-build'
 import { eqbTxBuilder } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import BlockchainInfo from '../blockchain-info'
 import hub, { dispatchAlertError } from '../../../utils/event-hub'
+import Session from '~/models/session'
+import TransactionNote from './note'
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
 const Transaction = DefineMap.extend('Transaction', {
@@ -96,14 +98,6 @@ const Transaction = DefineMap.extend('Transaction', {
    */
   _id: 'string',
 
-  /**
-   * @property {String} models/transaction.properties.address address
-   * @parent models/transaction.properties
-   * Address to link transaction to a user. Its either one of the inputs (for a sender) or outputs (for a receiver).
-   * We create two entries in our DB - one for the sender and one for the receiver.
-   */
-  address: 'string',
-
   // The following txid and vout are for address validation and won't be stored in DB
   addressTxid: 'string',
   addressVout: 'number',
@@ -125,7 +119,7 @@ const Transaction = DefineMap.extend('Transaction', {
   /**
    * @property {Enum} models/transaction.properties.type type
    * @parent models/transaction.properties
-   * Transaction type. One of: [ 'IN', 'OUT', 'BUY', 'SELL', 'AUTH', 'CANCEL' ]
+   * Transaction type. One of: [ 'TRADE', 'TRANSFER', 'REFUND', 'AUTH', 'CANCEL' ]
    */
   type: 'string',
 
@@ -172,6 +166,22 @@ const Transaction = DefineMap.extend('Transaction', {
    */
   refundAddress: 'string',
 
+  get typeForUser () {
+    const isFromUser = Session.current.allAddresses[this.currencyType].indexOf(this.fromAddress) > -1
+    switch (this.type) {
+      case 'TRADE':
+        if (this.htlcStep < 3) {
+          return isFromUser ? 'USER-LOCK' : 'LOCK'
+        } else {
+          return isFromUser ? 'USER-UNLOCK' : 'UNLOCK'
+        }
+      case 'TRANSFER':
+        return isFromUser ? 'OUT' : 'IN'
+      default:
+        return this.type
+    }
+  },
+
   /**
    * @property {String} models/transaction.properties.typeFormatted typeFormatted
    * @parent models/transaction.properties
@@ -180,14 +190,17 @@ const Transaction = DefineMap.extend('Transaction', {
   typeFormatted: {
     get () {
       const typeString = {
-        BUY: i18n['transactionBuy'],
         IN: i18n['transactionIn'],
         OUT: i18n['transactionOut'],
-        SELL: i18n['transactionSell'],
+        LOCK: i18n['transactionLock'],
+        'USER-LOCK': i18n['transactionLock'],
+        UNLOCK: i18n['transactionUnlock'],
+        'USER-UNLOCK': i18n['transactionUnlock'],
+        REFUND: i18n['transactionRefund'],
         AUTH: i18n['transactionAuth'],
         CANCEL: i18n['transactionCancel']
       }
-      return typeString[this.type]
+      return typeString[this.typeForUser]
     }
   },
 
@@ -251,7 +264,21 @@ const Transaction = DefineMap.extend('Transaction', {
    * @parent models/transaction.properties
    * Transaction description
    */
-  description: 'string',
+  description: {
+    get (val, resolve) {
+      if (typeof val !== 'undefined') {
+        return resolve ? resolve(val) : val
+      } else if (!this.isNew()) {
+        TransactionNote.getList({
+          address: {$in: Session.current.allAddresses[this.currencyType]},
+          txId: this.txId
+        }).then(result => resolve(result[0] && result[0].description))
+      } else {
+        // description is undefined
+        resolve && resolve()
+      }
+    }
+  },
 
   // Won't be stored in DB. If a failure occurs the error will be immediately shown to user without creating a DB entry.
   hex: 'string',
@@ -260,7 +287,7 @@ const Transaction = DefineMap.extend('Transaction', {
     return !this.confirmationBlockHeight
   },
 
-  createdAt: { type: 'date', serialize: false },
+  createdAt: { type: 'date', serialize: true }, // serialize for can-connect real time to sort it
   updatedAt: { type: 'date', serialize: false },
 
   // Extras:
@@ -283,7 +310,7 @@ const Transaction = DefineMap.extend('Transaction', {
     }
   },
   get amountPlusFee () {
-    return (this.type === 'OUT' || this.type === 'AUTH') ? this.amount + this.fee : this.amount
+    return (['OUT', 'AUTH', 'USER-LOCK'].indexOf(this.typeForUser) > -1) ? this.amount + this.fee : this.amount
   },
   // TODO: valuate issuance.
   get valuationNow () {
@@ -333,10 +360,10 @@ const Transaction = DefineMap.extend('Transaction', {
     typeforce('?String', description)
     typeforce('Offer', offer)
 
-    const title = this.type === 'CANCEL'
+    const title = this.type === 'REFUND'
       ? (offer.htlcStep === 3 ? 'orderCancelled' : 'dealFlowMessageTitleDealCancelled')
       : 'tradeWasUpdated'
-    const message = this.type === 'CANCEL' ? null : 'viewTransaction'
+    const message = this.type === 'REFUND' ? null : 'viewTransaction'
 
     this.description = description || this.description
     return this.save()
@@ -370,7 +397,7 @@ function updateOffer (offer, tx, secret) {
   if (newHtlcStep === 3) {
     offer.secret = secret
   }
-  if (tx.type === 'CANCEL') {
+  if (tx.type === 'REFUND') {
     offer.status = 'CANCELLED'
   }
   offer['htlcTxId' + newHtlcStep] = tx.txId
@@ -401,7 +428,18 @@ Transaction.connection = superModelNoCache({
   feathersService: feathersClient.service('/transactions'),
   name: 'transactions',
   algebra
-})
+}, [
+  // option behaviors
+  function (baseConnection) {
+    return {
+      createdInstance (instance, props) {
+        // don't wait for balance to refresh because it takes a while
+        Session.current.refreshBalance(instance)
+        return baseConnection.createdInstance.apply(this, arguments)
+      }
+    }
+  }
+])
 
 Transaction.algebra = algebra
 

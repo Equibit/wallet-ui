@@ -44,6 +44,10 @@ export const ViewModel = DefineMap.extend({
     }
   },
 
+  get assetType () {
+    return this.order && this.order.assetType
+  },
+
   // For collect-asset modal:
   offer: '*',
   tx: '*',
@@ -57,7 +61,7 @@ export const ViewModel = DefineMap.extend({
 
   titles: {
     get () {
-      if (this.tx && this.tx.type === 'CANCEL') {
+      if (this.tx && this.tx.type === 'REFUND') {
         return {
           BTC: {
             header: 'dealFlowMessageTitleRecoverPayment',
