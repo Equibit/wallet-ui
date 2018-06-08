@@ -5,7 +5,7 @@ import 'can-view-import'
 import './company-metadata'
 
 describe('components/page-issuances/company-metadata', function () {
-  it('should render issuance domicile', function () {
+  it('should render issuance domicile', function (done) {
     let data = {
       issuance: {
         issuanceName: 'Series 1',
@@ -18,8 +18,11 @@ describe('components/page-issuances/company-metadata', function () {
         sharesDividendYield: 2.6
       }
     }
-    let template = stache('<company-metadata {issuance}="issuance" currency="μBTC" />')
+    let template = stache('<company-metadata issuance:from="issuance" currency:from="\'μBTC\'" />')
     let frag = template(data)
-    assert.equal(frag.querySelector('.column dd').firstChild.wholeText.trim(), 'Canada')
+    setTimeout(() => {
+      assert.equal(frag.querySelector('.column dd').firstChild.wholeText.trim(), 'Canada')
+      done()
+    }, 10)
   })
 })
