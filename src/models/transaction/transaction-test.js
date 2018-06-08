@@ -289,7 +289,7 @@ describe('models/transaction/utils', function () {
     //  The default 2000ms timeout often fails, so here
     //  the timeout is set to 5000ms instead.  Future changes may
     //  require this timeout to grow even more.  Note that this change
-    this.timeout(5000)
+    this.timeout(10000)
     describe('prepareHtlcConfig3', function () {
       describe('buildConfig', function () {
         let amount, order, offer, buildConfig

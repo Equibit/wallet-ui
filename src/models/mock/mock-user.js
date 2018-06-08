@@ -6,5 +6,6 @@ const userMock = new User({
 })
 userMock.updatePasswordCache('123')
 userMock.cacheWalletKeys(hdNode)
+userMock.encryptedKey = userMock.encryptWithPassword('123', hdNode.toBase58())
 
 export default userMock
