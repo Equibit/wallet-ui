@@ -23,7 +23,6 @@ describe('components/page-issuances/company-metadata', function () {
     let frag = template(data)
     setTimeout(() => {
       assert.equal(frag.querySelector('.column dd').firstChild.wholeText.trim(), 'Canada')
-      done()
     }, 10)
   })
 })
