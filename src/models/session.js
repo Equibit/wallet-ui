@@ -124,7 +124,18 @@ const Session = DefineMap.extend('Session', {
 
   },
 
-  portfolioRefreshPromise: '*',
+  portfolioRefreshPromise: {
+    get (val) {
+      return this.portfoliosPromise.then(portfolios => {
+        if (portfolios && portfolios[0]) {
+          return Promise.all([
+            portfolios[0].addressesPromise,
+            portfolios[0].refreshBalance()
+          ])
+        }
+      })
+    }
+  },
   /**
    * @property {Function} models/session.prototype.refreshBalance refreshBalance
    * @parent models/session.prototype
@@ -173,7 +184,7 @@ const Session = DefineMap.extend('Session', {
       }
 
       return this.portfolios.reduce((acc, portfolio) => {
-        if (!portfolio.balance) {
+        if (!portfolio.balance || portfolio.balance.isPending) {
           acc.isPending = true
           return acc
         }
@@ -206,10 +217,17 @@ const Session = DefineMap.extend('Session', {
     }
   },
 
+  _notificationsPromise: '*',
   get notificationsPromise () {
     const allAddresses = this.allAddresses
+    if (allAddresses.isPending) {
+      return Observation.ignore(() => {
+        return this._notificationsPromise
+      })()
+    }
+    let retval
     if (allAddresses.BTC.length + allAddresses.EQB.length > 0) {
-      return Notification.getList({
+      retval = Notification.getList({
         address: {
           $in: allAddresses.BTC.concat(allAddresses.EQB)
         },
@@ -218,8 +236,10 @@ const Session = DefineMap.extend('Session', {
         }
       })
     } else {
-      return Promise.resolve([])
+      retval = Promise.resolve([])
     }
+    this._notificationsPromise = retval
+    return retval
   },
 
   notifications: {
@@ -318,10 +338,12 @@ const Session = DefineMap.extend('Session', {
       }, []) : []
       let results = {EQB: issuanceAddresses, BTC: []}
       results = portfolios ? portfolios.reduce((acc, portfolio) => {
-        return {
+        const ret = {
           BTC: acc.BTC.concat(portfolio.addressesBtc.get()),
           EQB: acc.EQB.concat(portfolio.addressesEqb.get())
         }
+        Object.defineProperty(ret, 'isPending', { enumerable: false, value: acc.isPending || portfolio.addresses.isPending })
+        return ret
       }, results) : results
 
       // Ignore observations here because we don't want to re-run this getter when
@@ -350,15 +372,15 @@ const Session = DefineMap.extend('Session', {
     get (val, resolve) {
       Promise.all([
         this.issuancesPromise,
-        this.portfoliosPromise,
         this.portfolioRefreshPromise
       ])
       .then(() => Promise.all([
         this.issuances && this.issuances.importAddressesPromise,
-        this.portfolios && this.portfolios[0] && this.portfolios[0].securitiesPromise
+        this.portfolios && this.portfolios[0] && this.portfolios[0].securitiesPromise,
+        this.portfolios && this.portfolios[0] && this.portfolios[0].addressesPromise
       ]))
-      .then(() => resolve(false), () => resolve(false))
-      return true
+      .then(() => resolve(false), err => { console.error(err); resolve(false) })
+      return resolve ? resolve(true) : true
     }
   },
 

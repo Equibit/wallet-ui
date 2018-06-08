@@ -11,12 +11,14 @@ import typeforce from 'typeforce'
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import canDefineStream from 'can-define-stream-kefir'
+import Kefir from 'kefir'
 import feathersClient from './feathers-client'
 import { superModelNoCache } from './super-model'
 import algebra from './algebra'
 // import Session from '~/models/session'
 import Issuance from '~/models/issuance'
 import currencyConverter from '~/utils/currency-converter'
+import Session from '~/models/session'
 import {
   getNextAddressIndex,
   getUnspentOutputsForAmount,
@@ -24,6 +26,10 @@ import {
   getAllUtxo,
   getAvailableAmount
 } from './portfolio-utils'
+import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+const { ECPair } = bitcoin
+// TODO is there a better way to get at this constructor?
+const BigInteger = ECPair.makeRandom().d.constructor
 
 const EMPTY_ISSUANCE_TX_ID = '0000000000000000000000000000000000000000000000000000000000000000'
 
@@ -106,21 +112,101 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @parent models/portfolio.properties
    * A list of address objects that includes real addresses, amount and txouts.
    */
+  addressesPromise: {
+    stream () {
+      let resolvePromise
+      let promise = new Promise(resolve => { resolvePromise = resolve })
+      return this.toStream('.addresses.isPending').map(val => {
+        const lastPromise = promise
+        if (!val) {
+          // not pending now, resolve the promise and remove it
+          resolvePromise && resolvePromise(this.addresses)
+          promise = null
+          return lastPromise
+        } else if (!lastPromise) {
+          // from not pending to pending, create new promise
+          promise = new Promise(resolve => { resolvePromise = resolve })
+          return promise
+        } else {
+          // pending to pending, continue
+          return lastPromise
+        }
+      }).toProperty(() => promise)
+    }
+  },
+  _addresses: '*',
   addresses: {
-    get () {
+    stream () {
       // TODO: make sure this getter is cached (maybe change to a stream derived from addressesMeta).
       console.log('[portfolio.addresses] deriving addresses...')
-      return (this.keys && this.addressesMeta && this.addressesMeta.map(meta => {
-        const keysNode = this.keys[meta.type].derive(meta.isChange ? 1 : 0).derive(meta.index)
-        return {
-          index: meta.index,
-          address: keysNode.getAddress(),
-          type: meta.type,
-          isChange: meta.isChange,
-          keyPair: keysNode.keyPair,
-          meta: meta
+
+      let resolvePromise = null
+      let addresses = new DefineList()
+      let tempAddresses = []
+
+      return Kefir.stream(emitter => {
+        const streamHandler = metaAddresses => {
+          metaAddresses.forEach(meta => {
+            let idx = this.addressesMeta.indexOf(meta)
+            if (idx < 0) {
+              idx = addresses.length
+            }
+
+            if (!tempAddresses[idx]) {
+              tempAddresses[idx] = true
+              addresses.set('isPending', (addresses.isPending || 0) + 1)
+
+              this.derivationWorkerPromise.then(derivationWorker => {
+                const uuid = Math.random()
+                const cb = ev => {
+                  if (ev.data.uuid === uuid) {
+                    derivationWorker.removeEventListener('message', cb)
+
+                    addresses.set(idx, {
+                      index: meta.index,
+                      address: ev.data.address,
+                      type: meta.type,
+                      isChange: meta.isChange,
+                      keyPair: new ECPair(
+                        BigInteger.fromByteArrayUnsigned(ev.data.keyPairD),
+                        null,
+                        { network: ev.data.keyPairNetwork }
+                      ),
+                      meta
+                    })
+                    addresses.isPending--
+                    if (!addresses.isPending) {
+                      this.dispatch('refresh')
+                      emitter.emit(addresses)
+                      if (resolvePromise) {
+                        resolvePromise(addresses)
+                        resolvePromise = null
+                      }
+                    }
+                  }
+                }
+                derivationWorker.addEventListener('message', cb)
+                derivationWorker.postMessage({
+                  eventType: 'derive',
+                  base58Key: Session.current.user.decrypt(Session.current.user.encryptedKey),
+                  portfolioIndex: this.index,
+                  coinType: meta.type,
+                  isChange: meta.isChange,
+                  keyIndex: meta.index,
+                  uuid
+                })
+              })
+            }
+          })
+          return addresses
         }
-      })) || new DefineList([])
+        this.toStream('.addressesMeta add').onValue(streamHandler)
+        if (this.addressesMeta) {
+          streamHandler(this.addressesMeta)
+        }
+
+        emitter.emit(addresses)
+      }).toProperty(() => { return addresses })
     }
   },
 
@@ -131,12 +217,12 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   addressesBtc: {
     get () {
-      return this.addresses.filter(a => a.type === 'BTC').map(a => a.address)
+      return this.addresses.filter(a => a && a.type === 'BTC').map(a => a.address)
     }
   },
   addressesEqb: {
     get () {
-      return this.addresses.filter(a => a.type === 'EQB').map(a => a.address)
+      return this.addresses.filter(a => a && a.type === 'EQB').map(a => a.address)
     }
   },
 
@@ -280,6 +366,21 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
   },
 
+  derivationWorkerPromise: {
+    value () {
+      return new Promise(function (resolve) {
+        const worker = new window.Worker(System.stealURL + '?main=wallet-ui/workers/derive-keys-worker')
+        worker.onmessage = ev => {
+          if (ev.data.eventType === 'moduleReady') {
+            worker.onmessage = null
+            resolve(worker)
+          }
+        }
+      })
+    },
+    serialize: false
+  },
+
   /**
    * @property {String} models/portfolio.properties.balance balance
    * @parent models/portfolio.properties
@@ -312,6 +413,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
       const updatePromises = []
 
       const totals = this.addresses.reduce((acc, addr) => {
+        if (!addr) {
+          acc.isPending = true
+          return acc
+        }
         const utxo = utxoByType[addr.type]
         if (utxo && utxo.addresses[addr.address]) {
           const amount = utxo.addresses[addr.address].amount
@@ -472,7 +577,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @returns {*}
    */
   findAddress (addr) {
-    return this.addresses.reduce((acc, a) => (a.address === addr ? a : acc), null)
+    return this.addresses.reduce((acc, a) => ((a && a.address === addr) ? a : acc), null)
   },
 
   /**
@@ -520,6 +625,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
   refreshBalance: function () {
     this.dispatch('refresh')
     return this.securitiesPromise
+  },
+
+  init () {
+    this.on('addressesPromise', () => {})
   }
 })
 

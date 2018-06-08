@@ -122,6 +122,7 @@
     "can-stream-kefir": "^0.3.3",
     "can-view-autorender": "^3.1.2",
     "can-view-callbacks": "^3.2.3",
+    "can-zone": "^0.6.20",
     "candlestick-volume-chart": "0.2.3",
     "capture-stack-trace": "^1.0.0",
     "copy-to-clipboard": "^3.0.8",

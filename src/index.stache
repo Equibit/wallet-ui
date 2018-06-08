@@ -53,7 +53,7 @@
     {{/if}}
 
     {{#if session.isLoading}}
-      <p><i>Loading...</i></p>
+      <div class="loading-overlay"><i>Loading...</i></div>
     {{/if}}
 
     {{#switch displayedPage}}

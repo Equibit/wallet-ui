@@ -2073,6 +2073,10 @@ can-zone@^0.6.0, can-zone@^0.6.11:
   version "0.6.18"
   resolved "https://registry.yarnpkg.com/can-zone/-/can-zone-0.6.18.tgz#5176514de05ae9907022a17fa0a66a1c2a3b143c"
 
+can-zone@^0.6.20:
+  version "0.6.20"
+  resolved "https://registry.yarnpkg.com/can-zone/-/can-zone-0.6.20.tgz#1ca599ab9b484c88c44a2bfb88d1a872fa5569a6"
+
 candlestick-volume-chart@0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/candlestick-volume-chart/-/candlestick-volume-chart-0.2.3.tgz#d05e9080a6f4d0c3dca17db59be9f16edc820b3a"
