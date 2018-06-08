@@ -70,7 +70,7 @@ describe('models/portfolio-utils', function () {
 
 describe('models/portfolio', function () {
   describe('instance properties', function () {
-    this.timeout(5000)
+    this.timeout(10000)
     const expectedAddresses = [
       {index: 0, type: 'BTC', address: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA', isChange: false},
       {index: 1, type: 'BTC', address: 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA', isChange: false},
