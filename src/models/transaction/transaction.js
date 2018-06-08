@@ -58,6 +58,7 @@ import algebra from '../algebra'
 import i18n, { translate } from '../../i18n/i18n'
 import { makeTransaction } from './transaction-make'
 import { createHtlc1 } from './transaction-create-htlc1'
+import { createTransfer } from './transaction-transfer'
 import { blockTime, testNetTxExplorerUrl } from '~/constants'
 import env from '~/environment'
 import { buildTransaction } from './transaction-build'
@@ -68,15 +69,26 @@ import Session from '~/models/session'
 import TransactionNote from './note'
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
-const Transaction = DefineMap.extend('Transaction', {
-  makeTransaction (amount, toAddress, txouts, options) {
-    const txData = makeTransaction.apply(this, arguments)
+let Transaction
+
+const txStaticMethods = [
+  makeTransaction, createTransfer, createHtlc1
+].reduce((acc, method) => {
+  acc[method.name] = function () {
+    const txData = method.apply(this, arguments)
     return new Transaction(txData)
-  },
-  createHtlc1 (offer, order, portfolio, issuance, changeAddr, transactionFeeRate) {
-    const txData = createHtlc1.apply(this, arguments)
-    return new Transaction(txData)
-  },
+  }
+}, {})
+
+Transaction = DefineMap.extend('Transaction', Object.assign({}, txStaticMethods, {
+  // makeTransaction (amount, toAddress, txouts, options) {
+  //   const txData = makeTransaction.apply(this, arguments)
+  //   return new Transaction(txData)
+  // },
+  // createHtlc1 (offer, order, portfolio, issuance, changeAddr, transactionFeeRate) {
+  //   const txData = createHtlc1.apply(this, arguments)
+  //   return new Transaction(txData)
+  // },
   subscribe (cb) {
     feathersClient.service('/transactions').on('created', data => {
       console.log('Transaction.on.created', data)
@@ -90,7 +102,7 @@ const Transaction = DefineMap.extend('Transaction', {
     // TODO: calculate based on the number of inputs/outputs and JSON size for eqb if applied.
     return 10000
   }
-}, {
+}), {
   /**
    * @property {String} models/user.properties._id _id
    * @parent models/user.properties

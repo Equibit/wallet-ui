@@ -15,6 +15,12 @@ const BlockchainInfo = DefineMap.extend('BlockchainInfo', {seal: false}, {
   'mode': 'string',
   'status': 'boolean',
   mediantime: 'number',
+  feeRates: {
+    default () {
+      return new DefineMap({ priority: 20, regular: 5 })
+    }
+  },
+  sha: 'string',
   createdAt: 'date',
   updatedAt: 'date'
   // these should probably be added on the server side from the RPC call
