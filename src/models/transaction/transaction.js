@@ -78,6 +78,7 @@ const txStaticMethods = [
     const txData = method.apply(this, arguments)
     return new Transaction(txData)
   }
+  return acc
 }, {})
 
 Transaction = DefineMap.extend('Transaction', Object.assign({}, txStaticMethods, {
