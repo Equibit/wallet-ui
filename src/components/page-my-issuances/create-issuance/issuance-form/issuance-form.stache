@@ -25,12 +25,10 @@
               <button on:click="company()" type="button" class="btn btn-primary btn-sm">{{i18n('addNew')}}</button>
             </div>
           </div>
-          {{#if formData.companyMissing}}
             <div class="col-xs-offset-3 col-xs-12">
               <validation-message
-                message="{{i18n('requiredFieldError')}}" />
+                message="{{formData.errors.companyMissing}}" />
             </div>
-          {{/if}}
         </div>
       </div>
     </div>
@@ -46,12 +44,10 @@
           <div class="col-xs-12 col-sm-6">
             <input type="text" class="form-control" id="issuanceName" value:bind="issuance.issuanceName">
           </div>
-          {{#if formData.issuanceNameMissing}}
             <div class="col-xs-offset-3 col-xs-12">
               <validation-message
-                message="{{i18n('requiredFieldError')}}" />
+                message="{{formData.errors.issuanceNameMissing}}" />
             </div>
-          {{/if}}
         </div>
       </div>
     </div>
@@ -70,12 +66,10 @@
                         display-prop-name="name"
                         selectedItem:bind="issuance.issuanceTypeItem" />
           </div>
-          {{#if formData.issuanceTypeMissing}}
             <div class="col-xs-offset-3 col-xs-12">
               <validation-message
-                message="{{i18n('requiredFieldError')}}" />
+                message="{{formData.errors.issuanceTypeMissing}}" />
             </div>
-          {{/if}}
         </div>
       </div>
     </div>
@@ -160,12 +154,10 @@
             </div>
 
           </div>
-          {{#if formData.restrictionLevelMissing}}
             <div class="col-xs-offset-3 col-xs-12">
               <validation-message
-                message="{{i18n('requiredFieldError')}}" />
+                message="{{formData.errors.restrictionLevelMissing}}" />
             </div>
-          {{/if}}
         </div>
       </div>
     </div>

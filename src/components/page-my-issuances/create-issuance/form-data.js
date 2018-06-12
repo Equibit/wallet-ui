@@ -3,6 +3,7 @@ import Issuance from '../../../models/issuance'
 import Company from '../../../models/company'
 import Session from '../../../models/session'
 import { toMaxPrecision } from '../../../utils/formatter'
+import { translate } from '~/i18n/'
 
 const FormData = DefineMap({
   issuance: {
@@ -69,24 +70,26 @@ const FormData = DefineMap({
     return this.transactionFee / 100000000
   },
   submissionAttempted: 'boolean',
-  companyMissing: {
-    get: function () {
-      return this.submissionAttempted && !this.issuance.companyId
-    }
-  },
-  issuanceNameMissing: {
-    get: function () {
-      return this.submissionAttempted && !this.issuance.issuanceName
-    }
-  },
-  issuanceTypeMissing: {
-    get: function () {
-      return this.submissionAttempted && !this.issuance.issuanceTypeItem
-    }
-  },
-  restrictionLevelMissing: {
-    get: function () {
-      return this.submissionAttempted && typeof this.issuance.restriction === 'undefined'
+  errors: {
+    get: () => {
+      return  {
+        companyMissing:
+          this.submissionAttempted &&
+          !this.issuance.companyId &&
+          translate('requiredFieldError'),
+        restrictionLevelMissing:
+          this.submissionAttempted &&
+          typeof this.issuance.restriction === 'undefined' &&
+          translate('requiredFieldError'),
+        issuanceTypeMissing:
+          this.submissionAttempted &&
+          !this.issuance.issuanceTypeItem &&
+          translate('requiredFieldError'),
+        issuanceNameMissing:
+          this.submissionAttempted &&
+          !this.issuance.issuanceName &&
+          translate('requiredFieldError')
+      }
     }
   }
 })
