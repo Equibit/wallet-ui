@@ -58,6 +58,9 @@ import algebra from '../algebra'
 import i18n, { translate } from '../../i18n/i18n'
 import { makeTransaction } from './transaction-make'
 import { createHtlc1 } from './transaction-create-htlc1'
+import { createHtlc2 } from './transaction-create-htlc2'
+import { createHtlc3, createHtlcRefund3 } from './transaction-create-htlc3'
+import { createHtlc4, createHtlcRefund4 } from './transaction-create-htlc4'
 import { createTransfer } from './transaction-transfer'
 import { blockTime, testNetTxExplorerUrl } from '~/constants'
 import env from '~/environment'
@@ -72,10 +75,10 @@ const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 let Transaction
 
 const txStaticMethods = [
-  makeTransaction, createTransfer, createHtlc1
+  makeTransaction, createTransfer, createHtlc1, createHtlc2, createHtlc3, createHtlc4, createHtlcRefund3, createHtlcRefund4
 ].reduce((acc, method) => {
   acc[method.name] = function () {
-    const txData = method.apply(this, arguments)
+    const txData = method.apply(this, [BlockchainInfo.infoBySymbol(), ...arguments])
     return new Transaction(txData)
   }
   return acc

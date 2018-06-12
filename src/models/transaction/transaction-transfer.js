@@ -8,8 +8,9 @@ import ErrorData from '../error'
 /**
  * Note: issuance change will be returned to its original UTXO address.
  */
-function createTransfer (type, amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates, description) {
+function createTransfer (blockchainInfo, type, amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates, description) {
   typeforce(typeforce.tuple(
+    {network: types.Network, sha: '?String'},
     typeforce.oneOf(
       typeforce.value('BTC'),
       typeforce.value('EQB'),
@@ -21,26 +22,26 @@ function createTransfer (type, amount, toAddress, changeAddr, portfolio, issuanc
   if (type === 'ISSUANCE') {
     typeforce('Issuance', issuance)
   }
-
   const currencyType = type === 'BTC' ? 'BTC' : 'EQB'
   const transactionFeeRate = transactionFeeRates[currencyType]
 
-  // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
-  let txConfig = currencyType === 'BTC'
-    ? prepareConfigBtc(amount, toAddress, changeAddr, portfolio, transactionFeeRates, description)
-    : prepareConfigEqb(amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates, description)
-  let tx = buildTransaction(currencyType)(txConfig.buildConfig.vin, txConfig.buildConfig.vout)
-
-  // Calculate fee and rebuild:
-  const transactionFee = tx.hex.length / 2 * transactionFeeRate
-  console.log(`transactionFee: ${tx.hex.length} / 2 * ${transactionFeeRate} = ${transactionFee}`)
-  txConfig = currencyType === 'BTC'
-    ? prepareConfigBtc(amount, toAddress, changeAddr, portfolio, transactionFeeRates, description, transactionFee)
-    : prepareConfigEqb(amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates, description, transactionFee)
-  tx = buildTransaction(currencyType)(txConfig.buildConfig.vin, txConfig.buildConfig.vout)
-
+  function build(currencyType, transactionFee) {
+    // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
+    let txConfig = currencyType === 'BTC'
+      ? prepareConfigBtc(amount, toAddress, changeAddr, portfolio, transactionFeeRates, description, transactionFee)
+      : prepareConfigEqb(amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates, description, transactionFee)
+    let tx = buildTransaction(currencyType)(txConfig.buildConfig.vin, txConfig.buildConfig.vout, blockchainInfo)
+    if (!transactionFee) {
+      // Calculate fee and rebuild:
+      transactionFee = tx.hex.length / 2 * transactionFeeRate
+      console.log(`transactionFee: ${tx.hex.length} / 2 * ${transactionFeeRate} = ${transactionFee}`)
+      return build(currencyType, transactionFee)
+    } else {
+      return { tx, txConfig }
+    }
+  }
+  const { tx, txConfig } = build(currencyType)
   const txData = prepareTxData(txConfig, tx, issuance)
-
   txData.description = description
 
   return txData

@@ -34,7 +34,7 @@ function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.tes
   }
 }
 
-function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testnet, locktime = 0) {
+function buildTransactionBtc (inputs, outputs, blockchainInfo, locktime = 0) {
   console.log('*** buildTransactionBtc')
   // Note: logging arguments like this breaks the test in Testee FF!
   // console.log(`buildTransactionBtc`, arguments)
@@ -45,7 +45,7 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
     scriptPubKey: '?Buffer',
     address: typeforce.maybe(types.Address)
   }), outputs)
-  typeforce(types.Network, network)
+  typeforce({network: types.Network}, blockchainInfo)
 
   const options = {
     hashTimelockContract
@@ -74,9 +74,12 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
   }
 }
 
-function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testnet, locktime = 0) {
-  console.log('*** buildTransactionEqb')
-  typeforce(typeforce.tuple('Array', 'Array', types.Network), [inputs, outputs, network])
+function buildTransactionEqb (inputs, outputs, blockchainInfo, locktime = 0) {
+  console.log('*** buildTransactionEqb', arguments)
+  typeforce(
+    typeforce.tuple('Array', 'Array', {network: types.Network, sha: '?String'}),
+    [inputs, outputs, blockchainInfo]
+  )
   const vout = outputs.map(vout => {
     const res = merge(pick(['value', 'scriptPubKey', 'address'], vout), {
       equibit: {
@@ -95,7 +98,7 @@ function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testne
     vin: inputs,
     vout
   }
-  const bufferTx = eqbTxBuilder.builder.buildTx(tx, {sha: 'SHA3_256'})
+  const bufferTx = eqbTxBuilder.builder.buildTx(tx, {sha: blockchainInfo.sha})
   const hex = bufferTx.toString('hex')
   const txId = eqbTxBuilder.getTxId({sha: 'SHA3_256'})(bufferTx)
   console.log(`[buildTransactionEqb] hex = ${hex}, \ntxid = ${txId}`)
