@@ -4,7 +4,7 @@ import feathersClient from './feathers-client'
 import { superModelNoCache as superModel } from './super-model'
 import algebra from './algebra'
 
-const BlockchainInfo = DefineMap.extend('BlockchainInfo', {
+const BlockchainInfo = DefineMap.extend('BlockchainInfo', {seal: false}, {
   '__v': 'number',
   '_id': 'string',
   'bestblockhash': 'string',
