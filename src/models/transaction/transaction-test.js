@@ -46,34 +46,9 @@ describe('models/transaction/utils', function () {
       const transactionInfo = buildTransactionOld('BTC')(inputs, outputs, bitcoin.networks.testnet)
       assert.equal(transactionInfo.hex, expectedHex)
     })
-    // todo: figure out why tx-builder causes testee to crash (Internal error: too much recursion. Stack trace: /testee/testee.min.js:202:55582)
-    if (window.Testee1) {
-      it.skip('skipping builtTransaction in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
-    } else {
-      it('should create a transaction hex (tx-builder)', function () {
-        const transactionInfo = buildTransaction('BTC')(inputs, outputs, blockchainInfoBtc)
-        assert.equal(transactionInfo.hex, expectedHex)
-      })
-    }
-  })
-  describe.skip('buildTransactionBtc', function () {
-    it('should work :)', function () {
-      assert.ok(typeof buildTransactionBtc === 'function')
-    })
-  })
-  describe.skip('buildTransactionEqb', function () {
-    it('should work :)', function () {
-      assert.ok(typeof buildTransactionEqb === 'function')
-    })
-  })
-  describe.skip('toSatoshi', function () {
-    it('should work :)', function () {
-      assert.ok(typeof toSatoshi === 'function')
-    })
-  })
-  describe.skip('makeTransaction', function () {
-    it('should work :)', function () {
-      assert.ok(typeof makeTransaction === 'function')
+    it('should create a transaction hex (tx-builder)', function () {
+      const transactionInfo = buildTransaction('BTC')(inputs, outputs, blockchainInfoBtc)
+      assert.equal(transactionInfo.hex, expectedHex)
     })
   })
   describe('HTLC-1 Lock payment into HTLC', function () {
@@ -365,6 +340,7 @@ describe('models/transaction/utils', function () {
         htlcOfferMock = mockHtlcOffer()
         tx = { hex: htlcOfferMock.txHex3, txId: htlcOfferMock.txId3 }
         txData = createHtlc3(
+          blockchainInfoEqb,
           htlcOfferMock.order, htlcOfferMock.offer, portfolio, issuance,
           htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
         )
@@ -393,6 +369,7 @@ describe('models/transaction/utils', function () {
         htlcOfferMock = mockHtlcOffer()
         tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
         txData = createHtlcRefund3(
+          blockchainInfoBtc,
           htlcOfferMock.order, htlcOfferMock.offer, portfolio, issuance,
           htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
         )
@@ -422,6 +399,7 @@ describe('models/transaction/utils', function () {
         htlcOfferMock = mockHtlcOffer()
         tx = { hex: htlcOfferMock.txHexBlankEqb, txId: htlcOfferMock.txIdBlankEqb }
         txData = createHtlc3(
+          blockchainInfoEqb,
           htlcOfferMock.orderBlankEqb, htlcOfferMock.offer, portfolio, null,
           htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
         )
@@ -597,7 +575,11 @@ describe('models/transaction/utils', function () {
         offer = htlcOfferMock.offer
         amount = offer.quantity * offer.price
         tx = { hex: htlcOfferMock.txHex4, txId: htlcOfferMock.txId4 }
-        txData = createHtlc4(order, offer, portfolio, issuance, htlcOfferMock.secretHex, null, transactionFeeRates)
+        txData = createHtlc4(
+          blockchainInfoBtc,
+          order, offer, portfolio, issuance,
+          htlcOfferMock.secretHex, null, transactionFeeRates
+        )
       })
       it('should define main props', function () {
         assert.equal(txData.amount, amount - fee, 'amount minus fee')
@@ -617,7 +599,11 @@ describe('models/transaction/utils', function () {
         order = htlcOfferMock.orderBlankEqb
         offer = htlcOfferMock.offer
         amount = offer.quantity * offer.price
-        txData = createHtlc4(order, offer, portfolio, null, htlcOfferMock.secretHex, null, transactionFeeRates)
+        txData = createHtlc4(
+          blockchainInfoBtc,
+          order, offer, portfolio, null,
+          htlcOfferMock.secretHex, null, transactionFeeRates
+        )
       })
       it.skip('should define amount', function () {
         assert.equal(txData.amount, 32750)
@@ -664,7 +650,7 @@ describe('models/transaction/utils', function () {
           amount = 1000
           toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
           changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
-          txData = createTransfer('BTC', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
+          txData = createTransfer(blockchainInfoBtc, 'BTC', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
           expectedTxId = '7f5f9a3c889c9fd41b01581f584b204d979a59384a728beb50b54a279a4b45ab'
         })
         it('should define amount', function () {
@@ -689,7 +675,7 @@ describe('models/transaction/utils', function () {
           amount = 1000
           toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
           changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
-          txData = createTransfer('EQB', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
+          txData = createTransfer(blockchainInfoEqb, 'EQB', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
           expectedTxId = '481bec1f3fc1f824a99f40846c4b9036b635fc78947b659c92ebbf8a51a9a50a'
         })
         it('should define amount', function () {

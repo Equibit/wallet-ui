@@ -15,9 +15,9 @@ import { prepareTxData } from './transaction-create-htlc1'
  * - From: BTC
  */
 const [createHtlc4, createHtlcRefund4] = [false, true].map(isRefund => {
-  return function (order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates, locktime = 0) {
+  return function (blockchainInfo, order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates, locktime = 0) {
     typeforce(
-      typeforce.tuple('Order', 'Offer', 'Portfolio', '?Issuance', 'String', typeforce.maybe(types.Address), {EQB: 'Number', BTC: 'Number'}),
+      typeforce.tuple({network: types.Network, sha: '?String'}, 'Order', 'Offer', 'Portfolio', '?Issuance', 'String', typeforce.maybe(types.Address), {EQB: 'Number', BTC: 'Number'}),
       arguments
     )
     if (order.assetType === 'ISSUANCE') {
@@ -28,24 +28,24 @@ const [createHtlc4, createHtlcRefund4] = [false, true].map(isRefund => {
     const currencyType = order.type === 'SELL' ? 'BTC' : 'EQB'
     const transactionFeeRate = transactionFeeRates[currencyType]
 
-    // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
-    let htlcConfig = currencyType === 'BTC'
-      ? (isRefund ? prepareHtlcRefundConfig4 : prepareHtlcConfig4)(order, offer, portfolio, secret)
-      : (isRefund ? prepareHtlcRefundConfig4Eqb : prepareHtlcConfig4Eqb)(order, offer, portfolio, secret, issuance, changeAddr)
-    // todo: generalize to both Ask and Bid.
-    let tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout, undefined, locktime)
+    function build(currencyType, transactionFee) {
+      // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
+      let txConfig = currencyType === 'BTC'
+        ? (isRefund ? prepareHtlcRefundConfig4 : prepareHtlcConfig4)(order, offer, portfolio, secret, transactionFee)
+        : (isRefund ? prepareHtlcRefundConfig4Eqb : prepareHtlcConfig4Eqb)(order, offer, portfolio, secret, issuance, changeAddr, transactionFee)
+      let tx = buildTransaction(currencyType)(txConfig.buildConfig.vin, txConfig.buildConfig.vout, blockchainInfo, locktime)
+      if (!transactionFee) {
+        // Calculate fee and rebuild:
+        transactionFee = tx.hex.length / 2 * transactionFeeRate
+        console.log(`transactionFee: ${tx.hex.length} / 2 * ${transactionFeeRate} = ${transactionFee}`)
+        return build(currencyType, transactionFee)
+      } else {
+        return {tx, txConfig}
+      }
+    }
 
-    // Calculate fee and rebuild:
-    const transactionFee = tx.hex.length / 2 * transactionFeeRate
-    console.log(`transactionFee: ${tx.hex.length} / 2 * ${transactionFeeRate} = ${transactionFee}`)
-
-    htlcConfig = currencyType === 'BTC'
-      ? (isRefund ? prepareHtlcRefundConfig4 : prepareHtlcConfig4)(order, offer, portfolio, secret, transactionFee)
-      : (isRefund ? prepareHtlcRefundConfig4Eqb : prepareHtlcConfig4Eqb)(order, offer, portfolio, secret, issuance, changeAddr, transactionFee)
-    // todo: generalize to both Ask and Bid.
-    tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout, undefined, locktime)
-
-    const txData = prepareTxData(htlcConfig, tx, issuance)
+    const { tx, txConfig } = build(currencyType)
+    const txData = prepareTxData(txConfig, tx, issuance)
 
     return txData
   }
