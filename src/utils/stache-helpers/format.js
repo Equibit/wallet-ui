@@ -37,6 +37,23 @@ stache.registerHelper('format-int', function (value) {
   return accounting.formatNumber(value)
 })
 
+// 5000.1 => 5,000.10
+// 5000 => 5,000
+stache.registerHelper('format-coin', function (value, precision) {
+  if (typeof precision !== 'number') {
+    precision = 2
+  }
+
+  let formattedValue = accounting.formatNumber(value)
+  if (value % 1 !== 0) {
+    value = toMaxPrecision(value, precision)
+    const exactPrecision = value.toString().split('.')[1].length
+    formattedValue = accounting.formatMoney(value, '', exactPrecision)
+  }
+
+  return formattedValue
+})
+
 stache.registerHelper('format-time', function (value) {
   let m = moment(value)
   let isToday = m.isSame(moment(), 'day')
