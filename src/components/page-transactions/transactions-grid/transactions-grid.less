@@ -14,13 +14,13 @@ transactions-grid {
   .column-securities {
     width: 100px;
     text-align: right;
-    &.tx-CANCEL, &.tx-AUTH, &.tx-IN {
+    &.tx-AUTH, &.tx-IN {
       span {
         color: @brand-success;
         text-transform: lowercase;
       }
     }
-    &.tx-USER-LOCK, &.tx-OUT {
+    &.tx-CANCEL, &.tx-USER-LOCK, &.tx-OUT {
       span:before {
         content: "- "
       }
@@ -35,12 +35,12 @@ transactions-grid {
     width: 110px;
     text-align: right;
 
-    &.tx-IN {
+    &.tx-CANCEL, &.tx-IN {
       span {
         color: @brand-success
       }
     }
-    &.tx-USER-LOCK, &.tx-CANCEL, &.tx-OUT, &.tx-AUTH {
+    &.tx-USER-LOCK, &.tx-OUT, &.tx-AUTH {
       span:before {
         content: "- "
       }
