@@ -71,6 +71,7 @@ const FormData = DefineMap({
   },
   submissionAttempted: 'boolean',
   errors: {
+    // TODO: This could be implemented as a stream
     get: () => {
       return {
         companyMissing:
