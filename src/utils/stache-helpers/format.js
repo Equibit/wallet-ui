@@ -40,6 +40,8 @@ stache.registerHelper('format-int', function (value) {
 // 5000.1 => 5,000.10
 // 5000 => 5,000
 stache.registerHelper('format-coin', function (value, precision) {
+  if (isNaN(value)) return value
+
   if (typeof precision !== 'number') {
     precision = 2
   }
