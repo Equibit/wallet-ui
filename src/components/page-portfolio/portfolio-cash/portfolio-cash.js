@@ -24,10 +24,10 @@ export const ViewModel = DefineMap.extend({
     type: '*'
   },
   eqbError: {
-    type: '*'
+    type: 'boolean'
   },
   btcError: {
-    type: '*'
+    type: 'boolean'
   },
   cashEqbInBtc: {
     get (val, resolve) {
