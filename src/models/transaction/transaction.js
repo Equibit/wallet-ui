@@ -357,7 +357,8 @@ Transaction = DefineMap.extend('Transaction', Object.assign({}, txStaticMethods,
     }
     const script = hashTimelockContract(this.toAddress, this.refundAddress, this.hashlock, timelock)
     this.buildConfig.vout[0].scriptPubKey = script
-    const tx = buildTransaction(this.currencyType)(this.buildConfig.vin, this.buildConfig.vout)
+    const blockchainInfo = BlockchainInfo.infoBySymbol()[this.currencyType]
+    const tx = buildTransaction(this.currencyType)(this.buildConfig.vin, this.buildConfig.vout, blockchainInfo)
 
     this.timelock = timelock
     this.hex = tx.hex
