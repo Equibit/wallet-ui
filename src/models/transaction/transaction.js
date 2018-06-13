@@ -85,14 +85,6 @@ const txStaticMethods = [
 }, {})
 
 Transaction = DefineMap.extend('Transaction', Object.assign({}, txStaticMethods, {
-  // makeTransaction (amount, toAddress, txouts, options) {
-  //   const txData = makeTransaction.apply(this, arguments)
-  //   return new Transaction(txData)
-  // },
-  // createHtlc1 (offer, order, portfolio, issuance, changeAddr, transactionFeeRate) {
-  //   const txData = createHtlc1.apply(this, arguments)
-  //   return new Transaction(txData)
-  // },
   subscribe (cb) {
     feathersClient.service('/transactions').on('created', data => {
       console.log('Transaction.on.created', data)
