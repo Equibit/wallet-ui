@@ -25,8 +25,6 @@ import Offer from '../../../models/offer'
 import Issuance from '../../../models/issuance'
 import Session from '../../../models/session'
 import Transaction from '../../../models/transaction/transaction'
-import { createHtlc3 } from '../../../models/transaction/transaction-create-htlc3'
-import { createHtlcRefund4 } from '../../../models/transaction/transaction-create-htlc4'
 import feathersClient from '~/models/feathers-client'
 
 const enumSetter = values => value => {
@@ -121,8 +119,7 @@ export const ViewModel = DefineMap.extend({
       portfolio.getNextAddress(),
       Session.current.transactionFeeRatesPromise
     ]).then(([addrPair, transactionFeeRates]) => {
-      const txData = createHtlc3(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
-      const tx = new Transaction(txData)
+      const tx = Transaction.createHtlc3(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
       this.secret = secret
 
       this.openModal(tx)
@@ -156,7 +153,7 @@ export const ViewModel = DefineMap.extend({
         }
       })
     ]).then(([addrPair, transactionFeeRates, blockchainInfo]) => {
-      const txData = createHtlcRefund4(
+      const tx = Transaction.createHtlcRefund4(
         order,
         offer,
         portfolio,
@@ -167,7 +164,6 @@ export const ViewModel = DefineMap.extend({
         blockchainInfo.result.blocks // <- locktime for next transaction -- if it's not late enough,
                                      //  sending TX will throw "Locktime requirement not satisfied" error
       )
-      const tx = new Transaction(txData)
       this.secret = secret
 
       this.openModal(tx)

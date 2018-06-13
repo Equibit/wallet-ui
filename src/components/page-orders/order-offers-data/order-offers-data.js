@@ -131,7 +131,6 @@ export const ViewModel = DefineMap.extend({
       // By default set htlc2 timelock to the half of htlc1 (user will be able to change it in the modal):
       offer.timelock2 = Math.floor(offer.timelock / 2)
 
-      console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddr`, offer, this.order, portfolio, issuance, changeAddr)
       const tx = Transaction.createHtlc2(offer, this.order, portfolio, issuance, changeAddr, transactionFeeRates.regular)
       // todo: show UI modal with tx details (amount, fee, etc)
       this.openAcceptOfferModal(offer, tx, issuance, portfolio)
