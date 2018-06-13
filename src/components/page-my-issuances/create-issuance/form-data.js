@@ -72,20 +72,24 @@ const FormData = DefineMap({
   submissionAttempted: 'boolean',
   errors: {
     get: () => {
-      return  {
+      return {
         companyMissing:
+          this && // in certain automated tests, this is undefined
           this.submissionAttempted &&
           !this.issuance.companyId &&
           translate('requiredFieldError'),
         restrictionLevelMissing:
+          this &&
           this.submissionAttempted &&
           typeof this.issuance.restriction === 'undefined' &&
           translate('requiredFieldError'),
         issuanceTypeMissing:
+          this &&
           this.submissionAttempted &&
           !this.issuance.issuanceTypeItem &&
           translate('requiredFieldError'),
         issuanceNameMissing:
+          this &&
           this.submissionAttempted &&
           !this.issuance.issuanceName &&
           translate('requiredFieldError')
