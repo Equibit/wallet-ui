@@ -94,7 +94,7 @@ function buildTransactionEqb (inputs, outputs, blockchainInfo, locktime = 0) {
   }
   const bufferTx = eqbTxBuilder.builder.buildTx(tx, {sha: blockchainInfo.sha})
   const hex = bufferTx.toString('hex')
-  const txId = eqbTxBuilder.getTxId({sha: 'SHA3_256'})(bufferTx)
+  const txId = eqbTxBuilder.getTxId({sha: blockchainInfo.sha})(bufferTx)
   console.log(`[buildTransactionEqb] hex = ${hex}, \ntxid = ${txId}`)
 
   return {
