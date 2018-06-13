@@ -238,7 +238,9 @@ const Session = DefineMap.extend('Session', {
     } else {
       retval = Promise.resolve([])
     }
-    this._notificationsPromise = retval
+    Observation.ignore(() => {
+      this._notificationsPromise = retval
+    })()
     return retval
   },
 

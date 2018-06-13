@@ -116,7 +116,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     stream () {
       let resolvePromise
       let promise = new Promise(resolve => { resolvePromise = resolve })
-      return this.toStream('.addresses.isPending').map(val => {
+      return Kefir.constant(false).concat(this.toStream('.addresses.isPending')).map(val => {
         const lastPromise = promise
         if (!val) {
           // not pending now, resolve the promise and remove it
