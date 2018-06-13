@@ -35,7 +35,6 @@ function createTransfer (blockchainInfoBySymbol, type, amount, toAddress, change
     if (!transactionFee) {
       // Calculate fee and rebuild:
       transactionFee = tx.hex.length / 2 * transactionFeeRate
-      console.log(`transactionFee: ${tx.hex.length} / 2 * ${transactionFeeRate} = ${transactionFee}`)
       return build(currencyType, transactionFee)
     } else {
       return { tx, txConfig }

@@ -296,7 +296,6 @@ function createHtlcOffer (order, secret, timelock, description, user, issuance, 
       issuanceType: issuance.issuanceType
     })
   }
-  console.log('createHtlcOffer', arguments, offer)
   return offer
 }
 

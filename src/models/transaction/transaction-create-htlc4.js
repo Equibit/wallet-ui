@@ -36,7 +36,6 @@ const [createHtlc4, createHtlcRefund4] = [false, true].map(isRefund => {
       if (!transactionFee) {
         // Calculate fee and rebuild:
         transactionFee = tx.hex.length / 2 * transactionFeeRate
-        console.log(`transactionFee: ${tx.hex.length} / 2 * ${transactionFeeRate} = ${transactionFee}`)
         return build(currencyType, transactionFee)
       } else {
         return {tx, txConfig}
@@ -110,7 +109,6 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
       offerId: offer._id,
       costPerShare: offer.price
     }
-    console.log(`createHtlc4: txInfo:`, txInfo)
 
     return { buildConfig, txInfo }
   }
@@ -205,7 +203,6 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
       offerId: offer._id,
       costPerShare: offer.price
     }
-    console.log(`createHtlc4: txInfo:`, txInfo)
 
     return { buildConfig, txInfo }
   }

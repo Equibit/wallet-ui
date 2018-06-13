@@ -35,7 +35,6 @@ function createHtlc2 (blockchainInfoBySymbol, offer, order, portfolio, issuance,
     if (!transactionFee) {
       // Calculate fee and rebuild:
       transactionFee = tx.hex.length / 2 * transactionFeeRate
-      console.log(`transactionFee: ${tx.hex.length} / 2 * ${transactionFeeRate} = ${transactionFee}`)
       return build(currencyType, transactionFee)
     } else {
       return {tx, txConfig}
@@ -126,7 +125,6 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
 
   // HTLC SCRIPT:
   const htlcScript = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
-  console.log(`htlcScript = ${htlcScript.toString('hex')}`)
 
   const buildConfig = {
     vin: utxo.map(pick(['txid', 'vout', 'keyPair'])),

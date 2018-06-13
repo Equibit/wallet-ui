@@ -26,7 +26,6 @@ function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.tes
   inputs.forEach(({ txid, vout }, index) => tx.addInput(txid, vout))
   outputs.forEach(({address, value}) => tx.addOutput(address, value))
   inputs.forEach(({ keyPair }, index) => tx.sign(index, keyPair))
-  console.log('- blockchain transaction: ', tx)
   const builtTx = tx.build()
   return {
     txId: builtTx.getId(),
@@ -35,10 +34,6 @@ function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.tes
 }
 
 function buildTransactionBtc (inputs, outputs, blockchainInfo, locktime = 0) {
-  console.log('*** buildTransactionBtc')
-  // Note: logging arguments like this breaks the test in Testee FF!
-  // console.log(`buildTransactionBtc`, arguments)
-
   typeforce(typeforce.arrayOf({txid: 'String', vout: 'Number', keyPair: 'ECPair'}), inputs)
   typeforce(typeforce.arrayOf({
     value: types.Satoshi,
@@ -75,7 +70,6 @@ function buildTransactionBtc (inputs, outputs, blockchainInfo, locktime = 0) {
 }
 
 function buildTransactionEqb (inputs, outputs, blockchainInfo, locktime = 0) {
-  console.log('*** buildTransactionEqb')
   typeforce(
     typeforce.tuple('Array', 'Array', {network: types.Network, sha: '?String'}),
     [inputs, outputs, blockchainInfo]

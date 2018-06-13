@@ -102,7 +102,6 @@ function makeHtlc (
   { fee, changeAddr, network, type, currencyType, description, htlcStep,
     issuance, emptyEqbUtxo, emptyEqbAmount, emptyEqbFee, emptyEqbChangeAddr }
 ) {
-  console.log(`makeHtlc`)
   typeforce(typeforce.tuple(
     'Number',
     types.Address,
