@@ -1,6 +1,7 @@
 import typeforce from 'typeforce'
 import { merge, pick } from 'ramda'
 import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { BlockchainInfoBySymbol } from '../../utils/typeforce-types'
 import { buildTransaction } from './transaction-build'
 import { prepareTxData } from './transaction-create-htlc1'
 import ErrorData from '../error'
@@ -8,9 +9,9 @@ import ErrorData from '../error'
 /**
  * Note: issuance change will be returned to its original UTXO address.
  */
-function createTransfer (blockchainInfo, type, amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates, description) {
+function createTransfer (blockchainInfoBySymbol, type, amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates, description) {
   typeforce(typeforce.tuple(
-    {network: types.Network, sha: '?String'},
+    BlockchainInfoBySymbol,
     typeforce.oneOf(
       typeforce.value('BTC'),
       typeforce.value('EQB'),
@@ -25,12 +26,12 @@ function createTransfer (blockchainInfo, type, amount, toAddress, changeAddr, po
   const currencyType = type === 'BTC' ? 'BTC' : 'EQB'
   const transactionFeeRate = transactionFeeRates[currencyType]
 
-  function build(currencyType, transactionFee) {
+  function build (currencyType, transactionFee) {
     // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
     let txConfig = currencyType === 'BTC'
       ? prepareConfigBtc(amount, toAddress, changeAddr, portfolio, transactionFeeRates, description, transactionFee)
       : prepareConfigEqb(amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates, description, transactionFee)
-    let tx = buildTransaction(currencyType)(txConfig.buildConfig.vin, txConfig.buildConfig.vout, blockchainInfo)
+    let tx = buildTransaction(currencyType)(txConfig.buildConfig.vin, txConfig.buildConfig.vout, blockchainInfoBySymbol[currencyType])
     if (!transactionFee) {
       // Calculate fee and rebuild:
       transactionFee = tx.hex.length / 2 * transactionFeeRate

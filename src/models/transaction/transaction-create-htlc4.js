@@ -1,7 +1,7 @@
 import typeforce from 'typeforce'
 import { merge } from 'ramda'
 import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
-import { TxId } from '../../utils/typeforce-types'
+import { TxId, BlockchainInfoBySymbol } from '../../utils/typeforce-types'
 import { buildTransaction } from './transaction-build'
 import { prepareTxData } from './transaction-create-htlc1'
 
@@ -15,9 +15,9 @@ import { prepareTxData } from './transaction-create-htlc1'
  * - From: BTC
  */
 const [createHtlc4, createHtlcRefund4] = [false, true].map(isRefund => {
-  return function (blockchainInfo, order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates, locktime = 0) {
+  return function (blockchainInfoBySymbol, order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates, locktime = 0) {
     typeforce(
-      typeforce.tuple({network: types.Network, sha: '?String'}, 'Order', 'Offer', 'Portfolio', '?Issuance', 'String', typeforce.maybe(types.Address), {EQB: 'Number', BTC: 'Number'}),
+      typeforce.tuple(BlockchainInfoBySymbol, 'Order', 'Offer', 'Portfolio', '?Issuance', 'String', typeforce.maybe(types.Address), {EQB: 'Number', BTC: 'Number'}),
       arguments
     )
     if (order.assetType === 'ISSUANCE') {
@@ -28,12 +28,12 @@ const [createHtlc4, createHtlcRefund4] = [false, true].map(isRefund => {
     const currencyType = order.type === 'SELL' ? 'BTC' : 'EQB'
     const transactionFeeRate = transactionFeeRates[currencyType]
 
-    function build(currencyType, transactionFee) {
+    function build (currencyType, transactionFee) {
       // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
       let txConfig = currencyType === 'BTC'
         ? (isRefund ? prepareHtlcRefundConfig4 : prepareHtlcConfig4)(order, offer, portfolio, secret, transactionFee)
         : (isRefund ? prepareHtlcRefundConfig4Eqb : prepareHtlcConfig4Eqb)(order, offer, portfolio, secret, issuance, changeAddr, transactionFee)
-      let tx = buildTransaction(currencyType)(txConfig.buildConfig.vin, txConfig.buildConfig.vout, blockchainInfo, locktime)
+      let tx = buildTransaction(currencyType)(txConfig.buildConfig.vin, txConfig.buildConfig.vout, blockchainInfoBySymbol[currencyType], locktime)
       if (!transactionFee) {
         // Calculate fee and rebuild:
         transactionFee = tx.hex.length / 2 * transactionFeeRate
