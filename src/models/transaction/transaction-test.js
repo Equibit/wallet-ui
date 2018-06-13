@@ -225,7 +225,6 @@ describe('models/transaction/utils', function () {
         })
       })
     })
-
     describe('createHtlc2', function () {
       let txData, tx
       before(function () {

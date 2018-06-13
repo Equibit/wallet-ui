@@ -75,7 +75,7 @@ function buildTransactionBtc (inputs, outputs, blockchainInfo, locktime = 0) {
 }
 
 function buildTransactionEqb (inputs, outputs, blockchainInfo, locktime = 0) {
-  console.log('*** buildTransactionEqb', arguments)
+  console.log('*** buildTransactionEqb')
   typeforce(
     typeforce.tuple('Array', 'Array', {network: types.Network, sha: '?String'}),
     [inputs, outputs, blockchainInfo]

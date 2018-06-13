@@ -24,7 +24,6 @@ const [createHtlc4, createHtlcRefund4] = [false, true].map(isRefund => {
       typeforce('Issuance', issuance)
     }
 
-    console.log(`createHtlc4 arguments:`, arguments)
     const currencyType = order.type === 'SELL' ? 'BTC' : 'EQB'
     const transactionFeeRate = transactionFeeRates[currencyType]
 
@@ -54,7 +53,6 @@ const [createHtlc4, createHtlcRefund4] = [false, true].map(isRefund => {
 // BTC. Ask flow: seller (order creator) collects locked payment.
 const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefund => {
   return function (order, offer, portfolio, secret, transactionFee) {
-    console.log('prepareHtlcConfig4', arguments)
     typeforce(
       typeforce.tuple('Order', 'Offer', 'Portfolio', 'String'),
       arguments
@@ -121,7 +119,6 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
 // EQB. Bid flow: buyer (order creator) collects locked securities.
 const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(isRefund => {
   return function (order, offer, portfolio, secret, issuance, changeAddr, transactionFee) {
-    console.log('prepareHtlcConfig4', arguments)
     typeforce(
       typeforce.tuple('Order', 'Offer', 'Portfolio', 'String', '?Issuance', types.Address),
       arguments

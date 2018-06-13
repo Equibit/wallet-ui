@@ -25,7 +25,6 @@ const [ createHtlc3, createHtlcRefund3 ] = [false, true].map(isRefund => {
     if (order.assetType === 'ISSUANCE') {
       typeforce('Issuance', issuance)
     }
-    console.log(`createHtlc3 arguments:`, arguments)
     const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
     const transactionFeeRate = transactionFeeRates[currencyType]
 
