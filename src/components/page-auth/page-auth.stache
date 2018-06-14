@@ -24,19 +24,19 @@
         <div class="panel-body">
           {{#switch page}}
             {{#case 'signup'}}
-              <sign-up {(email)}="email" />
+              <sign-up email:bind="email" />
             {{/case}}
             {{#case 'login'}}
-              <log-in {(session)}="session" {(email)}="email" />
+              <log-in session:bind="session" email:bind="email" logout:from="@logout"/>
             {{/case}}
             {{#case 'change-password'}}
-              <change-password {user}="session.user" />
+              <change-password user:from="session.user" />
             {{/case}}
             {{#case 'forgot-password'}}
-              <forgot-password {(email)}="email" />
+              <forgot-password email:bind="email" />
             {{/case}}
             {{#case 'recovery-phrase'}}
-              <recovery-phrase {user}="session.user" />
+              <recovery-phrase user:from="session.user" />
             {{/case}}
           {{/switch}}
         </div>
