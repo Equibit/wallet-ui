@@ -1,6 +1,7 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import Transaction from './transaction'
 
 // Fixtures:
 import '../fixtures/portfolio'
@@ -690,6 +691,17 @@ describe('models/transaction/utils', function () {
         it('should define tx id', function () {
           assert.equal(txData.txId, expectedTxId)
         })
+      })
+    })
+  })
+})
+
+describe('models/transaction/transaction', function () {
+  describe('static methods for creating a transaction', function () {
+    const methods = ['makeTransaction', 'createTransfer', 'createHtlc1', 'createHtlc2', 'createHtlc3', 'createHtlc4', 'createHtlcRefund3', 'createHtlcRefund4']
+    methods.forEach(method => {
+      it(`should define "${method}" method`, function () {
+        assert.ok(typeof Transaction[method] === 'function')
       })
     })
   })

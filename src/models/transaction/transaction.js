@@ -75,9 +75,16 @@ const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 let Transaction
 
 const txStaticMethods = [
-  makeTransaction, createTransfer, createHtlc1, createHtlc2, createHtlc3, createHtlc4, createHtlcRefund3, createHtlcRefund4
+  makeTransaction, createTransfer, createHtlc1, createHtlc2,
+  [createHtlc3, 'createHtlc3'], [createHtlc4, 'createHtlc4'],
+  [createHtlcRefund3, 'createHtlcRefund3'], [createHtlcRefund4, 'createHtlcRefund4']
 ].reduce((acc, method) => {
-  acc[method.name] = function () {
+  const name = method.name || method[1]
+  // console.log(`defining ${name}`)
+  if (method[0]) {
+    method = method[0]
+  }
+  acc[name] = function () {
     const txData = method.apply(this, [BlockchainInfo.infoBySymbol(), ...arguments])
     return new Transaction(txData)
   }

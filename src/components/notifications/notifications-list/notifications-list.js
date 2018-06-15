@@ -75,9 +75,8 @@ export const ViewModel = DefineMap.extend({
       ])
       .then(([issuance, timelockInfo]) => {
         const secret = offer.htlcStep === 3 ? offer.secret : Session.current.user.decrypt(offer.secretEncrypted)
-        const createFn = ([null, null, null, createHtlc3, createHtlc4][nextHtlcStep])
-        const txData = createFn(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
-        const tx = new Transaction(txData)
+        const createFn = ([null, null, null, 'createHtlc3', 'createHtlc4'][nextHtlcStep])
+        const tx = Transaction[createFn](order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
 
         this.offerModalShown = false
         this.popupData = {
