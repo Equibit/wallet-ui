@@ -21,7 +21,6 @@ import Session from '../../../models/session'
 import Issuance from '../../../models/issuance'
 import Transaction from '../../../models/transaction/transaction'
 import FormData from './form-data'
-import { createTransfer } from '../../../models/transaction/transaction-transfer'
 
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
@@ -112,11 +111,11 @@ export const ViewModel = DefineMap.extend({
     const toAddress = formData.toAddress
     const type = formData.type === 'FUNDS' ? formData.fundsType : 'ISSUANCE'
 
-    const txData = createTransfer(
+    const tx = Transaction.createTransfer(
       type, amount, toAddress, changeAddr,
       this.portfolio, formData.issuance, transactionFeeRates, formData.description
     )
-    return new Transaction(txData)
+    return tx
   }
 })
 

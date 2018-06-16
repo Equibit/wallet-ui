@@ -1,6 +1,7 @@
 import typeforce from 'typeforce'
 import { merge, pick } from 'ramda'
 import { eqbTxBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { BlockchainInfoBySymbol } from '../../utils/typeforce-types'
 import { buildTransaction } from './transaction-build'
 import { prepareHtlcConfigBtc, prepareTxData } from './transaction-create-htlc1'
 
@@ -13,31 +14,35 @@ const hashTimelockContract = eqbTxBuilder.hashTimelockContract
  * Creates HTLC transaction with H(x). Offer type is either 'BUY' or 'SELL'.
  * This is a high-level method to be called from a component VM.
  */
-function createHtlc2 (offer, order, portfolio, issuance, changeAddr, transactionFeeRates) {
-  typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', '?Issuance', types.Address, {EQB: 'Number', BTC: 'Number'}), arguments)
+function createHtlc2 (blockchainInfoBySymbol, offer, order, portfolio, issuance, changeAddr, transactionFeeRates) {
+  typeforce(typeforce.tuple(
+    BlockchainInfoBySymbol, 'Offer', 'Order', 'Portfolio', '?Issuance', types.Address, {EQB: 'Number', BTC: 'Number'}),
+    arguments
+  )
   typeforce(typeforce.tuple('Number', 'String'), [offer.timelock, offer.hashlock])
   if (order.assetType === 'ISSUANCE') {
     typeforce('Issuance', issuance)
   }
-
   const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
   const transactionFeeRate = transactionFeeRates[currencyType]
 
-  // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
-  let htlcConfig = currencyType === 'EQB'
-    ? prepareHtlcConfigEqb(offer, order, portfolio, issuance, changeAddr)
-    : prepareHtlcConfigBtc(offer, order, portfolio, changeAddr)
-  let tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
+  function build (currencyType, transactionFee) {
+    // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
+    let txConfig = currencyType === 'EQB'
+      ? prepareHtlcConfigEqb(offer, order, portfolio, issuance, changeAddr, transactionFee)
+      : prepareHtlcConfigBtc(offer, order, portfolio, changeAddr, transactionFee)
+    let tx = buildTransaction(currencyType)(txConfig.buildConfig.vin, txConfig.buildConfig.vout, blockchainInfoBySymbol[currencyType])
+    if (!transactionFee) {
+      // Calculate fee and rebuild:
+      transactionFee = tx.hex.length / 2 * transactionFeeRate
+      return build(currencyType, transactionFee)
+    } else {
+      return {tx, txConfig}
+    }
+  }
 
-  // Calculate fee and rebuild:
-  const transactionFee = tx.hex.length / 2 * transactionFeeRate
-  console.log(`transactionFee: ${tx.hex.length} / 2 * ${transactionFeeRate} = ${transactionFee}`)
-  htlcConfig = currencyType === 'EQB'
-    ? prepareHtlcConfigEqb(offer, order, portfolio, issuance, changeAddr, transactionFee)
-    : prepareHtlcConfigBtc(offer, order, portfolio, changeAddr, transactionFee)
-  tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
-
-  const txData = prepareTxData(htlcConfig, tx, issuance)
+  const { tx, txConfig } = build(currencyType)
+  const txData = prepareTxData(txConfig, tx, issuance)
 
   txData.htlcStep = 2
   txData.description = order.type === 'SELL'
@@ -120,7 +125,6 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
 
   // HTLC SCRIPT:
   const htlcScript = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)
-  console.log(`htlcScript = ${htlcScript.toString('hex')}`)
 
   const buildConfig = {
     vin: utxo.map(pick(['txid', 'vout', 'keyPair'])),

@@ -58,6 +58,10 @@ import algebra from '../algebra'
 import i18n, { translate } from '../../i18n/i18n'
 import { makeTransaction } from './transaction-make'
 import { createHtlc1 } from './transaction-create-htlc1'
+import { createHtlc2 } from './transaction-create-htlc2'
+import { createHtlc3, createHtlcRefund3 } from './transaction-create-htlc3'
+import { createHtlc4, createHtlcRefund4 } from './transaction-create-htlc4'
+import { createTransfer } from './transaction-transfer'
 import { blockTime, testNetTxExplorerUrl } from '~/constants'
 import env from '~/environment'
 import { buildTransaction } from './transaction-build'
@@ -68,15 +72,26 @@ import Session from '~/models/session'
 import TransactionNote from './note'
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
-const Transaction = DefineMap.extend('Transaction', {
-  makeTransaction (amount, toAddress, txouts, options) {
-    const txData = makeTransaction.apply(this, arguments)
+let Transaction
+
+const txStaticMethods = [
+  makeTransaction, createTransfer, createHtlc1, createHtlc2,
+  [createHtlc3, 'createHtlc3'], [createHtlc4, 'createHtlc4'],
+  [createHtlcRefund3, 'createHtlcRefund3'], [createHtlcRefund4, 'createHtlcRefund4']
+].reduce((acc, method) => {
+  const name = method.name || method[1]
+  // console.log(`defining ${name}`)
+  if (method[0]) {
+    method = method[0]
+  }
+  acc[name] = function () {
+    const txData = method.apply(this, [BlockchainInfo.infoBySymbol(), ...arguments])
     return new Transaction(txData)
-  },
-  createHtlc1 (offer, order, portfolio, issuance, changeAddr, transactionFeeRate) {
-    const txData = createHtlc1.apply(this, arguments)
-    return new Transaction(txData)
-  },
+  }
+  return acc
+}, {})
+
+Transaction = DefineMap.extend('Transaction', Object.assign({}, txStaticMethods, {
   subscribe (cb) {
     feathersClient.service('/transactions').on('created', data => {
       console.log('Transaction.on.created', data)
@@ -90,7 +105,7 @@ const Transaction = DefineMap.extend('Transaction', {
     // TODO: calculate based on the number of inputs/outputs and JSON size for eqb if applied.
     return 10000
   }
-}, {
+}), {
   /**
    * @property {String} models/user.properties._id _id
    * @parent models/user.properties
@@ -348,9 +363,9 @@ const Transaction = DefineMap.extend('Transaction', {
       throw new Error('Cannot rebuild transaction (no existing vout scriptPubKey)')
     }
     const script = hashTimelockContract(this.toAddress, this.refundAddress, this.hashlock, timelock)
-    console.log(`script = ${script.toString('hex')}`)
     this.buildConfig.vout[0].scriptPubKey = script
-    const tx = buildTransaction(this.currencyType)(this.buildConfig.vin, this.buildConfig.vout)
+    const blockchainInfo = BlockchainInfo.infoBySymbol()[this.currencyType]
+    const tx = buildTransaction(this.currencyType)(this.buildConfig.vin, this.buildConfig.vout, blockchainInfo)
 
     this.timelock = timelock
     this.hex = tx.hex

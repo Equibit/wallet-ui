@@ -1,5 +1,6 @@
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
+import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import feathersClient from './feathers-client'
 import { superModelNoCache as superModel } from './super-model'
 import algebra from './algebra'
@@ -12,11 +13,20 @@ const BlockchainInfo = DefineMap.extend('BlockchainInfo', {seal: false}, {
   'coinType': 'string',
   'difficulty': 'number',
   'errorMessage': 'string',
-  'mode': 'string',
-  'status': 'boolean',
+  mode: 'string',   // enum: [ 'regtest', 'test', 'main', 'unknown' ]
+  status: 'boolean',
   mediantime: 'number',
+  feeRates: {
+    default () {
+      return new DefineMap({ priority: 20, regular: 5 })
+    }
+  },
+  sha: 'string',
   createdAt: 'date',
-  updatedAt: 'date'
+  updatedAt: 'date',
+  get network () {
+    return this.mode === 'main' ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
+  }
   // these should probably be added on the server side from the RPC call
   // 'mediantime': 'date',
   // 'verificationprogress': 'number',

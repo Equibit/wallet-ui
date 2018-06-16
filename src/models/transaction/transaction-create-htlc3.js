@@ -1,7 +1,7 @@
 import typeforce from 'typeforce'
 import { merge } from 'ramda'
 import { types } from '@equibit/wallet-crypto/dist/wallet-crypto'
-import { TxId } from '../../utils/typeforce-types'
+import { TxId, BlockchainInfoBySymbol } from '../../utils/typeforce-types'
 import { buildTransaction } from './transaction-build'
 import { prepareTxData } from './transaction-create-htlc1'
 
@@ -17,32 +17,34 @@ import { prepareTxData } from './transaction-create-htlc1'
  * - Buyer collects payment
  */
 const [ createHtlc3, createHtlcRefund3 ] = [false, true].map(isRefund => {
-  return function (order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates, locktime = 0) {
+  return function (blockchainInfoBySymbol, order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates, locktime = 0) {
     typeforce(
-      typeforce.tuple('Order', 'Offer', 'Portfolio', '?Issuance', 'String', types.Address, {EQB: 'Number', BTC: 'Number'}),
+      typeforce.tuple(BlockchainInfoBySymbol, 'Order', 'Offer', 'Portfolio', '?Issuance', 'String', types.Address, {EQB: 'Number', BTC: 'Number'}),
       arguments
     )
     if (order.assetType === 'ISSUANCE') {
       typeforce('Issuance', issuance)
     }
-    console.log(`createHtlc3 arguments:`, arguments)
     const currencyType = order.type === 'SELL' ? 'EQB' : 'BTC'
     const transactionFeeRate = transactionFeeRates[currencyType]
 
-    // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
-    let htlcConfig = currencyType === 'EQB'
-      ? (isRefund ? prepareHtlcRefundConfig3 : prepareHtlcConfig3)(order, offer, portfolio, issuance, secret, changeAddr)
-      : (isRefund ? prepareHtlcRefundConfig3Btc : prepareHtlcConfig3Btc)(order, offer, portfolio, secret, changeAddr)
-    let tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout, undefined, locktime)
+    function build (currencyType, transactionFee) {
+      // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
+      let txConfig = currencyType === 'EQB'
+        ? (isRefund ? prepareHtlcRefundConfig3 : prepareHtlcConfig3)(order, offer, portfolio, issuance, secret, changeAddr, transactionFee)
+        : (isRefund ? prepareHtlcRefundConfig3Btc : prepareHtlcConfig3Btc)(order, offer, portfolio, secret, changeAddr, transactionFee)
+      let tx = buildTransaction(currencyType)(txConfig.buildConfig.vin, txConfig.buildConfig.vout, blockchainInfoBySymbol[currencyType], locktime)
+      if (!transactionFee) {
+        // Calculate fee and rebuild:
+        transactionFee = tx.hex.length / 2 * transactionFeeRate
+        return build(currencyType, transactionFee)
+      } else {
+        return {tx, txConfig}
+      }
+    }
 
-    // Calculate fee and rebuild:
-    const transactionFee = tx.hex.length / 2 * transactionFeeRate
-    htlcConfig = currencyType === 'EQB'
-      ? (isRefund ? prepareHtlcRefundConfig3 : prepareHtlcConfig3)(order, offer, portfolio, issuance, secret, changeAddr, transactionFee)
-      : (isRefund ? prepareHtlcRefundConfig3Btc : prepareHtlcConfig3Btc)(order, offer, portfolio, secret, changeAddr, transactionFee)
-    tx = buildTransaction(currencyType)(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout, undefined, locktime)
-
-    const txData = prepareTxData(htlcConfig, tx, issuance)
+    const { tx, txConfig } = build(currencyType)
+    const txData = prepareTxData(txConfig, tx, issuance)
 
     return txData
   }
@@ -139,7 +141,6 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
       offerId: offer._id,
       costPerShare: offer.price
     }
-    console.log(`createHtlc3: txInfo:`, txInfo)
 
     return { buildConfig, txInfo }
   }
@@ -203,7 +204,6 @@ const [ prepareHtlcConfig3Btc, prepareHtlcRefundConfig3Btc ] = [false, true].map
       offerId: offer._id,
       costPerShare: offer.price
     }
-    console.log(`createHtlc3: txInfo:`, txInfo)
 
     return { buildConfig, txInfo }
   }

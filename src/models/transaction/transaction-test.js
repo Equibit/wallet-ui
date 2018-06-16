@@ -1,6 +1,7 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import Transaction from './transaction'
 
 // Fixtures:
 import '../fixtures/portfolio'
@@ -13,17 +14,22 @@ import mockHtlcOffer from '../mock/mock-htlc-offer'
 
 import {
   buildTransaction,
-  buildTransactionOld,
-  buildTransactionBtc,
-  buildTransactionEqb,
-  toSatoshi
+  buildTransactionOld
+  // buildTransactionBtc,
+  // buildTransactionEqb,
+  // toSatoshi
 } from './transaction-build'
-import { makeTransaction } from './transaction-make'
+// import { makeTransaction } from './transaction-make'
 import { createHtlc1, prepareHtlcConfigBtc, prepareTxData } from './transaction-create-htlc1'
 import { createHtlc2, prepareHtlcConfigEqb } from './transaction-create-htlc2'
 import { createHtlc3, createHtlcRefund3, prepareHtlcConfig3, prepareHtlcRefundConfig3 } from './transaction-create-htlc3'
 import { createHtlc4, prepareHtlcConfig4 } from './transaction-create-htlc4'
 import { createTransfer } from './transaction-transfer'
+
+const blockchainInfoBySymbol = {
+  BTC: {network: bitcoin.networks.testnet},
+  EQB: {network: bitcoin.networks.testnet, sha: 'SHA3_256'}
+}
 
 describe('models/transaction/utils', function () {
   const transactionFeeRates = { EQB: 5, BTC: 10 }
@@ -43,34 +49,9 @@ describe('models/transaction/utils', function () {
       const transactionInfo = buildTransactionOld('BTC')(inputs, outputs, bitcoin.networks.testnet)
       assert.equal(transactionInfo.hex, expectedHex)
     })
-    // todo: figure out why tx-builder causes testee to crash (Internal error: too much recursion. Stack trace: /testee/testee.min.js:202:55582)
-    if (window.Testee1) {
-      it.skip('skipping builtTransaction in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
-    } else {
-      it('should create a transaction hex (tx-builder)', function () {
-        const transactionInfo = buildTransaction('BTC')(inputs, outputs, bitcoin.networks.testnet)
-        assert.equal(transactionInfo.hex, expectedHex)
-      })
-    }
-  })
-  describe.skip('buildTransactionBtc', function () {
-    it('should work :)', function () {
-      assert.ok(typeof buildTransactionBtc === 'function')
-    })
-  })
-  describe.skip('buildTransactionEqb', function () {
-    it('should work :)', function () {
-      assert.ok(typeof buildTransactionEqb === 'function')
-    })
-  })
-  describe.skip('toSatoshi', function () {
-    it('should work :)', function () {
-      assert.ok(typeof toSatoshi === 'function')
-    })
-  })
-  describe.skip('makeTransaction', function () {
-    it('should work :)', function () {
-      assert.ok(typeof makeTransaction === 'function')
+    it('should create a transaction hex (tx-builder)', function () {
+      const transactionInfo = buildTransaction('BTC')(inputs, outputs, blockchainInfoBySymbol.BTC)
+      assert.equal(transactionInfo.hex, expectedHex)
     })
   })
   describe('HTLC-1 Lock payment into HTLC', function () {
@@ -107,24 +88,21 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    if (window.Testee1) {
-      it.skip('skipping builtTransaction HTLC in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
-    } else {
-      describe('buildTransaction htlc', function () {
-        let tx
-        before(function () {
-          htlcOfferMock = mockHtlcOffer()
-          htlcConfig = prepareHtlcConfigBtc(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC, 2900)
-          tx = buildTransaction('BTC')(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout)
-        })
-        it('should return tx hex', function () {
-          assert.equal(tx.hex, htlcOfferMock.txHex)
-        })
-        it('should return txid', function () {
-          assert.equal(tx.txId, htlcOfferMock.txId)
-        })
+    describe('buildTransaction htlc', function () {
+      let tx
+      before(function () {
+        htlcOfferMock = mockHtlcOffer()
+        htlcConfig = prepareHtlcConfigBtc(htlcOfferMock.offer, htlcOfferMock.order, portfolio, changeAddrPair.BTC, 2900)
+        tx = buildTransaction('BTC')(htlcConfig.buildConfig.vin, htlcConfig.buildConfig.vout, blockchainInfoBySymbol.BTC)
       })
-    }
+      it('should return tx hex', function () {
+        assert.equal(tx.hex, htlcOfferMock.txHex)
+      })
+      it('should return txid', function () {
+        assert.equal(tx.txId, htlcOfferMock.txId)
+      })
+    })
+
     describe('prepareTxData', function () {
       let txData, tx
       before(function () {
@@ -150,32 +128,28 @@ describe('models/transaction/utils', function () {
         assert.equal(txData.companySlug, issuance.companySlug, 'companySlug')
       })
     })
-    if (window.Testee1) {
-      it.skip('skipping createHtlc1 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
-    } else {
-      describe('createHtlc1', function () {
-        let txData, tx
-        before(function () {
-          htlcOfferMock = mockHtlcOffer()
-          tx = { hex: htlcOfferMock.txHex, txId: htlcOfferMock.txId }
-          txData = createHtlc1(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.BTC, transactionFeeRates)
-        })
-        it('should define main props', function () {
-          assert.equal(txData.amount, 35000, 'amount')
-          assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
-        })
-        it('should define hashlock', function () {
-          assert.equal(txData.hashlock.length, 64)
-          assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
-        })
-        it('should define htlc1 transaction hex', function () {
-          assert.equal(txData.hex, tx.hex, 'tx hex')
-        })
-        it('should define htlc1 transaction id', function () {
-          assert.equal(txData.txId, tx.txId, 'txId')
-        })
+    describe('createHtlc1', function () {
+      let txData, tx
+      before(function () {
+        htlcOfferMock = mockHtlcOffer()
+        tx = { hex: htlcOfferMock.txHex, txId: htlcOfferMock.txId }
+        txData = createHtlc1(blockchainInfoBySymbol, htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.BTC, transactionFeeRates)
       })
-    }
+      it('should define main props', function () {
+        assert.equal(txData.amount, 35000, 'amount')
+        assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
+      })
+      it('should define hashlock', function () {
+        assert.equal(txData.hashlock.length, 64)
+        assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
+      })
+      it('should define htlc1 transaction hex', function () {
+        assert.equal(txData.hex, tx.hex, 'tx hex')
+      })
+      it('should define htlc1 transaction id', function () {
+        assert.equal(txData.txId, tx.txId, 'txId')
+      })
+    })
   })
 
   describe('HTLC-2 Lock securities into HTLC', function () {
@@ -252,34 +226,29 @@ describe('models/transaction/utils', function () {
         })
       })
     })
-
-    if (window.Testee1) {
-      it.skip('skipping createHtlc2 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
-    } else {
-      describe('createHtlc2', function () {
-        let txData, tx
-        before(function () {
-          htlcOfferMock = mockHtlcOffer()
-          tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
-          txData = createHtlc2(htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.EQB, transactionFeeRates)
-        })
-        it('should define main props', function () {
-          assert.equal(txData.amount, 500, 'amount')
-          assert.equal(txData.fee, 2925, 'fee')
-          assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
-        })
-        it('should define hashlock', function () {
-          assert.equal(txData.hashlock.length, 64)
-          assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
-        })
-        it('should define htlc2 transaction hex', function () {
-          assert.equal(txData.hex, tx.hex, 'tx hex')
-        })
-        it('should define htlc2 transaction id', function () {
-          assert.equal(txData.txId, tx.txId, 'txId')
-        })
+    describe('createHtlc2', function () {
+      let txData, tx
+      before(function () {
+        htlcOfferMock = mockHtlcOffer()
+        tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
+        txData = createHtlc2(blockchainInfoBySymbol, htlcOfferMock.offer, htlcOfferMock.order, portfolio, issuance, changeAddrPair.EQB, transactionFeeRates)
       })
-    }
+      it('should define main props', function () {
+        assert.equal(txData.amount, 500, 'amount')
+        assert.equal(txData.fee, 2920, 'fee')
+        assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
+      })
+      it('should define hashlock', function () {
+        assert.equal(txData.hashlock.length, 64)
+        assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
+      })
+      it('should define htlc2 transaction hex', function () {
+        assert.equal(txData.hex, tx.hex, 'tx hex')
+      })
+      it('should define htlc2 transaction id', function () {
+        assert.equal(txData.txId, tx.txId, 'txId')
+      })
+    })
   })
 
   describe('HTLC-3 Collect securities (for the Sell order / Buy offer)', function () {
@@ -363,93 +332,92 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    if (window.Testee1) {
-      it.skip('skipping createHtlc3 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
-    } else {
-      describe('createHtlc3', function () {
-        let txData, tx
-        before(function () {
-          htlcOfferMock = mockHtlcOffer()
-          tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
-          txData = createHtlc3(
-            htlcOfferMock.order, htlcOfferMock.offer, portfolio, issuance,
-            htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
-          )
-        })
-        it('should define main props', function () {
-          assert.equal(txData.amount, 500, 'amount')
-          assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
-        })
-        it('should calculate fee correctly based on tx hex size', function () {
-          assert.equal(txData.fee, 2580, 'fee')
-        })
-        it.skip('should define hashlock', function () {
-          assert.equal(txData.hashlock.length, 64)
-          assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
-        })
-        it.skip('should define htlc3 transaction hex', function () {
-          assert.equal(txData.hex, tx.hex, 'tx hex')
-        })
-        it.skip('should define htlc3 transaction id', function () {
-          assert.equal(txData.txId, tx.txId, 'txId')
-        })
+    describe('createHtlc3', function () {
+      let txData, tx
+      before(function () {
+        htlcOfferMock = mockHtlcOffer()
+        tx = { hex: htlcOfferMock.txHex3, txId: htlcOfferMock.txId3 }
+        txData = createHtlc3(
+          blockchainInfoBySymbol,
+          htlcOfferMock.order, htlcOfferMock.offer, portfolio, issuance,
+          htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
+        )
       })
-      describe('createHtlcRefund3', function () {
-        let txData, tx
-        before(function () {
-          htlcOfferMock = mockHtlcOffer()
-          tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
-          txData = createHtlcRefund3(
-            htlcOfferMock.order, htlcOfferMock.offer, portfolio, issuance,
-            htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
-          )
-        })
-        it('should define main props', function () {
-          assert.equal(txData.amount, 500, 'amount')
-          assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
-        })
-        it('should calculate fee correctly based on tx hex size', function () {
-          assert.equal(txData.fee, 2405, 'fee')
-        })
-        it.skip('should define hashlock', function () {
-          assert.equal(txData.hashlock.length, 64)
-          assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
-        })
-        it.skip('should define htlc3 transaction hex', function () {
-          assert.equal(txData.hex, tx.hex, 'tx hex')
-        })
-        it.skip('should define htlc3 transaction id', function () {
-          assert.equal(txData.txId, tx.txId, 'txId')
-        })
+      it('should define main props', function () {
+        assert.equal(txData.amount, 500, 'amount')
+        assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
       })
+      it('should calculate fee correctly based on tx hex size', function () {
+        assert.equal(txData.fee, 2575, 'fee')
+      })
+      // it('should define hashlock', function () {
+      //   assert.equal(txData.hashlock.length, 64)
+      //   assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
+      // })
+      it('should define htlc3 transaction hex', function () {
+        assert.equal(txData.hex, tx.hex, 'tx hex')
+      })
+      it('should define htlc3 transaction id', function () {
+        assert.equal(txData.txId, tx.txId, 'txId')
+      })
+    })
+    describe('createHtlcRefund3', function () {
+      let txData, tx
+      before(function () {
+        htlcOfferMock = mockHtlcOffer()
+        tx = { hex: htlcOfferMock.txHex2, txId: htlcOfferMock.txId2 }
+        txData = createHtlcRefund3(
+          blockchainInfoBySymbol,
+          htlcOfferMock.order, htlcOfferMock.offer, portfolio, issuance,
+          htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
+        )
+      })
+      it('should define main props', function () {
+        assert.equal(txData.amount, 500, 'amount')
+        assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
+      })
+      it('should calculate fee correctly based on tx hex size', function () {
+        assert.equal(txData.fee, 2405, 'fee')
+      })
+      it.skip('should define hashlock', function () {
+        assert.equal(txData.hashlock.length, 64)
+        assert.equal(txData.hashlock, htlcOfferMock.offer.hashlock)
+      })
+      it.skip('should define htlc3 transaction hex', function () {
+        assert.equal(txData.hex, tx.hex, 'tx hex')
+      })
+      it.skip('should define htlc3 transaction id', function () {
+        assert.equal(txData.txId, tx.txId, 'txId')
+      })
+    })
 
-      describe('createHtlc3 for Blank EQB', function () {
-        let txData, tx
-        before(function () {
-          htlcOfferMock = mockHtlcOffer()
-          tx = { hex: htlcOfferMock.txHexBlankEqb, txId: htlcOfferMock.txIdBlankEqb }
-          txData = createHtlc3(
-            htlcOfferMock.orderBlankEqb, htlcOfferMock.offer, portfolio, null,
-            htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
-          )
-        })
-        it('should define amount', function () {
-          assert.equal(txData.amount, 500)
-        })
-        it('should define assetType', function () {
-          assert.equal(txData.assetType, 'EQUIBIT')
-        })
-        it('should calculate fee (for amount smaller than regular fee)', function () {
-          assert.equal(txData.fee, 1)
-        })
-        it('should define htlc3 transaction hex', function () {
-          assert.equal(txData.hex, tx.hex)
-        })
-        it('should define htlc3 transaction id', function () {
-          assert.equal(txData.txId, tx.txId)
-        })
+    describe('createHtlc3 for Blank EQB', function () {
+      let txData, tx
+      before(function () {
+        htlcOfferMock = mockHtlcOffer()
+        tx = { hex: htlcOfferMock.txHexBlankEqb, txId: htlcOfferMock.txIdBlankEqb }
+        txData = createHtlc3(
+          blockchainInfoBySymbol,
+          htlcOfferMock.orderBlankEqb, htlcOfferMock.offer, portfolio, null,
+          htlcOfferMock.secretHex, changeAddrPair.EQB, transactionFeeRates
+        )
       })
-    }
+      it('should define amount', function () {
+        assert.equal(txData.amount, 500)
+      })
+      it('should define assetType', function () {
+        assert.equal(txData.assetType, 'EQUIBIT')
+      })
+      it('should calculate fee (for amount smaller than regular fee)', function () {
+        assert.equal(txData.fee, 1)
+      })
+      it('should define htlc3 transaction hex', function () {
+        assert.equal(txData.hex, tx.hex)
+      })
+      it('should define htlc3 transaction id', function () {
+        assert.equal(txData.txId, tx.txId)
+      })
+    })
 
     describe('prepareHtlcRefundConfig3', function () {
       describe('buildConfig', function () {
@@ -596,7 +564,6 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    // it.skip('skipping createHtlc4 in Testee due to https://github.com/ilyavf/tx-builder/issues/12', function () {})
     describe('createHtlc4', function () {
       const fee = 2250
       let txData, tx, amount, order, offer
@@ -606,7 +573,11 @@ describe('models/transaction/utils', function () {
         offer = htlcOfferMock.offer
         amount = offer.quantity * offer.price
         tx = { hex: htlcOfferMock.txHex4, txId: htlcOfferMock.txId4 }
-        txData = createHtlc4(order, offer, portfolio, issuance, htlcOfferMock.secretHex, null, transactionFeeRates)
+        txData = createHtlc4(
+          blockchainInfoBySymbol,
+          order, offer, portfolio, issuance,
+          htlcOfferMock.secretHex, null, transactionFeeRates
+        )
       })
       it('should define main props', function () {
         assert.equal(txData.amount, amount - fee, 'amount minus fee')
@@ -618,7 +589,7 @@ describe('models/transaction/utils', function () {
       })
     })
 
-    describe.skip('createHtlc4 for Blank EQB', function () {
+    describe('createHtlc4 for Blank EQB', function () {
       const fee = 2250
       let txData, amount, order, offer
       before(function () {
@@ -626,16 +597,20 @@ describe('models/transaction/utils', function () {
         order = htlcOfferMock.orderBlankEqb
         offer = htlcOfferMock.offer
         amount = offer.quantity * offer.price
-        txData = createHtlc4(order, offer, portfolio, null, htlcOfferMock.secretHex, null, transactionFeeRates)
+        txData = createHtlc4(
+          blockchainInfoBySymbol,
+          order, offer, portfolio, null,
+          htlcOfferMock.secretHex, null, transactionFeeRates
+        )
       })
-      it('should define amount', function () {
+      it.skip('should define amount', function () {
         assert.equal(txData.amount, 32750)
         assert.equal(txData.amount, amount - fee)
       })
       it('should define assetType', function () {
         assert.equal(txData.assetType, 'EQUIBIT')
       })
-      it('should calculate fee correctly based on tx hex size', function () {
+      it.skip('should calculate fee correctly based on tx hex size', function () {
         assert.equal(txData.fee, 2250)
         assert.equal(txData.fee, fee)
       })
@@ -648,8 +623,8 @@ describe('models/transaction/utils', function () {
           amount = 1000
           toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
           changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
-          txData = createTransfer('ISSUANCE', amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates)
-          expectedTxId = '3af989cb41bd24a9086023db1f1fd0d5c6ddf4c12d8b9129c42f983615a11e5b'
+          txData = createTransfer(blockchainInfoBySymbol, 'ISSUANCE', amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates)
+          expectedTxId = '9ec8649d893229d9407034f77f5b52ff8505bf887c2807eed8b95ea7e1295d94'
         })
         it('should define amount', function () {
           assert.equal(txData.amount, amount)
@@ -673,7 +648,7 @@ describe('models/transaction/utils', function () {
           amount = 1000
           toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
           changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
-          txData = createTransfer('BTC', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
+          txData = createTransfer(blockchainInfoBySymbol, 'BTC', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
           expectedTxId = '7f5f9a3c889c9fd41b01581f584b204d979a59384a728beb50b54a279a4b45ab'
         })
         it('should define amount', function () {
@@ -698,8 +673,8 @@ describe('models/transaction/utils', function () {
           amount = 1000
           toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
           changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
-          txData = createTransfer('EQB', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
-          expectedTxId = '1053a2f4175d6027e1b5e6131b1cf1222deefd83b64b0affa4eee50471987e3b'
+          txData = createTransfer(blockchainInfoBySymbol, 'EQB', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
+          expectedTxId = '481bec1f3fc1f824a99f40846c4b9036b635fc78947b659c92ebbf8a51a9a50a'
         })
         it('should define amount', function () {
           assert.equal(txData.amount, amount)
@@ -711,11 +686,22 @@ describe('models/transaction/utils', function () {
           assert.equal(txData.currencyType, 'EQB')
         })
         it('should calculate fee correctly based on tx hex size', function () {
-          assert.equal(txData.fee, 1510)
+          assert.equal(txData.fee, 1505)
         })
         it('should define tx id', function () {
           assert.equal(txData.txId, expectedTxId)
         })
+      })
+    })
+  })
+})
+
+describe('models/transaction/transaction', function () {
+  describe('static methods for creating a transaction', function () {
+    const methods = ['makeTransaction', 'createTransfer', 'createHtlc1', 'createHtlc2', 'createHtlc3', 'createHtlc4', 'createHtlcRefund3', 'createHtlcRefund4']
+    methods.forEach(method => {
+      it(`should define "${method}" method`, function () {
+        assert.ok(typeof Transaction[method] === 'function')
       })
     })
   })

@@ -25,7 +25,6 @@ import Offer from '../../../models/offer'
 import Issuance from '../../../models/issuance'
 import Session from '../../../models/session'
 import Transaction from '../../../models/transaction/transaction'
-import { createHtlc2 } from '../../../models/transaction/transaction-create-htlc2'
 import { translate } from '../../../i18n/i18n'
 
 export const ViewModel = DefineMap.extend({
@@ -132,9 +131,7 @@ export const ViewModel = DefineMap.extend({
       // By default set htlc2 timelock to the half of htlc1 (user will be able to change it in the modal):
       offer.timelock2 = Math.floor(offer.timelock / 2)
 
-      console.log(`acceptOffer: createHtlc2 offer, order, portfolio, issuance, changeAddr`, offer, this.order, portfolio, issuance, changeAddr)
-      const txData = createHtlc2(offer, this.order, portfolio, issuance, changeAddr, transactionFeeRates.regular)
-      const tx = new Transaction(txData)
+      const tx = Transaction.createHtlc2(offer, this.order, portfolio, issuance, changeAddr, transactionFeeRates.regular)
       // todo: show UI modal with tx details (amount, fee, etc)
       this.openAcceptOfferModal(offer, tx, issuance, portfolio)
       this.acceptingOffer = undefined

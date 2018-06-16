@@ -23,8 +23,6 @@ import Order from '../../../models/order'
 import Issuance from '../../../models/issuance'
 import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
-import { createHtlcRefund3 } from '../../../models/transaction/transaction-create-htlc3'
-import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
 import { dispatchAlertError } from '../../../utils/event-hub'
 import feathersClient from '~/models/feathers-client'
 
@@ -110,8 +108,7 @@ export const ViewModel = DefineMap.extend({
       Session.current.transactionFeeRatesPromise
     ]).then(([addrPair, transactionFeeRates]) => {
       try {
-        const txData = createHtlc4(order, offer, portfolio, issuance, secret, addrPair.EQB, transactionFeeRates.regular)
-        const tx = new Transaction(txData)
+        const tx = Transaction.createHtlc4(order, offer, portfolio, issuance, secret, addrPair.EQB, transactionFeeRates.regular)
         this.openModal(offer, tx)
       } catch (err) {
         dispatchAlertError(err)
@@ -148,7 +145,7 @@ export const ViewModel = DefineMap.extend({
         }
       })
     ]).then(([addrPair, transactionFeeRates, blockchainInfo]) => {
-      const txData = createHtlcRefund3(
+      const tx = Transaction.createHtlcRefund3(
         order,
         offer,
         portfolio,
@@ -159,7 +156,6 @@ export const ViewModel = DefineMap.extend({
         blockchainInfo.result.blocks // <- locktime for next transaction -- if it's not late enough,
                                      //  sending TX will throw "Locktime requirement not satisfied" error
       )
-      const tx = new Transaction(txData)
 
       this.openModal(offer, tx)
     })

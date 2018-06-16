@@ -308,9 +308,6 @@ const Issuance = DefineMap.extend('Issuance', {
       throw new Error('The issuance does not have UTXO')
     }
     return getUnspentOutputsForAmount(this.utxo, amount)
-  },
-  init () {
-    console.log(`Issuance.init args, this:`, arguments, this)
   }
 })
 

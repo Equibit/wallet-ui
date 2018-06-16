@@ -25,8 +25,6 @@ import Offer from '~/models/offer'
 import Order from '~/models/order'
 import Issuance from '~/models/issuance'
 import { translate } from '~/i18n/'
-import { createHtlc4 } from '../../../models/transaction/transaction-create-htlc4'
-import { createHtlc3 } from '../../../models/transaction/transaction-create-htlc3'
 
 export const ViewModel = DefineMap.extend({
   notifications: {
@@ -75,9 +73,8 @@ export const ViewModel = DefineMap.extend({
       ])
       .then(([issuance, timelockInfo]) => {
         const secret = offer.htlcStep === 3 ? offer.secret : Session.current.user.decrypt(offer.secretEncrypted)
-        const createFn = ([null, null, null, createHtlc3, createHtlc4][nextHtlcStep])
-        const txData = createFn(order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
-        const tx = new Transaction(txData)
+        const createFn = ([null, null, null, 'createHtlc3', 'createHtlc4'][nextHtlcStep])
+        const tx = Transaction[createFn](order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
 
         this.offerModalShown = false
         this.popupData = {

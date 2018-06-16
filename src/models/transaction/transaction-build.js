@@ -1,6 +1,7 @@
 import { bitcoin, eqbTxBuilder, txBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import typeforce from 'typeforce'
 import { pick, merge } from 'ramda'
+const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 
 function buildTransactionOld (currencyType) {
   return currencyType === 'BTC' ? buildTransactionBtcOld : buildTransactionEqb
@@ -25,7 +26,6 @@ function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.tes
   inputs.forEach(({ txid, vout }, index) => tx.addInput(txid, vout))
   outputs.forEach(({address, value}) => tx.addOutput(address, value))
   inputs.forEach(({ keyPair }, index) => tx.sign(index, keyPair))
-  console.log('- blockchain transaction: ', tx)
   const builtTx = tx.build()
   return {
     txId: builtTx.getId(),
@@ -33,18 +33,18 @@ function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.tes
   }
 }
 
-function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testnet, locktime = 0) {
-  console.log('*** buildTransactionBtc')
-  // Note: logging arguments like this breaks the test in Testee FF!
-  // console.log(`buildTransactionBtc`, arguments)
-
+function buildTransactionBtc (inputs, outputs, blockchainInfo, locktime = 0) {
   typeforce(typeforce.arrayOf({txid: 'String', vout: 'Number', keyPair: 'ECPair'}), inputs)
   typeforce(typeforce.arrayOf({
     value: types.Satoshi,
     scriptPubKey: '?Buffer',
     address: typeforce.maybe(types.Address)
   }), outputs)
-  typeforce(types.Network, network)
+  typeforce({network: types.Network}, blockchainInfo)
+
+  const options = {
+    hashTimelockContract
+  }
 
   const tx = {
     version: 1,
@@ -58,9 +58,9 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
     }),
     vout: outputs
   }
-  const bufferTx = txBuilder.builder.buildTx(tx)
+  const bufferTx = txBuilder.builder.buildTx(tx, options)
   const hex = bufferTx.toString('hex')
-  const txId = eqbTxBuilder.getTxId(bufferTx)
+  const txId = eqbTxBuilder.getTxId({})(bufferTx)
   console.log(`[buildTransactionBtc] hex = ${hex}, \ntxid = ${txId}`)
 
   return {
@@ -69,9 +69,11 @@ function buildTransactionBtc (inputs, outputs, network = bitcoin.networks.testne
   }
 }
 
-function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testnet, locktime = 0) {
-  console.log('*** buildTransactionEqb')
-  typeforce(typeforce.tuple('Array', 'Array', types.Network), [inputs, outputs, network])
+function buildTransactionEqb (inputs, outputs, blockchainInfo, locktime = 0) {
+  typeforce(
+    typeforce.tuple('Array', 'Array', {network: types.Network, sha: '?String'}),
+    [inputs, outputs, blockchainInfo]
+  )
   const vout = outputs.map(vout => {
     const res = merge(pick(['value', 'scriptPubKey', 'address'], vout), {
       equibit: {
@@ -90,9 +92,9 @@ function buildTransactionEqb (inputs, outputs, network = bitcoin.networks.testne
     vin: inputs,
     vout
   }
-  const bufferTx = eqbTxBuilder.builder.buildTx(tx)
+  const bufferTx = eqbTxBuilder.builder.buildTx(tx, {sha: blockchainInfo.sha})
   const hex = bufferTx.toString('hex')
-  const txId = eqbTxBuilder.getTxId(bufferTx)
+  const txId = eqbTxBuilder.getTxId({sha: blockchainInfo.sha})(bufferTx)
   console.log(`[buildTransactionEqb] hex = ${hex}, \ntxid = ${txId}`)
 
   return {
