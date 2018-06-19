@@ -3,6 +3,7 @@ import Issuance from '../../../models/issuance'
 import Company from '../../../models/company'
 import Session from '../../../models/session'
 import { toMaxPrecision } from '../../../utils/formatter'
+import { translate } from '~/i18n/'
 
 const FormData = DefineMap({
   issuance: {
@@ -67,6 +68,34 @@ const FormData = DefineMap({
   },
   get transactionFeeEqb () {
     return this.transactionFee / 100000000
+  },
+  submissionAttempted: 'boolean',
+  errors: {
+    // TODO: This could be implemented as a stream
+    get: () => {
+      return {
+        companyMissing:
+          this && // in certain automated tests, this is undefined
+          this.submissionAttempted &&
+          !this.issuance.companyId &&
+          translate('requiredFieldError'),
+        restrictionLevelMissing:
+          this &&
+          this.submissionAttempted &&
+          typeof this.issuance.restriction === 'undefined' &&
+          translate('requiredFieldError'),
+        issuanceTypeMissing:
+          this &&
+          this.submissionAttempted &&
+          !this.issuance.issuanceTypeItem &&
+          translate('requiredFieldError'),
+        issuanceNameMissing:
+          this &&
+          this.submissionAttempted &&
+          !this.issuance.issuanceName &&
+          translate('requiredFieldError')
+      }
+    }
   }
 })
 

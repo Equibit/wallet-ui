@@ -545,6 +545,7 @@ export default {
   recurring: 'Recurring',
   registrationNumber: 'Registration Number',
   relatedCompanies: 'Related Companies',
+  requiredFieldError: 'This field is required',
   research: 'Research',
   receivePaymentFrom: 'Receive Payment From',
   receiveSecuritiesFrom: 'Receive Securities From',

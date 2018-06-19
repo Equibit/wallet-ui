@@ -49,6 +49,15 @@ export const ViewModel = DefineMap.extend({
 
   // Methods:
   next () {
+    this.formData.submissionAttempted = true
+    if (
+      this.formData.companyMissing ||
+      this.formData.issuanceNameMissing ||
+      this.formData.issuanceTypeMissing ||
+      this.formData.restrictionLevelMissing
+    ) {
+      return
+    }
     return this.createIssuance().then(() => {
       this.mode = 'confirm'
     })
