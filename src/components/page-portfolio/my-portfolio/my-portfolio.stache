@@ -52,7 +52,11 @@
 
       </div>
       <div class="col-xs-7 section ">
-        <portfolio-cash balance:from="portfolio.balance" />
+        <portfolio-cash
+          balance:from="portfolio.balance"
+          btcError:from="portfolio.errorRetrievingFunds('BTC')"
+          eqbError:from="portfolio.errorRetrievingFunds('EQB')"
+        />
       </div>
     </div>
   </div>

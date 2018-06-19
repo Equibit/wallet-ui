@@ -270,8 +270,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
     get () {
       if (this.utxoByTypeByAddress) {
         return {
-          BTC: getAllUtxo(this.utxoByTypeByAddress.BTC.addresses),
-          EQB: getAllUtxo(this.utxoByTypeByAddress.EQB.addresses)
+          BTC: this.utxoByTypeByAddress.BTC ? getAllUtxo(this.utxoByTypeByAddress.BTC.addresses) : [],
+          EQB: this.utxoByTypeByAddress.EQB ? getAllUtxo(this.utxoByTypeByAddress.EQB.addresses) : []
         }
       }
     }
@@ -546,6 +546,14 @@ const Portfolio = DefineMap.extend('Portfolio', {
   availableAmount (type) {
     typeforce(typeforce.oneOf(typeforce.value('BTC'), typeforce.value('EQB')), type)
     return this.utxoByType && getAvailableAmount(this.utxoByType[type])
+  },
+
+  errorRetrievingFunds (type) {
+    typeforce(typeforce.oneOf(typeforce.value('BTC'), typeforce.value('EQB')), type)
+    if (this.utxoByTypeByAddress) {
+      return !this.utxoByTypeByAddress[type]
+    }
+    return false
   },
 
   /**
