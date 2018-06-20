@@ -23,6 +23,7 @@ import view from './log-in.stache'
 import Session from '~/models/session'
 import validate from '~/utils/validators'
 import route from 'can-route'
+import { setupLogoutTimer } from '~/utils/logout-timer'
 
 export const ViewModel = DefineMap.extend({
   email: {
@@ -64,6 +65,7 @@ export const ViewModel = DefineMap.extend({
   },
 
   // Methods:
+  logout: '*', // passed from parent component
   handleLogin (event, email, password) {
     this.loginError = false
     event.preventDefault()
@@ -80,6 +82,7 @@ export const ViewModel = DefineMap.extend({
         if (!this.session.usingTempPassword) {
           user.loadWalletKeys()
         }
+        setupLogoutTimer(user.autoLogoutTime, this.logout)
         route.data.page = this.session.usingTempPassword ? 'change-password' : 'portfolio'
       })
       .catch(error => {

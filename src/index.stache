@@ -41,7 +41,7 @@
 
     {{! if used within switch/case then component gets re-rendered and we cannot share email between cases. }}
     {{#if one-of(displayedPage, 'signup', 'login', 'forgot-password', 'change-password', 'recovery-phrase')}}
-      <page-auth session:bind="session" page:from="displayedPage" />
+      <page-auth session:bind="session" page:from="displayedPage" logout:from="@logout" />
     {{else}}
       <nav-bar page:from="page"
                logout:from="@logout"

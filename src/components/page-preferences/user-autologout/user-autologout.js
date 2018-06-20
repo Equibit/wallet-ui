@@ -20,6 +20,7 @@ import view from './user-autologout.stache'
 import feathersClient from '~/models/feathers-client'
 import hub from '~/utils/event-hub'
 import { translate } from '~/i18n/'
+import { resetLogoutTimer } from '~/utils/logout-timer'
 
 export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
@@ -55,6 +56,7 @@ export const ViewModel = DefineMap.extend({
       )
       .then(user => {
         this.user.set(user)
+        resetLogoutTimer(user.autoLogoutTime)
         hub.dispatch({
           'type': 'alert',
           'kind': 'success',

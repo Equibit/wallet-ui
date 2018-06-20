@@ -18,6 +18,7 @@ import route from 'can-route'
 import 'can-route-pushstate'
 import Session from './models/session'
 import Transaction from './models/transaction/transaction'
+import { clearLogoutTimer } from '~/utils/logout-timer'
 
 //! steal-remove-start
 import canViewModel from 'can-view-model'
@@ -108,12 +109,15 @@ const AppViewModel = DefineMap.extend({
 
   logout () {
     // TODO: what do we call in feathers to logout?
+    clearLogoutTimer()
     this.session.user.clearKeys()
     this.session.destroy()
     this.session = null
-    this.page = 'home'
+    this.page = 'login'
     Transaction.unSubscribe()
-    window.location.reload()
+    setTimeout(() => {
+      window.location.reload()
+    }, 100)
   },
 
   refresh () {
