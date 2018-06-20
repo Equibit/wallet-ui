@@ -23,11 +23,7 @@
     <p class="single-paragraph">
       {{{i18n('auth2StepMessage')}}} <a href="#" on:click:value:to="twoFactorPromise">{{i18n('tryAgain')}}</a>
     </p>
-    <code-input code:to="../secondFactorCode" />
-    <div class="col-xs-12">
-      <validation-message
-        message="{{error}}" />
-      </div>
+    <code-input code:to="../secondFactorCode" error="{{error}}"/>
     {{#if twoFactorPromise.isPending}}
       <loading-indicator />
     {{/if}}
