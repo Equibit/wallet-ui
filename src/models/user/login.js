@@ -11,12 +11,12 @@ export default function login (email, password) {
         strategy: 'challenge-request'
       }, signedData))
     })
-    .then(({challenge, salt}) => {
+    .then(({challenge, salt, autologoutTime}) => {
       return signed.generateSecret(hashedPassword, salt).then(secret => {
         // The secret is the same as the stored password, but it
         // never gets sent across the wire.
         let data = {email, challenge}
-        return signed.sign(data, secret)
+        return signed.sign(data, secret, { expiresIn: autologoutTime + 'ms' })
       })
     })
     .then(signedData => {

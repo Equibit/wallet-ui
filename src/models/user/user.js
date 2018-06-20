@@ -364,6 +364,21 @@ const User = DefineMap.extend('User', {
     _password = password
   },
 
+  /**
+   * @function models/user.refresh refresh
+   * @parent models/user
+   * Sends a token re-creation request with the cached password signing it.
+   *
+   * @signature `User.refresh( authConnection, user )`
+   * @param {can-connect.Connection} authConnection the session service connection object
+   */
+  refresh (authConnection) {
+    return authConnection.createData({
+      email: this.email,
+      password: _password
+    })
+  },
+
   //! steal-remove-start
   _testGetCache () {
     return { _keys, _password }

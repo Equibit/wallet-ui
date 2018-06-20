@@ -425,6 +425,16 @@ Session.fiatCurrency = function () {
     : 'USD'
 }
 
+/**
+ * refresh the JWT token for a session that is already created/logged in
+ * @parent Session
+ * @param  {[Session]} session optional session if Session.current is not the session.
+ * @return {Promise}  a promise that resolves to the session login data.
+ */
+Session.refresh = function (session = Session.current) {
+  return session.user.refresh(Session.connection)
+}
+
 const algebra = new set.Algebra(
   set.comparators.id('accessToken')
 )
