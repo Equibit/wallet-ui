@@ -18,7 +18,11 @@ import route from 'can-route'
 import 'can-route-pushstate'
 import Session from './models/session'
 import Transaction from './models/transaction/transaction'
+<<<<<<< Updated upstream
 import { clearLogoutTimer } from '~/utils/logout-timer'
+=======
+import Client from './models/feathers-client'
+>>>>>>> Stashed changes
 
 //! steal-remove-start
 import canViewModel from 'can-view-model'
@@ -115,9 +119,7 @@ const AppViewModel = DefineMap.extend({
     this.session = null
     this.page = 'login'
     Transaction.unSubscribe()
-    setTimeout(() => {
-      window.location.reload()
-    }, 100)
+    Client.logout()
   },
 
   refresh () {
