@@ -117,8 +117,14 @@ const AppViewModel = DefineMap.extend({
     this.session.user.clearKeys()
     this.session.destroy()
     this.session = null
-    this.page = 'login'
     Transaction.unSubscribe()
+    if (pages[this.page] === 'private') {
+      this.page = 'login'
+    } else {
+      setTimeout(() => {
+        window.location.reload()
+      }, 100)
+    }
     Client.logout()
   },
 
