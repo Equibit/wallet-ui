@@ -49,9 +49,9 @@ export const ViewModel = DefineMap.extend({
       this.doClose()
     }, error => {
       let errCode = 'verificationCodeErrorGeneric'
-      if (error.indexOf('code verification timeout has expired') >= 0) {
-        errCode = 'verificationCodeErrorExpired'
-      } else if (error.indexOf('code verification failed') >= 0) {
+      if (error.message.indexOf('code verification failed') >= 0) {
+        errCode = 'verificationCodeErrorIncorrect'
+      } else if (error.message.indexOf('code verification timeout has expired') >= 0) {
         errCode = 'verificationCodeErrorExpired'
       }
       this.error = translate(errCode)
