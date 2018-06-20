@@ -30,10 +30,12 @@ function clearLogoutTimer () {
 
 function resetLogoutTimer (time) {
   clearTimeout(timeoutHandle)
+  clearInterval(refreshHandle)
   if (typeof time === 'number') {
     timeoutTime = time
   }
   timeoutHandle = setTimeout(logoutHandler, timeoutTime)
+  refreshHandle = setInterval(Session.refresh.bind(Session), timeoutTime / 2)
 }
 
 export {
