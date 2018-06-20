@@ -113,9 +113,11 @@ const AppViewModel = DefineMap.extend({
     this.session.user.clearKeys()
     this.session.destroy()
     this.session = null
-    this.page = 'home'
+    this.page = 'login'
     Transaction.unSubscribe()
-    window.location.reload()
+    setTimeout(() => {
+      window.location.reload()
+    }, 100)
   },
 
   refresh () {
