@@ -381,7 +381,9 @@ const Session = DefineMap.extend('Session', {
         this.portfolios && this.portfolios[0] && this.portfolios[0].securitiesPromise,
         this.portfolios && this.portfolios[0] && this.portfolios[0].addressesPromise
       ]))
-      .then(() => resolve(false), err => { console.error(err); resolve(false) })
+      .then(() => setTimeout(() => {
+        resolve(false)
+      }, 500), err => { console.error(err); resolve(false) })
       return resolve ? resolve(true) : true
     }
   },
