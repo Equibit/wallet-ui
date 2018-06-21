@@ -383,7 +383,7 @@ const Session = DefineMap.extend('Session', {
       ]))
       .then(() => setTimeout(() => {
         resolve(false)
-      },500), err => { console.error(err); resolve(false) })
+      }, 500), err => { console.error(err); resolve(false) })
       return resolve ? resolve(true) : true
     }
   },
