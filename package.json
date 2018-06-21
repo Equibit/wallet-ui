@@ -27,6 +27,7 @@
     "mocha": "mocha --compilers js:babel-core/register src/utils/test-mocha.js",
     "test:funcunit": "testee test/test-funcunit.html --browsers firefox --reporter Spec",
     "test:unit": "testee test/test.html --config testee.json",
+    "test:chrome": "testee test/test.html --config testee-chrome.json",
     "test:unit:headless": "testee test/test.html --config testee-headless.json",
     "test:unit:debug": "DEBUG=testee:* testee test/test.html --config testee.json",
     "qa": "npm run release:qa:patch",

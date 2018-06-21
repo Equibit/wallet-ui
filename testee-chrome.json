@@ -1,0 +1,15 @@
+{
+  "browsers": [{
+    "browser": "chrome",
+    "args": [
+      "--headless",
+      "--disable-gpu",
+      "--remote-debugging-port=9222"
+    ]
+  }],
+  "reporter": "Spec",
+  "coverage": {
+    "ignore": ["node_modules"],
+    "reporters": ["text-summary"]
+  }
+}
