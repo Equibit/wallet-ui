@@ -117,11 +117,10 @@ const AppViewModel = DefineMap.extend({
     Transaction.unSubscribe()
     if (pages[this.page] === 'private') {
       this.page = 'login'
-    } else {
-      setTimeout(() => {
-        window.location.reload()
-      }, 100)
     }
+    setTimeout(() => {
+      window.location.reload()
+    }, 100)
     Client.logout()
   },
 
