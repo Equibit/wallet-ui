@@ -381,6 +381,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
     serialize: false
   },
 
+  balancePromise : "*",
+
   /**
    * @property {String} models/portfolio.properties.balance balance
    * @parent models/portfolio.properties
@@ -401,16 +403,20 @@ const Portfolio = DefineMap.extend('Portfolio', {
   balance: {
     get (val, resolve) {
       if (val) {
+        console.log("val =", val)
         return val
       }
+      // let resolvePromise
       if (!this.utxoByTypeByAddress) {
-        console.log('portfolio.balance is undefined - no utxo yet...')
-        return {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0}
+        console.log('portfolio.balance is undefined - no utxo yet...');
+        const defaultValue = {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0};
+        // const promise = new Promise(resolve => { resolvePromise = resolve })
+        return defaultValue
       }
       const utxoByType = this.utxoByTypeByAddress
 
-      // TODO: figure out how to evaluate securities.
       const updatePromises = []
+      // TODO: figure out how to evaluate securities.
 
       const totals = this.addresses.reduce((acc, addr) => {
         if (!addr) {
@@ -431,7 +437,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
               acc.securities += securitiesAmount.total
               acc.cashEqb += amount - securitiesAmount.amount
             }))
-          }
+          } 
         }
         return acc
       }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0})
@@ -440,16 +446,24 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
       const retVal = new DefineMap(totals)
       updatePromises.unshift(currencyConverter.convertCryptoToCrypto(1, 'EQB', 'BTC'))
-
       Promise.all(updatePromises).then(([eqbToBtc, ...rest]) => {
         // once all the promises resolve, update the totals in the returned map
         totals.cashTotal += totals.cashEqb * eqbToBtc
         totals.total = totals.cashTotal + totals.securities
         retVal.assign(totals)
         resolve && resolve(retVal)
+        this.balanceLoadingPromiseResolver && this.balanceLoadingPromiseResolver(retVal);
       })
       console.log(`portfolio.balance.total is ${totals.total}`)
       return resolve ? undefined : retVal
+    }
+  },
+  balanceLoadingPromiseResolver: "*",
+
+  balanceLoadingPromise : {
+    get(val, resolve) {
+      var self = this
+      return new Promise(res => self.balanceLoadingPromiseResolver = res)
     }
   },
 
