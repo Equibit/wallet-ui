@@ -98,7 +98,7 @@ const Session = DefineMap.extend('Session', {
    * ```
    *  [{
    *    name,
-   *    index,  
+   *    index,
    *
    *  }]
    * ```
