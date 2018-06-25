@@ -1,4 +1,4 @@
-let year = new Date().getFullYear();
+let year = new Date().getFullYear()
 
 export default {
   locale: 'en',
