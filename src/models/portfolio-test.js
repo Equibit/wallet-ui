@@ -104,7 +104,7 @@ describe('models/portfolio', function () {
       assert.deepEqual(portfolio.addressesEqb.get(), expectedAddressesEqb)
     })
 
-    describe('retrieval errors', function() {
+    describe('retrieval errors', function () {
       it('should report errors when cores are unreachable', function () {
         assert(portfolioDisconnected.errorRetrievingFunds('BTC'), 'there should be an error')
         assert(portfolioDisconnected.errorRetrievingFunds('EQB'), 'there should be an error')
