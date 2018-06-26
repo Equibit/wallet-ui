@@ -2,7 +2,7 @@ import assert from 'chai/chai'
 import 'steal-mocha'
 import Portfolio from './portfolio'
 import { omit } from 'ramda'
-import portfolio, { addressesMeta } from './mock/mock-portfolio'
+import portfolio, { portfolioDisconnected, portfolioBtc, addressesMeta } from './mock/mock-portfolio'
 import listunspent from './mock/mock-listunspent'
 import currencyConverter from '~/utils/currency-converter'
 
@@ -102,6 +102,21 @@ describe('models/portfolio', function () {
       const expectedAddressesEqb = expectedAddresses.filter(({type}) => type === 'EQB').map(({address}) => address)
       assert.deepEqual(portfolio.addressesBtc.get(), expectedAddressesBtc)
       assert.deepEqual(portfolio.addressesEqb.get(), expectedAddressesEqb)
+    })
+
+    it('should report errors when cores are unreachable', function () {
+      assert(portfolioDisconnected.errorRetrievingFunds('BTC'), 'there should be an error')
+      assert(portfolioDisconnected.errorRetrievingFunds('EQB'), 'there should be an error')
+    })
+
+    it('should not report errors when cores are reachable', function () {
+      assert(!portfolio.errorRetrievingFunds('BTC'), 'there should not be an error')
+      assert(!portfolio.errorRetrievingFunds('EQB'), 'there should not be an error')
+    })
+
+    it('should report errors when individual cores are unreachable', function () {
+      assert(!portfolioBtc.errorRetrievingFunds('BTC'), 'there should not be an error')
+      assert(portfolioBtc.errorRetrievingFunds('EQB'), 'there should be an error')
     })
 
     it('should populate portfolio balance based on user\'s balance', function (done) {
