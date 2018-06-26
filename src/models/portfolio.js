@@ -260,7 +260,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }
       if (this.listunspentPromise) {
         // TODO: filter out UTXO for this portfolio.
-        this.listunspentPromise.then(resolve, () => resolve({}))
+        this.listunspentPromise.then(resolve)
       }
     }
   },
@@ -405,7 +405,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }
       if (!this.utxoByTypeByAddress) {
         console.log('portfolio.balance is undefined - no utxo yet...')
-        return {total: 0, cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0}
+        return
       }
       const utxoByType = this.utxoByTypeByAddress
 
