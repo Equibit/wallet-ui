@@ -104,24 +104,26 @@ describe('models/portfolio', function () {
       assert.deepEqual(portfolio.addressesEqb.get(), expectedAddressesEqb)
     })
 
-    it('should report errors when cores are unreachable', function () {
-      assert(portfolioDisconnected.errorRetrievingFunds('BTC'), 'there should be an error')
-      assert(portfolioDisconnected.errorRetrievingFunds('EQB'), 'there should be an error')
-    })
+    describe('retrieval errors', function() {
+      it('should report errors when cores are unreachable', function () {
+        assert(portfolioDisconnected.errorRetrievingFunds('BTC'), 'there should be an error')
+        assert(portfolioDisconnected.errorRetrievingFunds('EQB'), 'there should be an error')
+      })
 
-    it('should not report errors when cores are reachable', function () {
-      assert(!portfolio.errorRetrievingFunds('BTC'), 'there should not be an error')
-      assert(!portfolio.errorRetrievingFunds('EQB'), 'there should not be an error')
-    })
+      it('should not report errors when cores are reachable', function () {
+        assert(!portfolio.errorRetrievingFunds('BTC'), 'there should not be an error')
+        assert(!portfolio.errorRetrievingFunds('EQB'), 'there should not be an error')
+      })
 
-    it('should report errors when individual cores are unreachable', function () {
-      assert(!portfolioEqbDisconnected.errorRetrievingFunds('BTC'), 'there should not be an error')
-      assert(portfolioEqbDisconnected.errorRetrievingFunds('EQB'), 'there should be an error')
-    })
+      it('should report errors when individual cores are unreachable', function () {
+        assert(!portfolioEqbDisconnected.errorRetrievingFunds('BTC'), 'there should not be an error')
+        assert(portfolioEqbDisconnected.errorRetrievingFunds('EQB'), 'there should be an error')
+      })
 
-    it('should not report errors when balance is 0', function () {
-      assert(!portfolioBtc.errorRetrievingFunds('BTC'), 'there should not be an error')
-      assert(!portfolioBtc.errorRetrievingFunds('EQB'), 'there should not be an error')
+      it('should not report errors when balance is 0', function () {
+        assert(!portfolioBtc.errorRetrievingFunds('BTC'), 'there should not be an error')
+        assert(!portfolioBtc.errorRetrievingFunds('EQB'), 'there should not be an error')
+      })
     })
 
     it('should populate portfolio balance based on user\'s balance', function (done) {
