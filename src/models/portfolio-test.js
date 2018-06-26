@@ -2,7 +2,7 @@ import assert from 'chai/chai'
 import 'steal-mocha'
 import Portfolio from './portfolio'
 import { omit } from 'ramda'
-import portfolio, { portfolioDisconnected, portfolioBtc, addressesMeta } from './mock/mock-portfolio'
+import portfolio, { portfolioDisconnected, portfolioBtc, portfolioEqbDisconnected, addressesMeta } from './mock/mock-portfolio'
 import listunspent from './mock/mock-listunspent'
 import currencyConverter from '~/utils/currency-converter'
 
@@ -115,8 +115,13 @@ describe('models/portfolio', function () {
     })
 
     it('should report errors when individual cores are unreachable', function () {
+      assert(!portfolioEqbDisconnected.errorRetrievingFunds('BTC'), 'there should not be an error')
+      assert(portfolioEqbDisconnected.errorRetrievingFunds('EQB'), 'there should be an error')
+    })
+
+    it('should not report errors when balance is 0', function () {
       assert(!portfolioBtc.errorRetrievingFunds('BTC'), 'there should not be an error')
-      assert(portfolioBtc.errorRetrievingFunds('EQB'), 'there should be an error')
+      assert(!portfolioBtc.errorRetrievingFunds('EQB'), 'there should not be an error')
     })
 
     it('should populate portfolio balance based on user\'s balance', function (done) {

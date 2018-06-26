@@ -80,9 +80,14 @@ const listunspentBtc = {
   EQB: { summary: {'total': 0}, addresses: {} }
 }
 
+const listunspentEqbDisconnect = {
+  BTC: listunspent.BTC
+}
+
 const listunspentError = Promise.reject(new Error('timed out'))
 
 export default listunspent
 export { listunspentZero }
 export { listunspentBtc }
 export { listunspentError }
+export { listunspentEqbDisconnect }
