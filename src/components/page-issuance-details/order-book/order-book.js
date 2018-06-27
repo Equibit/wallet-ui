@@ -30,8 +30,6 @@ import hub, { dispatchAlertError } from '../../../utils/event-hub'
 import BitMessage from '../../../models/bit-message'
 import cryptoUtils from '../../../utils/crypto'
 
-import $ from 'jquery'
-
 export const ViewModel = DefineMap.extend({
   portfolio: '*',
   assetType: {
@@ -362,25 +360,10 @@ function markAsUsed (portfolio, offer) {
   })
 }
 
-function removeTooltips (e) {
-  $('[data-toggle="popover"],[data-original-title]').each(function () {
-    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-      (($(this).popover('hide').data('bs.popover') || {}).inState || {}).click = false
-    }
-  })
-}
-
-$(document).on('click', document, removeTooltips)
-
 export default Component.extend({
   tag: 'order-book',
   ViewModel,
-  view,
-  events: {
-    '{element} beforeremove': function () {
-      $(document).off('click', document, removeTooltips)
-    }
-  }
+  view
 })
 
 export {

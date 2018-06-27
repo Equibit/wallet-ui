@@ -221,12 +221,14 @@
                         {{#if ../isAskFlow}}
                           <span class="icon icon-question"
                                 data-toggle="popover"
+                                data-trigger="focus"
                                 data-content="{{i18n('offerTooltipTimelockAsk')}}"
                                 data-placement="right">
                           </span>
                         {{else}}
                           <span class="icon icon-question"
                                 data-toggle="popover"
+                                data-trigger="focus"
                                 data-content="{{i18n('offerTooltipTimelockBid')}}"
                                 data-placement="right">
                         </span>
@@ -240,12 +242,14 @@
                         {{#if ../isAskFlow}}
                           <span class="icon icon-question"
                                 data-toggle="popover"
+                                data-trigger="focus"
                                 data-content="{{i18n('offerTooltipSafetyZoneAsk')}}"
                                 data-placement="right">
                           </span>
                         {{else}}
                           <span class="icon icon-question"
                                 data-toggle="popover"
+                                data-trigger="focus"
                                 data-content="{{i18n('offerTooltipSafetyZoneBid')}}"
                                 data-placement="right">
                           </span>

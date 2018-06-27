@@ -62,6 +62,7 @@
                         <label class="control-label">{{i18n('recordDate')}}
                             <span class="icon icon-question"
                                   data-toggle="popover"
+                                  data-trigger="focus"
                                   data-content="{{i18n('distributionsRecordDate')}}"
                                   data-placement="right">
                             </span>

@@ -56,12 +56,14 @@
                 {{#is formData.fundsType 'EQB'}}
                   <span class="icon icon-question"
                     data-toggle="popover"
+                    data-trigger="focus"
                     data-content="{{i18n('helpTransactionFeeEquibit')}}"
                     data-placement="right">
                   </span>
                 {{else}}
                   <span class="icon icon-question"
                     data-toggle="popover"
+                    data-trigger="focus"
                     data-content="{{i18n('helpTransactionFeeBitcoin')}}"
                     data-placement="right">
                   </span>

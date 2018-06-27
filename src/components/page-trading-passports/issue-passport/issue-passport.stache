@@ -19,6 +19,7 @@
           <label for="key-one">{{i18n('Keys')}}
             <span class="icon icon-question"
                   data-toggle="popover"
+                  data-trigger="focus"
                   data-content="{{i18n('tradingPassportsIssueKeyPopoverMessage')}}"
                   data-placement="right">
                         </span>
@@ -45,6 +46,7 @@
           <label for="short-description">{{i18n('shortDescription')}}
             <span class="icon icon-question"
                   data-toggle="popover"
+                  data-trigger="focus"
                   data-content="{{i18n('tradingPassportsIssueDescriptionPopoverMessage')}}"
                   data-placement="right">
                         </span>
