@@ -712,6 +712,8 @@ export default {
   transactionRefund: 'Refund',
   transactionOut: 'Transfer Out',
   transactionSell: 'Sell',
+  transactionFailedAlertMessage: 'Something went wrong, please try again later',
+  transactionFailedAlertTitle: 'Transaction Failed',
   transferFundsInstructionDescription: 'Transfer funds first using the <link/>.',
   tryAgain: 'Try Again.',
   type: 'Type',
