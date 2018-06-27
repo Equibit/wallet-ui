@@ -99,7 +99,7 @@ export const ViewModel = DefineMap.extend({
       .catch(err => {
         this.isSending = false
         close()
-        console.log('hey david')
+        console.log('transaction failed: ', err)
         hub.dispatch({
           'type': 'alert',
           'kind': 'danger',
