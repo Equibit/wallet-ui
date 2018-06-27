@@ -63,8 +63,8 @@ let singleton
 BlockchainInfo.infoBySymbol = function () {
   if (!singleton) {
     singleton = new DefineMap({
-      BTC: new this(),
-      EQB: new this(),
+      BTC: new this({coinType: 'BTC'}),
+      EQB: new this({coinType: 'EQB', sha: 'SHA3_256'}),
       isPending: true,
       promise: this.findAll().then(results => {
         results.forEach(result => {
