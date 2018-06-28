@@ -2,11 +2,13 @@ import { bitcoin, bip39 } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { translate } from '../i18n/i18n'
 
 const emailRegex = /.+@.+\..+/i
+const emailRegexPlus = /.+(\+\d+)@.+\..+/i
 
 export default {
   email (value, { allowEmpty }) {
     return (!allowEmpty && !value && 'Email is missing') ||
-      (value && !emailRegex.test(value) && 'Enter a valid email address') || ''
+      (value && !emailRegex.test(value) && 'Enter a valid email address') ||
+      (value && emailRegexPlus.test(value) && 'Enter a valid email address') || ''
   },
   password (value, { allowEmpty }) {
     return (!allowEmpty && !value && 'Password is missing') || ''
