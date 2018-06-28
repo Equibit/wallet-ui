@@ -1,6 +1,6 @@
 import Portfolio from '../portfolio'
 import hdNode from './mock-keys'
-import listunspent, { listunspentZero, listunspentBtc } from './mock-listunspent'
+import listunspent, { listunspentZero, listunspentBtc, listunspentError, listunspentEqbDisconnect } from './mock-listunspent'
 
 import feathersClient from '../feathers-client'
 feathersClient.service('portfolios').patch = () => Promise.resolve()
@@ -67,7 +67,27 @@ const portfolioBtc = new Portfolio({
   balance
 })
 
+const portfolioDisconnected = new Portfolio({
+  index: 0,
+  name: 'My Portfolio Disconnected',
+  _addressesMeta: addressesMeta,
+  keys: portfolioKeys,
+  utxoByTypeByAddress: listunspentError
+  // balance
+})
+
+const portfolioEqbDisconnected = new Portfolio({
+  index: 0,
+  name: 'My Portfolio Eqb Disconnected',
+  _addressesMeta: addressesMeta,
+  keys: portfolioKeys,
+  utxoByTypeByAddress: listunspentEqbDisconnect
+  // balance
+})
+
 export default portfolio
 export { portfolioZero }
 export { portfolioBtc }
+export { portfolioDisconnected }
+export { portfolioEqbDisconnected }
 export { addressesMeta }
