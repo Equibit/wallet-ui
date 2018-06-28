@@ -19,6 +19,8 @@ import './send-popup.less'
 import view from './send-popup.stache'
 import Session from '../../../models/session'
 import Issuance from '../../../models/issuance'
+import hub from '~/utils/event-hub'
+import { translate } from '~/i18n/'
 import Transaction from '../../../models/transaction/transaction'
 import FormData from './form-data'
 
@@ -97,7 +99,14 @@ export const ViewModel = DefineMap.extend({
       .catch(err => {
         this.isSending = false
         close()
-        throw err
+        console.log('transaction failed: ', err)
+        hub.dispatch({
+          'type': 'alert',
+          'kind': 'danger',
+          'title': translate('transactionFailedAlertTitle'),
+          'message': translate('transactionFailedAlertMessage'),
+          'displayInterval': 5000
+        })
       })
   },
 
