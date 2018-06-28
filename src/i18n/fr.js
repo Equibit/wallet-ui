@@ -19,5 +19,5 @@ export default {
   no: 'NON',
 
   // Alphabetically:
-  trademark: '© ' + year + ' Equibit Group Ltd.',
+  trademark: '© ' + year + ' Equibit Group Ltd.'
 }
