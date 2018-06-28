@@ -46,12 +46,16 @@ export const ViewModel = DefineMap.extend({
         'title': translate('codeVerifiedMessage'),
         'displayInterval': 10000
       })
-      this.doClose()
+      this.doVerifiedClose()
     }, error => {
       this.error = error
     })
   },
   doClose () {
+    this.dispatch('close')
+    this.close()
+  },
+  doVerifiedClose () {
     this.dispatch('close')
     this.close()
     this.next()
