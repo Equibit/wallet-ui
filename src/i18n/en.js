@@ -729,6 +729,9 @@ export default {
   validationMnemonicEmpty: 'Please enter a seed phrase',
   validationMnemonicInvalidChecksum: 'Checksum is invalid. Possibly the mnemonic was generated in a different app',
   validationMnemonicTooShort: 'The mnemonic phrase should contain at least 12 words',
+  verificationCodeErrorExpired: 'Verification code has expired',
+  verificationCodeErrorIncorrect: 'Verification code is incorrect',
+  verificationCodeErrorGeneric: 'An error occured',
 
   warning: 'Warning',
   watchList: 'Watchlist',
