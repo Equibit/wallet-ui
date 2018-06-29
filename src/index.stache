@@ -50,11 +50,12 @@
                notifications:from="session.notifications"
                balance:from="session.balance"
                isLoading:from="session.isLoading"/>
+
+      {{#if session.isLoading}}
+        <div class="loading-overlay"><i>Loading...</i></div>
+      {{/if}}
     {{/if}}
 
-    {{#if session.isLoading}}
-      <div class="loading-overlay"><i>Loading...</i></div>
-    {{/if}}
 
     {{#switch displayedPage}}
       {{#case 'loading'}}
