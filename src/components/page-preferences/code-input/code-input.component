@@ -25,7 +25,8 @@
     import DefineMap from 'can-define/map/map'
 
     export default DefineMap.extend({
-      code: 'string'
+      code: 'string',
+      error: 'string'
     })
   </script>
 </can-component>
