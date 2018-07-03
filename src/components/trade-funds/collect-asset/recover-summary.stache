@@ -39,7 +39,6 @@
                       {{i18n('transactionFee')}}
                       <span class="icon icon-question"
                           data-toggle="popover"
-                          data-trigger="focus"
                           data-content="{{i18n('transactionFeePopoverMessage')}}"
                           data-placement="right">
                       </span>

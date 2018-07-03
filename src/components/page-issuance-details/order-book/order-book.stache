@@ -27,7 +27,6 @@
           {{else}}
             <button class="btn btn-primary btn-xs"
               data-toggle="popover"
-              data-trigger="focus"
               data-html="true"
               data-content="<i class='icon icon-notification text-danger'>&nbsp;</i>{{i18n('securitiesNotOwnedPopoverMessage')}}"
               data-placement="right">
@@ -37,7 +36,6 @@
         {{else}}
           <button class="btn btn-primary btn-xs"
             data-toggle="popover"
-            data-trigger="focus"
             data-html="true"
             data-content="{{i18n('loginToContinue')}}<br><a class='btn btn-default' href='/login'>{{i18n('Log in')}}</a>"
             data-placement="right">
@@ -64,7 +62,6 @@
         {{else}}
           <button class="btn btn-primary btn-xs"
             data-toggle="popover"
-            data-trigger="focus"
             data-html="true"
             data-content="{{i18n('loginToContinue')}}<br><a class='btn btn-default' href='/login'>{{i18n('Log in')}}</a>"
             data-placement="right">

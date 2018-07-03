@@ -39,7 +39,6 @@
                     <strong>Time Lock
                         <span class="icon icon-question"
                         data-toggle="popover"
-                        data-trigger="focus"
                         data-content="{{i18n('offerTooltipTimelock')}}"
                         data-placement="bottom">
                       </span>
@@ -48,7 +47,6 @@
                     <strong>Safety Zone
                         <span class="icon icon-question"
                         data-toggle="popover"
-                        data-trigger="focus"
                         data-content="{{i18n('offerTooltipSafetyZone')}}"
                         data-placement="bottom">
                       </span>
@@ -65,7 +63,6 @@
             <div class="list-group-item">
                 <label>{{i18n('description')}} <span class="icon icon-question"
                 data-toggle="popover"
-                data-trigger="focus"
                 data-content="{{i18n('offerDescriptionPopoverMessage')}}"
                 data-placement="right">
                 </span></label>

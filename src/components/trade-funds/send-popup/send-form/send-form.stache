@@ -174,7 +174,6 @@
         <label for="">{{i18n('note')}}
           <span class="icon icon-question"
             data-toggle="popover"
-            data-trigger="focus"
             data-content="{{i18n('helpSendDescription')}}"
             data-placement="right">
           </span>

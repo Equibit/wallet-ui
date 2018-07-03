@@ -18,7 +18,6 @@
         <label>Time Lock This Transaction
         <span class="icon icon-question"
           data-toggle="popover"
-          data-trigger="focus"
           data-content="{{i18n('timelockPopoverMessage')}}"
           data-placement="right">
         </span></label>
@@ -36,7 +35,6 @@
   <div class="list-group-item">
     <label>{{i18n('description')}} <span class="icon icon-question"
       data-toggle="popover"
-      data-trigger="focus"
       data-content="{{i18n('offerDescriptionPopoverMessage')}}"
       data-placement="right">
     </span></label>

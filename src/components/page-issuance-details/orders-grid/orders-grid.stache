@@ -32,7 +32,6 @@
               {{#case('Not logged in')}}
                 <button class="btn btn-default btn-xs"
                   data-toggle="popover"
-                  data-trigger="focus"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22loginToContinue%22)%7D%7D%3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%2Flogin%22%3E%7B%7Bi18n(%22Log in%22)%7D%7D%3C%2Fa%3E')}}"
                   data-placement="right">
@@ -42,7 +41,6 @@
               {{#case('User is owner')}}
                 <button class="btn btn-default btn-xs"
                   data-toggle="popover"
-                  data-trigger="focus"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22orderPlacedByUserPopoverMessage%22)%7D%7D %3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%7B%7BrouteUrl page=%27orders%27 itemId=row._id%7D%7D%22%3E%7B%7Bi18n(%22viewDetails%22)%7D%7D%3C%2Fa%3E')}}"
                   data-placement="right">
@@ -52,7 +50,6 @@
               {{#case('Offer exists')}}
                 <button class="btn btn-default btn-xs"
                   data-toggle="popover"
-                  data-trigger="focus"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22offerPlacedByUserPopoverMessage%22)%7D%7D %3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%7B%7BrouteUrl page=%27offers%27 itemId=userOfferForOrder(row)._id%7D%7D%22%3E%7B%7Bi18n(%22viewDetails%22)%7D%7D%3C%2Fa%3E')}}"
                   data-placement="right">
@@ -62,7 +59,6 @@
               {{#case('No funds')}}
                 <button class="btn btn-default btn-xs"
                   data-toggle="popover"
-                  data-trigger="focus"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22notEnoughFundsPopoverMessage%22)%7D%7D')}}"
                   data-placement="right">
@@ -72,7 +68,6 @@
               {{#case('No empty equibits')}}
                 <button class="btn btn-default btn-xs"
                   data-toggle="popover"
-                  data-trigger="focus"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22notEnoughEqbPopoverMessage%22)%7D%7D')}}"
                   data-placement="right">
@@ -138,7 +133,6 @@
               {{#case('Not logged in')}}
                 <button class="btn btn-default btn-xs"
                   data-toggle="popover"
-                  data-trigger="focus"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22loginToContinue%22)%7D%7D%3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%2Flogin%22%3E%7B%7Bi18n(%22Log in%22)%7D%7D%3C%2Fa%3E')}}"
                   data-placement="left">
@@ -148,7 +142,6 @@
               {{#case('User is owner')}}
                 <button class="btn btn-default btn-xs"
                   data-toggle="popover"
-                  data-trigger="focus"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22orderPlacedByUserPopoverMessage%22)%7D%7D %3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%7B%7BrouteUrl page=%27orders%27 itemId=row._id%7D%7D%22%3E%7B%7Bi18n(%22viewDetails%22)%7D%7D%3C%2Fa%3E')}}"
                   data-placement="left">
@@ -158,7 +151,6 @@
               {{#case('Offer exists')}}
                 <button class="btn btn-default btn-xs"
                   data-toggle="popover"
-                  data-trigger="focus"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22offerPlacedByUserPopoverMessage%22)%7D%7D %3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%7B%7BrouteUrl page=%27offers%27 itemId=userOfferForOrder(row)._id%7D%7D%22%3E%7B%7Bi18n(%22viewDetails%22)%7D%7D%3C%2Fa%3E')}}"
                   data-placement="left">
@@ -168,7 +160,6 @@
               {{#case('No securities')}}
                 <button class="btn btn-default btn-xs"
                   data-toggle="popover"
-                  data-trigger="focus"
                   data-html="true"
                   data-content="<i class='icon icon-notification text-danger'>&nbsp;</i>{{i18n('securitiesNotOwnedPopoverMessage')}}"
                   data-placement="left">
