@@ -44,6 +44,8 @@ function createTransfer (blockchainInfoBySymbol, type, amount, toAddress, change
   const txData = prepareTxData(txConfig, tx, issuance)
   txData.description = description
 
+  console.log(`createTransfer: blockchainInfoBySymbol.${currencyType}.sha=${blockchainInfoBySymbol[currencyType].sha}`)
+
   return txData
 }
 
