@@ -1,3 +1,5 @@
+let year = new Date().getFullYear()
+
 export default {
   locale: 'en',
   timestamp: 'MMMM D, YYYY',
@@ -654,7 +656,7 @@ export default {
   totalCash: 'Total Cash',
   totalPrice: 'Total Price',
   totalSecurities: 'Total Securities',
-  trademark: '© 2017 Equibit Group Ltd.',
+  trademark: '© ' + year + ' Equibit Group Ltd.',
   tradeWasUpdated: 'Trade was updated',
   tradingPassport: 'Trading Passport',
   tradingPassportStatusActive: 'Active',
