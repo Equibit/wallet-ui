@@ -247,12 +247,12 @@ const Portfolio = DefineMap.extend('Portfolio', {
   listunspentPromise: {
     stream: function () {
       let resolvePromise
-      let promise = new Promise(resolve => resolvePromise = resolve)
+      let promise = new Promise(resolve => { resolvePromise = resolve })
       let initialResolved = false
       const addrStream = this.toStream('.addresses') // .skipWhile(a => (!a || !a.length))
       return addrStream.merge(this.toStream('refresh')).map(() => {
         if (initialResolved) {
-          promise = new Promise(resolve => resolvePromise = resolve)
+          promise = new Promise(resolve => { resolvePromise = resolve })
         }
 
         if (!this.addresses.length) {
@@ -440,8 +440,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * The field `equibit.issuance_json` should always be empty for a portfolio. It can only be non-empty under a company.
    */
   balancePromise: {
-    get (val, resolve) {
-      return new Promise(res => {
+    get () {
+      return new Promise(resolve => {
         const utxoByType = this.utxoByTypeByAddress
         const updatePromises = []
         // TODO: figure out how to evaluate securities.
@@ -479,7 +479,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           totals.total = totals.cashTotal + totals.securities
           console.log(`portfolio.balance.total is ${totals.total}`)
           retVal.assign(totals)
-          res && res(retVal)
+          resolve && resolve(retVal)
         })
       })
     }
