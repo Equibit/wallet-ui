@@ -259,7 +259,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }
       if (this.listunspentPromise) {
         // TODO: filter out UTXO for this portfolio.
-        this.listunspentPromise.then(resolve)
+        this.listunspentPromise.then(resolve, () => resolve({}))
       }
     }
   },
@@ -415,6 +415,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
   balancePromise: {
     get (val, resolve) {
       return new Promise(res => {
+        return {total: 0, cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0}
         const utxoByType = this.utxoByTypeByAddress
         const updatePromises = []
         // TODO: figure out how to evaluate securities.

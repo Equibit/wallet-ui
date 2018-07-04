@@ -96,13 +96,21 @@ export const ViewModel = DefineMap.extend({
 
     return tx.save().then(() => {
       console.log('[my-portfolio.send] transaction was saved')
-      this.isSending = false
       Session.current.refreshBalance()
       // mark change address as used
       // this.portfolio.nextChangeAddress[currencyType]
       console.log('[my-portfolio.send] marking change address as used ...')
       this.portfolio.markAsUsed(changeAddr, currencyType, true)
-    })
+    }).then(
+      result => {
+        this.isSending = false
+        return result
+      },
+      err => {
+        this.isSending = false
+        throw err
+      }
+    )
   },
 
   nextAddress: {

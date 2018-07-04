@@ -1,3 +1,5 @@
+let year = new Date().getFullYear()
+
 export default {
   locale: 'en',
   timestamp: 'MMMM D, YYYY',
@@ -492,7 +494,7 @@ export default {
   privacyPolicyChangesMessage: 'If we decide to change our privacy policy, we will post those changes on this page.',
   privacyPolicyContactTitle: 'Contacting Us',
   privacyPolicyContactMessage: 'If there are any questions regarding this privacy policy you may contact us using the following e-mail address:',
-  privacyPolicyRevised: 'This policy was last modified on: Wednesday, July 1, 2015.',
+  privacyPolicyRevised: 'This policy was last modified on: Sunday, February 18, 2017.',
   profitandLoss: 'P&L',
   poll: 'Poll',
   polls: 'Polls',
@@ -637,8 +639,8 @@ export default {
 
   termsAndConditions: 'Terms & Conditions',
   termsAndConditionsContactTitle: 'Contact Us',
-  termsAndConditionsContactMessage: 'This page, the entire EDC site, images / documents are Copyright © 2015 by Equibit Development Corporation. All Rights Reserved.',
-  termsAndConditionsRevised: '- Revised: Wednesday, July 1, 2015',
+  termsAndConditionsContactMessage: 'This page, the entire Equibit Group site, images / documents are Copyright © 2015 by Equibit Group. All Rights Reserved.',
+  termsAndConditionsRevised: '- Revised: Sunday, February 18, 2017',
   testingStringFlat: 'Testing string',
   testingStringContentTagged: 'Testing <content /> string',
   testingStringTaggedSelfClosing: 'Testing <message /> string',
@@ -654,7 +656,7 @@ export default {
   totalCash: 'Total Cash',
   totalPrice: 'Total Price',
   totalSecurities: 'Total Securities',
-  trademark: '© 2017 Equibit Group Ltd.',
+  trademark: '© ' + year + ' Equibit Group Ltd.',
   tradeWasUpdated: 'Trade was updated',
   tradingPassport: 'Trading Passport',
   tradingPassportStatusActive: 'Active',
@@ -712,6 +714,8 @@ export default {
   transactionRefund: 'Refund',
   transactionOut: 'Transfer Out',
   transactionSell: 'Sell',
+  transactionFailedAlertMessage: 'Something went wrong, please try again later',
+  transactionFailedAlertTitle: 'Transaction Failed',
   transferFundsInstructionDescription: 'Transfer funds first using the <link/>.',
   tryAgain: 'Try Again.',
   type: 'Type',
@@ -729,6 +733,9 @@ export default {
   validationMnemonicEmpty: 'Please enter a seed phrase',
   validationMnemonicInvalidChecksum: 'Checksum is invalid. Possibly the mnemonic was generated in a different app',
   validationMnemonicTooShort: 'The mnemonic phrase should contain at least 12 words',
+  verificationCodeErrorExpired: 'Verification code has expired',
+  verificationCodeErrorIncorrect: 'Verification code is incorrect',
+  verificationCodeErrorGeneric: 'An error occured',
 
   warning: 'Warning',
   watchList: 'Watchlist',

@@ -19,6 +19,7 @@ import 'can-route-pushstate'
 import Session from './models/session'
 import Transaction from './models/transaction/transaction'
 import { clearLogoutTimer } from '~/utils/logout-timer'
+import Client from './models/feathers-client'
 
 //! steal-remove-start
 import canViewModel from 'can-view-model'
@@ -113,11 +114,14 @@ const AppViewModel = DefineMap.extend({
     this.session.user.clearKeys()
     this.session.destroy()
     this.session = null
-    this.page = 'login'
     Transaction.unSubscribe()
+    if (pages[this.page] === 'private') {
+      this.page = 'login'
+    }
     setTimeout(() => {
       window.location.reload()
     }, 100)
+    Client.logout()
   },
 
   refresh () {

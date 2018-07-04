@@ -1,3 +1,5 @@
+let year = new Date().getFullYear()
+
 export default {
   locale: 'fr',
   timestamp: 'D MMMM, YYYY',
@@ -14,5 +16,8 @@ export default {
 
   // Common:
   yes: 'OUI',
-  no: 'NON'
+  no: 'NON',
+
+  // Alphabetically:
+  trademark: '© ' + year + ' Equibit Group Ltd.'
 }
