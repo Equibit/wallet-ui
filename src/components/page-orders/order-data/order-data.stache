@@ -26,7 +26,7 @@
         <label>{{i18n('quantity')}}</label>
         <span class="order-quantity">
           {{#is order.assetType 'EQUIBIT'}}
-            {{coin(order.quantity)}}
+            {{format-coin(coin(order.quantity), 8)}}
           {{else}}
            {{format(order.quantity, '', 0)}}
           {{/is}}
@@ -52,7 +52,7 @@
     <div class="order-metadata section">
       <dl class="dl-horizontal dl-stripped responsive">
         <dt>{{i18n('totalPrice')}}</dt>
-        <dd>{{to-fixed-2(format-micro(order.totalPrice))}} <small>μBTC</small></dd>
+        <dd>{{format(to-fixed-2(format-micro(order.totalPrice)), '')}} <small>μBTC</small></dd>
 
         <dt>{{i18n('goodUntil')}}</dt>
         <dd>{{order.goodUntil}}</dd>
