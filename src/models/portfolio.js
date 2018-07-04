@@ -158,10 +158,14 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
               this.derivationWorkerPromise.then(derivationWorker => {
                 const uuid = Math.random()
+                console.log(`- spawing a worker for portfolio.addresses with uuid=${uuid} ...`)
                 const cb = ev => {
+                  console.log(`- cb worker for portfolio.addresses for uuid=${uuid}`)
                   if (ev.data.uuid === uuid) {
                     derivationWorker.removeEventListener('message', cb)
+                    derivationWorker.removeEventListener('error', errCb)
 
+                    console.log(`- cb worker setting address idx=${idx} for uuid=${uuid}`)
                     addresses.set(idx, {
                       index: meta.index,
                       address: ev.data.address,
@@ -185,7 +189,14 @@ const Portfolio = DefineMap.extend('Portfolio', {
                     }
                   }
                 }
+                const errCb = err => {
+                  console.log(`*** Worker ERROR for uuid=${uuid}`, err)
+                  derivationWorker.removeEventListener('message', cb)
+                  derivationWorker.removeEventListener('error', errCb)
+                  addresses.isPending--
+                }
                 derivationWorker.addEventListener('message', cb)
+                derivationWorker.addEventListener('error', errCb)
                 derivationWorker.postMessage({
                   eventType: 'derive',
                   base58Key: Session.current.user.decrypt(Session.current.user.encryptedKey),
