@@ -426,14 +426,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
   balancePromise: {
     get (val, resolve) {
       return new Promise(res => {
-        return {total: 0, cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0}
         const utxoByType = this.utxoByTypeByAddress
         const updatePromises = []
         // TODO: figure out how to evaluate securities.
-        if (utxoByType) {
-          console.log()
-        }
-       
         const fetchBalance = () => {
           console.log("Addressess : ",this.addresses.length);
           const totals = this.addresses.reduce((acc, addr) => {
