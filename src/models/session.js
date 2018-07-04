@@ -129,7 +129,7 @@ const Session = DefineMap.extend('Session', {
       return this.portfoliosPromise.then(portfolios => {
         if (portfolios && portfolios[0]) {
           return Promise.all([
-            portfolios[0].balanceLoadingPromise,
+            portfolios[0].balancePromise,
             portfolios[0].addressesPromise,
             portfolios[0].refreshBalance()
           ])

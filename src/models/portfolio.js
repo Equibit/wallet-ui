@@ -240,7 +240,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
         // just once when we first login, tell server to import all the addresses
         const doImport = this.doImport
         this.doImport = false
-
         console.log('*** [portfolio.listunspentPromise] fetching balance...')
         return fetchListunspent({
           doImport,
@@ -381,7 +380,20 @@ const Portfolio = DefineMap.extend('Portfolio', {
     serialize: false
   },
 
-  balancePromise: '*',
+  balance: {
+    get(val, resolve) {
+      if (val) {
+        return val
+      }
+      if (!this.utxoByTypeByAddress) {
+        console.log('portfolio.balance is undefined - no utxo yet...')
+        return {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0};
+      }
+      this.balancePromise.then(bal => {
+        resolve && resolve(bal)
+      });
+    }
+  },
 
   /**
    * @property {String} models/portfolio.properties.balance balance
@@ -400,67 +412,57 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * A security is a TX output that contains non-zero `equibit.issuance_tx_id`.
    * The field `equibit.issuance_json` should always be empty for a portfolio. It can only be non-empty under a company.
    */
-  balance: {
+  balancePromise: {
     get (val, resolve) {
-      if (val) {
-        return val
-      }
-      // let resolvePromise
-      if (!this.utxoByTypeByAddress) {
-        console.log('portfolio.balance is undefined - no utxo yet...')
-        return {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0}
-      }
-      const utxoByType = this.utxoByTypeByAddress
-
-      const updatePromises = []
-      // TODO: figure out how to evaluate securities.
-
-      const totals = this.addresses.reduce((acc, addr) => {
-        if (!addr) {
-          acc.isPending = true
-          return acc
+      return new Promise(res => {
+        const utxoByType = this.utxoByTypeByAddress
+        const updatePromises = []
+        // TODO: figure out how to evaluate securities.
+        if (utxoByType) {
+          console.log()
         }
-        const utxo = utxoByType[addr.type]
-        if (utxo && utxo.addresses[addr.address]) {
-          const amount = utxo.addresses[addr.address].amount
-          const txouts = utxo.addresses[addr.address].txouts
-          // Calculate summary:
-          if (addr.type === 'BTC') {
-            acc.cashBtc += amount
-            acc.cashTotal += amount
-          } else {
-            // Check for securities:
-            updatePromises.push(getSecuritiesAmount(txouts).then(securitiesAmount => {
-              acc.securities += securitiesAmount.total
-              acc.cashEqb += amount - securitiesAmount.amount
-            }))
-          }
+       
+        const fetchBalance = () => {
+          console.log("Addressess : ",this.addresses.length);
+          const totals = this.addresses.reduce((acc, addr) => {
+            if (!addr) {
+              acc.isPending = true
+              return acc
+            }
+            const utxo = utxoByType[addr.type]
+            if (utxo && utxo.addresses[addr.address]) {
+              const amount = utxo.addresses[addr.address].amount
+              const txouts = utxo.addresses[addr.address].txouts
+              // Calculate summary:
+              if (addr.type === 'BTC') {
+                acc.cashBtc += amount
+                acc.cashTotal += amount
+              } else {
+                // Check for securities:
+                updatePromises.push(getSecuritiesAmount(txouts).then(securitiesAmount => {
+                  acc.securities += securitiesAmount.total
+                  acc.cashEqb += amount - securitiesAmount.amount
+                }))
+              }
+            }
+            return acc
+          }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0})
+
+          totals.total = totals.cashTotal + totals.securities
+          const retVal = new DefineMap(totals)
+          updatePromises.unshift(currencyConverter.convertCryptoToCrypto(1, 'EQB', 'BTC'))
+          console.log("Update Promises : ",updatePromises.length);
+          Promise.all(updatePromises).then(([eqbToBtc, ...rest]) => {
+            // once all the promises resolve, update the totals in the returned map
+            totals.cashTotal += totals.cashEqb * eqbToBtc
+            totals.total = totals.cashTotal + totals.securities
+            console.log(`portfolio.balance.total is ${totals.total}`)
+            retVal.assign(totals)
+            res && res(retVal)
+          })
         }
-        return acc
-      }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0})
-
-      totals.total = totals.cashTotal + totals.securities
-
-      const retVal = new DefineMap(totals)
-      updatePromises.unshift(currencyConverter.convertCryptoToCrypto(1, 'EQB', 'BTC'))
-      Promise.all(updatePromises).then(([eqbToBtc, ...rest]) => {
-        // once all the promises resolve, update the totals in the returned map
-        totals.cashTotal += totals.cashEqb * eqbToBtc
-        totals.total = totals.cashTotal + totals.securities
-        retVal.assign(totals)
-        resolve && resolve(retVal)
-        this.balanceLoadingPromiseResolver && this.balanceLoadingPromiseResolver(retVal)
+        fetchBalance()
       })
-      console.log(`portfolio.balance.total is ${totals.total}`)
-      return resolve ? undefined : retVal
-    }
-  },
-  balanceLoadingPromiseResolver: '*',
-
-  balanceLoadingPromise: {
-    get (val, resolve) {
-      var self = this
-      return new Promise(resolve => { self.balanceLoadingPromiseResolver = resolve })
     }
   },
 
