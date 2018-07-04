@@ -639,7 +639,7 @@ export default {
 
   termsAndConditions: 'Terms & Conditions',
   termsAndConditionsContactTitle: 'Contact Us',
-  termsAndConditionsContactMessage: 'This page, the entire Equibit Group site, images / documents are Copyright © 2015 by Equibit Group. All Rights Reserved.',
+  termsAndConditionsContactMessage: 'This page, the entire Equibit Group site, images / documents are Copyright © ' + year +  ' by Equibit Group. All Rights Reserved.',
   termsAndConditionsRevised: '- Revised: Sunday, February 18, 2017',
   testingStringFlat: 'Testing string',
   testingStringContentTagged: 'Testing <content /> string',
