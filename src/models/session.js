@@ -129,6 +129,7 @@ const Session = DefineMap.extend('Session', {
       return this.portfoliosPromise.then(portfolios => {
         if (portfolios && portfolios[0]) {
           return Promise.all([
+            portfolios[0].balancePromise,
             portfolios[0].addressesPromise,
             portfolios[0].refreshBalance()
           ])
@@ -379,7 +380,7 @@ const Session = DefineMap.extend('Session', {
       .then(() => Promise.all([
         this.issuances && this.issuances.importAddressesPromise,
         this.portfolios && this.portfolios[0] && this.portfolios[0].securitiesPromise,
-        this.portfolios && this.portfolios[0] && this.portfolios[0].addressesPromise
+        this.portfolios && this.portfolios[0] && this.portfolios[0].listunspentPromise
       ]))
       .then(() => setTimeout(() => {
         resolve(false)
