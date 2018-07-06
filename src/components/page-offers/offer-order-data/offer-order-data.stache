@@ -21,7 +21,7 @@
       <label>{{i18n('quantity')}}</label>
       <span class="order-quantity">
         {{#is order.assetType 'EQUIBIT'}}
-          {{coin(order.quantity)}}
+          {{format-coin(coin(order.quantity), 8)}}
         {{else}}
           {{format(order.quantity, '', 0)}}
         {{/is}}
