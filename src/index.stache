@@ -34,6 +34,7 @@
     <can-import from="~/components/common/alerts/alerts" />
     <can-import from="~/components/nav-bar/" />
     <can-import from="~/components/nav-footer/" />
+    <can-import from="~/utils/tooltips-fix" />
 
     <bit-alerts/>
 
