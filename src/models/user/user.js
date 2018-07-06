@@ -125,6 +125,13 @@ const User = DefineMap.extend('User', {
   passwordCreatedAt: 'date',
 
   /**
+   * @property {Date} models/user.properties.tempPasswordCreatedAt tempPasswordCreatedAt
+   * @parent models/user.properties
+   * Date of last temp password change.
+   */
+  tempPasswordCreatedAt: 'date',
+
+  /**
    * @property {Date} models/user.properties.isNewUser isNewUser
    * @parent models/user.properties
    * Date of user update.
