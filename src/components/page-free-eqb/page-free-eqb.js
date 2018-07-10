@@ -17,6 +17,14 @@ export const ViewModel = DefineMap.extend({
   error: 'string',
   phone: 'string',
   code: 'string',
+  answers: {
+    // 2D array. First index == the question number, inner array == the answer(s) selected for that question
+    type: '*'
+  },
+  customAnswers: {
+    // array. index == the question number, value == the custom answer given (if any) for that question
+    type: '*'
+  },
   questionsPromise: {
     get () {
       return Question.getList({})
@@ -199,6 +207,10 @@ export const ViewModel = DefineMap.extend({
 
   choices (list) {
     return list ? list.join(', ') : ''
+  },
+
+  indexLetter (index) {
+    return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'][index]
   },
 
   sendPhone () {

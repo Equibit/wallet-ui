@@ -48,13 +48,13 @@
               <ul>
                 {{#each (question.answerOptions, answerOption=value anum=index)}}
                   <li>
-                    {{#is ../question.questionType 'SINGLE'}}
+                    {{#is question.questionType 'SINGLE'}}
                       <!-- RADIO BUTTON -->
                       <div class="form-group">
                         <div class="radio radio-primary">
                           <input type="radio" id="radio-{{qnum}}-{{indexLetter (anum)}}"
                                  name="radio-{{qnum}}"
-                                 checked:bind="equal(~../../userAnswers[../qnum].answerChoiceNum, anum)"
+                                 checked:bind="equal(userAnswers[qnum].answerChoiceNum, anum)"
                                  {{#if disableForm}}disabled{{/if}} />
                           <label for="radio-{{qnum}}-{{indexLetter (anum)}}">
                             <strong>{{indexLetter (anum)}})</strong>
@@ -63,8 +63,8 @@
                                 Other - Specify
                                 <br><br>
                                 <input type="text" class="form-control"
-                                       value:bind="../../userAnswers[../qnum].answer"
-                                       on:focus="selectCustom(../../userAnswers[../qnum], anum)" />
+                                       value:bind="userAnswers[qnum].answer"
+                                       on:focus="selectCustom(userAnswers[qnum], anum)" />
                               {{else}}
                                 {{{answerOption}}}
                               {{/is}}
@@ -78,9 +78,9 @@
                       <!-- CHECKBOX -->
                       <div class="form-group">
                         <div class="checkbox checkbox-primary">
-                          {{#if ../../userAnswers[../qnum].answerChoiceNum}}
+                          {{#if userAnswers[qnum].answerChoiceNum}}
                           <input type="checkbox" id="checkbox-{{qnum}}-{{indexLetter (anum)}}"
-                                 checked:bind="boolean-to-inList(anum, ../../userAnswers[../qnum].answerChoiceNum)" />
+                                 checked:bind="boolean-to-inList(anum, userAnswers[qnum].answerChoiceNum)" />
                           {{else}}
                             answerChoiceNum is not a non-empty array!
                           {{/if}}
@@ -91,8 +91,8 @@
                                 Other - Specify
                                 <br><br>
                                 <input type="text" class="form-control"
-                                       value:bind="../../userAnswers[../qnum].answer"
-                                       on:focus="selectCustom(../../userAnswers[../qnum], anum)" />
+                                       value:bind="userAnswers[qnum].answer"
+                                       on:focus="selectCustom(userAnswers[qnum], anum)" />
                               {{else}}
                                 {{{answerOption}}}
                               {{/is}}
@@ -105,12 +105,6 @@
                   </li>
                 {{/each}}
               </ul>
-
-              {{#is question.questionType 'SINGLE'}}
-                Your choice: <strong class="text-primary">{{../userAnswers[qnum].answerChoice}}</strong>
-              {{else}}
-                Your choice: <strong class="text-primary">{{../choices(../userAnswers[qnum].answerChoice)}}</strong>
-              {{/is}}
             </div>
           </div>
         </div>
@@ -131,7 +125,7 @@
         <div class="panel no-margin">
           <div class="panel-body text-center">
             <h4>Thank you!</h4>
-            <p>Thank You for completing the questionnaire – now it’s time to set up your account</p>
+            <p>We will pay out your reward shortly</p>
           </div>
         </div>
         <br><br>
