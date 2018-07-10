@@ -9,7 +9,6 @@
             <td colspan="4" class="column-description">
               {{#is rows[0].assetType 'EQUIBIT'}}
                 <span class="transaction-subject">{{i18n('blankEqb')}}</span>
-                {{i18n('from')}} <a href="{{routeUrl page='equibit'}}">{{i18n('Equibit')}}</a>
               {{else}}
                 <span class="transaction-subject">{{rows[0].issuanceTypeDisplay}}</span>
               {{/is}}
