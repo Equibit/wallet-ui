@@ -3,7 +3,8 @@
 <div class="row margin-top">
   <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2"><h2 class="bold">Free <span class="text-primary">EQB</span></h2></div>
 </div>
-{{#switch (user.questionnaire)}}
+{{#switch ("QUESTIONS")}}
+{{! {{#switch (user.questionnaire)}} }}
   {{#case ("WAITING-CODE")}}
     <div class="row margin-top">
       <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
