@@ -46,7 +46,7 @@ export const ViewModel = DefineMap.extend({
         'title': translate('codeVerifiedMessage'),
         'displayInterval': 10000
       })
-      this.doClose()
+      this.doVerifiedClose()
     }, error => {
       let errCode = 'verificationCodeErrorGeneric'
       if (error.message.indexOf('code verification failed') >= 0) {
@@ -58,6 +58,10 @@ export const ViewModel = DefineMap.extend({
     })
   },
   doClose () {
+    this.dispatch('close')
+    this.close()
+  },
+  doVerifiedClose () {
     this.dispatch('close')
     this.close()
     this.next()
