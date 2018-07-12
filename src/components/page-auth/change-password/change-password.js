@@ -70,7 +70,7 @@ export const ViewModel = DefineMap.extend({
     this.user.changePassword(password)
       .then(() => {
         if (isNewUser) {
-          this.user.generateWalletKeys()
+          this.user.generateKeysAndPatchUser()
           this.routeWithAlert('portfolio', isNewUser)
         } else {
           this.routeWithAlert('recovery-phrase')
