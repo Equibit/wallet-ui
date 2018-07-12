@@ -63,5 +63,6 @@ export default {
   bitcoin,
   randomBytes: crypto.randomBytes,
   sha256: bitcoin.crypto.sha256,
-  Buffer: crypto.Buffer
+  Buffer: crypto.Buffer,
+  sha3_512: crypto.sha3.sha3_512
 }

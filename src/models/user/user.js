@@ -202,12 +202,22 @@ const User = DefineMap.extend('User', {
    */
   // Q: do we want different passphrases for mnemonic and privateKey? A: Not now.
   generateWalletKeys (mnemonic = bip39.generateMnemonic()) {
-    const seed = bip39.mnemonicToSeed(mnemonic, '')
-    const root = bitcoin.HDNode.fromSeedBuffer(seed, _network)
+    let root
+    try {
+      const seed = bip39.mnemonicToSeed(mnemonic, '')
+      root = bitcoin.HDNode.fromSeedBuffer(seed, _network)
+      this.encryptedMnemonic = this.encryptWithPassword(_password, mnemonic)
+      this.encryptedKey = this.encryptWithPassword(_password, root.toBase58())
+    } catch (err) {
+      console.error('Error [user.generateWalletKeys]', err)
+      throw new Error('Cannot generate wallet keys')
+    }
+    return root
+  },
 
-    this.encryptedMnemonic = this.encryptWithPassword(_password, mnemonic)
-    this.encryptedKey = this.encryptWithPassword(_password, root.toBase58())
-
+  generateKeysAndPatchUser (mnemonic) {
+    console.log('[user.generateWalletKeys] patch user... ')
+    const root = this.generateWalletKeys(mnemonic)
     return userService.patch(this._id, {
       encryptedMnemonic: this.encryptedMnemonic,
       encryptedKey: this.encryptedKey

@@ -50,7 +50,7 @@ export const ViewModel = DefineMap.extend({
       return
     }
     this.pending = true
-    this.user.generateWalletKeys(this.mnemonic)
+    this.user.generateKeysAndPatchUser(this.mnemonic)
       .then(() => {
         const noop = () => {}
         this.user.isRecovered = true
@@ -92,7 +92,7 @@ export const ViewModel = DefineMap.extend({
       .then(() => { this.pending = false }, () => { this.pending = false })
   },
   confirmNoPhrase () {
-    this.user.generateWalletKeys()
+    this.user.generateKeysAndPatchUser()
       .then(() => {
         route.data.page = 'portfolio'
       })
