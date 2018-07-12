@@ -81,6 +81,13 @@ const User = DefineMap.extend('User', {
 
   encryptedMnemonic: 'string',
 
+  mnemonicHash: {
+    serialize: true,
+    get () {
+      return this.encryptedMnemonic && this.email && cryptoUtils.sha3_512(this.email + this.decrypt(this.encryptedMnemonic))
+    }
+  },
+
   /**
    * @property {Boolean} models/user.properties.hasRecordedMnemonic hasRecordedMnemonic
    * @parent models/user.properties
