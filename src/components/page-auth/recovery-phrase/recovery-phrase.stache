@@ -3,7 +3,7 @@
 <can-import from="~/components/page-auth/recovery-phrase/modal-confirm-funds/" />
 
 {{#is mode 'prompt'}}
-  <form on:submit="recoverFunds(scope.event)">
+  <form on:submit="verifyMnemonic(scope.event)">
     <h2>{{i18n('recoveryPhrasePromptTitle')}}</h2>
     <p>{{i18n('recoveryPhrasePromptInstruction')}}</p>
     <recovery-phrase-field mnemonic:to="mnemonic"

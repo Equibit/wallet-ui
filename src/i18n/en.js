@@ -730,9 +730,13 @@ export default {
   value: 'value',
   volume: 'Volume',
   volume24Hour: '24h Volume',
+
   validationMnemonicEmpty: 'Please enter a seed phrase',
   validationMnemonicInvalidChecksum: 'Checksum is invalid. Possibly the mnemonic was generated in a different app',
   validationMnemonicTooShort: 'The mnemonic phrase should contain at least 12 words',
+  validationMnemonicNoDbValue: 'Cannot verify mnemonic since its hash was not retrieved from DB',
+  validationMnemonicWrong: 'You entered a wrong mnemonic',
+
   verificationCodeErrorExpired: 'Verification code has expired',
   verificationCodeErrorIncorrect: 'Verification code is incorrect',
   verificationCodeErrorGeneric: 'An error occured',
