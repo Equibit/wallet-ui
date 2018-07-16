@@ -23,6 +23,7 @@ import validate from '~/utils/validators'
 import route from 'can-route'
 import hub from '~/utils/event-hub'
 import i18n from '~/i18n/'
+import zxcvbn from 'zxcvbn'
 
 export const ViewModel = DefineMap.extend({
   email: {
@@ -61,23 +62,25 @@ export const ViewModel = DefineMap.extend({
     // Note: after changing password user is no longer new.
     const isNewUser = this.user.isNewUser
 
-    this.user.changePassword(password)
-      .then(() => {
-        if (isNewUser) {
-          this.user.generateWalletKeys()
-          this.routeWithAlert('portfolio', isNewUser)
-        } else {
-          this.routeWithAlert('recovery-phrase')
-        }
-      })
-      .catch(e => {
-        console.error(e)
-        if (e.code === 400 && e.errors && e.errors.password) {
-          this.passwordError = e.errors.password
-        } else {
-          this.generalError = JSON.stringify(e)
-        }
-      })
+    if (zxcvbn(password).score === 4) {
+      this.user.changePassword(password)
+        .then(() => {
+          if (isNewUser) {
+            this.user.generateWalletKeys()
+            this.routeWithAlert('portfolio', isNewUser)
+          } else {
+            this.routeWithAlert('recovery-phrase')
+          }
+        })
+        .catch(e => {
+          console.error(e)
+          if (e.code === 400 && e.errors && e.errors.password) {
+            this.passwordError = e.errors.password
+          } else {
+            this.generalError = JSON.stringify(e)
+          }
+        })
+    }
   },
   togglePassword () {
     this.passwordVisible = !this.passwordVisible

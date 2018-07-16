@@ -21,6 +21,7 @@ import view from './user-password.stache'
 import Session from '~/models/session'
 import hub from '~/utils/event-hub'
 import i18n from '~/i18n/'
+import zxcvbn from 'zxcvbn'
 
 export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
@@ -47,27 +48,29 @@ export const ViewModel = DefineMap.extend({
     this.errors[field] = null
   },
   save () {
-    Session.current.user.changePassword(this.passwordNew, this.passwordCurrent).then(
-      () => {
-        this.passwordCurrent = ''
-        this.passwordNew = ''
-        this.errors = {}
-        hub.dispatch({
-          'type': 'alert',
-          'kind': 'success',
-          'title': i18n.changesSaved,
-          'displayInterval': 10000
-        })
-        this.close()
-      },
-      error => {
-        if (isEmptyObject(error.errors)) {
-          this.errors.set('general', error.message)
-        } else {
-          this.errors.assign(error.errors)
+    if (zxcvbn(this.passwordNew).score === 4) {
+      Session.current.user.changePassword(this.passwordNew, this.passwordCurrent).then(
+        () => {
+          this.passwordCurrent = ''
+          this.passwordNew = ''
+          this.errors = {}
+          hub.dispatch({
+            'type': 'alert',
+            'kind': 'success',
+            'title': i18n.changesSaved,
+            'displayInterval': 10000
+          })
+          this.close()
+        },
+        error => {
+          if (isEmptyObject(error.errors)) {
+            this.errors.set('general', error.message)
+          } else {
+            this.errors.assign(error.errors)
+          }
         }
-      }
-    )
+      )
+    }
   },
   close: '*'
 })
