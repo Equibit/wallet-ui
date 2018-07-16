@@ -34,7 +34,9 @@
     "release:qa:patch": "npm test && npm run build2 && npm version patch && make release-qa",
     "release:qa:minor": "npm test && npm run build2 && npm version minor && make release-qa",
     "release:qa:major": "npm test && npm run build2 && npm version major && make release-qa",
-    "deps-bundle": "steal-tools bundle --deps"
+    "deps-bundle": "steal-tools bundle --deps",
+    "cypress": "npm run cypress:open",
+    "cypress:open": "cypress open"
   },
   "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
   "files": [
@@ -162,6 +164,7 @@
     "babel-register": "^6.26.0",
     "can-view-model": "^3.5.1",
     "chai": "^4.1.2",
+    "cypress": "^3.0.2",
     "documentjs": "^0.5.1",
     "donejs-cli": "^1.1.0",
     "funcunit": "^3.5.0",
