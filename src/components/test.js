@@ -4,6 +4,7 @@ import './common/button-group/button-group-test'
 
 import './page-auth/password-strength/test'
 import './page-auth/change-password/change-password-test'
+import './page-auth/recovery-phrase/recovery-phrase-test'
 
 import './page-issuance-details/orders-grid/orders-grid-test'
 import './page-issuance-details/order-book/order-book-test'

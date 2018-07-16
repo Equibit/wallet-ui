@@ -41,6 +41,28 @@ export const ViewModel = DefineMap.extend({
   switch (val) {
     this.mode = val
   },
+  verifyMnemonic (ev) {
+    if (ev) {
+      ev.preventDefault()
+    }
+    if (!this.user.mnemonicHash) {
+      this.error = translate('validationMnemonicNoDbValue')
+      return
+    }
+    const isValid = this.user.hashEmailAndMnemonic(this.mnemonic) === this.user.mnemonicHash
+    if (!isValid) {
+      this.error = translate('validationMnemonicWrong')
+      return
+    }
+    this.user.generateKeysAndPatchUser(this.mnemonic)
+    route.data.page = 'portfolio'
+    hub.dispatch({
+      'type': 'alert',
+      'kind': 'success',
+      'title': translate('fundsRecoveredMsg'),
+      'displayInterval': 10000
+    })
+  },
   recoverFunds (ev) {
     if (ev) {
       ev.preventDefault()

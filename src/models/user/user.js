@@ -82,9 +82,17 @@ const User = DefineMap.extend('User', {
   encryptedMnemonic: 'string',
 
   mnemonicHash: {
+    type: 'string',
     serialize: true,
-    get () {
-      return this.encryptedMnemonic && this.email && cryptoUtils.sha3_512(this.email + this.decrypt(this.encryptedMnemonic))
+    value: function () {
+      const res = this.encryptedMnemonic && this.email && this.hashEmailAndMnemonic(this.decrypt(this.encryptedMnemonic))
+      console.log(`[user.mnemonicHash]: res = ${res}`)
+      return res
+    }
+  },
+  hashEmailAndMnemonic (mnemonic) {
+    if (this.email && mnemonic) {
+      return cryptoUtils.sha3_512(this.email + mnemonic)
     }
   },
 
