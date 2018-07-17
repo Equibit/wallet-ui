@@ -37,8 +37,8 @@
     "deps-bundle": "steal-tools bundle --deps",
     "cypress": "npm run cypress:open",
     "cypress:open": "cypress open",
-    "cypress-test": "npm run cypress:test",
-    "cypress:test": "cypress run"
+    "test-cypress": "npm run test:cypress",
+    "test:cypress": "cypress run --browser chromium --record --key a452942b-b549-4a49-b45c-51683d77b79c"
   },
   "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
   "files": [
