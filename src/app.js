@@ -73,6 +73,9 @@ const AppViewModel = DefineMap.extend({
   sort: {
     serialize: true
   },
+  refCode: {
+    serialize: true
+  },
 
   // Rates for anonymous user: BTC/USD EQB/USD
 
@@ -133,6 +136,7 @@ const AppViewModel = DefineMap.extend({
 
 route('issuances/sort/{sort}', {page: 'issuances'})
 route('issuances/{companySlug}/{itemId}', {page: 'issuance-details'})
+route('signup/{refCode}', {page: 'signup'})
 route('{page}/{itemId}')
 route('{page}', {page: 'login'})
 
