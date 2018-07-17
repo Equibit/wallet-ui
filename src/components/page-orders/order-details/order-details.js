@@ -46,7 +46,7 @@ export const ViewModel = DefineMap.extend({
   },
   newOffers: {
     get () {
-      return this.offers && this.offers.filter(o => !o.isAccepted)
+      return this.offers && this.offers.filter(o => !o.isAccepted && o.status != 'CANCELLED')
     }
   },
   acceptedOffers: {
