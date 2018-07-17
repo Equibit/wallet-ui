@@ -36,7 +36,9 @@
     "release:qa:major": "npm test && npm run build2 && npm version major && make release-qa",
     "deps-bundle": "steal-tools bundle --deps",
     "cypress": "npm run cypress:open",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress-test": "npm run cypress:test",
+    "cypress:test": "cypress run"
   },
   "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
   "files": [
