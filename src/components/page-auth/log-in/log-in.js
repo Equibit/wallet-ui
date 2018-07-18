@@ -84,7 +84,7 @@ export const ViewModel = DefineMap.extend({
         }
         setupLogoutTimer(user.autoLogoutTime, this.logout)
         route.data.page = this.session.usingTempPassword
-          ? (this.user.isNewUser ? 'change-password' : 'recovery-phrase')
+          ? (user.isNewUser ? 'change-password' : 'recovery-phrase')
           : 'portfolio'
       })
       .catch(error => {

@@ -311,6 +311,7 @@ export default {
   fundsSent: 'Funds sent',
   fundsRecoveredMsg: 'Funds Recovered',
 
+  generalError: 'Sorry, something wrong happened on the server. Please, try again later.',
   goodFor: 'Good For',
   goodUntil: 'Good Until',
 
