@@ -62,25 +62,28 @@ export const ViewModel = DefineMap.extend({
     // Note: after changing password user is no longer new.
     const isNewUser = this.user.isNewUser
 
-    if (zxcvbn(password).score === 4) {
-      this.user.changePassword(password)
-        .then(() => {
-          if (isNewUser) {
-            this.user.generateWalletKeys()
-            this.routeWithAlert('portfolio', isNewUser)
-          } else {
-            this.routeWithAlert('recovery-phrase')
-          }
-        })
-        .catch(e => {
-          console.error(e)
-          if (e.code === 400 && e.errors && e.errors.password) {
-            this.passwordError = e.errors.password
-          } else {
-            this.generalError = JSON.stringify(e)
-          }
-        })
+    if (zxcvbn(password).score !== 4) {
+      this.passwordError = 'Password too weak'
+      return
     }
+
+    this.user.changePassword(password)
+      .then(() => {
+        if (isNewUser) {
+          this.user.generateWalletKeys()
+          this.routeWithAlert('portfolio', isNewUser)
+        } else {
+          this.routeWithAlert('recovery-phrase')
+        }
+      })
+      .catch(e => {
+        console.error(e)
+        if (e.code === 400 && e.errors && e.errors.password) {
+          this.passwordError = e.errors.password
+        } else {
+          this.generalError = JSON.stringify(e)
+        }
+      })
   },
   togglePassword () {
     this.passwordVisible = !this.passwordVisible
