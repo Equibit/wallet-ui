@@ -1,5 +1,4 @@
 {
   "baseUrl": "http://localhost:8080/",
-  "defaultCommandTimeout": 2000,
   "projectId": "b1mahs"
 }
