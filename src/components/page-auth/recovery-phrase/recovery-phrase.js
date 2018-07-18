@@ -45,23 +45,10 @@ export const ViewModel = DefineMap.extend({
     if (ev) {
       ev.preventDefault()
     }
-    if (!this.user.mnemonicHash) {
-      this.error = translate('validationMnemonicNoDbValue')
-      return
-    }
-    const isValid = this.user.hashEmailAndMnemonic(this.mnemonic) === this.user.mnemonicHash
-    if (!isValid) {
-      this.error = translate('validationMnemonicWrong')
-      return
-    }
-    this.user.generateKeysAndPatchUser(this.mnemonic)
-    route.data.page = 'portfolio'
-    hub.dispatch({
-      'type': 'alert',
-      'kind': 'success',
-      'title': translate('fundsRecoveredMsg'),
-      'displayInterval': 10000
-    })
+    this.user.verifyMnemonicHash(this.mnemonic)
+      .then(() => this.user.generateKeysAndPatchUser(this.mnemonic))
+      .then(() => { route.data.page = 'change-password' })
+      .catch(err => { this.error = translate(err.message) })
   },
   recoverFunds (ev) {
     if (ev) {

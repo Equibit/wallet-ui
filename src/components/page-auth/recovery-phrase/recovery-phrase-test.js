@@ -26,7 +26,6 @@ describe('wallet-ui/components/page-auth/recovery-phrase/', () => {
     })
     it('should navigate to portfolio', function () {
       vm.mnemonic = mnemonic
-      console.log(`routeOrig = ${routeOrig}`)
       assert.equal(route.data.page, routeOrig)
       vm.verifyMnemonic()
       assert.equal(route.data.page, 'portfolio')

@@ -71,10 +71,8 @@ export const ViewModel = DefineMap.extend({
       .then(() => {
         if (isNewUser) {
           this.user.generateKeysAndPatchUser()
-          this.routeWithAlert('portfolio', isNewUser)
-        } else {
-          this.routeWithAlert('recovery-phrase')
         }
+        this.routeWithAlert('portfolio', isNewUser)
       })
       .catch(e => {
         console.error(e)
