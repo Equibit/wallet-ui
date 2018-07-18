@@ -48,29 +48,32 @@ export const ViewModel = DefineMap.extend({
     this.errors[field] = null
   },
   save () {
-    if (zxcvbn(this.passwordNew).score === 4) {
-      Session.current.user.changePassword(this.passwordNew, this.passwordCurrent).then(
-        () => {
-          this.passwordCurrent = ''
-          this.passwordNew = ''
-          this.errors = {}
-          hub.dispatch({
-            'type': 'alert',
-            'kind': 'success',
-            'title': i18n.changesSaved,
-            'displayInterval': 10000
-          })
-          this.close()
-        },
-        error => {
-          if (isEmptyObject(error.errors)) {
-            this.errors.set('general', error.message)
-          } else {
-            this.errors.assign(error.errors)
-          }
-        }
-      )
+    if (zxcvbn(this.passwordNew).score !== 4) {
+      this.errors.set('passwordError', 'Password too weak')
+      return
     }
+
+    Session.current.user.changePassword(this.passwordNew, this.passwordCurrent).then(
+      () => {
+        this.passwordCurrent = ''
+        this.passwordNew = ''
+        this.errors = {}
+        hub.dispatch({
+          'type': 'alert',
+          'kind': 'success',
+          'title': i18n.changesSaved,
+          'displayInterval': 10000
+        })
+        this.close()
+      },
+      error => {
+        if (isEmptyObject(error.errors)) {
+          this.errors.set('general', error.message)
+        } else {
+          this.errors.assign(error.errors)
+        }
+      }
+    )
   },
   close: '*'
 })

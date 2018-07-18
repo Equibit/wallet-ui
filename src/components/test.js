@@ -3,6 +3,7 @@ import './common/list-paginator/list-paginator-test'
 import './common/button-group/button-group-test'
 
 import './page-auth/password-strength/test'
+import './page-auth/change-password/change-password-test'
 
 import './page-issuance-details/orders-grid/orders-grid-test'
 import './page-issuance-details/order-book/order-book-test'
@@ -13,6 +14,8 @@ import './page-my-issuances/create-issuance/issuance-form/issuance-form-test'
 
 import './page-orders/order-list/order-list-test'
 import './page-orders/order-offers-data/order-offers-data-test'
+
+import './page-preferences/user-password/user-password-test'
 
 import './page-transactions/transactions-grid/transactions-grid-test'
 import './page-transactions/transactions-details/transactions-details-test'
