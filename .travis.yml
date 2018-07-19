@@ -11,3 +11,4 @@ before_install:
 script:
   - sudo sh -c "dbus-uuidgen > /etc/machine-id"
   - npm run test
+  - yarn run testcafe
