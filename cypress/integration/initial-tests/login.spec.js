@@ -1,22 +1,11 @@
-// import User from '../../../src/models/user/user'
-
 /*eslint-disable */
 describe('Login Test', () => {
 
   beforeEach(() => {
     cy.fixture('users').as('users')
     cy.visit('/')
-    // sign up programmatically
-    // User.signup(users[0].email)
+    cy.get('input[type="password"]').type('bullish{enter}')
   })
-
-  afterEach(() => {
-    // remove each entry
-  })
-
-  // test banner, test greeting, test inputs, test button
-  // test error states - blank email, blank password, invalid email/password
-  // test url redirect after success
 
   it.skip('greets user with Log In', () => {
     cy.contains('h2', 'Log In', { timeout: 20000 })
