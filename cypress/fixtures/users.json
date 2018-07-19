@@ -1,0 +1,13 @@
+[
+    {
+        "id": 0,
+        "email": "test@evenset.com",
+        "password": "password123"
+    },
+    
+    {
+        "id": 0,
+        "email": "test2@evenset.com",
+        "password": "secret123"
+    }
+]
