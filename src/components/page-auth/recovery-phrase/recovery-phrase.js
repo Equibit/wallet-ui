@@ -106,6 +106,9 @@ export const ViewModel = DefineMap.extend({
         route.data.page = 'portfolio'
       })
   },
+  relogin () {
+    window.location.href = '/login'
+  },
   get disableButton () {
     return this.error || this.pending
   }
