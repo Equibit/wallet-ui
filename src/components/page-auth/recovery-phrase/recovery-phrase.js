@@ -45,7 +45,7 @@ export const ViewModel = DefineMap.extend({
     if (ev) {
       ev.preventDefault()
     }
-    this.user.verifyMnemonicHash(this.mnemonic)
+    return this.user.verifyMnemonicHash(this.mnemonic)
       .then(() => this.user.generateKeysAndPatchUser(this.mnemonic))
       .then(() => { route.data.page = 'change-password' })
       .catch(err => { this.error = translate(err.message) })

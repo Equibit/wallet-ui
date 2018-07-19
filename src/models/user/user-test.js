@@ -43,7 +43,7 @@ describe('models/user', function () {
       assert.equal(user.encryptedKey, encryptedKey)
     })
     it('should hash mnemonic with email', function () {
-      assert.equal(user.mnemonicHash, mnemonicHash)
+      assert.equal(user.hashEmailAndMnemonic(mnemonic), mnemonicHash)
     })
   })
 
