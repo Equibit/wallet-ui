@@ -372,6 +372,7 @@ export default {
   level: 'Level',
   login: 'Log In',
   loginToContinue: 'Log in to continue.',
+  loginRetry: 'Re-Log In',
   logout: 'Log Out',
 
   market: 'Market',
@@ -542,7 +543,7 @@ export default {
   recoveryPhraseSetupRiskMessage: 'If you don\'t back up your funds and forget your password, you won\'t be able to access your funds. There is no warranty. Any software or hardware may fail at any time. We don\'t keep copies of your private keys. The only way to protect your funds is to make your own backup and store it in a safe place.',
   recoveryPhraseSetupRiskTitle: 'Do You Understand the Risk?',
   recoveryPhraseSetupRiskWarning: 'If you proceed without a backup, and forget your password you will lose access to your funds.',
-  recoveryPhraseWarningMessage: 'If you don\'t have a backup recovery phrase, you can still access your account, but your funds won\'t be available.',
+  recoveryPhraseWarningMessage: 'If you don\'t have a backup recovery phrase, you cannot access your account.',
   recoveryPhraseWordMissing: 'Word is missing',
   recoveryPhraseWordIncorrect: 'Invalid word',
   recurring: 'Recurring',
