@@ -109,6 +109,9 @@ const AppViewModel = DefineMap.extend({
   },
 
   logout () {
+    // todo: this is a tmp fix for the issue https://github.com/Equibit/wallet-ui/issues/1030
+    window.location.href = '/login'
+
     // TODO: what do we call in feathers to logout?
     clearLogoutTimer()
     this.session.user.clearKeys()
