@@ -8,16 +8,20 @@ cache:
   yarn: true
   directories:
     - api
-services:
-  - mongodb
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
+    # Fire up database
+  - "sudo mkdir -p /data/db"
+  - "sudo chown -R `id -u` /data/db"
+  - "sudo chmod -R go+w /data/db"
+  - "mongod &"
+  - "sleep 10"
   # Clone backend repo
   - "[ -d api/.git ] || git clone git@github.com:Equibit/wallet-api.git api"
   - "cd api"
   # Run server
-  - "TESTING=true NODE_ENV=testing npm start &"
+  - "TESTING=true NODE_ENV=qa npm start &"
   # Wait for server to start
   - "sleep 5"
   - "cd .."
@@ -27,5 +31,5 @@ script:
   - npm run test-cypress
 after_script:
   - kill $(jobs -p) || true
-  - sudo service mongod stop
+  - mongod --shutdown
   - pkill node
