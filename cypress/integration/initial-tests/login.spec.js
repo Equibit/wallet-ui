@@ -4,7 +4,7 @@ describe('Login Test', () => {
   beforeEach(() => {
     cy.fixture('users').as('users')
     cy.visit('/')
-    cy.get('input[type="password"]').type('bullish{enter}')
+    // cy.get('input[type="password"]').type('bullish{enter}')
   })
 
   it.skip('greets user with Log In', () => {
@@ -73,9 +73,9 @@ describe('Login Test', () => {
   it('successfully log in using UI', function () {
 
     cy.get('input[type="email"]', { timeout: 20000 })
-    .type('elliott@evenset.com')
+    .type(this.users[0].email)
     .get('input[type="password"]')
-    .type('password123')
+    .type(this.users[0].password)
     .get('button[type="submit"]').click()
     
     cy.url().should('contain', '/portfolio')

@@ -1,4 +1,4 @@
 {
-  "baseUrl": "https://qa-wallet.equibitgroup.com/",
+  "baseUrl": "http://localhost:8080/",
   "projectId": "b1mahs"
 }
