@@ -4,7 +4,8 @@ language: node_js
 node_js: 7.3
 addons:
   firefox: "52.3.0"
-cache: yarn
+cache:
+  yarn: true
   directories:
     - api
 services:
