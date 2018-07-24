@@ -7,8 +7,8 @@ describe('Login Test', () => {
     cy.get('input[type="password"]').type('bullish{enter}')
   })
 
-  it.skip('greets user with Log In', () => {
-    cy.contains('h2', 'Log In', { timeout: 20000 })
+  it('greets user with Log In', () => {
+    cy.contains('h2', 'Log In', { timeout: 25000 })
   })
 
   it.skip('links to Sign Up flow', () => {
@@ -72,7 +72,7 @@ describe('Login Test', () => {
 
   it('successfully log in using UI', function () {
 
-    cy.get('input[type="email"]', { timeout: 20000 })
+    cy.get('input[type="email"]', { timeout: 25000 })
     .type(this.users[0].email)
     .get('input[type="password"]')
     .type(this.users[0].password)

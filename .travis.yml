@@ -16,12 +16,12 @@ before_install:
   - "sudo chown -R `id -u` /data/db"
   - "sudo chmod -R go+w /data/db"
   - "mongod &"
-  - "sleep 10"
+  - "sleep 5"
   # Clone backend repo
   - "[ -d api/.git ] || git clone git@github.com:Equibit/wallet-api.git api"
   - "cd api"
   # Run server
-  - "TESTING=true NODE_ENV=qa npm start &"
+  - "TESTING=true NODE_ENV=testing npm start &"
   # Wait for server to start
   - "sleep 5"
   - "cd .."
