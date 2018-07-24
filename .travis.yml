@@ -18,9 +18,7 @@ before_install:
   # Clone backend repo
   - "[ -d api/.git ] || git clone git@github.com:Equibit/wallet-api.git api"
   - "cd api"
-  # Reset the repo so we can have a conflict-less pull
-  - "git reset --hard"
-  - "git clean -f"
+  - "git checkout development"
   - "git pull"
   # Install dependencies
   - "npm install"
