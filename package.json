@@ -38,7 +38,7 @@
     "cypress": "npm run cypress:open",
     "cypress:open": "npm run build2 && (HTTP_PASSWORD=bullish NODE_ENV=qa npm run start &) && cypress open",
     "test-cypress": "npm run test:cypress",
-    "test:cypress": "(HTTP_PASSWORD=bullish NODE_ENV=qa npm run start &) && cypress run --browser chrome --record --key a452942b-b549-4a49-b45c-51683d77b79c"
+    "test:cypress": "npm run build2 && (HTTP_PASSWORD=bullish NODE_ENV=qa npm run start &) && cypress run --browser chrome --record --key a452942b-b549-4a49-b45c-51683d77b79c"
   },
   "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
   "files": [
