@@ -7,23 +7,23 @@ describe('Login Test', () => {
     cy.get('input[type="password"]').type('bullish{enter}')
   })
 
-  it.skip('greets user with Log In', () => {
+  it('greets user with Log In', () => {
     cy.contains('h2', 'Log In', { timeout: 20000 })
   })
 
-  it.skip('links to Sign Up flow', () => {
+  it('links to Sign Up flow', () => {
     cy
     .contains('Sign Up', { timeout: 20000 })
     .should('have.attr', 'href', '/signup')
   })
 
-  it.skip('links to Forget Password flow', () => {
+  it('links to Forget Password flow', () => {
     cy
     .contains('Forgot Password?', { timeout: 20000 })
     .should('have.attr', 'href', '/forgot-password')
   })
 
-  it.skip('requires email', () => {
+  it('requires email', () => {
     cy
     .get('input[type="password"]', { timeout: 20000 })
     .type('password{enter}')
@@ -33,7 +33,7 @@ describe('Login Test', () => {
     .should('contain', 'Email is missing')
   })
 
-  it.skip('requires password', () => {
+  it('requires password', () => {
     cy
     .get('input[type="email"]', { timeout: 20000 })
     .type('test@evenset.com{enter}')
@@ -43,7 +43,7 @@ describe('Login Test', () => {
     .should('contain', 'Password is missing')
   })
 
-  it.skip('requires valid email', () => {
+  it('requires valid email', () => {
     cy
     .get('input[type="email"]', { timeout: 20000 })
     .type('test')
@@ -55,7 +55,7 @@ describe('Login Test', () => {
     .should('contain', 'Enter a valid email address')
   })
 
-  it.skip('requires valid email and password', () => {
+  it('requires valid email and password', () => {
     cy
     .get('input[type="email"]', { timeout: 20000 })
     .type('test@evenset.com')
@@ -81,7 +81,7 @@ describe('Login Test', () => {
     cy.url().should('contain', '/portfolio')
   })
 
-  it.skip('successfully log in programmatically', function () {
+  it('successfully log in programmatically', function () {
     cy.request({
       method: 'POST',
       url: '/login',
