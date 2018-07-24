@@ -7,7 +7,7 @@ describe('Login Test', () => {
     cy.get('input[type="password"]').type('bullish{enter}')
   })
 
-  it.skip('greets user with Log In', () => {
+  it('greets user with Log In', () => {
     cy.contains('h2', 'Log In', { timeout: 20000 })
   })
 
