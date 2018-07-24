@@ -4,7 +4,7 @@ describe('Login Test', () => {
   beforeEach(() => {
     cy.fixture('users').as('users')
     cy.visit('/')
-    // cy.get('input[type="password"]').type('bullish{enter}')
+    cy.get('input[type="password"]').type('bullish{enter}')
   })
 
   it.skip('greets user with Log In', () => {

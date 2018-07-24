@@ -1,7 +1,9 @@
 sudo: required
 dist: trusty
 language: node_js
-node_js: 7.3
+node_js:
+  - "7.3"
+  - "8.6.0"
 addons:
   firefox: "52.3.0"
 cache:
