@@ -29,8 +29,6 @@ before_install:
   # Wait for server to start
   - "sleep 5"
   - "cd .."
-before_script:
-  - donejs develop &
 script:
   - sudo sh -c "dbus-uuidgen > /etc/machine-id"
   - npm run test
@@ -38,3 +36,4 @@ script:
 after_script:
   - kill $(jobs -p) || true
   - mongod --shutdown
+  - pkill node
