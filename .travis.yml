@@ -23,7 +23,7 @@ before_install:
   # Run server
   - "TESTING=true NODE_ENV=testing npm start &"
   # Wait for server to start
-  - "sleep 10"
+  - "sleep 5"
   - "cd .."
 script:
   - sudo sh -c "dbus-uuidgen > /etc/machine-id"
