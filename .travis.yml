@@ -16,7 +16,7 @@ before_install:
   # Fire up database
   - "mongod --fork --syslog &"
   # Clone backend repo
-  - "[ -d api/.git ] || git clone https://elliot-tio@github.com:Equibit/wallet-api.git api"
+  - "[ -d api/.git ] || git clone https://elliot-tio@github.com/Equibit/wallet-api.git api"
   - "cd api"
   # Reset the repo so we can have a conflict-less pull
   - "git reset --hard"
