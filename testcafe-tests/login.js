@@ -1,21 +1,21 @@
 /*eslint-disable */
-import { Selector } from 'testcafe'
+import { Selector, ClientFunction } from 'testcafe'
 
 fixture `Getting Started`
-    // .page `http://localhost:8080/`
-    .page `qa-wallet.equibitgroup.com`
+    .page `http://localhost:8080/`
+    // .page `qa-wallet.equibitgroup.com`
 
 const inputEmail = Selector('#inputEmail').with({timeout: 20000})
 const inputPassword = Selector('#inputPassword').with({timeout: 20000})
-const panelTitle = Selector('.panel-title')
+const getPageUrl = ClientFunction(() => window.location.href);
 
 test('Successfully log in', async t => {
     await t
         .typeText('.form-control', 'bullish')
         .click('button[type="submit"]')
-        .typeText(inputEmail, 'elliott@evenset.com')
-        .typeText(inputPassword, 'password123')
+        .typeText(inputEmail, 'test@evenset.com')
+        .typeText(inputPassword, 'SpicyTunaMayo')
         .click('button[type="submit"]')
-        .expect(panelTitle.innerText).contains('My Portfolio', 'Title contains expected title')
+        .expect(getPageUrl()).contains('portfolio')
 })
 /*eslint-enable */
