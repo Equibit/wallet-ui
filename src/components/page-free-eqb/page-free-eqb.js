@@ -189,13 +189,10 @@ export const ViewModel = DefineMap.extend({
   userAnswers: {
     get (val) {
       if (val) {
-        console.log('recovering')
         return val
       }
       if (this.questions) {
         const questions = this.questions.get ? this.questions.get() : this.questions
-        // return new Answer.List(
-          console.log('recreating')
         return (
           questions.map(q => {
             console.log(q)
@@ -205,7 +202,7 @@ export const ViewModel = DefineMap.extend({
               questionSortIndex: q.sortIndex,
               answer: new DefineMap({
                 custom: '',
-                selection: q.questionType === 'MULTI' ? [2] : null
+                selection: q.questionType === 'SINGLE' ? null : []
               })
             }
           })
@@ -269,7 +266,6 @@ export const ViewModel = DefineMap.extend({
   },
 
   selectCustom (question, num) {
-    console.log(question)
     if (question.answer.selection && question.answer.selection.indexOf) {
       if (question.answer.selection.indexOf(num) === -1) {
         question.answer.selection.push(num)

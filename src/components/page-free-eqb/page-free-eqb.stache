@@ -80,7 +80,7 @@
                         <div class="checkbox checkbox-primary">
                           {{#if userAnswers[qnum]['answer'].selection}}
                           <input type="checkbox" id="checkbox-{{qnum}}-{{indexLetter (anum)}}"
-                                 checked:bind="boolean-to-inList(anum, userAnswers[qnum]['answer'].selection)" />
+                                 checked:bind="boolean-to-inList(anum, userAnswers[qnum]['answer'].selection)" />`
                           {{else}}
                             selection is not a non-empty array!
                           {{/if}}
