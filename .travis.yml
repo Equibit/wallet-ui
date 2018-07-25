@@ -18,6 +18,8 @@ before_install:
   - "git reset --hard"
   - "git clean -f"
   - "git pull"
+  # Install dependencies
+  - "npm install"
   # Run server
   - "npm run e2e &"
   # Wait for server to start
