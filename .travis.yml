@@ -4,6 +4,7 @@ language: node_js
 node_js: 8.6.0
 addons:
   firefox: "52.3.0"
+services: mongod
 cache:
   yarn: true
   directories:
@@ -11,12 +12,6 @@ cache:
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-    # Fire up database
-  - "sudo mkdir -p /data/db"
-  - "sudo chown -R `id -u` /data/db"
-  - "sudo chmod -R go+w /data/db"
-  - "mongod &"
-  - "sleep 5"
   # Clone backend repo
   - "[ -d api/.git ] || git clone git@github.com:Equibit/wallet-api.git api"
   - "cd api"
@@ -34,5 +29,5 @@ script:
   - npm run test-cypress
 after_script:
   - kill $(jobs -p) || true
-  - mongod --shutdown
+  - sudo service mongodb stop
   - pkill node
