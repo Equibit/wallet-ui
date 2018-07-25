@@ -70,7 +70,7 @@ describe('Login Test', () => {
     .should('contain', 'Invalid login.')
   })
 
-  it('successfully log in using UI', function () {
+  it.skip('successfully log in using UI', function () {
 
     cy.get('input[type="email"]', { timeout: 25000 })
     .type(this.users[0].email)
