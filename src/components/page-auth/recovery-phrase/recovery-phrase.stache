@@ -3,7 +3,7 @@
 <can-import from="~/components/page-auth/recovery-phrase/modal-confirm-funds/" />
 
 {{#is mode 'prompt'}}
-  <form on:submit="recoverFunds(scope.event)">
+  <form on:submit="verifyMnemonic(scope.event)">
     <h2>{{i18n('recoveryPhrasePromptTitle')}}</h2>
     <p>{{i18n('recoveryPhrasePromptInstruction')}}</p>
     <recovery-phrase-field mnemonic:to="mnemonic"
@@ -18,7 +18,7 @@
   <h2><span class="icon icon-warning text-warning"></span> {{i18n('warning')}}</h2>
   <p>{{i18n('recoveryPhraseWarningMessage')}}</p>
 
-  <button on:click="confirmNoPhrase()" class="btn btn-primary">{{i18n('continue')}}</button>
+  <button on:click="relogin()" class="btn btn-primary">{{i18n('loginRetry')}}</button>
   <button on:click="switch('prompt')" class="btn btn-default">{{i18n('back')}}</button>
 {{/is}}
 

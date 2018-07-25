@@ -1,6 +1,6 @@
 {
   "name": "wallet-ui",
-  "version": "0.13.1",
+  "version": "0.13.4",
   "description": "Equibit Web Wallet UI",
   "homepage": "",
   "repository": {
@@ -97,7 +97,7 @@
     }
   },
   "dependencies": {
-    "@equibit/wallet-crypto": "0.26.0",
+    "@equibit/wallet-crypto": "0.27.0",
     "accounting": "^0.4.1",
     "bit-c3": "^0.3.0",
     "body-parser": "^1.18.2",

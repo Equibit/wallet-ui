@@ -15,8 +15,12 @@
       <div class="auth-header">
         <a class="header-logo" href="{{routeUrl page='research'}}">{{i18n('equibitAppName')}}</a>
         <div class="auth-tabs">
-          {{#is page 'signup'}}<span>Sign Up</span>{{else}}<a href="{{routeUrl page='signup'}}">Sign Up</a>{{/is}}
-          {{#is page 'login'}}<span>Log In</span>{{else}}<a href="{{routeUrl page='login'}}">Log In</a>{{/is}}
+          {{#if session}}
+            <span></span>
+          {{else}}
+            {{#is page 'signup'}}<span>Sign Up</span>{{else}}<a href="{{routeUrl page='signup'}}">Sign Up</a>{{/is}}
+            {{#is page 'login'}}<span>Log In</span>{{else}}<a href="{{routeUrl page='login'}}">Log In</a>{{/is}}
+          {{/unless}}
         </div>
       </div>
 

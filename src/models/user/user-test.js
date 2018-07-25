@@ -3,6 +3,8 @@ import fixture from 'can-fixture'
 import 'steal-mocha'
 import User from './user'
 import feathersClient from '../feathers-client'
+import { mnemonic } from '../mock/mock-keys'
+// import { sha3 } from '@equibit/wallet-crypto'
 
 // describe('models/user', function () {
 //  it('should getList', function (done) {
@@ -18,15 +20,32 @@ import feathersClient from '../feathers-client'
 
 describe('models/user', function () {
   this.timeout(10000)
-  // it('should generateKeys', function () {
-  //   let user = new User({});
-  //   let keys = user.generateKeys();
-  //   console.log('keys:', keys);
-  //
-  //   assert.ok(keys.mnemonic, 'mnemonic');
-  //   assert.ok(keys.privateKey.keyPair.compressed, 'private key compressed');
-  //   // assert.ok(keys.publicKey, 'public key');
-  // });
+
+  describe('generateWalletKeys', function () {
+    const mnemonicHash = 'a3889ab3e18e8965f0f3736f55ac2a3b0d519dc55ef1bbee8aa4e4117fc59c21eeec58e03ebf1d968a601366150336df0cf93c28817d8e1dff5c1e2728b42b87'
+    const encryptedMnemonic = '0d3e1e7c7b3bc7e6dcaf15786259abeb62360aa75f996152c7922898cdab26e122c68465aa66b69a555a38cbb25d53ae67a8d738bb0dc7a14d7b9b97c8c7dc2cb22e38880397944bb1823f924b7bd269'
+    const encryptedKey = 'f37345faa4a626896015fd18f6529f1818767b15b9b4aede93b273a0bc8e527f0d57849e0375d48ffa229b33ae3fb64c6e4b4903243fa600d31ba519770b117bedb0bbc942adeb0bda6f28d8cb50f6ed24f5a9c2f6a049d2e654e116b6981fe34814b39768808b801cb951bdf17784d9'
+    // const mnemonicHash = sha3.sha3_512(user.email + mnemonic)
+    let user, root
+    before(function () {
+      user = new User({_id: 0, email: 'user@test.com'})
+      // Set password:
+      user.updatePasswordCache('123')
+      root = user.generateWalletKeys(mnemonic)
+    })
+    it('should return HDNode', function () {
+      assert.ok(root, 'HDNode')
+    })
+    it('should encrypt mnemonic', function () {
+      assert.equal(user.encryptedMnemonic, encryptedMnemonic)
+    })
+    it('should encrypt key', function () {
+      assert.equal(user.encryptedKey, encryptedKey)
+    })
+    it('should hash mnemonic with email', function () {
+      assert.equal(user.hashEmailAndMnemonic(mnemonic), mnemonicHash)
+    })
+  })
 
   it('should handle a new user without id', function (done) {
     let email = 'test@bitovi.com'

@@ -21,6 +21,7 @@ import view from './user-password.stache'
 import Session from '~/models/session'
 import hub from '~/utils/event-hub'
 import i18n from '~/i18n/'
+import zxcvbn from 'zxcvbn'
 
 export const ViewModel = DefineMap.extend({
   isModalShown: 'boolean',
@@ -47,6 +48,11 @@ export const ViewModel = DefineMap.extend({
     this.errors[field] = null
   },
   save () {
+    if (zxcvbn(this.passwordNew).score !== 4) {
+      this.errors.set('passwordError', 'Password too weak')
+      return
+    }
+
     Session.current.user.changePassword(this.passwordNew, this.passwordCurrent).then(
       () => {
         this.passwordCurrent = ''

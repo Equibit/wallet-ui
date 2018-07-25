@@ -311,6 +311,7 @@ export default {
   fundsSent: 'Funds sent',
   fundsRecoveredMsg: 'Funds Recovered',
 
+  generalError: 'Sorry, something wrong happened on the server. Please, try again later.',
   goodFor: 'Good For',
   goodUntil: 'Good Until',
 
@@ -371,6 +372,7 @@ export default {
   level: 'Level',
   login: 'Log In',
   loginToContinue: 'Log in to continue.',
+  loginRetry: 'Re-Log In',
   logout: 'Log Out',
 
   market: 'Market',
@@ -541,7 +543,7 @@ export default {
   recoveryPhraseSetupRiskMessage: 'If you don\'t back up your funds and forget your password, you won\'t be able to access your funds. There is no warranty. Any software or hardware may fail at any time. We don\'t keep copies of your private keys. The only way to protect your funds is to make your own backup and store it in a safe place.',
   recoveryPhraseSetupRiskTitle: 'Do You Understand the Risk?',
   recoveryPhraseSetupRiskWarning: 'If you proceed without a backup, and forget your password you will lose access to your funds.',
-  recoveryPhraseWarningMessage: 'If you don\'t have a backup recovery phrase, you can still access your account, but your funds won\'t be available.',
+  recoveryPhraseWarningMessage: 'If you don\'t have a backup recovery phrase, you cannot access your account.',
   recoveryPhraseWordMissing: 'Word is missing',
   recoveryPhraseWordIncorrect: 'Invalid word',
   recurring: 'Recurring',
@@ -639,7 +641,7 @@ export default {
 
   termsAndConditions: 'Terms & Conditions',
   termsAndConditionsContactTitle: 'Contact Us',
-  termsAndConditionsContactMessage: 'This page, the entire Equibit Group site, images / documents are Copyright © 2015 by Equibit Group. All Rights Reserved.',
+  termsAndConditionsContactMessage: 'This page, the entire Equibit Group site, images / documents are Copyright © ' + year + ' by Equibit Group. All Rights Reserved.',
   termsAndConditionsRevised: '- Revised: Sunday, February 18, 2017',
   testingStringFlat: 'Testing string',
   testingStringContentTagged: 'Testing <content /> string',
@@ -730,9 +732,13 @@ export default {
   value: 'value',
   volume: 'Volume',
   volume24Hour: '24h Volume',
+
   validationMnemonicEmpty: 'Please enter a seed phrase',
   validationMnemonicInvalidChecksum: 'Checksum is invalid. Possibly the mnemonic was generated in a different app',
   validationMnemonicTooShort: 'The mnemonic phrase should contain at least 12 words',
+  validationMnemonicNoDbValue: 'Cannot verify mnemonic since its hash was not retrieved from DB',
+  validationMnemonicWrong: 'You entered a wrong mnemonic',
+
   verificationCodeErrorExpired: 'Verification code has expired',
   verificationCodeErrorIncorrect: 'Verification code is incorrect',
   verificationCodeErrorGeneric: 'An error occured',

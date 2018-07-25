@@ -194,16 +194,39 @@ const User = DefineMap.extend('User', {
    * Generates keys from a seed.
    */
   // Q: do we want different passphrases for mnemonic and privateKey? A: Not now.
-  generateWalletKeys (mnemonic = bip39.generateMnemonic()) {
-    const seed = bip39.mnemonicToSeed(mnemonic, '')
-    const root = bitcoin.HDNode.fromSeedBuffer(seed, _network)
+  generateWalletKeys (mnemonic) {
+    let root
+    try {
+      const seed = bip39.mnemonicToSeed(mnemonic, '')
+      root = bitcoin.HDNode.fromSeedBuffer(seed, _network)
+      this.encryptedMnemonic = this.encryptWithPassword(_password, mnemonic)
+      this.encryptedKey = this.encryptWithPassword(_password, root.toBase58())
+    } catch (err) {
+      console.error('Error [user.generateWalletKeys]', err)
+      throw new Error('Cannot generate wallet keys')
+    }
+    return root
+  },
 
-    this.encryptedMnemonic = this.encryptWithPassword(_password, mnemonic)
-    this.encryptedKey = this.encryptWithPassword(_password, root.toBase58())
+  hashEmailAndMnemonic (mnemonic) {
+    if (this.email && mnemonic) {
+      return cryptoUtils.sha3_512(this.email + mnemonic)
+    }
+  },
 
+  generateKeysAndPatchUser (mnemonic) {
+    console.log('[user.generateWalletKeys] patch user... ')
+    let shouldSaveMnemonic = false
+    if (!mnemonic) {
+      mnemonic = bip39.generateMnemonic()
+      // Note: we save mnemonic only when its generated for a new user.
+      shouldSaveMnemonic = true
+    }
+    const root = this.generateWalletKeys(mnemonic)
     return userService.patch(this._id, {
       encryptedMnemonic: this.encryptedMnemonic,
-      encryptedKey: this.encryptedKey
+      encryptedKey: this.encryptedKey,
+      mnemonicHash: shouldSaveMnemonic ? this.hashEmailAndMnemonic(mnemonic) : undefined
     }).then(() => this.cacheWalletKeys(root))
   },
 
@@ -383,6 +406,19 @@ const User = DefineMap.extend('User', {
     return authConnection.createData({
       email: this.email,
       password: _password
+    })
+  },
+
+  verifyMnemonicHash (mnemonic) {
+    const mnemonicHash = this.hashEmailAndMnemonic(mnemonic)
+    return userService.patch(this._id, { mnemonicHash }).then(res => {
+      if (res.status === 1) {
+        throw new Error('validationMnemonicWrong')
+      }
+      return true
+    }, err => {
+      console.error(err)
+      throw new Error('generalError')
     })
   },
 
