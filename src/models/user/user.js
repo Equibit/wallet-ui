@@ -47,8 +47,12 @@ const User = DefineMap.extend('User', {
    * @signature `User.signup( email )`
    * @param {String} email User's email.
    */
-  signup (email) {
-    return feathersClient.service('users').create({ email })
+  signup (email, refCode) {
+    const data = { email }
+    if (typeof refCode !== 'undefined') {
+      data.referral = refCode
+    }
+    return feathersClient.service('users').create(data)
   },
 
   /**

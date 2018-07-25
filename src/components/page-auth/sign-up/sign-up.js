@@ -21,6 +21,7 @@ import './sign-up.less'
 import view from './sign-up.stache'
 import User from '~/models/user/user'
 import validate from '~/utils/validators'
+import route from 'can-route'
 
 export const ViewModel = DefineMap.extend({
   email: {
@@ -59,7 +60,7 @@ export const ViewModel = DefineMap.extend({
     if (!this.isSignupValid) {
       return false
     }
-    User.signup(email)
+    User.signup(email, route.data.refCode)
       .then(() => {
         this.isAccountCreated = true
       })
