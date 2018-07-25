@@ -53,7 +53,7 @@
             <li role="separator" class="divider"></li>
             <li><a href="{{routeUrl page='transactions'}}">{{i18n('transactions')}}</a></li>
             <li><a href="{{routeUrl page='preferences'}}">{{i18n('userPreferences')}}</a></li>
-            <li><a href="{{routeUrl page='free-eqb'}}">Earn Rewards</a></li>
+            <li><a href="{{routeUrl page='questionnaires'}}">Earn Rewards</a></li>
             <li role="separator" class="divider"></li>
             <li>
               <button type="button" class="btn btn-default btn-xs" on:click="logout()">

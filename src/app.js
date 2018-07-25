@@ -51,7 +51,8 @@ const pages = {
   'my-inbox': 'private',
   orders: 'private',
   offers: 'private',
-  'free-eqb': 'private'
+  'questionnaire': 'private',
+  'questionnaires': 'private'
 }
 
 const AppViewModel = DefineMap.extend({
