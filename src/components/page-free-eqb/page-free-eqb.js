@@ -1,11 +1,12 @@
 import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import DefineList from 'can-define/list/'
+import value from 'can-value'
 import './page-free-eqb.less'
 import view from './page-free-eqb.stache'
 import Session from '../../models/session'
 // import Answer from '../../models/answer'
-import Question from '../../models/question'
+import Questionnaire, { Question } from '../../models/questionnaire'
 // import questionStore from '../../models/fixtures/questions'
 
 export const ViewModel = DefineMap.extend({
@@ -186,18 +187,26 @@ export const ViewModel = DefineMap.extend({
     }
   },
   userAnswers: {
-    value () {
+    get (val) {
+      if (val) {
+        console.log('recovering')
+        return val
+      }
       if (this.questions) {
         const questions = this.questions.get ? this.questions.get() : this.questions
         // return new Answer.List(
+          console.log('recreating')
         return (
           questions.map(q => {
+            console.log(q)
             return {
               userId: this.user && this.user._id,
               questionId: q._id,
               questionSortIndex: q.sortIndex,
-              answer: '',
-              answerChoiceNum: q.questionType === 'MULTI' ? new DefineList([2]) : null
+              answer: new DefineMap({
+                custom: '',
+                selection: q.questionType === 'MULTI' ? [2] : null
+              })
             }
           })
         )
@@ -241,13 +250,13 @@ export const ViewModel = DefineMap.extend({
     const questions = this.questions
     // Update non-CUSTOM answer text value:
     this.userAnswers.forEach((answer, i) => {
-      if (questions[i].answerOptions[answer.answerChoiceNum] !== 'CUSTOM') {
-        if (answer.answerChoiceNum && answer.answerChoiceNum.length) {
-          answer.answer = answer.answerChoiceNum.map((answerChoiceNum, i) => {
-            return answerChoiceNum ? questions[i].answerOptions[answer.answerChoiceNum] : null
+      if (questions[i].answerOptions[answer.selection] !== 'CUSTOM') {
+        if (answer.selection && answer.selection.length) {
+          answer.answer = answer.selection.map((selected, i) => {
+            return selected ? questions[i].answerOptions[selected] : null
           }).filter(a => a !== null)
         } else {
-          answer.answer = questions[i].answerOptions[answer.answerChoiceNum]
+          answer.answer = questions[i].answerOptions[answer.selection]
         }
       }
     })
@@ -259,8 +268,15 @@ export const ViewModel = DefineMap.extend({
     // this.answers.forEach(a => a.save())
   },
 
-  selectCustom (answer, num) {
-    answer.answerChoiceNum = num
+  selectCustom (question, num) {
+    console.log(question)
+    if (question.answer.selection && question.answer.selection.indexOf) {
+      if (question.answer.selection.indexOf(num) === -1) {
+        question.answer.selection.push(num)
+      }
+    } else {
+      question.answer.selection = num
+    }
   }
 })
 

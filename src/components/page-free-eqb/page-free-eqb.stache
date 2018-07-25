@@ -54,7 +54,7 @@
                         <div class="radio radio-primary">
                           <input type="radio" id="radio-{{qnum}}-{{indexLetter (anum)}}"
                                  name="radio-{{qnum}}"
-                                 checked:bind="equal(userAnswers[qnum].answerChoiceNum, anum)"
+                                 checked:bind="equal(~userAnswers[qnum]['answer'].selection, anum)"
                                  {{#if disableForm}}disabled{{/if}} />
                           <label for="radio-{{qnum}}-{{indexLetter (anum)}}">
                             <strong>{{indexLetter (anum)}})</strong>
@@ -63,7 +63,7 @@
                                 Other - Specify
                                 <br><br>
                                 <input type="text" class="form-control"
-                                       value:bind="userAnswers[qnum].answer"
+                                       value:bind="userAnswers[qnum]['answer'].custom"
                                        on:focus="selectCustom(userAnswers[qnum], anum)" />
                               {{else}}
                                 {{{answerOption}}}
@@ -78,11 +78,11 @@
                       <!-- CHECKBOX -->
                       <div class="form-group">
                         <div class="checkbox checkbox-primary">
-                          {{#if userAnswers[qnum].answerChoiceNum}}
+                          {{#if userAnswers[qnum]['answer'].selection}}
                           <input type="checkbox" id="checkbox-{{qnum}}-{{indexLetter (anum)}}"
-                                 checked:bind="boolean-to-inList(anum, userAnswers[qnum].answerChoiceNum)" />
+                                 checked:bind="boolean-to-inList(anum, userAnswers[qnum]['answer'].selection)" />
                           {{else}}
-                            answerChoiceNum is not a non-empty array!
+                            selection is not a non-empty array!
                           {{/if}}
                           <label for="checkbox-{{qnum}}-{{indexLetter (anum)}}">
                             <strong>{{indexLetter (anum)}})</strong>
@@ -91,7 +91,7 @@
                                 Other - Specify
                                 <br><br>
                                 <input type="text" class="form-control"
-                                       value:bind="userAnswers[qnum].answer"
+                                       value:bind="userAnswers[qnum]['answer'].custom"
                                        on:focus="selectCustom(userAnswers[qnum], anum)" />
                               {{else}}
                                 {{{answerOption}}}

@@ -6,7 +6,7 @@ import feathersClient from './feathers-client'
 import feathersServiceBehavior from 'can-connect-feathers/service/service'
 // import behaviors from './behaviors'
 
-const Question = DefineMap.extend('Question', {
+export const Question = DefineMap.extend('Question', {
   questionaireId: 'string',
   question: 'string',
   sortIndex: 'number',
@@ -48,5 +48,4 @@ Questionnaire.connection = connect([
   name: 'questionnaires',
   algebra
 })
-
 export default Questionnaire
