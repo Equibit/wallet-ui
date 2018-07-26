@@ -10,6 +10,9 @@ fixture `Getting Started`
             .click('button[type="submit"]')
     })
 
+const email = Selector('#inputEmail')
+const password = Selector('#inputPassword')
+
 test('greets user with Log In', async t => {
     const header = Selector('.form-signin-heading').addCustomDOMProperties({
         innerHTML: el => el.innerHTML
@@ -20,26 +23,23 @@ test('greets user with Log In', async t => {
         .contains('Log In', 'header does not contain log in')
 })
 
-test.skip('links to Sign Up flow', async t => {
+test('links to Sign Up flow', async t => {
     const signUp = Selector('a[href="/signup"]')
 
     await t
-        .expect(signUp)
-        .getAttribute('href')
+        .expect(signUp.getAttribute('href'))
         .contains('/signup', 'sign up link found')
 })
 
-test.skip('links to Forget Password flow', async t => {
-    const forgotPassword = Selector('.btn btn-link pull-right')
+test('links to Forget Password flow', async t => {
+    const forgotPassword = Selector('.btn.btn-link.pull-right')
 
     await t
-        .expect(forgotPassword)
-        .getAttribute('href')
+        .expect(forgotPassword.getAttribute('href'))
         .contains('/forgot-password', 'forgot password link not found')
 })
 
 test('requires email', async t => {
-    const password = Selector('#inputPassword')
     const error = Selector('.form-text').addCustomDOMProperties({
         innerHTML: el => el.innerHTML
     })
@@ -52,7 +52,6 @@ test('requires email', async t => {
 })
 
 test('requires password', async t => {
-    const email = Selector('#inputEmail')
     const error = Selector('.form-text').addCustomDOMProperties({
         innerHTML: el => el.innerHTML
     })
@@ -65,8 +64,6 @@ test('requires password', async t => {
 })
 
 test('requires valid email', async t => {
-    const email = Selector('#inputEmail')
-    const password = Selector('#inputPassword')
     const error = Selector('.form-text').addCustomDOMProperties({
         innerHTML: el => el.innerHTML
     })
@@ -80,8 +77,6 @@ test('requires valid email', async t => {
 })
 
 test('requires valid email and password', async t => {
-    const email = Selector('#inputEmail')
-    const password = Selector('#inputPassword')
     const error = Selector('.alert').addCustomDOMProperties({
         innerHTML: el => el.innerHTML
     })
@@ -95,8 +90,6 @@ test('requires valid email and password', async t => {
 })
 
 test('successfully log in using UI', async t => {
-    const inputEmail = Selector('#inputEmail').with({timeout: 20000})
-    const inputPassword = Selector('#inputPassword').with({timeout: 20000})
     const getPageUrl = ClientFunction(() => window.location.href)
 
     await t

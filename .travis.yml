@@ -27,7 +27,7 @@ before_install:
   - "cd .."
 script:
   - sudo sh -c "dbus-uuidgen > /etc/machine-id"
-  - npm run test
+  - yarn run test
   - yarn run testcafe
 after_script:
   - kill $(jobs -p) || true
