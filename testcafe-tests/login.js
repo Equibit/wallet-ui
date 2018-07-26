@@ -93,8 +93,8 @@ test('successfully log in using UI', async t => {
     const getPageUrl = ClientFunction(() => window.location.href)
 
     await t
-        .typeText(inputEmail, 'test@evenset.com')
-        .typeText(inputPassword, 'SpicyTunaMayo')
+        .typeText(email, 'test@evenset.com')
+        .typeText(password, 'SpicyTunaMayo')
         .click('button[type="submit"]')
         .expect(getPageUrl())
         .contains('portfolio')
