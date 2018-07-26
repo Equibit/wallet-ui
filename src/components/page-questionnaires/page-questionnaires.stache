@@ -1,85 +1,11 @@
 {{! <can-import from="~/utils/helpers" /> }}
 
 <div class="row margin-top">
-  <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2"><h2 class="bold">Free <span class="text-primary">EQB</span></h2></div>
+  <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2"><h2 class="bold">Choose a questionnaire</h2></div>
 </div>
 
-{{#each (questions, question=value qnum=index)}}
+{{#each (questionnaires, questionnaire=value qnum=index)}}
   <div class="row margin-top">
-    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-      <div class="panel no-margin">
-        <div class="panel-body">
-          <h4><strong class="text-primary">Q{{question.sortIndex}}</strong>:  {{question.question}}</h4>
-
-          <ul>
-            {{#each (question.answerOptions, answerOption=value anum=index)}}
-              <li>
-                {{#is question.questionType 'SINGLE'}}
-                  <!-- RADIO BUTTON -->
-                  <div class="form-group">
-                    <div class="radio radio-primary">
-                      <input type="radio" id="radio-{{qnum}}-{{indexLetter (anum)}}"
-                              name="radio-{{qnum}}"
-                              checked:bind="equal(~userAnswers[qnum]['answer'].selection, anum)"
-                              {{#if disableForm}}disabled{{/if}} />
-                      <label for="radio-{{qnum}}-{{indexLetter (anum)}}">
-                        <strong>{{indexLetter (anum)}})</strong>
-                        <span>
-                          {{#is answerOption 'CUSTOM'}}
-                            Other - Specify
-                            <br><br>
-                            <input type="text" class="form-control"
-                                    value:bind="userAnswers[qnum]['answer'].custom"
-                                    on:focus="selectCustom(userAnswers[qnum], anum)" />
-                          {{else}}
-                            {{{answerOption}}}
-                          {{/is}}
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-
-                {{else}}
-
-                  <!-- CHECKBOX -->
-                  <div class="form-group">
-                    <div class="checkbox checkbox-primary">
-                      {{#if userAnswers[qnum]['answer'].selection}}
-                      <input type="checkbox" id="checkbox-{{qnum}}-{{indexLetter (anum)}}"
-                              checked:bind="boolean-to-inList(anum, userAnswers[qnum]['answer'].selection)" />
-                      {{else}}
-                        selection is not a non-empty array!
-                      {{/if}}
-                      <label for="checkbox-{{qnum}}-{{indexLetter (anum)}}">
-                        <strong>{{indexLetter (anum)}})</strong>
-                        <span>
-                          {{#is answerOption 'CUSTOM'}}
-                            Other - Specify
-                            <br><br>
-                            <input type="text" class="form-control"
-                                    value:bind="userAnswers[qnum]['answer'].custom"
-                                    on:focus="selectCustom(userAnswers[qnum], anum)" />
-                          {{else}}
-                            {{{answerOption}}}
-                          {{/is}}
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                {{/is}}
-
-              </li>
-            {{/each}}
-          </ul>
-        </div>
-      </div>
-    </div>
+    <a href="{{routeUrl page='questionnaire'}}">This one</a>
   </div>
 {{/each}}
-
-<div class="row margin-top">
-  <div class="col-md-4 col-md-offset-1 col-lg-3 col-lg-offset-2">
-    <button type="button" class="btn btn-primary btn-block" on:click="submitAnswers()">Submit Your Answers</button>
-    <br><br>
-  </div>
-</div>
