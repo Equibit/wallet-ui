@@ -1,8 +1,9 @@
 import DefineMap from 'can-define/map/'
 import DefineList from 'can-define/list/'
-import connect from 'can-connect'
 import set from 'can-set'
 import feathersClient from './feathers-client'
+import algebra from './algebra'
+import { superModelNoCache as superModel } from './super-model'
 import feathersServiceBehavior from 'can-connect-feathers/service/service'
 // import behaviors from './behaviors'
 
@@ -35,17 +36,12 @@ Questionnaire.List = DefineList.extend('QuestionnaireList', {
   '#': Questionnaire
 })
 
-const algebra = new set.Algebra(
-  set.props.id('_id')
-)
-
-Questionnaire.connection = connect([
-  feathersServiceBehavior
-], {
+Questionnaire.connection = superModel({
   Map: Questionnaire,
   List: Questionnaire.List,
-  feathersService: feathersClient.service('questionnaires'),
+  feathersService: feathersClient.service('/questionnaires'),
   name: 'questionnaires',
   algebra
 })
+Questionnaire.algebra = algebra
 export default Questionnaire

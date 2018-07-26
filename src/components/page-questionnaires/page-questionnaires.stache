@@ -4,8 +4,8 @@
   <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2"><h2 class="bold">Choose a questionnaire</h2></div>
 </div>
 
-{{#each (questionnaires, questionnaire=value qnum=index)}}
+{{#each (questionnaires, questionnaire=value)}}
   <div class="row margin-top">
-    <a href="{{routeUrl page='questionnaire'}}">This one</a>
+    <a href="{{routeUrl page='questionnaire' itemId=questionnaire.id}}">{{questionnaire.title}}</a>
   </div>
 {{/each}}

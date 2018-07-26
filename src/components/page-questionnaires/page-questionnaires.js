@@ -7,6 +7,7 @@ import view from './page-questionnaires.stache'
 import Session from '../../models/session'
 // import Answer from '../../models/answer'
 import Questionnaire, { Question } from '../../models/questionnaire'
+import Iss from '../../models/issuance'
 // import questionStore from '../../models/fixtures/questions'
 
 export const ViewModel = DefineMap.extend({
@@ -16,8 +17,17 @@ export const ViewModel = DefineMap.extend({
     }
   },
   questionnaires: {
-    get () {
-      return [1, 2, 3, 4]
+    get (value, resolve) {
+      if (value) {
+        return value
+      }
+      Questionnaire.getList({isActive: true}).then(qList => {
+        resolve(qList.map(questionnaire => ({
+          title: questionnaire.description,
+          id: questionnaire._id
+        })))
+      })
+      // return [1, 2, 3, 4]
     }
   },
 })
