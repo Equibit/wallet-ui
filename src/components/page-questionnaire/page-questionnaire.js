@@ -19,14 +19,6 @@ export const ViewModel = DefineMap.extend({
   error: 'string',
   phone: 'string',
   code: 'string',
-  answers: {
-    // 2D array. First index == the question number, inner array == the answer(s) selected for that question
-    type: '*'
-  },
-  customAnswers: {
-    // array. index == the question number, value == the custom answer given (if any) for that question
-    type: '*'
-  },
   questionnaire: {
     get (val, resolve) {
       if (val) {
@@ -190,12 +182,12 @@ export const ViewModel = DefineMap.extend({
     }
   },
   userAnswers: {
-    get (val) {
+    get (val, resolve) {
       if (val) {
         return val
       }
-      if (this.questions) {
-        const questions = this.questions.get ? this.questions.get() : this.questions
+      if (this.questionnaire) {
+        const questions = this.questions
         return (
           questions.map(q => {
             console.log(q)
