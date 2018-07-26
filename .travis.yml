@@ -27,8 +27,8 @@ before_install:
   - "cd .."
 script:
   - sudo sh -c "dbus-uuidgen > /etc/machine-id"
-  - npm run test
-  - npm run test-cypress
+  - yarn run test
+  - yarn run test-cypress
 after_script:
   - kill $(jobs -p) || true
   - sudo service mongodb stop
