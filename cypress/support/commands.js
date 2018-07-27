@@ -23,3 +23,17 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+// Custom Login command
+Cypress.Commands.add('login', (users) => {
+    
+    cy.visit('/')
+
+    cy.get('input[type="email"]')
+    .type(users[0].email)
+    .get('input[type="password"]')
+    .type(users[0].password)
+    .get('button[type="submit"]').click()
+    
+    cy.url().should('contain', '/portfolio')
+})
