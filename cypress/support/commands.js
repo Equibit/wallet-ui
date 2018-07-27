@@ -23,7 +23,7 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-
+/*eslint-disable */
 // Custom Login command
 Cypress.Commands.add('login', (users) => {
     
@@ -37,3 +37,4 @@ Cypress.Commands.add('login', (users) => {
     
     cy.url().should('contain', '/portfolio')
 })
+/*eslint-enable */
