@@ -35,7 +35,7 @@
     "release:qa:minor": "npm test && npm run build2 && npm version minor && make release-qa",
     "release:qa:major": "npm test && npm run build2 && npm version major && make release-qa",
     "deps-bundle": "steal-tools bundle --deps",
-    "testcafe": "npm run build2 && (HTTP_PASSWORD=bullish NODE_ENV=qa npm run start &) && testcafe 'chrome -incognito' --skip-js-errors testcafe-tests/"
+    "testcafe": "npm run build2 && (HTTP_PASSWORD=bullish NODE_ENV=qa npm run start &) && testcafe 'chrome -incognito,firefox' --skip-js-errors test/testcafe-tests/"
   },
   "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
   "files": [
