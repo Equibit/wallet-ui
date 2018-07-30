@@ -35,11 +35,9 @@
     "release:qa:minor": "npm test && npm run build2 && npm version minor && make release-qa",
     "release:qa:major": "npm test && npm run build2 && npm version major && make release-qa",
     "deps-bundle": "steal-tools bundle --deps",
-    "cypress": "npm run cypress:open",
     "build:test:cypress": "npm run build2 && (HTTP_PASSWORD=bullish NODE_ENV=qa npm run start &)",
-    "cypress:open": "npm run build:test:cypress && cypress open",
-    "test-cypress": "npm run test:cypress",
-    "test:cypress": "npm run build:test:cypress && cypress run --browser chrome --record --key a452942b-b549-4a49-b45c-51683d77b79c"
+    "cypress": "npm run build:test:cypress && cypress open -e HTTP_PASSWORD=bullish",
+    "test-cypress": "npm run build:test:cypress && cypress run --browser chrome --record --key a452942b-b549-4a49-b45c-51683d77b79c -e HTTP_PASSWORD=bullish"
   },
   "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
   "files": [
