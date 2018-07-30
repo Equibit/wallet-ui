@@ -75,19 +75,5 @@ describe('Login Test', () => {
     cy.login(this.users)
     
   })
-
-  it.skip('successfully log in programmatically', function () {
-    cy.request({
-      method: 'POST',
-      url: '/login',
-      form: true,
-      body: {
-        email: this.users[0].email,
-        password: this.users[0].password
-      }
-    })
-
-    cy.url().should('include', '/portfolio')
-  })
 })
 /*eslint-enable */

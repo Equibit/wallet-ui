@@ -27,6 +27,10 @@
 // Custom Login command
 Cypress.Commands.add('login', (users) => {
     
+    Cypress.log({
+        name: 'login'
+    })
+
     cy.visit('/')
 
     cy.get('input[type="email"]')
