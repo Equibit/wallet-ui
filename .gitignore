@@ -40,3 +40,8 @@ cache/
 dev-bundle.css
 
 dev-bundle.js
+
+# Cypress
+test/cypress/screenshots
+test/cypress/videos
+cypress.json

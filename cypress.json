@@ -1,4 +1,11 @@
 {
   "baseUrl": "http://localhost:8080/",
-  "projectId": "b1mahs"
+  "projectId": "b1mahs",
+  "fileServerFolder": "test/cypress",
+  "fixturesFolder": "test/cypress/fixtures",
+  "integrationFolder": "test/cypress/integration",
+  "pluginsFile": "test/cypress/plugins/index.js",
+  "screenshotsFolder": "test/cypress/screenshots",
+  "supportFile": "test/cypress/support/index.js",
+  "videosFolder": "test/cypress/videos"
 }
