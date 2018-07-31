@@ -65,7 +65,8 @@ export const ViewModel = DefineMap.extend({
       return this.questionnaire ? this.questionnaire.questions : []
     }
   },
-  userAnswers: {
+  // combines the questions and answers in a format the UI finds convenient
+  displayData: {
     get (val, resolve) {
       if (val) {
         return val
@@ -76,11 +77,13 @@ export const ViewModel = DefineMap.extend({
       ]).then((promiseResults) => {
         if (this.questions) {
           resolve (promiseResults[0].answers.map((userAnswer, index) => {
+            console.log(promiseResults[0])
             const question = this.questions[index]
             if (!userAnswer) {
               return {
+                question,
                 answer: {
-                  selection: question.questionType === 'SINGLE' ? null : [],
+                  selection: question.questionType === 'SINGLE' ? null : [null],
                   custom: null
                 }
               }
@@ -107,6 +110,7 @@ export const ViewModel = DefineMap.extend({
                 }
               }
               return {
+                question,
                 answer: {
                   selection,
                   custom
@@ -115,9 +119,7 @@ export const ViewModel = DefineMap.extend({
             }
           }))
         }
-      }
-
-      )
+      })
     }
   },
 
@@ -175,13 +177,13 @@ export const ViewModel = DefineMap.extend({
     // this.answers.forEach(a => a.save())
   },
 
-  selectCustom (question, num) {
-    if (question.answer.selection && question.answer.selection.indexOf) {
-      if (question.answer.selection.indexOf(num) === -1) {
-        question.answer.selection.push(num)
+  selectCustom (answer, num) {
+    if (answer.selection && answer.selection.indexOf) {
+      if (answer.selection.indexOf(num) === -1) {
+        answer.selection.push(num)
       }
     } else {
-      question.answer.selection = num
+      answer.selection = num
     }
   }
 })

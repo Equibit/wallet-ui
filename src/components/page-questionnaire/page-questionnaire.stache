@@ -4,23 +4,23 @@
   <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2"><h2 class="bold">{{questionnaire.description}}</h2></div>
 </div>
 
-{{#each (questions, question=value qnum=index)}}
+{{#each (displayData, item=value qnum=index)}}
   <div class="row margin-top">
     <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
       <div class="panel no-margin">
         <div class="panel-body">
-          <h4><strong class="text-primary">Q{{question.sortIndex}}</strong>:  {{question.question}}</h4>
+          <h4><strong class="text-primary">Q{{item.question.sortIndex}}</strong>:  {{item.question.question}}</h4>
 
           <ul>
-            {{#each (question.answerOptions, answerOption=value anum=index)}}
+            {{#each (item.question.answerOptions, answerOption=value anum=index)}}
               <li>
-                {{#is question.questionType 'SINGLE'}}
+                {{#is item.question.questionType 'SINGLE'}}
                   <!-- RADIO BUTTON -->
                   <div class="form-group">
                     <div class="radio radio-primary">
                       <input type="radio" id="radio-{{qnum}}-{{indexLetter (anum)}}"
                               name="radio-{{qnum}}"
-                              checked:bind="equal(~userAnswers[qnum]['answer'].selection, anum)"
+                              checked:bind="equal(~item['answer'].selection, anum)"
                               {{#if disableForm}}disabled{{/if}} />
                       <label for="radio-{{qnum}}-{{indexLetter (anum)}}">
                         <strong>{{indexLetter (anum)}})</strong>
@@ -28,11 +28,9 @@
                           {{#is answerOption.answer 'CUSTOM'}}
                             Other - Specify
                             <br><br>
-                            {{#if userAnswers[qnum]['answer']}}
-                              <input type="text" class="form-control"
-                                      value:bind="~userAnswers[qnum]['answer'].custom"
-                                      on:focus="selectCustom(userAnswers[qnum], anum)" />
-                            {{/if}}
+                            <input type="text" class="form-control"
+                                    value:bind="~item['answer'].custom"
+                                    on:focus="selectCustom(item.answer, anum)" />
                           {{else}}
                             {{{answerOption.answer}}}
                           {{/is}}
@@ -46,9 +44,9 @@
                   <!-- CHECKBOX -->
                   <div class="form-group">
                     <div class="checkbox checkbox-primary">
-                      {{#if userAnswers[qnum]['answer'].selection}}
+                      {{#if item['answer'].selection}}
                       <input type="checkbox" id="checkbox-{{qnum}}-{{indexLetter (anum)}}"
-                              checked:bind="boolean-to-inList(anum, userAnswers[qnum]['answer'].selection)" />
+                              checked:bind="boolean-to-inList(anum, item.answer.selection)" />
                       {{else}}
                         selection is not a non-empty array!
                       {{/if}}
@@ -58,10 +56,10 @@
                           {{#is answerOption.answer 'CUSTOM'}}
                             Other - Specify
                             <br><br>
-                            {{#if userAnswers[qnum]['answer']}}
+                            {{#if item['answer']}}
                               <input type="text" class="form-control"
-                                      value:bind="~userAnswers[qnum]['answer'].custom"
-                                      on:focus="selectCustom(userAnswers[qnum], anum)" />
+                                      value:bind="~item.answer.custom"
+                                      on:focus="selectCustom(item.answer, anum)" />
                             {{/if}}
                           {{else}}
                             {{{answerOption.answer}}}
