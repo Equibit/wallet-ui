@@ -28,9 +28,11 @@
                           {{#is answerOption.answer 'CUSTOM'}}
                             Other - Specify
                             <br><br>
-                            <input type="text" class="form-control"
-                                    value:bind="userAnswers[qnum]['answer'].custom"
-                                    on:focus="selectCustom(userAnswers[qnum], anum)" />
+                            {{#if userAnswers[qnum]['answer']}}
+                              <input type="text" class="form-control"
+                                      value:bind="~userAnswers[qnum]['answer'].custom"
+                                      on:focus="selectCustom(userAnswers[qnum], anum)" />
+                            {{/if}}
                           {{else}}
                             {{{answerOption.answer}}}
                           {{/is}}
@@ -56,9 +58,11 @@
                           {{#is answerOption.answer 'CUSTOM'}}
                             Other - Specify
                             <br><br>
-                            <input type="text" class="form-control"
-                                    value:bind="userAnswers[qnum]['answer'].custom"
-                                    on:focus="selectCustom(userAnswers[qnum], anum)" />
+                            {{#if userAnswers[qnum]['answer']}}
+                              <input type="text" class="form-control"
+                                      value:bind="~userAnswers[qnum]['answer'].custom"
+                                      on:focus="selectCustom(userAnswers[qnum], anum)" />
+                            {{/if}}
                           {{else}}
                             {{{answerOption.answer}}}
                           {{/is}}

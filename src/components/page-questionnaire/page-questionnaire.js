@@ -20,8 +20,9 @@ export const ViewModel = DefineMap.extend({
   error: 'string',
   phone: 'string',
   code: 'string',
-  userQuestionnaire: {
-    get (val, resolve) {
+
+  userQuestionnairePromise: {
+    get (val) {
       if (val) {
         return val
       }
@@ -30,22 +31,24 @@ export const ViewModel = DefineMap.extend({
       if (!(questionnaireId && userId)) {
         return null
       }
-      UserQuestionnaire.getList({
+      return UserQuestionnaire.getList({
         questionnaireId,
         userId
       }).then(
         questionnaires => {
           if (questionnaires && questionnaires.length) {
-            resolve(questionnaires[0])
-            return
+            return questionnaires[0]
           }
-          const tmp = new UserQuestionnaire({questionnaireId, userId})
-          return tmp.save().then((x) => {
-            console.log(x)
-            resolve(tmp)
-          })
+          const newRecord = new UserQuestionnaire({questionnaireId, userId})
+          return newRecord.save().then(() => newRecord)
         }
       )
+    }
+  },
+
+  questionnairePromise: {
+    get (val) {
+      return val || Questionnaire.get({_id: route.data.itemId})
     }
   },
   questionnaire: {
@@ -54,9 +57,7 @@ export const ViewModel = DefineMap.extend({
         return val
       }
       const _id = route.data.itemId
-      Questionnaire.get({_id}).then(questionnaire => {
-        resolve(questionnaire)
-      })
+      this.questionnairePromise.then(resolve)
     }
   },
   questions: {
@@ -69,20 +70,54 @@ export const ViewModel = DefineMap.extend({
       if (val) {
         return val
       }
-      if (this.userQuestionnaire) {
-        console.log(this.userQuestionnaire)
-        return this.userQuestionnaire.answers.map((ans, index) => {
-          if (!ans) {
-            return {
-              answer: null,
-              custom: null
+      Promise.all([
+        this.userQuestionnairePromise,
+        this.questionnairePromise
+      ]).then((promiseResults) => {
+        if (this.questions) {
+          resolve (promiseResults[0].answers.map((userAnswer, index) => {
+            const question = this.questions[index]
+            if (!userAnswer) {
+              return {
+                answer: {
+                  selection: question.questionType === 'SINGLE' ? null : [],
+                  custom: null
+                }
+              }
+            } else {
+              let selection
+              let custom
+              if (question.questionType === 'SINGLE') {
+                const answerIndex = question.answerOptions.findIndex(ans => ans.answer === userAnswer)
+                if (answerIndex === -1) {
+                  selection = question.answerOptions.indexOf('CUSTOM')
+                  custom = userAnswer
+                } else {
+                  selection = answerIndex
+                  custom = null
+                }
+              } else {
+                selection = userAnswer.map(selectedAnswer => question.answerOptions.findIndex(ans => ans.answer === selectedAnswer))
+                const customIndex = selection.indexOf(-1)
+                if (customIndex === -1) {
+                  custom = null
+                } else {
+                  custom = userAnswer[customIndex]
+                  selection[customIndex] = question.answerOptions.indexOf('CUSTOM')
+                }
+              }
+              return {
+                answer: {
+                  selection,
+                  custom
+                }
+              }
             }
-          }
-          // if (this.questions) {
-
-          // }
-        })
+          }))
+        }
       }
+
+      )
     }
   },
 
