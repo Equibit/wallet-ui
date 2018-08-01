@@ -22,12 +22,12 @@ export const ViewModel = DefineMap.extend({
         return value
       }
       Questionnaire.getList({isActive: true}).then(qList => {
+        console.log(qList)
         resolve(qList.map(questionnaire => ({
           title: questionnaire.description,
           id: questionnaire._id
         })))
       })
-      // return [1, 2, 3, 4]
     }
   },
 })

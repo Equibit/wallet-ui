@@ -18,6 +18,7 @@ export const ViewModel = DefineMap.extend({
       }
       const _id = route.data.itemId
       Questionnaire.get({_id}).then(questionnaire => {
+        console.log(questionnaire.questions)
         resolve(questionnaire)
       })
 
@@ -58,6 +59,51 @@ export const ViewModel = DefineMap.extend({
   indexLetter (index) {
     return String.fromCharCode('A'.charCodeAt(0) + index)
   },
+
+  enabledQuestions: {
+    get () {
+      const result = []
+      let nextQuestion = 0
+      let curr = 0
+      if (!(this.questions && this.userAnswers)) {
+        return result
+      }
+      while (curr < this.questions.length) {
+        if (curr < nextQuestion) {
+          result.push(false)
+          curr += 1
+          continue
+        } else {
+          result.push(true)
+        }
+        const selection = this.userAnswers[curr].answer.selection
+        if (selection === null || selection === undefined || selection.length === 0) {
+          curr += 1
+          nextQuestion = curr
+          continue
+        }
+        if (selection.length) {
+          const skipTos = selection.map(
+            optionIndex => this.questions[nextQuestion].answerOptions[optionIndex]
+          ).map(
+            option => option.finalQuestion ? Infinity : (option.skipTo - 1) || 0
+          )
+          curr += 1
+          nextQuestion = Math.max(...skipTos, curr + 1)
+          continue
+        }
+        const answerOption = this.questions[nextQuestion].answerOptions[selection]
+        if (answerOption.finalQuestion) {
+          nextQuestion = Infinity
+        } else if (answerOption.skipTo) {
+          nextQuestion = Math.max(answerOption.skipTo - 1, curr + 1)
+        }
+        curr += 1
+      }
+      return result
+    }
+  },
+
   submitAnswers () {
     console.log(this.userAnswers)
 

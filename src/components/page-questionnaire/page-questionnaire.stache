@@ -10,7 +10,9 @@
       <div class="panel no-margin">
         <div class="panel-body">
           <h4><strong class="text-primary">Q{{question.sortIndex}}</strong>:  {{question.question}}</h4>
-
+          {{#if enabledQuestions[qnum]}}
+            <h4><strong class="text-primary">enabled</strong></h4>
+          {{/if}}
           <ul>
             {{#each (question.answerOptions, answerOption=value anum=index)}}
               <li>
