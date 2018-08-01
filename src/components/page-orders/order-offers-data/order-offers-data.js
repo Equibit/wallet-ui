@@ -22,6 +22,7 @@ import './order-offers-data.less'
 import view from './order-offers-data.stache'
 import Order from '../../../models/order'
 import Offer from '../../../models/offer'
+import Portfolio from '../../../models/portfolio'
 import Issuance from '../../../models/issuance'
 import Session from '../../../models/session'
 import Transaction from '../../../models/transaction/transaction'
@@ -29,6 +30,7 @@ import { translate } from '../../../i18n/i18n'
 
 export const ViewModel = DefineMap.extend({
   order: Order,
+  portfolio: Portfolio,
   offers: Offer.List,
   filledQuantity: 'number',
 
@@ -36,7 +38,6 @@ export const ViewModel = DefineMap.extend({
   offer: Offer,
   tx: '*',
   issuance: Issuance,
-  portfolio: '*',
   isModalShown: 'boolean',
 
   orderIsCancelled: {
@@ -82,7 +83,7 @@ export const ViewModel = DefineMap.extend({
   acceptingOffer: '*',
   // Collect details and if everything is OK then open the modal.
   acceptOffer (offer) {
-    const portfolio = Session.current.portfolios[0]
+    const portfolio = this.portfolio
     console.log(`acceptOffer`, offer)
     typeforce('Offer', offer)
     typeforce('Portfolio', portfolio)

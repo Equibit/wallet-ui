@@ -44,7 +44,7 @@ export const ViewModel = DefineMap.extend({
   issuance: Issuance,
   portfolio: {
     get () {
-      return Session.current.portfolios[0]
+      return Session.current && Session.current.portfolios && Session.current.portfolios[0]
     }
   },
   status: {

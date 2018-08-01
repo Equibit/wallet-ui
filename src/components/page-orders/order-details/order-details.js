@@ -24,6 +24,7 @@ export const ViewModel = DefineMap.extend({
   // ENUM ['SELL', 'BUY']
   type: 'string',
   order: Order,
+  portfolio: '*',
   ordersLength: 'number',
   filledQuantity: 'number',
   offersLoaded: 'boolean',

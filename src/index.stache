@@ -89,10 +89,11 @@
         <page-my-issuances issuances:from="session.issuances" />
       {{/case}}
       {{#case 'orders'}}
-        <page-orders />
+        <page-orders portfolio:from="session.portfolios.0"/>
       {{/case}}
       {{#case 'offers'}}
-        <page-offers selectedItemId:from="itemId"/>
+        <page-offers selectedItemId:from="itemId"
+                     portfolio:from="session.portfolios.0" />
       {{/case}}
       {{#case 'preferences'}}
         <page-preferences />

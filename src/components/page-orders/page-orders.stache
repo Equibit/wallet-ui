@@ -12,6 +12,7 @@
     {{! type here is 'BUY' or 'SELL': }}
     <order-details type:from="selectedItem.type"
                    order:from="selectedItem"
+                   portfolio:from="portfolio"
                    ordersLength:from="orders.length"/>
   </div>
 </div>
