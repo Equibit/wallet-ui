@@ -88,7 +88,7 @@ export const ViewModel = DefineMap.extend({
             option => option.finalQuestion ? Infinity : (option.skipTo - 1) || 0
           )
           curr += 1
-          nextQuestion = Math.max(...skipTos, curr + 1)
+          nextQuestion = Math.max(...skipTos, curr)
           continue
         }
         const answerOption = this.questions[nextQuestion].answerOptions[selection]
