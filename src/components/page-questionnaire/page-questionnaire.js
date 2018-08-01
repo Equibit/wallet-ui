@@ -1,13 +1,9 @@
 import Component from 'can-component'
 import DefineMap from 'can-define/map/'
-import DefineList from 'can-define/list/'
 import './page-questionnaire.less'
 import view from './page-questionnaire.stache'
-import Session from '../../models/session'
-// import Answer from '../../models/answer'
 import route from 'can-route'
-import Questionnaire, { Question } from '../../models/questionnaire'
-// import questionStore from '../../models/fixtures/questions'
+import Questionnaire from '../../models/questionnaire'
 
 export const ViewModel = DefineMap.extend({
   questionnaire: {
@@ -20,7 +16,6 @@ export const ViewModel = DefineMap.extend({
         console.log(questionnaire.questions)
         resolve(questionnaire)
       })
-
     }
   },
   questions: {

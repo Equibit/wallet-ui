@@ -1,12 +1,9 @@
 import Component from 'can-component'
 import DefineMap from 'can-define/map/'
-import DefineList from 'can-define/list/'
 import './page-questionnaires.less'
 import view from './page-questionnaires.stache'
 import Session from '../../models/session'
-// import Answer from '../../models/answer'
-import Questionnaire, { Question } from '../../models/questionnaire'
-// import questionStore from '../../models/fixtures/questions'
+import Questionnaire from '../../models/questionnaire'
 
 export const ViewModel = DefineMap.extend({
   user: {
@@ -20,14 +17,13 @@ export const ViewModel = DefineMap.extend({
         return value
       }
       Questionnaire.getList({isActive: true}).then(qList => {
-        console.log(qList)
         resolve(qList.map(questionnaire => ({
           title: questionnaire.description,
           id: questionnaire._id
         })))
       })
     }
-  },
+  }
 })
 
 export default Component.extend({
