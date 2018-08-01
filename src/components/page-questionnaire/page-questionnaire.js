@@ -11,22 +11,6 @@ import Questionnaire, { Question } from '../../models/questionnaire'
 // import questionStore from '../../models/fixtures/questions'
 
 export const ViewModel = DefineMap.extend({
-  user: {
-    get (val) {
-      return (Session.current && Session.current.user) || val
-    }
-  },
-  error: 'string',
-  phone: 'string',
-  code: 'string',
-  answers: {
-    // 2D array. First index == the question number, inner array == the answer(s) selected for that question
-    type: '*'
-  },
-  customAnswers: {
-    // array. index == the question number, value == the custom answer given (if any) for that question
-    type: '*'
-  },
   questionnaire: {
     get (val, resolve) {
       if (val) {
@@ -53,9 +37,7 @@ export const ViewModel = DefineMap.extend({
         const questions = this.questions.get ? this.questions.get() : this.questions
         return (
           questions.map(q => {
-            console.log(q)
             return {
-              userId: this.user && this.user._id,
               questionId: q._id,
               questionSortIndex: q.sortIndex,
               answer: new DefineMap({
@@ -74,32 +56,7 @@ export const ViewModel = DefineMap.extend({
   },
 
   indexLetter (index) {
-    return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'][index]
-  },
-
-  sendPhone () {
-    this.error = ''
-    if (!this.user) {
-      throw new Error('User is not defined')
-    }
-    this.user.assign({
-      phoneNumber: this.phone
-    })
-    this.user.save().then(user => {
-      console.log(`Sent phone: questionnaire=${user.questionnaire}`, user)
-    })
-  },
-  sendCode () {
-    this.error = ''
-    if (!this.user) {
-      throw new Error('User is not defined')
-    }
-    this.user.assign({
-      smsCode: this.code
-    })
-    this.user.save().catch(err => {
-      this.error = err.message
-    })
+    return String.fromCharCode('A'.charCodeAt(0) + index)
   },
   submitAnswers () {
     console.log(this.userAnswers)
