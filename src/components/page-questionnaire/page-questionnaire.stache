@@ -10,9 +10,6 @@
       <div class="panel no-margin">
         <div class="panel-body">
           <h4><strong class="text-primary">Q{{question.sortIndex}}</strong>:  {{question.question}}</h4>
-          {{#if enabledQuestions[qnum]}}
-            <h4><strong class="text-primary">enabled</strong></h4>
-          {{/if}}
           <ul>
             {{#each (question.answerOptions, answerOption=value anum=index)}}
               <li>
@@ -23,7 +20,7 @@
                       <input type="radio" id="radio-{{qnum}}-{{indexLetter (anum)}}"
                               name="radio-{{qnum}}"
                               checked:bind="equal(~userAnswers[qnum]['answer'].selection, anum)"
-                              {{#if disableForm}}disabled{{/if}} />
+                              {{#if enabledQuestions[qnum]}}{{else}}disabled{{/if}} />
                       <label for="radio-{{qnum}}-{{indexLetter (anum)}}">
                         <strong>{{indexLetter (anum)}})</strong>
                         <span>
@@ -32,6 +29,7 @@
                             <br><br>
                             <input type="text" class="form-control"
                                     value:bind="userAnswers[qnum]['answer'].custom"
+                                    {{#if enabledQuestions[qnum]}}{{else}}disabled{{/if}}
                                     on:focus="selectCustom(userAnswers[qnum], anum)" />
                           {{else}}
                             {{{answerOption.answer}}}
@@ -48,6 +46,7 @@
                     <div class="checkbox checkbox-primary">
                       {{#if userAnswers[qnum]['answer'].selection}}
                       <input type="checkbox" id="checkbox-{{qnum}}-{{indexLetter (anum)}}"
+                              {{#if enabledQuestions[qnum]}}{{else}}disabled{{/if}}
                               checked:bind="boolean-to-inList(anum, userAnswers[qnum]['answer'].selection)" />
                       {{else}}
                         selection is not a non-empty array!
@@ -59,6 +58,7 @@
                             Other - Specify
                             <br><br>
                             <input type="text" class="form-control"
+                                    {{#if enabledQuestions[qnum]}}{{else}}disabled{{/if}}
                                     value:bind="userAnswers[qnum]['answer'].custom"
                                     on:focus="selectCustom(userAnswers[qnum], anum)" />
                           {{else}}
