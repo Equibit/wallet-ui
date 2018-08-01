@@ -121,7 +121,6 @@
     "can-stache-converters": "^3.3.0",
     "can-stream": "^0.3.2",
     "can-stream-kefir": "^0.3.3",
-    "can-value": "^1.0.0",
     "can-view-autorender": "^3.1.2",
     "can-view-callbacks": "^3.2.3",
     "can-zone": "^0.6.20",

@@ -1,7 +1,6 @@
 import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 import DefineList from 'can-define/list/'
-import value from 'can-value'
 import './page-questionnaire.less'
 import view from './page-questionnaire.stache'
 import Session from '../../models/session'
