@@ -38,7 +38,8 @@ export const ViewModel = DefineMap.extend({
       // Returning undefined when falsey to avoid a typecasting issue in a child component
       return order || undefined
     }
-  }
+  },
+  portfolio: '*'
 })
 
 export default Component.extend({

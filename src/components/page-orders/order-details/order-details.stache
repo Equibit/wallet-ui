@@ -32,10 +32,11 @@
 
         <div class="col-xs-12 col-lg-4 offers-data">
           <order-offers-data class="stretch"
-                            order:from="order"
-                            filledQuantity:from="filledQuantity"
-                            offers:from="newOffers"
-                            issuance:from="order.issuance"/>
+                             order:from="order"
+                             portfolio:from="portfolio"
+                             filledQuantity:from="filledQuantity"
+                             offers:from="newOffers"
+                             issuance:from="order.issuance"/>
         </div>
       </div>
     </div>

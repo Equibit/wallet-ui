@@ -6,6 +6,7 @@ import Transaction from '../../../models/transaction/transaction'
 import Portfolio from '../../../models/portfolio'
 import mockHtlcOffer from '../../../models/mock/mock-htlc-offer'
 import issuance from '../../../models/mock/mock-issuance'
+import portfolio from '../../../models/mock/mock-portfolio'
 
 describe('wallet-ui/components/page-orders/order-offers-data', function () {
   let vm, offer, order
@@ -15,6 +16,7 @@ describe('wallet-ui/components/page-orders/order-offers-data', function () {
     order = htlcOfferMock.order
     vm = new ViewModel({
       order,
+      portfolio,
       issuance
     })
   })
