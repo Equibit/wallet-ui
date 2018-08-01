@@ -60,9 +60,8 @@ app.use('/', function (req, res, next) {
     }
     if (dir === '/' || dir.split('/')[1] !== 'dist') {
       return res.sendStatus(204)
-    }   
-  }  
-  
+    }
+  }
   return next()
 })
 
