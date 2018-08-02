@@ -18,6 +18,7 @@
                    portfolio:from="portfolio"
                    rows.length:to="hasSellOrders"
                    rows.length:to="sellOrders"
+                   hasMoreSell:to="hasMoreSell"
                    on:vm:buysell="openBuySellModal(scope.arguments)"
                    issuanceAddress:from="issuance.issuanceAddress" />
 
@@ -44,7 +45,7 @@
           </button>
         {{/if}}
         {{#if isLoadMoreSellVisible}}
-        <button class="btn btn-link btn-xs pull-right" on:click="loadMoreSellOrders()"><span class="icon icon-export"></span> {{i18n('loadMore')}} </button>
+        <button class="btn btn-link btn-xs pull-right" on:click="loadMoreSellOrders()"><span class="icon icon-sort-amount-desc"></span> {{i18n('loadMore')}} </button>
         {{/if}}
       </div>
     </div>
@@ -57,6 +58,7 @@
                    portfolio:from="portfolio"
                    rows.length:to="hasBuyOrders"
                    rows.length:to="buyOrders"
+                   hasMoreBuy:to="hasMoreBuy"
                    on:vm:buysell="openBuySellModal(scope.arguments)"
                    issuanceAddress:from="issuance.issuanceAddress" />
 
@@ -73,7 +75,7 @@
           </button>
         {{/if}}
         {{#if isLoadMoreBuyVisible}}
-        <button class="btn btn-link btn-xs pull-right" on:click="loadMoreBuyOrders()"><span class="icon icon-export"></span> {{i18n('loadMore')}} </button>
+        <button class="btn btn-link btn-xs pull-right" on:click="loadMoreBuyOrders()"><span class="icon icon-sort-amount-desc"></span> {{i18n('loadMore')}} </button>
         {{/if}}
       </div>
     </div>

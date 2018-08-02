@@ -5,7 +5,7 @@
 <grid-component class="{{#if rowsPromise.isPending}}loading{{/if}}">
   <div class="grid-responsive order-type-{{../type}}">
   {{#is ../type 'SELL'}}
-
+  
     <div class="grid-header-container">
       <table class="table table-condensed grid-header">
         <thead>

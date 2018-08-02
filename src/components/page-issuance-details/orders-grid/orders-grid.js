@@ -43,6 +43,14 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     type: 'number',
     value: 0
   },
+  hasMoreBuy: {
+    type: 'boolean',
+    value: true
+  },
+  hasMoreSell: {
+    type: 'boolean',
+    value: true
+  },
   rowsPromise: {
     get () {
       if (this.assetType === 'ISSUANCE' && !this.issuanceAddress) {
@@ -60,7 +68,17 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       if (this.assetType !== 'ISSUANCE') {
         params.assetType = this.assetType
       }
-      return Order.getList(params)
+      return Order.getList(params).then(r => {
+        if (this.type === 'BUY') {
+          this.hasMoreBuy = r.total > r.skip + r.length
+        } else {
+          this.hasMoreSell = r.total > r.skip + r.length
+        }
+        return r
+      }, e => {
+        this.hasMore = false
+        throw e
+      })
     }
   },
   get userOffersPromise () {
@@ -97,7 +115,6 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         })
         resolve && resolve(d)
       }).then(() => {
-        console.log(this.rowsList)
         resolve(this.rowsList)
       })
       return val
