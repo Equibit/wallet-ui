@@ -21,6 +21,7 @@ import view from './order-data.stache'
 export const ViewModel = DefineMap.extend({
   order: '*',
   offers: '*',
+  portfolio: '*',
   get filledQuantity () {
     return this.order && this.offers && this.offers.reduce((sum, offer) => {
       return sum + (offer.status === 'TRADING' || offer.status === 'CLOSED' ? offer.quantity : 0)
