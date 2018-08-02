@@ -50,6 +50,7 @@ export default {
   gotit: 'Got it!',
   issueAPassport: '+ Issue a Passport',
   issuePassport: 'Issue Passport',
+  loadMore: 'Load 100 more',
   manage: 'Manage',
   next: 'Next',
   passportDelete: 'Yes, Delete Passport',

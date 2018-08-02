@@ -37,7 +37,11 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   },
   limit: {
     type: 'number',
-    value: 10
+    value: 20
+  },
+  skip: {
+    type: 'number',
+    value: 0
   },
   rowsPromise: {
     get () {
@@ -47,7 +51,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       }
       const params = {
         $limit: this.limit,
-        $skip: 0,
+        $skip: this.skip,
         type: this.type,
         status: 'OPEN',
         $sort: { 'price': this.type === 'BUY' ? -1 : 1 },
@@ -80,10 +84,21 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       return Session.current
     }
   },
+  rowsList: {
+    value: []
+  },
   rows: {
     get (val, resolve) {
       this.rowsPromise && this.rowsPromise.then(d => {
+        d.forEach(elem => {
+          if (this.rowsList.indexOf(elem) === -1) {
+            this.rowsList.push(elem)
+          }
+        })
         resolve && resolve(d)
+      }).then(() => {
+        console.log(this.rowsList)
+        resolve(this.rowsList)
       })
       return val
     }

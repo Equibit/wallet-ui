@@ -43,11 +43,50 @@ export const ViewModel = DefineMap.extend({
   },
   hasSellOrders: 'boolean',
   hasBuyOrders: 'boolean',
+  sellOrders: 'number',
+  buyOrders: 'number',
   hasOrders: {
     get () {
       return this.hasSellOrders || this.hasBuyOrders
     }
   },
+  buyLimit: {
+    type: 'number',
+    value: 20
+  },
+  buySkip: 'number',
+
+  loadMoreBuyOrders () {
+    if (this.buyLimit === 20) {
+      this.buyLimit += 100
+      this.buySkip = 20
+    } else {
+      this.buySkip += 100
+    }
+  },
+
+  get isLoadMoreBuyVisible () {
+    return this.buyOrders <= this.buyLimit
+  },
+  sellLimit: {
+    type: 'number',
+    value: 20
+  },
+  sellSkip: 'number',
+
+  loadMoreSellOrders () {
+    if (this.sellLimit === 20) {
+      this.sellLimit += 100
+      this.sellSkip = 20
+    } else {
+      this.sellSkip += 100
+    }
+  },
+
+  get isLoadMoreSellVisible () {
+    return this.sellOrders <= this.sellLimit
+  },
+
   newOrderType: 'string',
   isModalShown: 'boolean',
 
