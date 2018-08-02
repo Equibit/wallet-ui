@@ -50,6 +50,21 @@ app.use(function (req, res, next) {
   return next()
 })
 
+app.use('/', function (req, res, next) {
+  if (process.env.NODE_ENV === 'production') {
+    const { dir, base } = path.parse(req.url)
+    const localPath = path.join(__dirname, '/' + req.url)
+    // Let other routes handle directory does not exist errors
+    if (!fs.existsSync(localPath) || (dir === '/' && base === '')) {
+      return next()
+    }
+    if (dir === '/' || dir.split('/')[1] !== 'dist') {
+      return res.sendStatus(204)
+    }
+  }
+  return next()
+})
+
 // Host the public folder
 app.use('/', feathers.static('./'))
 app.get('*', function (req, res, next) {
