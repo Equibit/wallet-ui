@@ -136,11 +136,13 @@ export const ViewModel = DefineMap.extend({
     typeforce(typeforce.tuple(
       'Order',
       'Offer',
-      'Issuance',
       'User',
       'Portfolio',
       'String'
-    ), [order, offer, issuance, user, portfolio, secret])
+    ), [order, offer, user, portfolio, secret])
+    if (offer.assetType !== 'EQUIBIT') {
+      typeforce('Issuance', issuance)
+    }
 
     const currencyType = order.type === 'SELL' ? 'BTC' : 'EQB'
     return Promise.all([

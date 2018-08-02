@@ -21,6 +21,7 @@ import view from './order-offers-accepted.stache'
 import Session from '../../../models/session'
 import Order from '../../../models/order'
 import Issuance from '../../../models/issuance'
+import Portfolio from '../../../models/portfolio'
 import Offer from '../../../models/offer'
 import Transaction from '../../../models/transaction/transaction'
 import { dispatchAlertError } from '../../../utils/event-hub'
@@ -30,11 +31,7 @@ export const ViewModel = DefineMap.extend({
   order: Order,
   issuance: Issuance,
   offers: Offer.List,
-  portfolio: {
-    get () {
-      return Session.current.portfolios[0]
-    }
-  },
+  portfolio: Portfolio,
 
   isAskFlow: {
     get () {
@@ -70,6 +67,11 @@ export const ViewModel = DefineMap.extend({
             header: 'dealFlowMessageTitleRecoverSecurities',
             timer: 'securitiesRecoveryTimeLeftDescription',
             button: 'dealFlowMessageTitleCancelAndRecoverSecurities'
+          },
+          blankEqb: {
+            header: 'dealFlowMessageTitleRecoverSecuritiesEqb',
+            timer: 'securitiesRecoveryTimeLeftDescriptionEqb',
+            button: 'dealFlowMessageTitleCancelAndRecoverEqb'
           }
         }
       }

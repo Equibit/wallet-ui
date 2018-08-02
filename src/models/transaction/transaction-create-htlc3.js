@@ -69,10 +69,11 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
     const htlcStep = 3
     const timelock = order.type === 'SELL' ? offer.timelock2 : offer.timelock
 
-    // Two cases for the receiving addr:
+    // Two cases for the receiving addr of an issuance, and one case for Empty EQB refund:
     // - investor: lookup keys in portfolio
     // - issuer: lookup keys directly in issuance
-    const portfolioAddr = portfolio.findAddress(offer.eqbAddress)
+    // - refund: lookup refund address in portfolio
+    const portfolioAddr = isRefund ? portfolio.findAddress(refundAddr) : portfolio.findAddress(offer.eqbAddress)
     const keyPair = portfolioAddr ? portfolioAddr.keyPair : issuance.keys.keyPair
     const buildConfig = {
       vin: [{

@@ -139,7 +139,7 @@ export default {
 
   cancelDeal: 'Cancel Deal',
   cancelledOn: 'Cancelled on',
-  cancelAskDealOnDescription: 'Cancel deal to recover your securities',
+  cancelAskDealOnDescription: 'Cancel deal to recover your assets',
   cancelBidDealOnDescription: 'Cancel deal to recover your payment',
   cancelMessageDeal: 'This action cannot be undone. Only this specific deal will be cancelled. Your order and any other pending deals in this offer will remain in progress. Are you sure you want to continue?',
   cancelMessageOffer: 'This action cannot be undone. Any pending trades will be cancelled as well. Are you sure you want to continue?',
@@ -214,6 +214,7 @@ export default {
   dealFlowMessageTitleCancelDeal: 'Cancel deal to recover funds',
   dealFlowMessageTitleCancelAndRecoverPayment: 'Cancel Deal & Recover Payment',
   dealFlowMessageTitleCancelAndRecoverSecurities: 'Cancel Deal & Recover Securities',
+  dealFlowMessageTitleCancelAndRecoverEqb: 'Cancel Deal & Recover Equibits',
   dealFlowMessageTitleCollectAndCloseDeal: 'Collect & Close Deal',
   dealFlowMessageTitleCollectPayment: 'Collect Payment',
   dealFlowMessageTitleCollectSecurities: 'Collect Securities',
@@ -569,7 +570,7 @@ export default {
   retrieveFundsError: 'Could not retrieve funds.',
 
   safetyZone: 'Safety Zone',
-  safetyZoneDescription: 'Time left to safely recover your securities',
+  safetyZoneDescription: 'Time left to safely recover your assets',
   schedule: 'Schedule',
   shareholders: 'Shareholders',
   state: 'State / Province / Region',
@@ -580,6 +581,7 @@ export default {
   securitiesCollectionTimeLeftDescriptionEqb: 'Time left to collect the equibits',
   securitiesNotOwnedPopoverMessage: 'You don\'t own securities from this issuance',
   securitiesRecoveryTimeLeftDescription: 'Time left to recover your securities',
+  securitiesRecoveryTimeLeftDescriptionEqb: 'Time left to recover your equibits',
   securitiesSent: 'Securities sent',
   selectType: 'Select Type',
   semiAnnually: 'Semi-Annually',

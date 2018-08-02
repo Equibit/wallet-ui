@@ -66,6 +66,7 @@
 
     <div class="order-accepted-offers section">
       <order-offers-accepted order:from="order"
+                             portfolio:from="portfolio"
                              offers:from="offers"
                              issuance:from="order.issuance"></order-offers-accepted>
     </div>
