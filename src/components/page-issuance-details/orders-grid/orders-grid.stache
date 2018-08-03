@@ -1,11 +1,12 @@
 <can-import from="~/components/common/grid/grid.less" />
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="grid-component" />
+<can-import from="~/components/common/loading-indicator/" />
 
 <grid-component class="{{#if rowsPromise.isPending}}loading{{/if}}">
   <div class="grid-responsive order-type-{{../type}}">
   {{#is ../type 'SELL'}}
-  
+
     <div class="grid-header-container">
       <table class="table table-condensed grid-header">
         <thead>
@@ -23,7 +24,10 @@
     </div>
 
     <div class="grid-body-scroll">
-      <table class="table table-condensed grid-body">
+      {{#if isLoadingSell}}
+        <loading-indicator />
+      {{/if}}
+      <table class="table table-condensed grid-body {{#if isLoadingSell}}is-loading{{/if}}">
         <tbody>
         {{#each ../rows row=value index=index}}
           <tr class="order-row percentage-green percentage-{{../../marketWidth[index]}}">
@@ -114,7 +118,10 @@
     </div>
 
     <div class="grid-body-scroll">
-      <table class="table table-condensed grid-body">
+      {{#if isLoadingBuy}}
+        <loading-indicator />
+      {{/if}}
+      <table class="table table-condensed grid-body {{#if isLoadingBuy}}is-loading{{/if}}">
         <tbody>
         {{#each ../rows row=value index=index}}
           <tr class="order-row percentage-red percentage-{{../../marketWidth[index]}}">

@@ -43,6 +43,8 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     type: 'number',
     value: 0
   },
+  isLoadingBuy: 'boolean',
+  isLoadingSell: 'boolean',
   hasMoreBuy: {
     type: 'boolean',
     value: true
@@ -57,6 +59,8 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         console.error('Orders require issuanceAddress!')
         return
       }
+      this.isLoadingBuy = true
+      this.isLoadingSell = true
       const params = {
         $limit: this.limit,
         $skip: this.skip,
@@ -70,13 +74,19 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       }
       return Order.getList(params).then(r => {
         if (this.type === 'BUY') {
+          this.isLoadingBuy = true
           this.hasMoreBuy = r.total > r.skip + r.length
         } else {
+          this.isLoadingSell = true
           this.hasMoreSell = r.total > r.skip + r.length
         }
+        this.isLoadingBuy = false
+        this.isLoadingSell = false
         return r
       }, e => {
         this.hasMore = false
+        this.isLoadingBuy = false
+        this.isLoadingSell = false
         throw e
       })
     }
