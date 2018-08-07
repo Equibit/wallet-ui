@@ -19,8 +19,6 @@ Question.List = DefineList.extend('QuestionList', {
 })
 
 const Questionnaire = DefineMap.extend('Questionnaire', {
-  seal: false
-}, {
   '_id': 'any',
   description: 'string',
   // enum: ['active', 'closed']

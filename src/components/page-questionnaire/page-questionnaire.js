@@ -13,14 +13,13 @@ export const ViewModel = DefineMap.extend({
       }
       const _id = route.data.itemId
       Questionnaire.get({_id}).then(questionnaire => {
-        console.log(questionnaire.questions)
         resolve(questionnaire)
       })
     }
   },
   questions: {
     get () {
-      return this.questionnaire ? this.questionnaire.questions : []
+      return this.questionnaire ? this.questionnaire.questions : new Questionnaire.List([])
     }
   },
   userAnswers: {
@@ -29,7 +28,7 @@ export const ViewModel = DefineMap.extend({
         return val
       }
       if (this.questions) {
-        const questions = this.questions.get ? this.questions.get() : this.questions
+        const questions = this.questions
         return (
           questions.map(q => {
             return {

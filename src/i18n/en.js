@@ -278,6 +278,7 @@ export default {
   dividendShare: 'Dividend/Share',
   domicile: 'Domicile',
 
+  earnRewards: 'Earn Rewards',
   email: 'Email',
   emailInfo: 'info@equibitgroup.com',
   emailUpdate: 'New Email',
