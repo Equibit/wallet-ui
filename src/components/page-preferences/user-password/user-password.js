@@ -49,7 +49,11 @@ export const ViewModel = DefineMap.extend({
   },
   save () {
     if (zxcvbn(this.passwordNew).score !== 4) {
-      this.errors.set('passwordError', 'Password too weak')
+      if (this.passwordNew.length === 0) {
+        this.errors.set('password', 'Password is missing')
+      } else {
+        this.errors.set('password', 'Password too weak')
+      }
       return
     }
 
