@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 /*eslint-disable */
 // Custom Login command
-Cypress.Commands.add('login', (users) => {
+Cypress.Commands.add('login', (user) => {
     
     Cypress.log({
         name: 'login'
@@ -34,11 +34,10 @@ Cypress.Commands.add('login', (users) => {
     cy.visit('/')
 
     cy.get('input[type="email"]')
-    .type(users[0].email)
+    .type(user.email)
     .get('input[type="password"]')
-    .type(users[0].password)
+    .type(user.password)
     .get('button[type="submit"]').click()
-    
-    cy.url().should('contain', '/portfolio')
+
 })
 /*eslint-enable */

@@ -44,35 +44,26 @@ describe('Login Test', () => {
     .should('contain', 'Password is missing')
   })
 
-  it('requires valid email', () => {
-    cy
-    .get('input[type="email"]')
-    .type('test')
-    .get('input[type="password"]')
-    .type('password{enter}')
+  it('requires valid email', function () {
+    cy.login(this.users[0])
 
     cy
     .get('.form-text')
     .should('contain', 'Enter a valid email address')
   })
 
-  it('requires valid email and password', () => {
-    cy
-    .get('input[type="email"]')
-    .type('test@evenset.com')
-    .get('input[type="password"]')
-    .type('password')
+  it('requires valid email and password', function () {
+    cy.login(this.users[1])
 
     cy
-    .get('button[type="submit"]').click()
-
-    cy
-    .get('.alert', { timeout: 10000 })
+    .get('.alert')
     .should('contain', 'Invalid login.')
   })
 
   it('successfully log in using UI', function () {
-    cy.login(this.users)
+    cy.login(this.users[2])
+
+    cy.url().should('contain', '/portfolio')
     
   })
 })

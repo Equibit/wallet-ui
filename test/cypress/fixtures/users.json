@@ -1,13 +1,17 @@
 [
     {
         "id": 0,
-        "email": "test@evenset.com",
-        "password": "SpicyTunaMayo"
+        "email": "test",
+        "password": "password"
     },
-    
     {
         "id": 0,
         "email": "test2@evenset.com",
         "password": "secret123"
+    },
+    {
+        "id": 0,
+        "email": "test@evenset.com",
+        "password": "SpicyTunaMayo"
     }
 ]
