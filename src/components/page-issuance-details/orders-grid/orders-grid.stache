@@ -24,10 +24,10 @@
     </div>
 
     <div class="grid-body-scroll">
-      {{#if isLoadingSell}}
+      {{#if isLoading}}
         <loading-indicator />
       {{/if}}
-      <table class="table table-condensed grid-body {{#if isLoadingSell}}is-loading{{/if}}">
+      <table class="table table-condensed grid-body {{#if isLoading}}is-loading{{/if}}">
         <tbody>
         {{#each ../rows row=value index=index}}
           <tr class="order-row percentage-green percentage-{{../../marketWidth[index]}}">
@@ -118,10 +118,10 @@
     </div>
 
     <div class="grid-body-scroll">
-      {{#if isLoadingBuy}}
+      {{#if isLoading}}
         <loading-indicator />
       {{/if}}
-      <table class="table table-condensed grid-body {{#if isLoadingBuy}}is-loading{{/if}}">
+      <table class="table table-condensed grid-body {{#if isLoading}}is-loading{{/if}}">
         <tbody>
         {{#each ../rows row=value index=index}}
           <tr class="order-row percentage-red percentage-{{../../marketWidth[index]}}">

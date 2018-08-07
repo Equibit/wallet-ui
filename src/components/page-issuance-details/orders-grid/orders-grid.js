@@ -37,21 +37,25 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   },
   limit: {
     type: 'number',
-    value: 20
+    value: 21
   },
   skip: {
     type: 'number',
     value: 0
   },
-  isLoadingBuy: 'boolean',
-  isLoadingSell: 'boolean',
-  hasMoreBuy: {
+  isLoading: 'boolean',
+  hasMore: {
     type: 'boolean',
     value: true
   },
-  hasMoreSell: {
-    type: 'boolean',
-    value: true
+  loadMore () {
+    if (this.limit === 21) {
+      this.limit += 100
+      this.skip = 21
+    } else {
+      this.limit += 100
+      this.skip += 100
+    }
   },
   rowsPromise: {
     get () {
@@ -59,8 +63,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         console.error('Orders require issuanceAddress!')
         return
       }
-      this.isLoadingBuy = true
-      this.isLoadingSell = true
+      this.isLoading = true
       const params = {
         $limit: this.limit,
         $skip: this.skip,
@@ -73,20 +76,13 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         params.assetType = this.assetType
       }
       return Order.getList(params).then(r => {
-        if (this.type === 'BUY') {
-          this.isLoadingBuy = true
-          this.hasMoreBuy = r.total > r.skip + r.length
-        } else {
-          this.isLoadingSell = true
-          this.hasMoreSell = r.total > r.skip + r.length
-        }
-        this.isLoadingBuy = false
-        this.isLoadingSell = false
+        this.isLoading = true
+        this.hasMore = r.total > r.skip + r.length
+        this.isLoading = false
         return r
       }, e => {
         this.hasMore = false
-        this.isLoadingBuy = false
-        this.isLoadingSell = false
+        this.isLoading = false
         throw e
       })
     }

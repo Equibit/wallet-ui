@@ -12,13 +12,13 @@
     <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
       <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-      <orders-grid type:from="'SELL'" limit:from="sellLimit" skip:from="sellSkip"
+      <orders-grid type:from="'SELL'" limit:from="21"
                    assetType:from="assetType"
                    session:from="session"
                    portfolio:from="portfolio"
                    rows.length:to="hasSellOrders"
-                   rows.length:to="sellOrders"
-                   hasMoreSell:to="hasMoreSell"
+                   @loadMore:to="loadMoreSell"
+                   hasMore:to="hasMoreSell"
                    on:vm:buysell="openBuySellModal(scope.arguments)"
                    issuanceAddress:from="issuance.issuanceAddress" />
 
@@ -44,24 +44,24 @@
             {{i18n('addSellOrder')}}
           </button>
         {{/if}}
-        {{#if isLoadMoreSellVisible}}
-        <button class="btn btn-link btn-xs pull-right" on:click="loadMoreSellOrders()"><span class="icon icon-sort-amount-desc"></span> {{i18n('loadMore')}} </button>
+        {{#if hasMoreSell}}
+          <button class="btn btn-link btn-xs pull-right" on:click="loadMoreSell()"><span class="icon icon-sort-amount-desc"></span> {{i18n('loadMore')}} </button>
         {{/if}}
       </div>
     </div>
     <div class="col-lg-6 col-xs-12 buy-orders no-padding-right">
       <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-      <orders-grid type:from="'BUY'" limit:from="buyLimit" skip:from="buySkip"
+      <orders-grid type:from="'BUY'" limit:from="21"
                    assetType:from="assetType"
                    session:from="session"
                    portfolio:from="portfolio"
                    rows.length:to="hasBuyOrders"
-                   rows.length:to="buyOrders"
-                   hasMoreBuy:to="hasMoreBuy"
+                   @loadMore:to="loadMoreBuy"
+                   hasMore:to="hasMoreBuy"
                    on:vm:buysell="openBuySellModal(scope.arguments)"
                    issuanceAddress:from="issuance.issuanceAddress" />
-
+      
       <div>
         {{#if session}}
           <button class="btn btn-primary btn-xs" on:click="showModal('BUY')">{{i18n('addBuyOrder')}}</button>
@@ -74,8 +74,8 @@
             {{i18n('addBuyOrder')}}
           </button>
         {{/if}}
-        {{#if isLoadMoreBuyVisible}}
-        <button class="btn btn-link btn-xs pull-right" on:click="loadMoreBuyOrders()"><span class="icon icon-sort-amount-desc"></span> {{i18n('loadMore')}} </button>
+        {{#if hasMoreBuy}}
+          <button class="btn btn-link btn-xs pull-right" on:click="loadMoreBuy()"><span class="icon icon-sort-amount-desc"></span> {{i18n('loadMore')}} </button>
         {{/if}}
       </div>
     </div>

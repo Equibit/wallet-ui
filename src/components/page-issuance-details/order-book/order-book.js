@@ -43,57 +43,15 @@ export const ViewModel = DefineMap.extend({
   },
   hasSellOrders: 'boolean',
   hasBuyOrders: 'boolean',
-  sellOrders: 'number',
-  buyOrders: 'number',
+  hasMoreSell: 'boolean',
+  hasMoreBuy: 'boolean',
   hasOrders: {
     get () {
       return this.hasSellOrders || this.hasBuyOrders
     }
   },
-  hasMoreBuy: 'boolean',
-  hasMoreSell: 'boolean',
-  buyLimit: {
-    type: 'number',
-    value: 20
-  },
-  buySkip: 'number',
-
-  loadMoreBuyOrders () {
-    if (this.buyLimit === 20) {
-      this.buyLimit += 100
-      this.buySkip = 20
-    } else {
-      this.buyLimit += 100
-      this.buySkip += 100
-    }
-  },
-
-  get isLoadMoreBuyVisible () {
-    return this.hasMoreBuy
-  },
-  sellLimit: {
-    type: 'number',
-    value: 20
-  },
-  sellSkip: 'number',
-
-  loadMoreSellOrders () {
-    if (this.sellLimit === 20) {
-      this.sellLimit += 100
-      this.sellSkip = 20
-    } else {
-      this.sellLimit += 100
-      this.sellSkip += 100
-    }
-  },
-
-  get isLoadMoreSellVisible () {
-    return this.hasMoreSell
-  },
-
   newOrderType: 'string',
   isModalShown: 'boolean',
-
   // Add new order modal:
   showModal (newOrderType) {
     // Note: we need to re-insert the modal content:
@@ -101,7 +59,8 @@ export const ViewModel = DefineMap.extend({
     this.isModalShown = false
     this.isModalShown = true
   },
-
+  loadMoreSell: '*',
+  loadMoreBuy: '*',
   order: '*',
   offer: '*',
   isBuySellShown: 'boolean',
