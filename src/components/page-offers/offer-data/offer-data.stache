@@ -21,7 +21,7 @@
         </dd>
 
         <dt>{{i18n('totalPrice')}}</dt>
-        <dd>{{format(to-fixed-2(format-micro(order.totalPrice)), '')}} <small>μBTC</small></dd>
+        <dd>{{format(to-fixed-2(format-micro(offer.order.totalPrice)), '')}} <small>μBTC</small></dd>
       </dl>
     </div>
 
