@@ -98,7 +98,9 @@ export const ViewModel = DefineMap.extend({
   },
 
   submitAnswers () {
+    //! steal-remove-start
     console.log(this.userAnswers)
+    //! steal-remove-end
 
     // todo: update user after answers are saved.
     // this.user.questionnaire = 'COMPLETED'
