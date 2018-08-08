@@ -1,8 +1,6 @@
 import 'steal-mocha'
 import assert from 'chai/chai'
-// import DefineMap from 'can-define/map/map'
 import MockQuestionnaire from '~/models/mock/mock-questionnaire'
-// import feathersClient from '~/models/feathers-client'
 
 import { ViewModel } from './page-questionnaire'
 
@@ -17,7 +15,7 @@ const getDefaultAnswers = () => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
 )
 
 // ViewModel unit tests
-describe.only('wallet-ui/components/page-questionnaire', function () {
+describe('wallet-ui/components/page-questionnaire', function () {
   // todo: to fix we need to mock session (which populates keys for the issuance) or change the way its implemented.
   it('derives questions from the questionnaire', function () {
     const vm = new ViewModel({ questionnaire: MockQuestionnaire })
