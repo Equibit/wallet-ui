@@ -45,7 +45,7 @@ describe('Login Test', () => {
   })
 
   it('requires valid email', function () {
-    cy.login(this.users[0])
+    cy.login(this.users.badEmail)
 
     cy
     .get('.form-text')
@@ -53,7 +53,7 @@ describe('Login Test', () => {
   })
 
   it('requires valid email and password', function () {
-    cy.login(this.users[1])
+    cy.login(this.users.invalidUser)
 
     cy
     .get('.alert')
@@ -61,7 +61,7 @@ describe('Login Test', () => {
   })
 
   it('successfully log in using UI', function () {
-    cy.login(this.users[2])
+    cy.login(this.users.validUser)
 
     cy.url().should('contain', '/portfolio')
     
