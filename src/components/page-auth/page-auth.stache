@@ -13,7 +13,8 @@
     <div class="auth-container">
 
       <div class="auth-header">
-        <a class="header-logo" href="{{routeUrl page='research'}}">{{i18n('equibitAppName')}}</a>
+      {{! Previously routed to research }}
+        <a class="header-logo" href="#">{{i18n('equibitAppName')}}</a>
         <div class="auth-tabs">
           {{#if session}}
             <span></span>
