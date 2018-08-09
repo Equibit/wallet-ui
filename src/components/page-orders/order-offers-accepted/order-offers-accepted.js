@@ -68,7 +68,7 @@ export const ViewModel = DefineMap.extend({
             timer: 'securitiesRecoveryTimeLeftDescription',
             button: 'dealFlowMessageTitleCancelAndRecoverSecurities'
           },
-          blankEqb: {// DAVID
+          blankEqb: {
             header: 'dealFlowMessageTitleRecoverSecuritiesEqb',
             timer: 'securitiesRecoveryTimeLeftDescriptionEqb',
             button: 'dealFlowMessageTitleCancelAndRecoverEqb'

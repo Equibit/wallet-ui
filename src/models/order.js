@@ -105,7 +105,7 @@ const Order = DefineMap.extend('Order', {
    * @property {Number} models/order.properties.price price
    * @parent models/order.properties
    * Price of one unit of the issuance, in satoshi BTC
-   * For Blank EQB order this price is per 1 EQB. Thus we are using priceMutliplier to calculate total price.// DAVID
+   * For Blank EQB order this price is per 1 EQB. Thus we are using priceMutliplier to calculate total price.
    */
   price: 'number',
 
@@ -157,7 +157,7 @@ const Order = DefineMap.extend('Order', {
    * @parent models/order.properties
    * Total price, quantity * askPrice, in satoshi BTC
    *
-   * Note: For Blank EQB we store price per coin in `price`, `priceMutliplier` accounts on this.// DAVID
+   * Note: For Blank EQB we store price per coin in `price`, `priceMutliplier` accounts on this.
    */
   totalPrice: {
     get () {

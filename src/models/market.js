@@ -43,7 +43,7 @@ const Market = DefineMap.extend('Market', {
    */
   shareVolume: 'number',
 
-  // Blank EQB stats here (similar to issuance stats):// DAVID
+  // Blank EQB stats here (similar to issuance stats):
   lowestAskEqb: 'number',
   lowestNumSharesEqb: 'number',
   highestBidEqb: 'number',

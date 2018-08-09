@@ -85,7 +85,7 @@ const FormData = DefineMap.extend({
   },
   hasFunds: {
     get () {
-      return (this.portfolio.balance[this.fundsType === 'BTC' ? 'cashBtc' : 'blankEqb'] - this.transactionFee) > 0// DAVID
+      return (this.portfolio.balance[this.fundsType === 'BTC' ? 'cashBtc' : 'blankEqb'] - this.transactionFee) > 0
     }
   },
   hasEnoughFunds: {
@@ -94,14 +94,14 @@ const FormData = DefineMap.extend({
         return this.portfolio.hasEnoughFunds(this.totalAmount, this.fundsType)
       }
       if (this.type === 'ISSUANCE' && this.issuance) {
-        // Need available shares amount and Blank EQB for the fee:// DAVID
+        // Need available shares amount and Blank EQB for the fee:
         return this.issuance.availableAmount >= this.quantity && this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
       }
     }
   },
   hasEnoughEqbFee: {
     get () {
-      // Need Blank EQB for the fee:// DAVID
+      // Need Blank EQB for the fee:
       return this.portfolio.hasEnoughFunds(this.transactionFee, 'EQB')
     }
   },

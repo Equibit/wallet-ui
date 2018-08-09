@@ -122,7 +122,7 @@ export const ViewModel = DefineMap.extend({
     }
   },
 
-  // To cancel an issuance we strip out issuance_tx_id and send as Blank EQB to a new EQB address. // DAVID
+  // To cancel an issuance we strip out issuance_tx_id and send as Blank EQB to a new EQB address.
   cancelIssuance (issuance) {
     return issuance.cancel().then(() => {
       hub.dispatch({
@@ -166,13 +166,13 @@ const sendIssuance = (portfolio, formData) => {
   let json = txouts[0].equibit.issuance_json || txouts[0].equibit.payload
   const issuanceJson = JSON.parse(json)
 
-  // todo: for now just send the blank EQB change back to where we got it: // DAVID
-  const changeAddrBlankEqb = txoutsFee[0].address // DAVID
+  // todo: for now just send the blank EQB change back to where we got it:
+  const changeAddrBlankEqb = txoutsFee[0].address
 
   const options = {
     fee: formData.transactionFee,
     changeAddr,
-    changeAddrBlankEqb,// DAVID
+    changeAddrBlankEqb,
     amountEqb,
     type: 'TRANSFER',
     currencyType,
@@ -185,7 +185,7 @@ const sendIssuance = (portfolio, formData) => {
   const tx = Transaction.makeTransaction(amount, toAddress, txouts, options)
 
   return tx.save().then(() => {
-    portfolio.markAsUsed(changeAddrBlankEqb, 'EQB', true)// DAVID
+    portfolio.markAsUsed(changeAddrBlankEqb, 'EQB', true)
   })
 }
 

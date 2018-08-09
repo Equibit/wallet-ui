@@ -20,7 +20,7 @@ const FormData = DefineMap.extend('OfferFormData', {
       return val
     }
   },
-  // For blank EQB we show quantity in EQB for flexible conversion to BTC.// DAVID
+  // For blank EQB we show quantity in EQB for flexible conversion to BTC.
   quantityInCoins: {
     type: 'number',
     // Currently in uEQB. Set quantity which is in Satoshi:
@@ -117,7 +117,7 @@ const FormData = DefineMap.extend('OfferFormData', {
 
   quantityProblem: 'string',
   get quantityIsVaild () {
-    // Ignore this validation for blank EQB.// DAVID
+    // Ignore this validation for blank EQB.
     if (this.order.assetType === 'EQUIBIT') {
       return true
     }
