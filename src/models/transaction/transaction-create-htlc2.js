@@ -4,7 +4,7 @@ import { eqbTxBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { BlockchainInfoBySymbol } from '../../utils/typeforce-types'
 import { buildTransaction } from './transaction-build'
 import { prepareHtlcConfigBtc, prepareTxData } from './transaction-create-htlc1'
-
+// DAVID THIS WHOLE FILE
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 // const simpleHashlockContract = eqbTxBuilder.simpleHashlockContract
 // const simpleHashlockAddrContract = eqbTxBuilder.simpleHashlockAddrContract

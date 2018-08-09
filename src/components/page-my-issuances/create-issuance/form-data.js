@@ -34,12 +34,12 @@ const FormData = DefineMap({
   portfolio: '*',
   get availableFunds () {
     const balance = this.portfolio.balance
-    const availableFunds = toMaxPrecision(balance.cashEqb - this.transactionFee, 8)
+    const availableFunds = toMaxPrecision(balance.cashEqb - this.transactionFee, 8)// DAVID
     return availableFunds < 0 ? 0 : availableFunds
   },
   hasFunds: {
     get () {
-      return (this.portfolio.balance['cashEqb'] - this.transactionFee) > 0
+      return (this.portfolio.balance['cashEqb'] - this.transactionFee) > 0// DAVID
     }
   },
   hasEnoughFunds: {

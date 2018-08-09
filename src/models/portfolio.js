@@ -7,6 +7,8 @@
  * @group models/portfolio.properties 0 properties
  */
 
+ // DAVID THIS WHOLE FILE
+
 import typeforce from 'typeforce'
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'

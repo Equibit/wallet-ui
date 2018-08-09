@@ -16,7 +16,7 @@ function makeTransaction (
   amount, toAddress, txouts,
   {
     fee, changeAddr, network, type, currencyType, description,
-    issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb,
+    issuanceJson, issuanceTxId, issuance, changeAddrEmptyEqb,// DAVID
     amountEqb, offerId, costPerShare
   }
 ) {
@@ -50,9 +50,9 @@ function makeTransaction (
   if (issuanceTxId) {
     outputs[0].issuanceTxId = issuanceTxId
   }
-  if (changeAddrEmptyEqb) {
+  if (changeAddrEmptyEqb) {// DAVID
     outputs.push({
-      address: changeAddrEmptyEqb,
+      address: changeAddrEmptyEqb,// DAVID
       value: toSatoshi(amountEqb - fee)
     })
   }
@@ -100,7 +100,7 @@ function addIssuanceDetails (issuance) {
 function makeHtlc (
   amount, toAddressA, toAddressB, hashlock, timelock, txouts,
   { fee, changeAddr, network, type, currencyType, description, htlcStep,
-    issuance, emptyEqbUtxo, emptyEqbAmount, emptyEqbFee, emptyEqbChangeAddr }
+    issuance, emptyEqbUtxo, emptyEqbAmount, emptyEqbFee, emptyEqbChangeAddr }// DAVID
 ) {
   typeforce(typeforce.tuple(
     'Number',
@@ -148,7 +148,7 @@ function makeHtlc (
     tx.vin.forEach(out => {
       out.issuanceTxId = issuance.utxo[0].txid
     })
-    tx.vin.push(emptyEqbUtxo.map(out => {
+    tx.vin.push(emptyEqbUtxo.map(out => {// DAVID
       return {
         txid: out.txid,
         vout: out.vout,
@@ -158,7 +158,7 @@ function makeHtlc (
       }
     }))
     tx.vout.push({
-      value: emptyEqbAmount - fee,
+      value: emptyEqbAmount - fee,// DAVID
       address: changeAddr
     })
   }

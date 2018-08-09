@@ -16,6 +16,7 @@ import { prepareTxData } from './transaction-create-htlc1'
  * Case #2: Buy (Bid) Order
  * - Buyer collects payment
  */
+// DAVID THIS WHOLE FILE
 const [ createHtlc3, createHtlcRefund3 ] = [false, true].map(isRefund => {
   return function (blockchainInfoBySymbol, order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates, locktime = 0) {
     typeforce(

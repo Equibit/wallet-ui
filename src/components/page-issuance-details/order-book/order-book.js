@@ -114,7 +114,7 @@ export const ViewModel = DefineMap.extend({
 
   get userPortfolioForIssuance () {
     return (this.assetType === 'ISSUANCE' && this.session.hasIssuanceUtxo(this.issuance.issuanceAddress)) ||
-      (this.assetType === 'EQUIBIT' && this.portfolio.utxoEmptyEqb.length)
+      (this.assetType === 'EQUIBIT' && this.portfolio.utxoEmptyEqb.length) //DAVID
   },
   isViewAllShown: 'boolean',
   showViewAll () {
@@ -262,7 +262,7 @@ function createHtlcOffer (order, secret, timelock, description, user, issuance, 
     {EQB: types.Address, BTC: typeforce.maybe(types.Address)}),
     arguments
   )
-  // Note: for Blank EQB trade there is no issuance.
+  // Note: for Blank EQB trade there is no issuance. DAVID
   if (order.assetType === 'ISSUANCE') {
     typeforce('Issuance', issuance)
   }

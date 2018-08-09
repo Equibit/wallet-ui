@@ -33,7 +33,7 @@ const FormData = DefineMap.extend('FormData', {
 
   quantity: 'number',
 
-  // For blank EQB we show quantity in EQB for flexible conversion to BTC.
+  // For blank EQB we show quantity in EQB for flexible conversion to BTC. // DAVID
   quantityInCoins: {
     type: 'number',
     // Currently in uEQB. Set quantity which is in Satoshi:
@@ -76,7 +76,7 @@ const FormData = DefineMap.extend('FormData', {
 
   // Note:
   // - For issuances we use Ask Price per issuance share (per 1 Satoshi unit).
-  // - For blank EQB we use Ask Price per EQB (N uBTC per 1 EQB).
+  // - For blank EQB we use Ask Price per EQB (N uBTC per 1 EQB).// DAVID
   get totalPriceInUnits () {
     return this.assetType === 'EQUIBIT'
       ? this.quantityInCoins * this.priceInUnits
@@ -131,7 +131,7 @@ const FormData = DefineMap.extend('FormData', {
 
   quantityProblem: 'string',
   get quantityIsVaild () {
-    // Ignore this validation for blank EQB.
+    // Ignore this validation for blank EQB.// DAVID
     if (this.assetType === 'EQUIBIT') {
       return true
     }

@@ -70,7 +70,7 @@ export const ViewModel = DefineMap.extend({
     // This is used for:
     // 1. BTC for Bid (both amount and fee in BTC)
     // 2. BTC for Ask (price of shares in BTC)
-    // 3. EQB for Ask (fee of empty EQB)
+    // 3. EQB for Ask (fee of empty EQB) // DAVID
     return currencyConverter.convertToUserFiat(value, type, currencyConverter.satoshi)
   },
   sendFn: '*',

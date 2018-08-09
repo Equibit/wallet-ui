@@ -92,7 +92,7 @@ export const ViewModel = DefineMap.extend({
    * For Ask flow its collecting securities, for Bid flow - collecting payment.
    */
   // HTLC 3:
-  // 1. Generate addr for empty EQB (to pay the fee) change.
+  // 1. Generate addr for empty EQB (to pay the fee) change. // DAVID
   // 2. Prepare tx config and create htlc3 transaction.
   // 3. Save offer htlcStep=4 and reveal the secret.
   collectSecurities () {

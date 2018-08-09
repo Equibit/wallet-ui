@@ -35,10 +35,10 @@ const titles = {
     timer: 'securitiesCollectionTimeLeftDescription',
     button: 'dealFlowMessageTitleCollectSecurities'
   },
-  blankEqb: {
-    header: 'dealFlowMessageTitleCollectBlankEqb',
-    timer: 'blankEqbCollectionTimeLeftDescription',
-    button: 'dealFlowMessageTitleCollectBlankEqb'
+  blankEqb: {// DAVID
+    header: 'dealFlowMessageTitleCollectBlankEqb',// DAVID
+    timer: 'blankEqbCollectionTimeLeftDescription',// DAVID
+    button: 'dealFlowMessageTitleCollectBlankEqb'// DAVID
   }
 }
 
@@ -72,7 +72,7 @@ export const ViewModel = DefineMap.extend({
   titles: {
     type: '*',
     get (lastSetVal) {
-      let titleProp = this.tx.currencyType === 'EQB' && this.tx.assetType === 'EQUIBIT' ? 'blankEqb' : this.tx.currencyType
+      let titleProp = this.tx.currencyType === 'EQB' && this.tx.assetType === 'EQUIBIT' ? 'blankEqb' : this.tx.currencyType // DAVID
       return lastSetVal ? lastSetVal[titleProp] : titles[titleProp || 'BTC']
     }
   },

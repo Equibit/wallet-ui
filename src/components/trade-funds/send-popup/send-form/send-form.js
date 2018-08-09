@@ -68,7 +68,7 @@ export const ViewModel = DefineMap.extend({
   get availableFunds () {
     if (this.formData.type === 'FUNDS') {
       const balance = this.portfolio.balance
-      const funds = this.formData.fundsType === 'BTC' ? balance.cashBtc : balance.cashEqb
+      const funds = this.formData.fundsType === 'BTC' ? balance.cashBtc : balance.cashEqb// DAVID
       const availableFunds = toMaxPrecision(funds - this.formData.transactionFee, 8)
       return availableFunds < 0 ? 0 : availableFunds
     }
@@ -91,7 +91,7 @@ export const ViewModel = DefineMap.extend({
   formatIssuance (issuance) {
     // ${issuance.marketCap} uBTC
     return `
-      <span class="issuance issuance-company">${issuance.companyName}</span> 
+      <span class="issuance issuance-company">${issuance.companyName}</span>
       <span class="issuance issuance-name">${issuance.issuanceName}</span>
       <span class="issuance issuance-quantity">
         ${issuance.isSecurity ? 'My Portfolio' : ''} ${formatShares(issuance.availableAmount)}

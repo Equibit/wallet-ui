@@ -14,6 +14,7 @@ import { prepareTxData } from './transaction-create-htlc1'
  * - To: BTC
  * - From: BTC
  */
+// DAVID THIS WHOLE FILE
 const [createHtlc4, createHtlcRefund4] = [false, true].map(isRefund => {
   return function (blockchainInfoBySymbol, order, offer, portfolio, issuance, secret, changeAddr, transactionFeeRates, locktime = 0) {
     typeforce(

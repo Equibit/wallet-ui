@@ -119,7 +119,7 @@ export const ViewModel = DefineMap.extend({
       }
       const issuance = this.issuance
 
-      // Change address (Empty EQB for transaction fee or BTC for change):
+      // Change address (Empty EQB for transaction fee or BTC for change): // DAVID
       const changeAddr = this.order.type === 'SELL' ? changeAddrPair.EQB : changeAddrPair.BTC
 
       // todo: BTC should be different for every new offer of the same order.
