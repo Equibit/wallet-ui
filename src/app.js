@@ -50,7 +50,9 @@ const pages = {
   'my-trading-passports': 'private',
   'my-inbox': 'private',
   orders: 'private',
-  offers: 'private'
+  offers: 'private',
+  'questionnaire': 'private',
+  'questionnaires': 'private'
 }
 
 const AppViewModel = DefineMap.extend({

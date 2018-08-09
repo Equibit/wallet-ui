@@ -15,6 +15,7 @@ import './page-my-issuances/create-issuance/issuance-form/issuance-form-test'
 
 import './page-orders/order-list/order-list-test'
 import './page-orders/order-offers-data/order-offers-data-test'
+import './page-questionnaire/page-questionnaire-test'
 
 import './page-preferences/user-password/user-password-test'
 

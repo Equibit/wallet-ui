@@ -1,0 +1,16 @@
+{{! <can-import from="~/utils/helpers" /> }}
+
+<div class="row margin-top">
+  <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2"><h2 class="bold">Choose a questionnaire</h2></div>
+</div>
+<div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
+  <div class="panel no-margin">
+    <div class="panel-body">
+      {{#each (questionnaires, questionnaire=value)}}
+        <div class="row margin-top margin-left">
+          <a href="{{routeUrl page='questionnaire' itemId=questionnaire.id}}">{{questionnaire.title}}</a>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

@@ -17,6 +17,8 @@
     <can-import from="~/components/page-research/" />
     <can-import from="~/components/page-issuances/" />
     <can-import from="~/components/page-issuance-details/" />
+    <can-import from="~/components/page-questionnaire/" />
+    <can-import from="~/components/page-questionnaires/" />
     <can-import from="~/components/page-equibit/" />
     <can-import from="~/components/page-portfolio/" />
     <can-import from="~/components/page-transactions/" />
@@ -75,6 +77,12 @@
         <page-issuance-details companySlug:from="companySlug"
                                issuanceId:from="itemId"
                                portfolio:from="session.portfolios.0"/>
+      {{/case}}
+      {{#case 'questionnaires'}}
+        <page-questionnaires />
+      {{/case}}
+      {{#case 'questionnaire'}}
+        <page-questionnaire />
       {{/case}}
       {{#case 'equibit'}}
         <page-equibit portfolio:from="session.portfolios.0"/>
