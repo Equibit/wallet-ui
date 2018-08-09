@@ -168,7 +168,7 @@ const Order = DefineMap.extend('Order', {
     return Issuance.typesMap[this.issuanceType] || this.issuanceType
   },
   get dateDisplay () {
-    return moment(this.createdAt).add(this.goodFor, 'days').format('MMM D')
+    return moment(this.createdAt).format('MMM D')
   },
   get statusDisplay () {
     return translate(`status${this.statusWithExpiry}`)
