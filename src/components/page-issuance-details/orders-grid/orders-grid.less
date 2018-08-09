@@ -1,3 +1,6 @@
+@import '../../../styles/bootstrap-custom/_variables.less';
+@import (reference) '../../../styles/custom/_mixins.less';
+
 orders-grid {
 	display: flex;
   flex: 1 1 auto;
@@ -28,5 +31,17 @@ orders-grid {
     .column-quantity, .column-price {
       text-align: right;
     }
+  }
+
+  .is-loading {
+    position: relative;
+    opacity: 0.7;
+  }
+  
+  loading-indicator {
+    position: absolute;
+    top: 50%;  /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+    transform: translate(-50%, -50%);
   }
 }

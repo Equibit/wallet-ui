@@ -21,6 +21,9 @@ import Order from '~/models/order'
 import Offer from '~/models/offer'
 import Session from '~/models/session'
 
+const INIT_PAGE_SIZE = 20
+const PAGE_SIZE_INCREMENT = 100
+
 export const ViewModel = DefineMap.extend({ seal: false }, {
   type: {
     set (val) {
@@ -37,7 +40,25 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   },
   limit: {
     type: 'number',
-    value: 10
+    value: INIT_PAGE_SIZE
+  },
+  skip: {
+    type: 'number',
+    value: 0
+  },
+  isLoading: 'boolean',
+  hasMore: {
+    type: 'boolean',
+    value: true
+  },
+  loadMore () {
+    if (this.limit === INIT_PAGE_SIZE) {
+      this.limit += PAGE_SIZE_INCREMENT
+      this.skip = INIT_PAGE_SIZE
+    } else {
+      this.limit += PAGE_SIZE_INCREMENT
+      this.skip += PAGE_SIZE_INCREMENT
+    }
   },
   rowsPromise: {
     get () {
@@ -45,9 +66,10 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         console.error('Orders require issuanceAddress!')
         return
       }
+      this.isLoading = true
       const params = {
         $limit: this.limit,
-        $skip: 0,
+        $skip: this.skip,
         type: this.type,
         status: 'OPEN',
         $sort: { 'price': this.type === 'BUY' ? -1 : 1 },
@@ -56,7 +78,16 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       if (this.assetType !== 'ISSUANCE') {
         params.assetType = this.assetType
       }
-      return Order.getList(params)
+      return Order.getList(params).then(r => {
+        this.isLoading = true
+        this.hasMore = r.total > r.skip + r.length
+        this.isLoading = false
+        return r
+      }, e => {
+        this.hasMore = false
+        this.isLoading = false
+        throw e
+      })
     }
   },
   get userOffersPromise () {
@@ -80,10 +111,20 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       return Session.current
     }
   },
+  rowsList: {
+    value: []
+  },
   rows: {
     get (val, resolve) {
       this.rowsPromise && this.rowsPromise.then(d => {
+        d.forEach(elem => {
+          if (this.rowsList.indexOf(elem) === -1) {
+            this.rowsList.push(elem)
+          }
+        })
         resolve && resolve(d)
+      }).then(() => {
+        resolve(this.rowsList)
       })
       return val
     }

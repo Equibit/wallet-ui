@@ -1,9 +1,14 @@
 <can-import from="~/components/common/grid/grid.less" />
 <can-import from="~/utils/stache-helpers/" />
 <can-import from="grid-component" />
+<can-import from="~/components/common/loading-indicator/" />
 
 <grid-component class="{{#if rowsPromise.isPending}}loading{{/if}}">
-  <div class="grid-responsive order-type-{{../type}}">
+
+  <div class="grid-responsive order-type-{{../type}} {{#if isLoading}}is-loading{{/if}}">
+  {{#if isLoading}}
+    <loading-indicator />
+  {{/if}}
   {{#is ../type 'SELL'}}
 
     <div class="grid-header-container">

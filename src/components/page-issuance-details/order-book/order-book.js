@@ -43,6 +43,8 @@ export const ViewModel = DefineMap.extend({
   },
   hasSellOrders: 'boolean',
   hasBuyOrders: 'boolean',
+  hasMoreSell: 'boolean',
+  hasMoreBuy: 'boolean',
   hasOrders: {
     get () {
       return this.hasSellOrders || this.hasBuyOrders
@@ -50,7 +52,6 @@ export const ViewModel = DefineMap.extend({
   },
   newOrderType: 'string',
   isModalShown: 'boolean',
-
   // Add new order modal:
   showModal (newOrderType) {
     // Note: we need to re-insert the modal content:
@@ -58,7 +59,8 @@ export const ViewModel = DefineMap.extend({
     this.isModalShown = false
     this.isModalShown = true
   },
-
+  loadMoreSell: '*',
+  loadMoreBuy: '*',
   order: '*',
   offer: '*',
   isBuySellShown: 'boolean',
