@@ -5,10 +5,10 @@
 
 <grid-component class="{{#if rowsPromise.isPending}}loading{{/if}}">
 
+  <div class="grid-responsive order-type-{{../type}} {{#if isLoading}}is-loading{{/if}}">
   {{#if isLoading}}
     <loading-indicator />
   {{/if}}
-  <div class="grid-responsive order-type-{{../type}} {{#if isLoading}}is-loading{{/if}}">
   {{#is ../type 'SELL'}}
 
     <div class="grid-header-container">

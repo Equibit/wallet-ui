@@ -21,6 +21,9 @@ import Order from '~/models/order'
 import Offer from '~/models/offer'
 import Session from '~/models/session'
 
+const INIT_PAGE_SIZE = 20
+const PAGE_SIZE_INCREMENT = 100
+
 export const ViewModel = DefineMap.extend({ seal: false }, {
   type: {
     set (val) {
@@ -37,7 +40,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
   },
   limit: {
     type: 'number',
-    value: 21
+    value: INIT_PAGE_SIZE
   },
   skip: {
     type: 'number',
@@ -49,12 +52,12 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     value: true
   },
   loadMore () {
-    if (this.limit === 21) {
-      this.limit += 100
-      this.skip = 21
+    if (this.limit === INIT_PAGE_SIZE) {
+      this.limit += PAGE_SIZE_INCREMENT
+      this.skip = INIT_PAGE_SIZE
     } else {
-      this.limit += 100
-      this.skip += 100
+      this.limit += PAGE_SIZE_INCREMENT
+      this.skip += PAGE_SIZE_INCREMENT
     }
   },
   rowsPromise: {

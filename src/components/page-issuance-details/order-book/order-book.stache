@@ -12,7 +12,7 @@
     <div class="col-lg-6 col-xs-12 sell-orders no-padding-left">
       <h3 class="subheading">{{i18n('sellOrders')}}</h3>
 
-      <orders-grid type:from="'SELL'" limit:from="21"
+      <orders-grid type:from="'SELL'" limit:from="20"
                    assetType:from="assetType"
                    session:from="session"
                    portfolio:from="portfolio"
@@ -52,7 +52,7 @@
     <div class="col-lg-6 col-xs-12 buy-orders no-padding-right">
       <h3 class="subheading">{{i18n('buyOrders')}}</h3>
 
-      <orders-grid type:from="'BUY'" limit:from="21"
+      <orders-grid type:from="'BUY'" limit:from="20"
                    assetType:from="assetType"
                    session:from="session"
                    portfolio:from="portfolio"
