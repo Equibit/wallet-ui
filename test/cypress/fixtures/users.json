@@ -6,12 +6,24 @@
     },
     "invalidUser": {
         "id": 0,
-        "email": "test2@evenset.com",
+        "email": "invalidTest@evenset.com",
         "password": "secret123"
     },
-    "validUser": {
+    "validUsers": [
+        {
+            "id": 0,
+            "email": "test@evenset.com",
+            "password": "SpicyTunaMayo"
+        },
+        {
+            "id": 1,
+            "email": "test2@evenset.com",
+            "password": "SpicyTunaMayo"
+        }
+    ],
+    "noPortfolio": {
         "id": 0,
-        "email": "test@evenset.com",
+        "email": "noPortfolio@evenset.com",
         "password": "SpicyTunaMayo"
     }
 }

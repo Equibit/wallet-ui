@@ -8,5 +8,6 @@
     "screenshotsFolder": "test/cypress/screenshots",
     "supportFile": "test/cypress/support/index.js",
     "videosFolder": "test/cypress/videos",
-    "videoUploadOnPasses": false
+    "videoUploadOnPasses": false,
+    "defaultCommandTimeout": 20000
 }

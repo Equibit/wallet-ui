@@ -61,7 +61,7 @@ describe('Login Test', () => {
   })
 
   it('successfully log in using UI', function () {
-    cy.login(this.users.validUser)
+    cy.login(this.users.validUsers[0])
 
     cy.url().should('contain', '/portfolio')
     
