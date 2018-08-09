@@ -68,7 +68,7 @@ export const ViewModel = DefineMap.extend({
   get availableFunds () {
     if (this.formData.type === 'FUNDS') {
       const balance = this.portfolio.balance
-      const funds = this.formData.fundsType === 'BTC' ? balance.cashBtc : balance.cashEqb// DAVID
+      const funds = this.formData.fundsType === 'BTC' ? balance.cashBtc : balance.blankEqb// DAVID
       const availableFunds = toMaxPrecision(funds - this.formData.transactionFee, 8)
       return availableFunds < 0 ? 0 : availableFunds
     }

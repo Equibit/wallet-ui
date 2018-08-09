@@ -88,7 +88,7 @@ export const ViewModel = DefineMap.extend({
       this.changeAddrPromise
     ]).then(([transactionFeeRates, changeAddrPair]) => {
       const flowType = this.formData.flowType
-      // Bid flow: change address for Empty EQB. // DAVID
+      // Bid flow: change address for Blank EQB. // DAVID
       const changeAddr = flowType === 'Ask' ? changeAddrPair.BTC : changeAddrPair.EQB
       const tx = Transaction.createHtlc1(
         this.offer, this.order, this.portfolio, this.issuance, changeAddr,

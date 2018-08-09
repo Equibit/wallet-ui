@@ -166,7 +166,7 @@ describe('models/transaction/utils', function () {
           order = htlcOfferMock.order
           buildConfig = htlcConfig.buildConfig
         })
-        it('should have two vin for issuance and empty EQB', function () {
+        it('should have two vin for issuance and blank EQB', function () {
           assert.equal(buildConfig.vin.length, 2, 'two vins')
         })
         it('should have correct issuance inputs', function () {
@@ -174,11 +174,11 @@ describe('models/transaction/utils', function () {
           assert.equal(buildConfig.vin[0].vout, issuance.utxo[0].vout, 'vin.0.vout')
           assert.ok(buildConfig.vin[0].keyPair, 'keyPair')
         })
-        it('should have correct empty EQB inputs', function () {
+        it('should have correct blank EQB inputs', function () {
           const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
-          assert.equal(buildConfig.vin[1].txid, utxo[0].txid, 'txid empty EQB')
-          assert.equal(buildConfig.vin[1].vout, utxo[0].vout, 'vin.1.vout empty EQB')
-          assert.ok(buildConfig.vin[1].keyPair, 'keyPair empty EQB')
+          assert.equal(buildConfig.vin[1].txid, utxo[0].txid, 'txid blank EQB')
+          assert.equal(buildConfig.vin[1].vout, utxo[0].vout, 'vin.1.vout blank EQB')
+          assert.ok(buildConfig.vin[1].keyPair, 'keyPair blank EQB')
         })
         it('should have 3 outputs', function () {
           assert.equal(buildConfig.vout.length, 3, 'three vouts')
@@ -192,10 +192,10 @@ describe('models/transaction/utils', function () {
           assert.equal(buildConfig.vout[1].value, issuance.utxo[0].amount - amount, 'change for securities of 149999500')
           assert.equal(buildConfig.vout[1].address, order.eqbAddress, 'change address for securities (eqbAddress)')
         })
-        it('should have correct empty EQB change output', function () {
+        it('should have correct blank EQB change output', function () {
           const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
-          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 3000, 'change amount empty EQB of 219999000')
-          assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for empty EQB')
+          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 3000, 'change amount blank EQB of 219999000')
+          assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for blank EQB')
         })
       })
 
@@ -270,10 +270,10 @@ describe('models/transaction/utils', function () {
           htlcConfig = prepareHtlcConfig3(order, offer, portfolio, issuance, offer.secretHex, changeAddrPair.EQB)
           buildConfig = htlcConfig.buildConfig
         })
-        it('should have two vin for issuance and empty EQB fee', function () {
+        it('should have two vin for issuance and blank EQB fee', function () {
           assert.equal(buildConfig.vin.length, 2, 'two vins')
         })
-        it('should have two vout for issuance and empty EQB fee change', function () {
+        it('should have two vout for issuance and blank EQB fee change', function () {
           assert.equal(buildConfig.vout.length, 2, 'two vins')
         })
         it('should have correct issuance inputs', function () {
@@ -281,11 +281,11 @@ describe('models/transaction/utils', function () {
           assert.equal(buildConfig.vin[0].vout, 0, 'vin.0.vout')
           assert.ok(buildConfig.vin[0].keyPair, 'keyPair')
         })
-        it('should have correct empty EQB inputs', function () {
+        it('should have correct blank EQB inputs', function () {
           const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
-          assert.equal(buildConfig.vin[1].txid, utxo[0].txid, 'txid empty EQB')
-          assert.equal(buildConfig.vin[1].vout, utxo[0].vout, 'vin.1.vout empty EQB')
-          assert.ok(buildConfig.vin[1].keyPair, 'keyPair empty EQB')
+          assert.equal(buildConfig.vin[1].txid, utxo[0].txid, 'txid blank EQB')
+          assert.equal(buildConfig.vin[1].vout, utxo[0].vout, 'vin.1.vout blank EQB')
+          assert.ok(buildConfig.vin[1].keyPair, 'keyPair blank EQB')
         })
         it.skip('should have correct issuance output (amount, script and issuance txid)', function () {
           assert.equal(buildConfig.vout[0].value, amount, 'amount of 500')
@@ -296,10 +296,10 @@ describe('models/transaction/utils', function () {
           assert.equal(buildConfig.vout[1].value, issuance.utxo[0].amount - amount, 'change for securities of 149999500')
           assert.equal(buildConfig.vout[1].address, order.eqbAddress, 'change address for securities (eqbAddress)')
         })
-        it.skip('should have correct empty EQB  change output', function () {
+        it.skip('should have correct blank EQB  change output', function () {
           const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
-          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 3000, 'change amount empty EQB of 219999000')
-          assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for empty EQB')
+          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 3000, 'change amount blank EQB of 219999000')
+          assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for blank EQB')
         })
       })
 
@@ -430,10 +430,10 @@ describe('models/transaction/utils', function () {
           htlcConfig = prepareHtlcRefundConfig3(order, offer, portfolio, issuance, offer.secretHex, changeAddrPair.EQB)
           buildConfig = htlcConfig.buildConfig
         })
-        it('should have two vin for issuance and empty EQB fee', function () {
+        it('should have two vin for issuance and blank EQB fee', function () {
           assert.equal(buildConfig.vin.length, 2, 'two vins')
         })
-        it('should have two vout for refund and empty EQB fee change', function () {
+        it('should have two vout for refund and blank EQB fee change', function () {
           assert.equal(buildConfig.vout.length, 2, 'two vins')
           assert.equal(buildConfig.vout[0].address, order.eqbAddress, 'addressed to order holder (refund)')
         })
@@ -442,11 +442,11 @@ describe('models/transaction/utils', function () {
           assert.equal(buildConfig.vin[0].vout, 0, 'vin.0.vout')
           assert.ok(buildConfig.vin[0].keyPair, 'keyPair')
         })
-        it('should have correct empty EQB inputs', function () {
+        it('should have correct blank EQB inputs', function () {
           const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
-          assert.equal(buildConfig.vin[1].txid, utxo[0].txid, 'txid empty EQB')
-          assert.equal(buildConfig.vin[1].vout, utxo[0].vout, 'vin.1.vout empty EQB')
-          assert.ok(buildConfig.vin[1].keyPair, 'keyPair empty EQB')
+          assert.equal(buildConfig.vin[1].txid, utxo[0].txid, 'txid blank EQB')
+          assert.equal(buildConfig.vin[1].vout, utxo[0].vout, 'vin.1.vout blank EQB')
+          assert.ok(buildConfig.vin[1].keyPair, 'keyPair blank EQB')
         })
         it.skip('should have correct issuance output (amount, script and issuance txid)', function () {
           assert.equal(buildConfig.vout[0].value, amount, 'amount of 500')
@@ -457,10 +457,10 @@ describe('models/transaction/utils', function () {
           assert.equal(buildConfig.vout[1].value, issuance.utxo[0].amount - amount, 'change for securities of 149999500')
           assert.equal(buildConfig.vout[1].address, order.eqbAddress, 'change address for securities (eqbAddress)')
         })
-        it.skip('should have correct empty EQB  change output', function () {
+        it.skip('should have correct blank EQB  change output', function () {
           const utxo = portfolio.utxoByTypeByAddress.EQB.addresses.mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU.txouts
-          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 3000, 'change amount empty EQB of 219999000')
-          assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for empty EQB')
+          assert.equal(buildConfig.vout[2].value, utxo[0].amount - 3000, 'change amount blank EQB of 219999000')
+          assert.equal(buildConfig.vout[2].address, changeAddrPair.EQB, 'change address for blank EQB')
         })
       })
 
@@ -668,7 +668,7 @@ describe('models/transaction/utils', function () {
         })
       })
 
-      describe('for empty EQB', function () {
+      describe('for blank EQB', function () {
         before(function () {
           amount = 1000
           toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'

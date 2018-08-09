@@ -29,9 +29,9 @@ export const ViewModel = DefineMap.extend({
   btcError: {
     type: 'boolean'
   },
-  cashEqbInBtc: { // DAVID
+  blankEqbInBtc: { // DAVID
     get (val, resolve) {
-      currencyConverter.convertCryptoToCrypto(this.balance.cashEqb, 'EQB', 'BTC').then(resolve) // DAVID
+      currencyConverter.convertCryptoToCrypto(this.balance.blankEqb, 'EQB', 'BTC').then(resolve) // DAVID
     }
   }
 })

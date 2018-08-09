@@ -174,7 +174,7 @@ export const ViewModel = DefineMap.extend({
     const amount = formData.amount
     const currencyType = 'EQB'
     const issuanceJson = issuance.getJson()
-    const utxo = this.portfolio.getEmptyEqb(amount + fee)// DAVID
+    const utxo = this.portfolio.getBlankEqb(amount + fee)// DAVID
     if (utxo.sum < amount + fee) {
       throw new Error('Not enough UTXO')
     }
