@@ -9,7 +9,7 @@
         <span class="icon {{#if isSending}}icon-spinner icon-animation-spin{{else}}icon-upload{{/if}}"></span>
         {{i18n('send')}}
       </a></li>
-      <li><a on:click="receiveFunds()"><span class="icon icon-download"></span> {{i18n('receive')}}</a></li>
+      <li><a id="receiveFunds" on:click="receiveFunds()"><span class="icon icon-download"></span> {{i18n('receive')}}</a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="icon icon-menu no-label"></span></a>
         <ul class="dropdown-menu">

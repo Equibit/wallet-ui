@@ -14,7 +14,7 @@
     <div class="message-box no-border">
       <div class="message-box-status">{{i18n('placeholderPortfolioNoFundsTitle')}}</div>
       <p class="message-box-cause">{{i18n('placeholderPortfolioNoFundsDescription')}}</p>
-      <a class="btn btn-primary" on:click="receiveFunds()"><span class="icon icon-download"></span> {{i18n('receive')}}</a>
+      <a id="createPortfolio" class="btn btn-primary" on:click="receiveFunds()"><span class="icon icon-download"></span> {{i18n('receive')}}</a>
     </div>
   </div>
 
@@ -46,7 +46,7 @@
         <div class="row">
           <div class="col-xs-12 summary-section no-padding-right no-padding-left">
             <label>{{i18n('totalCash')}}</label>
-            <span>{{user-units(portfolio.balance.cashTotal, 8)}} <small>BTC</small></span>
+            <span id="totalCash">{{user-units(portfolio.balance.cashTotal, 8)}} <small>BTC</small></span>
           </div>
         </div>
 

@@ -1,13 +1,35 @@
 sudo: required
 dist: trusty
 language: node_js
-node_js: 7.3
+node_js: 8.6.0
 addons:
   firefox: "52.3.0"
-cache: yarn
+services: mongodb
+cache:
+  yarn: true
+  directories:
+    - api
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
+  # Clone backend repo
+  - "[ -d api/.git ] || git clone git@github.com:Equibit/wallet-api.git api"
+  - "cd api"
+  - "git reset --hard"
+  - "git clean -f"
+  - "git pull"
+  # Install dependencies
+  - "npm install"
+  # Run server
+  - "npm run e2e &"
+  # Wait for server to start
+  - "sleep 5"
+  - "cd .."
 script:
   - sudo sh -c "dbus-uuidgen > /etc/machine-id"
-  - npm run test
+  - yarn run test
+  - yarn run test-cypress
+after_script:
+  - kill $(jobs -p) || true
+  - sudo service mongodb stop
+  - pkill node
