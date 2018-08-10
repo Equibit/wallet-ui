@@ -48,8 +48,8 @@ export const ViewModel = DefineMap.extend({
     return this.user.verifyMnemonicHash(this.mnemonic)
       .then(() => this.user.generateKeysAndPatchUser(this.mnemonic))
       .then(() => { route.data.page = 'change-password' })
-      .catch(err => { 
-        if(!this.mnemonic) {
+      .catch(err => {
+        if (!this.mnemonic) {
           this.error = translate('validationMnemonicEmpty')
         } else {
           this.error = translate(err.message)
