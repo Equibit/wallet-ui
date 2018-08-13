@@ -3,7 +3,9 @@ import DefineMap from 'can-define/map/'
 import './page-questionnaire.less'
 import view from './page-questionnaire.stache'
 import route from 'can-route'
-import Questionnaire from '../../models/questionnaire'
+import Questionnaire, { Question } from '../../models/questionnaire'
+import Session from '../../models/session'
+
 
 export const ViewModel = DefineMap.extend({
   questionnaire: {
@@ -19,7 +21,7 @@ export const ViewModel = DefineMap.extend({
   },
   questions: {
     get () {
-      return this.questionnaire ? this.questionnaire.questions : new Questionnaire.List([])
+      return this.questionnaire ? this.questionnaire.questions : new Question.List([])
     }
   },
   userAnswers: {
@@ -77,7 +79,7 @@ export const ViewModel = DefineMap.extend({
         }
         if (selection.length) {
           const skipTos = selection.map(
-            optionIndex => this.questions[nextQuestion].answerOptions[optionIndex]
+            optionIndex => this.questions[curr].answerOptions[optionIndex]
           ).map(
             option => option.finalQuestion ? Infinity : (option.skipTo - 1) || 0
           )
@@ -85,7 +87,7 @@ export const ViewModel = DefineMap.extend({
           nextQuestion = Math.max(...skipTos, curr)
           continue
         }
-        const answerOption = this.questions[nextQuestion].answerOptions[selection]
+        const answerOption = this.questions[curr].answerOptions[selection]
         if (answerOption.finalQuestion) {
           nextQuestion = Infinity
         } else if (answerOption.skipTo) {
@@ -100,8 +102,38 @@ export const ViewModel = DefineMap.extend({
   submitAnswers () {
     //! steal-remove-start
     console.log(this.userAnswers)
+    console.log(Session.current.portfolios[0].addressesEqb[0])
     //! steal-remove-end
-
+    console.log({
+      questionnaireId: route.data.itemId,
+      answers: this.userAnswers.map(({answer}, index) => {
+        const question = this.questions[index]
+        if (this.enabledQuestions[index]) {
+          if (answer.selection || answer.selection === 0) {
+            if (question.questionType === 'SINGLE') {
+              if (question.answerOptions[answer.selection].answer === 'CUSTOM') {
+                return answer.custom
+              } else {
+                return question.answerOptions[answer.selection].answer
+              }
+            } else {
+              if (answer.selection.length === 0) {
+                return null
+              }
+              return answer.selection.map(selected => {
+                const option = question.answerOptions[selected].answer
+                if (option === 'CUSTOM') {
+                  return answer.custom
+                } else {
+                  return option
+                }
+              })
+            }
+          }
+        }
+        return null
+      })
+    })
     // todo: update user after answers are saved.
     // this.user.questionnaire = 'COMPLETED'
 
