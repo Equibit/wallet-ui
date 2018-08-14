@@ -353,6 +353,7 @@ export default {
   inboxNoPolls: 'There are no polls',
   inboxPollsPlaceholder: 'Polls sent to you will show here',
   interest: 'Interest',
+  invalidAnswers: 'Your answers were incomplete or invalid',
   issuance: 'Issuance',
   issuances: 'Issuances',
   issuancesAll: 'All Issuances',
@@ -521,6 +522,8 @@ export default {
   quantityRemainingLabel: 'Remaining',
   quantityMessageCheckingSellData: 'checking sell data...',
   quarterly: 'Quarterly',
+  questionnaireSubmissionComplete: 'Questionnaire complete',
+  questionnaireSubmissionFailed: 'Questionnaire submission failed',
 
   receive: 'Receive',
   receiveInfo: 'Use a unique address to add funds to your account.',
@@ -570,6 +573,8 @@ export default {
   restrictionLevel3Description: 'No secondary market. Securities can only be returned to the issuer.',
   results: 'Results',
   retrieveFundsError: 'Could not retrieve funds.',
+  rewardDelayed: 'Your reward will be delivered shortly',
+  rewardSent: 'Your reward has been delivered',
 
   safetyZone: 'Safety Zone',
   safetyZoneDescription: 'Time left to safely recover your assets',
@@ -724,6 +729,7 @@ export default {
   transactionFailedAlertTitle: 'Transaction Failed',
   transferFundsInstructionDescription: 'Transfer funds first using the <link/>.',
   tryAgain: 'Try Again.',
+  tryAgainLater: 'Try again later',
   type: 'Type',
   txId: 'TxID',
 

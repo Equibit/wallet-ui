@@ -2,7 +2,8 @@ import route from 'can-route'
 import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 
-import hub from '~/utils/event-hub';
+import hub from '~/utils/event-hub'
+import { translate } from '~/i18n'
 import './page-questionnaire.less'
 import view from './page-questionnaire.stache'
 import Questionnaire, { Question } from '../../models/questionnaire'
@@ -137,14 +138,14 @@ export const ViewModel = DefineMap.extend({
     toSave.save().then(
       saved => {
         const message = saved.status === 'REWARDED'
-        ? 'your reward has been sent'
-        : 'reward will be delivered shortly'
+        ? translate('rewardSent')
+        : translate('rewardDelayed')
 
         const options = {
           type: 'alert',
           kind: 'success',
-          title: 'Questionnaire complete',
-          displayInterval: 3000,
+          title: translate('questionnaireSubmissionComplete'),
+          displayInterval: 8000,
           message
         };
         hub.dispatch(options);
@@ -153,13 +154,13 @@ export const ViewModel = DefineMap.extend({
       },
       e => {
         const message = e.message === 'Completed answer array is invalid!'
-          ? 'provided answers were invalid'
-          : 'try again later'
+          ? translate('invalidAnswers')
+          : translate('tryAgainLater')
         const options = {
           type: 'alert',
           kind: 'warning',
-          title: 'Questionnaire submission failed',
-          displayInterval: 3000,
+          title: translate('questionnaireSubmissionFailed'),
+          displayInterval: 8000,
           message
         };
         hub.dispatch(options);
