@@ -1,9 +1,12 @@
+import route from 'can-route'
 import Component from 'can-component'
 import DefineMap from 'can-define/map/'
+
+import hub from '~/utils/event-hub';
 import './page-questionnaire.less'
 import view from './page-questionnaire.stache'
-import route from 'can-route'
 import Questionnaire, { Question } from '../../models/questionnaire'
+import UserQuestionnaire from '../../models/user-questionnaire'
 import Session from '../../models/session'
 
 
@@ -100,11 +103,7 @@ export const ViewModel = DefineMap.extend({
   },
 
   submitAnswers () {
-    //! steal-remove-start
-    console.log(this.userAnswers)
-    console.log(Session.current.portfolios[0].addressesEqb[0])
-    //! steal-remove-end
-    console.log({
+    const toSave = new UserQuestionnaire({
       questionnaireId: route.data.itemId,
       answers: this.userAnswers.map(({answer}, index) => {
         const question = this.questions[index]
@@ -132,12 +131,40 @@ export const ViewModel = DefineMap.extend({
           }
         }
         return null
-      })
+      }),
+      address: Session.current.portfolios[0].addressesEqb[0]
     })
-    // todo: update user after answers are saved.
-    // this.user.questionnaire = 'COMPLETED'
+    toSave.save().then(
+      saved => {
+        const message = saved.status === 'REWARDED'
+        ? 'your reward has been sent'
+        : 'reward will be delivered shortly'
 
-    // this.answers.forEach(a => a.save())
+        const options = {
+          type: 'alert',
+          kind: 'success',
+          title: 'Questionnaire complete',
+          displayInterval: 3000,
+          message
+        };
+        hub.dispatch(options);
+
+        route.data.page = 'questionnaires'
+      },
+      e => {
+        const message = e.message === 'Completed answer array is invalid!'
+          ? 'provided answers were invalid'
+          : 'try again later'
+        const options = {
+          type: 'alert',
+          kind: 'warning',
+          title: 'Questionnaire submission failed',
+          displayInterval: 3000,
+          message
+        };
+        hub.dispatch(options);
+      }
+    )
   },
 
   selectCustom (question, num) {
