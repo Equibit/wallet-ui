@@ -3,7 +3,7 @@ import Component from 'can-component'
 import DefineMap from 'can-define/map/'
 
 import hub from '~/utils/event-hub'
-import { translate } from '~/i18n'
+import { translate } from '~/i18n/'
 import './page-questionnaire.less'
 import view from './page-questionnaire.stache'
 import Questionnaire, { Question } from '../../models/questionnaire'
