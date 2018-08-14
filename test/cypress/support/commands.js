@@ -53,3 +53,16 @@ Cypress.Commands.add('loginQA', () => {
     .get('button[type="submit"]')
     .click()
 })
+
+Cypress.Commands.add('logout', () => {
+    
+    Cypress.log({
+        name: 'logout'
+    })
+
+    cy.get('.dropdown-toggle.icon.icon-user')
+      .click()
+    cy.contains('Log Out')
+      .click()
+      
+})

@@ -1,5 +1,5 @@
 /*eslint-disable */
-describe('Send Funds Test', () => {
+describe('Transfer Funds Test', () => {
 
   beforeEach(() => {
     cy.fixture('users').as('users')
@@ -50,7 +50,7 @@ describe('Send Funds Test', () => {
         .should('contain', 'Invalid address')
     })
 
-    it('can send EQB to valid address', function () {
+    it('can send EQB to valid address, and checks that the address receives EQB', function () {
       cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[2].plainEQBaddress)
       cy.contains('Equibit').click()
       cy
@@ -87,12 +87,32 @@ describe('Send Funds Test', () => {
         .get('.selected.tx-in')
         .should('contain', 'Transfer Out')
         .should('contain', 'Equibit')
-      cy
         .get('#column-cash-EQB')
         .should('contain', '0.000025') // Could vary depending on txn fee
+      
+      cy.logout()
+      cy.login(this.users.validUsers[2])
+
+      cy
+        .get('.dropdown-toggle.icon.icon-user')
+        .click()
+      cy
+        .contains('Transactions')
+        .should('be.visible')
+        .click()
+      cy.url().should('contain', '/transactions')
+      cy
+        .get('.panel-title')
+        .should('contain', 'All Transactions')
+      cy
+        .get('.selected.tx-in')
+        .should('contain', 'Transfer In')
+        .should('contain', 'Equibit')
+        .get('#column-cash-EQB')
+        .should('contain', '0.00001')
     })
 
-    it('can send BTC to valid address', function () {
+    it('can send BTC to valid address, and checks that the address receives BTC', function () {
       cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[2].plainEQBaddress)
       cy.contains('Bitcoin').click()
       cy
@@ -129,9 +149,29 @@ describe('Send Funds Test', () => {
         .get('.selected.tx-in')
         .should('contain', 'Transfer Out')
         .should('contain', 'Bitcoin')
-      cy
         .get('#column-cash-BTC')
         .should('contain', '0.000021') // Could vary depending on txn fee
+
+      cy.logout()
+      cy.login(this.users.validUsers[2])
+
+      cy
+        .get('.dropdown-toggle.icon.icon-user')
+        .click()
+      cy
+        .contains('Transactions')
+        .should('be.visible')
+        .click()
+      cy.url().should('contain', '/transactions')
+      cy
+        .get('.panel-title')
+        .should('contain', 'All Transactions')
+      cy
+        .get('.selected.tx-in')
+        .should('contain', 'Transfer In')
+        .should('contain', 'Bitcoin')
+        .get('#column-cash-BTC')
+        .should('contain', '0.00001')
     })
   })
 
