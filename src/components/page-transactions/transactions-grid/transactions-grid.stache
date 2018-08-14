@@ -18,8 +18,8 @@
             <th class="column-type">{{i18n('type')}}</th>
             <th class="column-description">{{i18n('description')}}</th>
             <th class="column-securities">{{i18n('quantity')}}</th>
-            <th id="column-cash-BTC" class="column-cash">{{i18n('cash')}} ({{i18n('BTC')}})</th>
-            <th id="column-cash-EQB" class="column-cash">{{i18n('cash')}} ({{i18n('EQB')}})</th>
+            <th class="column-cash">{{i18n('cash')}} ({{i18n('BTC')}})</th>
+            <th class="column-cash">{{i18n('cash')}} ({{i18n('EQB')}})</th>
           </tr>
         </thead>
       </table>

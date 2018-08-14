@@ -37,14 +37,14 @@
         - -
       {{/if}}
     </td>
-    <td class="column-cash tx-{{type}}">
+    <td id="column-cash-BTC" class="column-cash tx-{{type}}">
       {{#is currencyType 'BTC'}}
         <span>{{coin(amountPlusFee, 8))}}</span>
       {{else}}
         - -
       {{/is}}
     </td>
-    <td class="column-cash tx-{{type}}">
+    <td id="column-cash-EQB" class="column-cash tx-{{type}}">
       {{#is currencyType 'EQB'}}
         {{^is type 'IN'}}
           {{#if one-of(type, 'AUTH', 'CANCEL')}}
