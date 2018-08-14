@@ -3,12 +3,16 @@ dist: trusty
 language: node_js
 node_js: 8.6.0
 addons:
-  firefox: "52.3.0"
+  firefox: "latest"
 services: mongodb
+env:
+  - TEST_SUITE=test
+  - TEST_SUITE=test-cypress
 cache:
   yarn: true
   directories:
     - api
+    - ~/.cache
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
@@ -25,10 +29,11 @@ before_install:
   # Wait for server to start
   - "sleep 5"
   - "cd .."
+install:
+  - yarn install --frozel-lockfile
 script:
   - sudo sh -c "dbus-uuidgen > /etc/machine-id"
-  - yarn run test
-  - yarn run test-cypress
+  - yarn run $TEST_SUITE
 after_script:
   - kill $(jobs -p) || true
   - sudo service mongodb stop
