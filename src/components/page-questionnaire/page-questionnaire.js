@@ -10,7 +10,6 @@ import Questionnaire, { Question } from '../../models/questionnaire'
 import UserQuestionnaire from '../../models/user-questionnaire'
 import Session from '../../models/session'
 
-
 export const ViewModel = DefineMap.extend({
   questionnaire: {
     get (val, resolve) {
@@ -147,8 +146,8 @@ export const ViewModel = DefineMap.extend({
           title: translate('questionnaireSubmissionComplete'),
           displayInterval: 8000,
           message
-        };
-        hub.dispatch(options);
+        }
+        hub.dispatch(options)
 
         route.data.page = 'questionnaires'
       },
@@ -162,8 +161,8 @@ export const ViewModel = DefineMap.extend({
           title: translate('questionnaireSubmissionFailed'),
           displayInterval: 8000,
           message
-        };
-        hub.dispatch(options);
+        }
+        hub.dispatch(options)
       }
     )
   },
