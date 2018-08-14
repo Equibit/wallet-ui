@@ -16,7 +16,7 @@
       {{/if}}
 
       <div class="panel-heading {{^if transactions.length}}hidden{{/if}}">
-        <h1 class="panel-title">{{i18n('transactionsPageTitle')}}</h1>
+        <h1 class="panel-title" data-cy="transaction-panel-title">{{i18n('transactionsPageTitle')}}</h1>
       </div>
       <div class="panel-body {{^if transactions.length}}hidden{{/if}}">
         <div class="row card-row-full">

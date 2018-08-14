@@ -60,7 +60,7 @@ Cypress.Commands.add('logout', () => {
         name: 'logout'
     })
 
-    cy.get('.dropdown-toggle.icon.icon-user')
+    cy.get('[data-cy=dropdown]')
       .click()
     cy.contains('Log Out')
       .click()

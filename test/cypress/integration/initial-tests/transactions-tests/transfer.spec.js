@@ -19,7 +19,7 @@ describe('Transfer Funds Test', () => {
       cy.contains('Equibit').click()
       cy.contains('Next').click()
       cy
-        .get('.form-text.help-block')
+        .get('[data-cy=form-error-text]')
         .should('contain', 'Address is missing')
     })
 
@@ -27,7 +27,7 @@ describe('Transfer Funds Test', () => {
       cy.contains('Bitcoin').click()
       cy.contains('Next').click()
       cy
-        .get('.form-text.help-block')
+        .get('[data-cy=form-error-text]')
         .should('contain', 'Address is missing')
     })
 
@@ -37,7 +37,7 @@ describe('Transfer Funds Test', () => {
       cy.contains('Equibit').click()
       cy.contains('Next').click()
       cy
-        .get('.form-text.help-block')
+        .get('[data-cy=form-error-text]')
         .should('contain', 'Invalid address')
     })
 
@@ -46,7 +46,7 @@ describe('Transfer Funds Test', () => {
       cy.contains('Bitcoin').click()
       cy.contains('Next').click()
       cy
-        .get('.form-text.help-block')
+        .get('[data-cy=form-error-text]')
         .should('contain', 'Invalid address')
     })
 
@@ -59,56 +59,59 @@ describe('Transfer Funds Test', () => {
       cy.contains('Next').click()
 
       cy
-        .get('.modal-title')
+        .get('[data-cy=send-modal-title]')
         .should('contain', 'Send Funds')
       cy
-        .get('.input-value.break-word')
+        .get('[data-cy=to-address]')
         .should('contain', this.users.validUsers[2].plainEQBaddress)
       cy
-        .get('.column-digital-currency-value')
+        .get('[data-cy=send-value]')
         .should('contain', '0.00001')
       cy
-        .get('.btn.btn-primary')
-        .should('contain', 'Send')
+        .get('[data-cy=send-button]')
         .should('have.attr', 'on:click', 'send(@close)')
         .click()
       cy
-        .get('.dropdown-toggle.icon.icon-user')
+        .get('[data-cy=dropdown]')
         .click()
       cy
         .contains('Transactions')
         .should('be.visible')
         .click()
+
       cy.url().should('contain', '/transactions')
+
       cy
-        .get('.panel-title')
+        .get('[data-cy=transaction-panel-title]')
         .should('contain', 'All Transactions')
       cy
-        .get('.selected.tx-in')
+        .get('[data-cy=selected-row]')
         .should('contain', 'Transfer Out')
         .should('contain', 'Equibit')
-        .get('#column-cash-EQB')
+        .get('[data-cy=column-cash-EQB]')
         .should('contain', '0.000025') // Could vary depending on txn fee
       
       cy.logout()
       cy.login(this.users.validUsers[2])
 
       cy
-        .get('.dropdown-toggle.icon.icon-user')
+        .get('[data-cy=dropdown]')
         .click()
       cy
         .contains('Transactions')
         .should('be.visible')
         .click()
+
       cy.url().should('contain', '/transactions')
+
       cy
-        .get('.panel-title')
+        .get('[data-cy=transaction-panel-title]')
         .should('contain', 'All Transactions')
       cy
-        .get('.selected.tx-in')
+        .get('[data-cy=selected-row]')
         .should('contain', 'Transfer In')
         .should('contain', 'Equibit')
-        .get('#column-cash-EQB')
+        .get('[data-cy=column-cash-EQB]')
         .should('contain', '0.00001')
     })
 
@@ -121,56 +124,59 @@ describe('Transfer Funds Test', () => {
       cy.contains('Next').click()
 
       cy
-        .get('.modal-title')
+        .get('[data-cy=send-modal-title]')
         .should('contain', 'Send Funds')
       cy
-        .get('.input-value.break-word')
+        .get('[data-cy=to-address]')
         .should('contain', this.users.validUsers[2].plainEQBaddress)
       cy
-        .get('.column-digital-currency-value')
+        .get('[data-cy=send-value]')
         .should('contain', '0.00001')
       cy
-        .get('.btn.btn-primary')
-        .should('contain', 'Send')
+        .get('[data-cy=send-button]')
         .should('have.attr', 'on:click', 'send(@close)')
         .click()
       cy
-        .get('.dropdown-toggle.icon.icon-user')
+        .get('[data-cy=dropdown]')
         .click()
       cy
         .contains('Transactions')
         .should('be.visible')
         .click()
+
       cy.url().should('contain', '/transactions')
+
       cy
-        .get('.panel-title')
+        .get('[data-cy=transaction-panel-title]')
         .should('contain', 'All Transactions')
       cy
-        .get('.selected.tx-in')
+        .get('[data-cy=selected-row]')
         .should('contain', 'Transfer Out')
         .should('contain', 'Bitcoin')
-        .get('#column-cash-BTC')
+        .get('[data-cy=column-cash-BTC]')
         .should('contain', '0.000021') // Could vary depending on txn fee
 
       cy.logout()
       cy.login(this.users.validUsers[2])
 
       cy
-        .get('.dropdown-toggle.icon.icon-user')
+        .get('[data-cy=dropdown]')
         .click()
       cy
         .contains('Transactions')
         .should('be.visible')
         .click()
+
       cy.url().should('contain', '/transactions')
+
       cy
-        .get('.panel-title')
+        .get('[data-cy=transaction-panel-title]')
         .should('contain', 'All Transactions')
       cy
-        .get('.selected.tx-in')
+        .get('[data-cy=selected-row]')
         .should('contain', 'Transfer In')
         .should('contain', 'Bitcoin')
-        .get('#column-cash-BTC')
+        .get('[data-cy=column-cash-BTC]')
         .should('contain', '0.00001')
     })
   })
@@ -184,11 +190,11 @@ describe('Transfer Funds Test', () => {
     it('cannot send to valid address without funds', function () {
       cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[2].plainEQBaddress)
       cy
-        .get('.alert.alert-danger')
+        .get('[data-cy=not-enough-funds-alert]')
         .should('contain', 'You don\'t have Equibits to send funds')
       cy.contains('Bitcoin').click()
       cy
-        .get('.alert.alert-danger')
+        .get('[data-cy=not-enough-funds-alert]')
         .should('contain', 'You don\'t have Bitcoins to send funds')
     })
   })

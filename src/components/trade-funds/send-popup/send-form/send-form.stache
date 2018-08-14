@@ -113,7 +113,7 @@
 
     {{#is formData.type 'FUNDS'}}
       {{^if formData.hasFunds}}
-        <div class="alert alert-danger">
+        <div class="alert alert-danger" data-cy="not-enough-funds-alert">
           {{#i18n('notEnoughCurrencyToSend')}}
             <slot name="currency">
               {{#is formData.fundsType 'BTC'}}{{i18n('bitcoins')}}{{else}}{{i18n('equibits')}}{{/is}}
