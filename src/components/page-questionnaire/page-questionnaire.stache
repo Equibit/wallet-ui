@@ -18,28 +18,26 @@
                     <li>
                       <div class="form-group">
                         <!-- RADIO BUTTON -->
-                            <div class="radio radio-primary">
-                              <input type="radio" id="radio-{{qnum}}-{{indexLetter (anum)}}"
-                                      name="radio-{{qnum}}"
-                                      checked:bind="equal(~userAnswers[qnum]['answer'].selection, anum)" />
-                              <label for="radio-{{qnum}}-{{indexLetter (anum)}}">
-                                <strong>{{indexLetter (anum)}})</strong>
-                                <span>
-                                  {{#is answerOption.answer 'CUSTOM'}}
-                                    Other - Specify
-                                    <br><br>
-                                    <input type="text" class="form-control"
-                                            value:bind="userAnswers[qnum]['answer'].custom"
-                                            on:focus="selectCustom(userAnswers[qnum], anum)" />
-                                  {{else}}
-                                    {{{answerOption.answer}}}
-                                  {{/is}}
-                                </span>
-                              </label>
-                            </div>
-                          </div>
+                        <div class="radio radio-primary">
+                          <input type="radio" id="radio-{{qnum}}-{{indexLetter (anum)}}"
+                                  name="radio-{{qnum}}"
+                                  checked:bind="equal(~userAnswers[qnum]['answer'].selection, anum)" />
+                          <label for="radio-{{qnum}}-{{indexLetter (anum)}}">
+                            <strong>{{indexLetter (anum)}})</strong>
+                            <span>
+                              {{#is answerOption.answer 'CUSTOM'}}
+                                Other - Specify
+                                <br><br>
+                                <input type="text" class="form-control"
+                                        value:bind="userAnswers[qnum]['answer'].custom"
+                                        on:focus="selectCustom(userAnswers[qnum], anum)" />
+                              {{else}}
+                                {{{answerOption.answer}}}
+                              {{/is}}
+                            </span>
+                          </label>
+                        </div>
                       </div>
-
                     </li>
                   {{/each}}
                 {{/case}}
