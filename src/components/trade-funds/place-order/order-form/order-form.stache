@@ -6,9 +6,9 @@
 <div class="form-group">
     <div class="btn-group order-buttons center-block">
         <a href="#" class="btn btn-default btn-sm {{#is formData.type 'SELL'}}btn-selected{{/is}}"
-           on:click="switchType('SELL')">{{i18n('sell')}}</a>
+           on:click="switchType('SELL')" data-cy="order-button-sell">{{i18n('sell')}}</a>
         <a href="#" class="btn btn-default btn-sm {{#is formData.type 'BUY'}}btn-selected{{/is}}"
-           on:click="switchType('BUY')">{{i18n('buy')}}</a>
+           on:click="switchType('BUY')" data-cy="order-button-buy">{{i18n('buy')}}</a>
     </div>
 </div>
 
@@ -34,7 +34,7 @@
           <div class="col-xs-12 col-sm-9">
             {{#is formData.assetType 'EQUIBIT'}}
               <div class="input-group">
-                <input type="text" class="form-control" id="inputQuantity" value:bind="formData.quantityInCoins">
+                <input type="text" class="form-control" id="inputQuantity" value:bind="formData.quantityInCoins" data-cy="input-quantity">
                 <div class="input-group-addon">EQB</div>
               </div>
             {{else}}
@@ -59,7 +59,7 @@
           </div>
           <div class="col-xs-12 col-sm-9">
             <div class="input-group">
-              <input type="text" class="form-control" id="inputAskPrice" value:bind="formData.priceInUnits">
+              <input type="text" class="form-control" id="inputAskPrice" value:bind="formData.priceInUnits" data-cy="input-ask-price">
               <div class="input-group-addon">μBTC</div>
             </div>
           </div>
@@ -73,7 +73,7 @@
           </div>
           <div class="col-xs-12 col-sm-9">
             <div class="input-group">
-              <input type="text" class="form-control" id="inputTotalAmount" readonly value:from="formData.totalPriceInUnits">
+              <input type="text" class="form-control" id="inputTotalAmount" readonly value:from="formData.totalPriceInUnits" data-cy="total-price">
               <div class="input-group-addon disabled">μBTC</div>
             </div>
           </div>

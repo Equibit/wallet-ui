@@ -23,7 +23,7 @@
           {{#is formData.order.assetType 'EQUIBIT'}}
             <div class="input-group">
               <input type="text" class="form-control" id="inputQuantity" readonly
-                     value:bind="formData.orderQuantityInCoins">
+                     value:bind="formData.orderQuantityInCoins" data-cy="input-quantity">
               <div class="input-group-addon">EQB</div>
             </div>
           {{else}}
@@ -37,7 +37,7 @@
         </div>
         <div class="col-xs-12 col-sm-4">
           <div class="input-group">
-            <input type="number" class="form-control" id="inputAskPrice" readonly value:from="formData.uBtcPrice">
+            <input type="number" class="form-control" id="inputAskPrice" readonly value:from="formData.uBtcPrice" data-cy="input-ask-price">
             <div class="input-group-addon disabled">μBTC</div>
           </div>
         </div>
@@ -78,7 +78,7 @@
         </div>
         <div class="col-xs-12 col-sm-4">
           <div class="input-group">
-            <input type="number" class="form-control" id="inputAskPrice" readonly value:from="formData.uBtcTotalPrice">
+            <input type="number" class="form-control" id="inputAskPrice" readonly value:from="formData.uBtcTotalPrice" data-cy="total-price">
             <div class="input-group-addon disabled">μBTC</div>
           </div>
         </div>

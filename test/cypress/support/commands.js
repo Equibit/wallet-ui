@@ -66,3 +66,25 @@ Cypress.Commands.add('logout', () => {
       .click()
       
 })
+
+Cypress.Commands.add('resetTransactions', () => {
+
+    Cypress.log({
+        name: 'resetTransactions'
+    })
+
+    cy.exec('mongo wallet_api-testing --eval \'db.transactions.remove({})\'')
+    cy.exec('mongo wallet_api-testing --eval \'db.transactionnotes.remove({})\'')
+    cy.exec('mongo wallet_api-testing --eval \'db.notifications.remove({})\'')
+    
+})
+
+Cypress.Commands.add('resetEQBOrders', () => {
+
+    Cypress.log({
+        name: 'resetEQBOrders'
+    })
+
+    cy.exec('mongo wallet_api-testing --eval \'db.orders.remove({assetType: "EQUIBIT"})\'')
+
+})

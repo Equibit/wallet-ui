@@ -31,7 +31,7 @@
       <table class="table table-condensed grid-body">
         <tbody>
         {{#each ../rows row=value index=index}}
-          <tr class="order-row percentage-green percentage-{{../../marketWidth[index]}}">
+          <tr class="order-row percentage-green percentage-{{../../marketWidth[index]}}" data-cy="sell-order-row">
             <td class="column-action-buttons">
               {{#switch whyUserCantOffer(row)}}
               {{#case('Not logged in')}}
@@ -122,7 +122,7 @@
       <table class="table table-condensed grid-body">
         <tbody>
         {{#each ../rows row=value index=index}}
-          <tr class="order-row percentage-red percentage-{{../../marketWidth[index]}}">
+          <tr class="order-row percentage-red percentage-{{../../marketWidth[index]}}" data-cy="buy-order-row">
             <td class="column-price">{{format-micro(row.price)}}</td>
             <td class="column-quantity">
               {{#is ../assetType 'EQUIBIT'}}

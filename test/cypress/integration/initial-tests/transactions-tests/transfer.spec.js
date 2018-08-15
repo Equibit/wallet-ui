@@ -3,6 +3,7 @@ describe('Transfer Funds Test', () => {
 
   beforeEach(() => {
     cy.fixture('users').as('users')
+    cy.resetTransactions()
     cy.visit('/')
     cy.get('input[type="password"]').type(Cypress.env('HTTP_PASSWORD'))
     cy.get('button[type="submit"]').click()
@@ -95,6 +96,13 @@ describe('Transfer Funds Test', () => {
       cy.login(this.users.validUsers[2])
 
       cy
+        .get('[data-cy=notification-icon]')
+        .click()
+        .contains('Notifications')
+        .should('be.visible')
+        .contains('Transfer received')
+        .should('be.visible')
+      cy
         .get('[data-cy=dropdown]')
         .click()
       cy
@@ -159,6 +167,13 @@ describe('Transfer Funds Test', () => {
       cy.logout()
       cy.login(this.users.validUsers[2])
 
+      cy
+        .get('[data-cy=notification-icon]')
+        .click()
+        .contains('Notifications')
+        .should('be.visible')
+        .contains('Transfer received')
+        .should('be.visible')
       cy
         .get('[data-cy=dropdown]')
         .click()
