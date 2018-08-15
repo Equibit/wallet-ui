@@ -41,7 +41,7 @@ export const ViewModel = DefineMap.extend({
               questionSortIndex: q.sortIndex,
               answer: new DefineMap({
                 custom: '',
-                selection: q.questionType === 'SINGLE' ? null : []
+                selection: q.questionType === 'MULTI' ? [] : null
               })
             }
           })
@@ -74,7 +74,10 @@ export const ViewModel = DefineMap.extend({
         } else {
           result.push(true)
         }
-        const selection = this.userAnswers[curr].answer.selection
+        let selection = this.userAnswers[curr].answer.selection
+        if (typeof selection === 'string') {
+          selection = parseInt(selection)
+        }
         if (selection === null || selection === undefined || selection.length === 0) {
           curr += 1
           nextQuestion = curr
@@ -108,18 +111,22 @@ export const ViewModel = DefineMap.extend({
       answers: this.userAnswers.map(({answer}, index) => {
         const question = this.questions[index]
         if (this.enabledQuestions[index]) {
-          if (answer.selection || answer.selection === 0) {
-            if (question.questionType === 'SINGLE') {
+          let selection = answer.selection
+          if (typeof selection === 'string') {
+            selection = parseInt(selection)
+          }
+          if (selection || selection === 0) {
+            if (question.questionType !== 'MULTI') {
               if (question.answerOptions[answer.selection].answer === 'CUSTOM') {
                 return answer.custom
               } else {
                 return question.answerOptions[answer.selection].answer
               }
             } else {
-              if (answer.selection.length === 0) {
+              if (selection.length === 0) {
                 return null
               }
-              return answer.selection.map(selected => {
+              return selection.map(selected => {
                 const option = question.answerOptions[selected].answer
                 if (option === 'CUSTOM') {
                   return answer.custom
