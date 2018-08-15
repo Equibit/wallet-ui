@@ -23,12 +23,7 @@ import Offer from '../../../models/offer'
 export const ViewModel = DefineMap.extend({
   // ENUM ['SELL', 'BUY']
   type: 'string',
-  order: {
-    set (val) {
-      console.log(val)
-      return val
-    }
-  },
+  order: Order,
   portfolio: '*',
   ordersLength: 'number',
   filledQuantity: 'number',
