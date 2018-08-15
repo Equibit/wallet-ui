@@ -10,9 +10,9 @@ const UserQuestionnaire = DefineMap.extend(
   {
     questionnaireId: 'string',
     address: 'string',
-    answers: DefineList.extend({
-      '#': 'any' // string or string array or null
-    }),
+    answers: {
+      Type: DefineList
+    },
     status: 'string',
     // unused but required for saving to be successful
     createdAt: 'any',
