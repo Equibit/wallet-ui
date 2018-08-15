@@ -43,7 +43,6 @@
         </div>
       </div>
     </div>
-  {{else}}
   {{/if}}
 
   <!-- No items -->
