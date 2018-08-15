@@ -45,9 +45,9 @@
                 {{/case}}
                 {{#case("DROPDOWN")}}
                   <select value:bind="~userAnswers[qnum]['answer'].selection">
-                      <option value="">Choose a country</option>
+                      <option disabled selected value></option>
                       {{#each (question.answerOptions, answerOption=value anum=index)}}
-                        <option value={{anum}}>{{value}}</option>
+                        <option value={{anum}}>{{answerOption.answer}}</option>
                       {{/each}}
                   </select>
                 {{/case}}
