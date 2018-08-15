@@ -79,12 +79,13 @@ Cypress.Commands.add('resetTransactions', () => {
     
 })
 
-Cypress.Commands.add('resetEQBOrders', () => {
+Cypress.Commands.add('resetOrdersAndOffers', () => {
 
     Cypress.log({
-        name: 'resetEQBOrders'
+        name: 'resetOrdersAndOffers'
     })
 
     cy.exec('mongo wallet_api-testing --eval \'db.orders.remove({assetType: "EQUIBIT"})\'')
+    cy.exec('mongo wallet_api-testing --eval \'db.offers.remove({assetType: "EQUIBIT"})\'')
 
 })
