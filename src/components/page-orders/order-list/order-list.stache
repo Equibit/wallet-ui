@@ -5,6 +5,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">
       {{#is type 'OFFER'}} {{i18n('myOffers')}} {{else}} {{i18n('myOrders')}} {{/is}}
+      {{#if selectedItem}}SELECTED{{else}}NULL{{/if}}
     </h3>
   </div>
   <div class="panel-body">

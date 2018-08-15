@@ -4,6 +4,7 @@
 <can-import from="~/utils/stache-helpers/" />
 
 <drag-panel class="page-panel panel panel-default card card-full">
+  {{#if order}}SELECTED{{else}}NULL{{/if}}
 
   {{#if order}}
     <nav class="navbar toolbar">
