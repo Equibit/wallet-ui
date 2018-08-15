@@ -30,7 +30,7 @@ before_install:
   - "sleep 5"
   - "cd .."
 install:
-  - yarn install --frozel-lockfile
+  - yarn install --frozen-lockfile
 script:
   - sudo sh -c "dbus-uuidgen > /etc/machine-id"
   - yarn run $TEST_SUITE
