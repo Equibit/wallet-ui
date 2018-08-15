@@ -1,9 +1,14 @@
+import route from 'can-route'
 import Component from 'can-component'
 import DefineMap from 'can-define/map/'
+
+import hub from '~/utils/event-hub'
+import { translate } from '~/i18n/'
 import './page-questionnaire.less'
 import view from './page-questionnaire.stache'
-import route from 'can-route'
-import Questionnaire from '../../models/questionnaire'
+import Questionnaire, { Question } from '../../models/questionnaire'
+import UserQuestionnaire from '../../models/user-questionnaire'
+import Session from '../../models/session'
 
 export const ViewModel = DefineMap.extend({
   questionnaire: {
@@ -19,7 +24,7 @@ export const ViewModel = DefineMap.extend({
   },
   questions: {
     get () {
-      return this.questionnaire ? this.questionnaire.questions : new Questionnaire.List([])
+      return this.questionnaire ? this.questionnaire.questions : new Question.List([])
     }
   },
   userAnswers: {
@@ -36,7 +41,7 @@ export const ViewModel = DefineMap.extend({
               questionSortIndex: q.sortIndex,
               answer: new DefineMap({
                 custom: '',
-                selection: q.questionType === 'SINGLE' ? null : []
+                selection: q.questionType === 'MULTI' ? [] : null
               })
             }
           })
@@ -69,7 +74,10 @@ export const ViewModel = DefineMap.extend({
         } else {
           result.push(true)
         }
-        const selection = this.userAnswers[curr].answer.selection
+        let selection = this.userAnswers[curr].answer.selection
+        if (typeof selection === 'string') {
+          selection = parseInt(selection)
+        }
         if (selection === null || selection === undefined || selection.length === 0) {
           curr += 1
           nextQuestion = curr
@@ -77,7 +85,7 @@ export const ViewModel = DefineMap.extend({
         }
         if (selection.length) {
           const skipTos = selection.map(
-            optionIndex => this.questions[nextQuestion].answerOptions[optionIndex]
+            optionIndex => this.questions[curr].answerOptions[optionIndex]
           ).map(
             option => option.finalQuestion ? Infinity : (option.skipTo - 1) || 0
           )
@@ -85,7 +93,7 @@ export const ViewModel = DefineMap.extend({
           nextQuestion = Math.max(...skipTos, curr)
           continue
         }
-        const answerOption = this.questions[nextQuestion].answerOptions[selection]
+        const answerOption = this.questions[curr].answerOptions[selection]
         if (answerOption.finalQuestion) {
           nextQuestion = Infinity
         } else if (answerOption.skipTo) {
@@ -98,14 +106,72 @@ export const ViewModel = DefineMap.extend({
   },
 
   submitAnswers () {
-    //! steal-remove-start
-    console.log(this.userAnswers)
-    //! steal-remove-end
+    const toSave = new UserQuestionnaire({
+      questionnaireId: route.data.itemId,
+      answers: this.userAnswers.map(({answer}, index) => {
+        const question = this.questions[index]
+        if (this.enabledQuestions[index]) {
+          let selection = answer.selection
+          if (typeof selection === 'string') {
+            selection = parseInt(selection)
+          }
+          if (selection || selection === 0) {
+            if (question.questionType !== 'MULTI') {
+              if (question.answerOptions[answer.selection].answer === 'CUSTOM') {
+                return answer.custom
+              } else {
+                return question.answerOptions[answer.selection].answer
+              }
+            } else {
+              if (selection.length === 0) {
+                return null
+              }
+              return selection.map(selected => {
+                const option = question.answerOptions[selected].answer
+                if (option === 'CUSTOM') {
+                  return answer.custom
+                } else {
+                  return option
+                }
+              })
+            }
+          }
+        }
+        return null
+      }),
+      address: Session.current.portfolios[0].addressesEqb[0]
+    })
+    toSave.save().then(
+      saved => {
+        const message = saved.status === 'REWARDED'
+        ? translate('rewardSent')
+        : translate('rewardDelayed')
 
-    // todo: update user after answers are saved.
-    // this.user.questionnaire = 'COMPLETED'
+        const options = {
+          type: 'alert',
+          kind: 'success',
+          title: translate('questionnaireSubmissionComplete'),
+          displayInterval: 8000,
+          message
+        }
+        hub.dispatch(options)
 
-    // this.answers.forEach(a => a.save())
+        route.data.page = 'questionnaires'
+      },
+      e => {
+        const message = e.message === 'Completed answer array is invalid!'
+          ? translate('invalidAnswers')
+          : translate('tryAgainLater')
+        const options = {
+          type: 'alert',
+          kind: 'warning',
+          title: translate('questionnaireSubmissionFailed'),
+          displayInterval: 8000,
+          message
+        }
+        hub.dispatch(options)
+      }
+    )
   },
 
   selectCustom (question, num) {
