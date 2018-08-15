@@ -484,6 +484,7 @@ export default {
   phone: 'Phone',
   placeholderNoOffersTile: 'Your Offer Details Will Show Here',
   placeholderNoOffersDescription: 'You can place offers from the issuances page.',
+  placeholderNoOrderSelectedTile: 'Select an order to see details',
   placeholderNoOrdersTile: 'Your Order Details Will Show Here',
   placeholderNoOrdersDescription: 'You can place orders from the issuances page.',
   placeholderNoOrdersCTA: 'Explore Issuances',

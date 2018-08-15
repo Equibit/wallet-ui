@@ -4,8 +4,6 @@
 <can-import from="~/utils/stache-helpers/" />
 
 <drag-panel class="page-panel panel panel-default card card-full">
-  {{#if order}}SELECTED{{else}}NULL{{/if}}
-
   {{#if order}}
     <nav class="navbar toolbar">
       <div class="row">
@@ -45,6 +43,7 @@
         </div>
       </div>
     </div>
+  {{else}}
   {{/if}}
 
   <!-- No items -->
@@ -54,7 +53,17 @@
           <div class="message-box-status">{{i18n('placeholderNoOrdersTile')}}</div>
         </div>
     </div>
+  {{else}}
+    {{^if order}}
+      <!-- No item selected -->
+      <div class="panel-body align-center">
+        <div class="message-box no-border">
+            <div class="message-box-status">{{i18n('placeholderNoOrderSelectedTile')}}</div>
+          </div>
+      </div>
+    {{/if}}
   {{/if}}
+
 
 </drag-panel>
 

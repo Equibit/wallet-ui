@@ -101,9 +101,9 @@ export const ViewModel = DefineMap.extend({
       if (!this.itemsFiltered || !this.itemsFiltered.length) {
         return null
       }
-      // if (!val) {
-      //   val = this.itemsFiltered[0]
-      // }
+      if (!val) {
+        val = this.itemsFiltered[0]
+      }
       return val
     }
   }
