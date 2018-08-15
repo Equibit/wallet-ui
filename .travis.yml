@@ -23,9 +23,9 @@ before_install:
   - "git clean -f"
   - "git pull"
   # Install dependencies
-  - "npm install"
+  - "yarn install"
   # Run server
-  - "npm run e2e &"
+  - "yarn run e2e &"
   # Wait for server to start
   - "sleep 5"
   - "cd .."
@@ -37,4 +37,3 @@ script:
 after_script:
   - kill $(jobs -p) || true
   - sudo service mongodb stop
-  - pkill node
