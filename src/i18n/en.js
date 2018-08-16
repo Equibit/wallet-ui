@@ -539,7 +539,7 @@ export default {
   recoveryPhraseSetupIntro1: 'Your backup recovery phrase will allow you to recover your funds in the case that you forget your password.',
   recoveryPhraseSetupIntro2: 'Be sure to write it down and store it in a private and secure place. Anyone with access to this phrase will have access to your funds.',
   recoveryPhraseSetupIntro3: 'Use the following Recovery Phrase Sheet to conveniently store your phrase and then continue to the next step.',
-  recoveryPhraseSetupPDF: 'http://equibitgroup.com/recovery-phrase-sheet.pdf',
+  recoveryPhraseSetupPDF: 'https://www.equibitgroup.com/hubfs/3387818/recovery-phase-sheet.pdf',
   recoveryPhraseSetupIncorrectEntry: 'The Recovery Phase words you entered to verify are incorrect.  Try again.',
   recoveryPhraseSetupInstruction1: 'Write down the following words in the order they are presented:',
   recoveryPhraseSetupInstruction2: 'Enter the words below from the phrase you just  wrote down:',
