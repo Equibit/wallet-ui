@@ -320,9 +320,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }, [])
     }
   },
-  // List of empty EQB.
-  // utxoEmptyEqb :: List<UTXO>
-  utxoEmptyEqb: {
+  // List of blank EQB.
+  // utxoBlankEqb :: List<UTXO>
+  utxoBlankEqb: {
     get () {
       if (!this.utxoByTypeByAddress || !this.utxoByTypeByAddress.EQB) {
         return
@@ -330,10 +330,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
       const eqbAddresses = this.utxoByTypeByAddress.EQB.addresses
       return Object.keys(eqbAddresses).reduce((acc, addr) => {
         const txouts = eqbAddresses[addr].txouts
-        const emptyEqb = txouts.filter(out => {
+        const blankEqb = txouts.filter(out => {
           return !out.equibit.issuance_tx_id || out.equibit.issuance_tx_id === EMPTY_ISSUANCE_TX_ID
         })
-        acc.push.apply(acc, emptyEqb)
+        acc.push.apply(acc, blankEqb)
         return acc
       }, [])
     }
@@ -414,7 +414,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }
       if (!this.utxoByTypeByAddress) {
         console.log('portfolio.balance is undefined - no utxo yet...')
-        return {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0}
+        return {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0}
       }
       this.balancePromise.then(bal => {
         resolve && resolve(bal)
@@ -430,7 +430,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * ```
    * {
    *   cashBtc: 1,
-   *   cashEqb: 3,
+   *   blankEqb: 3,
    *   cashTotal: 4,
    *   securities: 6,
    *   total: 10
@@ -462,12 +462,12 @@ const Portfolio = DefineMap.extend('Portfolio', {
               // Check for securities:
               updatePromises.push(getSecuritiesAmount(txouts).then(securitiesAmount => {
                 acc.securities += securitiesAmount.total
-                acc.cashEqb += amount - securitiesAmount.amount
+                acc.blankEqb += amount - securitiesAmount.amount
               }))
             }
           }
           return acc
-        }, {cashBtc: 0, cashEqb: 0, cashTotal: 0, securities: 0})
+        }, {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0})
 
         totals.total = totals.cashTotal + totals.securities
         const retVal = new DefineMap(totals)
@@ -475,7 +475,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
         console.log('Update Promises : ', updatePromises.length)
         Promise.all(updatePromises).then(([eqbToBtc, ...rest]) => {
           // once all the promises resolve, update the totals in the returned map
-          totals.cashTotal += totals.cashEqb * eqbToBtc
+          totals.cashTotal += totals.blankEqb * eqbToBtc
           totals.total = totals.cashTotal + totals.securities
           console.log(`portfolio.balance.total is ${totals.total}`)
           retVal.assign(totals)
@@ -605,8 +605,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
     return getUnspentOutputsForAmount(this.utxoByType[type], amount)
   },
 
-  getEmptyEqb (amount) {
-    const utxo = getUnspentOutputsForAmount(this.utxoEmptyEqb, amount)
+  getBlankEqb (amount) {
+    const utxo = getUnspentOutputsForAmount(this.utxoBlankEqb, amount)
     return utxo
   },
 

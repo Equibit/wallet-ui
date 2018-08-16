@@ -129,7 +129,7 @@ describe('models/portfolio', function () {
     it('should populate portfolio balance based on user\'s balance', function (done) {
       var expectedBalance = {
         cashBtc: 2.1 * 100000000,
-        cashEqb: 5.6 * 100000000,
+        blankEqb: 5.6 * 100000000,
         securities: 0,
         cashTotal: 0, // calc below
         total: 0      // calc below
@@ -142,7 +142,7 @@ describe('models/portfolio', function () {
       }
       portfolio.on('balance', balanceHandler)
 
-      currencyConverter.convertCryptoToCrypto(expectedBalance.cashEqb, 'EQB', 'BTC')
+      currencyConverter.convertCryptoToCrypto(expectedBalance.blankEqb, 'EQB', 'BTC')
       .then(eqbCashBtc => {
         expectedBalance.cashTotal = expectedBalance.cashBtc + eqbCashBtc
         expectedBalance.total = expectedBalance.cashTotal + expectedBalance.securities

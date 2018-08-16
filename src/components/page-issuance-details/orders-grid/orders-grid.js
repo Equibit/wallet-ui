@@ -162,7 +162,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         return 'No funds'
       }
       if (this.type === 'BUY' && !this.portfolio.hasEnoughFunds(row.totalPrice, 'EQB')) {
-        return 'No empty equibits'
+        return 'No blank equibits'
       }
     }
 

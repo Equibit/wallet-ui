@@ -30,8 +30,8 @@
             <td class="text-right funds-error">{{i18n('retrieveFundsError')}}</td>
             <td class="text-right funds-error">0</td>
           {{else}}
-            <td class="text-right">{{user-units(balance.cashEqb, 8)}}</td>
-            <td class="text-right">{{local-currency(balance.cashEqb, 'EQB')}}</td>
+            <td class="text-right">{{user-units(balance.blankEqb, 8)}}</td>
+            <td class="text-right">{{local-currency(balance.blankEqb, 'EQB')}}</td>
           {{/if}}
         </tr>
       </tbody>

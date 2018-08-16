@@ -161,22 +161,22 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
       }]
     }
     if (assetType === 'ISSUANCE') {
-      // For EQB the fee comes from empty EQB.
-      const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
-      if (!utxoEmptyEqbInfo.sum) {
-        throw new Error('Not enough empty EQB to cover the fee')
+      // For EQB the fee comes from blank EQB.
+      const utxoBlankEqbInfo = portfolio.getBlankEqb(fee)
+      if (!utxoBlankEqbInfo.sum) {
+        throw new Error('Not enough blank EQB to cover the fee')
       }
-      const availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
-      const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
+      const availableAmountBlankEqb = utxoBlankEqbInfo.sum
+      const utxoBlankEqb = utxoBlankEqbInfo.txouts
         .map(a => merge(a, {
           keyPair: portfolio.findAddress(a.address).keyPair,
           sequence: isRefund ? '0' : '4294967295'
         }))
 
-      buildConfig.vin = buildConfig.vin.concat(utxoEmptyEqb)
+      buildConfig.vin = buildConfig.vin.concat(utxoBlankEqb)
       buildConfig.vout.push({
         // Regular change output:
-        value: availableAmountEmptyEqb - fee,
+        value: availableAmountBlankEqb - fee,
         address: changeAddr
       })
     } else {
