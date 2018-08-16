@@ -1,4 +1,7 @@
 /*eslint-disable */
+// NOTE: These tests currently only create FOK orders, and are not completed.
+// This means that once in a while if you run it often, the btc/eqb blocks will
+// need to be mined otherwise 'invalid signature' or mempool error will occur.
 describe('Atomic Swap Test', () => {
   beforeEach(() => {
     cy.visit('/')
