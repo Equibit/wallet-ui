@@ -274,7 +274,6 @@ const Offer = DefineMap.extend('Offer', {
         safetyZone: null
       })
       this.timelockInfoPromise.then(info => {
-        console.log(info)
         timelockInfo.assign(info)
       })
       return timelockInfo
@@ -297,7 +296,6 @@ const Offer = DefineMap.extend('Offer', {
           blockchainInfo[key].get('currentBlockHeight')
         }
       })
-      console.log('debughere')
       return this.orderPromise.then(order => {
         const addresses = [
           this.btcAddress,
@@ -320,14 +318,6 @@ const Offer = DefineMap.extend('Offer', {
         const step1 = txes.filter(t => t.htlcStep === 1)[0]
         const step2 = txes.filter(t => t.htlcStep === 2)[0]
 
-        if (!timelockExpiresBlockheight) {
-          // the transaction has not yet been confirmed, we will make a very rough guess
-          const lastConfirmation = blockchainInfo[step1.currencyType].mediantime * 1000
-          const nextConfirmationEstimate = lastConfirmation + blockTime[step1.currencyType]
-          const remainingBlocks = step1.timelock
-          const estimatedExpiry = nextConfirmationEstimate + (remainingBlocks * blockTime[step1.currencyType])
-        }
-
         // Number of blocks between now (current block height) and the expiration of the htlc1 timelock.
         // Minimum 0
         const fullBlocksRemaining = timelockExpiresBlockheight
@@ -335,12 +325,12 @@ const Offer = DefineMap.extend('Offer', {
             timelockExpiresBlockheight -
               blockchainInfo[step1.currencyType].currentBlockHeight,
             0)
-          : step1.timelock + 1 // always this case?
+          : step1.timelock + 1
 
         const lastConfirmationMidpoint = blockchainInfo[step1.currencyType].mediantime * 1000
         let nextConfirmationEstimate = lastConfirmationMidpoint + (0.5 * blockTime[step1.currencyType])
-        if (nextConfirmationEstimate < Date.parse(step1.createdAt)) {
-          nextConfirmationEstimate = Date.parse(step1.createdAt)
+        while (nextConfirmationEstimate < Date.now()) { // prevents this value from being sensitive to small changes in Date.now()
+          nextConfirmationEstimate += blockTime[step1.currencyType]
         }
         // What time (epoch ms) we estimate the block that expires the timelock will be mined
         //   number of blocks left, minus shift interval, multiplied by the target block time (10 minutes for BTC/EQB)
