@@ -263,7 +263,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
             EQB: {
               addresses: []
             }
-          }) // HEY DAVID clean this up and commit it
+          })
           return promise
         }
         // just once when we first login, tell server to import all the addresses
