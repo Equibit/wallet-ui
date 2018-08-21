@@ -256,6 +256,14 @@ const Portfolio = DefineMap.extend('Portfolio', {
         }
 
         if (!this.addresses.length) {
+          resolvePromise({
+            BTC: {
+              addresses: []
+            },
+            EQB: {
+              addresses: []
+            }
+          }) // HEY DAVID clean this up and commit it
           return promise
         }
         // just once when we first login, tell server to import all the addresses
@@ -271,6 +279,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           initialResolved = true
           resolvePromise(result)
         })
+
 
         return promise
       })
