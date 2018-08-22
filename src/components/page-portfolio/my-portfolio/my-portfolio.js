@@ -131,7 +131,7 @@ export const ViewModel = DefineMap.extend({
         if (this.portfolio.addresses.isPending) {
           return false
         }
-        setTimeout(() => resolve(true), 500)
+        setTimeout(() => resolve(true), 1000)
       })
     }
   },
