@@ -279,7 +279,6 @@ const Portfolio = DefineMap.extend('Portfolio', {
           resolvePromise(result)
         })
 
-
         return promise
       })
     }
