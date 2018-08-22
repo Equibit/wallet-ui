@@ -77,13 +77,16 @@ export const ViewModel = DefineMap.extend({
       this.tx = tx
 
       this.changeAddr = changeAddr
+      this.formData.isDefaultFee = false
       this.formData.transactionFee = tx.fee
+      this.formData.quantity = tx.amount
       console.log(`tx.fee=${tx.fee}, tx.hex=${tx.hex}`, tx)
       this.mode = 'confirm'
     })
   },
   edit () {
     this.mode = 'edit'
+    this.formData.isDefaultFee = true
   },
   sendFn: '*',
   isSending: {
@@ -122,7 +125,7 @@ export const ViewModel = DefineMap.extend({
 
     const tx = Transaction.createTransfer(
       type, amount, toAddress, changeAddr,
-      this.portfolio, formData.issuance, transactionFeeRates, formData.description
+      this.portfolio, formData.issuance, transactionFeeRates, formData.description, true
     )
     return tx
   }

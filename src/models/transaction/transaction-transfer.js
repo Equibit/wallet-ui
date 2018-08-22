@@ -9,7 +9,7 @@ import ErrorData from '../error'
 /**
  * Note: issuance change will be returned to its original UTXO address.
  */
-function createTransfer (blockchainInfoBySymbol, type, amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates, description) {
+function createTransfer (blockchainInfoBySymbol, type, amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates, description, allTransfer) {
   typeforce(typeforce.tuple(
     BlockchainInfoBySymbol,
     typeforce.oneOf(
@@ -25,9 +25,16 @@ function createTransfer (blockchainInfoBySymbol, type, amount, toAddress, change
   }
   const currencyType = type === 'BTC' ? 'BTC' : 'EQB'
   const transactionFeeRate = transactionFeeRates[currencyType]
+  const origAmount = amount
+  allTransfer = allTransfer || false
 
   function build (currencyType, transactionFee) {
     // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
+    // For sending all BTC/EQB, need to adjust the amount such that the the transfer amount = total amount - fee
+    if (allTransfer) {
+      let fee = transactionFee || 3000
+      amount = origAmount - fee
+    }
     let txConfig = currencyType === 'BTC'
       ? prepareConfigBtc(amount, toAddress, changeAddr, portfolio, transactionFeeRates, description, transactionFee)
       : prepareConfigEqb(amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates, description, transactionFee)

@@ -110,9 +110,13 @@ const FormData = DefineMap.extend({
     // todo: calculate fee
     value: 1000
   },
+  isDefaultFee: {
+    type: Boolean,
+    value: true
+  },
   totalAmount: {
     get () {
-      return this.quantity + this.transactionFee
+      return this.isDefaultFee ? this.quantity : this.quantity + this.transactionFee
     }
   },
   sharesToEqb: {
