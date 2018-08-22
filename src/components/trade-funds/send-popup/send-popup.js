@@ -125,8 +125,7 @@ export const ViewModel = DefineMap.extend({
 
     const tx = Transaction.createTransfer(
       type, amount, toAddress, changeAddr,
-      this.portfolio, formData.issuance, transactionFeeRates, formData.description, true
-    )
+      this.portfolio, formData.issuance, transactionFeeRates, formData.description)
     return tx
   }
 })
