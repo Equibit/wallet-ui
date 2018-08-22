@@ -70,7 +70,7 @@
                   {{i18n('view')}}
                 </button>
               {{/case}}
-              {{#case('No empty equibits')}}
+              {{#case('No blank equibits')}}
                 <button class="btn btn-default btn-xs"
                   data-toggle="popover"
                   data-html="true"

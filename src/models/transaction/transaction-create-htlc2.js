@@ -4,7 +4,6 @@ import { eqbTxBuilder, types } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import { BlockchainInfoBySymbol } from '../../utils/typeforce-types'
 import { buildTransaction } from './transaction-build'
 import { prepareHtlcConfigBtc, prepareTxData } from './transaction-create-htlc1'
-
 const hashTimelockContract = eqbTxBuilder.hashTimelockContract
 // const simpleHashlockContract = eqbTxBuilder.simpleHashlockContract
 // const simpleHashlockAddrContract = eqbTxBuilder.simpleHashlockAddrContract
@@ -55,7 +54,7 @@ function createHtlc2 (blockchainInfoBySymbol, offer, order, portfolio, issuance,
 // HTLC-2 is an blockchain transaction from <order creator> to <offer creator>
 //    - Ask flow (Sell order / Buy offer). EQB currency type.
 //    - Bid flow (Buy order / Sell offer). BTC currency type.
-function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmptyEqb, transactionFee) {
+function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrBlankEqb, transactionFee) {
   typeforce(typeforce.tuple('Offer', 'Order', 'Portfolio', '?Issuance', types.Address, '?Number'), arguments)
   if (order.assetType === 'ISSUANCE') {
     typeforce('Issuance', issuance)
@@ -78,7 +77,7 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
   // Define UTXO for transaction input:
   let utxo
   let availableAmount
-  let availableAmountEmptyEqb
+  let availableAmountBlankEqb
   let changeAddr
   let refundAddress
 
@@ -97,30 +96,30 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
     refundAddress = issuanceUtxo[0].address
     changeAddr = refundAddress
 
-    // For EQB the fee comes from empty EQB.
-    const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
-    if (!utxoEmptyEqbInfo.sum) {
-      throw new Error(`Not enough empty EQB to cover the fee ${fee}`)
+    // For EQB the fee comes from blank EQB.
+    const utxoBlankEqbInfo = portfolio.getBlankEqb(fee)
+    if (!utxoBlankEqbInfo.sum) {
+      throw new Error(`Not enough blank EQB to cover the fee ${fee}`)
     }
-    availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
-    const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
+    availableAmountBlankEqb = utxoBlankEqbInfo.sum
+    const utxoBlankEqb = utxoBlankEqbInfo.txouts
       .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
 
-    utxo = issuanceUtxo.concat(utxoEmptyEqb)
+    utxo = issuanceUtxo.concat(utxoBlankEqb)
   }
 
   // Blank Equibit case:
   if (assetType === 'EQUIBIT') {
-    const utxoInfo = portfolio.getEmptyEqb(amount + fee)
+    const utxoInfo = portfolio.getBlankEqb(amount + fee)
     if (!utxoInfo.sum) {
-      throw new Error(`Not enough empty EQB to cover the amount + fee ${amount + fee}`)
+      throw new Error(`Not enough blank EQB to cover the amount + fee ${amount + fee}`)
     }
     availableAmount = utxoInfo.sum
     utxo = utxoInfo.txouts
       .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
     // todo: generate a new address:
     refundAddress = utxo[0].address
-    changeAddr = changeAddrEmptyEqb
+    changeAddr = changeAddrBlankEqb
   }
 
   // HTLC SCRIPT:
@@ -142,9 +141,9 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrEmpt
   }
   if (assetType === 'ISSUANCE') {
     buildConfig.vout.push({
-      // change for Empty EQB (for transaction fee):
-      value: availableAmountEmptyEqb - fee,
-      address: changeAddrEmptyEqb
+      // change for Blank EQB (for transaction fee):
+      value: availableAmountBlankEqb - fee,
+      address: changeAddrBlankEqb
     })
   }
 

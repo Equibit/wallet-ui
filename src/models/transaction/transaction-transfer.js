@@ -125,7 +125,7 @@ function prepareConfigEqb (
   // Define UTXO for transaction input:
   let utxo
   let availableAmount
-  let availableAmountEmptyEqb
+  let availableAmountBlankEqb
   let changeAddrMain
   let changeAddrFee
 
@@ -143,23 +143,23 @@ function prepareConfigEqb (
     changeAddrMain = issuanceUtxo[0].address
     changeAddrFee = changeAddr
 
-    // For EQB the fee comes from empty EQB.
-    const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
-    if (!utxoEmptyEqbInfo.sum) {
-      throw new Error(`Not enough empty EQB to cover the fee ${fee}`)
+    // For EQB the fee comes from blank EQB.
+    const utxoBlankEqbInfo = portfolio.getBlankEqb(fee)
+    if (!utxoBlankEqbInfo.sum) {
+      throw new Error(`Not enough blank EQB to cover the fee ${fee}`)
     }
-    availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
-    const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
+    availableAmountBlankEqb = utxoBlankEqbInfo.sum
+    const utxoBlankEqb = utxoBlankEqbInfo.txouts
       .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
 
-    utxo = issuanceUtxo.concat(utxoEmptyEqb)
+    utxo = issuanceUtxo.concat(utxoBlankEqb)
   }
 
   // Blank Equibit case:
   if (assetType === 'EQUIBIT') {
-    const utxoInfo = portfolio.getEmptyEqb(amount + fee)
+    const utxoInfo = portfolio.getBlankEqb(amount + fee)
     if (!utxoInfo.sum) {
-      throw new Error(`Not enough empty EQB to cover the amount + fee ${amount + fee}`)
+      throw new Error(`Not enough blank EQB to cover the amount + fee ${amount + fee}`)
     }
     availableAmount = utxoInfo.sum
     utxo = utxoInfo.txouts
@@ -184,8 +184,8 @@ function prepareConfigEqb (
   }
   if (assetType === 'ISSUANCE') {
     buildConfig.vout.push({
-      // change for Empty EQB (for transaction fee):
-      value: availableAmountEmptyEqb - fee,
+      // change for Blank EQB (for transaction fee):
+      value: availableAmountBlankEqb - fee,
       address: changeAddrFee
     })
   }

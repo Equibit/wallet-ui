@@ -30,7 +30,7 @@ const portfolioKeys = {
 
 const balance = {
   cashBtc: 1,
-  cashEqb: 3,
+  blankEqb: 3,
   cashTotal: 4,
   securities: 6,
   total: 10

@@ -60,7 +60,7 @@ function prepareHtlc2Btc (offer, order, portfolio, issuance, changeAddr) {
   return { toAddressA, toAddressB, utxo, options }
 }
 
-function prepareHtlc2Eqb (offer, order, portfolio, issuance, emptyEqbChangeAddr) {
+function prepareHtlc2Eqb (offer, order, portfolio, issuance, blankEqbChangeAddr) {
   const htlcStep = 2
 
   // Addresses for HTLC script:
@@ -75,10 +75,10 @@ function prepareHtlc2Eqb (offer, order, portfolio, issuance, emptyEqbChangeAddr)
   const utxo = utxoInfo.txouts
     .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
 
-  // todo: get utxo of empty EQB here (pass a predicate fn).
-  // For EQB transactionFee comes from empty EQB.
-  const utxoEmptyEqbInfo = portfolio.getEmptyEqb(transactionFee)
-  const emptyEqbUtxo = utxoEmptyEqbInfo.txouts
+  // todo: get utxo of blank EQB here (pass a predicate fn).
+  // For EQB transactionFee comes from blank EQB.
+  const utxoBlankEqbInfo = portfolio.getBlankEqb(transactionFee)
+  const blankEqbUtxo = utxoBlankEqbInfo.txouts
     .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
 
   const options = {
@@ -89,9 +89,9 @@ function prepareHtlc2Eqb (offer, order, portfolio, issuance, emptyEqbChangeAddr)
     description: `Buying securities (HTLC #${htlcStep})`,
     issuance: issuance,
     htlcStep,
-    emptyEqbAmount: utxoEmptyEqbInfo.sum,
-    emptyEqbUtxo,
-    emptyEqbChangeAddr,
+    blankEqbAmount: utxoBlankEqbInfo.sum,
+    blankEqbUtxo,
+    blankEqbChangeAddr,
     offerId: offer._id,
     costPerShare: offer.price
   }

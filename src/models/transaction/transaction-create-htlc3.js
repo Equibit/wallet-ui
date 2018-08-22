@@ -69,7 +69,7 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
     const htlcStep = 3
     const timelock = order.type === 'SELL' ? offer.timelock2 : offer.timelock
 
-    // Two cases for the receiving addr of an issuance, and one case for Empty EQB refund:
+    // Two cases for the receiving addr of an issuance, and one case for Blank EQB refund:
     // - investor: lookup keys in portfolio
     // - issuer: lookup keys directly in issuance
     // - refund: lookup refund address in portfolio
@@ -100,20 +100,20 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
     }
     if (assetType === 'ISSUANCE') {
       // For Issuance the fee comes from blank EQB.
-      const utxoEmptyEqbInfo = portfolio.getEmptyEqb(fee)
-      if (!utxoEmptyEqbInfo.sum) {
-        throw new Error('Not enough empty EQB to cover the fee')
+      const utxoBlankEqbInfo = portfolio.getBlankEqb(fee)
+      if (!utxoBlankEqbInfo.sum) {
+        throw new Error('Not enough blank EQB to cover the fee')
       }
-      const availableAmountEmptyEqb = utxoEmptyEqbInfo.sum
-      const utxoEmptyEqb = utxoEmptyEqbInfo.txouts
+      const availableAmountBlankEqb = utxoBlankEqbInfo.sum
+      const utxoBlankEqb = utxoBlankEqbInfo.txouts
         .map(a => merge(a, {
           keyPair: portfolio.findAddress(a.address).keyPair,
           sequence: isRefund ? '0' : '4294967295'
         }))
-      buildConfig.vin = buildConfig.vin.concat(utxoEmptyEqb)
+      buildConfig.vin = buildConfig.vin.concat(utxoBlankEqb)
       buildConfig.vout.push({
         // Regular change output:
-        value: availableAmountEmptyEqb - fee,
+        value: availableAmountBlankEqb - fee,
         address: changeAddr
       })
     } else {
