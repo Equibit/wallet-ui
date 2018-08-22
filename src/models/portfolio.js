@@ -253,24 +253,23 @@ const Portfolio = DefineMap.extend('Portfolio', {
       return addrStream.merge(this.toStream('refresh')).map(() => {
         if (initialResolved) {
           promise = new Promise(resolve => { resolvePromise = resolve })
+          if (!this.addresses.length) {
+            resolvePromise({
+              BTC: {
+                addresses: []
+              },
+              EQB: {
+                addresses: []
+              }
+            })
+            return promise
+          }
         }
 
-        if (!this.addresses.length) {
-          resolvePromise({
-            BTC: {
-              addresses: []
-            },
-            EQB: {
-              addresses: []
-            }
-          })
-          return promise
-        }
         // just once when we first login, tell server to import all the addresses
         const doImport = this.doImport
         this.doImport = false
         console.log('*** [portfolio.listunspentPromise] fetching balance...')
-
         fetchListunspent({
           doImport,
           BTC: this.addressesBtc.get(),
