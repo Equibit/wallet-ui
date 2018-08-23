@@ -26,13 +26,12 @@ function createTransfer (blockchainInfoBySymbol, type, amount, toAddress, change
   const currencyType = type === 'BTC' ? 'BTC' : 'EQB'
   const transactionFeeRate = transactionFeeRates[currencyType]
   const origAmount = amount
-  const amountLeft = portfolio.balance[currencyType === 'BTC' ? 'cashBtc' : 'blankEqb'] - origAmount
 
   function build (currencyType, transactionFee) {
     // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
     // For transfering BTC/EQB, if the amount + fee is greater than what is available, transfer the amount - fee instead
     let fee = transactionFee || 3000
-    amount = amountLeft - fee >= 0 ? origAmount : origAmount - fee
+    amount = portfolio.hasEnoughFunds(origAmount + fee, currencyType) ? origAmount : origAmount - fee
 
     let txConfig = currencyType === 'BTC'
       ? prepareConfigBtc(amount, toAddress, changeAddr, portfolio, transactionFeeRates, description, transactionFee)
