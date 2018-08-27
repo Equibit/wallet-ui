@@ -30,7 +30,7 @@ function createTransfer (blockchainInfoBySymbol, type, amount, toAddress, change
   function build (currencyType, transactionFee) {
     // First we build with a default fee to get tx hex, then rebuild with the estimated fee.
     // For transfering BTC/EQB, if the amount + fee is greater than what is available, transfer the amount - fee instead
-    let fee = transactionFee || 3000
+    const fee = transactionFee || 3000
     amount = portfolio.hasEnoughFunds(origAmount + fee, currencyType) ? origAmount : origAmount - fee
 
     let txConfig = currencyType === 'BTC'
