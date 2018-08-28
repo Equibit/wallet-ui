@@ -57,6 +57,9 @@ export const ViewModel = DefineMap.extend({
   issuanceOnly: 'boolean',
   fundsOnly: 'boolean',
   toAddress: '*',
+  prevQuantity: {
+    value: 0
+  },
   next () {
     this.formData.validate()
     if (!this.formData.isValid) {
@@ -73,11 +76,11 @@ export const ViewModel = DefineMap.extend({
 
       // Calculate fee and rebuild:
       // const transactionFee = tx.hex.length / 2 * transactionFeeRate
+      this.prevQuantity = this.formData.quantity
       const tx = this.prepareTransaction(this.formData, changeAddr, transactionFeeRates.regular)
       this.tx = tx
 
       this.changeAddr = changeAddr
-      this.formData.isDefaultFee = false
       this.formData.transactionFee = tx.fee
       this.formData.quantity = tx.amount
       console.log(`tx.fee=${tx.fee}, tx.hex=${tx.hex}`, tx)
@@ -86,7 +89,8 @@ export const ViewModel = DefineMap.extend({
   },
   edit () {
     this.mode = 'edit'
-    this.formData.isDefaultFee = true
+    this.formData.transactionFee = 1000
+    this.formData.quantity = this.prevQuantity
   },
   sendFn: '*',
   isSending: {
