@@ -348,7 +348,6 @@ const Offer = DefineMap.extend('Offer', {
         while (nextConfirmationEstimate < Date.now()) { // prevents this value from being sensitive to small changes in Date.now()
           nextConfirmationEstimate += blockTime[step1.currencyType]
         }
-        console.log('nextConf', nextConfirmationEstimate)
 
         const blockHeight = blockchainInfo[step1.currencyType].currentBlockHeight
         const fullStats = timeStats(step1, timelockExpiresBlockheight, timelockExpiredAt, blockHeight, nextConfirmationEstimate)
