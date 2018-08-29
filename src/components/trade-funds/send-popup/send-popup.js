@@ -77,6 +77,8 @@ export const ViewModel = DefineMap.extend({
       // Calculate fee and rebuild:
       // const transactionFee = tx.hex.length / 2 * transactionFeeRate
       this.prevQuantity = this.formData.quantity
+      // Make sure quantity does not include fee when doing transaction calculation
+      this.formData.quantity += this.formData.transactionFee
       const tx = this.prepareTransaction(this.formData, changeAddr, transactionFeeRates.regular)
       this.tx = tx
 
