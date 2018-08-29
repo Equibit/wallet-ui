@@ -22,7 +22,13 @@ import { blockTime } from '~/constants'
 import BlockhainInfo from './blockchain-info'
 
 // information about the duration and expiry of a given tx
-function timeStats (tx, expiryHeight, expiredTime, blockHeight, nextConf) {
+function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
+  const lastConfirmationMidpoint = bcInfo[tx.currencyType].mediantime * 1000
+  let nextConf = lastConfirmationMidpoint + (0.5 * blockTime[tx.currencyType])
+  while (nextConf < Date.now()) { // prevents this value from being sensitive to small changes in Date.now()
+    nextConf += blockTime[tx.currencyType]
+  }
+  const blockHeight = bcInfo[tx.currencyType].currentBlockHeight
   // Number of blocks between now (current block height) and the expiration of the htlc1 timelock.
   // Minimum 0
   const blocksRemaining = expiryHeight
@@ -338,22 +344,15 @@ const Offer = DefineMap.extend('Offer', {
           blockchainInfo[key].get('currentBlockHeight')
         }
       })
-      return this.orderPromise.then(order => orderInfo(order, htlcTxId1, htlcTxId2))
+      return this.orderPromise.then(
+        order => orderInfo(order, htlcTxId1, htlcTxId2)
+      )
       .then(([txes, blockchainInfo]) => {
         const step1 = txes.filter(t => t.htlcStep === 1)[0]
         const step2 = txes.filter(t => t.htlcStep === 2)[0]
-
-        const lastConfirmationMidpoint = blockchainInfo[step1.currencyType].mediantime * 1000
-        let nextConfirmationEstimate = lastConfirmationMidpoint + (0.5 * blockTime[step1.currencyType])
-        while (nextConfirmationEstimate < Date.now()) { // prevents this value from being sensitive to small changes in Date.now()
-          nextConfirmationEstimate += blockTime[step1.currencyType]
-        }
-
-        const blockHeight = blockchainInfo[step1.currencyType].currentBlockHeight
-        const fullStats = timeStats(step1, timelockExpiresBlockheight, timelockExpiredAt, blockHeight, nextConfirmationEstimate)
-        const partialStats = timeStats(step2, timelock2ExpiresBlockheight, timelock2ExpiredAt, blockHeight, nextConfirmationEstimate)
+        const fullStats = timeStats(step1, timelockExpiresBlockheight, timelockExpiredAt, blockchainInfo)
+        const partialStats = timeStats(step2, timelock2ExpiresBlockheight, timelock2ExpiredAt, blockchainInfo)
         const safetyZone = Math.max(fullStats.endAt - partialStats.endAt, 0)
-
         return {
           fullDuration: fullStats.duration,
           fullEndAt: fullStats.endAt,
