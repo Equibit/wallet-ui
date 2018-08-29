@@ -23,9 +23,8 @@ describe('Portfolio Test', () => {
       .should('contain', 'My Portfolio')
   })
 
-  it('user has no funds', function () {
+  it('user has no EQB', function () {
     cy.login(this.users.validUsers[1])
-    cy.wait(1000)
     cy
       .get('[data-cy=loading-overlay]')
       .should('not.be.visible')
@@ -35,10 +34,8 @@ describe('Portfolio Test', () => {
       .should('be.visible')
   })
 
-  it('user has funds', function () {
+  it('user has EQB', function () {
     cy.login(this.users.validUsers[0])
-
-    cy.wait(1000)
     cy
       .get('[data-cy=loading-overlay]')
       .should('not.be.visible')

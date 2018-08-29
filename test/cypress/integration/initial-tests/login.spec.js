@@ -60,5 +60,8 @@ describe('Login Test', () => {
     cy.login(this.users.validUsers[0])
 
     cy.url().should('contain', '/portfolio')
+    cy
+      .get('[data-cy=loading-overlay]')
+      .should('not.be.visible')
   })
 })
