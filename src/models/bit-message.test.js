@@ -17,8 +17,11 @@ describe('BitMessage', function () {
   }
 
   describe('wallet-crypto/messagePow', function () {
-    const message = walletMessage.messagePow(messageData, keyPair, 2)
-    // console.log(`message = ${message.toString('hex')}`)
+    let message
+    before(function () {
+      message = walletMessage.messagePow(messageData, keyPair, 2)
+      // console.log(`message = ${message.toString('hex')}`)
+    })
 
     it('should build signed message with a nonce', function () {
       assert.ok(message.toString('hex'))

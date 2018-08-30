@@ -1,3 +1,4 @@
+import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import Portfolio from '../portfolio'
 import hdNode from './mock-keys'
 import listunspent, { listunspentZero, listunspentBtc, listunspentError, listunspentEqbDisconnect } from './mock-listunspent'
@@ -23,9 +24,13 @@ const addressesMeta = [
   {index: 0, type: 'EQB', isUsed: true, isChange: true}     // muMQ9mZjBy2E45QcWb1YZgD45mP3TfN3gC
 ]
 
+const btcNode = hdNode.derivePath("m/44'/0'/0'")
+const eqbNode = hdNode.derivePath("m/44'/0'/0'")
+const btcEcPair = bitcoin.ECPair.fromPrivateKey(btcNode.privateKey)
+const eqbEcPair = bitcoin.ECPair.fromPrivateKey(eqbNode.privateKey)
 const portfolioKeys = {
-  BTC: hdNode.derivePath("m/44'/0'/0'"),
-  EQB: hdNode.derivePath("m/44'/73'/0'")
+  BTC: {node: btcNode, ecPair: btcEcPair},
+  EQB: {node: eqbNode, ecPair: eqbEcPair}
 }
 
 const balance = {
@@ -39,7 +44,7 @@ const balance = {
 const portfolio = new Portfolio({
   _id: '595e5c58711b9e358f567edc',
   index: 0,
-  name: 'My Portfolio',
+  name: 'My Mocked Portfolio',
   _addressesMeta: addressesMeta,
   keys: portfolioKeys,
   utxoByTypeByAddress: listunspent

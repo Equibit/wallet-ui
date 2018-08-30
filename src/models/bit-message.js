@@ -33,7 +33,7 @@ import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
 import { walletMessage } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import typeforce from 'typeforce'
-import { instanceOf, KeyPair } from '../utils/typeforce-types'
+import { instanceOf } from '../utils/typeforce-types'
 import Order from './order'
 
 // feathersClient.service('/bit-message')
@@ -41,9 +41,9 @@ import Order from './order'
 const BitMessage = DefineMap.extend('BitMessage', {
   createFromOrder (order, keyPair) {
     typeforce(instanceOf(Order), order)
-    typeforce(KeyPair, keyPair)
+    typeforce('ECPair', keyPair)
 
-    const publicKey = keyPair.getPublicKeyBuffer().toString('hex')
+    const publicKey = keyPair.publicKey.toString('hex')
     const time = '' + Date.now()
     return new BitMessage({
       type: order.type === 'SELL' ? 'Ask' : 'Bid',
