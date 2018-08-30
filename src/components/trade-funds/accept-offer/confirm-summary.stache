@@ -49,7 +49,7 @@
                   {{else}}
                     {{#is formData.assetType 'EQUIBIT'}}
                       <td class="column-label">{{i18n('amount')}}</td>
-                      <td class="column-digital-currency-value font-numeric">{{user-units(formData.quantity, 8)}}</td>
+                      <td class="column-digital-currency-value font-numeric" data-cy="offer-amount">{{user-units(formData.quantity, 8)}}</td>
                       <td class="column-digital-currency-type font-numeric">{{i18n('EQB')}}</td>
                       <td class="column-local-currency-value font-numeric">{{local-currency(formData.quantity, 'EQB'))}}</td>
                       <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>

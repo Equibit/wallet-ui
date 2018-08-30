@@ -14,24 +14,25 @@
             "_status": "has funds, use as sender/seller",
             "id": 0,
             "email": "test@evenset.com",
-            "password": "SpicyTunaMayo"
-        },
-        {
-            "_status": "has no funds",
-            "id": 1,
-            "email": "test2@evenset.com",
             "password": "SpicyTunaMayo",
             "plainEQBaddress": "mjojodMAFqDJdFi1fqtL2CZGkdKvtmL7Gt",
             "plainBTCaddress": "mn8deHoEvsiMffEWwQ9w8qDycCX1NxYsfY"
         },
         {
             "_status": "has funds, use as receiver/buyer",
-            "id": 2,
+            "id": 1,
             "email": "test3@evenset.com",
             "password": "SpicyTunaMayo",
             "plainEQBaddress": "n4qmZnPrFAcwAtofPjXEaZutdE9scsg3iV",
             "plainBTCaddress": "moBKnwf4tL52DbxbQ8RU1HQyuk9MU8SufP"
+        },
+        {
+            "_status": "has no funds",
+            "id": 2,
+            "email": "test2@evenset.com",
+            "password": "SpicyTunaMayo"
         }
+        
     ],
     "noPortfolio": {
         "id": 0,

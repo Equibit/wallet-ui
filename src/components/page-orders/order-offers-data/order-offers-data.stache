@@ -23,7 +23,7 @@
                 class="{{#if orderIsCancelled}}cursor-default{{/if}} {{collapsed(offer)}}"
                 on:click="expandOffer(offer)">
                 <div class="row">
-                  <span class="offer-quantity"><label>{{i18n('quantity')}}</label>
+                  <span class="offer-quantity" data-cy="offer-quantity"><label>{{i18n('quantity')}}</label>
                     {{#is offer.assetType 'EQUIBIT'}}
                       {{coin(offer.quantity)}}
                     {{else}}
@@ -44,7 +44,7 @@
                   {{else}}
                     {{#if canAccept(offer)}}
                       <button class="btn btn-default btn-sm btn-primary btn-accept"
-                              on:click="acceptOffer(offer)">{{i18n('accept')}}</button>
+                              on:click="acceptOffer(offer)" data-cy="accept-button">{{i18n('accept')}}</button>
                     {{else}}
                       {{i18n('offerTooBig')}}
                     {{/if}}

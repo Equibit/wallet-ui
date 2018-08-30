@@ -52,7 +52,7 @@ describe('Transfer Funds Test', () => {
     })
 
     it('can send EQB to valid address, and checks that the address receives EQB', function () {
-      cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[2].plainEQBaddress)
+      cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[1].plainEQBaddress)
       cy.contains('Equibit').click()
       cy
         .get('input[type="number"]')
@@ -64,7 +64,7 @@ describe('Transfer Funds Test', () => {
         .should('contain', 'Send Funds')
       cy
         .get('[data-cy=to-address]')
-        .should('contain', this.users.validUsers[2].plainEQBaddress)
+        .should('contain', this.users.validUsers[1].plainEQBaddress)
       cy
         .get('[data-cy=send-value]')
         .should('contain', '0.00001')
@@ -93,7 +93,7 @@ describe('Transfer Funds Test', () => {
         .should('contain', '0.000025') // Could vary depending on txn fee
       
       cy.logout()
-      cy.login(this.users.validUsers[2])
+      cy.login(this.users.validUsers[1])
 
       cy
         .get('[data-cy=notification-icon]')
@@ -126,7 +126,7 @@ describe('Transfer Funds Test', () => {
     })
 
     it('can send BTC to valid address, and checks that the address receives BTC', function () {
-      cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[2].plainEQBaddress)
+      cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[1].plainEQBaddress)
       cy.contains('Bitcoin').click()
       cy
         .get('input[type="number"]')
@@ -138,7 +138,7 @@ describe('Transfer Funds Test', () => {
         .should('contain', 'Send Funds')
       cy
         .get('[data-cy=to-address]')
-        .should('contain', this.users.validUsers[2].plainEQBaddress)
+        .should('contain', this.users.validUsers[1].plainEQBaddress)
       cy
         .get('[data-cy=send-value]')
         .should('contain', '0.00001')
@@ -167,7 +167,7 @@ describe('Transfer Funds Test', () => {
         .should('contain', '0.000021') // Could vary depending on txn fee
 
       cy.logout()
-      cy.login(this.users.validUsers[2])
+      cy.login(this.users.validUsers[1])
 
       cy
         .get('[data-cy=notification-icon]')
@@ -202,12 +202,12 @@ describe('Transfer Funds Test', () => {
 
   describe('Without funds', () => {  
     beforeEach(function () {
-      cy.login(this.users.validUsers[1])
+      cy.login(this.users.validUsers[2])
       cy.contains('Send').click()
     })
 
     it('cannot send to valid address without funds', function () {
-      cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[2].plainEQBaddress)
+      cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[1].plainEQBaddress)
       cy
         .get('[data-cy=not-enough-funds-alert]')
         .should('contain', 'You don\'t have Equibits to send funds')

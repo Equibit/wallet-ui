@@ -89,7 +89,7 @@
           <tbody>
             {{#eq formData.order.type 'SELL'}}
               <tr>
-                  <td class="input-value"><strong>{{formData.portfolio.name}}</strong></td>
+                  <td class="input-value" data-cy="portfolio-name"><strong>{{formData.portfolio.name}}</strong></td>
                   <td class="column-digital-currency-value font-numeric text-danger">- {{user-units(formData.totalPriceWithFee, 8)}}</td>
                   <td class="column-digital-currency-type font-numeric text-danger">{{user-units-symbol()}}</td>
                   <td class="column-local-currency-value font-numeric text-danger">- {{local-currency(formData.totalPriceWithFee)}}</td>
@@ -97,7 +97,7 @@
               </tr>
             {{else}}
               <tr>
-                  <td class="input-value"><strong>{{formData.portfolio.name}}</strong></td>
+                  <td class="input-value" data-cy="portfolio-name"><strong>{{formData.portfolio.name}}</strong></td>
                   {{#is formData.assetType 'EQUIBIT'}}
                     <td class="column-digital-currency-value font-numeric text-danger">- {{formData.quantityInCoins}}</td>
                     <td class="column-digital-currency-type font-numeric text-danger">EQB</td>

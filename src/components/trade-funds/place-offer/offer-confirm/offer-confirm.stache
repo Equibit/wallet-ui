@@ -24,7 +24,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 time-lock-options no-padding-left">
         <div class="btn-group" role="group" aria-label="Time lock options">
-          <button type="button" class="btn btn-default{{#eq formData.timelock 72}} active{{/eq}}" on:click:el:value:to="formData.timelock" value="72">12 {{i18n('hours')}}</button>
+          <button type="button" class="btn btn-default{{#eq formData.timelock 72}} active{{/eq}}" on:click:el:value:to="formData.timelock" value="72" data-cy="timelock-button">12 {{i18n('hours')}}</button>
           <button type="button" class="btn btn-default{{#eq formData.timelock 144}} active{{/eq}}" on:click:el:value:to="formData.timelock" value="144">1 {{i18n('day')}}</button>
           <button type="button" class="btn btn-default{{#eq formData.timelock 288}} active{{/eq}}" on:click:el:value:to="formData.timelock" value="288">2 {{i18n('days')}}</button>
         </div>
