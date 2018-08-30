@@ -421,13 +421,15 @@ const Portfolio = DefineMap.extend('Portfolio', {
         return val
       }
 
-      let localBalance = window.localStorage.getItem(Session.current.user._id)
+      const utxos = this.utxoByTypeByAddress
+      const user = Session.current.user
+      let localBalance = window.localStorage.getItem('balance')
       // Check if balance is saved in localStorage and utxo addresses are resolved OR if the addresses object for both BTC and EQB are not empty
-      if (localBalance !== null && (!this.utxoByTypeByAddress || (Object.keys(this.utxoByTypeByAddress.EQB.addresses).length === 0 && Object.keys(this.utxoByTypeByAddress.BTC.addresses).length === 0))) {
-        return JSON.parse(localBalance)
+      if (localBalance !== null && (!utxos || (Object.keys(utxos.EQB.addresses).length === 0 && Object.keys(utxos.BTC.addresses).length === 0))) {
+        return JSON.parse(user.decrypt(localBalance))
       }
 
-      if (!this.utxoByTypeByAddress) {
+      if (!utxos) {
         console.log('portfolio.balance is undefined - no utxo yet...')
         return {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0}
       }
@@ -493,6 +495,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           // once all the promises resolve, update the totals in the returned map
           totals.cashTotal += totals.blankEqb * eqbToBtc
           totals.total = totals.cashTotal + totals.securities
+          this.cacheInitialBalance(totals)
           console.log(`portfolio.balance.total is ${totals.total}`)
           retVal.assign(totals)
           resolve && resolve(retVal)
@@ -687,24 +690,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
     this.on('addressesPromise', () => {})
   },
 
-  cacheInitialBalance (utxos) {
-    const unspentBTC = utxos.BTC.addresses
-    const unspentEQB = utxos.EQB.addresses
-    let initialBalance = { cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0, total: 0 }
-    if (Object.keys(unspentBTC).length > 0) {
-      const firstBTCAddress = Object.keys(unspentBTC)[0]
-      initialBalance.cashBtc = initialBalance.cashTotal = initialBalance.total = unspentBTC[firstBTCAddress].amount
-      window.localStorage.setItem(Session.current.user._id, JSON.stringify(initialBalance))
-    }
-    if (Object.keys(unspentEQB).length > 0) {
-      getSecuritiesAmount(unspentEQB[Object.keys(unspentEQB)[0]].txouts).then(securitiesAmount => {
-        const firstEQBAddress = Object.keys(unspentEQB)[0]
-        initialBalance.securities = securitiesAmount.total
-        initialBalance.blankEqb = unspentEQB[firstEQBAddress].amount - securitiesAmount.amount
-        initialBalance.cashTotal = initialBalance.cashBtc + initialBalance.blankEqb
-        initialBalance.total = initialBalance.cashTotal + initialBalance.securities
-        window.localStorage.setItem(Session.current.user._id, JSON.stringify(initialBalance))
-      })
+  cacheInitialBalance (balance) {
+    const utxos = this.utxoByTypeByAddress
+    const user = Session.current.user
+    if (utxos && (Object.keys(utxos.BTC.addresses).length > 0 || Object.keys(utxos.EQB.addresses).length > 0)) {
+      window.localStorage.setItem('balance', user.encrypt(JSON.stringify(balance)))
     }
   }
 })
