@@ -276,6 +276,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           EQB: this.addressesEqb.get()
         }).then(result => {
           initialResolved = true
+          this.cacheInitialBalance(result)
           resolvePromise(result)
         })
 
@@ -419,10 +420,17 @@ const Portfolio = DefineMap.extend('Portfolio', {
       if (val) {
         return val
       }
+
+      let localBalance = window.localStorage.getItem(Session.current.user._id)
+      if (localBalance !== null && (!this.utxoByTypeByAddress || (Object.keys(this.utxoByTypeByAddress.EQB.addresses).length === 0 && Object.keys(this.utxoByTypeByAddress.BTC.addresses).length === 0))) {
+        return JSON.parse(localBalance)
+      }
+
       if (!this.utxoByTypeByAddress) {
         console.log('portfolio.balance is undefined - no utxo yet...')
         return {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0}
       }
+
       this.balancePromise.then(bal => {
         resolve && resolve(bal)
       })
@@ -676,6 +684,27 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
   init () {
     this.on('addressesPromise', () => {})
+  },
+
+  cacheInitialBalance (utxos) {
+    const unspentBTC = utxos.BTC.addresses
+    const unspentEQB = utxos.EQB.addresses
+    let initialBalance = { cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0, total: 0 }
+    if (Object.keys(unspentBTC).length > 0) {
+      const firstBTCAddress = Object.keys(unspentBTC)[0]
+      initialBalance.cashBtc = initialBalance.cashTotal = initialBalance.total = unspentBTC[firstBTCAddress].amount
+      window.localStorage.setItem(Session.current.user._id, JSON.stringify(initialBalance))
+    }
+    if (Object.keys(unspentEQB).length > 0) {
+      getSecuritiesAmount(unspentEQB[Object.keys(unspentEQB)[0]].txouts).then(securitiesAmount => {
+        const firstEQBAddress = Object.keys(unspentEQB)[0]
+        initialBalance.securities = securitiesAmount.total
+        initialBalance.blankEqb = unspentEQB[firstEQBAddress].amount - securitiesAmount.amount
+        initialBalance.cashTotal = initialBalance.cashBtc + initialBalance.blankEqb
+        initialBalance.total = initialBalance.cashTotal + initialBalance.securities
+        window.localStorage.setItem(Session.current.user._id, JSON.stringify(initialBalance))
+      })
+    }
   }
 })
 
