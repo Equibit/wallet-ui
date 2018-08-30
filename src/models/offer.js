@@ -21,8 +21,8 @@ import Transaction from './transaction/'
 import { blockTime } from '~/constants'
 import BlockhainInfo from './blockchain-info'
 
-// information about the duration and expiry of a given tx
-function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
+// information about the duration and expiry of a given tx (exported for testing)
+export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
   const lastConfirmationMidpoint = bcInfo[tx.currencyType].mediantime * 1000
   let nextConf = lastConfirmationMidpoint + (0.5 * blockTime[tx.currencyType])
   while (nextConf < Date.now()) { // prevents this value from being sensitive to small changes in Date.now()
@@ -50,7 +50,7 @@ function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
 }
 
 // retrieve transaction info for an order
-const orderInfo = (order, htlcTxId1, htlcTxId2) => {
+function orderInfo (order, htlcTxId1, htlcTxId2) {
   const addresses = [
     this.btcAddress,
     this.eqbAddress,
@@ -346,8 +346,7 @@ const Offer = DefineMap.extend('Offer', {
       })
       return this.orderPromise.then(
         order => orderInfo(order, htlcTxId1, htlcTxId2)
-      )
-      .then(([txes, blockchainInfo]) => {
+      ).then(([txes, blockchainInfo]) => {
         const step1 = txes.filter(t => t.htlcStep === 1)[0]
         const step2 = txes.filter(t => t.htlcStep === 2)[0]
         const fullStats = timeStats(step1, timelockExpiresBlockheight, timelockExpiredAt, blockchainInfo)
