@@ -15,6 +15,8 @@ import algebra from './algebra'
 import Session from '~/models/session'
 import Transaction from '~/models/transaction/transaction'
 import { fetchListunspent, importMulti, getUnspentOutputsForAmount } from './portfolio-utils'
+import cryptoUtils from '../utils/crypto'
+const { getAddress } = cryptoUtils
 
 const Issuance = DefineMap.extend('Issuance', {
   _id: 'string',
@@ -157,7 +159,7 @@ const Issuance = DefineMap.extend('Issuance', {
     }
   },
   get address () {
-    return this.keys && this.keys.getAddress()
+    return this.keys && getAddress(this.keys.publicKey, this.keys.network).address
   },
 
   // Array of related UTXO from /listunspent belonging to addresses controlled by the current user.

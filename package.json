@@ -100,7 +100,7 @@
     }
   },
   "dependencies": {
-    "@equibit/wallet-crypto": "0.27.0",
+    "@equibit/wallet-crypto": "0.30.0",
     "accounting": "^0.4.1",
     "bit-c3": "^0.3.0",
     "body-parser": "^1.18.2",

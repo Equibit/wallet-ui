@@ -9,10 +9,6 @@ const instanceOf = function (ConstructorFn) {
   }
 }
 
-const KeyPair = function (value) {
-  return !!(value && value.getPublicKeyBuffer)
-}
-
 // Transaction ID is a 256 bit hex value:
 const TxId = function (value) {
   // String of 64 chars (which is 32 bytes in hex, which is 256 bits):
@@ -26,7 +22,6 @@ const BlockchainInfoBySymbol = typeforce.compile({
 
 export {
   instanceOf,
-  KeyPair,
   TxId,
   BlockchainInfoBySymbol
 }

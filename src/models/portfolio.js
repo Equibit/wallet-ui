@@ -27,9 +27,11 @@ import {
   getAvailableAmount
 } from './portfolio-utils'
 import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import cryptoUtils from '../utils/crypto'
 const { ECPair } = bitcoin
+const { getAddress } = cryptoUtils
 // TODO is there a better way to get at this constructor?
-const BigInteger = ECPair.makeRandom().d.constructor
+const BigInteger = ECPair.makeRandom().privateKey.constructor
 
 const EMPTY_ISSUANCE_TX_ID = '0000000000000000000000000000000000000000000000000000000000000000'
 
@@ -171,9 +173,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
                       address: ev.data.address,
                       type: meta.type,
                       isChange: meta.isChange,
-                      keyPair: new ECPair(
-                        BigInteger.fromByteArrayUnsigned(ev.data.keyPairD),
-                        null,
+                      keyPair: ECPair.fromPrivateKey(
+                        new BigInteger(ev.data.keyPairD),
                         { network: ev.data.keyPairNetwork }
                       ),
                       meta
@@ -538,8 +539,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
     const btcNode = this.keys.BTC.derive(changeIndex).derive(btcAddrIndex.index)
     const eqbNode = this.keys.EQB.derive(changeIndex).derive(eqbAddrIndex.index)
     const addr = {
-      BTC: btcNode.getAddress(),
-      EQB: eqbNode.getAddress()
+      BTC: getAddress(btcNode.publicKey, btcNode.network).address,
+      EQB: getAddress(eqbNode.publicKey, btcNode.network).address
     }
     const portfolioAddressesCreatePromises = []
 
