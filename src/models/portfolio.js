@@ -422,6 +422,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }
 
       let localBalance = window.localStorage.getItem(Session.current.user._id)
+      // Check if balance is saved in localStorage and utxo addresses are resolved OR if the addresses object for both BTC and EQB are not empty
       if (localBalance !== null && (!this.utxoByTypeByAddress || (Object.keys(this.utxoByTypeByAddress.EQB.addresses).length === 0 && Object.keys(this.utxoByTypeByAddress.BTC.addresses).length === 0))) {
         return JSON.parse(localBalance)
       }
