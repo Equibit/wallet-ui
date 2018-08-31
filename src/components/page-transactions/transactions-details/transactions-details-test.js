@@ -18,7 +18,7 @@ describe('components/page-transactions/transactions-details', function () {
     transaction
   })
   it('should define `to`', function () {
-    assert.equal(vm.to, 'My Portfolio')
+    assert.equal(vm.to, 'My Mocked Portfolio')
   })
   it('should define `from`', function () {
     assert.equal(vm.from, 'mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA')
