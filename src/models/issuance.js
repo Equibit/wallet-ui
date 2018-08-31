@@ -7,6 +7,7 @@
  * @group models/issuance.properties 0 properties
  */
 
+import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import DefineMap from 'can-define/map/map'
 import DefineList from 'can-define/list/list'
 import feathersClient from './feathers-client'
@@ -147,11 +148,16 @@ const Issuance = DefineMap.extend('Issuance', {
       if (!lastSetVal && typeof this.index !== 'undefined') {
         if (Session && this.userId === Session.current.user._id) {
           const companyHdNode = Session.current.user && Session.current.user.generatePortfolioKeys(this.companyIndex).EQB
-          return companyHdNode && companyHdNode.derive(this.index)
+          const issuanceNode = companyHdNode && companyHdNode.derive(this.index)
+          const ecPair = bitcoin.ECPair.fromPrivateKey(issuanceNode.privateKey, {network: issuanceNode.network})
+          return {
+            node : issuanceNode,
+            ecPair
+          }
         } else {
           const portfolio = Session && Session.current.portfolios && Session.current.portfolios[0]
           const addr = portfolio && portfolio.findAddress(this.utxo[0].address)
-          return addr && addr.keyPair && {keyPair: addr.keyPair}
+          return addr && addr.keyPair && {ecPair: addr.keyPair}
         }
       } else {
         return lastSetVal
@@ -159,7 +165,7 @@ const Issuance = DefineMap.extend('Issuance', {
     }
   },
   get address () {
-    return this.keys && getAddress(this.keys.publicKey, this.keys.network).address
+    return this.keys && getAddress(this.keys.ecPair.publicKey, this.keys.ecPair.network).address
   },
 
   // Array of related UTXO from /listunspent belonging to addresses controlled by the current user.

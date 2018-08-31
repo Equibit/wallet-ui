@@ -90,7 +90,7 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrBlan
     }
     availableAmount = issuanceUtxoInfo.sum
     const issuanceUtxo = issuanceUtxoInfo.txouts
-      .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
+      .map(a => merge(a, {keyPair: issuance.keys.ecPair}))
 
     // For Sell order we set both change addr for securities and the refund to the same holding address from where we send securities.
     refundAddress = issuanceUtxo[0].address
