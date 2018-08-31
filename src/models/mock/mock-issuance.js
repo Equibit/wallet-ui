@@ -1,3 +1,4 @@
+import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import Issuance from '../issuance'
 import Session from '../session'
 import cryptoUtils from '../../utils/crypto'
@@ -9,6 +10,7 @@ feathersClient.service('portfolios').patch = () => Promise.resolve()
 const companyIndex = 1
 const issuanceIndex = 0
 const issuanceHdNode = hdNode.derivePath(`m/44'/73'/${companyIndex}'/0/${issuanceIndex}`)
+const issuanceEcPair = bitcoin.ECPair.fromPrivateKey(issuanceHdNode.privateKey, { network })
 
 console.log(`issuance address = ${cryptoUtils.getAddress(issuanceHdNode.publicKey, network)}`)
 
@@ -41,7 +43,7 @@ const issuance = new Issuance({
   companyName: 'Equibit Group',
   issuanceName: 'Series One',
   issuanceType: 'common_shares',
-  keys: issuanceHdNode,
+  keys: {node: issuanceHdNode, ecPair: issuanceEcPair},
   utxo,
   rates: Session.current.rates
 })
