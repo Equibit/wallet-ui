@@ -536,8 +536,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
     const changeIndex = isChange ? 1 : 0
     const btcAddrIndex = getNextAddressIndex(this.addressesMeta, 'BTC', isChange)
     const eqbAddrIndex = getNextAddressIndex(this.addressesMeta, 'EQB', isChange)
-    const btcNode = this.keys.BTC.derive(changeIndex).derive(btcAddrIndex.index)
-    const eqbNode = this.keys.EQB.derive(changeIndex).derive(eqbAddrIndex.index)
+    const btcNode = this.keys.BTC.node.derive(changeIndex).derive(btcAddrIndex.index)
+    const eqbNode = this.keys.EQB.node.derive(changeIndex).derive(eqbAddrIndex.index)
     const addr = {
       BTC: getAddress(btcNode.publicKey, btcNode.network).address,
       EQB: getAddress(eqbNode.publicKey, btcNode.network).address
