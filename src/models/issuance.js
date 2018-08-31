@@ -151,7 +151,7 @@ const Issuance = DefineMap.extend('Issuance', {
           const issuanceNode = companyHdNode && companyHdNode.derive(this.index)
           const ecPair = bitcoin.ECPair.fromPrivateKey(issuanceNode.privateKey, {network: issuanceNode.network})
           return {
-            node : issuanceNode,
+            node: issuanceNode,
             ecPair
           }
         } else {
