@@ -173,7 +173,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
                       address: ev.data.address,
                       type: meta.type,
                       isChange: meta.isChange,
-                      keyPair: ECPair.fromPrivateKey(
+                      ecPair: ECPair.fromPrivateKey(
                         new BigInteger(ev.data.keyPairD),
                         { network: ev.data.keyPairNetwork }
                       ),
