@@ -24,7 +24,7 @@ self.onmessage = function (event) {
       self.postMessage({
         keyPairD: keyPair.privateKey,
         keyPairNetwork: hdNode.network,
-        address: getAddress(hdNode.publicKey, hdNode.network),
+        address: getAddress(hdNode.publicKey, hdNode.network).address,
         uuid
       })
   }
