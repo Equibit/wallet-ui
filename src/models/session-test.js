@@ -53,6 +53,20 @@ describe('models/session', function () {
       session.on('balance', balanceHandler)
     })
 
+    it('should cache balance', function (done) {
+      function balanceHandler (ev, newVal, oldVal) {
+        console.log('on.balance', ev, newVal, oldVal)
+        if (!session.balance || session.balance.isPending) {
+          return
+        }
+        const decryptedBalance = session.user.decrypt(window.localStorage.getItem('balance'))
+        assert.deepEqual(JSON.parse(decryptedBalance), session.portfolios[0].balance)
+        session.off('balance', balanceHandler)
+        done()
+      }
+      session.on('balance', balanceHandler)
+    })
+
     session.user = userMock
   })
 })
