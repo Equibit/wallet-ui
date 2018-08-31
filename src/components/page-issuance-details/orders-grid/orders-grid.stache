@@ -172,7 +172,7 @@
                 </button>
               {{/case}}
               {{#default}}
-                <button class="btn btn-default btn-xs" on:click="buySell(row)">{{i18n('sell')}}</button>
+                <button class="btn btn-default btn-xs" on:click="buySell(row)" data-cy="sell-button">{{i18n('sell')}}</button>
               {{/default}}
               {{/switch}}
             </td>

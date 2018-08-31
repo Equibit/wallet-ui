@@ -42,7 +42,7 @@
               <tr>
                   {{#eq formData.type 'BTC'}}
                     <td class="column-label">{{i18n('amount')}}</td>
-                    <td class="column-digital-currency-value font-numeric">{{user-units(formData.quantity, 8)}}</td>
+                    <td class="column-digital-currency-value font-numeric" data-cy="offer-amount">{{user-units(formData.quantity, 8)}}</td>
                     <td class="column-digital-currency-type font-numeric">{{user-units-symbol('BTC')}}</td>
                     <td class="column-local-currency-value font-numeric">{{local-currency(formData.quantity))}}</td>
                     <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>
