@@ -74,7 +74,8 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
     // - issuer: lookup keys directly in issuance
     // - refund: lookup refund address in portfolio
     const portfolioAddr = isRefund ? portfolio.findAddress(refundAddr) : portfolio.findAddress(offer.eqbAddress)
-    const keyPair = portfolioAddr ? portfolioAddr.keyPair : issuance.keys.keyPair
+    const keyPair = portfolioAddr ? portfolioAddr.ecPair : issuance.keys.ecPair
+    typeforce('ECPair', keyPair)
     const buildConfig = {
       vin: [{
         // Main input of the locked HTLC amount:
@@ -107,7 +108,7 @@ const [ prepareHtlcConfig3, prepareHtlcRefundConfig3 ] = [false, true].map(isRef
       const availableAmountBlankEqb = utxoBlankEqbInfo.sum
       const utxoBlankEqb = utxoBlankEqbInfo.txouts
         .map(a => merge(a, {
-          keyPair: portfolio.findAddress(a.address).keyPair,
+          keyPair: portfolio.findAddress(a.address).ecPair,
           sequence: isRefund ? '0' : '4294967295'
         }))
       buildConfig.vin = buildConfig.vin.concat(utxoBlankEqb)
@@ -174,7 +175,7 @@ const [ prepareHtlcConfig3Btc, prepareHtlcRefundConfig3Btc ] = [false, true].map
         // Main input of the locked HTLC amount:
         txid: offer.htlcTxId2,
         vout: 0,
-        keyPair: portfolio.findAddress(offer.btcAddress).keyPair,
+        keyPair: portfolio.findAddress(offer.btcAddress).ecPair,
         htlc: {
           [isRefund ? 'secretHash' : 'secret']: isRefund ? offer.hashlock : secret,
           // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.

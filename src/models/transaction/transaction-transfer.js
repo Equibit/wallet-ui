@@ -71,7 +71,7 @@ function prepareConfigBtc (
   }
   const availableAmount = utxoInfo.sum
   const utxo = utxoInfo.txouts
-    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
   const buildConfig = {
     vin: utxo.map(pick(['txid', 'vout', 'keyPair'])),
@@ -131,7 +131,7 @@ function prepareConfigEqb (
     }
     availableAmount = issuanceUtxoInfo.sum
     const issuanceUtxo = issuanceUtxoInfo.txouts
-      .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
+      .map(a => merge(a, {keyPair: issuance.keys.ecPair}))
 
     changeAddrMain = issuanceUtxo[0].address
     changeAddrFee = changeAddr
@@ -143,7 +143,7 @@ function prepareConfigEqb (
     }
     availableAmountBlankEqb = utxoBlankEqbInfo.sum
     const utxoBlankEqb = utxoBlankEqbInfo.txouts
-      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
     utxo = issuanceUtxo.concat(utxoBlankEqb)
   }
@@ -156,7 +156,7 @@ function prepareConfigEqb (
     }
     availableAmount = utxoInfo.sum
     utxo = utxoInfo.txouts
-      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
     changeAddrMain = changeAddr
   }
