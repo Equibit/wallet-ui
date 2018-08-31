@@ -26,8 +26,8 @@ const addressesMeta = [
 
 const btcNode = hdNode.derivePath("m/44'/0'/0'")
 const eqbNode = hdNode.derivePath("m/44'/0'/0'")
-const btcEcPair = bitcoin.ECPair.fromPrivateKey(btcNode.privateKey)
-const eqbEcPair = bitcoin.ECPair.fromPrivateKey(eqbNode.privateKey)
+const btcEcPair = bitcoin.ECPair.fromPrivateKey(btcNode.privateKey, {network: btcNode.network})
+const eqbEcPair = bitcoin.ECPair.fromPrivateKey(eqbNode.privateKey, {network: eqbNode.network})
 const portfolioKeys = {
   BTC: {node: btcNode, ecPair: btcEcPair},
   EQB: {node: eqbNode, ecPair: eqbEcPair}

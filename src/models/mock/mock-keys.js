@@ -13,7 +13,7 @@ const xpub = hdNode.neutered().toBase58()
 
 // Address (change=0, index=0):
 const addrHdNode = hdNode.derive(0).derive(0)
-const keyPair = bitcoin.ECPair.fromPrivateKey(addrHdNode.privateKey)
+const keyPair = bitcoin.ECPair.fromPrivateKey(addrHdNode.privateKey, { network })
 const address = utils.getAddress(addrHdNode.publicKey, network).address
 const publicKey = addrHdNode.publicKey.toString('hex')
 
