@@ -516,8 +516,6 @@ describe('Fill or Kill Test', () => {
     cy
       .get('[data-cy=accept-offer-title]')
       .should('contain', 'Accept Offer and Send Payment')
-      .get('[data-cy=timer]')
-      .should('contain', '11')
       .get('[data-cy=offer-amount]')
       .should('contain', '0.0001')
     cy
