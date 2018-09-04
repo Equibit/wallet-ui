@@ -209,8 +209,6 @@ describe('Fill or Kill Test', () => {
     cy
       .get('[data-cy=accept-offer-title]')
       .should('contain', 'Accept Offer and Send Equibits')
-      .get('[data-cy=timer]')
-      .should('contain', '11')
       .get('[data-cy=offer-amount]')
       .should('contain', '0.0001')
     cy
@@ -387,6 +385,10 @@ describe('Fill or Kill Test', () => {
 
     // Place Buy Offer & Send Payment - check message
     cy.login(this.users.validUsers[0])
+    cy.url().should('contain', '/portfolio')
+    cy
+      .get('[data-cy=no-funds-alert]')
+      .should('not.exist')
     cy.get('[data-cy=equibit-link]').click()
     cy.url().should('contain', 'equibit')
     cy
@@ -425,9 +427,7 @@ describe('Fill or Kill Test', () => {
     cy
       .get('[data-cy=offer-modal-title]')
       .should('contain', 'Send Offer Equibits')
-    cy
-      .contains('Please review and confirm your offer.')
-      .should('exist')
+
     cy
       // .contains('0.0001') // bug here
       // .should('exist')
