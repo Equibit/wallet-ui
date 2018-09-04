@@ -10,8 +10,7 @@ env:
   - TEST_SUITE=cypress-test
 jobs:
   inclue:
-    - if: env(TEST_SUITE) = 'cypress-test'
-      before_install:
+    - before_install:
         - "export DISPLAY=:99.0"
         - "sh -e /etc/init.d/xvfb start"
         # Clone backend repo
@@ -27,6 +26,7 @@ jobs:
         # Wait for server to start
         - "sleep 5"
         - "cd .."
+      if: env(TEST_SUITE) = 'cypress-test'
 cache:
   yarn: true
   directories:
