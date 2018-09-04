@@ -5,9 +5,6 @@ node_js: 8.6.0
 addons:
   firefox: "latest"
 services: mongodb
-env:
-  - TEST_SUITE=test
-  - TEST_SUITE=cypress-test      
 cache:
   yarn: true
   directories:
@@ -37,3 +34,20 @@ script:
 after_script:
   - kill $(jobs -p) || true
   - sudo service mongodb stop
+jobs:
+  include:
+    - stage: Testing
+      env:
+        - TEST_SUITE=cypress-test
+    - stage: Testing
+      env:
+        - TEST_SUITE=cypress-test
+    - stage: Testing
+      env:
+        - TEST_SUITE=cypress-test
+    - stage: Testing
+      env:
+        - TEST_SUITE=cypress-test
+    - stage: Testing
+      env:
+        - TEST_SUITE=test
