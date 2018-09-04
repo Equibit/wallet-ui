@@ -10,7 +10,7 @@ env:
   - TEST_SUITE=cypress-test
 jobs:
   inclue:
-    - if: env(TEST_SUITE) = cypress-test
+    - if: env(TEST_SUITE) = 'cypress-test'
       before_install:
         - "export DISPLAY=:99.0"
         - "sh -e /etc/init.d/xvfb start"
