@@ -28,9 +28,10 @@ before_install:
   - "cd .."
 install:
   - yarn install --frozen-lockfile
-script:
-  - sudo sh -c "dbus-uuidgen > /etc/machine-id"
-  - yarn run $TEST_SUITE
+defaults: &defaults
+  script:
+    - sudo sh -c "dbus-uuidgen > /etc/machine-id"
+    - yarn run $TEST_SUITE
 after_script:
   - kill $(jobs -p) || true
   - sudo service mongodb stop
