@@ -1,6 +1,6 @@
 /*eslint-disable */
-// NOTE: These tests currently only create FOK orders, and are not completed.
-// This means that once in a while, if you run it often, the btc/eqb blocks will
+// NOTE: These tests only create FOK orders and complete FOK trades.
+// This means that once in a while when the tests fail, the btc/eqb blocks will
 // need to be mined otherwise 'invalid signature' or mempool error will occur.
 describe('Fill or Kill Test', () => {
   beforeEach(() => {
