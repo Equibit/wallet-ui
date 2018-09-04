@@ -26,10 +26,11 @@ before_install:
   # Wait for server to start
   - "sleep 5"
   - "cd .."
+install:
+  - yarn install --frozen-lockfile
 script:
   - sudo sh -c "dbus-uuidgen > /etc/machine-id"
-  - yarn run test
-  - yarn run cypress-test
+  - yarn run $TEST_SUITE
 after_script:
   - kill $(jobs -p) || true
   - sudo service mongodb stop
