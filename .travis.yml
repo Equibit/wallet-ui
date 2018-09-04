@@ -41,13 +41,4 @@ jobs:
         - TEST_SUITE=cypress-test
     - stage: Testing
       env:
-        - TEST_SUITE=cypress-test
-    - stage: Testing
-      env:
-        - TEST_SUITE=cypress-test
-    - stage: Testing
-      env:
-        - TEST_SUITE=cypress-test
-    - stage: Testing
-      env:
         - TEST_SUITE=test
