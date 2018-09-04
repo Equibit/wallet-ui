@@ -37,7 +37,7 @@
     "deps-bundle": "steal-tools bundle --deps",
     "build:test:cypress": "npm run build2 && (HTTP_PASSWORD=bullish NODE_ENV=qa npm run start &)",
     "cypress": "npm run build:test:cypress && cypress open -e HTTP_PASSWORD=bullish",
-    "test-cypress": "npm run build:test:cypress && cypress run --browser chrome -e HTTP_PASSWORD=bullish"
+    "test-cypress": "npm run build:test:cypress && cypress run --browser chrome --record --key=a452942b-b549-4a49-b45c-51683d77b79c -e HTTP_PASSWORD=bullish --parallel"
   },
   "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
   "files": [
@@ -165,7 +165,7 @@
     "babel-register": "^6.26.0",
     "can-view-model": "^3.5.1",
     "chai": "^4.1.2",
-    "cypress": "3.0.3",
+    "cypress": "3.1.0",
     "documentjs": "^0.5.1",
     "donejs-cli": "^1.1.0",
     "funcunit": "^3.5.0",
