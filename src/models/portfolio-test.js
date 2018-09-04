@@ -1,7 +1,6 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import Portfolio from './portfolio'
-import Session from './session'
 import { omit } from 'ramda'
 import portfolio, { portfolioDisconnected, portfolioBtc, portfolioEqbDisconnected, addressesMeta } from './mock/mock-portfolio'
 import listunspent from './mock/mock-listunspent'
@@ -226,7 +225,7 @@ describe('cacheInitialBalance', function () {
       securities: 1000,
       cashTotal: 2000,
       total: 3000
-    } 
+    }
     portfolio.cacheInitialBalance(initialBalance)
     assert.ok(window.localStorage.getItem('balance') !== null)
   })
