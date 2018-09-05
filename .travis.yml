@@ -10,6 +10,7 @@ cache:
 defaults: &defaults
   addons:
     firefox: "latest"
+    chrome: "stable"
   services: mongodb
   before_install:
     - "export DISPLAY=:99.0"
@@ -37,14 +38,6 @@ defaults: &defaults
     - sudo service mongodb stop
 jobs:
   include:
-    - stage: Testing
-      env:
-        - TEST_SUITE=cypress-test
-      <<: *defaults
-    - stage: Testing
-      env:
-        - TEST_SUITE=cypress-test
-      <<: *defaults
     - stage: Testing
       env:
         - TEST_SUITE=cypress-test
