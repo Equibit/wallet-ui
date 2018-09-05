@@ -41,7 +41,7 @@ jobs:
       env:
         - TEST_SUITE=cypress-test
       <<: *defaults
-      - stage: Testing
+    - stage: Testing
       env:
         - TEST_SUITE=cypress-test
       <<: *defaults
