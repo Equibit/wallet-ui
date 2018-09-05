@@ -48,7 +48,7 @@
                 {{else}}
                   <td class="column-label">{{i18n('quantity')}}</td>
                   {{#is formData.assetType 'EQUIBIT'}}
-                    <td class="column-digital-currency-value font-numeric">{{format(formData.quantityInCoins, '', 0)}}</td>
+                    <td class="column-digital-currency-value font-numeric">{{formData.quantityInCoins}}</td>
                     <td class="column-digital-currency-type font-numeric">EQB</td>
                   {{else}}
                     <td class="column-digital-currency-value font-numeric">{{format(formData.quantity, '', 0)}}</td>
@@ -99,7 +99,7 @@
               <tr>
                   <td class="input-value"><strong>{{formData.portfolio.name}}</strong></td>
                   {{#is formData.assetType 'EQUIBIT'}}
-                    <td class="column-digital-currency-value font-numeric text-danger">- {{format(formData.quantityInCoins, '', 0)}}</td>
+                    <td class="column-digital-currency-value font-numeric text-danger">- {{formData.quantityInCoins}}</td>
                     <td class="column-digital-currency-type font-numeric text-danger">EQB</td>
                   {{else}}
                     <td class="column-digital-currency-value font-numeric text-danger">- {{format(formData.quantity, '', 0)}}</td>
