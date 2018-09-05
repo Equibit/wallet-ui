@@ -14,6 +14,10 @@ describe('Fill or Kill Test', () => {
 
   it('Fill or Kill sell order', function () {
     cy.login(this.users.validUsers[0])
+    cy.url().should('contain', '/portfolio')
+    cy
+      .get('[data-cy=no-funds-alert]')
+      .should('not.exist')
     cy.get('[data-cy=equibit-link]').click()
     cy.url().should('contain', 'equibit')
 
@@ -80,6 +84,10 @@ describe('Fill or Kill Test', () => {
 
     // Place Buy Offer & Send Payment - check message
     cy.login(this.users.validUsers[1])
+    cy.url().should('contain', '/portfolio')
+    cy
+      .get('[data-cy=no-funds-alert]')
+      .should('not.exist')
     cy.get('[data-cy=equibit-link]').click()
     cy.url().should('contain', 'equibit')
     cy
@@ -150,8 +158,6 @@ describe('Fill or Kill Test', () => {
 
     // Accept & Send Securities - check message
     cy.login(this.users.validUsers[0])
-    cy.get('[data-cy=equibit-link]').click()
-    cy.url().should('contain', 'equibit')
     // Confirm notification
     cy
       .get('[data-cy=notification-icon]')
@@ -164,6 +170,12 @@ describe('Fill or Kill Test', () => {
       .get('[data-cy=quantity-link]')
       .should('contain', '0.0001@1000000')
     // Confirm order appears/exists
+    cy.url().should('contain', '/portfolio')
+    cy
+      .get('[data-cy=no-funds-alert]')
+      .should('not.exist')
+    cy.get('[data-cy=equibit-link]').click()
+    cy.url().should('contain', 'equibit')
     cy
       .get('[data-cy=sell-order-row]')
       .should('exist')
@@ -176,7 +188,6 @@ describe('Fill or Kill Test', () => {
       .click()
     // Confirm order details & accept offer
     cy.url().should('contain', '/orders/')
-
     cy
       .get('[data-cy=order-item]')
       .should('have.attr', 'on:click', 'selectItem(item)')
@@ -267,6 +278,10 @@ describe('Fill or Kill Test', () => {
 
     // Collect Payment & Close Deal
     cy.login(this.users.validUsers[0])
+    cy.url().should('contain', '/portfolio')
+    cy
+      .get('[data-cy=no-funds-alert]')
+      .should('not.exist')
     cy.get('[data-cy=equibit-link]').click()
     cy.url().should('contain', 'equibit')
     cy
@@ -317,8 +332,12 @@ describe('Fill or Kill Test', () => {
       .should('contain', 'Deal Closed')
   })
 
-  it('Fill or Kill buy order', function () {
+  it.only('Fill or Kill buy order', function () {
     cy.login(this.users.validUsers[1])
+    cy.url().should('contain', '/portfolio')
+    cy
+      .get('[data-cy=no-funds-alert]')
+      .should('not.exist')
     cy.get('[data-cy=equibit-link]').click()
     cy.url().should('contain', 'equibit')
 
@@ -427,7 +446,6 @@ describe('Fill or Kill Test', () => {
     cy
       .get('[data-cy=offer-modal-title]')
       .should('contain', 'Send Offer Equibits')
-
     cy
       // .contains('0.0001') // bug here
       // .should('exist')
@@ -457,8 +475,6 @@ describe('Fill or Kill Test', () => {
 
     // Accept & Send Securities - check message
     cy.login(this.users.validUsers[1])
-    cy.get('[data-cy=equibit-link]').click()
-    cy.url().should('contain', 'equibit')
     // Confirm notification
     cy
       .get('[data-cy=notification-icon]')
@@ -471,6 +487,12 @@ describe('Fill or Kill Test', () => {
       .get('[data-cy=quantity-link]')
       .should('contain', '0.0001@1000000')
     // Confirm order appears/exists
+    cy.url().should('contain', '/portfolio')
+    cy
+      .get('[data-cy=no-funds-alert]')
+      .should('not.exist')
+    cy.get('[data-cy=equibit-link]').click()
+    cy.url().should('contain', 'equibit')
     cy
       .get('[data-cy=buy-order-row]')
       .should('exist')
@@ -574,6 +596,10 @@ describe('Fill or Kill Test', () => {
 
     // Collect Payment & Close Deal
     cy.login(this.users.validUsers[1])
+    cy.url().should('contain', '/portfolio')
+    cy
+      .get('[data-cy=no-funds-alert]')
+      .should('not.exist')
     cy.get('[data-cy=equibit-link]').click()
     cy.url().should('contain', 'equibit')
     cy
