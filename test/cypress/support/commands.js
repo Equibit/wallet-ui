@@ -57,4 +57,4 @@ Cypress.Commands.add('loginQA', () => {
       .click()
 
 })
-/*eslint-enable */
+/* eslint-enable */
