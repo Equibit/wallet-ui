@@ -55,4 +55,3 @@ describe('Auto Logout Test', () => {
 })
 
 /* eslint-enable */
-

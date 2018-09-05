@@ -1,4 +1,4 @@
-/*eslint-disable */
+/* eslint-disable */
 describe('Login Test', () => {
 
   beforeEach(() => {
@@ -65,4 +65,4 @@ describe('Login Test', () => {
     
   })
 })
-/*eslint-enable */
+/* eslint-enable */

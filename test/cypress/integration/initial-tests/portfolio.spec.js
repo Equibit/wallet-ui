@@ -1,4 +1,4 @@
-/*eslint-disable */
+/* eslint-disable */
 describe('Portfolio Test', () => {
 
   beforeEach(() => {
@@ -75,4 +75,4 @@ describe('Portfolio Test', () => {
   })
 
 })
-/*eslint-enable */
+/* eslint-enable */
