@@ -6,6 +6,7 @@ describe('Portfolio Test', () => {
 
   it('user can create a portfolio', function () {
     cy.login(this.users.noPortfolio)
+    cy.url().should('contain', '/portfolio')
     cy
       .get('[data-cy=message-box]')
       .should('contain', 'Manage your Portfolio')
@@ -18,6 +19,7 @@ describe('Portfolio Test', () => {
 
   it('user has portfolio', function () {
     cy.login(this.users.validUsers[0])
+    cy.url().should('contain', '/portfolio')
     cy
       .get('[data-cy=my-portfolio]')
       .should('contain', 'My Portfolio')
@@ -25,6 +27,7 @@ describe('Portfolio Test', () => {
 
   it('user has no EQB', function () {
     cy.login(this.users.validUsers[1])
+    cy.url().should('contain', '/portfolio')
     cy
       .get('[data-cy=loading-overlay]')
       .should('not.be.visible')
@@ -36,6 +39,7 @@ describe('Portfolio Test', () => {
 
   it('user has EQB', function () {
     cy.login(this.users.validUsers[0])
+    cy.url().should('contain', '/portfolio')
     cy
       .get('[data-cy=loading-overlay]')
       .should('not.be.visible')
@@ -47,6 +51,7 @@ describe('Portfolio Test', () => {
 
   it('portfolio has send function which opens modal', function () {
     cy.login(this.users.validUsers[0])
+    cy.url().should('contain', '/portfolio')
     cy
       .contains('Send')
       .should('have.attr', 'on:click', 'sendFunds()')
@@ -59,6 +64,7 @@ describe('Portfolio Test', () => {
 
   it('portfolio has receive function which opens modal', function () {
     cy.login(this.users.validUsers[0])
+    cy.url().should('contain', '/portfolio')
     cy
       .contains('Receive')
       .should('have.id', 'receiveFunds')

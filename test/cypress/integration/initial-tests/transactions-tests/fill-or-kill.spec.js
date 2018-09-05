@@ -332,7 +332,7 @@ describe('Fill or Kill Test', () => {
       .should('contain', 'Deal Closed')
   })
 
-  it.only('Fill or Kill buy order', function () {
+  it('Fill or Kill buy order', function () {
     cy.login(this.users.validUsers[1])
     cy.url().should('contain', '/portfolio')
     cy
