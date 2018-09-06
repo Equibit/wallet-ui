@@ -21,6 +21,54 @@ import Transaction from './transaction/'
 import { blockTime } from '~/constants'
 import BlockhainInfo from './blockchain-info'
 
+// information about the duration and expiry of a given tx (exported for testing)
+export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
+  const lastConfirmationMidpoint = bcInfo[tx.currencyType].mediantime * 1000
+  let nextConf = lastConfirmationMidpoint + (0.5 * blockTime[tx.currencyType])
+  while (nextConf < Date.now()) { // prevents this value from being sensitive to small changes in Date.now()
+    nextConf += blockTime[tx.currencyType]
+  }
+  const blockHeight = bcInfo[tx.currencyType].currentBlockHeight
+  // Number of blocks between now (current block height) and the expiration of the htlc1 timelock.
+  // Minimum 0
+  const blocksRemaining = expiryHeight
+    ? Math.max(
+      expiryHeight - blockHeight,
+      0
+    ) : tx.timelock + 1
+  // the time at which the tx will (or did) expire
+  const endAt = expiredTime
+    ? expiredTime.getTime()
+    : nextConf + (blockTime[tx.currencyType] * blocksRemaining)
+  // How long in total (ms) between when the transaction is created and when the timelock is estimated to expire.
+  const duration = endAt - tx.createdAt
+  return {
+    blocksRemaining,
+    endAt,
+    duration
+  }
+}
+
+// retrieve transaction info for an order
+function orderInfo (order, htlcTxId1, htlcTxId2) {
+  const addresses = [
+    this.btcAddress,
+    this.eqbAddress,
+    order.btcAddress,
+    order.eqbAddress
+  ]
+  return Promise.all([
+    Transaction.getList({
+      txId: { $in: [htlcTxId1, htlcTxId2] },
+      $or: [
+        {fromAddress: {'$in': addresses}},
+        {toAddress: {'$in': addresses}}
+      ]
+    }),
+    BlockhainInfo.infoBySymbol().promise
+  ])
+}
+
 const Offer = DefineMap.extend('Offer', {
   _id: 'string',
 
@@ -296,84 +344,21 @@ const Offer = DefineMap.extend('Offer', {
           blockchainInfo[key].get('currentBlockHeight')
         }
       })
-      return this.orderPromise.then(order => {
-        const addresses = [
-          this.btcAddress,
-          this.eqbAddress,
-          order.btcAddress,
-          order.eqbAddress
-        ]
-        return Promise.all([
-          Transaction.getList({
-            txId: { $in: [htlcTxId1, htlcTxId2] },
-            $or: [
-              {fromAddress: {'$in': addresses}},
-              {toAddress: {'$in': addresses}}
-            ]
-          }),
-          BlockhainInfo.infoBySymbol().promise
-        ])
-      })
-      .then(([txes, blockchainInfo]) => {
+      return this.orderPromise.then(
+        order => orderInfo(order, htlcTxId1, htlcTxId2)
+      ).then(([txes, blockchainInfo]) => {
         const step1 = txes.filter(t => t.htlcStep === 1)[0]
         const step2 = txes.filter(t => t.htlcStep === 2)[0]
-
-        // Number of blocks between now (current block height) and the expiration of the htlc1 timelock.
-        // Minimum 0
-        const fullBlocksRemaining = timelockExpiresBlockheight
-          ? Math.max(
-            timelockExpiresBlockheight -
-              blockchainInfo[step1.currencyType].currentBlockHeight,
-            0)
-          : step1.timelock + 1
-
-        // Time (ms) since the median time of the last block interval.
-        // This gives us a hint as to how far we are into the current block interval
-        // (i.e. how long until the next block is mined)
-        const fullTimeSinceLastMedian = Date.now() - blockchainInfo[step1.currencyType].mediantime * 1000
-        // How far we think we're into the current block mining period
-        // Minimum 0, maximum 1 (this is an interval)
-        const fullApproximateBlockShift = Math.min(fullTimeSinceLastMedian / blockTime[step1.currencyType] - 0.5, 1)
-
-        // What time (epoch ms) we estimate the block that expires the timelock will be mined
-        //   number of blocks left, minus shift interval, multiplied by the target block time (10 minutes for BTC/EQB)
-        // TODO: when we start recording the time the timelock expired, use it here when the timelock is expired,
-        //   rather than estimating (shouldn't be trying to estimate something that's already happened)
-        const fullEndAt = timelockExpiredAt
-          ? timelockExpiredAt.getTime()
-          : Date.now() + blockTime[step1.currencyType] * (fullBlocksRemaining - fullApproximateBlockShift)
-        // How long in total (ms) between when the transaction is created and when the timelock is estimated to expire.
-        const fullDuration = fullEndAt - step1.createdAt
-
-        // Compute partials, which are just like the "full" measures above, but for the htlc2 timelock.
-        // It's possible (but difficult to meet the conditions) that the partial timelock will expire *after*
-        //  the full.  Be careful where making that assumption.
-        let partialDuration, partialEndAt, partialBlocksRemaining, safetyZone
-        if (step2) {
-          const partialTimeSinceLastMedian = Date.now() - blockchainInfo[step2.currencyType].mediantime * 1000
-          const partialApproximateBlockShift = Math.min(partialTimeSinceLastMedian / blockTime[step2.currencyType] - 0.5, 1)
-
-          partialBlocksRemaining = timelock2ExpiresBlockheight
-          ? Math.max(
-            timelock2ExpiresBlockheight -
-              blockchainInfo[step2.currencyType].currentBlockHeight,
-            0)
-          : step2.timelock + 1
-          partialEndAt = timelock2ExpiredAt
-            ? timelock2ExpiredAt.getTime()
-            : Date.now() + blockTime[step2.currencyType] * (partialBlocksRemaining - partialApproximateBlockShift)
-          partialDuration = partialEndAt * step2.createdAt
-          // How long (ms) between when the htlc2 timelock is expected to expire, and when the htlc1 timelock is expected to expire
-          safetyZone = Math.max(fullEndAt - partialEndAt, 0)
-        }
-
+        const fullStats = timeStats(step1, timelockExpiresBlockheight, timelockExpiredAt, blockchainInfo)
+        const partialStats = timeStats(step2, timelock2ExpiresBlockheight, timelock2ExpiredAt, blockchainInfo)
+        const safetyZone = Math.max(fullStats.endAt - partialStats.endAt, 0)
         return {
-          fullDuration,
-          fullEndAt,
-          fullBlocksRemaining,
-          partialDuration,
-          partialEndAt,
-          partialBlocksRemaining,
+          fullDuration: fullStats.duration,
+          fullEndAt: fullStats.endAt,
+          fullBlocksRemaining: fullStats.blocksRemaining,
+          partialDuration: partialStats.duration,
+          partialEndAt: partialStats.endAt,
+          partialBlocksRemaining: partialStats.blocksRemaining,
           safetyZone
         }
       })

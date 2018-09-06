@@ -1,4 +1,4 @@
 <div class="timer timer--{{status}}">
   <span class="icon icon-clock"></span>
-  {{hms}}
+  {{hm}}
 </div>
