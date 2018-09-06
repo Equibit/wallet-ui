@@ -1,7 +1,4 @@
-/* eslint-disable */
-
 describe('Auto Logout Test', () => {
-
   beforeEach(() => {
     cy.loginQA()
     cy
@@ -19,7 +16,7 @@ describe('Auto Logout Test', () => {
           .click()
       })
   })
-  
+
   it('auto logout dialog can open', function () {
     cy
       .get('[data-cy=editAutoLogoutButton]')
@@ -36,22 +33,19 @@ describe('Auto Logout Test', () => {
         const oldTimeout = parseInt($fld.text())
         const newTimeout = oldTimeout + (oldTimeout >= 25 ? -5 : 5)
         cy
-        .get('[data-cy=editAutoLogoutButton]')
-        .click()
+          .get('[data-cy=editAutoLogoutButton]')
+          .click()
         cy
-        .get('#autoLogoutTime')
-        .clear()
-        .type(newTimeout.toString())
+          .get('#autoLogoutTime')
+          .clear()
+          .type(newTimeout.toString())
         cy
-        .get('[data-cy=saveAutoLogoutButton]')
-        .should('have.class', 'btn-primary')
-        .click()
+          .get('[data-cy=saveAutoLogoutButton]')
+          .should('have.class', 'btn-primary')
+          .click()
         cy
-        .get('[data-cy=displayedAutoLogoutTime]')
-        .should('contain', newTimeout.toString())
+          .get('[data-cy=displayedAutoLogoutTime]')
+          .should('contain', newTimeout.toString())
       })
-    })
-
+  })
 })
-
-/* eslint-enable */
