@@ -1,6 +1,4 @@
-/*eslint-disable */
 describe('Portfolio Test', () => {
-
   beforeEach(() => {
     cy.fixture('users').as('users')
     cy.visit('/')
@@ -13,7 +11,7 @@ describe('Portfolio Test', () => {
     cy
       .get('.message-box')
       .should('contain', 'Manage your Portfolio')
-    
+
     cy
       .contains('Receive')
       .should('have.id', 'createPortfolio')
@@ -58,7 +56,7 @@ describe('Portfolio Test', () => {
       .contains('Send')
       .should('have.attr', 'on:click', 'sendFunds()')
       .click()
-    
+
     cy
       .get('.modal-title')
       .should('contain', 'Send')
@@ -70,11 +68,9 @@ describe('Portfolio Test', () => {
       .contains('Receive')
       .should('have.id', 'receiveFunds')
       .click()
-    
+
     cy
       .get('.modal-title')
       .should('contain', 'Receive')
   })
-
 })
-/*eslint-enable */

@@ -23,21 +23,18 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-/*eslint-disable */
+
 // Custom Login command
 Cypress.Commands.add('login', (user) => {
-    
-    Cypress.log({
-        name: 'login'
-    })
+  Cypress.log({
+    name: 'login'
+  })
 
-    cy.visit('/')
+  cy.visit('/')
 
-    cy.get('input[type="email"]')
+  cy.get('input[type="email"]')
     .type(user.email)
     .get('input[type="password"]')
     .type(user.password)
     .get('button[type="submit"]').click()
-
 })
-/*eslint-enable */

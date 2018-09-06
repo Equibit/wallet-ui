@@ -58,6 +58,10 @@
       "dev-bundle.js",
       "docs",
       "docs_old"
+    ],
+    "globals": [
+      "Cypress",
+      "cy"
     ]
   },
   "steal": {

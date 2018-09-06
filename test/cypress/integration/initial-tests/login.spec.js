@@ -1,6 +1,4 @@
-/*eslint-disable */
 describe('Login Test', () => {
-
   beforeEach(() => {
     cy.fixture('users').as('users')
     cy.visit('/')
@@ -64,7 +62,5 @@ describe('Login Test', () => {
     cy.login(this.users.validUsers[0])
 
     cy.url().should('contain', '/portfolio')
-    
   })
 })
-/*eslint-enable */
