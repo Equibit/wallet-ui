@@ -32,5 +32,12 @@
         "invalidpassword": "invalid",
         "temppassword": "b2e7d33d8255b397",
         "password": "SpicyTunaMayo"
+    },
+    "twoStepVerification": {
+        "id": 0,
+        "email": "twostep@evenset.com",
+        "password": "SpicyTunaMayo",
+        "invalidTwoFactorCode": "totallygonnawork",
+        "twoFactorCode": "ebfdd20383042bfb"
     }
 }
