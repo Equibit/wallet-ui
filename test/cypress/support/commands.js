@@ -38,3 +38,18 @@ Cypress.Commands.add('login', (user) => {
     .type(user.password)
     .get('button[type="submit"]').click()
 })
+
+Cypress.Commands.add('loginQA', () => {
+  Cypress.log({
+    name: 'loginQA'
+  })
+
+  cy.visit('/')
+
+  cy
+    .get('input[type="password"]')
+    .type(Cypress.env('HTTP_PASSWORD'))
+  cy
+    .get('button[type="submit"]')
+    .click()
+})

@@ -1,9 +1,7 @@
 describe('Portfolio Test', () => {
   beforeEach(() => {
     cy.fixture('users').as('users')
-    cy.visit('/')
-    cy.get('input[type="password"]').type(Cypress.env('HTTP_PASSWORD'))
-    cy.get('button[type="submit"]').click()
+    cy.loginQA()
   })
 
   it('user can create a portfolio', function () {

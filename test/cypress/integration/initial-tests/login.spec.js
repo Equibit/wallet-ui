@@ -1,9 +1,7 @@
 describe('Login Test', () => {
   beforeEach(() => {
     cy.fixture('users').as('users')
-    cy.visit('/')
-    cy.get('input[type="password"]').type(Cypress.env('HTTP_PASSWORD'))
-    cy.get('button[type="submit"]').click()
+    cy.loginQA()
   })
 
   it('greets user with Log In', () => {
@@ -12,50 +10,50 @@ describe('Login Test', () => {
 
   it('links to Sign Up flow', () => {
     cy
-    .contains('Sign Up')
-    .should('have.attr', 'href', '/signup')
+      .contains('Sign Up')
+      .should('have.attr', 'href', '/signup')
   })
 
   it('links to Forget Password flow', () => {
     cy
-    .contains('Forgot Password?')
-    .should('have.attr', 'href', '/forgot-password')
+      .contains('Forgot Password?')
+      .should('have.attr', 'href', '/forgot-password')
   })
 
   it('requires email', () => {
     cy
-    .get('input[type="password"]')
-    .type('password{enter}')
+      .get('input[type="password"]')
+      .type('password{enter}')
 
     cy
-    .get('.form-text')
-    .should('contain', 'Email is missing')
+      .get('.form-text')
+      .should('contain', 'Email is missing')
   })
 
   it('requires password', () => {
     cy
-    .get('input[type="email"]')
-    .type('test@evenset.com{enter}')
+      .get('input[type="email"]')
+      .type('test@evenset.com{enter}')
 
     cy
-    .get('.form-text')
-    .should('contain', 'Password is missing')
+      .get('.form-text')
+      .should('contain', 'Password is missing')
   })
 
   it('requires valid email', function () {
     cy.login(this.users.badEmail)
 
     cy
-    .get('.form-text')
-    .should('contain', 'Enter a valid email address')
+      .get('.form-text')
+      .should('contain', 'Enter a valid email address')
   })
 
   it('requires valid email and password', function () {
     cy.login(this.users.invalidUser)
 
     cy
-    .get('.alert')
-    .should('contain', 'Invalid login.')
+      .get('.alert')
+      .should('contain', 'Invalid login.')
   })
 
   it('successfully log in using UI', function () {
