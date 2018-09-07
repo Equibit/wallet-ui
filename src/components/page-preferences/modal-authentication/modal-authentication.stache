@@ -16,12 +16,12 @@
       {{twoFactorPromise.reason}}
     </p>
     <p class="single-paragraph">
-      {{{i18n('auth2StepMessage')}}} <a href="#" on:click:value:to="twoFactorPromise">{{i18n('tryAgain')}}</a>
+      {{{i18n('auth2StepMessage')}}} <a href="#" on:click:value:to="twoFactorPromise" data-cy="twofactor-tryagain-button">{{i18n('tryAgain')}}</a>
     </p>
   {{else}}
     <span class="description">{{i18n('auth2StepDescription')}}</span>
     <p class="single-paragraph">
-      {{{i18n('auth2StepMessage')}}} <a href="#" on:click:value:to="twoFactorPromise">{{i18n('tryAgain')}}</a>
+      {{{i18n('auth2StepMessage')}}} <a href="#" on:click:value:to="twoFactorPromise" data-cy="twofactor-tryagain-button">{{i18n('tryAgain')}}</a>
     </p>
     <code-input code:to="../secondFactorCode" error:from="error"/>
     {{#if twoFactorPromise.isPending}}
@@ -31,7 +31,7 @@
   </div>
 
   <div class="modal-footer">
-    <button on:click="../verify()" type="button" class="btn btn-primary" {{#unless twoFactorPromise.isResolved}}disabled="disabled"{{/unless}}>{{i18n('verify')}}</button>
+    <button on:click="../verify()" type="button" class="btn btn-primary" {{#unless twoFactorPromise.isResolved}}disabled="disabled"{{/unless}} data-cy="verify-auth-button">{{i18n('verify')}}</button>
     <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
   </div>
 </bootstrap-modal-content>
