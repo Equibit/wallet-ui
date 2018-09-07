@@ -1,17 +1,9 @@
 'use strict'
 
-describe('Verify Email Test', () => {
+import './support/commands'
+
+describe('Change Email Test', () => {
   let user
-  const goToPreferences = function () {
-    cy
-      .get('[data-cy=userDropdown]')
-      .should('have.attr', 'href', '#')
-      .click()
-    cy
-      .get('[data-cy=userPreferences]')
-      .should('have.attr', 'href', '/preferences')
-      .click()
-  }
   const openDialog = function () {
     cy
       .get('[data-cy=edit-email-button]')
@@ -35,7 +27,7 @@ describe('Verify Email Test', () => {
   })
 
   it('email verification is openable', function () {
-    goToPreferences()
+    cy.goToPrefs()
     openDialog()
     cy
       .get('modal-authentication')
@@ -43,7 +35,7 @@ describe('Verify Email Test', () => {
   })
 
   it('incorrect verification code dos not allow email change', function () {
-    goToPreferences()
+    cy.goToPrefs()
     openDialog()
     cy
       .get('code-input input[type=password]')
@@ -57,7 +49,7 @@ describe('Verify Email Test', () => {
   })
 
   it('correct verification code allows email change', function () {
-    goToPreferences()
+    cy.goToPrefs()
     openDialog()
     cy
       .get('code-input input[type=password]')

@@ -15,7 +15,7 @@
       {{/if}}
     </div>
     <div class="col-sm-2 col-xs-12 section-column section-cta">
-      <button on:click="showAuthModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('view')}}</button>
+      <button on:click="showAuthModal()" class="btn btn-primary btn-sm btn-edit" data-cy="view-recovery-phrase-button">{{i18n('view')}}</button>
     </div>
   </div>
 </div>

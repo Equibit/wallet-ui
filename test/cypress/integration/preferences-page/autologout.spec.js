@@ -1,3 +1,7 @@
+'use strict'
+
+import './support/commands'
+
 describe('Auto Logout Test', () => {
   beforeEach(() => {
     cy.loginQA()
@@ -6,14 +10,7 @@ describe('Auto Logout Test', () => {
       .as('users')
       .then((users) => {
         cy.login(users.validUsers[0])
-        cy
-          .get('[data-cy=userDropdown]')
-          .should('have.attr', 'href', '#')
-          .click()
-        cy
-          .get('[data-cy=userPreferences]')
-          .should('have.attr', 'href', '/preferences')
-          .click()
+        cy.goToPrefs()
       })
   })
 
