@@ -1,19 +1,11 @@
 'use strict'
 
+import './support/commands'
+
 describe('Change Password Test', () => {
   let user
   const weakPassword = 'abc123'
   const strongPassword = 'th3_Str0ngesT_p4SSword'
-  const goToPreferences = function () {
-    cy
-      .get('[data-cy=userDropdown]')
-      .should('have.attr', 'href', '#')
-      .click()
-    cy
-      .get('[data-cy=userPreferences]')
-      .should('have.attr', 'href', '/preferences')
-      .click()
-  }
   const openDialog = function () {
     cy
       .get('[data-cy=edit-password-button]')
@@ -51,14 +43,14 @@ describe('Change Password Test', () => {
   // We need to reset the password to the previous one so that subsequent tests can run with this user.
   afterEach(function () {
     if (this.currentTest.state === 'failed') {
-      goToPreferences()
+      cy.goToPrefs()
       openDialog()
       enterPasswords(strongPassword, user.password)
     }
   })
 
   it('password dialog is openable', function () {
-    goToPreferences()
+    cy.goToPrefs()
     openDialog()
     cy
       .get('[data-cy=edit-password-dialog]')
@@ -66,7 +58,7 @@ describe('Change Password Test', () => {
   })
 
   it('has no passwords populated', function () {
-    goToPreferences()
+    cy.goToPrefs()
     openDialog()
     cy
       .get('#passwordCurrent')
@@ -77,7 +69,7 @@ describe('Change Password Test', () => {
   })
 
   it('unallows invalid current password', function () {
-    goToPreferences()
+    cy.goToPrefs()
     openDialog()
     enterPasswords(user.password + Math.random().toString(36).substring(5), strongPassword)
     attemptSave()
@@ -87,7 +79,7 @@ describe('Change Password Test', () => {
   })
 
   it('unallows weak new password', function () {
-    goToPreferences()
+    cy.goToPrefs()
     openDialog()
     enterPasswords(user.password, weakPassword)
     cy
@@ -96,7 +88,7 @@ describe('Change Password Test', () => {
   })
 
   it('unallows the same password to be entered twice', function () {
-    goToPreferences()
+    cy.goToPrefs()
     openDialog()
     enterPasswords(user.password, user.password)
     attemptSave()
@@ -106,7 +98,7 @@ describe('Change Password Test', () => {
   })
 
   it('allows valid password entry and save', function () {
-    goToPreferences()
+    cy.goToPrefs()
     openDialog()
     enterPasswords(user.password, strongPassword)
     attemptSave()
