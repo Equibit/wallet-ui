@@ -165,6 +165,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
+    "@babel/preset-stage-3": "^7.0.0",
     "@cypress/webpack-preprocessor": "^2.0.1",
     "babel-eslint": "^8.0.1",
     "babel-preset-env": "^1.6.0",

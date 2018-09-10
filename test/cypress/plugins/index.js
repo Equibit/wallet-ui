@@ -16,7 +16,9 @@ const webpack = require('@cypress/webpack-preprocessor')
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-  on('file:preprocessor', webpack())
+  const options = webpack.defaultOptions
+  options.webpackOptions.module.rules[0].use[0].options.presets.push('babel-preset-stage-3')
+  on('file:preprocessor', webpack(options))
 
   on('before:browser:launch', (browser = {}, args) => {
     if (browser.name === 'chrome') {
