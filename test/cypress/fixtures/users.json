@@ -25,5 +25,12 @@
         "id": 0,
         "email": "noPortfolio@evenset.com",
         "password": "SpicyTunaMayo"
+    },
+    "signup": {
+        "id": 0,
+        "email": "signup@evenset.com",
+        "invalidpassword": "invalid",
+        "temppassword": "b2e7d33d8255b397",
+        "password": "SpicyTunaMayo"
     }
 }
