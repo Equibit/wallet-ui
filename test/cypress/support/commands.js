@@ -68,6 +68,9 @@ Cypress.Commands.add('logout', () => {
 })
 
 Cypress.Commands.add('resetTransactions', () => {
+  Cypress.log({
+    name: 'resetTransactions'
+  })
 
     Cypress.log({
         name: 'resetTransactions'
@@ -80,6 +83,9 @@ Cypress.Commands.add('resetTransactions', () => {
 })
 
 Cypress.Commands.add('resetOrdersAndOffers', () => {
+  Cypress.log({
+    name: 'resetOrdersAndOffers'
+  })
 
     Cypress.log({
         name: 'resetOrdersAndOffers'
