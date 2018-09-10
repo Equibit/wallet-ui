@@ -16,7 +16,7 @@ describe('Recovery Phrase Test', () => {
       .fixture('users')
       .as('users')
       .then((users) => {
-        user = users.twoStepVerification
+        user = user || users.twoStepVerification
         cy.login(user)
       })
   })
@@ -33,7 +33,14 @@ describe('Recovery Phrase Test', () => {
     cy.goToPrefs()
     openDialog()
     cy
-      .get('')
+      .get('code-input input[type=password]')
+      .type(user.invalidTwoFactorCode)
+    cy
+      .get('[data-cy=verify-auth-button]')
+      .click()
+    cy
+      .get('validation-message')
+      .should('not.be.empty')
       
   })
 

@@ -13,7 +13,7 @@
       {{else}}
         <span class="label label-danger">{{i18n('statusUnverified')}}</span>
       {{/if}}
-      <span class="input-value">{{user.email}}</span>
+      <span class="input-value" data-cy="displayed-user-email">{{user.email}}</span>
     </div>
     <div class="col-sm-2 col-xs-12 section-column section-cta">
       {{#if user.twoFactorValidatedSession}}

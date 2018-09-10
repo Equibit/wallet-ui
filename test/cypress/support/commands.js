@@ -53,3 +53,29 @@ Cypress.Commands.add('loginQA', () => {
     .get('button[type="submit"]')
     .click()
 })
+
+Cypress.Commands.add('resetSecondFactorAuth', (user) => {
+  Cypress.log({
+    name: 'resetSecondFactorAuth'
+  })
+
+  cy.exec(
+    'mongo wallet_api-testing --eval \'db.users.update(' +
+    `{ "_id": ObjectId("${user.dbid}") },` +
+    `{ $set: { "twoFactorCode": "${user.hashedTwoFactorCode}" } },` +
+    '{  })\''
+  )
+})
+
+Cypress.Commands.add('getSecondFactorHashedAuth', (user) => {
+  Cypress.log({
+    name: 'getSecondFactorHashedAuth'
+  })
+  return cy.exec(
+    'mongo wallet_api-testing --eval \'db.users.find(' +
+    `{ "_id": ObjectId("${user.dbid}") },` +
+    '{ twoFactorCode: 1, _id: 0 })\' | grep \'"twoFactorCode"\''
+  ).then((result) => JSON.parse(
+    result.stdout
+  ).twoFactorCode)
+})
