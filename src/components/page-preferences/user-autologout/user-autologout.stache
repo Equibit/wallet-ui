@@ -7,10 +7,10 @@
       <span class="icon icon-clock"></span>{{i18n('autoLogout')}}
     </div>
     <div class="col-sm-7 col-xs-12 section-column">
-      <span class="input-value">{{msToMinutes(user.autoLogoutTime)}} {{i18n('minutes')}}</span>
+      <span class="input-value" data-cy="displayedAutoLogoutTime">{{msToMinutes(user.autoLogoutTime)}} {{i18n('minutes')}}</span>
     </div>
     <div class="col-sm-2 col-xs-12 section-column section-cta">
-      <button ($click)="showModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('edit')}}</button>
+      <button ($click)="showModal()" class="btn btn-primary btn-sm btn-edit" data-cy="editAutoLogoutButton">{{i18n('edit')}}</button>
     </div>
   </div>
 </div>
@@ -43,7 +43,7 @@
     </div>
 
     <div class="modal-footer">
-      <button on:click="validateAndSave(@close)" type="button" class="btn btn-primary">{{i18n('save')}}</button>
+      <button on:click="validateAndSave(@close)" type="button" class="btn btn-primary" data-cy="saveAutoLogoutButton">{{i18n('save')}}</button>
       <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
     </div>
   </bootstrap-modal-content>

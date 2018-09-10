@@ -62,17 +62,17 @@ export const ViewModel = DefineMap.extend({
       return Date.now()
     }
   },
-  get hms () {
+  get hm () {
     const timeLeft = this.endTime
       ? Math.floor((this.endTime.getTime() - this.currentTime) / 1000)
       : Math.floor(this.timeInterval / 1000)
     if (timeLeft <= 0) {
-      return '00:00:00'
+      return '00:00'
     } else {
       const s = timeLeft % 60
       const m = (timeLeft - s) / 60 % 60
       const h = ((timeLeft - s) / 60 - m) / 60
-      return [h, m, s].map(zp).join(':')
+      return [h, m].map(zp).join(':')
     }
   },
   interval: '*',
