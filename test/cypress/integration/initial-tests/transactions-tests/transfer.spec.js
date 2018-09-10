@@ -4,9 +4,7 @@ describe('Transfer Funds Test', () => {
   beforeEach(() => {
     cy.fixture('users').as('users')
     cy.resetTransactions()
-    cy.visit('/')
-    cy.get('input[type="password"]').type(Cypress.env('HTTP_PASSWORD'))
-    cy.get('button[type="submit"]').click()
+    cy.loginQA()
   })
 
   describe('With funds', () => {  
@@ -73,7 +71,7 @@ describe('Transfer Funds Test', () => {
         .should('have.attr', 'on:click', 'send(@close)')
         .click()
       cy
-        .get('[data-cy=dropdown]')
+        .get('[data-cy=userDropdown]')
         .click()
       cy
         .contains('Transactions')
@@ -105,7 +103,7 @@ describe('Transfer Funds Test', () => {
         .get('[data-cy=transfer-amount]')
         .should('contain', '0.00001')
       cy
-        .get('[data-cy=dropdown]')
+        .get('[data-cy=userDropdown]')
         .click()
       cy
         .contains('Transactions')
@@ -147,7 +145,7 @@ describe('Transfer Funds Test', () => {
         .should('have.attr', 'on:click', 'send(@close)')
         .click()
       cy
-        .get('[data-cy=dropdown]')
+        .get('[data-cy=userDropdown]')
         .click()
       cy
         .contains('Transactions')
@@ -179,7 +177,7 @@ describe('Transfer Funds Test', () => {
         .get('[data-cy=transfer-amount]')
         .should('contain', '0.00001')
       cy
-        .get('[data-cy=dropdown]')
+        .get('[data-cy=userDropdown]')
         .click()
       cy
         .contains('Transactions')

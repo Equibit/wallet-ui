@@ -4,12 +4,10 @@
 // need to be mined otherwise 'invalid signature' or mempool error will occur.
 describe('Fill or Kill Test', () => {
   beforeEach(() => {
-    cy.visit('/')
     cy.resetOrdersAndOffers()
     cy.resetTransactions()
     cy.fixture('users').as('users')
-    cy.get('input[type="password"]').type(Cypress.env('HTTP_PASSWORD'))
-    cy.get('button[type="submit"]').click()
+    cy.loginQA()
   })
 
   it('Fill or Kill sell order', function () {
