@@ -9,7 +9,7 @@ describe('Fill or Kill Test', () => {
     cy.loginQA()
   })
 
-  it.only('Fill or Kill sell order', function () {
+  it('Fill or Kill sell order', function () {
     cy.login(this.users.validUsers[0])
     cy.url().should('contain', '/portfolio')
     cy
