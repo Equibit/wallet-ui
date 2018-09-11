@@ -4,11 +4,12 @@
 describe('Fill or Kill Test', () => {
   beforeEach(() => {
     cy.clearNotifications()
+    cy.clearOrdersAndOffers()
     cy.fixture('users').as('users')
     cy.loginQA()
   })
 
-  it('Fill or Kill sell order', function () {
+  it.only('Fill or Kill sell order', function () {
     cy.login(this.users.validUsers[0])
     cy.url().should('contain', '/portfolio')
     cy
@@ -114,6 +115,7 @@ describe('Fill or Kill Test', () => {
     cy
       .get('[data-cy=fillkill]')
       .should('be.visible')
+    cy.wait(1000)
     cy
       .contains('Next')
       .should('have.attr', 'on:click', 'next()')

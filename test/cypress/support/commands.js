@@ -58,6 +58,15 @@ Cypress.Commands.add('clearNotifications', () => {
   cy.exec('mongo wallet_api-testing --eval \'db.notifications.remove({})\'')
 })
 
+Cypress.Commands.add('clearOrdersAndOffers', () => {
+  Cypress.log({
+    name: 'clearOrdersAndOffers'
+  })
+
+  cy.exec('mongo wallet_api-testing --eval \'db.orders.remove({assetType: "EQUIBIT"})\'')
+  cy.exec('mongo wallet_api-testing --eval \'db.offers.remove({assetType: "EQUIBIT"})\'')
+})
+
 Cypress.Commands.add('loginQA', () => {
   Cypress.log({
     name: 'loginQA'
