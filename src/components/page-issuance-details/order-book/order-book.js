@@ -153,8 +153,8 @@ export const ViewModel = DefineMap.extend({
         // Note: for a sell order we use issuance keys which should be attached to this.issuance (both authorized and bought).
         // todo: figure out what keys to use for a BUY order.
         const keyPair = flowType === 'Ask'
-          ? ((this.issuance && this.issuance.keys.keyPair) || this.portfolio.keys.EQB.keyPair)
-          : this.portfolio.keys.BTC.keyPair
+          ? ((this.issuance && this.issuance.keys.ecPair) || this.portfolio.keys.EQB.ecPair)
+          : this.portfolio.keys.BTC.ecPair
 
         return this.sendMessage(order, keyPair)
           .then(() => order.save())
