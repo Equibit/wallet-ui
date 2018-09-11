@@ -72,14 +72,7 @@ Cypress.Commands.add('resetTransactions', () => {
     name: 'resetTransactions'
   })
 
-    Cypress.log({
-        name: 'resetTransactions'
-    })
-
-    cy.exec('mongo wallet_api-testing --eval \'db.transactions.remove({})\'')
-    cy.exec('mongo wallet_api-testing --eval \'db.transactionnotes.remove({})\'')
-    cy.exec('mongo wallet_api-testing --eval \'db.notifications.remove({})\'')
-    
+  cy.exec('mongo wallet_api-testing --eval \'db.notifications.remove({})\'')
 })
 
 Cypress.Commands.add('resetOrdersAndOffers', () => {

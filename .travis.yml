@@ -18,8 +18,7 @@ defaults: &defaults
     # Clone backend repo
     - "[ -d api/.git ] || git clone git@github.com:Equibit/wallet-api.git api"
     - "cd api"
-    - "git reset --hard"
-    - "git clean -f"
+    - "git status"
     - "git pull"
     # Install dependencies
     - "yarn install"
