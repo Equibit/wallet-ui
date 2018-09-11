@@ -60,7 +60,7 @@
   </div>
 
   <div class="modal-footer">
-    <button on:click="../continue()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
+    <button on:click="../continue()" type="button" class="btn btn-primary" data-cy="continue-viewing-phrase-button">{{i18n('continue')}}</button>
     <button on:click="../back()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
     <div class="modal-footer-add-content"><span class="modal-step-indicator">Step {{step}} of 4</span></div>
   </div>
@@ -80,7 +80,7 @@
   </div>
 
   <div class="modal-footer">
-    <button on:click="../end()" type="button" class="btn btn-primary">{{i18n('finish')}}</button>
+    <button on:click="../end()" type="button" class="btn btn-primary" data-cy="finish-viewing-phrase-button">{{i18n('finish')}}</button>
     <button on:click="../view()" type="button" class="btn btn-default" >{{i18n('back')}}</button>
     <div class="modal-footer-add-content"><span class="modal-step-indicator">Step 4 of 4</span></div>
   </div>

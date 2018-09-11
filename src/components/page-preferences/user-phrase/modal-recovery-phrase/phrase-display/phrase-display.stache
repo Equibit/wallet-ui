@@ -1,6 +1,6 @@
 <can-import from="~/utils/stache-helpers/" />
 
-<div class="row">
+<div class="row" data-cy="recovery-word-group">
   {{#each words}}
     <div class="col-sm-3 col-xs-12 word-display">
       <span class="word-number">{{wordIndex(%index)}}.</span>

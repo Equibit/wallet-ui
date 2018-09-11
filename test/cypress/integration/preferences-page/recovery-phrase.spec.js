@@ -30,14 +30,19 @@ describe('Recovery Phrase Test', () => {
 
     if (!recordWords) return
 
-    return Array(12).fill('').map((word, w, words) => {
-      if (w % 4 === 0) {
-        cy
-          .get('[data-cy=continue-viewing-phrase-button]')
-          .click()
-      }
-
+    let words = []
+    [...Array(3)].forEach((_, w, words) => {
+      cy
+      .get('[data-cy=recovery-word-group] > word-display')
+      .each(($el) => {
+        console.log($el)
+      })
+      cy
+        .get('[data-cy=continue-viewing-phrase-button]')
+        .click()
     })
+
+    return words
   }
 
   beforeEach(function () {
@@ -84,31 +89,18 @@ describe('Recovery Phrase Test', () => {
 
   it('correct verification code allows viewing of the recovery phrase', function () {
     prepDialog()
-    cy
-      .get('code-input input[type=password]')
-      .type(user.twoFactorCode)
-    cy
-      .get('[data-cy=verify-auth-button]')
-      .click()
-    cy
-      .get('[data-cy=continue-recovery-button]')
-      .click()
+    viewRecoveryPhrase()
   })
 
-  xit('incorrect word entrance does not allow continuation', function () {
+  it('incorrect word entrance does not allow continuation', function () {
     prepDialog()
-    cy
-      .get('code-input input[type=password]')
-      .type(user.twoFactorCode)
-    cy
-      .get('[data-cy=verify-auth-button]')
-      .click()
+    viewRecoveryPhrase(true)
+
   })
 
   xit('correct word entrance allows the recovery phrase to be set', function () {
     prepDialog()
-    cy
-      .get('[data-cy=continue-recovery-button]')
-      .click()
+    viewRecoveryPhrase(true)
+
   })
 })
