@@ -122,7 +122,7 @@ describe('Transfer Funds Test', () => {
     })
 
     it('can send BTC to valid address, and checks that the address receives BTC', function () {
-      cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[1].plainEQBaddress)
+      cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[1].plainBTCaddress)
       cy.contains('Bitcoin').click()
       cy
         .get('input[type="number"]')
@@ -134,7 +134,7 @@ describe('Transfer Funds Test', () => {
         .should('contain', 'Send Funds')
       cy
         .get('[data-cy=to-address]')
-        .should('contain', this.users.validUsers[1].plainEQBaddress)
+        .should('contain', this.users.validUsers[1].plainBTCaddress)
       cy
         .get('[data-cy=send-value]')
         .should('contain', '0.00001')
