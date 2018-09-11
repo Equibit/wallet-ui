@@ -136,8 +136,12 @@ describe('Change Email Test', () => {
       .get('[data-cy=displayed-user-email]')
       .should('contain', user.secondEmail)
 
-    [ user.email, user.secondEmail ] = [ user.secondEmail, user.email ]
-    let t = { ...user }
+    user.email = [user.secondEmail, user.secondEmail = user.email][0]
+    // [ user.email, user.secondEmail ] = [ user.secondEmail, user.email ]
+    // let x = { a: 2, b: 4 }
+    // console.log(x)
+    // [ x.a, x.b ] = [ x.b, x.a ]
+    // console.log(x)
   })
 
   it('new email is required for login', function () {

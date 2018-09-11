@@ -60,7 +60,7 @@ Cypress.Commands.add('resetSecondFactorAuth', (user) => {
   })
 
   cy.exec(
-    'mongo wallet_api-testing --eval \'db.users.update(' +
+    'mongo wallet_api-testing --eval \'db.users.updateOne(' +
     `{ "_id": ObjectId("${user.dbid}") },` +
     `{ $set: { "twoFactorCode": "${user.hashedTwoFactorCode}" } },` +
     '{  })\''

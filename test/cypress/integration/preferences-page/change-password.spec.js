@@ -32,11 +32,7 @@ describe('Change Password Test', () => {
       .as('users')
       .then((users) => {
         user = users.validUsers[0]
-        cy.login(Object.assign(
-          user,
-          { password: this.currentTest.title === 'allows log in with new credentials' ? strongPassword : user.password }
-        ))
-        // cy.login({ ...user, password: this.currentTest.title === 'allows log in with new credentials' ? strongPassword : user.password })
+        cy.login({ ...user, password: this.currentTest.title === 'allows log in with new credentials' ? strongPassword : user.password })
       })
   })
 

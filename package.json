@@ -165,11 +165,8 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@cypress/webpack-preprocessor": "^2.0.1",
-    "babel-core": "^6.26.3",
     "babel-eslint": "^8.0.1",
-    "babel-loader": "^8.0.2",
-    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2017": "^6.24.1",
     "babel-register": "^6.26.0",
     "can-view-model": "^3.5.1",
     "chai": "^4.1.2",
