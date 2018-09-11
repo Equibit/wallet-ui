@@ -38,23 +38,15 @@ defaults: &defaults
     - sudo service mongodb stop
 jobs:
   include:
-    - stage: Testing
+    - stage: E2E
       env:
         - TEST_SUITE=cypress-test
       <<: *defaults
-    - stage: Testing
+    - stage: E2E
       env:
         - TEST_SUITE=cypress-test
       <<: *defaults
-    - stage: Testing
-      env:
-        - TEST_SUITE=cypress-test
-      <<: *defaults
-    - stage: Testing
-      env:
-        - TEST_SUITE=cypress-test
-      <<: *defaults
-    - stage: Testing
+    - stage: Unit
       env:
         - TEST_SUITE=test
       <<: *defaults
