@@ -3,6 +3,7 @@
 // need to be mined otherwise 'invalid signature' or mempool error will occur.
 describe('Fill or Kill Test', () => {
   beforeEach(() => {
+    cy.clearNotifications()
     cy.fixture('users').as('users')
     cy.loginQA()
   })
