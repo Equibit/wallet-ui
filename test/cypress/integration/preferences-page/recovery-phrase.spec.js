@@ -9,10 +9,35 @@ describe('Recovery Phrase Test', () => {
       .get('[data-cy=view-recovery-phrase-button]')
       .click()
   }
-  const prepDialog= function() {
+  const prepDialog = function() {
     cy.goToPrefs()
     openDialog()
     cy.resetSecondFactorAuth(user)
+  }
+  const viewRecoveryPhrase = function (recordWords = false) {
+    cy
+      .get('code-input input[type=password]')
+      .type(user.twoFactorCode)
+    cy
+      .get('[data-cy=verify-auth-button]')
+      .click()
+    cy
+      .get('[data-cy=continue-recovery-button]')
+      .click()
+    cy
+      .get('phrase-display')
+      .should('exist')
+
+    if (!recordWords) return
+
+    return Array(12).fill('').map((word, w, words) => {
+      if (w % 4 === 0) {
+        cy
+          .get('[data-cy=continue-viewing-phrase-button]')
+          .click()
+      }
+
+    })
   }
 
   beforeEach(function () {
@@ -26,7 +51,7 @@ describe('Recovery Phrase Test', () => {
       })
   })
 
-  xit('recovery phrase is not set yet', function () {
+  it('recovery phrase is not set yet', function () {
     cy.goToPrefs()
     cy
       .get('[data-cy=user-phrase-notset-indicator]')
@@ -36,7 +61,7 @@ describe('Recovery Phrase Test', () => {
       .should('not.exist')
   })
 
-  xit('recovery phrase is openable', function () {
+  it('recovery phrase is openable', function () {
     cy.goToPrefs()
     openDialog()
     cy
@@ -44,7 +69,7 @@ describe('Recovery Phrase Test', () => {
       .should('exist')
   })
 
-  xit('incorrect verification code does not allow continuation', function () {
+  it('incorrect verification code does not allow continuation', function () {
     prepDialog()
     cy
       .get('code-input input[type=password]')
@@ -57,7 +82,7 @@ describe('Recovery Phrase Test', () => {
       .should('not.be.empty')
   })
 
-  it('correct verification code allows generation of the recovery phrase', function () {
+  it('correct verification code allows viewing of the recovery phrase', function () {
     prepDialog()
     cy
       .get('code-input input[type=password]')
@@ -70,7 +95,7 @@ describe('Recovery Phrase Test', () => {
       .click()
   })
 
-  xit('correct verification code allows viewing of the recovery phrase', function () {
+  xit('incorrect word entrance does not allow continuation', function () {
     prepDialog()
     cy
       .get('code-input input[type=password]')
@@ -80,7 +105,7 @@ describe('Recovery Phrase Test', () => {
       .click()
   })
 
-  xit('recovery phrase can be read', function () {
+  xit('correct word entrance allows the recovery phrase to be set', function () {
     prepDialog()
     cy
       .get('[data-cy=continue-recovery-button]')

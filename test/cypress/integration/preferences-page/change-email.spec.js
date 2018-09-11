@@ -35,7 +35,7 @@ describe('Change Email Test', () => {
       })
   })
 
-  xit('email verification is openable', function () {
+  it('email verification is openable', function () {
     cy.goToPrefs()
     openDialog()
     cy
@@ -43,7 +43,7 @@ describe('Change Email Test', () => {
       .should('exist')
   })
 
-  xit('email verification code is sent when the dialog is dialog opened', function () {
+  it('email verification code is sent when the dialog is dialog opened', function () {
     cy.goToPrefs()
     cy.resetSecondFactorAuth(user)
     openDialog()
@@ -51,7 +51,7 @@ describe('Change Email Test', () => {
     expect(user.hashedTwoFactorCode).to.not.equal(newHashedCode)
   })
 
-  xit('email verification code is updated when "try again" is clicked', function () {
+  it('email verification code is updated when "try again" is clicked', function () {
     cy.goToPrefs()
     openDialog()
     const currentHashedCode = cy.getSecondFactorHashedAuth(user)
@@ -62,7 +62,7 @@ describe('Change Email Test', () => {
     expect(currentHashedCode).to.not.equal(newHashedCode)
   })
 
-  xit('incorrect verification code dos not allow email change', function () {
+  it('incorrect verification code dos not allow email change', function () {
     prepDialog()
     cy
       .get('code-input input[type=password]')
@@ -75,7 +75,7 @@ describe('Change Email Test', () => {
       .should('not.be.empty')
   })
 
-  xit('correct verification code allows email change', function () {
+  it('correct verification code allows email change', function () {
     prepDialog()
     cy
       .get('code-input input[type=password]')
@@ -88,7 +88,7 @@ describe('Change Email Test', () => {
       .should('exist')
   })
 
-  xit('does not send a verification code if the new email is the same as the old one', function () {
+  it('does not send a verification code if the new email is the same as the old one', function () {
     prepDialog()
     cy
       .get('code-input input[type=password]')
@@ -136,15 +136,14 @@ describe('Change Email Test', () => {
       .get('[data-cy=displayed-user-email]')
       .should('contain', user.secondEmail)
 
+    // switch email so that we can login with the new email
     user.email = [user.secondEmail, user.secondEmail = user.email][0]
-    // [ user.email, user.secondEmail ] = [ user.secondEmail, user.email ]
-    // let x = { a: 2, b: 4 }
-    // console.log(x)
-    // [ x.a, x.b ] = [ x.b, x.a ]
-    // console.log(x)
   })
 
   it('new email is required for login', function () {
+    // switch email back so that it is reset properly
+    user.email = [user.secondEmail, user.secondEmail = user.email][0]
+
     cy
       .get('[data-cy=userDropdown]')
       .should('have.attr', 'href', '#')
@@ -152,5 +151,6 @@ describe('Change Email Test', () => {
     cy
       .contains('Log Out')
       .should('have.attr', 'on:click', 'logout()')
-  })
+
+    })
 })
