@@ -1,7 +1,6 @@
 describe('Transfer Funds Test', () => {
   beforeEach(() => {
     cy.fixture('users').as('users')
-    cy.resetTransactions()
     cy.loginQA()
   })
 
