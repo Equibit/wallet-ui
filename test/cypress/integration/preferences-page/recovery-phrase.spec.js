@@ -43,6 +43,17 @@ describe('Recovery Phrase Test', () => {
       .should('not.be.empty')
   })
 
+  it('correct verification code allows generation of the recovery phrase', function () {
+    cy.goToPrefs()
+    openDialog()
+    cy
+      .get('code-input input[type=password]')
+      .type(user.twoFactorCode)
+    cy
+      .get('[data-cy=verify-auth-button]')
+      .click()
+  })
+
   it('correct verification code allows viewing of the recovery phrase', function () {
     cy.goToPrefs()
     openDialog()

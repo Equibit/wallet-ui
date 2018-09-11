@@ -16,8 +16,25 @@ const webpack = require('@cypress/webpack-preprocessor')
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-  const options = webpack.defaultOptions
-  options.webpackOptions.module.rules[0].use[0].options.presets.push('babel-preset-stage-3')
+  // const options = webpack.defaultOptions
+  // options.webpackOptions.module.rules[0].use[0].options.presets.push('babel-preset-env')
+  const options = {
+    module: {
+      rules: [
+        {
+          exclude: ['/node_modules/'],
+          use: [{
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                'babel-preset-env',
+              ],
+            },
+          }],
+        },
+      ],
+    },
+  }
   on('file:preprocessor', webpack(options))
 
   on('before:browser:launch', (browser = {}, args) => {

@@ -165,9 +165,10 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@babel/preset-stage-3": "^7.0.0",
     "@cypress/webpack-preprocessor": "^2.0.1",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^8.0.1",
+    "babel-loader": "^8.0.2",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.26.0",
     "can-view-model": "^3.5.1",
@@ -184,6 +185,7 @@
     "steal-socket.io": "^4.0.9",
     "steal-tools": "^1.11.7",
     "testee": "^0.7.0",
-    "testee-client": "^0.5.3"
+    "testee-client": "^0.5.3",
+    "webpack": "^4.18.0"
   }
 }
