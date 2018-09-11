@@ -1,13 +1,11 @@
-/*eslint-disable */
 describe('Transfer Funds Test', () => {
-
   beforeEach(() => {
     cy.fixture('users').as('users')
     cy.resetTransactions()
     cy.loginQA()
   })
 
-  describe('With funds', () => {  
+  describe('With funds', () => {
     beforeEach(function () {
       // user 0 (sender/seller) and 2 (receiver/buyer) have funds, user 1 does not
       cy.login(this.users.validUsers[0])
@@ -31,8 +29,8 @@ describe('Transfer Funds Test', () => {
     })
 
     it('cannot send EQB to invalid address', () => {
-      cy.get('input[placeholder="Paste address"]').type('invalidAddress')      
-  
+      cy.get('input[placeholder="Paste address"]').type('invalidAddress')
+
       cy.contains('Equibit').click()
       cy.contains('Next').click()
       cy
@@ -89,7 +87,7 @@ describe('Transfer Funds Test', () => {
         .should('contain', 'Equibit')
         .get('[data-cy=column-cash-EQB]')
         .should('contain', '0.000025') // Could vary depending on txn fee
-      
+
       cy.logout()
       cy.login(this.users.validUsers[1])
 
@@ -198,7 +196,7 @@ describe('Transfer Funds Test', () => {
     })
   })
 
-  describe('Without funds', () => {  
+  describe('Without funds', () => {
     beforeEach(function () {
       cy.login(this.users.validUsers[2])
       cy.contains('Send').click()
@@ -216,4 +214,3 @@ describe('Transfer Funds Test', () => {
     })
   })
 })
-/*eslint-enable */

@@ -1,4 +1,3 @@
-/*eslint-disable */
 // NOTE: These tests only create FOK orders and complete FOK trades.
 // This means that once in a while when the tests fail, the btc/eqb blocks will
 // need to be mined otherwise 'invalid signature' or mempool error will occur.
@@ -234,9 +233,9 @@ describe('Fill or Kill Test', () => {
     cy
       .get('[data-cy=list-status]')
       .should('contain', 'Trading')
-    
+
     cy.logout()
-    
+
     // Collect Securities - check message
     cy.login(this.users.validUsers[1])
     cy
@@ -316,7 +315,7 @@ describe('Fill or Kill Test', () => {
       .click()
       .get('[data-cy=notification-link]')
       .should('contain', 'You collected the payment')
-    
+
     cy.logout()
 
     // Confirm deal closed
@@ -552,9 +551,9 @@ describe('Fill or Kill Test', () => {
     cy
       .get('[data-cy=list-status]')
       .should('contain', 'Trading')
-    
+
     cy.logout()
-    
+
     // Collect Securities - check message
     cy.login(this.users.validUsers[0])
     cy
@@ -634,7 +633,7 @@ describe('Fill or Kill Test', () => {
       .click()
       .get('[data-cy=notification-link]')
       .should('contain', 'You collected the securities')
-    
+
     cy.logout()
 
     // Confirm deal closed
@@ -648,4 +647,3 @@ describe('Fill or Kill Test', () => {
       .should('contain', 'Deal Closed')
   })
 })
-/*eslint-enable */
