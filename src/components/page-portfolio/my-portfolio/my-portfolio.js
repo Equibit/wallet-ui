@@ -122,6 +122,20 @@ export const ViewModel = DefineMap.extend({
     }
   },
 
+  addrsLoaded: {
+    get (val, resolve) {
+      if (!this.portfolio.listunspentPromise) {
+        return false
+      }
+      this.portfolio.listunspentPromise.then(() => {
+        if (this.portfolio.addresses.isPending) {
+          return false
+        }
+        setTimeout(() => resolve(true), 1000)
+      })
+    }
+  },
+
   // To cancel an issuance we strip out issuance_tx_id and send as Blank EQB to a new EQB address.
   cancelIssuance (issuance) {
     return issuance.cancel().then(() => {

@@ -28,17 +28,19 @@
                      isSending:from="isSending"
                      sendFundsPopup:to="isSendFundsPopup"
                      receiveFunds:from="@receiveFunds"/>
-
   <div class="panel-body">
-    {{^if portfolio.availableAmount('EQB')}}
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="alert alert-warning" role="alert">
-          <strong>{{i18n('eqbBalanceZero')}}</strong> {{i18n('eqbRequiredForTxFee')}}
-          <a href="{{routeUrl page='equibit'}}" type="button" class="btn btn-primary btn-xs pull-right">{{i18n('buyEqb')}}</a>
+    {{^if addrsLoaded}}
+    {{else}}
+      {{^if portfolio.availableAmount('EQB')}}
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="alert alert-warning" role="alert">
+              <strong>{{i18n('eqbBalanceZero')}}</strong> {{i18n('eqbRequiredForTxFee')}}
+              <a href="{{routeUrl page='equibit'}}" type="button" class="btn btn-primary btn-xs pull-right">{{i18n('buyEqb')}}</a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      {{/if}}
     {{/if}}
 
     <div class="row">
@@ -56,6 +58,7 @@
           balance:from="portfolio.balance"
           btcError:from="portfolio.errorRetrievingFunds('BTC')"
           eqbError:from="portfolio.errorRetrievingFunds('EQB')"
+          loaded:from="addrsLoaded"
         />
       </div>
     </div>

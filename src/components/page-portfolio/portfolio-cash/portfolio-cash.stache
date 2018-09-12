@@ -1,8 +1,10 @@
 <can-import from="~/utils/stache-helpers/"></can-import>
 <can-import from="bit-c3" />
-
-<h2 class="subtitle">{{i18n('cash')}}</h2>
-
+{{#if loaded}}
+  <h2 class="subtitle">{{i18n('cash')}}</h2>
+{{else}}
+  <h2 class="subtitle">{{i18n('loadingAddresses')}}</h2>
+{{/if}}
 <div class="well">
   <div class="row">
     <table class="table">

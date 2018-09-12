@@ -374,6 +374,7 @@ export default {
   lastUpdatedOn: 'Last updated on',
   legalName: 'Legal Name',
   level: 'Level',
+  loadingAddresses: 'Loading addresses...',
   login: 'Log In',
   loginToContinue: 'Log in to continue.',
   loginRetry: 'Re-Log In',
