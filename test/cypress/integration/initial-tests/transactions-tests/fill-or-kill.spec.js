@@ -46,7 +46,7 @@ describe('Fill or Kill Test', () => {
       .should('contain', 'Send Offer Payment')
     cy.get('[data-cy=fillkill]')
       .should('be.visible')
-    cy.wait(500)
+    cy.wait(1000)
     cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
       .click()
@@ -156,7 +156,7 @@ describe('Fill or Kill Test', () => {
       .should('contain', 'Place Buy Order')
     cy.get('[data-cy=order-button-buy]')
       .should('have.class', 'btn-selected')
-    
+
     helper.addOrder(true, '.0001', '1000000', 'buy')
     cy.logout()
 
@@ -175,7 +175,7 @@ describe('Fill or Kill Test', () => {
       .should('contain', 'Send Offer Equibits')
     cy.get('[data-cy=fillkill]')
       .should('be.visible')
-    cy.wait(500)
+    cy.wait(1000)
     cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
       .click()

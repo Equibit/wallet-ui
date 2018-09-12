@@ -17,8 +17,7 @@ export function addOrder (fill, quantity, price, type) {
   cy.get('[data-cy=total-price]')
     .click()
     .should('have.value', (quantity * price).toString())
-  if (fill)
-      cy.get('input[type="checkbox"]').check()
+  if (fill) { cy.get('input[type="checkbox"]').check() }
   cy.get('[data-cy=button-1]')
     .click()
   cy.contains('Next')
@@ -82,7 +81,7 @@ export function confirmOrderAndAcceptOffer () {
     .should('be.visible')
     .should('contain', '0.0001')
     .click()
-    
+
   cy.get('[data-cy=accept-button]')
     .should('be.visible')
     .should('have.attr', 'on:click', 'acceptOffer(offer)')
@@ -137,4 +136,3 @@ export function checkDealClosed () {
     .get('[data-cy=notification-title]')
     .should('contain', 'Deal Closed')
 }
-  
