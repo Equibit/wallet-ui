@@ -81,17 +81,3 @@ Cypress.Commands.add('loginQA', () => {
     .get('button[type="submit"]')
     .click()
 })
-
-Cypress.Commands.add('resetOrdersAndOffers', () => {
-  Cypress.log({
-    name: 'resetOrdersAndOffers'
-  })
-
-    Cypress.log({
-        name: 'resetOrdersAndOffers'
-    })
-
-    cy.exec('mongo wallet_api-testing --eval \'db.orders.remove({assetType: "EQUIBIT"})\'')
-    cy.exec('mongo wallet_api-testing --eval \'db.offers.remove({assetType: "EQUIBIT"})\'')
-
-})
