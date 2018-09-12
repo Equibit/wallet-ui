@@ -16,7 +16,7 @@ describe('Auto Logout Test', () => {
 
   it('auto logout dialog can open', function () {
     cy
-      .get('[data-cy=editAutoLogoutButton]')
+      .get('[data-cy=edit-autologout-button]')
       .click()
     cy
       .get('#autoLogoutTime')
@@ -25,23 +25,23 @@ describe('Auto Logout Test', () => {
 
   it('auto logout time can be adjusted', function () {
     cy
-      .get('[data-cy=displayedAutoLogoutTime]')
+      .get('[data-cy=displayed-autologout-time]')
       .then(($fld) => {
         const oldTimeout = parseInt($fld.text())
         const newTimeout = oldTimeout + (oldTimeout >= 25 ? -5 : 5)
         cy
-          .get('[data-cy=editAutoLogoutButton]')
+          .get('[data-cy=edit-autologout-button]')
           .click()
         cy
           .get('#autoLogoutTime')
           .clear()
           .type(newTimeout.toString())
         cy
-          .get('[data-cy=saveAutoLogoutButton]')
+          .get('[data-cy=save-autologout-button]')
           .should('have.class', 'btn-primary')
           .click()
         cy
-          .get('[data-cy=displayedAutoLogoutTime]')
+          .get('[data-cy=displayed-autologout-time]')
           .should('contain', newTimeout.toString())
       })
   })

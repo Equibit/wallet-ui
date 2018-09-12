@@ -92,7 +92,7 @@
       <span class="icon icon-lock-enclosed icon-with-check"></span>
       <h4 class="title">{{i18n('recoveryPhraseSetupTitleDone')}}</h4>
       <p>{{i18n('recoveryPhraseSetupMessageDone')}}</p>
-      <button on:click="../doClose(@close)" type="button" class="btn btn-primary btn-gotit" data-dismiss="modal">{{i18n('gotit')}}</button>
+      <button on:click="../doClose(@close)" type="button" class="btn btn-primary btn-gotit" data-dismiss="modal" data-cy="gotit-recovery-button">{{i18n('gotit')}}</button>
     </div>
   </div>
   {{/is}}

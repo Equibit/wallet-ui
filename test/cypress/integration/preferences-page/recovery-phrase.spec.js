@@ -1,7 +1,6 @@
 'use strict'
 
 import './support/commands'
-import { worker } from 'cluster';
 
 let user
 const openDialog = function () {
@@ -9,7 +8,7 @@ const openDialog = function () {
     .get('[data-cy=view-recovery-phrase-button]')
     .click()
 }
-const prepDialog = function() {
+const prepDialog = function () {
   cy.goToPrefs()
   openDialog()
   cy.resetSecondFactorAuth(user)
@@ -31,10 +30,10 @@ const viewRecoveryPhrase = function (recordWords = false) {
   if (!recordWords) return
 
   // oh the hoops we have to jump through thanks to cypress's out of order execution
-  return new Promise((res, rej) => {
+  return new Promise((resolve, reject) => {
     let words = []
     Promise.all(Array(3).fill().map((_, i) => {
-      return new Promise((res, rej) => {
+      return new Promise((resolve, reject) => {
         cy
           .get('[data-cy=recovery-word-group] .word-display')
           .each(($el) => {
@@ -44,17 +43,17 @@ const viewRecoveryPhrase = function (recordWords = false) {
         cy
           .get('[data-cy=continue-viewing-phrase-button]')
           .click()
-          .then(() => res())
+          .then(() => resolve())
       })
     }))
       .then(() => {
         expect(words.length).to.equal(12)
-        res(words)
+        resolve(words)
       })
   })
 }
-const enterRecoveryWords = function (words) {
-  return new Promise((res, rej) => {
+const enterRecoveryWords = function (words, mutateIndices = []) {
+  return new Promise((resolve, reject) => {
     let indices = []
     cy.get('[data-cy=recovery-input-group] label[for=phrase-input1]')
       .each(($lb) => {
@@ -62,16 +61,29 @@ const enterRecoveryWords = function (words) {
       })
     cy.get('[data-cy=recovery-input-group] input#phrase-input1')
       .each(($in, i) => {
-        cy.wrap($in).type(words[indices[i]])
+        cy
+          .wrap($in)
+          .type(words[indices[i]] + (mutateIndices.indexOf(i) < 0 ? '' : Math.random().toString(36).substr(-2)))
       })
     cy
       .get('[data-cy=finish-viewing-phrase-button]')
       .click()
-      .then(() => res())
+      .then(() => resolve(mutateIndices))
   })
 }
 
 describe('Recovery Phrase Test', () => {
+  // make it appear like the user hasn't recorded their recovery phrase yet
+  // (so the first assertion doesn't fail the next time this test runs).
+  after(function () {
+    cy.exec(
+      'mongo wallet_api-testing --eval \'db.users.updateOne(' +
+      `{ "_id": ObjectId("${user.dbid}") },` +
+      `{ $set: { "hasRecordedMnemonic": false } },` +
+      '{  })\''
+    )
+  })
+
   beforeEach(function () {
     cy.loginQA()
     cy
@@ -83,7 +95,7 @@ describe('Recovery Phrase Test', () => {
       })
   })
 
-  xit('recovery phrase is not set yet', function () {
+  it('recovery phrase is not set yet', function () {
     cy.goToPrefs()
     cy
       .get('[data-cy=user-phrase-notset-indicator]')
@@ -93,7 +105,7 @@ describe('Recovery Phrase Test', () => {
       .should('not.exist')
   })
 
-  xit('recovery phrase is openable', function () {
+  it('recovery phrase is openable', function () {
     cy.goToPrefs()
     openDialog()
     cy
@@ -101,7 +113,7 @@ describe('Recovery Phrase Test', () => {
       .should('exist')
   })
 
-  xit('incorrect verification code does not allow continuation', function () {
+  it('incorrect verification code does not allow continuation', function () {
     prepDialog()
     cy
       .get('code-input input[type=password]')
@@ -114,7 +126,7 @@ describe('Recovery Phrase Test', () => {
       .should('not.be.empty')
   })
 
-  xit('correct verification code allows viewing of the recovery phrase', function () {
+  it('correct verification code allows viewing of the recovery phrase', function () {
     prepDialog()
     viewRecoveryPhrase()
   })
@@ -122,11 +134,22 @@ describe('Recovery Phrase Test', () => {
   it('incorrect word entrance does not allow continuation', function () {
     prepDialog()
     viewRecoveryPhrase(true)
-      .then((words) => enterRecoveryWords(words.map((word) => word + Math.random().toString(36).substr(2))))
-      .then(() => {
-        cy
-          .get()
-          .should()
+      .then((words) => enterRecoveryWords(
+        words,
+        Array.from({ length: 4 }, (_, i) => i)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 2)
+      )).then((indices) => {
+        cy.get('[data-cy=recovery-input-group] .word-display')
+          .each(($dv, d) => {
+            cy
+              .wrap($dv)
+              .within(() => {
+                cy
+                  .get('validation-message')
+                  .should((indices.indexOf(d) < 0 ? 'not.' : '') + 'be.visible')
+              })
+          })
       })
   })
 
@@ -136,8 +159,19 @@ describe('Recovery Phrase Test', () => {
       .then(enterRecoveryWords)
       .then(() => {
         cy
-          .get()
-          .should()
+          .get('[data-cy=gotit-recovery-button')
+          .should('exist')
+          .click()
       })
+  })
+
+  it('recovery phrase is set', function () {
+    cy.goToPrefs()
+    cy
+      .get('[data-cy=user-phrase-notset-indicator]')
+      .should('not.exist')
+    cy
+      .get('[data-cy=user-phrase-set-indicator]')
+      .should('exist')
   })
 })

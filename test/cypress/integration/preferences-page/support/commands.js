@@ -1,4 +1,6 @@
-Cypress.Commands.add("goToPrefs", () => {
+'use strict'
+
+Cypress.Commands.add('goToPrefs', () => {
   cy
     .get('[data-cy=userDropdown]')
     .should('have.attr', 'href', '#')

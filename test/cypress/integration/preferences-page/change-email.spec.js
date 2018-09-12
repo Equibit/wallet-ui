@@ -13,6 +13,9 @@ const prepDialog = function () {
   openDialog()
   cy.resetSecondFactorAuth(user)
 }
+const swapEmail = () => {
+  user.email = [user.secondEmail, user.secondEmail = user.email][0]
+}
 
 describe('Change Email Test', () => {
   after(function () {
@@ -137,12 +140,12 @@ describe('Change Email Test', () => {
       .should('contain', user.secondEmail)
 
     // switch email so that we can login with the new email
-    user.email = [user.secondEmail, user.secondEmail = user.email][0]
+    swapEmail()
   })
 
   it('new email is required for login', function () {
     // switch email back so that it is reset properly
-    user.email = [user.secondEmail, user.secondEmail = user.email][0]
+    swapEmail()
 
     cy
       .get('[data-cy=userDropdown]')
@@ -151,6 +154,5 @@ describe('Change Email Test', () => {
     cy
       .contains('Log Out')
       .should('have.attr', 'on:click', 'logout()')
-
-    })
+  })
 })

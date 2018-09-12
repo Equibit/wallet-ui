@@ -25,6 +25,13 @@ const attemptSave = function () {
 }
 
 describe('Change Password Test', () => {
+  // We need to reset the password to the previous one so that subsequent tests can run with this user.
+  after(function () {
+    cy.goToPrefs()
+    openDialog()
+    enterPasswords(strongPassword, user.password)
+  })
+
   beforeEach(function () {
     cy.loginQA()
     cy
@@ -34,15 +41,6 @@ describe('Change Password Test', () => {
         user = users.validUsers[0]
         cy.login({ ...user, password: this.currentTest.title === 'allows log in with new credentials' ? strongPassword : user.password })
       })
-  })
-
-  // We need to reset the password to the previous one so that subsequent tests can run with this user.
-  afterEach(function () {
-    if (this.currentTest.state === 'failed') {
-      cy.goToPrefs()
-      openDialog()
-      enterPasswords(strongPassword, user.password)
-    }
   })
 
   it('password dialog is openable', function () {
