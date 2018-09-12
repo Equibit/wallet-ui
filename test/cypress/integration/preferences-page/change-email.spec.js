@@ -2,19 +2,19 @@
 
 import './support/commands'
 
-describe('Change Email Test', () => {
-  let user
-  const openDialog = function () {
-    cy
-      .get('[data-cy=edit-email-button]')
-      .click()
-  }
-  const prepDialog = function () {
-    cy.goToPrefs()
-    openDialog()
-    cy.resetSecondFactorAuth(user)
-  }
+let user
+const openDialog = function () {
+  cy
+    .get('[data-cy=edit-email-button]')
+    .click()
+}
+const prepDialog = function () {
+  cy.goToPrefs()
+  openDialog()
+  cy.resetSecondFactorAuth(user)
+}
 
+describe('Change Email Test', () => {
   after(function () {
     cy.exec(
       'mongo wallet_api-testing --eval \'db.users.update(' +

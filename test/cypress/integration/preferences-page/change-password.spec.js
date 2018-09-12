@@ -2,29 +2,29 @@
 
 import './support/commands'
 
-describe('Change Password Test', () => {
-  let user
-  const weakPassword = 'abc123'
-  const strongPassword = 'th3_Str0ngesT_p4SSword'
-  const openDialog = function () {
-    cy
-      .get('[data-cy=edit-password-button]')
-      .click()
-  }
-  const enterPasswords = function (currentPassword, newPassword) {
-    cy
-      .get('#passwordCurrent')
-      .type(currentPassword)
-    cy
-      .get('#passwordNew')
-      .type(newPassword)
-  }
-  const attemptSave = function () {
-    cy
-      .get('[data-cy=save-password-button]')
-      .click()
-  }
+let user
+const weakPassword = 'abc123'
+const strongPassword = 'th3-Str0ngesT_p4SSword'
+const openDialog = function () {
+  cy
+    .get('[data-cy=edit-password-button]')
+    .click()
+}
+const enterPasswords = function (currentPassword, newPassword) {
+  cy
+    .get('#passwordCurrent')
+    .type(currentPassword)
+  cy
+    .get('#passwordNew')
+    .type(newPassword)
+}
+const attemptSave = function () {
+  cy
+    .get('[data-cy=save-password-button]')
+    .click()
+}
 
+describe('Change Password Test', () => {
   beforeEach(function () {
     cy.loginQA()
     cy
