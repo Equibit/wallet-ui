@@ -1,3 +1,6 @@
+'use strict'
+import * as helper from '../../../support/utils/trade-helpers'
+
 // NOTE: These tests only create FOK orders and complete FOK trades.
 // This means that once in a while when the tests fail, the btc/eqb blocks will
 // need to be mined otherwise 'invalid signature' or mempool error will occur.
@@ -11,154 +14,54 @@ describe('Fill or Kill Test', () => {
 
   it('Fill or Kill sell order', function () {
     cy.login(this.users.validUsers[0])
-    cy.url().should('contain', '/portfolio')
-    cy
-      .get('[data-cy=no-funds-alert]')
-      .should('not.exist')
-    cy.get('[data-cy=equibit-link]').click()
-    cy.url().should('contain', 'equibit')
+    helper.goToEquibitPage()
 
-    // Place Sell Order
-    cy
-      .get('[data-cy=sell-order-row]')
+    // 1. Place Sell Order
+    cy.get('[data-cy=sell-order-row]')
       .should('not.exist')
-    cy
-      .contains('Add Sell Order')
+    cy.contains('Add Sell Order')
       .should('have.attr', 'on:click', 'showModal(\'SELL\')')
       .click()
     // Add Sell Order modal
-    cy
-      .get('[data-cy=order-modal-title]')
+    cy.get('[data-cy=order-modal-title]')
       .should('contain', 'Place Sell Order')
-    cy
-      .get('[data-cy=order-button-sell]')
+    cy.get('[data-cy=order-button-sell]')
       .should('have.class', 'btn-selected')
-    cy
-      .get('[data-cy=input-quantity]')
-      .type('.0001')
-    cy
-      .get('[data-cy=input-price]')
-      .type('{backspace}1000000')
-    cy
-      .get('[data-cy=total-price]')
-      .click()
-      .should('have.value', '100')
-    cy
-      .get('input[type="checkbox"]')
-      .check()
-    cy
-      .get('[data-cy=button-1]')
-      .click()
-    cy
-      .contains('Next')
-      .should('have.attr', 'on:click', '../next()')
-      .click()
-    // Confirm modal
-    cy
-      .contains('Please review and confirm your order.')
-      .should('exist')
-      .get('[data-cy=confirm-quantity]')
-      .should('contain', '0.0001')
-      .get('[data-cy=confirm-price')
-      .should('contain', '1000000.00')
-      .get('[data-cy=confirm-total]')
-      .should('contain', '100.00')
-      .get('[data-cy=place-order-button]')
-      .click()
-    // Confirm alert
-    cy
-      .get('.alert-message')
-      .should('contain', 'Your order was created')
-    // Confirm order appears/exists
-    cy
-      .get('[data-cy=sell-order-row]')
-      .should('exist')
-      .should('contain', 'No')
-      .should('contain', '0.0001')
-      .should('contain', '1000000')
-      .should('contain', 'View')
+
+    helper.addOrder(true, '.0001', '1000000', 'sell')
     cy.logout()
 
-    // Place Buy Offer & Send Payment - check message
+    // 2. Place Buy Offer & Send Payment - check message
     cy.login(this.users.validUsers[1])
-    cy.url().should('contain', '/portfolio')
-    cy
-      .get('[data-cy=no-funds-alert]')
-      .should('not.exist')
-    cy.get('[data-cy=equibit-link]').click()
-    cy.url().should('contain', 'equibit')
-    cy
-      .get('[data-cy=sell-order-row]')
+    helper.goToEquibitPage()
+
+    cy.get('[data-cy=sell-order-row]')
       .should('exist')
-      .should('contain', 'No')
-      .should('contain', '0.0001')
-      .should('contain', '1000000')
       .should('contain', 'Buy')
-    cy
-      .contains('Buy')
+    cy.contains('Buy')
       .should('have.attr', 'on:click', 'buySell(row)')
       .click()
     // Send Offer modal
-    cy
-      .get('[data-cy=offer-modal-title]')
+    cy.get('[data-cy=offer-modal-title]')
       .should('contain', 'Send Offer Payment')
-    cy
-      .get('#inputQuantity')
-      .should('have.value', '0.0001')
-      .get('#inputAskPrice')
-      .should('have.value', '1000000')
-    cy
-      .get('#inputQuantityOffer')
-      .should('have.value', '0.0001')
-      .get('[data-cy=total-ask-price]')
-      .should('have.value', '100')
-    cy
-      .get('[data-cy=fillkill]')
+    cy.get('[data-cy=fillkill]')
       .should('be.visible')
-    cy.wait(1000)
-    cy
-      .contains('Next')
+    cy.wait(500)
+    cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
       .click()
     // Confirm modal
-    cy
-      .get('[data-cy=offer-modal-title]')
-      .should('contain', 'Send Offer Payment')
-    cy
-      .contains('Please review and confirm your offer.')
-      .should('exist')
-    cy
-      .contains('0.0001')
-      .should('exist')
-      .get('[data-cy=portfolio-name]')
-      .should('contain', 'My Test Portfolio 3')
-    cy
-      .get('[data-cy=timelock-button]')
-      .should('contain', '12 Hours')
-      .should('have.value', '72')
-      .click()
-    cy
-      .get('[data-cy=offer-button]')
-      .should('contain', 'Send Offer Payment')
-      .should('have.attr', 'on:click', 'send(@close)')
-      .click()
-    // Confirm alert
-    cy
-      .get('.alert-message')
-      .should('contain', 'Your offer was created')
+    helper.createOffer('Payment')
     // Confirm order appears/exists
-    cy
-      .get('[data-cy=sell-order-row]')
+    cy.get('[data-cy=sell-order-row]')
       .should('exist')
       .should('contain', 'View')
-
     cy.logout()
 
-    // Accept & Send Securities - check message
+    // 3. Accept & Send Securities - check message
     cy.login(this.users.validUsers[0])
     // Confirm notification
-    cy
-      .get('[data-cy=notification-icon]')
+    cy.get('[data-cy=notification-icon]')
       .click()
       .contains('Notifications')
       .should('be.visible')
@@ -168,79 +71,37 @@ describe('Fill or Kill Test', () => {
       .get('[data-cy=quantity-link]')
       .should('contain', '0.0001@1000000')
     // Confirm order appears/exists
-    cy.url().should('contain', '/portfolio')
-    cy
-      .get('[data-cy=no-funds-alert]')
-      .should('not.exist')
-    cy.get('[data-cy=equibit-link]').click()
-    cy.url().should('contain', 'equibit')
-    cy
-      .get('[data-cy=sell-order-row]')
+    helper.goToEquibitPage()
+
+    cy.get('[data-cy=sell-order-row]')
       .should('exist')
       .should('contain', 'View')
-    cy
-      .contains('View')
+    cy.contains('View')
       .click()
-    cy
-      .contains('View Details')
+    cy.contains('View Details')
       .click()
     // Confirm order details & accept offer
-    cy.url().should('contain', '/orders/')
-    cy
-      .get('[data-cy=order-item]')
-      .should('have.attr', 'on:click', 'selectItem(item)')
-      .should('have.class', 'active')
-      .should('contain', 'Blank EQB')
-      .get('[data-cy=list-status]')
-      .should('contain', 'Open')
-    cy
-      .get('[data-cy=order-quantity]')
-      .should('contain', '0.0001')
-      .get('[data-cy=fillkill]')
-      .should('be.visible')
-      .get('[data-cy=order-ask-price]')
-      .should('contain', '1000000.00')
-      .get('[data-cy=status]')
-      .should('contain', 'Open')
-      .get('[data-cy=offers-length]')
-      .should('contain', '0')
-    cy
-      .get('[data-cy=offer-quantity]')
-      .should('be.visible')
-      .should('contain', '0.0001')
-      .click()
-    cy
-      .get('[data-cy=accept-button]')
-      .should('be.visible')
-      .should('have.attr', 'on:click', 'acceptOffer(offer)')
-      .click()
+    helper.confirmOrderAndAcceptOffer()
+
     // Accept offer and send modal
-    cy
-      .get('[data-cy=accept-offer-title]')
+    cy.get('[data-cy=accept-offer-title]')
       .should('contain', 'Accept Offer and Send Equibits')
-      .get('[data-cy=offer-amount]')
-      .should('contain', '0.0001')
-    cy
-      .contains('Please review and confirm your transaction.')
+    cy.contains('Please review and confirm your transaction.')
       .should('exist')
-    cy
-      .contains('Accept & Send')
+    cy.contains('Accept & Send')
       .should('have.attr', 'on:click', 'send(@close)')
       .click()
     // Confirm alert
-    cy
-      .get('.alert-message')
+    cy.get('.alert-message')
       .should('contain', 'Trade was updated')
-    cy
-      .get('[data-cy=list-status]')
+    cy.get('[data-cy=list-status]')
       .should('contain', 'Trading')
 
     cy.logout()
 
-    // Collect Securities - check message
+    // 4. Collect Securities - check message
     cy.login(this.users.validUsers[1])
-    cy
-      .get('[data-cy=notification-icon]')
+    cy.get('[data-cy=notification-icon]')
       .click()
       .contains('Notifications')
       .should('be.visible')
@@ -252,41 +113,16 @@ describe('Fill or Kill Test', () => {
       .should('contain', 'Collect Securities')
       .click()
     // Confirm modal
-    cy
-      .get('[data-cy=collect-title]')
-      .should('contain', 'Collect EQB')
-      .get('[data-cy=confirm-summary]')
-      .should('contain', '0.0001')
-      .should('contain', 'EQB')
-      .get('[data-cy=collect-button]')
-      .should('have.attr', 'on:click', 'send(@close)')
-      .should('contain', 'Collect EQB')
-      .click()
-    // Confirm alert & new notification
-    cy
-      .get('.alert-message')
-      .should('contain', 'Trade was updated')
-    cy
-      .get('[data-cy=notification-icon]')
-      .click()
-      .get('[data-cy=notification-link]')
-      .should('contain', 'You collected the securities')
-
+    helper.collectEQB()
     cy.logout()
 
-    // Collect Payment & Close Deal
+    // 5. Collect Payment & Close Deal
     cy.login(this.users.validUsers[0])
-    cy.url().should('contain', '/portfolio')
-    cy
-      .get('[data-cy=no-funds-alert]')
+    helper.goToEquibitPage()
+
+    cy.get('[data-cy=sell-order-row]')
       .should('not.exist')
-    cy.get('[data-cy=equibit-link]').click()
-    cy.url().should('contain', 'equibit')
-    cy
-      .get('[data-cy=sell-order-row]')
-      .should('not.exist')
-    cy
-      .get('[data-cy=notification-icon]')
+    cy.get('[data-cy=notification-icon]')
       .click()
       .contains('Notifications')
       .should('be.visible')
@@ -297,185 +133,64 @@ describe('Fill or Kill Test', () => {
       .should('contain', 'Close Deal')
       .click()
     // Confirm modal
-    cy
-      .get('[data-cy=collect-title]')
-      .should('contain', 'Collect Payment')
-      .get('[data-cy=confirm-summary]')
-      .should('contain', '0.0001')
-      .should('contain', 'BTC')
-      .get('[data-cy=collect-button]')
-      .should('have.attr', 'on:click', 'send(@close)')
-      .should('contain', 'Collect & Close Deal')
-      .click()
-    // Confirm alert & new notification
-    cy
-      .get('.alert-message')
-      .should('contain', 'Trade was updated')
-    cy
-      .get('[data-cy=notification-icon]')
-      .click()
-      .get('[data-cy=notification-link]')
-      .should('contain', 'You collected the payment')
-
+    helper.collectPayment()
     cy.logout()
 
     // Confirm deal closed
     cy.login(this.users.validUsers[1])
-    cy
-      .get('[data-cy=notification-icon]')
-      .click()
-      .contains('Notifications')
-      .should('be.visible')
-      .get('[data-cy=notification-title]')
-      .should('contain', 'Deal Closed')
+    helper.checkDealClosed()
   })
 
   it('Fill or Kill buy order', function () {
     cy.login(this.users.validUsers[1])
-    cy.url().should('contain', '/portfolio')
-    cy
-      .get('[data-cy=no-funds-alert]')
-      .should('not.exist')
-    cy.get('[data-cy=equibit-link]').click()
-    cy.url().should('contain', 'equibit')
+    helper.goToEquibitPage()
 
-    // Place Buy Order
-    cy
-      .get('[data-cy=buy-order-row]')
+    // 1. Place Buy Order
+    cy.get('[data-cy=buy-order-row]')
       .should('not.exist')
-    cy
-      .contains('Add Buy Order')
+    cy.contains('Add Buy Order')
       .should('have.attr', 'on:click', 'showModal(\'BUY\')')
       .click()
     // Add Buy Order modal
-    cy
-      .get('[data-cy=order-modal-title]')
+    cy.get('[data-cy=order-modal-title]')
       .should('contain', 'Place Buy Order')
-    cy
-      .get('[data-cy=order-button-buy]')
+    cy.get('[data-cy=order-button-buy]')
       .should('have.class', 'btn-selected')
-    cy
-      .get('[data-cy=input-quantity]')
-      .type('.0001')
-    cy
-      .get('[data-cy=input-price]')
-      .type('{backspace}1000000')
-    cy
-      .get('[data-cy=total-price]')
-      .click()
-      .should('have.value', '100')
-    cy
-      .get('input[type="checkbox"]')
-      .check()
-    cy
-      .get('[data-cy=button-1]')
-      .click()
-    cy
-      .contains('Next')
-      .should('have.attr', 'on:click', '../next()')
-      .click()
-    // Confirm modal
-    cy
-      .contains('Please review and confirm your order.')
-      .should('exist')
-      .get('[data-cy=confirm-quantity]')
-      .should('contain', '0.0001')
-      .get('[data-cy=confirm-price')
-      .should('contain', '1000000.00')
-      .get('[data-cy=confirm-total]')
-      .should('contain', '100.00')
-      .get('[data-cy=place-order-button]')
-      .click()
-    // Confirm alert
-    cy
-      .get('.alert-message')
-      .should('contain', 'Your order was created')
-    // Confirm order appears/exists
-    cy
-      .get('[data-cy=buy-order-row]')
-      .should('exist')
-      .should('contain', 'No')
-      .should('contain', '0.0001')
-      .should('contain', '1000000')
-      .should('contain', 'View')
+    
+    helper.addOrder(true, '.0001', '1000000', 'buy')
     cy.logout()
 
-    // Place Buy Offer & Send Payment - check message
+    // 2. Place Buy Offer & Send Payment - check message
     cy.login(this.users.validUsers[0])
-    cy.url().should('contain', '/portfolio')
-    cy
-      .get('[data-cy=no-funds-alert]')
-      .should('not.exist')
-    cy.get('[data-cy=equibit-link]').click()
-    cy.url().should('contain', 'equibit')
-    cy
-      .get('[data-cy=buy-order-row]')
+    helper.goToEquibitPage()
+
+    cy.get('[data-cy=buy-order-row]')
       .should('exist')
-      .should('contain', 'No')
-      .should('contain', '0.0001')
-      .should('contain', '1000000')
       .should('contain', 'Sell')
-    cy
-      .get('[data-cy=sell-button]')
+    cy.get('[data-cy=sell-button]')
       .should('have.attr', 'on:click', 'buySell(row)')
       .click()
     // Send Offer modal
-    cy
-      .get('[data-cy=offer-modal-title]')
+    cy.get('[data-cy=offer-modal-title]')
       .should('contain', 'Send Offer Equibits')
-    cy
-      .get('#inputQuantity')
-      .should('have.value', '0.0001')
-      .get('#inputAskPrice')
-      .should('have.value', '1000000')
-    cy
-      .get('#inputQuantityOffer')
-      .should('have.value', '0.0001')
-      .get('[data-cy=total-ask-price]')
-      .should('have.value', '100')
-    cy
-      .get('[data-cy=fillkill]')
+    cy.get('[data-cy=fillkill]')
       .should('be.visible')
-    cy
-      .contains('Next')
+    cy.wait(500)
+    cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
       .click()
     // Confirm modal
-    cy
-      .get('[data-cy=offer-modal-title]')
-      .should('contain', 'Send Offer Equibits')
-    cy
-      // .contains('0.0001') // bug here
-      // .should('exist')
-      .get('[data-cy=portfolio-name]')
-      .should('contain', 'My Test Portfolio')
-    cy
-      .get('[data-cy=timelock-button]')
-      .should('contain', '12 Hours')
-      .should('have.value', '72')
-      .click()
-    cy
-      .get('[data-cy=offer-button]')
-      .should('contain', 'Send Offer Equibits')
-      .should('have.attr', 'on:click', 'send(@close)')
-      .click()
-    // Confirm alert
-    cy
-      .get('.alert-message')
-      .should('contain', 'Your offer was created')
+    helper.createOffer('Equibits')
     // Confirm order appears/exists
-    cy
-      .get('[data-cy=buy-order-row]')
+    cy.get('[data-cy=buy-order-row]')
       .should('exist')
       .should('contain', 'View')
-
     cy.logout()
 
-    // Accept & Send Securities - check message
+    // 3. Accept & Send Securities - check message
     cy.login(this.users.validUsers[1])
     // Confirm notification
-    cy
-      .get('[data-cy=notification-icon]')
+    cy.get('[data-cy=notification-icon]')
       .click()
       .contains('Notifications')
       .should('be.visible')
@@ -485,80 +200,37 @@ describe('Fill or Kill Test', () => {
       .get('[data-cy=quantity-link]')
       .should('contain', '0.0001@1000000')
     // Confirm order appears/exists
-    cy.url().should('contain', '/portfolio')
-    cy
-      .get('[data-cy=no-funds-alert]')
-      .should('not.exist')
-    cy.get('[data-cy=equibit-link]').click()
-    cy.url().should('contain', 'equibit')
-    cy
-      .get('[data-cy=buy-order-row]')
+    helper.goToEquibitPage()
+
+    cy.get('[data-cy=buy-order-row]')
       .should('exist')
       .should('contain', 'View')
-    cy
-      .contains('View')
+    cy.contains('View')
       .click()
-    cy
-      .contains('View Details')
+    cy.contains('View Details')
       .click()
     // Confirm order details & accept offer
-    cy.url().should('contain', '/orders/')
+    helper.confirmOrderAndAcceptOffer()
 
-    cy
-      .get('[data-cy=order-item]')
-      .should('have.attr', 'on:click', 'selectItem(item)')
-      .should('have.class', 'active')
-      .should('contain', 'Blank EQB')
-      .get('[data-cy=list-status]')
-      .should('contain', 'Open')
-    cy
-      .get('[data-cy=order-quantity]')
-      .should('contain', '0.0001')
-      .get('[data-cy=fillkill]')
-      .should('be.visible')
-      .get('[data-cy=order-ask-price]')
-      .should('contain', '1000000.00')
-      .get('[data-cy=status]')
-      .should('contain', 'Open')
-      .get('[data-cy=offers-length]')
-      .should('contain', '0')
-    cy
-      .get('[data-cy=offer-quantity]')
-      .should('be.visible')
-      .should('contain', '0.0001')
-      .click()
-    cy
-      .get('[data-cy=accept-button]')
-      .should('be.visible')
-      .should('have.attr', 'on:click', 'acceptOffer(offer)')
-      .click()
     // Accept offer and send modal
-    cy
-      .get('[data-cy=accept-offer-title]')
+    cy.get('[data-cy=accept-offer-title]')
       .should('contain', 'Accept Offer and Send Payment')
-      .get('[data-cy=offer-amount]')
-      .should('contain', '0.0001')
-    cy
-      .contains('Please review and confirm your transaction.')
+    cy.contains('Please review and confirm your transaction.')
       .should('exist')
-    cy
-      .contains('Accept & Send')
+    cy.contains('Accept & Send')
       .should('have.attr', 'on:click', 'send(@close)')
       .click()
     // Confirm alert
-    cy
-      .get('.alert-message')
+    cy.get('.alert-message')
       .should('contain', 'Trade was updated')
-    cy
-      .get('[data-cy=list-status]')
+    cy.get('[data-cy=list-status]')
       .should('contain', 'Trading')
 
     cy.logout()
 
-    // Collect Securities - check message
+    // 4. Collect Securities - check message
     cy.login(this.users.validUsers[0])
-    cy
-      .get('[data-cy=notification-icon]')
+    cy.get('[data-cy=notification-icon]')
       .click()
       .contains('Notifications')
       .should('be.visible')
@@ -570,41 +242,16 @@ describe('Fill or Kill Test', () => {
       .should('contain', 'Collect Payment')
       .click()
     // Confirm modal
-    cy
-      .get('[data-cy=collect-title]')
-      .should('contain', 'Collect Payment')
-      .get('[data-cy=confirm-summary]')
-      .should('contain', '0.0001')
-      .should('contain', 'BTC')
-      .get('[data-cy=collect-button]')
-      .should('have.attr', 'on:click', 'send(@close)')
-      .should('contain', 'Collect & Close Deal')
-      .click()
-    // Confirm alert & new notification
-    cy
-      .get('.alert-message')
-      .should('contain', 'Trade was updated')
-    cy
-      .get('[data-cy=notification-icon]')
-      .click()
-      .get('[data-cy=notification-link]')
-      .should('contain', 'You collected the payment')
-
+    helper.collectPayment()
     cy.logout()
 
-    // Collect Payment & Close Deal
+    // 5. Collect Payment & Close Deal
     cy.login(this.users.validUsers[1])
-    cy.url().should('contain', '/portfolio')
-    cy
-      .get('[data-cy=no-funds-alert]')
+    helper.goToEquibitPage()
+
+    cy.get('[data-cy=buy-order-row]')
       .should('not.exist')
-    cy.get('[data-cy=equibit-link]').click()
-    cy.url().should('contain', 'equibit')
-    cy
-      .get('[data-cy=buy-order-row]')
-      .should('not.exist')
-    cy
-      .get('[data-cy=notification-icon]')
+    cy.get('[data-cy=notification-icon]')
       .click()
       .contains('Notifications')
       .should('be.visible')
@@ -615,36 +262,11 @@ describe('Fill or Kill Test', () => {
       .should('contain', 'Close Deal')
       .click()
     // Confirm modal
-    cy
-      .get('[data-cy=collect-title]')
-      .should('contain', 'Collect EQB')
-      .get('[data-cy=confirm-summary]')
-      .should('contain', '0.0001')
-      .should('contain', 'EQB')
-      .get('[data-cy=collect-button]')
-      .should('have.attr', 'on:click', 'send(@close)')
-      .should('contain', 'Collect EQB')
-      .click()
-    // Confirm alert & new notification
-    cy
-      .get('.alert-message')
-      .should('contain', 'Trade was updated')
-    cy
-      .get('[data-cy=notification-icon]')
-      .click()
-      .get('[data-cy=notification-link]')
-      .should('contain', 'You collected the securities')
-
+    helper.collectEQB()
     cy.logout()
 
     // Confirm deal closed
     cy.login(this.users.validUsers[0])
-    cy
-      .get('[data-cy=notification-icon]')
-      .click()
-      .contains('Notifications')
-      .should('be.visible')
-      .get('[data-cy=notification-title]')
-      .should('contain', 'Deal Closed')
+    helper.checkDealClosed()
   })
 })
