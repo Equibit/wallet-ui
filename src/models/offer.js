@@ -50,10 +50,10 @@ export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
 }
 
 // retrieve transaction info for an order
-function orderInfo (order, htlcTxId1, htlcTxId2) {
+function orderInfo (offer, order, htlcTxId1, htlcTxId2) {
   const addresses = [
-    this.btcAddress,
-    this.eqbAddress,
+    offer.btcAddress,
+    offer.eqbAddress,
     order.btcAddress,
     order.eqbAddress
   ]
@@ -345,20 +345,23 @@ const Offer = DefineMap.extend('Offer', {
         }
       })
       return this.orderPromise.then(
-        order => orderInfo(order, htlcTxId1, htlcTxId2)
+        order => orderInfo(this, order, htlcTxId1, htlcTxId2)
       ).then(([txes, blockchainInfo]) => {
+        let safetyZone, partialStats
         const step1 = txes.filter(t => t.htlcStep === 1)[0]
         const step2 = txes.filter(t => t.htlcStep === 2)[0]
         const fullStats = timeStats(step1, timelockExpiresBlockheight, timelockExpiredAt, blockchainInfo)
-        const partialStats = timeStats(step2, timelock2ExpiresBlockheight, timelock2ExpiredAt, blockchainInfo)
-        const safetyZone = Math.max(fullStats.endAt - partialStats.endAt, 0)
+        if (step2) {
+          partialStats = timeStats(step2, timelock2ExpiresBlockheight, timelock2ExpiredAt, blockchainInfo)
+          safetyZone = Math.max(fullStats.endAt - partialStats.endAt, 0)
+        }
         return {
           fullDuration: fullStats.duration,
           fullEndAt: fullStats.endAt,
           fullBlocksRemaining: fullStats.blocksRemaining,
-          partialDuration: partialStats.duration,
-          partialEndAt: partialStats.endAt,
-          partialBlocksRemaining: partialStats.blocksRemaining,
+          partialDuration: partialStats ? partialStats.duration : null,
+          partialEndAt: partialStats ? partialStats.endAt : null,
+          partialBlocksRemaining: partialStats ? partialStats.blocksRemaining : null,
           safetyZone
         }
       })

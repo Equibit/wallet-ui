@@ -47,7 +47,7 @@
 
   <div class="list-group-item order-fields">
     <div class="form-horizontal">
-      <h4>{{i18n('offer')}} {{#if formData.order.isFillOrKill}}<fillkill-indicator />{{/if}}</h4>
+      <h4>{{i18n('offer')}} {{#if formData.order.isFillOrKill}}<fillkill-indicator data-cy="fillkill" />{{/if}}</h4>
       <div class="row form-group">
         <div class="col-xs-12 col-sm-2">
           <label for="inputQuantityOffer" class="control-label">{{i18n('quantity')}}</label>
@@ -78,7 +78,7 @@
         </div>
         <div class="col-xs-12 col-sm-4">
           <div class="input-group">
-            <input type="number" class="form-control" id="inputAskPrice" readonly value:from="formData.uBtcTotalPrice">
+            <input type="number" class="form-control" id="inputAskPrice" data-cy="total-ask-price" readonly value:from="formData.uBtcTotalPrice">
             <div class="input-group-addon disabled">μBTC</div>
           </div>
         </div>

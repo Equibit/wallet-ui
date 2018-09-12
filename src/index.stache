@@ -55,7 +55,7 @@
                isLoading:from="session.isLoading"/>
 
       {{#if session.isLoading}}
-        <div class="loading-overlay"><i>Loading...</i></div>
+        <div class="loading-overlay" data-cy="loading-overlay"><i>Loading...</i></div>
       {{/if}}
     {{/if}}
 

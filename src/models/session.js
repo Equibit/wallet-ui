@@ -248,7 +248,7 @@ const Session = DefineMap.extend('Session', {
 
   notifications: {
     get (val, resolve) {
-      if (this.issuances && this.portfolios) {
+      if (this.issuances && this.portfolios && this.notificationsPromise) {
         this.notificationsPromise.then(resolve)
       }
       return []

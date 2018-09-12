@@ -13,9 +13,9 @@
               <span class="media-object icon icon-sell-open"></span>
             </div>
             <div class="media-body">
-              <h4 class="media-heading">{{title(notification.data.type)}}</h4>
+              <h4 class="media-heading" data-cy="notification-title">{{title(notification.data.type)}}</h4>
               <div class="media-description">{{i18n('for')}} {{for(notification.data.address)}}</div>
-              <div class="media-cta btn-link">
+              <div class="media-cta btn-link" data-cy="transfer-amount">
                 <a href="{{routeUrl page='transactions' itemId=notification.data.transactionId}}">
                   Amount {{notification.amountFormatted}} {{notification.units}}
                 </a>
@@ -35,7 +35,7 @@
               <span class="media-object icon {{#eq data.htlcStep 3}}icon-done{{else}}icon-{{data.status.toLowerCase()}}{{/eq}}"></span>
             </div>
             <div class="media-body">
-              <h4 class="media-heading">
+              <h4 class="media-heading" data-cy="notification-title">
                 {{^eq data.status "SAFETY_ZONE"}}
                   {{#eq data.htlcStep 1}}{{i18n(data.type.toLowerCase())}}{{/eq}}
                   {{#eq data.htlcStep 2}}{{i18n(data.type.toLowerCase())}}{{/eq}}
@@ -50,12 +50,12 @@
               <div class="media-cta btn-link">
                 {{#switch data.status}}
                   {{#case "SAFETY_ZONE"}}
-                    <a href="{{routeUrl page='orders' itemId=data.orderId}}">
+                    <a href="{{routeUrl page='orders' itemId=data.orderId}}" data-cy="notification-link">
                       {{i18n('cancelDeal')}}
                     </a>
                   {{/case}}
                   {{#case 'EXPIRED'}}
-                    <a href="{{routeUrl page='offers' itemId=data.offerId}}">
+                    <a href="{{routeUrl page='offers' itemId=data.offerId}}" data-cy="notification-link">
                       {{#eq data.type 'BUY'}}
                         {{i18n('recoverFunds')}}
                       {{else}}
@@ -66,7 +66,7 @@
                   {{#default}}
                     {{#switch data.htlcStep}}
                       {{#case 1}}
-                        <a href="{{routeUrl page='orders' itemId=data.orderId}}">
+                        <a href="{{routeUrl page='orders' itemId=data.orderId}}" data-cy="quantity-link">
                           {{i18n('quantity')}}
                           {{#is data.assetType 'EQUIBIT'}}
                             {{coin(data.quantity)}}@{{data.price}}
@@ -79,7 +79,7 @@
                         {{#with offerPromise=offerFor(notification)}}
                           {{#if offerPromise.isResolved}}
                             {{#eq offerPromise.value.htlcStep data.htlcStep}}
-                              <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
+                              <a href="{{routeUrl true}}" on:click="showOfferModal(notification)" data-cy="notification-link">
                                 {{#eq data.type "SELL"}}
                                   {{i18n('dealFlowMessageTitleCollectPayment')}}
                                 {{else}}
@@ -87,7 +87,7 @@
                                 {{/eq}}
                               </a>
                             {{else}}
-                              <a href="{{routeUrl page='offers' itemId=data.offerId}}">
+                              <a href="{{routeUrl page='offers' itemId=data.offerId}}" data-cy="notification-link">
                                 {{#eq data.type "SELL"}}
                                   {{i18n('htlcUserCollectedPaymentDescription')}}
                                 {{else}}
@@ -102,11 +102,11 @@
                         {{#with offerPromise=offerFor(notification)}}
                           {{#if offerPromise.isResolved}}
                             {{#eq offerPromise.value.htlcStep data.htlcStep}}
-                              <a href="{{routeUrl true}}" on:click="showOfferModal(notification)">
+                              <a href="{{routeUrl true}}" on:click="showOfferModal(notification)" data-cy="notification-link">
                                 {{i18n('dealFlowStep3')}}
                               </a>
                             {{else}}
-                              <a href="{{routeUrl page='orders' itemId=data.orderId}}">
+                              <a href="{{routeUrl page='orders' itemId=data.orderId}}" data-cy="notification-link">
                                 {{#eq data.type "SELL"}}
                                   {{i18n('htlcUserCollectedSecuritiesDescription')}}
                                 {{else}}
