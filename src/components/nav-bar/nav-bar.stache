@@ -46,11 +46,7 @@
 
         {{#if isLoggedIn}}
         <li class="dropdown">
-<<<<<<< bee8d7a589e85abb45f7bcc4bf20131395c0629b
           <a href="#" class="dropdown-toggle icon icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-cy="userDropdown"></a>
-=======
-          <a href="#" class="dropdown-toggle icon icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-cy="dropdown"></a>
->>>>>>> refactor test selectors
           <ul class="dropdown-menu user-nav default-menu animated fadeIn">
             <li><a href="{{routeUrl page='portfolio'}}">{{i18n('myPortfolio')}}</a></li>
             <li><a href="{{routeUrl page='orders'}}">{{i18n('myOrders')}}</a></li>
