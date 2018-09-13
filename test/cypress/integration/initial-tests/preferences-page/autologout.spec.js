@@ -9,7 +9,7 @@ describe('Auto Logout Test', () => {
       .fixture('users')
       .as('users')
       .then((users) => {
-        cy.login(users.validUsers[0])
+        cy.login(users.twoStepVerification)
         cy.goToPrefs()
       })
   })

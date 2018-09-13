@@ -74,7 +74,7 @@ Cypress.Commands.add('getSecondFactorHashedAuth', (user) => {
   return cy.exec(
     'mongo wallet_api-testing --eval \'db.users.find(' +
     `{ "_id": ObjectId("${user.dbid}") },` +
-    '{ twoFactorCode: 1, _id: 0 })\' | grep \'"twoFactorCode"\''
+    '{ "twoFactorCode": 1, "_id": 0 })\' | grep \'"twoFactorCode"\''
   ).then((result) => JSON.parse(
     result.stdout
   ).twoFactorCode)
