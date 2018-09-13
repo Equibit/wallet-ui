@@ -1,5 +1,5 @@
 'use strict'
-import * as helper from '../../../support/utils/trade-helpers'
+import * as helper from '../../support/utils/trade-helpers'
 
 // NOTE: These tests only create FOK orders and complete FOK trades.
 // This means that once in a while when the tests fail, the btc/eqb blocks will
