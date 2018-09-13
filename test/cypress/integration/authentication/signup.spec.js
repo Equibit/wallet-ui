@@ -28,7 +28,7 @@ describe('Signup Test', () => {
         .should('be.visible')
   })
 
-  it('must read and agree to T&C and Privacy Policy', () => {
+  it('must read and agree to T&C and Privacy Policy', function () {
     cy
         .get('input[type="email"]')
         .type(this.users.signup.email)
