@@ -1,5 +1,6 @@
 // This is a helper file for functions related to creating a full trade.
 
+<<<<<<< 7365f0aa7be587683d6ec671156544e2b1d164a6
 export function checkFunds () {
   cy.url().should('contain', '/portfolio')
 
@@ -18,9 +19,23 @@ export function goToEquibitPage () {
 
   cy.get('[data-cy=equibit-link]').click()
   cy.url().should('contain', 'equibit')
+=======
+export function placeOrder (type) {
+  const capitalizeType = type.charAt(0).toUpperCase() + type.slice(1)
+  cy.get(`[data-cy=${type}-order-row]`)
+    .should('not.exist')
+  cy.contains(`Add ${capitalizeType} Order`)
+    .should('have.attr', 'on:click', `showModal(\'${type.toUpperCase()}\')`)
+    .click()
+  // Add Sell Order modal
+  cy.get('[data-cy=order-modal-title]')
+    .should('contain', `Place ${capitalizeType} Order`)
+  cy.get(`[data-cy=order-button-${type}]`)
+    .should('have.class', 'btn-selected')
+>>>>>>> WIP partial sell/buy
 }
 
-export function addOrder (fill, quantity, price, type) {
+export function addOrder (fillorkill, quantity, price, type) {
   cy.get('[data-cy=input-quantity]')
     .type(quantity)
   cy.get('[data-cy=input-price]')
@@ -28,7 +43,7 @@ export function addOrder (fill, quantity, price, type) {
   cy.get('[data-cy=total-price]')
     .click()
     .should('have.value', (quantity * price).toString())
-  if (fill) { cy.get('input[type="checkbox"]').check() }
+  if (fillorkill) { cy.get('input[type="checkbox"]').check() }
   cy.get('[data-cy=button-1]')
     .click()
   cy.contains('Next')
