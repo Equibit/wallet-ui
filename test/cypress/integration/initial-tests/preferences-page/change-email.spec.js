@@ -1,5 +1,6 @@
 'use strict'
 
+import { expect } from 'chai'
 import './support/commands'
 
 let user
