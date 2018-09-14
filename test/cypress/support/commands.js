@@ -71,6 +71,7 @@ Cypress.Commands.add('getSecondFactorHashedAuth', (user) => {
   Cypress.log({
     name: 'getSecondFactorHashedAuth'
   })
+
   return cy.exec(
     'mongo wallet_api-testing --eval \'db.users.find(' +
     `{ "_id": ObjectId("${user.dbid}") },` +
@@ -78,4 +79,22 @@ Cypress.Commands.add('getSecondFactorHashedAuth', (user) => {
   ).then((result) => JSON.parse(
     result.stdout
   ).twoFactorCode)
+})
+
+Cypress.Commands.add('resetUser', (user) => {
+  Cypress.log({
+    name: 'resetUser'
+  })
+
+  cy.exec(
+    'mongo wallet_api-testing --eval \'db.users.updateOne(' +
+    `{ "_id": ObjectId("${user.dbid}") },` +
+    `{ $set" ${JSON.stringify(user.resetVal)} },` +
+    '{  })\''
+  )
+  // cy.exec(
+  //   'mongo wallet_api-testing --eval \'db.users.deleteOne(' +
+  //   `{ "_id": ObjectId("${user.dbid}") }` +
+  //   ')\''
+  // )
 })

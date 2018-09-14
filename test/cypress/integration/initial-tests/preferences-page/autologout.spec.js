@@ -2,14 +2,21 @@
 
 import './support/commands'
 
+let user
+
 describe('Auto Logout Test', () => {
+  after(function () {
+    cy.resetUser(user)
+  })
+
   beforeEach(() => {
     cy.loginQA()
     cy
       .fixture('users')
       .as('users')
       .then((users) => {
-        cy.login(users.twoStepVerification)
+        user = user || users.twoStepVerification
+        cy.login(user)
         cy.goToPrefs()
       })
   })

@@ -74,15 +74,8 @@ const enterRecoveryWords = function (words, mutateIndices = []) {
 }
 
 describe('Recovery Phrase Test', () => {
-  // make it appear like the user hasn't recorded their recovery phrase yet
-  // (so the first assertion doesn't fail the next time this test runs).
   after(function () {
-    cy.exec(
-      'mongo wallet_api-testing --eval \'db.users.updateOne(' +
-      `{ "_id": ObjectId("${user.dbid}") },` +
-      `{ $set: { "hasRecordedMnemonic": false } },` +
-      '{  })\''
-    )
+    cy.resetUser(user)
   })
 
   beforeEach(function () {

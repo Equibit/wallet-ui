@@ -24,6 +24,10 @@ const attemptSave = function () {
 }
 
 describe('Change Password Test', () => {
+  after(function () {
+    cy.resetUser(user)
+  })
+
   beforeEach(function () {
     cy.loginQA()
     cy
@@ -112,12 +116,5 @@ describe('Change Password Test', () => {
     cy
       .get('[data-cy=new-password-validation]')
       .should('contain', 'last 3 passwords')
-    cy.exec(
-      'mongo wallet_api-testing --eval \'db.users.updateOne(' +
-      `{ "_id": ObjectId("${user.dbid}") },` +
-      '{ $set: { "pastPasswordHashes": [  ] } },' +
-      '{  })\''
-    )
-    attemptSave()
   })
 })

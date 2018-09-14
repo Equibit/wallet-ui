@@ -14,18 +14,10 @@ const prepDialog = function () {
   openDialog()
   cy.resetSecondFactorAuth(user)
 }
-const swapEmail = () => {
-  user.email = [user.secondEmail, user.secondEmail = user.email][0]
-}
 
 describe('Change Email Test', () => {
   after(function () {
-    cy.exec(
-      'mongo wallet_api-testing --eval \'db.users.update(' +
-      `{ "_id": ObjectId("${user.dbid}") },` +
-      `{ $set: { "email": "${user.email}" } },` +
-      '{  })\''
-    )
+    cy.resetUser(user)
   })
 
   beforeEach(function () {
@@ -141,13 +133,10 @@ describe('Change Email Test', () => {
       .should('contain', user.secondEmail)
 
     // switch email so that we can login with the new email
-    swapEmail()
+    user.email = [user.secondEmail, user.secondEmail = user.email][0]
   })
 
   it('new email is required for login', function () {
-    // switch email back so that it is reset properly
-    swapEmail()
-
     cy
       .get('[data-cy=userDropdown]')
       .should('have.attr', 'href', '#')
