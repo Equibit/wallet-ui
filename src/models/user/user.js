@@ -193,6 +193,17 @@ const User = DefineMap.extend('User', {
   },
 
   /**
+   * @property {String} models/user.properties.hashedEmail hashedEmail
+   * @parent models/user.properties
+   * The SHA3_512 hash of the email, used as a key for storage to avoid exposing plain email.
+   */
+  get hashedEmail () {
+    if (this.email) {
+      return cryptoUtils.sha3_512(this.email)
+    }
+  },
+
+  /**
    * @function models/user.prototype.generateWalletKeys generateWalletKeys
    * @parent models/user.prototype
    * Generates keys from a seed.

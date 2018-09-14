@@ -424,7 +424,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       const utxos = this.utxoByTypeByAddress
       const emptyBalance = {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0, total: 0}
       const user = Session.current.user
-      let localBalance = window.localStorage.getItem('balance')
+      let localBalance = JSON.parse(window.localStorage.getItem(user.hashedEmail)).balance
       // Check if balance is saved in localStorage and utxo addresses are resolved OR if the addresses object for both BTC and EQB are not empty
       if (localBalance !== null && (!utxos || (Object.keys(utxos.EQB.addresses).length === 0 && Object.keys(utxos.BTC.addresses).length === 0))) {
         const decryptBalance = user.decrypt(localBalance)
@@ -696,7 +696,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
     const utxos = this.utxoByTypeByAddress
     const user = Session.current.user
     if (utxos && (Object.keys(utxos.BTC.addresses).length > 0 || Object.keys(utxos.EQB.addresses).length > 0)) {
-      window.localStorage.setItem('balance', user.encrypt(JSON.stringify(balance)))
+      window.localStorage.setItem(user.hashedEmail, JSON.stringify({ balance: user.encrypt(JSON.stringify(balance)) }))
     }
   }
 })
