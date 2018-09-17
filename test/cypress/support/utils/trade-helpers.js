@@ -35,7 +35,7 @@ export function placeOrder (type) {
 >>>>>>> WIP partial sell/buy
 }
 
-export function addOrder (fillorkill, quantity, price, type) {
+export function addOrder (quantity, price, type, fillorkill=false) {
   cy.get('[data-cy=input-quantity]')
     .type(quantity)
   cy.get('[data-cy=input-price]')
@@ -82,7 +82,7 @@ export function createOffer (type) {
     .should('contain', 'Your offer was created')
 }
 
-export function confirmOrderAndAcceptOffer () {
+export function confirmOrderAndAcceptOffer (fillorkill=false) {
   cy.url().should('contain', '/orders/')
 
   cy.get('[data-cy=order-item]')
@@ -94,9 +94,12 @@ export function confirmOrderAndAcceptOffer () {
 
   cy.get('[data-cy=order-quantity]')
     .should('contain', '0.0001')
-    .get('[data-cy=fillkill]')
+
+  if (fillorkill)
+    cy.get('[data-cy=fillkill]')
     .should('be.visible')
-    .get('[data-cy=order-ask-price]')
+    
+  cy.get('[data-cy=order-ask-price]')
     .should('contain', '1000000.00')
     .get('[data-cy=status]')
     .should('contain', 'Open')

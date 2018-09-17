@@ -48,7 +48,7 @@ stache.registerHelper('format-coin', function (value, precision) {
 
   let formattedValue = accounting.formatNumber(value)
   if (value && value % 1 !== 0) {
-    value = toMaxPrecision(value, precision)
+    if (value >= 1) value = toMaxPrecision(value, precision)
     const exactPrecision = value.toString().split('.')[1].length
     formattedValue = accounting.formatMoney(value, '', exactPrecision)
   }

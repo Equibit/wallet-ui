@@ -1,7 +1,10 @@
 'use strict'
-import * as helper from '../../../support/utils/trade-helpers'
+import * as helper from '../../support/utils/trade-helpers'
 
-describe('Partial Sell Orders Test', () => {
+// NOTE: These tests only create FOK orders and complete FOK trades.
+// This means that once in a while when the tests fail, the btc/eqb blocks will
+// need to be mined otherwise 'invalid signature' or mempool error will occur.
+describe.skip('Partial Buy Orders Test', () => {
   beforeEach(() => {
     cy.clearNotifications()
     cy.clearOrdersAndOffers()
@@ -9,51 +12,21 @@ describe('Partial Sell Orders Test', () => {
     cy.loginQA()
   })
 
-  it.skip('offer quantity too large', () => {
-    // This currently results in an error in the system
-    cy.login(this.users.validUsers[0])
-    cy.goToEquibitPage('portfolio')
-
-      // 1. Place Sell Order
-    helper.placeOrder('sell')
-    helper.addOrder(false, '.0001', '1000000', 'sell')
-    cy.logout()
-
-    // 2. Place Buy Offer & Send Payment - check message
-    cy.login(this.users.validUsers[1])
-    cy.goToEquibitPage('portfolio')
-
-    cy.get('[data-cy=sell-order-row]')
-      .should('exist')
-      .should('contain', 'Buy')
-    cy.contains('Buy')
-      .should('have.attr', 'on:click', 'buySell(row)')
-      .click()
-      // Send Offer modal
-    cy.get('[data-cy=offer-modal-title]')
-      .should('contain', 'Send Offer Payment')
-    cy.wait(1500)
-    cy.contains('Next')
-      .should('have.attr', 'on:click', 'next()')
-      .click()
-    // TODO: Error should appear here
-  })
-
-  it.only('filled by one user', function () {
+  it('filled by one user', function () {
     cy.login(this.users.validUsers[0])
     cy.goToEquibitPage('portfolio')
 
       // 1. Place Sell Order
     cy.get('[data-cy=sell-order-row]')
-      .should('not.exist')
+        .should('not.exist')
     cy.contains('Add Sell Order')
-      .should('have.attr', 'on:click', 'showModal(\'SELL\')')
-      .click()
+        .should('have.attr', 'on:click', 'showModal(\'SELL\')')
+        .click()
       // Add Sell Order modal
     cy.get('[data-cy=order-modal-title]')
-      .should('contain', 'Place Sell Order')
+        .should('contain', 'Place Sell Order')
     cy.get('[data-cy=order-button-sell]')
-      .should('have.class', 'btn-selected')
+        .should('have.class', 'btn-selected')
 
     helper.addOrder(false, '.0001', '1000000', 'sell')
     cy.logout()
@@ -63,17 +36,16 @@ describe('Partial Sell Orders Test', () => {
     cy.goToEquibitPage('portfolio')
 
     cy.get('[data-cy=sell-order-row]')
-      .should('exist')
-      .should('contain', 'Buy')
+        .should('exist')
+        .should('contain', 'Buy')
     cy.contains('Buy')
-      .should('have.attr', 'on:click', 'buySell(row)')
-      .click()
+        .should('have.attr', 'on:click', 'buySell(row)')
+        .click()
       // Send Offer modal
     cy.get('[data-cy=offer-modal-title]')
-      .should('contain', 'Send Offer Payment')
-    cy.get('[data-cy=input-offer]')
-      .clear()
-      .type('.0001')
+        .should('contain', 'Send Offer Payment')
+    cy.get('[data-cy=fillkill]')
+        .should('be.visible')
     cy.wait(1500)
     cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
@@ -169,7 +141,7 @@ describe('Partial Sell Orders Test', () => {
     helper.checkDealClosed()
   })
 
-  it.skip('overfilled by one user', function () {
+  it('overfilled by one user', function () {
     cy.login(this.users.validUsers[0])
     cy.goToEquibitPage('portfolio')
 
@@ -201,6 +173,8 @@ describe('Partial Sell Orders Test', () => {
       // Send Offer modal
     cy.get('[data-cy=offer-modal-title]')
         .should('contain', 'Send Offer Payment')
+    cy.get('[data-cy=fillkill]')
+        .should('be.visible')
     cy.wait(1500)
     cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
@@ -296,7 +270,7 @@ describe('Partial Sell Orders Test', () => {
     helper.checkDealClosed()
   })
 
-  it.skip('filled by multiple users', function () {
+  it('filled by multiple users', function () {
     cy.login(this.users.validUsers[0])
     cy.goToEquibitPage('portfolio')
 
@@ -328,6 +302,8 @@ describe('Partial Sell Orders Test', () => {
       // Send Offer modal
     cy.get('[data-cy=offer-modal-title]')
         .should('contain', 'Send Offer Payment')
+    cy.get('[data-cy=fillkill]')
+        .should('be.visible')
     cy.wait(1500)
     cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
@@ -423,7 +399,7 @@ describe('Partial Sell Orders Test', () => {
     helper.checkDealClosed()
   })
 
-  it.skip('overfilled by many users', function () {
+  it('overfilled by many users', function () {
     cy.login(this.users.validUsers[0])
     cy.goToEquibitPage('portfolio')
 
@@ -455,6 +431,8 @@ describe('Partial Sell Orders Test', () => {
       // Send Offer modal
     cy.get('[data-cy=offer-modal-title]')
         .should('contain', 'Send Offer Payment')
+    cy.get('[data-cy=fillkill]')
+        .should('be.visible')
     cy.wait(1500)
     cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
