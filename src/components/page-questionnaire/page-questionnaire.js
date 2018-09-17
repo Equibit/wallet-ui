@@ -17,9 +17,15 @@ export const ViewModel = DefineMap.extend({
         return val
       }
       const _id = route.data.itemId
-      Questionnaire.get({_id}).then(questionnaire => {
-        resolve(questionnaire)
-      })
+      if (_id) {
+        Questionnaire.get({_id}).then(questionnaire => {
+          resolve(questionnaire)
+        })
+      } else {
+        Questionnaire.getList({isActive: true}).then(qList => {
+          resolve(qList[0])
+        })
+      }
     }
   },
   questions: {
