@@ -1,27 +1,26 @@
 'use strict'
 
-import './support/commands'
-
 let user
 
 describe('Auto Logout Test', () => {
-  after(function () {
-    cy.resetUser(user)
-  })
-
-  beforeEach(() => {
-    cy.loginQA()
+  before(function () {
     cy
       .fixture('users')
       .as('users')
       .then((users) => {
-        if (!user) {
-          user = user || users.twoStepVerification
-          cy.resetUser(user)
-        }
-        cy.login(user)
-        cy.goToPrefs()
+        user = users.twoStepVerification
+        cy.resetUser(user)
       })
+  })
+
+  after(function () {
+    cy.resetUser(user)
+  })
+
+  beforeEach(function () {
+    cy.loginQA()
+    cy.login(user)
+    cy.goToPrefs()
   })
 
   it('auto logout dialog can open', function () {

@@ -1,7 +1,5 @@
 'use strict'
 
-import './support/commands'
-
 let user
 const weakPassword = 'abc123'
 const openDialog = function () {
@@ -24,6 +22,16 @@ const attemptSave = function () {
 }
 
 describe('Change Password Test', () => {
+  before(function () {
+    cy
+      .fixture('users')
+      .as('users')
+      .then((users) => {
+        user = users.twoStepVerification
+        cy.resetUser(user)
+      })
+  })
+
   after(function () {
     cy.resetUser(user)
       .then(() => console.log(user.salt))
@@ -31,16 +39,7 @@ describe('Change Password Test', () => {
 
   beforeEach(function () {
     cy.loginQA()
-    cy
-      .fixture('users')
-      .as('users')
-      .then((users) => {
-        if (!user) {
-          user = user || users.twoStepVerification
-          cy.resetUser(user)
-        }
-        cy.login(user)
-      })
+    cy.login(user)
   })
 
   it('password dialog is openable', function () {

@@ -1,7 +1,6 @@
 'use strict'
 
 import { expect } from 'chai'
-import './support/commands'
 
 let user
 const openDialog = function () {
@@ -74,22 +73,23 @@ const enterRecoveryWords = function (words, mutateIndices = []) {
 }
 
 describe('Recovery Phrase Test', () => {
+  before(function () {
+    cy
+      .fixture('users')
+      .as('users')
+      .then((users) => {
+        user = users.twoStepVerification
+        cy.resetUser(user)
+      })
+  })
+
   after(function () {
     cy.resetUser(user)
   })
 
   beforeEach(function () {
     cy.loginQA()
-    cy
-      .fixture('users')
-      .as('users')
-      .then((users) => {
-        if (!user) {
-          user = user || users.twoStepVerification
-          cy.resetUser(user)
-        }
-        cy.login(user)
-      })
+    cy.login(user)
   })
 
   it('recovery phrase is not set yet', function () {

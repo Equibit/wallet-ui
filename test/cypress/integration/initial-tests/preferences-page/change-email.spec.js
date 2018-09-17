@@ -1,7 +1,6 @@
 'use strict'
 
 import { expect } from 'chai'
-import './support/commands'
 
 let user
 const openDialog = function () {
@@ -16,22 +15,23 @@ const prepDialog = function () {
 }
 
 describe('Change Email Test', () => {
+  before(function () {
+    cy
+      .fixture('users')
+      .as('users')
+      .then((users) => {
+        user = users.twoStepVerification
+        cy.resetUser(user)
+      })
+  })
+
   after(function () {
     cy.resetUser(user)
   })
 
   beforeEach(function () {
     cy.loginQA()
-    cy
-      .fixture('users')
-      .as('users')
-      .then((users) => {
-        if (!user) {
-          user = user || users.twoStepVerification
-          cy.resetUser(user)
-        }
-        cy.login(user)
-      })
+    cy.login(user)
   })
 
   it('email verification is openable', function () {
