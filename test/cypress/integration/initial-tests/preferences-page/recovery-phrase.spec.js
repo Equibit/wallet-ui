@@ -92,7 +92,7 @@ describe('Recovery Phrase Test', () => {
     cy.login(user)
   })
 
-  it('recovery phrase is not set yet', function () {
+  it('recovery phrase is not yet set', function () {
     cy.goToPrefs()
     cy
       .get('[data-cy=user-phrase-notset-indicator]')
@@ -159,16 +159,14 @@ describe('Recovery Phrase Test', () => {
           .get('[data-cy=gotit-recovery-button')
           .should('exist')
           .click()
+          .then(() => {
+            cy
+              .get('[data-cy=user-phrase-notset-indicator]')
+              .should('not.exist')
+            cy
+              .get('[data-cy=user-phrase-set-indicator]')
+              .should('exist')
+          })
       })
-  })
-
-  it('recovery phrase is set', function () {
-    cy.goToPrefs()
-    cy
-      .get('[data-cy=user-phrase-notset-indicator]')
-      .should('not.exist')
-    cy
-      .get('[data-cy=user-phrase-set-indicator]')
-      .should('exist')
   })
 })
