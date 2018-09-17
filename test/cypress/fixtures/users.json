@@ -53,6 +53,8 @@
         "autoLogoutTime": 300000,
         "passwordCreatedAt": "2018-09-11 20:12:20.754Z",
         "encryptedKey": "27fd0e36bcf39b8534dd2f10a6deb914c70ed74dfa2408da0c8e78d737aa6669a1fc614c4b879f777375ee436251fcc504c7d43ec6d301c490bb40e354a19908cb301c9194ac7e82f4c5057ceaba643b034ffab5e65eda57db9535cc57f56565190742707f9f7528617057459981e0b9",
+        "encryptedMnemonic": "d45f8fd2f0ae13abcc1796c46f3c0154a219a5abc498c3d8ea7c155c6e6d4c096d1bbbe03df9b99f828f3e1d17994007658e69b2b4ac93fbb012bc76039242708568e0140a8ddb689adc716fd24d259f",
+        "mnemonicHash": "85ec38070a611e551693d75ebfb04a636562ad7e77f265f154947accbe5d80c234905dc4e9a40d5f4c3f2d890e7acafd1d1d110ec18f631c750216d416d55df3",
         "dbMapping": {
             "password": "_plainPassword",
             "hashedPassword": "password",
