@@ -1,5 +1,6 @@
 <div class="row margin-top">
   <div class="col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2"><h2 class="bold">{{questionnaire.description}}</h2></div>
+  <p class="single-paragraph">{{i18n('privacyOfInformation')}}</p>
 </div>
 
 {{#each (questions, question=value qnum=index)}}
@@ -64,7 +65,6 @@
                             <span>
                               {{#is answerOption.answer 'CUSTOM'}}
                                 Other - Specify
-                                <br><br>
                                 <input type="text" class="form-control"
                                         value:bind="userAnswers[qnum]['answer'].custom"
                                         on:focus="selectCustom(userAnswers[qnum], anum)" />
