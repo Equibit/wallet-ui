@@ -187,10 +187,9 @@ describe('Fill or Kill Test', () => {
         .should('contain', 'Send Offer Equibits')
       cy.get('[data-cy=fillkill]')
         .should('be.visible')
-      cy.wait(1500)
       cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
-        .click()
+        .click({force: true})
       // Confirm modal
       helper.createOffer('Equibits')
       // Confirm order appears/exists

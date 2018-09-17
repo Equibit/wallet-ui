@@ -272,12 +272,12 @@ Cypress.Commands.add('goToEquibitPage', (from) => {
 
   cy.get('[data-cy=loading-overlay]')
     .should('not.be.visible')
+  cy.get('[data-cy=btc-balance]')
+    .should('not.have.text', '0')
+  cy.get('[data-cy=eqb-balance]')
+    .should('not.have.text', '0')
   cy.get('[data-cy=no-funds-alert]')
     .should('not.be.visible')
-  cy.get('[data-cy=btc-balance]')
-    .should('not.have.html', 0)
-  cy.get('[data-cy=eqb-balance]')
-    .should('not.have.html', 0)
   cy.get('[data-cy=equibit-link]').click()
 
   cy.url().should('contain', 'equibit')

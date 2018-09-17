@@ -32,7 +32,6 @@ describe('Partial Sell Orders Test', () => {
       // Send Offer modal
     cy.get('[data-cy=offer-modal-title]')
       .should('contain', 'Send Offer Payment')
-    cy.wait(1500)
     cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
       .click()
@@ -76,7 +75,7 @@ describe('Partial Sell Orders Test', () => {
       .type('.0001')
     cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
-      .click()
+      .click({force: true})
       // Confirm modal
     helper.createOffer('Payment')
       // Confirm order appears/exists
