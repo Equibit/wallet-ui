@@ -38,16 +38,17 @@
         "dbid": "5b982157fa3ac21ac281026c",
         "email": "twostep@evenset.com",
         "secondEmail": "twosteptwo@evenset.com",
+        "pastPasswordHashes": [],
         "password": "SpicyTunaMayo",
         "secondPassword": "th3-Str0ngesT_p4SSword",
         "invalidTwoFactorCode": "totallygonnawork",
         "twoFactorCode": "ebfdd20383042bfb",
         "hashedTwoFactorCode": "75303cc3b03c201cb5822ff982d7920738f7578a9207649bd26abe5a64213ddcf71361b70dca1165655a97250a0ba07f99318ec98167ed91a9068118a4215120",
-        "resetVal": {
-            "hasRecordedMnemonic": false,
-            "email": "twostep@evenset.com",
-            "emailVerified": true,
-            "autoLogoutTime": 300000
+        "hasRecordedMnemonic": false,
+        "emailVerified": true,
+        "autoLogoutTime": 300000,
+        "dbMapping": {
+            "password": "_plainPassword"
         }
     }
 }

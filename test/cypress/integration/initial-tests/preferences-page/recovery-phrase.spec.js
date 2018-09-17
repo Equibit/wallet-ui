@@ -84,7 +84,10 @@ describe('Recovery Phrase Test', () => {
       .fixture('users')
       .as('users')
       .then((users) => {
-        user = user || users.twoStepVerification
+        if (!user) {
+          user = user || users.twoStepVerification
+          cy.resetUser(user)
+        }
         cy.login(user)
       })
   })

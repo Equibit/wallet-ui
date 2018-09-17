@@ -25,7 +25,15 @@ const attemptSave = function () {
 
 describe('Change Password Test', () => {
   after(function () {
-    cy.resetUser(user)
+    user.password = [user.secondPassword, user.secondPassword = user.password][0]
+    cy
+      .resetUser(user)
+      .then(() => {
+        cy.goToPrefs()
+        openDialog()
+        enterPasswords(user.password, user.secondPassword)
+        attemptSave()
+      })
   })
 
   beforeEach(function () {
@@ -34,7 +42,10 @@ describe('Change Password Test', () => {
       .fixture('users')
       .as('users')
       .then((users) => {
-        user = user || users.twoStepVerification
+        if (!user) {
+          user = user || users.twoStepVerification
+          cy.resetUser(user)
+        }
         cy.login(user)
       })
   })

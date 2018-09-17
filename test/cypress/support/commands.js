@@ -86,15 +86,26 @@ Cypress.Commands.add('resetUser', (user) => {
     name: 'resetUser'
   })
 
-  cy.exec(
-    'mongo wallet_api-testing --eval \'db.users.updateOne(' +
-    `{ "_id": ObjectId("${user.dbid}") },` +
-    `{ $set" ${JSON.stringify(user.resetVal)} },` +
-    '{  })\''
-  )
-  // cy.exec(
-  //   'mongo wallet_api-testing --eval \'db.users.deleteOne(' +
-  //   `{ "_id": ObjectId("${user.dbid}") }` +
-  //   ')\''
-  // )
+  return cy.exec(
+    'mongo wallet_api-testing --eval \'' +
+    'var keys = db.users.findOne(); for (var key in keys) { print(key); }' +
+    '\''
+  ).then((result) => result.stdout.split('_id')[1].trim().split('\n'))
+  .then((dbfields) => {
+    let { dbMapping, ...dbUser } = user
+    dbUser = Object.entries(dbMapping).reduce((obj, [key, value]) => ({ ...obj, [value]: dbUser[key] }), {  })
+
+    const resetFields = { ...Object.keys(user)
+      .filter((key) => dbfields.includes(key) && !Object.keys(dbMapping).includes(key))
+      .reduce((obj, key) => ({
+        ...obj,
+        [key]: user[key]
+      }), {  }) }
+    cy.exec(
+      'mongo wallet_api-testing --eval \'db.users.updateOne(' +
+      `{ "_id": ObjectId("${user.dbid}") },` +
+      `{ $set: ${JSON.stringify(resetFields)} },` +
+      '{  })\''
+    )
+  })
 })
