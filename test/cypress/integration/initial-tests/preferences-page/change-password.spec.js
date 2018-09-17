@@ -25,15 +25,8 @@ const attemptSave = function () {
 
 describe('Change Password Test', () => {
   after(function () {
-    user.password = [user.secondPassword, user.secondPassword = user.password][0]
-    cy
-      .resetUser(user)
-      .then(() => {
-        cy.goToPrefs()
-        openDialog()
-        enterPasswords(user.password, user.secondPassword)
-        attemptSave()
-      })
+    cy.resetUser(user)
+      .then(() => console.log(user.salt))
   })
 
   beforeEach(function () {
@@ -127,5 +120,6 @@ describe('Change Password Test', () => {
     cy
       .get('[data-cy=new-password-validation]')
       .should('contain', 'last 3 passwords')
+    user.password = [user.secondPassword, user.secondPassword = user.password][0]
   })
 })
