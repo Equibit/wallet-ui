@@ -41,14 +41,14 @@ stache.registerHelper('format-int', function (value) {
 // 5000 => 5,000
 stache.registerHelper('format-coin', function (value, precision) {
   if (typeof value !== 'number') return value
-
+  
   if (typeof precision !== 'number') {
     precision = 2
   }
 
   let formattedValue = accounting.formatNumber(value)
   if (value && value % 1 !== 0) {
-    value = toMaxPrecision(value, precision)
+    if (value >= 1) value = toMaxPrecision(value, precision)
     const exactPrecision = value.toString().split('.')[1].length
     formattedValue = accounting.formatMoney(value, '', exactPrecision)
   }
