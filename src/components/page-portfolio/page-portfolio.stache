@@ -1,5 +1,11 @@
 <can-import from="~/components/page-portfolio/my-portfolio/" />
+<can-import from="~/components/page-portfolio/questionnaire-promo/" />
 
+<div class="row">
+  <div class="col-xs-12">
+    <questionnaire-promo />
+  </div>
+</div>
 <div class="row">
   <div class="col-xs-12">
     <my-portfolio portfolio:from="portfolios.0" issuances:from="issuances" />
