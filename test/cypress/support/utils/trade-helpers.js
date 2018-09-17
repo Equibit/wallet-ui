@@ -25,7 +25,7 @@ export function placeOrder (type) {
   cy.get(`[data-cy=${type}-order-row]`)
     .should('not.exist')
   cy.contains(`Add ${capitalizeType} Order`)
-    .should('have.attr', 'on:click', `showModal(\'${type.toUpperCase()}\')`)
+    .should('have.attr', 'on:click', `showModal('${type.toUpperCase()}')`)
     .click()
   // Add Sell Order modal
   cy.get('[data-cy=order-modal-title]')

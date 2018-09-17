@@ -43,6 +43,7 @@ describe('Fill or Kill Test', () => {
       helper.addOrder(true, '.0001', '1000000', 'sell')
       cy.logout()
 
+<<<<<<< 4e06b1dd734850698a66a00e45d0c3fe77200b37
       // 2. Place Buy Offer & Send Payment - check message
       cy.login(this.users.validUsers[1])
       cy.goToEquibitPage('portfolio')
@@ -69,6 +70,34 @@ describe('Fill or Kill Test', () => {
         .should('exist')
         .should('contain', 'View')
       cy.logout()
+=======
+    // 2. Place Buy Offer & Send Payment - check message
+    cy.login(this.users.validUsers[1])
+    cy.goToEquibitPage('portfolio')
+
+    cy.get('[data-cy=sell-order-row]')
+      .should('exist')
+      .should('contain', 'Buy')
+    cy.contains('Buy')
+      .should('have.attr', 'on:click', 'buySell(row)')
+      .click()
+    // Send Offer modal
+    cy.get('[data-cy=offer-modal-title]')
+      .should('contain', 'Send Offer Payment')
+    cy.get('[data-cy=fillkill]')
+      .should('be.visible')
+    cy.wait(1500)
+    cy.contains('Next')
+      .should('have.attr', 'on:click', 'next()')
+      .click()
+    // Confirm modal
+    helper.createOffer('Payment')
+    // Confirm order appears/exists
+    cy.get('[data-cy=sell-order-row]')
+      .should('exist')
+      .should('contain', 'View')
+    cy.logout()
+>>>>>>> WIP stash
 
       // 3. Accept & Send Securities - check message
       cy.login(this.users.validUsers[0])

@@ -4,7 +4,7 @@ import * as helper from '../../../support/utils/trade-helpers'
 // NOTE: These tests only create FOK orders and complete FOK trades.
 // This means that once in a while when the tests fail, the btc/eqb blocks will
 // need to be mined otherwise 'invalid signature' or mempool error will occur.
-describe('Partial Buy Orders Test', () => {
+describe.skip('Partial Buy Orders Test', () => {
   beforeEach(() => {
     cy.clearNotifications()
     cy.clearOrdersAndOffers()
@@ -12,7 +12,7 @@ describe('Partial Buy Orders Test', () => {
     cy.loginQA()
   })
 
-  it.only('filled by one user', function () {
+  it('filled by one user', function () {
     cy.login(this.users.validUsers[0])
     cy.goToEquibitPage('portfolio')
 

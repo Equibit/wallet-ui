@@ -57,7 +57,7 @@
           {{#is formData.order.assetType 'EQUIBIT'}}
             <div class="input-group">
               <input type="text" class="form-control" id="inputQuantityOffer" {{#if formData.order.isFillOrKill}}readonly{{/if}}
-                     value:bind="formData.quantityInCoins">
+                     value:bind="formData.quantityInCoins" data-cy="input-quantity">
               <div class="input-group-addon">EQB</div>
             </div>
           {{else}}

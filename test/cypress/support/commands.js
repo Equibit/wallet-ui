@@ -267,7 +267,7 @@ Cypress.Commands.add('goToEquibitPage', (from) => {
   Cypress.log({
     name: 'goToEquibitPage'
   })
-  
+
   cy.url().should('contain', `${from}`)
 
   cy.get('[data-cy=loading-overlay]')
