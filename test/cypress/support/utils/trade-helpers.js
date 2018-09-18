@@ -59,6 +59,7 @@ export function createOffer (type) {
   // Confirm alert
   cy.get('.alert-message')
     .should('contain', 'Your offer was created')
+  cy.get('[data-cy=close-update]').click()
 }
 
 export function confirmOrderAndAcceptOffer () {

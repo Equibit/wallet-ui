@@ -38,7 +38,7 @@ describe('Partial Sell Orders Test', () => {
     // TODO: Error should appear here
   })
 
-  it.skip('filled with one offer', function () {
+  it('filled with one offer', function () {
     cy.login(this.users.validUsers[0])
     cy.goToEquibitPage('portfolio')
 
@@ -76,7 +76,7 @@ describe('Partial Sell Orders Test', () => {
       // 3. Accept & Send Securities - check message
     cy.login(this.users.validUsers[0])
       // Confirm notification
-    helper.firstNotification('Buy', '0.00005')
+    helper.firstNotification('Buy', '0.0001')
       // Confirm order appears/exists
     cy.goToEquibitPage('portfolio')
 
@@ -114,11 +114,7 @@ describe('Partial Sell Orders Test', () => {
     helper.checkDealClosed()
   })
 
-  it.skip('overfilled by one user', function () {
-    
-  })
-
-  it.only('filled with multiple offers', function () {
+  it('filled with multiple offers', function () {
     cy.login(this.users.validUsers[0])
     cy.goToEquibitPage('portfolio')
 
@@ -221,6 +217,6 @@ describe('Partial Sell Orders Test', () => {
     helper.checkDealClosed()
   })
 
-  it.skip('overfilled by many users', function () {
+  it.skip('overfilled by many offers', function () {
   })
 })
