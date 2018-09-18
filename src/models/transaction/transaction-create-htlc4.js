@@ -75,7 +75,7 @@ const [prepareHtlcConfig4, prepareHtlcRefundConfig4] = [false, true].map(isRefun
         txid: offer.htlcTxId1,
         vout: 0,
         // todo: we can have a problem here with giving one BTC address to all offers.
-        keyPair: portfolio.findAddress(isRefund ? offer.btcAddress : order.btcAddress).keyPair,
+        keyPair: portfolio.findAddress(isRefund ? offer.btcAddress : order.btcAddress).ecPair,
         htlc: {
           [isRefund ? 'secretHash' : 'secret']: isRefund ? offer.hashlock : secret,
           // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
@@ -142,7 +142,7 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
         // Main input of the locked HTLC:
         txid: offer.htlcTxId1,
         vout: 0,
-        keyPair: portfolio.findAddress(isRefund ? offer.eqbAddress : order.eqbAddress).keyPair,
+        keyPair: portfolio.findAddress(isRefund ? offer.eqbAddress : order.eqbAddress).ecPair,
         htlc: {
           secret,
           // Both refund address and timelock are necessary to recreate the corresponding subscript (locking script) for creating a signature.
@@ -169,7 +169,7 @@ const [prepareHtlcConfig4Eqb, prepareHtlcRefundConfig4Eqb] = [false, true].map(i
       const availableAmountBlankEqb = utxoBlankEqbInfo.sum
       const utxoBlankEqb = utxoBlankEqbInfo.txouts
         .map(a => merge(a, {
-          keyPair: portfolio.findAddress(a.address).keyPair,
+          keyPair: portfolio.findAddress(a.address).ecPair,
           sequence: isRefund ? '0' : '4294967295'
         }))
 

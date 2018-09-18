@@ -24,7 +24,7 @@
     <div class="order-summary section row">
       <div class="col-xs-6 col-sm-3">
         <label>{{i18n('quantity')}}</label>
-        <span class="order-quantity">
+        <span class="order-quantity" data-cy="order-quantity">
           {{#is order.assetType 'EQUIBIT'}}
             {{format-coin(coin(order.quantity), 8)}}
           {{else}}
@@ -34,7 +34,7 @@
       </div>
       <div class="col-xs-6 col-sm-3">
         {{#if order.isFillOrKill}}
-          <fillkill-indicator />
+          <fillkill-indicator data-cy="fillkill" />
         {{else}}
           {{#is order.assetType 'EQUIBIT'}}
             <securities-remaining quantity:from="coin(order.quantity)" filledQuantity:from="coin(filledQuantity)" format:from="'COIN'" />
@@ -45,7 +45,7 @@
       </div>
       <div class="col-xs-6 col-sm-6 sub-section">
         <label>{{i18n('askPrice')}}</label>
-        <span class="order-ask-price">{{to-fixed-2(format-micro(order.price))}} <small>μBTC</small></span>
+        <span class="order-ask-price" data-cy="order-ask-price">{{to-fixed-2(format-micro(order.price))}} <small>μBTC</small></span>
       </div>
     </div>
 
@@ -61,7 +61,7 @@
 
     <div class="order-status section">
       <h3 class="subheading">{{i18n('status')}}</h3>
-      <status-badge status:from="order.status" />
+      <status-badge data-cy="status" status:from="order.status" />
     </div>
 
     <div class="order-accepted-offers section">

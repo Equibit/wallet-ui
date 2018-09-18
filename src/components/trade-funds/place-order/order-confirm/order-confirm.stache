@@ -17,7 +17,7 @@
   <div class="list-group-item order-summary">
     <dl class="dl-horizontal dl-stripped responsive">
       <dt>{{i18n('quantity')}}</dt>
-      <dd class="input-value">
+      <dd class="input-value" data-cy="confirm-quantity">
         {{#is formData.assetType 'ISSUANCE'}}
           {{format(formData.quantity, '')}} <small>{{i18n('securities')}}</small>
         {{/is}}
@@ -26,14 +26,14 @@
         {{/is}}
       </dd>
 
-      <dt>{{#is type 'SELL'}} {{i18n('askPrice')}} {{else}} {{i18n('bidPrice')}} {{/is}}</dt>
-      <dd class="input-value">{{to-fixed-2(formData.priceInUnits)}} <small>μBTC</small></dd>
+      <dt>{{#is formData.type 'SELL'}} {{i18n('askPrice')}} {{else}} {{i18n('bidPrice')}} {{/is}}</dt>
+      <dd class="input-value" data-cy="confirm-price">{{to-fixed-2(formData.priceInUnits)}} <small>μBTC</small></dd>
 
       <dt>{{i18n('totalPrice')}}</dt>
-      <dd class="input-value">{{to-fixed-2(formData.totalPriceInUnits)}} <small>μBTC</small></dd>
+      <dd class="input-value" data-cy="confirm-total">{{to-fixed-2(formData.totalPriceInUnits)}} <small>μBTC</small></dd>
 
       <dt>{{i18n('fillKill')}}</dt>
-      <dd class="input-value">
+      <dd class="input-value" data-cy="confirm-fill-or-kill">
         {{#if formData.isFillOrKill}}
           <span class="icon icon-done"></span>
           <strong>{{i18n('yes')}}.</strong>

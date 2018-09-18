@@ -43,7 +43,7 @@ function prepareHtlc2Btc (offer, order, portfolio, issuance, changeAddr) {
   // Main utxo to cover the amount and transaction fee:
   const utxoInfo = portfolio.getTxouts(offer.quantity + transactionFee, 'BTC')
   const utxo = utxoInfo.txouts
-    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
   const options = {
     fee: transactionFee,
@@ -79,7 +79,7 @@ function prepareHtlc2Eqb (offer, order, portfolio, issuance, blankEqbChangeAddr)
   // For EQB transactionFee comes from blank EQB.
   const utxoBlankEqbInfo = portfolio.getBlankEqb(transactionFee)
   const blankEqbUtxo = utxoBlankEqbInfo.txouts
-    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
   const options = {
     fee: transactionFee,

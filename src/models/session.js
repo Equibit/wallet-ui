@@ -28,6 +28,7 @@ import feathersAuthenticationSignedSession from 'feathers-authentication-signed/
 import diffArray from 'can-util/js/diff/'
 import Observation from 'can-observation'
 
+import { bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import Notification from './notification'
 import feathersClient from './feathers-client'
 import signed from './feathers-signed'
@@ -247,7 +248,7 @@ const Session = DefineMap.extend('Session', {
 
   notifications: {
     get (val, resolve) {
-      if (this.issuances && this.portfolios) {
+      if (this.issuances && this.portfolios && this.notificationsPromise) {
         this.notificationsPromise.then(resolve)
       }
       return []
@@ -266,8 +267,10 @@ const Session = DefineMap.extend('Session', {
         console.log(`Session.issuancesPromise: deriving keys and loading UTXO... issuances=${issuances.length}`)
         issuances.forEach(issuance => {
           if (typeof issuance.index !== 'undefined') {
-            const companyHdNode = this.user.generatePortfolioKeys(issuance.companyIndex).EQB
-            issuance.keys = companyHdNode.derive(issuance.index)
+            const companyHdNode = this.user.generatePortfolioKeys(issuance.companyIndex).EQB.node
+            const node = companyHdNode.derive(issuance.index)
+            const ecPair = bitcoin.ECPair.fromPrivateKey(companyHdNode.privateKey, {network: companyHdNode.network})
+            issuance.keys = { node, ecPair }
           }
         })
         if (issuances.length) {

@@ -8,7 +8,7 @@
 <bootstrap-modal-content>
   <div class="modal-header">
     <button on:click="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
-    <h3 class="modal-title"> {{i18n(sendOfferTitle)}} </h3>
+    <h3 class="modal-title" data-cy="offer-modal-title"> {{i18n(sendOfferTitle)}} </h3>
   </div>
 
   <div class="modal-body">
@@ -27,7 +27,7 @@
       {{#if isSending}}
         <loading-indicator style="position:relative;left:20px;"></loading-indicator>
       {{else}}
-        <button on:click="send(@close)" type="button" class="btn btn-primary">
+        <button on:click="send(@close)" type="button" class="btn btn-primary" data-cy="offer-button">
           {{i18n(sendOfferTitle)}}
         </button>
         <button on:click="edit()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('edit')}}</button>

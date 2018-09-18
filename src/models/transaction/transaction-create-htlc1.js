@@ -80,7 +80,7 @@ function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr, transactionF
   }
   const availableAmount = utxoInfo.sum
   const utxo = utxoInfo.txouts
-    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
   // const script = simpleHashlockSigContract(toAddress, hashlock)
   const script = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)

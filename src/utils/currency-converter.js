@@ -13,7 +13,9 @@ function refreshFromService (symbol) {
   if (!cachedPromises[symbol]) {
     cachedPromises[symbol] = feathersClient.service('/bitcoin-average').find({query: { action: 'ticker', symbol }})
     cachedPromises[symbol].then(value => {
-      exports.dispatch(symbol, [value.averages.day])
+      if (value && value.averages) {
+        exports.dispatch(symbol, [value.averages.day])
+      }
       setTimeout(() => {
         cachedPromises[symbol] = null
       }, refreshTimeout)
@@ -56,7 +58,7 @@ const exports = {
       Observation.add(exports, symbol)
       return Promise.resolve(injectedRates[symbol])
     } else {
-      return refreshFromService(symbol).then(b => b.averages.day)
+      return refreshFromService(symbol).then(b => (b.averages && b.averages.day))
     }
   },
   convertCryptoToFiat (value, conversionSymbol, scaleSymbol = exports.unit) {

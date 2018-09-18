@@ -8,7 +8,7 @@
     <!-- TO -->
     <div class="form-group to-address">
       <label class="">{{i18n('to')}}</label>
-      <p class="input-value break-word"><strong>{{formData.toAddress}}</strong></p>
+      <p class="input-value break-word" data-cy="to-address"><strong>{{formData.toAddress}}</strong></p>
     </div>
 
     {{#is formData.type 'ISSUANCE'}}
@@ -43,7 +43,7 @@
           {{else}}
           <tr>
             <td class="column-label">{{i18n('amount')}}</td>
-            <td class="column-digital-currency-value font-numeric">{{formData.amountCoin}}</td>
+            <td class="column-digital-currency-value font-numeric" data-cy="send-value">{{formData.amountCoin}}</td>
             <td class="column-digital-currency-type font-numeric">{{#is formData.fundsType 'EQB'}}{{i18n('EQB')}}{{else}}{{i18n('BTC')}}{{/is}}</td>
             <td class="column-local-currency-value font-numeric">$ {{local-currency(formData.quantity, formData.fundsType)}}</td>
             <td class="column-local-currency-type font-numeric">{{local-currency-symbol()}}</td>

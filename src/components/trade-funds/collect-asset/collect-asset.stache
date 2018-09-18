@@ -11,7 +11,7 @@
 <bootstrap-modal-content>
     <div class="modal-header">
         <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
-        <h3 class="modal-title"><span class="icon icon-upload"></span> {{i18n(titles.header)}}</h3>
+        <h3 class="modal-title" data-cy="collect-title"><span class="icon icon-upload"></span> {{i18n(titles.header)}}</h3>
     </div>
 
     <div class="modal-body">
@@ -21,7 +21,7 @@
             {{^eq offerTimelock null}}
                 <timer-notice message:from="i18n(titles.timer)" endTime:from="offerTimelock"></timer-notice>
             {{/eq}}
-            <div class="list-group-item">
+            <div class="list-group-item" data-cy="confirm-summary">
                 {{#eq tx.type 'CANCEL'}}
                   {{#if scope.vars@recoverSummary}}
                     {{> scope.vars@recoverSummary}}
@@ -48,7 +48,7 @@
         {{#if isSending}}
             <loading-indicator style="position:relative;left:20px;"></loading-indicator>
         {{else}}
-            <button on:click="send(@close)" type="button" class="btn btn-primary">{{i18n(titles.button)}}</button>
+            <button on:click="send(@close)" type="button" class="btn btn-primary" data-cy="collect-button">{{i18n(titles.button)}}</button>
             <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
         {{/if}}
     </div>

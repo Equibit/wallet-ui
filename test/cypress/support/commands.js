@@ -23,21 +23,61 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-/*eslint-disable */
+
 // Custom Login command
 Cypress.Commands.add('login', (user) => {
-    
-    Cypress.log({
-        name: 'login'
-    })
+  Cypress.log({
+    name: 'login'
+  })
 
-    cy.visit('/')
+  cy.visit('/')
 
-    cy.get('input[type="email"]')
+  cy.get('input[type="email"]')
     .type(user.email)
     .get('input[type="password"]')
     .type(user.password)
     .get('button[type="submit"]').click()
-
 })
-/*eslint-enable */
+
+Cypress.Commands.add('logout', () => {
+  Cypress.log({
+    name: 'logout'
+  })
+
+  cy.get('[data-cy=userDropdown]')
+    .click()
+  cy.contains('Log Out')
+    .click()
+})
+
+Cypress.Commands.add('clearNotifications', () => {
+  Cypress.log({
+    name: 'clearNotifications'
+  })
+
+  cy.exec('mongo wallet_api-testing --eval \'db.notifications.remove({})\'')
+})
+
+Cypress.Commands.add('clearOrdersAndOffers', () => {
+  Cypress.log({
+    name: 'clearOrdersAndOffers'
+  })
+
+  cy.exec('mongo wallet_api-testing --eval \'db.orders.remove({assetType: "EQUIBIT"})\'')
+  cy.exec('mongo wallet_api-testing --eval \'db.offers.remove({assetType: "EQUIBIT"})\'')
+})
+
+Cypress.Commands.add('loginQA', () => {
+  Cypress.log({
+    name: 'loginQA'
+  })
+
+  cy.visit('/')
+
+  cy
+    .get('input[type="password"]')
+    .type(Cypress.env('HTTP_PASSWORD'))
+  cy
+    .get('button[type="submit"]')
+    .click()
+})

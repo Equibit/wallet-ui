@@ -90,7 +90,7 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrBlan
     }
     availableAmount = issuanceUtxoInfo.sum
     const issuanceUtxo = issuanceUtxoInfo.txouts
-      .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
+      .map(a => merge(a, {keyPair: issuance.keys.ecPair}))
 
     // For Sell order we set both change addr for securities and the refund to the same holding address from where we send securities.
     refundAddress = issuanceUtxo[0].address
@@ -103,7 +103,7 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrBlan
     }
     availableAmountBlankEqb = utxoBlankEqbInfo.sum
     const utxoBlankEqb = utxoBlankEqbInfo.txouts
-      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
     utxo = issuanceUtxo.concat(utxoBlankEqb)
   }
@@ -116,7 +116,7 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrBlan
     }
     availableAmount = utxoInfo.sum
     utxo = utxoInfo.txouts
-      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
     // todo: generate a new address:
     refundAddress = utxo[0].address
     changeAddr = changeAddrBlankEqb

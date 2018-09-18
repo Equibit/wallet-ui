@@ -15,7 +15,7 @@ import feathersClient from '../feathers-client'
 import signed from '../feathers-signed'
 import superModel from '../super-model'
 import algebra from '../algebra'
-import { bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
+import { bip32, bip39, bitcoin } from '@equibit/wallet-crypto/dist/wallet-crypto'
 import cryptoUtils from '../../utils/crypto'
 import connect from 'can-connect'
 import login from './login'
@@ -213,7 +213,7 @@ const User = DefineMap.extend('User', {
     let root
     try {
       const seed = bip39.mnemonicToSeed(mnemonic, '')
-      root = bitcoin.HDNode.fromSeedBuffer(seed, _network)
+      root = bip32.fromSeed(seed, _network)
       this.encryptedMnemonic = this.encryptWithPassword(_password, mnemonic)
       this.encryptedKey = this.encryptWithPassword(_password, root.toBase58())
     } catch (err) {
@@ -269,7 +269,7 @@ const User = DefineMap.extend('User', {
    */
   loadWalletKeys () {
     const base58Key = this.decryptWithPassword(_password, this.encryptedKey)
-    const root = bitcoin.HDNode.fromBase58(base58Key, _network)
+    const root = bip32.fromBase58(base58Key, _network)
     this.cacheWalletKeys(root)
   },
 
@@ -285,9 +285,13 @@ const User = DefineMap.extend('User', {
     }
     console.log(`generatePortfolioKeys(${index}) ...`)
     // TODO: we need to separate index for btc and eqb. E.g. companies have only eqb index for auth issuances.
+    const btcNode = _keys.BTC.deriveHardened(index)
+    const eqbNode = _keys.EQB.deriveHardened(index)
+    const btcEcPair = bitcoin.ECPair.fromPrivateKey(btcNode.privateKey, {network: btcNode.network})
+    const eqbEcPair = bitcoin.ECPair.fromPrivateKey(eqbNode.privateKey, {network: eqbNode.network})
     return {
-      BTC: _keys.BTC.deriveHardened(index),
-      EQB: _keys.EQB.deriveHardened(index)
+      BTC: {node: btcNode, ecPair: btcEcPair},
+      EQB: {node: eqbNode, ecPair: eqbEcPair}
     }
   },
   signWithPrivateKey () {

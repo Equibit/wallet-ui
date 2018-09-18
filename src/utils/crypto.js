@@ -1,4 +1,4 @@
-import crypto from '@equibit/wallet-crypto/dist/wallet-crypto'
+import cryptoUtils from '@equibit/wallet-crypto/dist/wallet-crypto'
 // Ponyfill for Error.captureStackTrace which is used by typeforce.
 import captureStackTrace from 'capture-stack-trace'
 import typeforce from 'typeforce'
@@ -7,8 +7,7 @@ if (!Error.captureStackTrace) {
   Error.captureStackTrace = captureStackTrace
 }
 
-const bip39 = crypto.bip39
-const bitcoin = crypto.bitcoin
+const { bip32, bip39, bitcoin } = cryptoUtils
 
 function mnemonicToSeed (mnemonic, mnemonicPassword) {
   return bip39.mnemonicToSeed(mnemonic, mnemonicPassword)
@@ -16,7 +15,12 @@ function mnemonicToSeed (mnemonic, mnemonicPassword) {
 function mnemonicToHDNode (mnemonic, mnemonicPassword = '') {
   let seed = mnemonicToSeed(mnemonic, mnemonicPassword)
   let network = bitcoin.networks.bitcoin
-  return bitcoin.HDNode.fromSeedBuffer(seed, network)
+  return bip32.fromSeed(seed, network)
+}
+
+function getAddress (publicKey, network) {
+  network = network || bitcoin.networks.testnet
+  return bitcoin.payments.p2pkh({ pubkey: publicKey, network })
 }
 
 function test () {
@@ -29,13 +33,13 @@ function test () {
   let harderedPK = root.derivePath("m/44'/0")
   console.log('harderedPK ' + harderedPK.toBase58())
 
-  let root2 = bitcoin.HDNode.fromBase58(rootBase58)
+  let root2 = bip32.fromBase58(rootBase58)
   console.log('root2', root2)
 
-  let root3 = bitcoin.HDNode.fromBase58(harderedPK.toBase58())
+  let root3 = bip32.fromBase58(harderedPK.toBase58())
   console.log('harderedPK', root3)
 
-  const b = crypto.randomBytes(20)
+  const b = cryptoUtils.randomBytes(20)
   typeforce('Buffer', b)
   console.log(`randomBytes: ${b.toString('hex')}`)
 
@@ -43,12 +47,12 @@ function test () {
 }
 
 function encrypt (stringToEncrypt, key) {
-  var cipher = crypto.createCipher('aes256', key)
+  var cipher = cryptoUtils.createCipher('aes256', key)
   return cipher.update(stringToEncrypt, 'utf8', 'hex') + cipher.final('hex')
 }
 
 function decrypt (stringToDecrypt, key) {
-  var decipher = crypto.createDecipher('aes256', key)
+  var decipher = cryptoUtils.createDecipher('aes256', key)
   return decipher.update(stringToDecrypt, 'hex', 'utf8') + decipher.final('utf8')
 }
 
@@ -56,13 +60,14 @@ export default {
   generateMnemonic: bip39.generateMnemonic,
   mnemonicToHDNode,
   mnemonicToSeed,
+  getAddress,
   test,
   encrypt,
   decrypt,
   bip39,
   bitcoin,
-  randomBytes: crypto.randomBytes,
+  randomBytes: cryptoUtils.randomBytes,
   sha256: bitcoin.crypto.sha256,
-  Buffer: crypto.Buffer,
-  sha3_512: crypto.sha3.sha3_512
+  Buffer: cryptoUtils.Buffer,
+  sha3_512: cryptoUtils.sha3.sha3_512
 }

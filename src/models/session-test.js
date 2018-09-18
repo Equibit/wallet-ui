@@ -24,8 +24,10 @@ describe('models/session', function () {
     it('should populate portfolio', function (done) {
       session.on('portfolios', function () {
         assert.equal(session.portfolios.length, 1)
-        assert.equal(session.portfolios[0].keys.BTC.keyPair.compressed, true)
-        assert.equal(session.portfolios[0].keys.EQB.keyPair.compressed, true)
+        assert.ok(session.portfolios[0].keys.BTC.node.chainCode)
+        assert.ok(session.portfolios[0].keys.EQB.node.chainCode)
+        assert.equal(session.portfolios[0].keys.BTC.ecPair.compressed, true)
+        assert.equal(session.portfolios[0].keys.EQB.ecPair.compressed, true)
         assert.equal(session.portfolios[0].addressesMeta[0].type, 'BTC')
         session.portfolios[0].get('addresses')
         session.portfolios[0].addressesPromise.then(addresses => {
