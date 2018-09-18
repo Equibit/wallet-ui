@@ -13,6 +13,14 @@ const prepDialog = function () {
   openDialog()
   cy.resetSecondFactorAuth(user)
 }
+const resetEmailVerification = function () {
+  return cy.exec(
+    'mongo wallet_api-testing --eval \'db.users.updateOne(' +
+    `{ "_id": ObjectId("${user.dbid}") },` +
+    `{ $set: { "emailVerificationCode": "${user.hashedEmailVerificationCode}" } },` +
+    '{  })\''
+  )
+}
 
 describe('Change Email Test', () => {
   before(function () {
@@ -124,10 +132,10 @@ describe('Change Email Test', () => {
     cy
       .get('code-input')
       .should('exist')
-    cy.resetSecondFactorAuth(user)
+    resetEmailVerification(user)
     cy
       .get('code-input input[type=password]')
-      .type(user.twoFactorCode)
+      .type(user.emailVerificationCode)
     cy
       .get('[data-cy=email-verify-button]')
       .click()

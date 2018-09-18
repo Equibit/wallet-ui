@@ -87,7 +87,7 @@ Cypress.Commands.add('resetSecondFactorAuth', (user) => {
     name: 'resetSecondFactorAuth'
   })
 
-  cy.exec(
+  return cy.exec(
     'mongo wallet_api-testing --eval \'db.users.updateOne(' +
     `{ "_id": ObjectId("${user.dbid}") },` +
     `{ $set: { "twoFactorCode": "${user.hashedTwoFactorCode}" } },` +
@@ -123,7 +123,9 @@ Cypress.Commands.add('resetUser', (user) => {
     .then((dbfields) => {
       let { dbMapping, ...dbUser } = user
       Object.entries(dbMapping).forEach(([key, value]) => {
-        delete Object.assign(dbUser, { [value]: dbUser[key] })[key]
+        // if the value is null it means we don't want to save it in the database
+        if (!value) delete dbUser[key]
+        else delete Object.assign(dbUser, { [value]: dbUser[key] })[key]
       })
 
       const resetFields = { ...Object.keys(dbUser)
