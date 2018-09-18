@@ -2,7 +2,7 @@
 <can-import from="bootstrap/dist/js/bootstrap" />
 <can-import from="~/components/common/time-remaining/" />
 
-<h3 class="subheading">{{i18n('acceptedOffers')}} <span class="badge">{{offers.length}}</span></h3>
+<h3 class="subheading">{{i18n('acceptedOffers')}} <span class="badge" data-cy="offers-length">{{offers.length}}</span></h3>
 
 {{<offerAcceptedEvent}}
   <div class="offer-timeline-event">
@@ -53,10 +53,10 @@
 
       {{#eq offer.status 'CANCELLED'}}
         <div class="row timeline-container contextual-bg-danger">
-          <div class="col-xs-12 offer-quantity">Quantity <span class="offer-quantity-value">
+          <div class="col-xs-12 offer-quantity">Quantity <span class="offer-quantity-value" data-cy="offer-quantity-value">
             {{#is offer.assetType 'EQUIBIT'}} {{coin(offer.quantity)}} {{else}} {{offer.quantity}} {{/is}}
           </span></div>
-          <div class="col-xs-12 offer-timeline">
+          <div class="col-xs-12 offer-timeline" data-cy="offer-timeline">
             <div class="row">
               <div class="col-xs-12">
                 {{#with state='cancelled'}}
@@ -235,7 +235,7 @@
                       <time-remaining endTime:from="timelocks[offerIdx].partialEndAt"></time-remaining>
                     </div>
 
-                    <div class="timer-container">
+                    <div class="timer-container" data-cy="safety-zone-container">
                       <label>{{i18n('safetyZone')}}
                         {{#if ../isAskFlow}}
                           <span class="icon icon-question"

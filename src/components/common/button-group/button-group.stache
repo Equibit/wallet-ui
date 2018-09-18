@@ -1,5 +1,5 @@
 <div class="btn-group">
   {{#each buttons as button}}
-    <a href="#" on:click="select(button)" class="btn btn-default btn-sm {{#if button.isSelected}}btn-selected{{/if}}">{{button.name}}</a>
+    <a href="#" on:click="select(button)" class="btn btn-default btn-sm {{#if button.isSelected}}btn-selected{{/if}}" data-cy="button-{{button.name}}">{{button.name}}</a>
   {{/each}}
 </div>

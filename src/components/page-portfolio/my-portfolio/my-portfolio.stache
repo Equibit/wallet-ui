@@ -11,7 +11,7 @@
 {{^if portfolio}}
 
   <div class="panel-body align-center">
-    <div class="message-box no-border">
+    <div class="message-box no-border" data-cy="message-box">
       <div class="message-box-status">{{i18n('placeholderPortfolioNoFundsTitle')}}</div>
       <p class="message-box-cause">{{i18n('placeholderPortfolioNoFundsDescription')}}</p>
       <a id="createPortfolio" class="btn btn-primary" on:click="receiveFunds()"><span class="icon icon-download"></span> {{i18n('receive')}}</a>
@@ -21,7 +21,7 @@
 {{else}}
 
   <div class="panel-heading">
-    <h1 class="panel-title">{{i18n('myPortfolio')}}</h1>
+    <h1 class="panel-title" data-cy="my-portfolio">{{i18n('myPortfolio')}}</h1>
   </div>
 
   <portfolio-toolbar balance:from="portfolio.balance.total"
@@ -33,7 +33,7 @@
     {{^if portfolio.availableAmount('EQB')}}
     <div class="row">
       <div class="col-xs-12">
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-warning" role="alert" data-cy="no-funds-alert">
           <strong>{{i18n('eqbBalanceZero')}}</strong> {{i18n('eqbRequiredForTxFee')}}
           <a href="{{routeUrl page='equibit'}}" type="button" class="btn btn-primary btn-xs pull-right">{{i18n('buyEqb')}}</a>
         </div>

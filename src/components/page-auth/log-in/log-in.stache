@@ -3,7 +3,7 @@
   <h2 class="form-signin-heading">{{i18n('login')}}</h2>
 
   {{#if loginError}}
-    <div class="alert alert-danger">{{i18n('errorMessageInvalidLogin1')}} <a href="{{routeUrl page='forgot-password'}}">{{i18n('errorMessageInvalidLogin2')}}</a>.</div>
+    <div class="alert alert-danger" data-cy="invalid-login-alert">{{i18n('errorMessageInvalidLogin1')}} <a href="{{routeUrl page='forgot-password'}}">{{i18n('errorMessageInvalidLogin2')}}</a>.</div>
   {{/if}}
 
   <div class="form-group">

@@ -22,7 +22,8 @@
               data-toggle="dropdown"
               role="button"
               aria-haspopup="true"
-              aria-expanded="false">
+              aria-expanded="false"
+              data-cy="notification-icon">
             <span class="sr-only">{{i18n('notifications')}}</span>
 
             {{#if unreadNotifications.length}}

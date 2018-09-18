@@ -39,6 +39,34 @@ Cypress.Commands.add('login', (user) => {
     .get('button[type="submit"]').click()
 })
 
+Cypress.Commands.add('logout', () => {
+  Cypress.log({
+    name: 'logout'
+  })
+
+  cy.get('[data-cy=userDropdown]')
+    .click()
+  cy.contains('Log Out')
+    .click()
+})
+
+Cypress.Commands.add('clearNotifications', () => {
+  Cypress.log({
+    name: 'clearNotifications'
+  })
+
+  cy.exec('mongo wallet_api-testing --eval \'db.notifications.remove({})\'')
+})
+
+Cypress.Commands.add('clearOrdersAndOffers', () => {
+  Cypress.log({
+    name: 'clearOrdersAndOffers'
+  })
+
+  cy.exec('mongo wallet_api-testing --eval \'db.orders.remove({assetType: "EQUIBIT"})\'')
+  cy.exec('mongo wallet_api-testing --eval \'db.offers.remove({assetType: "EQUIBIT"})\'')
+})
+
 Cypress.Commands.add('loginQA', () => {
   Cypress.log({
     name: 'loginQA'

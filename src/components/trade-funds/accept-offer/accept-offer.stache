@@ -9,7 +9,7 @@
 <bootstrap-modal-content class="accept-offer">
     <div class="modal-header">
         <button ($click)="close()" type="button" class="close" aria-label="Close"><span class="icon icon-cross rotate-90"></span></button>
-        <h3 class="modal-title"><span class="icon icon-upload"></span>
+        <h3 class="modal-title" data-cy="accept-offer-title"><span class="icon icon-upload"></span>
           {{#is flowType 'Ask'}}
             {{#is formData.assetType 'EQUIBIT'}}
               {{i18n('acceptOfferAndSendEquibits')}}
@@ -26,7 +26,7 @@
         <div class="description">Please review and confirm your transaction.</div>
 
         <div class="list-group">
-            <timer-notice endTime:from="offer.timelockInfo.fullEndAt"></timer-notice>
+            <timer-notice data-cy="timer" endTime:from="offer.timelockInfo.fullEndAt"></timer-notice>
             <div class="list-group-item">
               {{#if scope.vars@confirmSummary}}
                 {{> scope.vars@confirmSummary}}

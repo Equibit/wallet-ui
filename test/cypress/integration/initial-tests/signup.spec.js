@@ -1,9 +1,7 @@
 describe('Signup Test', () => {
   beforeEach(() => {
     cy.fixture('users').as('users')
-    cy.visit('/')
-    cy.get('input[type="password"]').type(Cypress.env('HTTP_PASSWORD'))
-    cy.get('button[type="submit"]').click()
+    cy.loginQA()
     cy.contains('Sign Up').click()
     cy.url().should('contain', '/signup')
   })

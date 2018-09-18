@@ -1,5 +1,5 @@
   <tr class="{{#if isPending}}pending{{/if}} {{#if selected}}selected{{/if}} {{#is address fromAddress}}tx-out{{else}}tx-in{{/is}}"
-      on:click="../selectRow(this, scope.element, scope.event)">
+      on:click="../selectRow(this, scope.element, scope.event)" data-cy="selected-row">
     <td class="column-date"><span class="date-value">{{format-date-short(createdAt)}}</span></td>
     <td class="column-type">
       {{#if one-of(type, 'IN', 'OUT', 'TRANSFER', 'LOCK', 'USER-LOCK')}}
@@ -37,14 +37,14 @@
         - -
       {{/if}}
     </td>
-    <td class="column-cash tx-{{type}}">
+    <td data-cy="column-cash-BTC" class="column-cash tx-{{type}}">
       {{#is currencyType 'BTC'}}
         <span>{{coin(amountPlusFee, 8))}}</span>
       {{else}}
         - -
       {{/is}}
     </td>
-    <td class="column-cash tx-{{type}}">
+    <td data-cy="column-cash-EQB" class="column-cash tx-{{type}}">
       {{#is currencyType 'EQB'}}
         {{^is type 'IN'}}
           {{#if one-of(type, 'AUTH', 'CANCEL')}}
