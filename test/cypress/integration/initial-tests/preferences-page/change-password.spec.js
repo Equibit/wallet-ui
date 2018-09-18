@@ -34,7 +34,6 @@ describe('Change Password Test', () => {
 
   after(function () {
     cy.resetUser(user)
-      .then(() => console.log(user.salt))
   })
 
   beforeEach(function () {
@@ -95,13 +94,13 @@ describe('Change Password Test', () => {
     openDialog()
     enterPasswords(user.password, user.secondPassword)
     attemptSave()
-    user.password = [user.secondPassword, user.secondPassword = user.password][0]
     cy
       .get('[data-cy=edit-password-dialog]')
       .should('not.be.visible')
-  })
 
-  it('allows log in with new credentials', function () {
+    cy.logout()
+    cy.login({ ...user, password: user.secondPassword })
+
     cy
       .get('[data-cy=userDropdown]')
       .should('have.attr', 'href', '#')
@@ -114,11 +113,10 @@ describe('Change Password Test', () => {
   it('unallows a recent password', function () {
     cy.goToPrefs()
     openDialog()
-    enterPasswords(user.password, user.secondPassword)
+    enterPasswords(user.secondPassword, user.password)
     attemptSave()
     cy
       .get('[data-cy=new-password-validation]')
       .should('contain', 'last 3 passwords')
-    user.password = [user.secondPassword, user.secondPassword = user.password][0]
   })
 })

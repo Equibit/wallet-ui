@@ -135,11 +135,9 @@ describe('Change Email Test', () => {
       .get('[data-cy=displayed-user-email]')
       .should('contain', user.secondEmail)
 
-    // switch email so that we can login with the new email
-    user.email = [user.secondEmail, user.secondEmail = user.email][0]
-  })
+    cy.logout()
+    cy.login({ ...user, email: user.secondEmail })
 
-  it('new email is required for login', function () {
     cy
       .get('[data-cy=userDropdown]')
       .should('have.attr', 'href', '#')
