@@ -1,41 +1,20 @@
 // This is a helper file for functions related to creating a full trade.
 
-<<<<<<< 7365f0aa7be587683d6ec671156544e2b1d164a6
-export function checkFunds () {
-  cy.url().should('contain', '/portfolio')
-
-  cy.get('[data-cy=loading-overlay]')
-    .should('not.be.visible')
-  cy.get('[data-cy=btc-balance]')
-    .should('not.have.text', '0')
-  cy.get('[data-cy=eqb-balance]')
-    .should('not.have.text', '0')
-  cy.get('[data-cy=no-funds-alert]')
-    .should('not.be.visible')
-}
-
-export function goToEquibitPage () {
-  cy.url().should('contain', '/portfolio')
-
-  cy.get('[data-cy=equibit-link]').click()
-  cy.url().should('contain', 'equibit')
-=======
 export function placeOrder (type) {
   const capitalizeType = type.charAt(0).toUpperCase() + type.slice(1)
   cy.get(`[data-cy=${type}-order-row]`)
     .should('not.exist')
   cy.contains(`Add ${capitalizeType} Order`)
-    .should('have.attr', 'on:click', `showModal('${type.toUpperCase()}')`)
+    .should('have.attr', 'on:click', `showModal(\'${type.toUpperCase()}\')`)
     .click()
   // Add Sell Order modal
   cy.get('[data-cy=order-modal-title]')
     .should('contain', `Place ${capitalizeType} Order`)
   cy.get(`[data-cy=order-button-${type}]`)
     .should('have.class', 'btn-selected')
->>>>>>> WIP partial sell/buy
 }
 
-export function addOrder (quantity, price, type, fillorkill=false) {
+export function addOrder (fillorkill, quantity, price, type) {
   cy.get('[data-cy=input-quantity]')
     .type(quantity)
   cy.get('[data-cy=input-price]')
@@ -82,7 +61,7 @@ export function createOffer (type) {
     .should('contain', 'Your offer was created')
 }
 
-export function confirmOrderAndAcceptOffer (fillorkill=false) {
+export function confirmOrderAndAcceptOffer () {
   cy.url().should('contain', '/orders/')
 
   cy.get('[data-cy=order-item]')
@@ -94,12 +73,9 @@ export function confirmOrderAndAcceptOffer (fillorkill=false) {
 
   cy.get('[data-cy=order-quantity]')
     .should('contain', '0.0001')
-
-  if (fillorkill)
-    cy.get('[data-cy=fillkill]')
+    .get('[data-cy=fillkill]')
     .should('be.visible')
-    
-  cy.get('[data-cy=order-ask-price]')
+    .get('[data-cy=order-ask-price]')
     .should('contain', '1000000.00')
     .get('[data-cy=status]')
     .should('contain', 'Open')
