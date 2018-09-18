@@ -282,3 +282,27 @@ Cypress.Commands.add('goToEquibitPage', (from) => {
 
   cy.url().should('contain', 'equibit')
 })
+
+Cypress.Commands.add('sendBTC', (amount, address) => {
+  Cypress.log({
+    name: 'sendBTC'
+  })
+
+  cy.get('input[placeholder="Paste address"]').type(address)
+  cy.contains('Bitcoin').click()
+  cy
+    .get('input[type="number"]')
+    .type(amount)
+  cy.contains('Next').click()
+
+  cy
+    .get('[data-cy=send-modal-title]')
+    .should('contain', 'Send Funds')
+  cy
+    .get('[data-cy=to-address]')
+    .should('contain', address)
+  cy
+    .get('[data-cy=send-button]')
+    .should('have.attr', 'on:click', 'send(@close)')
+    .click()
+})

@@ -5,7 +5,9 @@ describe('Partial Sell Orders Test', () => {
   beforeEach(() => {
     cy.clearNotifications()
     cy.clearOrdersAndOffers()
-    cy.fixture('users').as('users')
+    cy.fixture('users').as('users').then(users => {
+      cy.sendBTC('0.0001', users.validUsers[1].plainBTCaddress)
+    })
     cy.loginQA()
   })
 
@@ -149,6 +151,9 @@ describe('Partial Sell Orders Test', () => {
       .should('contain', 'Buy')
 
       // Place second offer
+    cy.get('[data-cy=loading-overlay]')
+      .should('not.be.visible')
+    cy.wait(2000)
     cy.contains('Buy')
       .should('have.attr', 'on:click', 'buySell(row)')
       .click()

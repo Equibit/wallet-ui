@@ -122,6 +122,7 @@ describe('Transfer Funds Test', () => {
     })
 
     it('can send BTC to valid address, and checks that the address receives BTC', function () {
+<<<<<<< e1613b2b76a3a73871ae2cc62911eeb60f2d5ae1
       cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[3].plainBTCaddress)
       cy.contains('Bitcoin').click()
       cy
@@ -142,6 +143,9 @@ describe('Transfer Funds Test', () => {
         .get('[data-cy=send-button]')
         .should('have.attr', 'on:click', 'send(@close)')
         .click()
+=======
+      cy.sendBTC('.00001', this.users.validUsers[1].plainBTCaddress)
+>>>>>>> hard stash
       cy
         .get('[data-cy=userDropdown]')
         .click()
