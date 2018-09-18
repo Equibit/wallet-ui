@@ -89,7 +89,7 @@ describe('Change Password Test', () => {
       .should('not.be.visible')
   })
 
-  it('allows valid password entry and save', function () {
+  it('allows valid password entry and unallows a recent password to be entered', function () {
     cy.goToPrefs()
     openDialog()
     enterPasswords(user.password, user.secondPassword)
@@ -101,16 +101,6 @@ describe('Change Password Test', () => {
     cy.logout()
     cy.login({ ...user, password: user.secondPassword })
 
-    cy
-      .get('[data-cy=userDropdown]')
-      .should('have.attr', 'href', '#')
-      .click()
-    cy
-      .contains('Log Out')
-      .should('have.attr', 'on:click', 'logout()')
-  })
-
-  it('unallows a recent password', function () {
     cy.goToPrefs()
     openDialog()
     enterPasswords(user.secondPassword, user.password)
