@@ -11,6 +11,7 @@ describe('Partial Sell Orders Test', () => {
 
   it.skip('offer quantity too large', () => {
     // This currently results in an error in the system
+
     cy.login(this.users.validUsers[0])
     cy.goToEquibitPage('portfolio')
 
@@ -36,6 +37,12 @@ describe('Partial Sell Orders Test', () => {
       .should('have.attr', 'on:click', 'next()')
       .click()
     // TODO: Error should appear here
+  })
+
+  it.skip('overfilled by many offers', function () {
+    /* This test is blocked by issue #1114 - incomplete partial order is not reverted back to 'OPEN'
+     * This means that partial trades cannot be completed in all scenarios
+     */
   })
 
   it('filled with one offer', function () {
@@ -115,6 +122,9 @@ describe('Partial Sell Orders Test', () => {
   })
 
   it('filled with multiple offers', function () {
+    /* This test accepts multiple offers at once, and does not test what happens
+     * when a user accepts one offer at a time (this is currently broken) */
+
     cy.login(this.users.validUsers[0])
     cy.goToEquibitPage('portfolio')
 
@@ -218,8 +228,5 @@ describe('Partial Sell Orders Test', () => {
       // Confirm deal closed
     cy.login(this.users.validUsers[1])
     helper.checkDealClosed()
-  })
-
-  it.skip('overfilled by many offers', function () {
   })
 })
