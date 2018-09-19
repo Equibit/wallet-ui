@@ -9,8 +9,8 @@
       {{^if transactions.length}}
         <div class="panel-body align-center">
           <div class="message-box no-border">
-            <div class="message-box-status">{{i18n('transactionHistory')}}</div>
-            <p class="message-box-cause">{{i18n('transactionHistoryMessage')}}</p>
+            <div class="message-box-status" data-cy="transaction-message">{{i18n('transactionHistory')}}</div>
+            <p class="message-box-cause" data-cy="transaction-cause">{{i18n('transactionHistoryMessage')}}</p>
           </div>
         </div>
       {{/if}}
