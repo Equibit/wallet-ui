@@ -1,7 +1,7 @@
 'use strict'
 import * as helper from '../../support/utils/trade-helpers'
 
-describe('Partial Sell Orders Test', () => {
+describe('Partial Buy Orders Test', () => {
   beforeEach(() => {
     cy.clearNotifications()
     cy.clearOrdersAndOffers()
