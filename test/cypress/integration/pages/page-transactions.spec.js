@@ -40,7 +40,7 @@ describe('Transactions Page Test', () => {
       cy.get('[data-cy=transaction-panel-title]')
         .should('contain', 'All Transactions')
       cy.get('[data-cy=selected-row]')
-        .should('be.visible')
+        .should('exist')
 
       cy.contains('h2', 'Additional Details')
         .should('be.visible')
