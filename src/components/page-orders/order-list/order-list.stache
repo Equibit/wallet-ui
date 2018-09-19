@@ -11,13 +11,13 @@
 
     <ul class="nav nav-pills list-tabs">
       <li role="presentation" class="{{#is mode 'SELL'}}active{{/is}}" data-cy="sell-tab">
-        <a href="#" on:click="switchMode('SELL')">{{i18n('sell')}}</a>
+        <a href="#" on:click="switchMode('SELL')" data-cy="switch-sell">{{i18n('sell')}}</a>
       </li>
       <li role="presentation" class="{{#is mode 'BUY'}}active{{/is}}" data-cy="buy-tab">
-        <a href="#" on:click="switchMode('BUY')">{{i18n('buy')}}</a>
+        <a href="#" on:click="switchMode('BUY')" data-cy="switch-buy">{{i18n('buy')}}</a>
       </li>
-      <li role="presentation" class="{{#is mode 'ARCHIVE'}}active{{/is}}" data-cy="archive-tab">
-        <a href="#" on:click="switchMode('ARCHIVE')">{{i18n('archived')}}</a>
+      <li role="presentation" class="{{#is mode 'ARCHIVE'}}active{{/is}}" data-cy="archived-tab">
+        <a href="#" on:click="switchMode('ARCHIVE')" data-cy="switch-archived">{{i18n('archived')}}</a>
       </li>
     </ul>
 

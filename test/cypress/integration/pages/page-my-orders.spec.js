@@ -25,9 +25,10 @@ describe('My Orders Test', () => {
         .should('have.attr', 'href', '/equibit')
     })
 
-    it('user can cycle through order tabs', () => {
+    it.only('user can cycle through order tabs', () => {
       cy.get('[data-cy=sell-tab]')
         .should('have.class', 'active')
+        .get('[data-cy=switch-sell]')
         .should('have.attr', 'on:click', "switchMode('SELL')")
 
       cy.get('[data-cy=no-sell-placeholder]')
@@ -36,18 +37,22 @@ describe('My Orders Test', () => {
 
       cy.get('[data-cy=buy-tab]')
         .should('not.have.class', 'active')
+        .get('[data-cy=switch-buy]')
         .should('have.attr', 'on:click', "switchMode('BUY')")
         .click()
+      cy.get('[data-cy=buy-tab]')
         .should('have.class', 'active')
 
       cy.get('[data-cy=no-buy-placeholder]')
         .should('be.visible')
         .should('contain', 'No Buy Orders Found')
 
-      cy.get('[data-cy=archive-tab]')
+      cy.get('[data-cy=archived-tab]')
         .should('not.have.class', 'active')
+        .get('[data-cy=switch-archived]')
         .should('have.attr', 'on:click', "switchMode('ARCHIVE')")
         .click()
+      cy.get('[data-cy=archived-tab]')
         .should('have.class', 'active')
 
       cy.get('[data-cy=no-archived-placeholder]')
