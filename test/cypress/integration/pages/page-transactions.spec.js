@@ -5,7 +5,7 @@ describe('Transactions Page Test', () => {
       cy.loginQA()
       cy.fixture('users').as('users').then((users) => {
         cy.login(users.validUsers[2])
-        cy.goToTransactions()
+        cy.goTo('transactions')
       })
     })
 
@@ -24,7 +24,7 @@ describe('Transactions Page Test', () => {
       cy.loginQA()
       cy.fixture('users').as('users').then((users) => {
         cy.login(users.validUsers[0])
-        cy.goToTransactions()
+        cy.goTo('transactions')
       })
     })
 

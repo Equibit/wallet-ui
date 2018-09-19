@@ -82,16 +82,16 @@ Cypress.Commands.add('loginQA', () => {
     .click()
 })
 
-Cypress.Commands.add('goToTransactions', () => {
+Cypress.Commands.add('goTo', (page) => {
   Cypress.log({
-    name: 'goToTransactions'
+    name: 'goTo'
   })
 
   cy.get('[data-cy=userDropdown]')
     .click()
-  cy.get('[data-cy=transactions-page]')
-    .should('have.attr', 'href', '/transactions')
+  cy.get(`[data-cy=${page}]`)
+    .should('have.attr', 'href', `/${page}`)
     .click()
 
-  cy.url().should('contain', 'transactions')
+  cy.url().should('contain', `${page}`)
 })
