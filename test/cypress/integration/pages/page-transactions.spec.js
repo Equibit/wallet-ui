@@ -8,7 +8,7 @@ describe('Transactions Page Test', () => {
         cy.goToTransactions()
       })
     })
- 
+
     it('user sees transactions landing page', () => {
       cy.get('[data-cy=transaction-message]')
         .should('be.visible')
@@ -27,7 +27,7 @@ describe('Transactions Page Test', () => {
         cy.goToTransactions()
       })
     })
- 
+
     it.skip('user can go to different transactions page using the paginator', () => {
       // Paginator doesn't work yet
     })
@@ -51,4 +51,3 @@ describe('Transactions Page Test', () => {
     })
   })
 })
-  

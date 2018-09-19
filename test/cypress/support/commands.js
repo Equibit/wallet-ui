@@ -93,5 +93,5 @@ Cypress.Commands.add('goToTransactions', () => {
     .should('have.attr', 'href', '/transactions')
     .click()
 
-  cy.url().should('contain', 'transactions')  
+  cy.url().should('contain', 'transactions')
 })
