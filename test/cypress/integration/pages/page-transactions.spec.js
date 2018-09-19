@@ -20,6 +20,22 @@ describe('Transactions Page Test', () => {
   })
 
   describe('With Transactions', () => {
+    before(() => {
+      // Make a transfer to ensure transaction shows up in transaction page
+      cy.loginQA()
+      cy.fixture('users').as('users').then((users) => {
+        cy.login(users.validUsers[0])
+        cy.contains('Send').click()
+        cy.get('input[placeholder="Paste address"]').type(users.validUsers[1].plainEQBaddress)
+        cy.contains('Equibit').click()
+        cy.get('input[type="number"]')
+          .type('.00001')
+        cy.contains('Next').click()
+        cy.get('[data-cy=send-button]')
+          .click()
+      })
+    })
+    
     beforeEach(() => {
       cy.loginQA()
       cy.fixture('users').as('users').then((users) => {
