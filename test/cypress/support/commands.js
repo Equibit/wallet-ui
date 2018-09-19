@@ -119,9 +119,7 @@ Cypress.Commands.add('resetUser', (user) => {
     'var keys = db.users.findOne(); for (var key in keys) { print(key); }' +
     '\''
   )
-    .then((result) => {
-      console.log(result)
-      return result.stdout.split('_id')[1].trim().split('\n') })
+    .then((result) => result.stdout.split('_id')[1].trim().split('\n'))
     .then((dbfields) => {
       let { dbMapping, ...dbUser } = user
       Object.entries(dbMapping).forEach(([key, value]) => {

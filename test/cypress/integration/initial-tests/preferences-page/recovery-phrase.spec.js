@@ -1,7 +1,5 @@
 'use strict'
 
-import { expect } from 'chai'
-
 let user
 const openDialog = function () {
   cy
@@ -29,47 +27,38 @@ const viewRecoveryPhrase = function (recordWords = false) {
 
   if (!recordWords) return
 
-  // oh the hoops we have to jump through thanks to cypress's out of order execution
-  return new Promise((resolve, reject) => {
-    let words = []
-    Promise.all(Array(3).fill().map((_, i) => {
-      return new Promise((resolve, reject) => {
-        cy
-          .get('[data-cy=recovery-word-group] .word-display')
-          .each(($el) => {
-            // we only want the word (not the number or any whitespace)
-            words.push($el.text().replace(/[^a-zA-Z]/gi, ''))
-          })
-        cy
-          .get('[data-cy=continue-viewing-phrase-button]')
-          .click()
-          .then(() => resolve())
-      })
-    }))
-      .then(() => {
-        expect(words.length).to.equal(12)
-        resolve(words)
-      })
-  })
-}
-const enterRecoveryWords = function (words, mutateIndices = []) {
-  return new Promise((resolve, reject) => {
-    let indices = []
-    cy.get('[data-cy=recovery-input-group] label[for=phrase-input1]')
-      .each(($lb) => {
-        indices.push(parseInt($lb.text().replace(/\D/g, '')) - 1)
-      })
-    cy.get('[data-cy=recovery-input-group] input#phrase-input1')
-      .each(($in, i) => {
-        cy
-          .wrap($in)
-          .type(words[indices[i]] + (mutateIndices.indexOf(i) < 0 ? '' : Math.random().toString(36).substr(-2)))
+  let words = []
+  Array(3).fill().forEach((i) => {
+    cy
+      .get('[data-cy=recovery-word-group] .word-display')
+      .each(($el) => {
+        // we only want the word (not the number or any whitespace)
+        words.push($el.text().replace(/[^a-zA-Z]/gi, ''))
       })
     cy
-      .get('[data-cy=finish-viewing-phrase-button]')
+      .get('[data-cy=continue-viewing-phrase-button]')
       .click()
-      .then(() => resolve(mutateIndices))
   })
+  return words
+}
+const enterRecoveryWords = function (words, mutateIndices = []) {
+  let indices = []
+  cy
+    .get('[data-cy=recovery-input-group] label[for=phrase-input1]')
+    .each(($lb) => {
+      indices.push(parseInt($lb.text().replace(/\D/g, '')) - 1)
+    })
+  cy
+    .get('[data-cy=recovery-input-group] input#phrase-input1')
+    .each(($in, i) => {
+      cy
+        .wrap($in)
+        .type(words[indices[i]] + (mutateIndices.indexOf(i) < 0 ? '' : Math.random().toString(36).substr(-2)))
+    })
+  cy
+    .get('[data-cy=finish-viewing-phrase-button]')
+    .click()
+  return mutateIndices
 }
 
 describe('Recovery Phrase Test', () => {
@@ -84,7 +73,7 @@ describe('Recovery Phrase Test', () => {
   })
 
   after(function () {
-    // cy.resetUser(user)
+    cy.resetUser(user)
   })
 
   beforeEach(function () {
@@ -130,43 +119,40 @@ describe('Recovery Phrase Test', () => {
 
   it('incorrect word entrance does not allow continuation', function () {
     prepDialog()
-    viewRecoveryPhrase(true)
-      .then((words) => enterRecoveryWords(
-        words,
-        Array.from({ length: 4 }, (_, i) => i)
-          .sort(() => 0.5 - Math.random())
-          .slice(0, 2)
-      )).then((indices) => {
-        cy.get('[data-cy=recovery-input-group] .word-display')
-          .each(($dv, d) => {
+    const words = viewRecoveryPhrase(true)
+    const indices = enterRecoveryWords(
+      words,
+      Array.from({ length: 4 }, (_, i) => i)
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 2)
+    )
+    cy.get('[data-cy=recovery-input-group] .word-display')
+      .each(($dv, d) => {
+        cy
+          .wrap($dv)
+          .within(() => {
             cy
-              .wrap($dv)
-              .within(() => {
-                cy
-                  .get('validation-message')
-                  .should((indices.indexOf(d) < 0 ? 'not.' : '') + 'be.visible')
-              })
+              .get('validation-message')
+              .should((indices.indexOf(d) < 0 ? 'not.' : '') + 'be.visible')
           })
       })
   })
 
   it('correct word entrance allows the recovery phrase to be set', function () {
     prepDialog()
-    viewRecoveryPhrase(true)
-      .then(enterRecoveryWords)
+    const words = viewRecoveryPhrase(true)
+    enterRecoveryWords(words)
+    cy
+      .get('[data-cy=gotit-recovery-button')
+      .should('exist')
+      .click()
       .then(() => {
         cy
-          .get('[data-cy=gotit-recovery-button')
+          .get('[data-cy=user-phrase-notset-indicator]')
+          .should('not.exist')
+        cy
+          .get('[data-cy=user-phrase-set-indicator]')
           .should('exist')
-          .click()
-          .then(() => {
-            cy
-              .get('[data-cy=user-phrase-notset-indicator]')
-              .should('not.exist')
-            cy
-              .get('[data-cy=user-phrase-set-indicator]')
-              .should('exist')
-          })
       })
   })
 })
