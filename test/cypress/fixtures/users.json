@@ -78,5 +78,14 @@
             "hashedEmailVerificationCode": "emailVerificationCode",
             "emailVerificationCode": null
         }
+    },
+    "forgotPassword": {
+        "id": 0,
+        "email": "forgotPassword@evenset.com",
+        "temppassword": "b24c1a29644d1457",
+        "tempPasswordHash": "a413de1488ca0a5a3562054a5a4c5d155b92def7e5b779c4fca3203c51698356248f8e11f28eee9a60689697868f39f20f2f3f95ef3b6788ea0616aafe51c120873be4569c77c85663ff263a2a41118353b740942bdbeb074af75af1ba9c8282a60b59349ca380e345cd954ac7b9f2a5bed68ddf69c4f0e494197df7f9523ea4fabf1e89ca5408572fd54ba402d0a75c0ef145b82435e5b55e10d2e45fd80577d80d100f4e974ecd38c1cc621cadc58ed472f6d9dc6fac2b2c47cce1107660b4b4e74c31221c351aa4b2c670776ec915030c66f1917ab180b22822a4dc4f4fb950a93a422cc07c120ca179d77f3efc703998e4640e41ab785089dc43b38021afd002232f5c8b94d8688e2c4b6bc0758ceae29a6b6a7dcf9c224504d5566ca4ad6d01987df3792c7d4db939943d9a24c84938cebfe0526fa512542d6a5018b8d55b5c69f52149ea3e14c85cb26e0ac1e883f9a36c42df5d01c20839313dc0bbb8075413bd818c22efdcc6ee8610dbcf30a4897088f3ca353ac3b11ebf0634603b0ee732a6fe6de6ef6dbddccca58b6171bbec18eddbf27a651de40d9bc56bea2cc4f12afeb20e0296b94c5f612a4d2f00e69d7ae58316577c187c2c0a5ec03e418a9e45b45eb92884f1f27d7bbd41673cfd4362254104095e39b591f5795699cd43cca30f5df1ef384b27a0b75821a490ac8dfb6e1ab9900c27f6cb993abf88b5",
+        "validPhrase": "swift rapid guide holiday artwork other super shed yard edit join fence",
+        "password": "SpicyTunaMayo",
+        "newPassword": "SpicyTunaMa"
     }
 }
