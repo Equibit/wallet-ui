@@ -33,9 +33,10 @@ describe('Transactions Page Test', () => {
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
           .click()
+        cy.logout()
       })
     })
-    
+
     beforeEach(() => {
       cy.loginQA()
       cy.fixture('users').as('users').then((users) => {
@@ -55,7 +56,7 @@ describe('Transactions Page Test', () => {
     it('user sees transactions page', () => {
       cy.get('[data-cy=transaction-panel-title]')
         .should('contain', 'All Transactions')
-      cy.get('[data-cy=selected-row]')
+      cy.get('[data-cy=transaction-table]')
         .should('exist')
 
       cy.contains('h2', 'Additional Details')
