@@ -1,3 +1,4 @@
+'use strict'
 describe('My Orders Test', () => {
     beforeEach(() => {
       cy.loginQA()
