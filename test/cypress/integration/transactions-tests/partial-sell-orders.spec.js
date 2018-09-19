@@ -5,10 +5,8 @@ describe('Partial Sell Orders Test', () => {
   beforeEach(() => {
     cy.clearNotifications()
     cy.clearOrdersAndOffers()
-    cy.fixture('users').as('users').then(users => {
-      cy.sendBTC('0.0001', users.validUsers[1].plainBTCaddress)
-    })
     cy.loginQA()
+    cy.fixture('users').as('users')
   })
 
   it.skip('offer quantity too large', () => {
@@ -153,7 +151,6 @@ describe('Partial Sell Orders Test', () => {
       // Place second offer
     cy.get('[data-cy=loading-overlay]')
       .should('not.be.visible')
-    cy.wait(2000)
     cy.contains('Buy')
       .should('have.attr', 'on:click', 'buySell(row)')
       .click()
@@ -189,6 +186,7 @@ describe('Partial Sell Orders Test', () => {
     helper.acceptOffers()
       // Accept offer and send modal
     helper.sendMoney('Equibits')
+    cy.wait(1000)
       // Repeat
     helper.acceptOffers()
     helper.sendMoney('Equibits')

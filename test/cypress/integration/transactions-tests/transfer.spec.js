@@ -122,12 +122,20 @@ describe('Transfer Funds Test', () => {
     })
 
     it('can send BTC to valid address, and checks that the address receives BTC', function () {
+<<<<<<< 5a17d11640a77e6251395e111fb97f1ce8adcfce
 <<<<<<< e1613b2b76a3a73871ae2cc62911eeb60f2d5ae1
       cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[3].plainBTCaddress)
       cy.contains('Bitcoin').click()
       cy
         .get('input[type="number"]')
         .type('.00001')
+=======
+      cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[1].plainBTCaddress)
+      cy.contains('Bitcoin').click()
+      cy
+        .get('input[type="number"]')
+        .type('0.00001')
+>>>>>>> resolve addresses issue - revert to previous state
       cy.contains('Next').click()
 
       cy
@@ -135,17 +143,24 @@ describe('Transfer Funds Test', () => {
         .should('contain', 'Send Funds')
       cy
         .get('[data-cy=to-address]')
+<<<<<<< 5a17d11640a77e6251395e111fb97f1ce8adcfce
         .should('contain', this.users.validUsers[3].plainBTCaddress)
       cy
         .get('[data-cy=send-value]')
         .should('contain', '0.00001')
+=======
+        .should('contain', this.users.validUsers[1].plainBTCaddress)
+>>>>>>> resolve addresses issue - revert to previous state
       cy
         .get('[data-cy=send-button]')
         .should('have.attr', 'on:click', 'send(@close)')
         .click()
+<<<<<<< 5a17d11640a77e6251395e111fb97f1ce8adcfce
 =======
       cy.sendBTC('.00001', this.users.validUsers[1].plainBTCaddress)
 >>>>>>> hard stash
+=======
+>>>>>>> resolve addresses issue - revert to previous state
       cy
         .get('[data-cy=userDropdown]')
         .click()
