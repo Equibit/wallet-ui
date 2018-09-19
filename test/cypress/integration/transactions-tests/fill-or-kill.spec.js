@@ -4,6 +4,9 @@ import * as helper from '../../support/utils/trade-helpers'
 // NOTE: These tests only create FOK orders and complete FOK trades.
 // This means that once in a while when the tests fail, the btc/eqb blocks will
 // need to be mined otherwise mempool error will occur.
+// The trades here are using notifications as the main way to send/accept funds.
+// Another way to complete trades would be to go through the orders/offers pages,
+// but it is not yet done here.
 describe('Fill or Kill Test', () => {
   describe('Load wallet from external QA account', () => {
     it('loads test@evenset and test3@evenset from QA', () => {
