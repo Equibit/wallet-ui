@@ -156,17 +156,3 @@ Cypress.Commands.add('goTo', (page) => {
 
   cy.url().should('contain', `${page}`)
 })
-
-/* Utility Commands */
-// Takes a screenshot of the user's addresses - user needs to be logged in and on portfolio page
-Cypress.Commands.add('logAddresses', (user) => {
-  Cypress.log({
-    name: 'logAddresses'
-  })
-  cy.url().should('contain', 'portfolio')
-  cy.contains('Receive').click()
-  cy.screenshot(`${user.email}-addresses`)
-  cy.contains('Done').click()
-  cy.wait(5000)
-  cy.screenshot(`${user.email}-portfolio`)
-})

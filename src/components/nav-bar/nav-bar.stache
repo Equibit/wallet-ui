@@ -49,8 +49,8 @@
           <a href="#" class="dropdown-toggle icon icon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-cy="userDropdown"></a>
           <ul class="dropdown-menu user-nav default-menu animated fadeIn">
             <li><a href="{{routeUrl page='portfolio'}}">{{i18n('myPortfolio')}}</a></li>
-            <li><a href="{{routeUrl page='orders'}}">{{i18n('myOrders')}}</a></li>
-            <li><a href="{{routeUrl page='offers'}}">{{i18n('myOffers')}}</a></li>
+            <li><a href="{{routeUrl page='orders'}}" data-cy="orders">{{i18n('myOrders')}}</a></li>
+            <li><a href="{{routeUrl page='offers'}}" data-cy="offers">{{i18n('myOffers')}}</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="{{routeUrl page='transactions'}}" data-cy="transactions">{{i18n('transactions')}}</a></li>
             <li><a href="{{routeUrl page='preferences'}}" data-cy="preferences">{{i18n('userPreferences')}}</a></li>
