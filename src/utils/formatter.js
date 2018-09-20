@@ -6,6 +6,10 @@ export function toMaxPrecision (val, precision) {
   if (typeof precision !== 'number') {
     precision = 2
   }
+
+  if (val < 1) {
+    return val
+  }
   const factor = Math.pow(10, precision)
   return Math.round(val * factor) / factor
 }
