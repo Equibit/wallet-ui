@@ -64,6 +64,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
     type: 'string'
   },
 
+  loadingBalance: {
+    type: 'boolean',
+    default: false
+  },
+
   /**
    * Address information: what blockchain it belongs to, whether its a change, and what its index is.
    * @property {String} models/portfolio.properties.addressesMeta addressesMeta
@@ -425,7 +430,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
       const utxos = this.utxoByTypeByAddress
       const emptyBalance = {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0, total: 0}
       const user = Session.current.user
-      let localBalance = JSON.parse(window.localStorage.getItem(user.hashedEmail)).balance
+      const cached = JSON.parse(window.localStorage.getItem(user.hashedEmail))
+      const localBalance = cached && cached.balance
       // Check if balance is saved in localStorage and utxo addresses are resolved OR if the addresses object for both BTC and EQB are not empty
       if (localBalance !== null && (!utxos || (Object.keys(utxos.EQB.addresses).length === 0 && Object.keys(utxos.BTC.addresses).length === 0))) {
         const decryptBalance = user.decrypt(localBalance)
@@ -462,6 +468,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   balancePromise: {
     get () {
+      this.loadingBalance = true
       return new Promise(resolve => {
         const utxoByType = this.utxoByTypeByAddress
         const updatePromises = []
@@ -502,6 +509,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
           console.log(`portfolio.balance.total is ${totals.total}`)
           retVal.assign(totals)
           resolve && resolve(retVal)
+        }).then((result) => {
+          this.loadingBalance = false
+          return result
         })
       })
     }
@@ -684,7 +694,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @parent models/session.prototype
    * Method to refresh balance. Will request linstunspent and update balancePromise.
    */
-  refreshBalance: function () {
+  refreshBalance () {
     this.dispatch('refresh')
     return this.securitiesPromise
   },

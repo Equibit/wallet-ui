@@ -227,6 +227,6 @@ describe('cacheInitialBalance', function () {
       total: 3000
     }
     portfolio.cacheInitialBalance(initialBalance)
-    assert.ok(window.localStorage.getItem('balance') !== null)
+    assert.ok(JSON.parse(window.localStorage.getItem(Session.current.user.hashedEmail)).balance !== null)
   })
 })

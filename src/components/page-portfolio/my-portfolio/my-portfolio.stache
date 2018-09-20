@@ -24,10 +24,12 @@
     <h1 class="panel-title" data-cy="my-portfolio">{{i18n('myPortfolio')}}</h1>
   </div>
 
+<a on:click="syncBalance()">SYNC</a>
   <portfolio-toolbar balance:from="portfolio.balance.total"
                      isSending:from="isSending"
                      sendFundsPopup:to="isSendFundsPopup"
-                     receiveFunds:from="@receiveFunds"/>
+                     receiveFunds:from="@receiveFunds"
+                     isSyncingBalance:from="portfolio.loadingBalance" />
 
   <div class="panel-body">
     {{^if portfolio.availableAmount('EQB')}}

@@ -2,8 +2,14 @@
 
 <nav class="navbar toolbar">
   <div class="row">
-    <p class="navbar-text"><label>{{i18n('balance')}}</label> <span class="balance">{{user-units(balance, 8)}} <small>BTC</small></span></p>
-    <div class="icon icon-refresh {{#if isLoading}}spin-effect{{/if}}">TESTING</div>
+    <p class="navbar-text">
+      <label>{{i18n('balance')}}</label> 
+      <span class="balance">{{user-units(balance, 8)}} <small>BTC</small></span> 
+      {{#if isSyncingBalance}}
+        <div class="icon icon-refresh spin-effect sync-indication-icon"></div> 
+        {{! <span class="sync-indication-text">syncing</span>  }}
+      {{/if}}
+    </p>
 
     <ul class="nav navbar-nav navbar-right toolbar-actions">
       <li><a on:click="sendFunds()">
