@@ -146,9 +146,19 @@ describe('utils/stache-helpers', function () {
         let number = stache('{{format-coin(value, precision)}}')({value: 5000.12345678, precision: 2})
         assert.equal(number.textContent, '5,000.12')
       })
-      it('Does not format decimal number value less than one', function () {
-        let number = stache('{{format-coin(value, precision)}}')({value: 0.000125, precision: 2})
-        assert.equal(number.textContent, '0.000125')
+      it('Format decimal number less than one when given appropriate precision', function () {
+        let number = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 3})
+        let number2 = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 4})
+        assert.equal(number.textContent, '0.001')
+        assert.equal(number2.textContent, '0.0013')
+      })
+      it('Does not format decimal number when first value place is more than precision', function () {
+        let number = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 2})
+        assert.equal(number.textContent, '0.00125')
+      })
+      it('Does not format decimal number when precision exceeds value place', function () {
+        let number = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 6})
+        assert.equal(number.textContent, '0.00125')
       })
     })
   })
