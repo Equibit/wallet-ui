@@ -35,7 +35,6 @@ Cypress.Commands.add('login', (user) => {
     .get('input[type="password"]')
     .type(user.password)
     .get('button[type="submit"]').click()
-  cy.logAddress()
 })
 
 Cypress.Commands.add('logout', () => {
@@ -282,23 +281,4 @@ Cypress.Commands.add('goToEquibitPage', (from) => {
   cy.get('[data-cy=equibit-link]').click()
 
   cy.url().should('contain', 'equibit')
-})
-
-Cypress.Commands.add('logAddress', () => {
-
-  cy.get('[data-cy=userDropdown]')
-    .click()
-  cy.contains('My Portfolio')
-    .click()
-
-  cy.contains('Receive')
-    .click()
-
-  cy.get('input[type="text"]').then(object => {
-    cy.log('EQB', object[0].value)
-    console.log('EQB' + object[0].value)
-    cy.log('BTC', object[1].value)
-    console.log('BTC' + object[1].value)
-    cy.contains('Done').click()
-  })
 })
