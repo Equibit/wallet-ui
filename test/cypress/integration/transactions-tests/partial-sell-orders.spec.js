@@ -6,17 +6,7 @@ describe('Partial Sell Orders Test', () => {
     cy.clearNotifications()
     cy.clearOrdersAndOffers()
     cy.loginQA()
-    cy.fixture('users').as('users').then(users => {
-      cy.login(users.validUsers[0])
-      cy.contains('Send').click()
-      cy.get('input[placeholder="Paste address"]').type(users.validUsers[1].plainBTCaddress)
-      cy.contains('Bitcoin').click()
-      cy.get('input[type="number"]')
-        .type('0.0003')
-      cy.contains('Next').click()
-      cy.get('[data-cy=send-button]')
-        .click()
-    })
+    cy.fixture('users').as('users')
   })
 
   it.skip('offer quantity too large', () => {
