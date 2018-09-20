@@ -69,7 +69,7 @@ describe('My Orders Test', () => {
       })
     })
 
-    it('greets user with placeholder and button to place an order when there are orders, but not on this list', () => {
+    it('greets user with placeholder and button to place an order when there are orders, but are not on the sell orders list', () => {
       cy.contains('h3', 'My Orders')
         .should('be.visible')
       cy.contains('div', 'Select an Order to See Details')
