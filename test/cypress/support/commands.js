@@ -1,4 +1,4 @@
-&& (!utxos || (Object.keys(utxos.EQB.addresses).length === 0 && Object.keys(utxos.BTC.addresses).length === 0))// ***********************************************
+// ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
 // existing commands.
