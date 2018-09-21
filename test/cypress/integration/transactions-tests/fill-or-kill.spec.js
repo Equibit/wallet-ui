@@ -8,8 +8,18 @@ describe('Fill or Kill Test', () => {
   beforeEach(() => {
     cy.clearNotifications()
     cy.clearOrdersAndOffers()
-    cy.fixture('users').as('users')
     cy.loginQA()
+    cy.fixture('users').as('users').then(users => {
+      cy.login(users.validUsers[0])
+      cy.contains('Send').click()
+      cy.get('input[placeholder="Paste address"]').type(users.validUsers[1].plainBTCaddress)
+      cy.contains('Bitcoin').click()
+      cy.get('input[type="number"]')
+        .type('0.0003')
+      cy.contains('Next').click()
+      cy.get('[data-cy=send-button]')
+        .click()
+    })
   })
 
   it('Fill or Kill sell order', function () {
