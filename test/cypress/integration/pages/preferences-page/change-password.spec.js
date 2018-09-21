@@ -42,7 +42,7 @@ describe('Change Password Test', () => {
   })
 
   it('password dialog is openable', function () {
-    cy.goToPrefs()
+    cy.goTo('preferences')
     openDialog()
     cy
       .get('[data-cy=edit-password-dialog]')
@@ -50,7 +50,7 @@ describe('Change Password Test', () => {
   })
 
   it('has no passwords populated', function () {
-    cy.goToPrefs()
+    cy.goTo('preferences')
     openDialog()
     cy
       .get('#passwordCurrent')
@@ -61,7 +61,7 @@ describe('Change Password Test', () => {
   })
 
   it('unallows invalid current password', function () {
-    cy.goToPrefs()
+    cy.goTo('preferences')
     openDialog()
     enterPasswords(user.password + Math.random().toString(36).substring(5), user.secondPassword)
     attemptSave()
@@ -71,7 +71,7 @@ describe('Change Password Test', () => {
   })
 
   it('unallows weak new password', function () {
-    cy.goToPrefs()
+    cy.goTo('preferences')
     openDialog()
     enterPasswords(user.password, weakPassword)
     cy
@@ -80,7 +80,7 @@ describe('Change Password Test', () => {
   })
 
   it('unallows the same password to be entered twice', function () {
-    cy.goToPrefs()
+    cy.goTo('preferences')
     openDialog()
     enterPasswords(user.password, user.password)
     attemptSave()
@@ -90,7 +90,7 @@ describe('Change Password Test', () => {
   })
 
   it('allows valid password entry and unallows a recent password to be entered', function () {
-    cy.goToPrefs()
+    cy.goTo('preferences')
     openDialog()
     enterPasswords(user.password, user.secondPassword)
     attemptSave()
@@ -101,7 +101,7 @@ describe('Change Password Test', () => {
     cy.logout()
     cy.login({ ...user, password: user.secondPassword })
 
-    cy.goToPrefs()
+    cy.goTo('preferences')
     openDialog()
     enterPasswords(user.secondPassword, user.password)
     attemptSave()

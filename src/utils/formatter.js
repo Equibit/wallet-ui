@@ -6,6 +6,15 @@ export function toMaxPrecision (val, precision) {
   if (typeof precision !== 'number') {
     precision = 2
   }
+
+  // Limit precision based on number of 0s after decimal for values less than 1 but greater than 0
+  // eg. 0.0015 with precision 2 yields 0.0015, precision 3 yields 0.002, precision 4 yields 0.0015
+  if (val < 1 && val > 0) {
+    const magnitude = -Math.floor(Math.log(val) / Math.log(10) + 1)
+    if (magnitude >= precision) {
+      return val
+    }
+  }
   const factor = Math.pow(10, precision)
   return Math.round(val * factor) / factor
 }

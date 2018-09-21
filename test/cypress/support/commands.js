@@ -1,4 +1,4 @@
-// ***********************************************
+&& (!utxos || (Object.keys(utxos.EQB.addresses).length === 0 && Object.keys(utxos.BTC.addresses).length === 0))// ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
 // existing commands.
@@ -144,13 +144,16 @@ Cypress.Commands.add('resetUser', (user) => {
     })
 })
 
-Cypress.Commands.add('goToPrefs', () => {
-  cy
-    .get('[data-cy=userDropdown]')
-    .should('have.attr', 'href', '#')
+Cypress.Commands.add('goTo', (page) => {
+  Cypress.log({
+    name: 'goTo'
+  })
+
+  cy.get('[data-cy=userDropdown]')
     .click()
-  cy
-    .get('[data-cy=userPreferences]')
-    .should('have.attr', 'href', '/preferences')
+  cy.get(`[data-cy=${page}]`)
+    .should('have.attr', 'href', `/${page}`)
     .click()
+
+  cy.url().should('contain', `${page}`)
 })

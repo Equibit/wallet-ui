@@ -9,7 +9,7 @@ const openDialog = function () {
     .click()
 }
 const prepDialog = function () {
-  cy.goToPrefs()
+  cy.goTo('preferences')
   openDialog()
   cy.resetSecondFactorAuth(user)
 }
@@ -43,7 +43,7 @@ describe('Change Email Test', () => {
   })
 
   it('email verification is openable', function () {
-    cy.goToPrefs()
+    cy.goTo('preferences')
     openDialog()
     cy
       .get('modal-authentication')
@@ -51,7 +51,7 @@ describe('Change Email Test', () => {
   })
 
   it('email verification code is sent when the dialog is dialog opened', function () {
-    cy.goToPrefs()
+    cy.goTo('preferences')
     cy.resetSecondFactorAuth(user)
     openDialog()
     const newHashedCode = cy.getSecondFactorHashedAuth(user)
@@ -59,7 +59,7 @@ describe('Change Email Test', () => {
   })
 
   it('email verification code is updated when "try again" is clicked', function () {
-    cy.goToPrefs()
+    cy.goTo('preferences')
     openDialog()
     const currentHashedCode = cy.getSecondFactorHashedAuth(user)
     cy

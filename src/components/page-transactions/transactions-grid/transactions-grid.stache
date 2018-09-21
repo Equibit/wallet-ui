@@ -26,7 +26,7 @@
     </div>
 
     <div class="grid-body-scroll">
-      <table class="table table-condensed grid-body">
+      <table class="table table-condensed grid-body" data-cy="transaction-table">
         <tbody>
           {{#each rows as row}}
             {{#if row.isTradeGroup}}

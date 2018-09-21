@@ -20,7 +20,7 @@ describe('Auto Logout Test', () => {
   beforeEach(function () {
     cy.loginQA()
     cy.login(user)
-    cy.goToPrefs()
+    cy.goTo('preferences')
   })
 
   it('auto logout dialog can open', function () {

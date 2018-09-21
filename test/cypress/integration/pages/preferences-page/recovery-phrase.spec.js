@@ -7,7 +7,7 @@ const openDialog = function () {
     .click()
 }
 const prepDialog = function () {
-  cy.goToPrefs()
+  cy.goTo('preferences')
   openDialog()
   cy.resetSecondFactorAuth(user)
 }
@@ -82,7 +82,7 @@ describe('Recovery Phrase Test', () => {
   })
 
   it('recovery phrase is not yet set', function () {
-    cy.goToPrefs()
+    cy.goTo('preferences')
     cy
       .get('[data-cy=user-phrase-notset-indicator]')
       .should('exist')
@@ -92,7 +92,7 @@ describe('Recovery Phrase Test', () => {
   })
 
   it('recovery phrase is openable', function () {
-    cy.goToPrefs()
+    cy.goTo('preferences')
     openDialog()
     cy
       .get('modal-authentication')
