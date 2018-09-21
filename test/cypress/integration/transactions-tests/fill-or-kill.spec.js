@@ -62,7 +62,7 @@ describe('Fill or Kill Test', () => {
         .should('be.visible')
       cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
-        .click({force: true})
+        .click()
       // Confirm modal
       helper.confirmOffer('Payment')
       // Confirm order appears/exists
@@ -106,6 +106,10 @@ describe('Fill or Kill Test', () => {
       // Confirm modal
       helper.collectPayment()
       cy.logout()
+
+      // Confirm deal closed
+      cy.login(this.users.validUsers[1])
+      helper.checkDealClosed()
     })
 
     it('Fill or Kill buy order', function () {
@@ -133,7 +137,7 @@ describe('Fill or Kill Test', () => {
         .should('be.visible')
       cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
-        .click({force: true})
+        .click()
       // Confirm modal
       helper.confirmOffer('Equibits')
       // Confirm order appears/exists

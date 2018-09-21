@@ -27,7 +27,7 @@ export function secondNotification (type, pos = 0) {
     .get('[data-cy=notification-link]')
     .should('contain', `Collect ${title}`)
     .eq(pos)
-    .click({force: true})
+    .click()
 }
 
 // Functions

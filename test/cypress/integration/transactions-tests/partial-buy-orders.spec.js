@@ -55,7 +55,7 @@ describe('Partial Buy Orders Test', () => {
       .type('.0001')
     cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
-      .click({force: true})
+      .click()
       // Confirm modal
     helper.confirmOffer('Equibits')
       // Confirm order appears/exists
@@ -134,7 +134,7 @@ describe('Partial Buy Orders Test', () => {
       .type('.00005')
     cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
-      .click({force: true})
+      .click()
       // Confirm modal
     helper.confirmOffer('Equibits')
       // Confirm order appears/exists
@@ -156,7 +156,7 @@ describe('Partial Buy Orders Test', () => {
       .type('.00005')
     cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
-      .click({force: true})
+      .click()
       // Confirm modal
     helper.confirmOffer('Equibits')
     cy.logout()

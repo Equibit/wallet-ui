@@ -81,7 +81,7 @@ describe('Partial Sell Orders Test', () => {
       .type('.0001')
     cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
-      .click({force: true})
+      .click()
       // Confirm modal
     helper.confirmOffer('Payment')
       // Confirm order appears/exists
@@ -160,7 +160,7 @@ describe('Partial Sell Orders Test', () => {
       .type('.00005')
     cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
-      .click({force: true})
+      .click()
       // Confirm modal
     helper.confirmOffer('Payment')
       // Confirm order appears/exists
@@ -182,7 +182,7 @@ describe('Partial Sell Orders Test', () => {
       .type('.00005')
     cy.contains('Next')
       .should('have.attr', 'on:click', 'next()')
-      .click({force: true})
+      .click()
       // Confirm modal
     helper.confirmOffer('Payment')
     cy.logout()
