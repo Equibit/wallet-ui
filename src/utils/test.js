@@ -142,6 +142,24 @@ describe('utils/stache-helpers', function () {
         let number = stache('{{format-coin(value, precision)}}')({value: 5000.1234, precision: 8})
         assert.equal(number.textContent, '5,000.1234')
       })
+      it('Format precision decimal number with more decimal values than the precision with comma by separated thousands', function () {
+        let number = stache('{{format-coin(value, precision)}}')({value: 5000.12345678, precision: 2})
+        assert.equal(number.textContent, '5,000.12')
+      })
+      it('Format decimal number less than one when given appropriate precision', function () {
+        let number = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 3})
+        let number2 = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 4})
+        assert.equal(number.textContent, '0.001')
+        assert.equal(number2.textContent, '0.0013')
+      })
+      it('Does not format decimal number when first value place is more than precision', function () {
+        let number = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 2})
+        assert.equal(number.textContent, '0.00125')
+      })
+      it('Does not format decimal number when precision exceeds value place', function () {
+        let number = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 6})
+        assert.equal(number.textContent, '0.00125')
+      })
     })
   })
 })

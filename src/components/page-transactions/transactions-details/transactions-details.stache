@@ -86,7 +86,7 @@
     <label>{{i18n('transactionIds')}}</label>
     <ul class="list-unstyled">
       <li>
-        <a href="{{transaction.transactionUrl}}" target="_blank">
+        <a href="{{transaction.transactionUrl}}" target="_blank" data-cy="txid-link">
           TxID ({{transaction.currencyType}}) <span class="icon icon-link-external"></span>
         </a>
         {{#if transaction.transactionUrlTestNet}}

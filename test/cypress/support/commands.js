@@ -81,3 +81,17 @@ Cypress.Commands.add('loginQA', () => {
     .get('button[type="submit"]')
     .click()
 })
+
+Cypress.Commands.add('goTo', (page) => {
+  Cypress.log({
+    name: 'goTo'
+  })
+
+  cy.get('[data-cy=userDropdown]')
+    .click()
+  cy.get(`[data-cy=${page}]`)
+    .should('have.attr', 'href', `/${page}`)
+    .click()
+
+  cy.url().should('contain', `${page}`)
+})

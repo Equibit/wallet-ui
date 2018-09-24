@@ -1,15 +1,25 @@
 'use strict'
-import * as helper from '../../../support/utils/trade-helpers'
+import * as helper from '../../support/utils/trade-helpers'
 
 // NOTE: These tests only create FOK orders and complete FOK trades.
 // This means that once in a while when the tests fail, the btc/eqb blocks will
-// need to be mined otherwise 'invalid signature' or mempool error will occur.
+// need to be mined otherwise mempool error will occur.
 describe('Fill or Kill Test', () => {
   beforeEach(() => {
     cy.clearNotifications()
     cy.clearOrdersAndOffers()
-    cy.fixture('users').as('users')
     cy.loginQA()
+    cy.fixture('users').as('users').then(users => {
+      cy.login(users.validUsers[0])
+      cy.contains('Send').click()
+      cy.get('input[placeholder="Paste address"]').type(users.validUsers[1].plainBTCaddress)
+      cy.contains('Bitcoin').click()
+      cy.get('input[type="number"]')
+        .type('0.0003')
+      cy.contains('Next').click()
+      cy.get('[data-cy=send-button]')
+        .click()
+    })
   })
 
   it('Fill or Kill sell order', function () {
