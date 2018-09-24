@@ -95,3 +95,26 @@ Cypress.Commands.add('goTo', (page) => {
 
   cy.url().should('contain', `${page}`)
 })
+
+// Utility command to log eqb and btc addresses of users
+Cypress.Commands.add('logAddresses', (user) => {
+  Cypress.log({
+    name: 'logAddresses'
+  })
+
+  cy.login(user)
+  cy.url().should('contain', 'portfolio')
+
+  cy.contains('Receive')
+    .click()
+
+  cy.get('[data-cy=eqb-value]').then(address => {
+    cy.log('EQB: ' + address[0].value)
+  })
+  cy.get('[data-cy=btc-value]').then(address => {
+    cy.log('BTC: ' + address[0].value)
+  })
+
+  // Force failure to be able to see the logs
+  cy.contains('FAIL', {timeout: 0})
+})
