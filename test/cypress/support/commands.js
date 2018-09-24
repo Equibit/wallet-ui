@@ -114,8 +114,6 @@ Cypress.Commands.add('logAddresses', () => {
     cy.log('BTC: ' + address[0].value)
   })
 
-  cy.get('Done').click()
-
   // Force failure to be able to see the logs
   cy.contains('FAIL', {timeout: 0})
 })
