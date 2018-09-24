@@ -1,6 +1,45 @@
-<script type="text/stache" can-autorender>
-  <can-import from="wallet-ui/components/page-issuance-details/orders-grid/" />
-  <sell-orders></sell-orders>
+<script>window.useXhrTransport = true</script>
+<script type="text/stache" id="demo" can-autorender>
+  <can-import from="~/styles/styles.less" />
+  <can-import from="~/components/page-issuance-details/orders-grid/" />
+  <can-import from="bootstrap-canjs" />
+  <can-import from="bootstrap-canjs/modal/modal.less" />
+
+  <bootstrap-modal></bootstrap-modal>
+
+  <br>
+  <div class="row">
+    <div class="col-xs-12">
+      <drag-panel class="panel panel-default card card-full">
+        <div class="panel-body">
+          <orders-grid
+            type="SELL"
+            issuanceAddress:from="issuance.issuanceAddress"
+            portfolio:from="portfoliosPromise.value" />
+          <orders-grid
+            type="BUY"
+            issuanceAddress:from="issuance.issuanceAddress"
+            portfolio:from="portfoliosPromise.value" />
+        </div>
+      </drag-panel>
+    </div>
+  </div>
+
 </script>
 <script src="../../../../node_modules/steal/steal.js"
-        main="can-view-autorender"></script>
+        main="can-view-autorender">
+
+  import canViewModel from 'can-view-model'
+  import issuance from '~/models/mock/mock-issuance'
+  import '~/models/fixtures/orders'
+  import '~/models/fixtures/portfolio'
+  import '~/models/fixtures/proxycore'
+  import Portfolio from '~/models/portfolio'
+
+  canViewModel(document.getElementById('demo')).set({
+    issuance,
+    get portfoliosPromise () {
+      return Portfolio.findAll({}).then(l => l[0]);
+    }
+  })
+</script>
