@@ -74,4 +74,21 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
       done()
     })
   })
+
+  it('whyUserCantOffer picks popup correctly', function (done) {
+    const vm = new ViewModel({
+      type: 'SELL',
+      issuanceAddress: 'baadf00d',
+      session: 
+    })
+    vm.on('rows', () => {
+      console.log(vm.whyUserCantOffer(vm.rows[0]))
+      console.log(vm.whyUserCantOffer(vm.rows[1]))
+      console.log(vm.whyUserCantOffer(vm.rows[2]))
+      assert.equal(vm.whyUserCantOffer(vm.rows[0]), 'Not logged in')
+      // assert.equal(vm.whyUserCantOffer(vm.rows[1]), '')
+      // assert.equal(vm.whyUserCantOffer(vm.rows[2]), '')
+      done()
+    })
+  })
 })
