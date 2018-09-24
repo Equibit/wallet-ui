@@ -39,7 +39,7 @@ jobs:
   include:
     - stage: Testing
       env:
-        - TEST_SUITE=cypress-test
+        - TEST_SUITE=cypress-transactions
       <<: *defaults
     - stage: Testing
       env:
