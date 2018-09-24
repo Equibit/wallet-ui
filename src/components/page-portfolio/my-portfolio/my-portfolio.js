@@ -133,11 +133,6 @@ export const ViewModel = DefineMap.extend({
       })
       Session.current.refreshBalance()
     })
-  },
-
-  connectedCallback (element) {
-    console.log("STARTING UP\n\n\n")
-    this.syncBalance()
   }
 })
 

@@ -509,6 +509,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           console.log(`portfolio.balance.total is ${totals.total}`)
           retVal.assign(totals)
           resolve && resolve(retVal)
+          return retVal
         }).then((result) => {
           this.loadingBalance = false
           return result
