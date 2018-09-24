@@ -53,7 +53,7 @@ export const ViewModel = DefineMap.extend({
   updatePassword (el) {
     this.password = el.value
   },
-  handlePasswordChange (event, password) {
+  handlePasswordChange (event) {
     event.preventDefault()
     if (!this.isPasswordValid) {
       return false
@@ -62,12 +62,12 @@ export const ViewModel = DefineMap.extend({
     // Note: after changing password user is no longer new.
     const isNewUser = this.user.isNewUser
 
-    if (zxcvbn(password).score !== 4) {
+    if (this.password && zxcvbn(this.password).score !== 4) {
       this.passwordError = 'Password too weak'
       return
     }
 
-    this.user.changePassword(password)
+    this.user.changePassword(this.password)
       .then(() => {
         if (isNewUser) {
           this.user.generateKeysAndPatchUser()
