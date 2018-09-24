@@ -115,5 +115,5 @@ Cypress.Commands.add('logAddresses', () => {
   })
 
   // Force failure to be able to see the logs
-  cy.contains('FAIL', {timeout: 0})
+  cy.contains('FAIL', {timeout: 10000})
 })

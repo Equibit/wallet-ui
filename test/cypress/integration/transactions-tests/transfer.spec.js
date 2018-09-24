@@ -48,6 +48,8 @@ describe('Transfer Funds Test', () => {
     })
 
     it('can send EQB to valid address, and checks that the address receives EQB', function () {
+      cy.contains('Cancel').click()
+      cy.logAddresses()
       cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[3].plainEQBaddress)
       cy.contains('Equibit').click()
       cy
@@ -122,6 +124,8 @@ describe('Transfer Funds Test', () => {
     })
 
     it('can send BTC to valid address, and checks that the address receives BTC', function () {
+      cy.contains('Cancel').click()
+      cy.logAddresses()
       cy.get('input[placeholder="Paste address"]').type(this.users.validUsers[3].plainBTCaddress)
       cy.contains('Bitcoin').click()
       cy

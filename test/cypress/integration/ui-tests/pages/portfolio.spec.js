@@ -47,6 +47,7 @@ describe('Portfolio Test', () => {
     cy
       .get('[data-cy=no-funds-alert]')
       .should('not.be.visible')
+    cy.logAddresses()
   })
 
   it('portfolio has send function which opens modal', function () {
