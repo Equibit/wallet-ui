@@ -12,6 +12,15 @@ defaults: &defaults
     firefox: "latest"
     chrome: "stable"
   services: mongodb
+  install:
+    - yarn
+  script:
+    - sudo sh -c "dbus-uuidgen > /etc/machine-id"
+    - yarn run $TEST_SUITE
+  after_script:
+    - kill $(jobs -p) || true
+    - sudo service mongodb stop
+before: &before
   before_install:
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
@@ -29,23 +38,18 @@ defaults: &defaults
     # Wait for server to start
     - "sleep 5"
     - "cd .."
-  install:
-    - yarn
-  script:
-    - sudo sh -c "dbus-uuidgen > /etc/machine-id"
-    - yarn run $TEST_SUITE
-  after_script:
-    - kill $(jobs -p) || true
-    - sudo service mongodb stop
 jobs:
   include:
+  # Parallel testing suites - 1 for transactions, 1 for all other e2e, 1 for unit tests
     - stage: Testing
       env:
         - TEST_SUITE=cypress-transactions
+      <<: *before
       <<: *defaults
     - stage: Testing
       env:
         - TEST_SUITE=cypress-test
+      <<: *before
       <<: *defaults
     - stage: Testing
       env:
