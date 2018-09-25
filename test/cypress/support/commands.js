@@ -98,16 +98,16 @@ Cypress.Commands.add('goTo', (page) => {
 
 /* Utility Commands */
 // Takes a screenshot of the user's addresses
-Cypress.Commands.add('logAddresses', () => {
+Cypress.Commands.add('logAddresses', (user) => {
   Cypress.log({
     name: 'logAddresses'
   })
   cy.url().should('contain', 'portfolio')
   cy.contains('Receive').click()
-  cy.screenshot('user-addresses')
+  cy.screenshot(`${user.email}-addresses`)
   cy.contains('Done').click()
   cy.wait(3000)
-  cy.screenshot('user-portfolio')
+  cy.screenshot(`${user.email}-portfolio`)
 })
 
 // Send funds to user's addresses
@@ -126,8 +126,6 @@ Cypress.Commands.add('addFunds', (type) => {
       cy.logout()
       cy.fixture('users').as('users').then(users => {
         cy.login(users.validUsers[3])
-        cy.wait(3000)
-        cy.screenshot('transactions-portfolio')
         cy.contains('Send')
           .click()
         cy.get('input[placeholder="Paste address"]').type(eqbAddress)
@@ -146,8 +144,6 @@ Cypress.Commands.add('addFunds', (type) => {
       cy.logout()
       cy.fixture('users').as('users').then(users => {
         cy.login(users.validUsers[3])
-        cy.wait(3000)
-        cy.screenshot('transactions-portfolio')
         cy.contains('Send')
           .click()
         cy.get('input[placeholder="Paste address"]').type(btcAddress)
@@ -175,7 +171,7 @@ Cypress.Commands.add('checkFunds', (user, type) => {
   cy.login(user)
   cy.url().should('contain', 'portfolio')
   cy.wait(3000)
-  cy.screenshot(`${user.email}-portfolio`)
+  cy.screenshot(`${user.email}-funds`)
   cy.get(`[data-cy=${type}-balance]`).then(data => {
     const balance = data[0].innerHTML
     if (parseFloat(balance) <= 0.0003) {
