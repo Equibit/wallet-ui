@@ -137,7 +137,7 @@ Cypress.Commands.add('addFunds', (type) => {
           .click()
       })
     })
-  } else {
+  } else if (type === 'btc') {
     cy.get('[data-cy=btc-value]').then(address => {
       const btcAddress = address[0].value
       cy.contains('Done').click()
@@ -156,7 +156,6 @@ Cypress.Commands.add('addFunds', (type) => {
       })
     })
   }
-  cy.logout()
 })
 
 // Check user funds, but not transactions@evenset.com (the one providing funds)
@@ -169,16 +168,12 @@ Cypress.Commands.add('checkFunds', (user, type) => {
     return
   }
   cy.login(user)
-  cy.url().should('contain', 'portfolio')
-  cy.contains('Receive').click()
-  cy.screenshot(`${user.email}-addresses`)
-  cy.contains('Done').click()
-  cy.wait(5000)
-  cy.screenshot(`${user.email}-funds`)
+  cy.logAddresses(user)
   cy.get(`[data-cy=${type}-balance]`).then(data => {
     const balance = data[0].innerHTML
     if (parseFloat(balance) <= threshold) {
       cy.addFunds(type)
     }
   })
+  cy.logout()
 })
