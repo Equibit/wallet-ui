@@ -423,29 +423,24 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
   balance: {
     get (val, resolve) {
+      let currentBalance = {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0, total: 0}
       if (val) {
-        return val
+        return val || currentBalance
       }
 
-      const utxos = this.utxoByTypeByAddress
-      const emptyBalance = {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0, total: 0}
       const user = Session.current.user
-      const cached = JSON.parse(window.localStorage.getItem(user.hashedEmail))
-      const localBalance = cached && cached.balance
-      // Check if balance is saved in localStorage and utxo addresses are resolved OR if the addresses object for both BTC and EQB are not empty
-      if (localBalance !== null && (!utxos || (Object.keys(utxos.EQB.addresses).length === 0 && Object.keys(utxos.BTC.addresses).length === 0))) {
-        const decryptBalance = user.decrypt(localBalance)
-        return !decryptBalance ? emptyBalance : JSON.parse(decryptBalance)
-      }
+      const cached = window.localStorage.getItem(user.hashedEmail)
+      const localBalance = cached && JSON.parse(cached).balance
 
-      if (!utxos) {
-        console.log('portfolio.balance is undefined - no utxo yet...')
-        return emptyBalance
+      if (localBalance !== null) {
+        currentBalance = JSON.parse(user.decrypt(localBalance)) || emptyBalance
       }
-
+      
       this.balancePromise.then(bal => {
         resolve && resolve(bal)
       })
+
+      return currentBalance
     }
   },
 
