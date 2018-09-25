@@ -96,7 +96,8 @@ Cypress.Commands.add('goTo', (page) => {
   cy.url().should('contain', `${page}`)
 })
 
-// Utility command to log eqb and btc addresses of users
+/* Utility Commands */
+// Log eqb and btc addresses of users
 Cypress.Commands.add('logAddresses', () => {
   Cypress.log({
     name: 'logAddresses'
@@ -116,4 +117,53 @@ Cypress.Commands.add('logAddresses', () => {
 
   // Force failure to be able to see the logs
   cy.contains('FAIL', {timeout: 10000})
+})
+
+// Send funds to user's addresses
+Cypress.Commands.add('addFunds', (user, type) => {
+
+  cy.login(user)
+  cy.url().should('contain', 'portfolio')
+
+  cy.contains('Receive')
+    .click()
+
+  if (type === 'eqb') {
+    cy.get('[data-cy=eqb-value]').then(address => {
+      const eqbAddress = address[0].value
+      cy.logout()
+      cy.fixture('users').as('users').then(users => {
+        cy.login(users.validUsers[3])
+        cy.contains('Send')
+          .click()
+        cy.get('input[placeholder="Paste address"]').type(eqbAddress)
+        cy.contains('Equibit').click()
+        cy.get('input[type="number"]')
+          .type('.0002')
+        cy.contains('Next').click()
+        cy.get('[data-cy=send-button]')
+          .click()
+        cy.logout()
+      })
+    })
+  } else {
+    cy.get('[data-cy=btc-value]').then(address => {
+      const btcAddress = address[0].value
+      cy.logout()
+      cy.fixture('users').as('users').then(users => {
+        cy.login(users.validUsers[3])
+        cy.contains('Send')
+          .click()
+        cy.get('input[placeholder="Paste address"]').type(btcAddress)
+        cy.contains('Bitcoin').click()
+        cy
+          .get('input[type="number"]')
+          .type('.0002')
+        cy.contains('Next').click()
+        cy.get('[data-cy=send-button]')
+          .click()
+        cy.logout()
+      })
+    })
+  }
 })
