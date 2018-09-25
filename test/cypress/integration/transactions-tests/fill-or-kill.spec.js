@@ -4,12 +4,15 @@ import * as helper from '../../support/utils/trade-helpers'
 // NOTE: These tests only create FOK orders and complete FOK trades.
 // This means that once in a while when the tests fail, the btc/eqb blocks will
 // need to be mined otherwise mempool error will occur.
-describe.skip('Fill or Kill Test', () => {
+describe('Fill or Kill Test', () => {
   beforeEach(() => {
     cy.clearNotifications()
     cy.clearOrdersAndOffers()
     cy.loginQA()
-    cy.fixture('users').as('users')
+    cy.fixture('users').as('users').then(users => {
+      cy.addFunds(users.validUsers[0], 'eqb')
+      cy.addFunds(users.validUsers[1], 'btc')
+    })
   })
 
   it('Fill or Kill sell order', function () {

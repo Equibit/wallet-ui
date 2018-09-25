@@ -6,7 +6,7 @@ describe('Transfer Funds Test', () => {
 
   describe('With funds', () => {
     beforeEach(function () {
-      // user 0 (sender/seller) and 2 (receiver/buyer) have funds, user 1 does not
+      // user 0 (sender/seller) and 1 (receiver/buyer) have funds, user 2 does not
       cy.login(this.users.validUsers[0])
       cy.clearNotifications()
       cy.contains('Send').click()

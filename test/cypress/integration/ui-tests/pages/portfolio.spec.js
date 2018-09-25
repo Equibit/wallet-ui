@@ -18,9 +18,7 @@ describe('Portfolio Test', () => {
   })
 
   it('user has portfolio', function () {
-    cy.addFunds(this.users.validUsers[0], 'eqb')
     cy.login(this.users.validUsers[0])
-    cy.logAddresses()
 
     cy.url().should('contain', '/portfolio')
     cy
@@ -41,9 +39,7 @@ describe('Portfolio Test', () => {
   })
 
   it('user has EQB', function () {
-    cy.addFunds(this.users.validUsers[0], 'btc')
     cy.login(this.users.validUsers[3])
-    cy.logAddresses()
 
     cy.url().should('contain', '/portfolio')
     cy
