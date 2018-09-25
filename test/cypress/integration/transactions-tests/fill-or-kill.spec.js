@@ -20,7 +20,7 @@ describe('Fill or Kill Test', () => {
 
   it('Fill or Kill sell order', function () {
     cy.login(this.users.validUsers[0])
-    cy.logAddresses()
+    cy.logAddresses(this.users.validUsers[0])
     helper.goToEquibitPage()
 
     // 1. Place Sell Order
@@ -40,7 +40,7 @@ describe('Fill or Kill Test', () => {
 
     // 2. Place Buy Offer & Send Payment - check message
     cy.login(this.users.validUsers[1])
-    cy.logAddresses()
+    cy.logAddresses(this.users.validUsers[1])
     helper.goToEquibitPage()
 
     cy.get('[data-cy=sell-order-row]')
