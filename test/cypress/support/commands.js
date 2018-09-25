@@ -126,6 +126,7 @@ Cypress.Commands.add('addFunds', (type) => {
       cy.logout()
       cy.fixture('users').as('users').then(users => {
         cy.login(users.validUsers[3])
+        cy.logAddresses(users.validUsers[3])
         cy.contains('Send')
           .click()
         cy.get('input[placeholder="Paste address"]').type(eqbAddress)
