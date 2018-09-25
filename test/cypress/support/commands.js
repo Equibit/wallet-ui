@@ -131,6 +131,7 @@ Cypress.Commands.add('addFunds', (user, type) => {
   if (type === 'eqb') {
     cy.get('[data-cy=eqb-value]').then(address => {
       const eqbAddress = address[0].value
+      cy.contains('Done').click()
       cy.logout()
       cy.fixture('users').as('users').then(users => {
         cy.login(users.validUsers[3])
@@ -139,7 +140,7 @@ Cypress.Commands.add('addFunds', (user, type) => {
         cy.get('input[placeholder="Paste address"]').type(eqbAddress)
         cy.contains('Equibit').click()
         cy.get('input[type="number"]')
-          .type('.0002')
+          .type('.0003')
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
           .click()
@@ -149,6 +150,7 @@ Cypress.Commands.add('addFunds', (user, type) => {
   } else {
     cy.get('[data-cy=btc-value]').then(address => {
       const btcAddress = address[0].value
+      cy.contains('Done').click()
       cy.logout()
       cy.fixture('users').as('users').then(users => {
         cy.login(users.validUsers[3])
@@ -158,7 +160,7 @@ Cypress.Commands.add('addFunds', (user, type) => {
         cy.contains('Bitcoin').click()
         cy
           .get('input[type="number"]')
-          .type('.0002')
+          .type('.0003')
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
           .click()
@@ -166,4 +168,5 @@ Cypress.Commands.add('addFunds', (user, type) => {
       })
     })
   }
+  cy.logout()
 })
