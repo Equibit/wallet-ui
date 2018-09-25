@@ -164,6 +164,8 @@ describe('Transfer Funds Test', () => {
 
       cy.logout()
       cy.login(this.users.validUsers[3])
+      cy.wait(3000)
+      cy.screenshot('transactions-portfolio-btc')
 
       cy
         .get('[data-cy=notification-icon]')
