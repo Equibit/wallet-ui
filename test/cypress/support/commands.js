@@ -97,6 +97,17 @@ Cypress.Commands.add('goTo', (page) => {
 })
 
 /* Utility Commands */
+// Takes a screenshot of the user's addresses
+Cypress.Commands.add('logAddresses', () => {
+  Cypress.log({
+    name: 'logAddresses'
+  })
+  cy.url().should('contain', 'portfolio')
+  cy.contains('Receive').click()
+  cy.screenshot(`${user.email}-addresses`)
+  cy.contains('Done').click()
+})
+
 // Send funds to user's addresses
 Cypress.Commands.add('addFunds', (type) => {
   Cypress.log({
