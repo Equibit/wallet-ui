@@ -106,6 +106,8 @@ Cypress.Commands.add('logAddresses', () => {
   cy.contains('Receive').click()
   cy.screenshot('user-addresses')
   cy.contains('Done').click()
+  cy.wait(3000)
+  cy.screenshot('user-portfolio')
 })
 
 // Send funds to user's addresses
