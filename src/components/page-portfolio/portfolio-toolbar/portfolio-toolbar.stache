@@ -6,8 +6,9 @@
       <label>{{i18n('balance')}}</label> 
       <span class="balance">{{user-units(balance, 8)}} <small>BTC</small></span> 
       {{#if isSyncingBalance}}
-        <div class="icon icon-refresh spin-effect sync-indication-icon"></div> 
-        {{! <span class="sync-indication-text">syncing</span>  }}
+        <div class="sync-balance">
+          <div class="icon icon-refresh spin-effect sync-indication-icon"></div>
+        </div> 
       {{/if}}
     </p>
 

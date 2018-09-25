@@ -24,7 +24,6 @@
     <h1 class="panel-title" data-cy="my-portfolio">{{i18n('myPortfolio')}}</h1>
   </div>
 
-<a on:click="syncBalance()">SYNC</a>
   <portfolio-toolbar balance:from="portfolio.balance.total"
                      isSending:from="isSending"
                      sendFundsPopup:to="isSendFundsPopup"
