@@ -123,6 +123,8 @@ Cypress.Commands.add('logAddresses', () => {
 Cypress.Commands.add('addFunds', (user, type) => {
   cy.login(user)
   cy.url().should('contain', 'portfolio')
+  cy.wait(1000)
+  cy.screenshot(`${user.email}-portfolio`)
 
   cy.contains('Receive')
     .click()
@@ -143,6 +145,8 @@ Cypress.Commands.add('addFunds', (user, type) => {
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
           .click()
+        cy.wait(1000)
+        cy.screenshot('transactions-portfolio')
       })
     })
   } else {
@@ -161,6 +165,8 @@ Cypress.Commands.add('addFunds', (user, type) => {
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
           .click()
+        cy.wait(1000)
+        cy.screenshot('transactions-portfolio')
       })
     })
   }

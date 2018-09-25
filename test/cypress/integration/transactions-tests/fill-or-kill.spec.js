@@ -17,7 +17,6 @@ describe('Fill or Kill Test', () => {
 
   it('Fill or Kill sell order', function () {
     cy.login(this.users.validUsers[0])
-    cy.screenshot('test-portfolio')
     helper.goToEquibitPage()
 
     // 1. Place Sell Order
@@ -37,7 +36,6 @@ describe('Fill or Kill Test', () => {
 
     // 2. Place Buy Offer & Send Payment - check message
     cy.login(this.users.validUsers[1])
-    cy.screenshot('test3-portfolio')
     helper.goToEquibitPage()
 
     cy.get('[data-cy=sell-order-row]')
