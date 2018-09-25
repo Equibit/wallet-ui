@@ -104,7 +104,7 @@ Cypress.Commands.add('logAddresses', () => {
   })
   cy.url().should('contain', 'portfolio')
   cy.contains('Receive').click()
-  cy.screenshot(`${user.email}-addresses`)
+  cy.screenshot('user-addresses')
   cy.contains('Done').click()
 })
 
