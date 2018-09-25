@@ -126,7 +126,6 @@ Cypress.Commands.add('addFunds', (type) => {
       cy.logout()
       cy.fixture('users').as('users').then(users => {
         cy.login(users.validUsers[3])
-        cy.logAddresses(users.validUsers[3])
         cy.contains('Send')
           .click()
         cy.get('input[placeholder="Paste address"]').type(eqbAddress)
@@ -169,7 +168,6 @@ Cypress.Commands.add('checkFunds', (user, type) => {
     return
   }
   cy.login(user)
-  cy.logAddresses(user)
   cy.get(`[data-cy=${type}-balance]`).then(data => {
     const balance = data[0].innerHTML
     if (parseFloat(balance) <= threshold) {
