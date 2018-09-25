@@ -39,7 +39,6 @@ describe('Portfolio Test', () => {
 
   it('user has EQB', function () {
     cy.login(this.users.validUsers[0])
-    cy.logAddresses()
     cy.url().should('contain', '/portfolio')
     cy
       .get('[data-cy=loading-overlay]')
