@@ -97,34 +97,11 @@ Cypress.Commands.add('goTo', (page) => {
 })
 
 /* Utility Commands */
-// Log eqb and btc addresses of users
-Cypress.Commands.add('logAddresses', () => {
-  Cypress.log({
-    name: 'logAddresses'
-  })
-
-  cy.url().should('contain', 'portfolio')
-
-  cy.contains('Receive')
-    .click()
-
-  cy.get('[data-cy=eqb-value]').then(address => {
-    cy.log('EQB: ' + address[0].value)
-  })
-  cy.get('[data-cy=btc-value]').then(address => {
-    cy.log('BTC: ' + address[0].value)
-  })
-
-  // Force failure to be able to see the logs
-  cy.contains('FAIL', {timeout: 10000})
-})
-
 // Send funds to user's addresses
-Cypress.Commands.add('addFunds', (user, type) => {
-  cy.login(user)
-  cy.url().should('contain', 'portfolio')
-  cy.wait(5000)
-  cy.screenshot(`${user.email}-portfolio`)
+Cypress.Commands.add('addFunds', (type) => {
+  Cypress.log({
+    name: 'addFunds'
+  })
 
   cy.contains('Receive')
     .click()
@@ -141,7 +118,7 @@ Cypress.Commands.add('addFunds', (user, type) => {
         cy.get('input[placeholder="Paste address"]').type(eqbAddress)
         cy.contains('Equibit').click()
         cy.get('input[type="number"]')
-          .type('.0003')
+          .type('.01')
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
           .click()
@@ -161,7 +138,7 @@ Cypress.Commands.add('addFunds', (user, type) => {
         cy.get('input[placeholder="Paste address"]').type(btcAddress)
         cy.contains('Bitcoin').click()
         cy.get('input[type="number"]')
-          .type('.0003')
+          .type('.01')
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
           .click()
@@ -171,4 +148,25 @@ Cypress.Commands.add('addFunds', (user, type) => {
     })
   }
   cy.logout()
+})
+
+// Check user funds, but not transactions@evenset.com (the one providing funds)
+Cypress.Commands.add('checkFunds', (user, type) => {
+  Cypress.log({
+    name: 'checkFunds'
+  })
+
+  if (user.email === 'transactions@evenset.com') {
+    return
+  }
+  cy.login(user)
+  cy.url().should('contain', 'portfolio')
+  cy.wait(5000)
+  cy.screenshot(`${user.email}-portfolio`)
+  cy.get(`[data-cy=${type}-balance]`).then(data => {
+    const balance = data[0].innerHTML
+    if (parseFloat(balance) <= 0.0003) {
+      cy.addFunds(user, type)
+    }
+  })
 })

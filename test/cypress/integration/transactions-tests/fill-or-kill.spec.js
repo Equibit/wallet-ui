@@ -10,8 +10,11 @@ describe('Fill or Kill Test', () => {
     cy.clearOrdersAndOffers()
     cy.loginQA()
     cy.fixture('users').as('users').then(users => {
-      cy.addFunds(users.validUsers[0], 'eqb')
-      cy.addFunds(users.validUsers[1], 'btc')
+      // before each transaction test, check that the accounts have funds
+      cy.checkFunds(users.validUsers[0], 'eqb')
+      cy.checkFunds(users.validUsers[0], 'btc')
+      cy.checkFunds(users.validUsers[1], 'eqb')
+      cy.checkFunds(users.validUsers[1], 'btc')
     })
   })
 
