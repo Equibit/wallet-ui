@@ -40,6 +40,7 @@ describe('Portfolio Test', () => {
 
   it('user has EQB', function () {
     cy.login(this.users.validUsers[3])
+    cy.screenshot('transactions-portfolio')
 
     cy.url().should('contain', '/portfolio')
     cy
