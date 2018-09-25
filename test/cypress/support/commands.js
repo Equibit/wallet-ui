@@ -113,6 +113,8 @@ Cypress.Commands.add('addFunds', (type) => {
       cy.logout()
       cy.fixture('users').as('users').then(users => {
         cy.login(users.validUsers[3])
+        cy.wait(3000)
+        cy.screenshot('transactions-portfolio')
         cy.contains('Send')
           .click()
         cy.get('input[placeholder="Paste address"]').type(eqbAddress)
@@ -122,8 +124,6 @@ Cypress.Commands.add('addFunds', (type) => {
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
           .click()
-        cy.wait(1000)
-        cy.screenshot('transactions-portfolio')
       })
     })
   } else {
@@ -133,6 +133,8 @@ Cypress.Commands.add('addFunds', (type) => {
       cy.logout()
       cy.fixture('users').as('users').then(users => {
         cy.login(users.validUsers[3])
+        cy.wait(3000)
+        cy.screenshot('transactions-portfolio')
         cy.contains('Send')
           .click()
         cy.get('input[placeholder="Paste address"]').type(btcAddress)
@@ -142,8 +144,6 @@ Cypress.Commands.add('addFunds', (type) => {
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
           .click()
-        cy.wait(1000)
-        cy.screenshot('transactions-portfolio')
       })
     })
   }
@@ -161,7 +161,7 @@ Cypress.Commands.add('checkFunds', (user, type) => {
   }
   cy.login(user)
   cy.url().should('contain', 'portfolio')
-  cy.wait(5000)
+  cy.wait(3000)
   cy.screenshot(`${user.email}-portfolio`)
   cy.get(`[data-cy=${type}-balance]`).then(data => {
     const balance = data[0].innerHTML
