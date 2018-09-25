@@ -45,7 +45,6 @@ describe('Portfolio Test', () => {
     cy.login(this.users.validUsers[3])
     cy.logAddresses()
 
-
     cy.url().should('contain', '/portfolio')
     cy
       .get('[data-cy=loading-overlay]')

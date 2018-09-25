@@ -121,7 +121,6 @@ Cypress.Commands.add('logAddresses', () => {
 
 // Send funds to user's addresses
 Cypress.Commands.add('addFunds', (user, type) => {
-
   cy.login(user)
   cy.url().should('contain', 'portfolio')
 
@@ -158,8 +157,7 @@ Cypress.Commands.add('addFunds', (user, type) => {
           .click()
         cy.get('input[placeholder="Paste address"]').type(btcAddress)
         cy.contains('Bitcoin').click()
-        cy
-          .get('input[type="number"]')
+        cy.get('input[type="number"]')
           .type('.0003')
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
