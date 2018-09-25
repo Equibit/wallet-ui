@@ -1,7 +1,11 @@
 import 'steal-mocha'
-import assert from 'chai/chai'
+import { assert, expect } from 'chai'
 import { ViewModel } from './orders-grid'
 import Order from '~/models/order'
+import Session from '~/models/session'
+import '~/models/mock/mock-session'
+import userMock from '~/models/mock/mock-user'
+import portfolio from '~/models/mock/mock-portfolio'
 
 // ViewModel unit tests
 describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
@@ -75,20 +79,54 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
     })
   })
 
-  it('whyUserCantOffer picks popup correctly', function (done) {
+  it('whyUserCantOffer detects a not logged in user', function async (done) {
     const vm = new ViewModel({
       type: 'SELL',
       issuanceAddress: 'baadf00d',
-      session: 
     })
+
+    expect(vm.marketWidth).to.deep.equal([], 'Market widths is an empty array before rows are loaded')
     vm.on('rows', () => {
-      console.log(vm.whyUserCantOffer(vm.rows[0]))
-      console.log(vm.whyUserCantOffer(vm.rows[1]))
-      console.log(vm.whyUserCantOffer(vm.rows[2]))
-      assert.equal(vm.whyUserCantOffer(vm.rows[0]), 'Not logged in')
-      // assert.equal(vm.whyUserCantOffer(vm.rows[1]), '')
-      // assert.equal(vm.whyUserCantOffer(vm.rows[2]), '')
-      done()
+      vm.rows.forEach(row => {
+        expect(vm.whyUserCantOffer(row)).to.equal('Not logged in')
+      })
     })
+    done()
+  })
+
+  it('whyUserCantOffer allows buy request from user with sufficient funds', function (done) {
+    const vm = new ViewModel({
+      type: 'SELL',
+      issuanceAddress: 'baadf00d',
+      session: Session.current
+    })
+
+    expect(vm.marketWidth).to.deep.equal([], 'Market widths is an empty array before rows are loaded')
+    vm.on('rows', () => {
+      vm.rows.forEach(row => {
+        expect(vm.whyUserCantOffer(row)).to.equal(null)
+      })
+    })
+    done()
+  })
+
+  it('whyUserCantOffer rejects buy request from user with insufficient funds', function (done) {
+    const vm = new ViewModel({
+      type: 'SELL',
+      issuanceAddress: 'baadf00d',
+      session: new Session({
+        user: userMock,
+        portfolios: [portfolio],
+        balance: {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0, total: 0}
+      })
+    })
+
+    expect(vm.marketWidth).to.deep.equal([], 'Market widths is an empty array before rows are loaded')
+    vm.on('rows', () => {
+      vm.rows.forEach(row => {
+        expect(vm.whyUserCantOffer(row)).to.equal('No funds')
+      })
+    })
+    done()
   })
 })
