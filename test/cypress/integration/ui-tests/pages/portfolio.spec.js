@@ -19,7 +19,6 @@ describe('Portfolio Test', () => {
 
   it('user has portfolio', function () {
     cy.login(this.users.validUsers[0])
-    cy.logAddresses(this.users.validUsers[0])
 
     cy.url().should('contain', '/portfolio')
     cy
@@ -41,7 +40,6 @@ describe('Portfolio Test', () => {
 
   it('user has EQB', function () {
     cy.login(this.users.validUsers[3])
-    cy.logAddresses(this.users.validUsers[3])
 
     cy.url().should('contain', '/portfolio')
     cy
@@ -55,7 +53,6 @@ describe('Portfolio Test', () => {
 
   it('portfolio has send function which opens modal', function () {
     cy.login(this.users.validUsers[1])
-    cy.logAddresses(this.users.validUsers[1])
     cy.url().should('contain', '/portfolio')
     cy
       .contains('Send')

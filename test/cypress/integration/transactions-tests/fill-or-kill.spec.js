@@ -5,10 +5,7 @@ import * as helper from '../../support/utils/trade-helpers'
 // This means that once in a while when the tests fail, the btc/eqb blocks will
 // need to be mined otherwise mempool error will occur.
 describe('Fill or Kill Test', () => {
-  beforeEach(() => {
-    cy.clearNotifications()
-    cy.clearOrdersAndOffers()
-    cy.loginQA()
+  before(() => {
     cy.fixture('users').as('users').then(users => {
       // before each transaction test, check that the accounts have funds
       cy.checkFunds(users.validUsers[0], 'eqb')
@@ -16,6 +13,13 @@ describe('Fill or Kill Test', () => {
       cy.checkFunds(users.validUsers[1], 'eqb')
       cy.checkFunds(users.validUsers[1], 'btc')
     })
+  })
+
+  beforeEach(() => {
+    cy.clearNotifications()
+    cy.clearOrdersAndOffers()
+    cy.loginQA()
+    cy.fixture('users').as('users')
   })
 
   it('Fill or Kill sell order', function () {

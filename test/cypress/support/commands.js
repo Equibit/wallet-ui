@@ -106,7 +106,7 @@ Cypress.Commands.add('logAddresses', (user) => {
   cy.contains('Receive').click()
   cy.screenshot(`${user.email}-addresses`)
   cy.contains('Done').click()
-  cy.wait(3000)
+  cy.wait(5000)
   cy.screenshot(`${user.email}-portfolio`)
 })
 
@@ -173,7 +173,7 @@ Cypress.Commands.add('checkFunds', (user, type) => {
   cy.contains('Receive').click()
   cy.screenshot(`${user.email}-addresses`)
   cy.contains('Done').click()
-  cy.wait(3000)
+  cy.wait(5000)
   cy.screenshot(`${user.email}-funds`)
   cy.get(`[data-cy=${type}-balance]`).then(data => {
     const balance = data[0].innerHTML
