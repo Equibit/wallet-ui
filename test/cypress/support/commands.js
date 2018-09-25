@@ -164,18 +164,21 @@ Cypress.Commands.add('checkFunds', (user, type) => {
   Cypress.log({
     name: 'checkFunds'
   })
-
+  const threshold = 0.0003
   if (user.email === 'transactions@evenset.com') {
     return
   }
   cy.login(user)
   cy.url().should('contain', 'portfolio')
+  cy.contains('Receive').click()
+  cy.screenshot(`${user.email}-addresses`)
+  cy.contains('Done').click()
   cy.wait(3000)
   cy.screenshot(`${user.email}-funds`)
   cy.get(`[data-cy=${type}-balance]`).then(data => {
     const balance = data[0].innerHTML
-    if (parseFloat(balance) <= 0.0003) {
-      cy.addFunds(user, type)
+    if (parseFloat(balance) <= threshold) {
+      cy.addFunds(type)
     }
   })
 })
