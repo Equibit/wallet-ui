@@ -143,7 +143,6 @@ Cypress.Commands.add('addFunds', (user, type) => {
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
           .click()
-        cy.logout()
       })
     })
   } else {
@@ -162,7 +161,6 @@ Cypress.Commands.add('addFunds', (user, type) => {
         cy.contains('Next').click()
         cy.get('[data-cy=send-button]')
           .click()
-        cy.logout()
       })
     })
   }
