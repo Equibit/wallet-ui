@@ -15,22 +15,30 @@
             "id": 0,
             "email": "test@evenset.com",
             "password": "SpicyTunaMayo",
-            "plainEQBaddress": "mjojodMAFqDJdFi1fqtL2CZGkdKvtmL7Gt",
-            "plainBTCaddress": "mn8deHoEvsiMffEWwQ9w8qDycCX1NxYsfY"
+            "seededEQBaddress": "mwGxaTgWApi1jyBRn5GhTzG63tuTUy9hMz",
+            "seededBTCaddress": "mnShg49dkHiVi9TpiNtJDFtMVp8G2F1WXA"
         },
         {
             "_status": "has funds, use as receiver/buyer",
             "id": 1,
             "email": "test3@evenset.com",
             "password": "SpicyTunaMayo",
-            "plainEQBaddress": "n4qmZnPrFAcwAtofPjXEaZutdE9scsg3iV",
-            "plainBTCaddress": "moBKnwf4tL52DbxbQ8RU1HQyuk9MU8SufP"
+            "seededEQBaddress": "n2tAEfXGofj8BdrWabaz4oLnBLveb24yro",
+            "seededBTCaddress": "mp9wgLnAgp4gjFcVAAkVhwf4nM64EjJ14j"
         },
         {
             "_status": "has no funds",
             "id": 2,
             "email": "test2@evenset.com",
             "password": "SpicyTunaMayo"
+        },
+        {
+            "_status": "for transactions/transfers",
+            "id": 3,
+            "email": "transactions@evenset.com",
+            "password": "SpicyTunaMayo",
+            "plainEQBaddress": "mhmBrvKXL3SgXnAysRo2qc3FErKc835s25",
+            "plainBTCaddress": "mrXi58SBgssEYo2jf4aE3btp5PG354GZmX"
         }
         
     ],
@@ -54,5 +62,11 @@
         "validPhrase": "swift rapid guide holiday artwork other super shed yard edit join fence",
         "password": "SpicyTunaMayo",
         "newPassword": "SpicyTunaMa"
+    },
+    "qaBankAccount": {
+        "id": 0,
+        "_comment": "change this to a real QA account that has money",
+        "email": "elliott@evenset.com",
+        "password": "password123"
     }
 }

@@ -18,7 +18,7 @@
 
           <label for="">{{i18n('addressDescriptionEQB')}}</label>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address.EQB">
+            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address.EQB" data-cy="eqb-value">
             <span class="input-group-btn">
               <button class="btn btn-default" type="button" ($click)="copy('EQB')">
                 <span class="icon icon-copy"></span>
@@ -30,7 +30,7 @@
 
           <label for="">{{i18n('addressDescriptionBTC')}}</label>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address.BTC">
+            <input type="text" class="form-control" placeholder="{{i18n('pasteAddress')}}" readonly {($value)}="address.BTC" data-cy="btc-value">
             <span class="input-group-btn">
               <button class="btn btn-default" type="button" ($click)="copy('BTC')">
                 <span class="icon icon-copy"></span>
