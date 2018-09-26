@@ -9,7 +9,7 @@ describe('Fill or Kill Test', () => {
     it('loads test@evenset and test3@evenset from QA', () => {
       cy.fixture('users').as('users').then(users => {
       // Visit live QA website and login with existing user who has funds
-        cy.visit('https://qa-wallet.equibitgroup.com/')
+        cy.visit('https://qa-wallet.equibitgroup.com')
         cy.get('input[type="password"]')
           .type(Cypress.env('HTTP_PASSWORD'))
         cy.get('button[type="submit"]')
