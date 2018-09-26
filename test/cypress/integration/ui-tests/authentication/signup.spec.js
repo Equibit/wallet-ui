@@ -30,14 +30,14 @@ describe('Signup Test', () => {
 
   it('must read and agree to T&C and Privacy Policy', function () {
     cy
-        .get('input[type="email"]')
-        .type(this.users.signup.email)
+      .get('input[type="email"]')
+      .type(this.users.signup.email)
     cy
-        .get('button[type="submit"]')
-        .click()
+      .get('button[type="submit"]')
+      .click()
     cy
-        .contains('div', 'You need to read and agree to our Terms & Conditions and Privacy Policy')
-        .should('be.visible')
+      .contains('div', 'You need to read and agree to our Terms & Conditions and Privacy Policy')
+      .should('be.visible')
   })
 
   it('signup invalid temp password', function () {

@@ -26,7 +26,7 @@ describe('Transactions Page Test', () => {
       cy.fixture('users').as('users').then((users) => {
         cy.login(users.validUsers[0])
         cy.contains('Send').click()
-        cy.get('input[placeholder="Paste address"]').type(users.validUsers[1].plainEQBaddress)
+        cy.get('input[placeholder="Paste address"]').type(users.validUsers[3].plainEQBaddress)
         cy.contains('Equibit').click()
         cy.get('input[type="number"]')
           .type('.00001')
@@ -40,7 +40,7 @@ describe('Transactions Page Test', () => {
     beforeEach(() => {
       cy.loginQA()
       cy.fixture('users').as('users').then((users) => {
-        cy.login(users.validUsers[0])
+        cy.login(users.validUsers[3])
         cy.goTo('transactions')
       })
     })

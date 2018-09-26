@@ -20,7 +20,7 @@
             <td class="text-right funds-error">{{i18n('retrieveFundsError')}}</td>
             <td class="text-right funds-error">0</td>
           {{else}}
-            <td class="text-right">{{user-units(balance.cashBtc, 8)}}</td>
+            <td class="text-right" data-cy="btc-balance">{{user-units(balance.cashBtc, 8)}}</td>
             <td class="text-right">{{local-currency(balance.cashBtc, 'BTC')}}</td>
           {{/if}}
         </tr>
@@ -30,7 +30,7 @@
             <td class="text-right funds-error">{{i18n('retrieveFundsError')}}</td>
             <td class="text-right funds-error">0</td>
           {{else}}
-            <td class="text-right">{{user-units(balance.blankEqb, 8)}}</td>
+            <td class="text-right" data-cy="eqb-balance">{{user-units(balance.blankEqb, 8)}}</td>
             <td class="text-right">{{local-currency(balance.blankEqb, 'EQB')}}</td>
           {{/if}}
         </tr>

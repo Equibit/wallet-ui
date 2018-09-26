@@ -39,7 +39,8 @@
     "cypress-nobuild": "cypress run --browser chrome -e HTTP_PASSWORD=bullish",
     "cypress": "npm run build:test:cypress && cypress open -e HTTP_PASSWORD=bullish",
     "cypress-local": "npm run build:test:cypress && cypress run --browser chrome -e HTTP_PASSWORD=bullish",
-    "cypress-test": "npm run build:test:cypress && cypress run --browser chrome --record --key=a452942b-b549-4a49-b45c-51683d77b79c -e HTTP_PASSWORD=bullish --parallel"
+    "cypress-test": "npm run build:test:cypress && cypress run --browser chrome --record --key=a452942b-b549-4a49-b45c-51683d77b79c -e HTTP_PASSWORD=bullish --parallel --group independent-tests --spec 'test/cypress/integration/ui-tests/**/*'",
+    "cypress-transactions": "npm run build:test:cypress && cypress run --browser chrome --record --key=a452942b-b549-4a49-b45c-51683d77b79c -e HTTP_PASSWORD=bullish --parallel --group transactions-tests --spec 'test/cypress/integration/transactions-tests/*'"
   },
   "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
   "files": [
