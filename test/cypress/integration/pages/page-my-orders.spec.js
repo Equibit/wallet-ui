@@ -63,13 +63,16 @@ describe('My Orders Test', () => {
 
   describe('With Orders', () => {
     beforeEach(() => {
+      cy.clearOrdersAndOffers()
       cy.fixture('users').as('users').then(users => {
         cy.login(users.validUsers[1])
-        cy.goTo('orders')
       })
     })
 
-    it('greets user with placeholder and button to place an order when there are orders, but are not on the sell orders list', () => {
+    it('no orders on the sell orders list', () => {
+      cy.addOrders('buy')
+      cy.addOrders('archived')
+      cy.goTo('orders')
       cy.contains('h3', 'My Orders')
         .should('be.visible')
       cy.contains('div', 'Select an Order to See Details')
@@ -82,9 +85,44 @@ describe('My Orders Test', () => {
         .should('have.attr', 'href', '/equibit')
     })
 
-    it('user can cycle through order tabs that have orders', () => {
+    it('no orders on the buy orders list', () => {
+      cy.addOrders('sell')
+      cy.addOrders('archived')
+      cy.goTo('orders')
+      cy.contains('h3', 'My Orders')
+        .should('be.visible')
+      cy.contains('div', 'Select an Order to See Details')
+        .should('be.visible')
+      cy.contains('p', 'You can place orders from the equibit page.')
+        .should('be.visible')
+      cy.get('[data-cy=place-order-button]')
+        .should('be.visible')
+        .should('contain', 'Place an Order')
+        .should('have.attr', 'href', '/equibit')
+    })
+
+    it('no orders on the archived orders list', () => {
+      cy.addOrders('sell')
+      cy.addOrders('buy')
+      cy.goTo('orders')
+      cy.contains('h3', 'My Orders')
+        .should('be.visible')
+      cy.contains('div', 'Select an Order to See Details')
+        .should('be.visible')
+      cy.contains('p', 'You can place orders from the equibit page.')
+        .should('be.visible')
+      cy.get('[data-cy=place-order-button]')
+        .should('be.visible')
+        .should('contain', 'Place an Order')
+        .should('have.attr', 'href', '/equibit')
+    })
+
+    it('user can cycle through order tabs that have all have orders', () => {
+      cy.addOrders('all')
+      cy.goTo('orders')
+
         // TODO: check order details - need to create orders
-        cy.get('[data-cy=sell-tab]')
+      cy.get('[data-cy=sell-tab]')
         .should('have.class', 'active')
         .get('[data-cy=switch-sell]')
         .should('have.attr', 'on:click', "switchMode('SELL')")
