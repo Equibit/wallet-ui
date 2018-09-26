@@ -202,6 +202,7 @@ describe('Partial Sell Orders Test', () => {
     helper.sendMoney('Equibits')
     cy.get('[data-cy=accepted-offers-length]')
       .should('contain', '2')
+    cy.wait(1000)
     cy.logout()
 
       // 4. Collect Securities - check message
