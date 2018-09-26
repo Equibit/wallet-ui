@@ -136,3 +136,22 @@ export function checkDealClosed () {
     .get('[data-cy=notification-title]')
     .should('contain', 'Deal Closed')
 }
+
+// Send coins to an address
+export function sendFunds (address, type, amount) {
+  if (type === 'eqb') {
+    type = 'Equibit'
+  } else if (type === 'btc') {
+    type = 'Bitcoin'
+  }
+
+  cy.contains('Send')
+    .click()
+  cy.get('input[placeholder="Paste address"]').type(address)
+  cy.contains(type).click()
+  cy.get('input[type="number"]')
+    .type(amount)
+  cy.contains('Next').click()
+  cy.get('[data-cy=send-button]')
+    .click()
+}
