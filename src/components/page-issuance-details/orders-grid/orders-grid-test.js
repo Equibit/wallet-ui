@@ -26,7 +26,7 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
     Order.getList = oldGetList
   })
 
-  xit('Total reflects all orders', function (done) {
+  it('Total reflects all orders', function (done) {
     const vm = new ViewModel({ issuanceAddress: 'baadf00d' })
 
     assert.equal(vm.totalQuantity, 0, 'Total quantity is 0 before rows are loaded')
@@ -36,7 +36,7 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
     })
   })
 
-  xit('Market width (not left offset)', function (done) {
+  it('Market width (not left offset)', function (done) {
     const vm = new ViewModel({
       type: 'BUY',
       issuanceAddress: 'baadf00d'
@@ -49,7 +49,7 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
     })
   })
 
-  xit('Market width (left offset)', function (done) {
+  it('Market width (left offset)', function (done) {
     const vm = new ViewModel({
       issuanceAddress: 'baadf00d',
       type: 'SELL'
@@ -62,7 +62,7 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
     })
   })
 
-  xit('Market width changes with row update', function (done) {
+  it('Market width changes with row update', function (done) {
     const vm = new ViewModel({
       type: 'BUY',
       issuanceAddress: 'baadf00d'
