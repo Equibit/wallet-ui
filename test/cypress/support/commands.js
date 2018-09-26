@@ -97,7 +97,7 @@ Cypress.Commands.add('goTo', (page) => {
 })
 
 /* Utility Commands */
-// Takes a screenshot of the user's addresses
+// Takes a screenshot of the user's addresses - user needs to be logged in and on portfolio page
 Cypress.Commands.add('logAddresses', (user) => {
   Cypress.log({
     name: 'logAddresses'
