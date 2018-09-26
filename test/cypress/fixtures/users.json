@@ -34,7 +34,6 @@
         },
         {
             "_status": "for transactions/transfers",
-            "_comment": "this user is now acting as a bank distributing coins to the other users - if the other users run out of coins, you have to reload this account",
             "id": 3,
             "email": "transactions@evenset.com",
             "password": "SpicyTunaMayo",
