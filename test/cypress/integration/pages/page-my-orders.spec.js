@@ -25,7 +25,7 @@ describe('My Orders Test', () => {
         .should('have.attr', 'href', '/equibit')
     })
 
-    it('user can cycle through order tabs', () => {
+    it('user can cycle through empty order tabs', () => {
       cy.get('[data-cy=sell-tab]')
         .should('have.class', 'active')
         .get('[data-cy=switch-sell]')
@@ -73,6 +73,7 @@ describe('My Orders Test', () => {
       cy.addOrders('buy')
       cy.addOrders('archived')
       cy.goTo('orders')
+
       cy.contains('h3', 'My Orders')
         .should('be.visible')
       cy.contains('div', 'Select an Order to See Details')
@@ -89,8 +90,16 @@ describe('My Orders Test', () => {
       cy.addOrders('sell')
       cy.addOrders('archived')
       cy.goTo('orders')
+
       cy.contains('h3', 'My Orders')
         .should('be.visible')
+
+      cy.get('[data-cy=buy-tab]')
+        .should('not.have.class', 'active')
+        .get('[data-cy=switch-buy]')
+        .should('have.attr', 'on:click', "switchMode('BUY')")
+        .click()
+
       cy.contains('div', 'Select an Order to See Details')
         .should('be.visible')
       cy.contains('p', 'You can place orders from the equibit page.')
@@ -105,8 +114,16 @@ describe('My Orders Test', () => {
       cy.addOrders('sell')
       cy.addOrders('buy')
       cy.goTo('orders')
+
       cy.contains('h3', 'My Orders')
         .should('be.visible')
+      
+      cy.get('[data-cy=archived-tab]')
+        .should('not.have.class', 'active')
+        .get('[data-cy=switch-archived]')
+        .should('have.attr', 'on:click', "switchMode('ARCHIVE')")
+        .click()
+
       cy.contains('div', 'Select an Order to See Details')
         .should('be.visible')
       cy.contains('p', 'You can place orders from the equibit page.')
@@ -117,7 +134,7 @@ describe('My Orders Test', () => {
         .should('have.attr', 'href', '/equibit')
     })
 
-    it('user can cycle through order tabs that have all have orders', () => {
+    it('user can cycle through order tabs that all have orders', () => {
       cy.addOrders('all')
       cy.goTo('orders')
 
@@ -126,6 +143,7 @@ describe('My Orders Test', () => {
         .should('have.class', 'active')
         .get('[data-cy=switch-sell]')
         .should('have.attr', 'on:click', "switchMode('SELL')")
+      cy.get('[data-cy=order-item]').click({multiple: true})
 
       cy.get('[data-cy=buy-tab]')
         .should('not.have.class', 'active')
@@ -134,6 +152,7 @@ describe('My Orders Test', () => {
         .click()
       cy.get('[data-cy=buy-tab]')
         .should('have.class', 'active')
+      cy.get('[data-cy=order-item]').click({multiple: true})      
 
       cy.get('[data-cy=archived-tab]')
         .should('not.have.class', 'active')
@@ -142,6 +161,11 @@ describe('My Orders Test', () => {
         .click()
       cy.get('[data-cy=archived-tab]')
         .should('have.class', 'active')
+      cy.get('[data-cy=order-item]').click({multiple: true})
+    })
+
+    it('can cycle through orders pages with paginator', () => {
+      
     })
   })
 })
