@@ -69,8 +69,7 @@ describe('My Orders Test', () => {
       })
     })
 
-    it('no orders on the sell orders list', () => {
-      cy.addOrders('buy')
+    it('orders in archived orders list, no orders on the sell orders list', () => {
       cy.addOrders('archived')
       cy.goTo('orders')
 
@@ -86,9 +85,8 @@ describe('My Orders Test', () => {
         .should('have.attr', 'href', '/equibit')
     })
 
-    it('no orders on the buy orders list', () => {
+    it('orders in the sell orders list, no orders on the buy orders list', () => {
       cy.addOrders('sell')
-      cy.addOrders('archived')
       cy.goTo('orders')
 
       cy.contains('h3', 'My Orders')
@@ -110,9 +108,8 @@ describe('My Orders Test', () => {
         .should('have.attr', 'href', '/equibit')
     })
 
-    it('no orders on the archived orders list', () => {
+    it('orders in the sell orders list, no orders on the archived orders list', () => {
       cy.addOrders('sell')
-      cy.addOrders('buy')
       cy.goTo('orders')
 
       cy.contains('h3', 'My Orders')
@@ -145,19 +142,13 @@ describe('My Orders Test', () => {
         .should('have.attr', 'on:click', "switchMode('SELL')")
       cy.get('[data-cy=order-item]').click({multiple: true})
 
-      cy.get('[data-cy=buy-tab]')
-        .should('not.have.class', 'active')
-        .get('[data-cy=switch-buy]')
-        .should('have.attr', 'on:click', "switchMode('BUY')")
+      cy.get('[data-cy=switch-buy]')
         .click()
       cy.get('[data-cy=buy-tab]')
         .should('have.class', 'active')
       cy.get('[data-cy=order-item]').click({multiple: true})      
 
-      cy.get('[data-cy=archived-tab]')
-        .should('not.have.class', 'active')
-        .get('[data-cy=switch-archived]')
-        .should('have.attr', 'on:click', "switchMode('ARCHIVE')")
+      cy.get('[data-cy=switch-archived]')
         .click()
       cy.get('[data-cy=archived-tab]')
         .should('have.class', 'active')
@@ -165,7 +156,23 @@ describe('My Orders Test', () => {
     })
 
     it('can cycle through orders pages with paginator', () => {
-      
+      cy.addOrders('many')
+      cy.goTo('orders')
+
+      cy.get('[data-cy=paginator-1')
+        .should('have.class', 'active')
+      cy.get('[data-cy=paginator-2')
+        .should('be.visible')
+        .should('not.have.class', 'active')
+      cy.get('[data-cy=paginator-next').click()
+      cy.get('[data-cy=paginator-2')
+        .should('have.class', 'active')
+      cy.get('[data-cy=paginator-prev').click()
+      cy.get('[data-cy=paginator-2')
+        .should('not.have.class', 'active')
+        .click()
+      cy.get('[data-cy=paginator-2')
+        .should('have.class', 'active')
     })
   })
 })
