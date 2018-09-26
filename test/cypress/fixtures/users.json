@@ -63,5 +63,11 @@
         "validPhrase": "swift rapid guide holiday artwork other super shed yard edit join fence",
         "password": "SpicyTunaMayo",
         "newPassword": "SpicyTunaMa"
+    },
+    "qaBankAccount": {
+        "id": 0,
+        "_comment": "change this to a real QA account that has money",
+        "email": "elliott@evenset.com",
+        "password": "password123"
     }
 }
