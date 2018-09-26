@@ -36,7 +36,6 @@ describe('Fill or Kill Test', () => {
 
     it('Fill or Kill sell order', function () {
       cy.login(this.users.validUsers[0])
-      cy.logAddresses(this.users.validUsers[0])
       helper.goToEquibitPage()
 
       // 1. Place Sell Order
