@@ -33,7 +33,7 @@ export const ViewModel = DefineMap.extend({
   queryParams: {
     get () {
       let params = this.pagination.params
-      return Object.assign({securityType: 'equity'}, params)
+      return Object.assign({ securityType: 'equity' }, params)
     }
   },
   cancelFn: '*',

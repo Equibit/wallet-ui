@@ -55,17 +55,17 @@ export const ViewModel = DefineMap.extend({
         this.toStream('validate'),
         Kefir.constant({}).concat(this.toStream('.enteredWords add'))
       ],
-        (checkWords) => {
-          const enteredWords = this.enteredWords
-          return checkWords.values.map((word, index) => {
-            if (!enteredWords.get(index)) {
-              return 'recoveryPhraseWordMissing'
-            }
-            if (word !== enteredWords.get(index)) {
-              return 'recoveryPhraseWordIncorrect'
-            }
-          })
-        }
+      (checkWords) => {
+        const enteredWords = this.enteredWords
+        return checkWords.values.map((word, index) => {
+          if (!enteredWords.get(index)) {
+            return 'recoveryPhraseWordMissing'
+          }
+          if (word !== enteredWords.get(index)) {
+            return 'recoveryPhraseWordIncorrect'
+          }
+        })
+      }
       )
     }
   }

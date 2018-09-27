@@ -118,7 +118,7 @@ export const ViewModel = DefineMap.extend({
     this.isSending = true
     this.offer.timelock = this.formData.timelock
     this.offer.description = this.formData.description
-    this.transaction.rebuild({timelock: this.offer.timelock})
+    this.transaction.rebuild({ timelock: this.offer.timelock })
 
     this.sendFn(this.offer, this.transaction)
       .then(() => {

@@ -19,7 +19,7 @@ const PortfolioSecurity = DefineMap.extend('PortfolioSecurity', {
   companyName: 'string',
   companySlug: 'string',
   issuanceName: 'string',
-  securityType: 'string',   // ENUM ('equity', 'bond')
+  securityType: 'string', // ENUM ('equity', 'bond')
   quantity: 'number',
   cost: 'number',
   price: 'number',

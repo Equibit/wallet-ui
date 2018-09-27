@@ -17,7 +17,7 @@ if (transport === 'socketio') {
   var socket = io(api, {
     transports: ['websocket']
   })
-  feathersClient.configure(socketio(socket, {timeout: 60000}))
+  feathersClient.configure(socketio(socket, { timeout: 60000 }))
 }
 if (transport === 'rest') {
   feathersClient.configure(rest(api).jquery(jQuery))

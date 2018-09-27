@@ -25,7 +25,7 @@ describe('wallet-ui/src/components/common/list-paginator', function () {
   describe('.pagesToDisplay', function () {
     // Should look like e.g. [1, 2, 3] for length 3
     it('Less than or equal to max pages', function () {
-      var vm = new ViewModel({items: []})
+      var vm = new ViewModel({ items: [] })
       for (let i = 1; i <= vm.maxPaginatorLength; i++) {
         vm.items = vm.items.concat(new Array(vm.pageSize).fill({}))
         assert.deepEqual(vm.pagesToDisplay, new Array(i).fill(null).map((_, j) => j + 1), 'Correct sequence for ' + i)
@@ -33,7 +33,7 @@ describe('wallet-ui/src/components/common/list-paginator', function () {
     })
     // Should look like [1, 2, 3, 4, 5, null, 8] for max length 7
     it('More than max pages, current page at left bound', function () {
-      var vm = new ViewModel({items: []})
+      var vm = new ViewModel({ items: [] })
       vm.items = vm.items.concat(new Array(vm.pageSize * (vm.maxPaginatorLength + 1)).fill({}))
       for (let i = 1; i <= 3; i++) {
         vm.currentPageNumber = i
@@ -48,7 +48,7 @@ describe('wallet-ui/src/components/common/list-paginator', function () {
     })
     // Should look like [1, 2, 3, 4, 5, null, 8] for max length 7
     it('More than max pages, current page at right bound', function () {
-      var vm = new ViewModel({items: []})
+      var vm = new ViewModel({ items: [] })
       vm.items = vm.items.concat(new Array(vm.pageSize * (vm.maxPaginatorLength + 1)).fill({}))
       for (let i = vm.lastPageNumber - 2; i <= vm.lastPageNumber; i++) {
         vm.currentPageNumber = i
@@ -62,7 +62,7 @@ describe('wallet-ui/src/components/common/list-paginator', function () {
       }
     })
     it('More than max pages, current page in middle', function () {
-      var vm = new ViewModel({items: []})
+      var vm = new ViewModel({ items: [] })
       vm.items = vm.items.concat(new Array(vm.pageSize * (vm.maxPaginatorLength + 2)).fill({}))
       let i = Math.floor(vm.maxPaginatorLength / 2)
       vm.currentPageNumber = Math.floor(vm.lastPageNumber / 2)

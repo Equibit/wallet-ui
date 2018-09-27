@@ -25,10 +25,10 @@ function makeTransaction (
   const availableAmount = txouts.reduce((acc, a) => acc + a.amount, 0)
   // Note: the value is in Satoshi already:
   const outputs = [
-    {address: toAddress, value: toSatoshi(amount)}
+    { address: toAddress, value: toSatoshi(amount) }
   ]
   if (changeAddr) {
-    outputs.push({address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee)})
+    outputs.push({ address: changeAddr, value: toSatoshi(availableAmount) - toSatoshi(amount) - toSatoshi(fee) })
   } else {
     if (fee >= outputs[0].value) {
       fee = outputs[0].value - 1

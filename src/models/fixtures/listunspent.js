@@ -5,7 +5,7 @@ import fixture from 'can-fixture'
 fixture('GET /listunspent', function () {
   return {
     BTC: {
-      summary: {'total': 210000000},
+      summary: { 'total': 210000000 },
       addresses: {
         n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: {
           amount: 150000000,
@@ -37,7 +37,7 @@ fixture('GET /listunspent', function () {
       }
     },
     EQB: {
-      summary: {'total': 560000000},
+      summary: { 'total': 560000000 },
       addresses: {
         n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo: {
           amount: 340000000,

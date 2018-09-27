@@ -5,7 +5,7 @@ import feathersClient from './feathers-client'
 import { superModelNoCache as superModel } from './super-model'
 import algebra from './algebra'
 
-const BlockchainInfo = DefineMap.extend('BlockchainInfo', {seal: false}, {
+const BlockchainInfo = DefineMap.extend('BlockchainInfo', { seal: false }, {
   '__v': 'number',
   '_id': 'string',
   'bestblockhash': 'string',
@@ -13,7 +13,7 @@ const BlockchainInfo = DefineMap.extend('BlockchainInfo', {seal: false}, {
   'coinType': 'string',
   'difficulty': 'number',
   'errorMessage': 'string',
-  mode: 'string',   // enum: [ 'regtest', 'test', 'main', 'unknown' ]
+  mode: 'string', // enum: [ 'regtest', 'test', 'main', 'unknown' ]
   status: 'boolean',
   mediantime: 'number',
   feeRates: {
@@ -63,8 +63,8 @@ let singleton
 BlockchainInfo.infoBySymbol = function () {
   if (!singleton) {
     singleton = new DefineMap({
-      BTC: new this({coinType: 'BTC'}),
-      EQB: new this({coinType: 'EQB', sha: 'SHA3_256'}),
+      BTC: new this({ coinType: 'BTC' }),
+      EQB: new this({ coinType: 'EQB', sha: 'SHA3_256' }),
       isPending: true,
       promise: this.findAll().then(results => {
         results.forEach(result => {

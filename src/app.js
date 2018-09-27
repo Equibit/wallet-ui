@@ -139,11 +139,11 @@ const AppViewModel = DefineMap.extend({
   }
 })
 
-route('issuances/sort/{sort}', {page: 'issuances'})
-route('issuances/{companySlug}/{itemId}', {page: 'issuance-details'})
-route('signup/{refCode}', {page: 'signup'})
+route('issuances/sort/{sort}', { page: 'issuances' })
+route('issuances/{companySlug}/{itemId}', { page: 'issuance-details' })
+route('signup/{refCode}', { page: 'signup' })
 route('{page}/{itemId}')
-route('{page}', {page: 'login'})
+route('{page}', { page: 'login' })
 
 window.route = route
 

@@ -212,8 +212,8 @@ function createOrder (formData, type, addr, user, portfolio, assetType, issuance
     userId: user._id,
     type,
     assetType,
-    btcAddress: type === 'SELL' ? addr : '',            // to receive payment
-    eqbAddress: type === 'BUY' ? addr : '',             // will be populated when we create a transaction (from UTXO)
+    btcAddress: type === 'SELL' ? addr : '', // to receive payment
+    eqbAddress: type === 'BUY' ? addr : '', // will be populated when we create a transaction (from UTXO)
     portfolioId: portfolio._id,
     quantity: formData.quantity,
     // Note: the price is always in Satoshi (not in user units)!
@@ -261,8 +261,8 @@ function generateSecret () {
 function createHtlcOffer (order, secret, timelock, description, user, issuance, addrPair) {
   typeforce(typeforce.tuple(
     'Order', 'Buffer', 'Number', '?String', 'User', typeforce.maybe('Issuance'),
-    {EQB: types.Address, BTC: typeforce.maybe(types.Address)}),
-    arguments
+    { EQB: types.Address, BTC: typeforce.maybe(types.Address) }),
+  arguments
   )
   // Note: for Blank EQB trade there is no issuance.
   if (order.assetType === 'ISSUANCE') {
@@ -355,9 +355,9 @@ function markAsUsed (portfolio, offer) {
   // - offer.eqbAddress is where securities will be sent by seller
   // Note: change address is marked as used by placeOffer view model.
   [
-    {address: offer.btcAddress, currencyType: 'BTC', isChange: false},
-    {address: offer.eqbAddress, currencyType: 'EQB', isChange: false}
-  ].forEach(({address, currencyType, isChange}) => {
+    { address: offer.btcAddress, currencyType: 'BTC', isChange: false },
+    { address: offer.eqbAddress, currencyType: 'EQB', isChange: false }
+  ].forEach(({ address, currencyType, isChange }) => {
     portfolio.markAsUsed(address, currencyType, isChange)
   })
 }

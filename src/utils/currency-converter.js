@@ -11,7 +11,7 @@ const refreshTimeout = 5 * 60 * 1000
 function refreshFromService (symbol) {
   Observation.add(exports, symbol)
   if (!cachedPromises[symbol]) {
-    cachedPromises[symbol] = feathersClient.service('/bitcoin-average').find({query: { action: 'ticker', symbol }})
+    cachedPromises[symbol] = feathersClient.service('/bitcoin-average').find({ query: { action: 'ticker', symbol } })
     cachedPromises[symbol].then(value => {
       if (value && value.averages) {
         exports.dispatch(symbol, [value.averages.day])

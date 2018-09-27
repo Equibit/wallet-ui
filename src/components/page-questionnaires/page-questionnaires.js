@@ -16,7 +16,7 @@ export const ViewModel = DefineMap.extend({
       if (value) {
         return value
       }
-      Questionnaire.getList({isActive: true}).then(qList => {
+      Questionnaire.getList({ isActive: true }).then(qList => {
         resolve(qList.map(questionnaire => ({
           title: questionnaire.description,
           id: questionnaire._id

@@ -19,7 +19,7 @@ import { ViewModel, createHtlcOffer, generateSecret } from './order-book'
 // ViewModel unit tests
 describe('wallet-ui/components/page-issuance-details/order-book', function () {
   describe('placeOrder', function () {
-    const formData = new (DefineMap.extend('FormData', {seal: false}, {}))({
+    const formData = new (DefineMap.extend('FormData', { seal: false }, {}))({
       order: {
         _id: '2345',
         price: '12'
@@ -82,7 +82,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
   describe('Place a new offer', function () {
     const orderData = Object.assign({}, orderFixturesData[0], { issuance: issuance })
     const order = new Order(orderData)
-    const formData = new (DefineMap.extend('OfferFormData', {seal: false}, {}))({
+    const formData = new (DefineMap.extend('OfferFormData', { seal: false }, {}))({
       order,
       quantity: 500
     })
@@ -104,7 +104,7 @@ describe('wallet-ui/components/page-issuance-details/order-book', function () {
       before(function () {
         const secret = generateSecret()
         // const changeBtcAddressPair = { EQB: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ', BTC: 'mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ' }
-        htlcOffer = createHtlcOffer(order, secret, timelock, 'description', Session.current.user, issuance, {BTC: refundBtcAddress, EQB: eqbAddress})
+        htlcOffer = createHtlcOffer(order, secret, timelock, 'description', Session.current.user, issuance, { BTC: refundBtcAddress, EQB: eqbAddress })
       })
 
       describe('createHtlcOffer', function () {

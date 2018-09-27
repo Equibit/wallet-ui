@@ -45,21 +45,21 @@ describe('utils/crypto', function () {
 describe('utils/stache-helpers', function () {
   describe('is-lt', function () {
     it('should resolve in true for a negative value', function () {
-      let frag = stache('{{#if is-lt(value, 0)}}neg{{/if}}')({value: -5})
+      let frag = stache('{{#if is-lt(value, 0)}}neg{{/if}}')({ value: -5 })
       assert.equal(frag.textContent, 'neg')
     })
     it('should resolve in false for a positive value', function () {
-      let frag = stache('{{^if is-lt(value, 0)}}pos{{/if}}')({value: 5})
+      let frag = stache('{{^if is-lt(value, 0)}}pos{{/if}}')({ value: 5 })
       assert.equal(frag.textContent, 'pos')
     })
   })
   describe('one-of', function () {
     it('should resolve in true if value is one of the provided values', function () {
-      let frag = stache('{{#if one-of(value, "foo", "bar")}}OK{{/if}}')({value: 'foo'})
+      let frag = stache('{{#if one-of(value, "foo", "bar")}}OK{{/if}}')({ value: 'foo' })
       assert.equal(frag.textContent, 'OK')
     })
     it('should resolve in false when value is not one-of', function () {
-      let frag = stache('{{^if one-of(value, "foo", "bar")}}OK{{/if}}')({value: 'baz'})
+      let frag = stache('{{^if one-of(value, "foo", "bar")}}OK{{/if}}')({ value: 'baz' })
       assert.equal(frag.textContent, 'OK')
     })
   })
@@ -72,11 +72,11 @@ describe('utils/stache-helpers', function () {
     })
 
     it('should show BTC in local currency', function () {
-      let frag = stache('{{local-currency(value, "BTC"}}')({value: 100000000})
+      let frag = stache('{{local-currency(value, "BTC"}}')({ value: 100000000 })
       assert.equal(frag.textContent, '4,000.00')
     })
     it('should show EQB in local currency', function () {
-      let frag = stache('{{local-currency(value, "EQB"}}')({value: 200000000})
+      let frag = stache('{{local-currency(value, "EQB"}}')({ value: 200000000 })
       assert.equal(frag.textContent, '6.00')
     })
   })
@@ -127,37 +127,37 @@ describe('utils/stache-helpers', function () {
   describe('format', function () {
     describe('format-coin', function () {
       it('Format whole number with comma by seperated thousands', function () {
-        let number = stache('{{format-coin(value)}}')({value: 5000})
+        let number = stache('{{format-coin(value)}}')({ value: 5000 })
         assert.equal(number.textContent, '5,000')
       })
       it('Format decimal number with comma by seperated thousands', function () {
-        let number = stache('{{format-coin(value)}}')({value: 5000.11})
+        let number = stache('{{format-coin(value)}}')({ value: 5000.11 })
         assert.equal(number.textContent, '5,000.11')
       })
       it('Format precision decimal number with comma by seperated thousands', function () {
-        let number = stache('{{format-coin(value, precision)}}')({value: 5000.12345678, precision: 8})
+        let number = stache('{{format-coin(value, precision)}}')({ value: 5000.12345678, precision: 8 })
         assert.equal(number.textContent, '5,000.12345678')
       })
       it('Format precision decimal number with less decimal values than the precision with comma by seperated thousands', function () {
-        let number = stache('{{format-coin(value, precision)}}')({value: 5000.1234, precision: 8})
+        let number = stache('{{format-coin(value, precision)}}')({ value: 5000.1234, precision: 8 })
         assert.equal(number.textContent, '5,000.1234')
       })
       it('Format precision decimal number with more decimal values than the precision with comma by separated thousands', function () {
-        let number = stache('{{format-coin(value, precision)}}')({value: 5000.12345678, precision: 2})
+        let number = stache('{{format-coin(value, precision)}}')({ value: 5000.12345678, precision: 2 })
         assert.equal(number.textContent, '5,000.12')
       })
       it('Format decimal number less than one when given appropriate precision', function () {
-        let number = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 3})
-        let number2 = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 4})
+        let number = stache('{{format-coin(value, precision)}}')({ value: 0.00125, precision: 3 })
+        let number2 = stache('{{format-coin(value, precision)}}')({ value: 0.00125, precision: 4 })
         assert.equal(number.textContent, '0.001')
         assert.equal(number2.textContent, '0.0013')
       })
       it('Does not format decimal number when first value place is more than precision', function () {
-        let number = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 2})
+        let number = stache('{{format-coin(value, precision)}}')({ value: 0.00125, precision: 2 })
         assert.equal(number.textContent, '0.00125')
       })
       it('Does not format decimal number when precision exceeds value place', function () {
-        let number = stache('{{format-coin(value, precision)}}')({value: 0.00125, precision: 6})
+        let number = stache('{{format-coin(value, precision)}}')({ value: 0.00125, precision: 6 })
         assert.equal(number.textContent, '0.00125')
       })
     })

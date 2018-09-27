@@ -34,8 +34,8 @@ describe('components/alerts', function () {
     // }
 
     vm.on('alerts', addHandler)
-    hub.dispatch({type: 'alert'})
-    vm.dispatch({type: 'remove', id: vm.alerts[0].id})
+    hub.dispatch({ type: 'alert' })
+    vm.dispatch({ type: 'remove', id: vm.alerts[0].id })
   })
 
   it('should automatically create a remove action with autohide', function (done) {

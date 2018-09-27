@@ -2,7 +2,7 @@
 
 const listunspent = {
   BTC: {
-    summary: {'total': 210000000},
+    summary: { 'total': 210000000 },
     addresses: {
       n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA: {
         amount: 150000000,
@@ -34,7 +34,7 @@ const listunspent = {
     }
   },
   EQB: {
-    summary: {'total': 560000000},
+    summary: { 'total': 560000000 },
     addresses: {
       n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo: {
         amount: 340000000,
@@ -71,13 +71,13 @@ const listunspent = {
 }
 
 const listunspentZero = {
-  BTC: { summary: {'total': 0}, addresses: {} },
-  EQB: { summary: {'total': 0}, addresses: {} }
+  BTC: { summary: { 'total': 0 }, addresses: {} },
+  EQB: { summary: { 'total': 0 }, addresses: {} }
 }
 
 const listunspentBtc = {
   BTC: listunspent.BTC,
-  EQB: { summary: {'total': 0}, addresses: {} }
+  EQB: { summary: { 'total': 0 }, addresses: {} }
 }
 
 const listunspentEqbDisconnect = {

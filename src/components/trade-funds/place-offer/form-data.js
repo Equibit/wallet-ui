@@ -4,7 +4,7 @@ import Order from '../../../models/order'
 import Issuance from '../../../models/issuance'
 import { toMaxPrecision } from '../../../utils/formatter'
 import feathersClient from '~/models/feathers-client'
-import {translate} from '~/i18n/'
+import { translate } from '~/i18n/'
 
 const FormData = DefineMap.extend('OfferFormData', {
   portfolio: Portfolio,

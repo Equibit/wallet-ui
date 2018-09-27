@@ -72,7 +72,7 @@ const Issuance = DefineMap.extend('Issuance', {
   get issuanceTypeDisplay () {
     return Issuance.typesMap[this.issuanceType] || this.issuanceType
   },
-  issuanceUnit: 'string',   // ['SHARES', 'BTC', 'UNITS'] ?
+  issuanceUnit: 'string', // ['SHARES', 'BTC', 'UNITS'] ?
   restriction: 'number',
 
   marketCap: 'number',
@@ -149,7 +149,7 @@ const Issuance = DefineMap.extend('Issuance', {
         if (Session && this.userId === Session.current.user._id) {
           const companyHdNode = Session.current.user && Session.current.user.generatePortfolioKeys(this.companyIndex).EQB
           const issuanceNode = companyHdNode && companyHdNode.derive(this.index)
-          const ecPair = bitcoin.ECPair.fromPrivateKey(issuanceNode.privateKey, {network: issuanceNode.network})
+          const ecPair = bitcoin.ECPair.fromPrivateKey(issuanceNode.privateKey, { network: issuanceNode.network })
           return {
             node: issuanceNode,
             ecPair
@@ -157,7 +157,7 @@ const Issuance = DefineMap.extend('Issuance', {
         } else {
           const portfolio = Session && Session.current.portfolios && Session.current.portfolios[0]
           const addr = portfolio && portfolio.findAddress(this.utxo[0].address)
-          return addr && addr.keyPair && {ecPair: addr.keyPair}
+          return addr && addr.keyPair && { ecPair: addr.keyPair }
         }
       } else {
         return lastSetVal
@@ -180,7 +180,7 @@ const Issuance = DefineMap.extend('Issuance', {
   // NOTE: 1 company share = 1 utxo.amount = 1 EQB Satoshi
   utxoAmountTotal: {
     get () {
-      return this.utxo && this.utxo.reduce((acc, {amount}) => (acc + amount), 0)
+      return this.utxo && this.utxo.reduce((acc, { amount }) => (acc + amount), 0)
     }
   },
 
@@ -191,7 +191,7 @@ const Issuance = DefineMap.extend('Issuance', {
     // need to also add a 'costPerShare' to transactions table
     get () {
       return this.utxo && this.utxo.reduce(
-        (acc, {amount, costPerShare}) => (acc + amount * costPerShare),
+        (acc, { amount, costPerShare }) => (acc + amount * costPerShare),
         0
       )
     }
@@ -324,7 +324,7 @@ Issuance.typesMap = {
   'common_shares': 'Common Shares',
   'preferred_shares': 'Preferred Shares',
   'trust_units': 'Trust Units',
-  'fund_units': 'Partnership Units',   // <<< TODO ??? check type/name
+  'fund_units': 'Partnership Units', // <<< TODO ??? check type/name
   'bonds': 'Bonds'
 }
 Issuance.types = new DefineList(
@@ -370,7 +370,7 @@ Issuance.List = DefineList.extend('IssuanceList', {
   // so just in case we check issuance_json and filter by issuanceName (should be a combination companyName + issuanceName).
   loadUTXO () {
     if (this.addresses.length > 0) {
-      return fetchListunspent({EQB: this.addresses}).then(utxoByType => {
+      return fetchListunspent({ EQB: this.addresses }).then(utxoByType => {
         if (utxoByType.EQB.summary.total === 0) {
           return
         }

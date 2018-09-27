@@ -262,14 +262,14 @@ const Session = DefineMap.extend('Session', {
       if (val && val.then) {
         return val
       }
-      return this.user && Issuance.getList({userId: this.user._id}).then(issuances => {
+      return this.user && Issuance.getList({ userId: this.user._id }).then(issuances => {
         // todo: consider putting this into Issuance init (or utxo getter/value).
         console.log(`Session.issuancesPromise: deriving keys and loading UTXO... issuances=${issuances.length}`)
         issuances.forEach(issuance => {
           if (typeof issuance.index !== 'undefined') {
             const companyHdNode = this.user.generatePortfolioKeys(issuance.companyIndex).EQB.node
             const node = companyHdNode.derive(issuance.index)
-            const ecPair = bitcoin.ECPair.fromPrivateKey(companyHdNode.privateKey, {network: companyHdNode.network})
+            const ecPair = bitcoin.ECPair.fromPrivateKey(companyHdNode.privateKey, { network: companyHdNode.network })
             issuance.keys = { node, ecPair }
           }
         })
@@ -342,7 +342,7 @@ const Session = DefineMap.extend('Session', {
         acc.push(issuance.address)
         return acc
       }, []) : []
-      let results = {EQB: issuanceAddresses, BTC: []}
+      let results = { EQB: issuanceAddresses, BTC: [] }
       results = portfolios ? portfolios.reduce((acc, portfolio) => {
         const ret = {
           BTC: acc.BTC.concat(portfolio.addressesBtc.get()),
@@ -380,14 +380,14 @@ const Session = DefineMap.extend('Session', {
         this.issuancesPromise,
         this.portfolioRefreshPromise
       ])
-      .then(() => Promise.all([
-        this.issuances && this.issuances.importAddressesPromise,
-        this.portfolios && this.portfolios[0] && this.portfolios[0].securitiesPromise,
-        this.portfolios && this.portfolios[0] && this.portfolios[0].listunspentPromise
-      ]))
-      .then(() => setTimeout(() => {
-        resolve(false)
-      }, 500), err => { console.error(err); resolve(false) })
+        .then(() => Promise.all([
+          this.issuances && this.issuances.importAddressesPromise,
+          this.portfolios && this.portfolios[0] && this.portfolios[0].securitiesPromise,
+          this.portfolios && this.portfolios[0] && this.portfolios[0].listunspentPromise
+        ]))
+        .then(() => setTimeout(() => {
+          resolve(false)
+        }, 500), err => { console.error(err); resolve(false) })
       return resolve ? resolve(true) : true
     }
   },

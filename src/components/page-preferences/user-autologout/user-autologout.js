@@ -54,18 +54,18 @@ export const ViewModel = DefineMap.extend({
         this.user._id,
         { autoLogoutTime: this.autoLogoutMinutes * 60 * 1000 }
       )
-      .then(user => {
-        this.user.set(user)
-        resetLogoutTimer(user.autoLogoutTime)
-        hub.dispatch({
-          'type': 'alert',
-          'kind': 'success',
-          'title': translate('changesSaved'),
-          'displayInterval': 10000
+        .then(user => {
+          this.user.set(user)
+          resetLogoutTimer(user.autoLogoutTime)
+          hub.dispatch({
+            'type': 'alert',
+            'kind': 'success',
+            'title': translate('changesSaved'),
+            'displayInterval': 10000
+          })
+          close && close()
         })
-        close && close()
-      })
-      .catch(e => { this.error = e.message })
+        .catch(e => { this.error = e.message })
     }
   }
 })

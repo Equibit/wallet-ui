@@ -24,7 +24,7 @@ function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.tes
   typeforce(typeforce.tuple('Array', 'Array', types.Network), [inputs, outputs, network])
   const tx = new bitcoin.TransactionBuilder(network)
   inputs.forEach(({ txid, vout }, index) => tx.addInput(txid, vout))
-  outputs.forEach(({address, value}) => tx.addOutput(address, value))
+  outputs.forEach(({ address, value }) => tx.addOutput(address, value))
   inputs.forEach(({ keyPair }, index) => tx.sign(index, keyPair))
   const builtTx = tx.build()
   return {
@@ -34,13 +34,13 @@ function buildTransactionBtcOld (inputs, outputs, network = bitcoin.networks.tes
 }
 
 function buildTransactionBtc (inputs, outputs, blockchainInfo, locktime = 0) {
-  typeforce(typeforce.arrayOf({txid: 'String', vout: 'Number', keyPair: 'ECPair'}), inputs)
+  typeforce(typeforce.arrayOf({ txid: 'String', vout: 'Number', keyPair: 'ECPair' }), inputs)
   typeforce(typeforce.arrayOf({
     value: types.Satoshi,
     scriptPubKey: '?Buffer',
     address: typeforce.maybe(types.Address)
   }), outputs)
-  typeforce({network: types.Network}, blockchainInfo)
+  typeforce({ network: types.Network }, blockchainInfo)
 
   const options = {
     hashTimelockContract
@@ -71,7 +71,7 @@ function buildTransactionBtc (inputs, outputs, blockchainInfo, locktime = 0) {
 
 function buildTransactionEqb (inputs, outputs, blockchainInfo, locktime = 0) {
   typeforce(
-    typeforce.tuple('Array', 'Array', {network: types.Network, sha: '?String'}),
+    typeforce.tuple('Array', 'Array', { network: types.Network, sha: '?String' }),
     [inputs, outputs, blockchainInfo]
   )
   const vout = outputs.map(vout => {
@@ -92,9 +92,9 @@ function buildTransactionEqb (inputs, outputs, blockchainInfo, locktime = 0) {
     vin: inputs,
     vout
   }
-  const bufferTx = eqbTxBuilder.builder.buildTx(tx, {sha: blockchainInfo.sha})
+  const bufferTx = eqbTxBuilder.builder.buildTx(tx, { sha: blockchainInfo.sha })
   const hex = bufferTx.toString('hex')
-  const txId = eqbTxBuilder.getTxId({sha: blockchainInfo.sha})(bufferTx)
+  const txId = eqbTxBuilder.getTxId({ sha: blockchainInfo.sha })(bufferTx)
   console.log(`[buildTransactionEqb] hex = ${hex}, \ntxid = ${txId}`)
 
   return {

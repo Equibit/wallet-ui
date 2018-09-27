@@ -156,7 +156,7 @@ export const ViewModel = DefineMap.extend({
         addrPair[currencyType],
         transactionFeeRates.regular,
         blockchainInfo.result.blocks // <- locktime for next transaction -- if it's not late enough,
-                                     //  sending TX will throw "Locktime requirement not satisfied" error
+        //  sending TX will throw "Locktime requirement not satisfied" error
       )
 
       this.openModal(offer, tx)

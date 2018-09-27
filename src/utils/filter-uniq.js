@@ -6,5 +6,5 @@ export function filterUniqAddr (list) {
       acc.res.push(item)
     }
     return acc
-  }, {res: [], map: {}}).res
+  }, { res: [], map: {} }).res
 }

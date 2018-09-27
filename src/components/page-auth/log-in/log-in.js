@@ -29,14 +29,14 @@ export const ViewModel = DefineMap.extend({
   email: {
     type: 'string',
     set (value) {
-      this.emailError = validate.email(value, {allowEmpty: 1})
+      this.emailError = validate.email(value, { allowEmpty: 1 })
       return value
     }
   },
   password: {
     type: 'string',
     set (value) {
-      this.passwordError = validate.password(value, {allowEmpty: 1})
+      this.passwordError = validate.password(value, { allowEmpty: 1 })
       return value
     }
   },
@@ -59,8 +59,8 @@ export const ViewModel = DefineMap.extend({
   emailError: 'string',
   passwordError: 'string',
   get hasErrors () {
-    this.emailError = validate.email(this.email, {allowEmpty: 0})
-    this.passwordError = validate.password(this.password, {allowEmpty: 0})
+    this.emailError = validate.email(this.email, { allowEmpty: 0 })
+    this.passwordError = validate.password(this.password, { allowEmpty: 0 })
     return this.emailError || this.passwordError
   },
 

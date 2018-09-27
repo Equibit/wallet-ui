@@ -31,7 +31,7 @@ export const ViewModel = DefineMap.extend({
   buttons: {
     value () {
       return new DefineList(times(i => {
-        return new Button({name: (i + this.startWith), value: (i + this.startWith)})
+        return new Button({ name: (i + this.startWith), value: (i + this.startWith) })
       }, this.amount))
     }
   },

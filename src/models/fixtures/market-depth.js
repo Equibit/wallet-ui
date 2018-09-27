@@ -31,4 +31,4 @@ fixture('GET /market-depth', function () {
     cats: _.times(totalMnt, i => '30,' + (100 + ((i + 1) * 5)))
   };
 });
-/*eslint-enable */
+/* eslint-enable */

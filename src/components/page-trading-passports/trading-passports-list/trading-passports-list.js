@@ -27,8 +27,8 @@ export const ViewModel = DefineMap.extend({
       name: 'string',
       status: 'string',
       authority: {}, // Has name, physical address, phone, website, email
-      issuances: [Issuance],  // Issuance list
-      investors: [User]  //  Investor list
+      issuances: [Issuance], // Issuance list
+      investors: [User] //  Investor list
     }],
     value: []
   },

@@ -61,8 +61,8 @@ function orderInfo (offer, order, htlcTxId1, htlcTxId2) {
     Transaction.getList({
       txId: { $in: [htlcTxId1, htlcTxId2] },
       $or: [
-        {fromAddress: {'$in': addresses}},
-        {toAddress: {'$in': addresses}}
+        { fromAddress: { '$in': addresses } },
+        { toAddress: { '$in': addresses } }
       ]
     }),
     BlockhainInfo.infoBySymbol().promise
@@ -163,7 +163,7 @@ const Offer = DefineMap.extend('Offer', {
   // HTLC
   htlcStep: 'number',
   secretEncrypted: 'string',
-  secret: 'string',   // Revealed secret (after transaction #3)
+  secret: 'string', // Revealed secret (after transaction #3)
   hashlock: 'string',
   // HTLC1 timelock:
   timelock: 'number',
@@ -256,8 +256,8 @@ const Offer = DefineMap.extend('Offer', {
           $in: [ htlcTxId1, htlcTxId2, htlcTxId3, htlcTxId4 ]
         },
         $or: [
-          {fromAddress: {'$in': addresses}},
-          {toAddress: {'$in': addresses}}
+          { fromAddress: { '$in': addresses } },
+          { toAddress: { '$in': addresses } }
         ]
       })
     }).then(txes => {
@@ -275,7 +275,7 @@ const Offer = DefineMap.extend('Offer', {
   issuancePromise: {
     get () {
       if (this.issuanceId) {
-        return Issuance.get({_id: this.issuanceId})
+        return Issuance.get({ _id: this.issuanceId })
       }
     }
   },
@@ -291,7 +291,7 @@ const Offer = DefineMap.extend('Offer', {
   orderPromise: {
     get () {
       if (this.orderId) {
-        return Order.get({_id: this.orderId})
+        return Order.get({ _id: this.orderId })
       }
     }
   },

@@ -12,7 +12,7 @@ export const ViewModel = DefineMap.extend({
         return val
       }
       if (Session.current) {
-        return Order.getList({userId: Session.current.user._id, $limit: 1000, $skip: 0})
+        return Order.getList({ userId: Session.current.user._id, $limit: 1000, $skip: 0 })
       }
     }
   },

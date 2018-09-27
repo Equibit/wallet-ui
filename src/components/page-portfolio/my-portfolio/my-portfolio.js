@@ -44,7 +44,7 @@ export const ViewModel = DefineMap.extend({
   receiveFunds () {
     this.isReceiveFundsPopup = false
     if (!this.portfolio) {
-      portfolio = new Portfolio({name: 'My Portfolio'})
+      portfolio = new Portfolio({ name: 'My Portfolio' })
       portfolio.save().then(portfolio => {
         portfolio.keys = Session.current.user.generatePortfolioKeys(portfolio.index)
         this.portfolio = portfolio
@@ -153,11 +153,11 @@ const sendIssuance = (portfolio, formData) => {
   const amount = formData.quantity
 
   const txouts = issuance.getTxoutsFor(amount).txouts
-    .map(a => merge(a, {keyPair: issuance.keys.keyPair}))
+    .map(a => merge(a, { keyPair: issuance.keys.keyPair }))
 
   const txoutsFeeInfo = portfolio.getTxouts(formData.transactionFee, 'EQB')
   const txoutsFee = txoutsFeeInfo.txouts
-    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).keyPair}))
+    .map(a => merge(a, { keyPair: portfolio.findAddress(a.address).keyPair }))
   txouts.push.apply(txouts, txoutsFee)
 
   const amountEqb = txoutsFee.reduce((acc, { amount }) => (acc + amount), 0)
