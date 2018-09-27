@@ -184,7 +184,6 @@
     "steal-socket.io": "^4.0.9",
     "steal-tools": "^1.11.7",
     "testee": "^0.7.0",
-    "testee-client": "^0.5.3",
-    "webpack": "^4.18.0"
+    "testee-client": "^0.5.3"
   }
 }
