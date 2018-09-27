@@ -39,7 +39,8 @@
     "cypress": "npm run build:test:cypress && cypress open -e HTTP_PASSWORD=bullish",
     "cypress-local": "npm run build:test:cypress && cypress run --browser chrome -e HTTP_PASSWORD=bullish",
     "cypress-test": "npm run build:test:cypress && cypress run --browser chrome --record --key=a452942b-b549-4a49-b45c-51683d77b79c -e HTTP_PASSWORD=bullish --parallel --group independent-tests --spec 'test/cypress/integration/ui-tests/**/*'",
-    "cypress-transactions": "npm run build:test:cypress && cypress run --browser chrome --record --key=a452942b-b549-4a49-b45c-51683d77b79c -e HTTP_PASSWORD=bullish --parallel --group transactions-tests --spec 'test/cypress/integration/transactions-tests/*'"
+    "cypress-transactions": "npm run build:test:cypress && cypress run --browser chrome --record --key=a452942b-b549-4a49-b45c-51683d77b79c -e HTTP_PASSWORD=bullish --parallel --group transactions-tests --spec 'test/cypress/integration/transactions-tests/*'",
+    "clear-mempool": "node src/clear-mempool.js"
   },
   "main": "wallet-ui/index.stache!done-autorender/src/no-zone",
   "files": [
@@ -63,7 +64,8 @@
     ],
     "globals": [
       "Cypress",
-      "cy"
+      "cy",
+      "fetch"
     ]
   },
   "steal": {
@@ -152,6 +154,7 @@
     "flexboxgrid-less": "^0.0.1",
     "generator-donejs": "^1.0.7",
     "grid-component": "^0.10.3",
+    "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.2.1",
     "kefir": "^3.8.0",
     "lodash": "^4.17.4",

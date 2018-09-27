@@ -16,6 +16,7 @@ defaults: &defaults
     - yarn
   script:
     - sudo sh -c "dbus-uuidgen > /etc/machine-id"
+    - yarn run clear-mempool
     - yarn run $TEST_SUITE
   after_script:
     - kill $(jobs -p) || true
