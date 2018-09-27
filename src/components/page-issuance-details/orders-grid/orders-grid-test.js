@@ -1,5 +1,5 @@
 import 'steal-mocha'
-import { assert, expect } from 'chai'
+import assert from 'chai/chai'
 import { ViewModel } from './orders-grid'
 import Order from '~/models/order'
 import Session from '~/models/session'
@@ -25,7 +25,7 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
   afterEach(() => {
     Order.getList = oldGetList
   })
-
+  
   it('Total reflects all orders', function (done) {
     const vm = new ViewModel({ issuanceAddress: 'baadf00d' })
 
@@ -86,11 +86,11 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
       issuanceAddress: 'baadf00d',
     })
 
-    expect(vm.marketWidth).to.deep.equal([], 'Market widths is an empty array before rows are loaded')
+    assert.deepEqual(vm.marketWidth, [], 'Market widths is an empty array before rows are loaded')
     vm.on('rows', () => {
       assert.deepEqual(vm.marketWidth, [67, 1], 'Market widths are correct after rows are loaded')
       vm.rows.forEach(row => {
-        expect(vm.whyUserCantOffer(row)).to.equal('Not logged in')
+        assert.equal(vm.whyUserCantOffer(row), 'Not logged in', 'An unauthenticated session cannot make offers')
       })
       done()
     })
@@ -114,12 +114,11 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
       }
     })
 
-    expect(vm.marketWidth).to.deep.equal([], 'Market widths is an empty array before rows are loaded')
+    assert.deepEqual(vm.marketWidth, [], 'Market widths is an empty array before rows are loaded')
     vm.on('rows', () => {
+      assert.deepEqual(vm.marketWidth, [67, 1], 'Market widths are correct after rows are loaded')
       vm.rows.forEach(row => {
-        assert.deepEqual(vm.marketWidth, [67, 1], 'Market widths are correct after rows are loaded')
-        console.log(`\n\n\n${vm.whyUserCantOffer(row)}\n\n`)
-        expect(vm.whyUserCantOffer(row)).to.equal(null)
+        assert.equal(vm.whyUserCantOffer(row), null, 'A valid user can make offers')
       })
       done()
     })
@@ -144,12 +143,11 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
       }
     })
 
-    expect(vm.marketWidth).to.deep.equal([], 'Market widths is an empty array before rows are loaded')
+    assert.deepEqual(vm.marketWidth, [], 'Market widths is an empty array before rows are loaded')
     vm.on('rows', () => {
+      assert.deepEqual(vm.marketWidth, [67, 1], 'Market widths are correct after rows are loaded')
       vm.rows.forEach(row => {
-        assert.deepEqual(vm.marketWidth, [67, 1], 'Market widths are correct after rows are loaded')
-        console.log(`\n\n\n${vm.whyUserCantOffer(row)}\n\n`)
-        expect(vm.whyUserCantOffer(row)).to.equal('No funds')
+        assert.equal(vm.whyUserCantOffer(row), 'No funds', 'User without funds cannot make offers')
       })
       done()
     })
