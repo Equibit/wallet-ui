@@ -16,7 +16,6 @@ defaults: &defaults
     - yarn
   script:
     - sudo sh -c "dbus-uuidgen > /etc/machine-id"
-    - yarn run clear-mempool
     - yarn run $TEST_SUITE
   after_script:
     - kill $(jobs -p) || true
@@ -38,7 +37,16 @@ before: &before
     - "yarn run e2e &"
     # Wait for server to start
     - "sleep 5"
+    - "yarn run clear-mempool"
     - "cd .."
+  install:
+    - yarn
+  script:
+    - sudo sh -c "dbus-uuidgen > /etc/machine-id"
+    - yarn run $TEST_SUITE
+  after_script:
+    - kill $(jobs -p) || true
+    - sudo service mongodb stop
 jobs:
   include:
   # Parallel testing suites - 1 for transactions, 1 for all other e2e, 1 for unit tests
