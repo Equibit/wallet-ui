@@ -180,7 +180,7 @@ export const ViewModel = DefineMap.extend({
     }
     const txouts = utxo.txouts
       // .filter(a => !a.issuanceId)
-      .map(a => merge(a, { keyPair: this.portfolio.findAddress(a.address).keyPair }))
+      .map(a => merge(a, {keyPair: this.portfolio.findAddress(a.address).keyPair}))
     const options = {
       fee: fee,
       changeAddr,

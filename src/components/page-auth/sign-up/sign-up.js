@@ -27,7 +27,7 @@ export const ViewModel = DefineMap.extend({
   email: {
     type: 'string',
     set (value) {
-      this.emailError = validate.email(value, { allowEmpty: 1 })
+      this.emailError = validate.email(value, {allowEmpty: 1})
       return value
     }
   },
@@ -48,7 +48,7 @@ export const ViewModel = DefineMap.extend({
   passwordError: 'string',
   termsError: 'string',
   get isSignupValid () {
-    this.emailError = validate.email(this.email, { allowEmpty: 0 })
+    this.emailError = validate.email(this.email, {allowEmpty: 0})
     this.termsError = validate.terms(this.agreedToTerms)
     return !this.emailError && !this.termsError
   },

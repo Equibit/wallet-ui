@@ -5,7 +5,7 @@ import { keyPair, publicKey } from './mock/mock-keys'
 import BitMessage from './bit-message'
 import Order from './order'
 
-const getHash = eqbTxBuilder.getTxId({ sha: 'SHA256' })
+const getHash = eqbTxBuilder.getTxId({sha: 'SHA256'})
 
 describe('BitMessage', function () {
   const messageData = {

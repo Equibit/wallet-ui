@@ -25,7 +25,7 @@ const FormData = DefineMap({
       if (val) {
         return val
       }
-      Company.getList({ userId: Session.current.user._id }).then(resolve)
+      Company.getList({userId: Session.current.user._id}).then(resolve)
     }
   },
   issuances: '*',

@@ -28,7 +28,7 @@ export const ViewModel = DefineMap.extend({
         return val
       }
       if (this.issuanceId) {
-        return Issuance.get({ _id: this.issuanceId })
+        return Issuance.get({_id: this.issuanceId})
       }
     }
   },

@@ -43,7 +43,7 @@ const issuance = new Issuance({
   companyName: 'Equibit Group',
   issuanceName: 'Series One',
   issuanceType: 'common_shares',
-  keys: { node: issuanceHdNode, ecPair: issuanceEcPair },
+  keys: {node: issuanceHdNode, ecPair: issuanceEcPair},
   utxo,
   rates: Session.current.rates
 })

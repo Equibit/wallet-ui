@@ -15,8 +15,8 @@ const hashTimelockContract = eqbTxBuilder.hashTimelockContract
  */
 function createHtlc2 (blockchainInfoBySymbol, offer, order, portfolio, issuance, changeAddr, transactionFeeRates) {
   typeforce(typeforce.tuple(
-    BlockchainInfoBySymbol, 'Offer', 'Order', 'Portfolio', '?Issuance', types.Address, { EQB: 'Number', BTC: 'Number' }),
-  arguments
+    BlockchainInfoBySymbol, 'Offer', 'Order', 'Portfolio', '?Issuance', types.Address, {EQB: 'Number', BTC: 'Number'}),
+    arguments
   )
   typeforce(typeforce.tuple('Number', 'String'), [offer.timelock, offer.hashlock])
   if (order.assetType === 'ISSUANCE') {
@@ -36,7 +36,7 @@ function createHtlc2 (blockchainInfoBySymbol, offer, order, portfolio, issuance,
       transactionFee = tx.hex.length / 2 * transactionFeeRate
       return build(currencyType, transactionFee)
     } else {
-      return { tx, txConfig }
+      return {tx, txConfig}
     }
   }
 
@@ -90,7 +90,7 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrBlan
     }
     availableAmount = issuanceUtxoInfo.sum
     const issuanceUtxo = issuanceUtxoInfo.txouts
-      .map(a => merge(a, { keyPair: issuance.keys.ecPair }))
+      .map(a => merge(a, {keyPair: issuance.keys.ecPair}))
 
     // For Sell order we set both change addr for securities and the refund to the same holding address from where we send securities.
     refundAddress = issuanceUtxo[0].address
@@ -103,7 +103,7 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrBlan
     }
     availableAmountBlankEqb = utxoBlankEqbInfo.sum
     const utxoBlankEqb = utxoBlankEqbInfo.txouts
-      .map(a => merge(a, { keyPair: portfolio.findAddress(a.address).ecPair }))
+      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
     utxo = issuanceUtxo.concat(utxoBlankEqb)
   }
@@ -116,7 +116,7 @@ function prepareHtlcConfigEqb (offer, order, portfolio, issuance, changeAddrBlan
     }
     availableAmount = utxoInfo.sum
     utxo = utxoInfo.txouts
-      .map(a => merge(a, { keyPair: portfolio.findAddress(a.address).ecPair }))
+      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
     // todo: generate a new address:
     refundAddress = utxo[0].address
     changeAddr = changeAddrBlankEqb

@@ -62,32 +62,32 @@ export const ViewModel = DefineMap.extend({
       portfolio.getNextAddress(true),
       Session.current.transactionFeeRatesPromise
     ])
-      .then(([offer, order, addrPair, transactionFeeRates]) => {
-        if (offer.htlcStep !== notification.data.htlcStep) {
-          return
+    .then(([offer, order, addrPair, transactionFeeRates]) => {
+      if (offer.htlcStep !== notification.data.htlcStep) {
+        return
+      }
+
+      return Promise.all([
+        offer.issuanceId && Issuance.get({ _id: offer.issuanceId }),
+        offer.timelockInfoPromise
+      ])
+      .then(([issuance, timelockInfo]) => {
+        const secret = offer.htlcStep === 3 ? offer.secret : Session.current.user.decrypt(offer.secretEncrypted)
+        const createFn = ([null, null, null, 'createHtlc3', 'createHtlc4'][nextHtlcStep])
+        const tx = Transaction[createFn](order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
+
+        this.offerModalShown = false
+        this.popupData = {
+          tx,
+          issuance,
+          offer,
+          portfolio: Session.current.portfolios[0],
+          sendFn: this.sendTransaction.bind(this),
+          offerTimelock: offer.htlcStep === 3 ? timelockInfo.fullEndAt : timelockInfo.partialEndAt
         }
-
-        return Promise.all([
-          offer.issuanceId && Issuance.get({ _id: offer.issuanceId }),
-          offer.timelockInfoPromise
-        ])
-          .then(([issuance, timelockInfo]) => {
-            const secret = offer.htlcStep === 3 ? offer.secret : Session.current.user.decrypt(offer.secretEncrypted)
-            const createFn = ([null, null, null, 'createHtlc3', 'createHtlc4'][nextHtlcStep])
-            const tx = Transaction[createFn](order, offer, portfolio, issuance, secret, addrPair[currencyType], transactionFeeRates.regular)
-
-            this.offerModalShown = false
-            this.popupData = {
-              tx,
-              issuance,
-              offer,
-              portfolio: Session.current.portfolios[0],
-              sendFn: this.sendTransaction.bind(this),
-              offerTimelock: offer.htlcStep === 3 ? timelockInfo.fullEndAt : timelockInfo.partialEndAt
-            }
-            this.offerModalShown = true
-          })
+        this.offerModalShown = true
       })
+    })
   },
   offerFor (notification) {
     return Offer.get({ _id: notification.data.offerId })

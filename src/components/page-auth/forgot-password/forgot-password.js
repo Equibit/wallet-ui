@@ -29,14 +29,14 @@ export const ViewModel = DefineMap.extend({
   email: {
     type: 'string',
     set (value) {
-      this.emailError = validate.email(value, { allowEmpty: 1 })
+      this.emailError = validate.email(value, {allowEmpty: 1})
       return value
     }
   },
   isDone: 'boolean',
   emailError: 'string',
   get isEmailValid () {
-    this.emailError = validate.email(this.email, { allowEmpty: 0 })
+    this.emailError = validate.email(this.email, {allowEmpty: 0})
     return !this.emailError
   },
 

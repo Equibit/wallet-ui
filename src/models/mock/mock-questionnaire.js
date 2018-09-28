@@ -72,9 +72,9 @@ const questions = [{
   questionType: 'MULTI',
   sortIndex: 6,
   answerOptions: [
-    { answer: 'I buy and sell crypto currencies (ICOs and aftermarket)' },
-    { answer: 'I buy and sell equity (shares) in crypto related business' },
-    { answer: 'I look forward to using the EQB network and tools to invest in all manner of companies.' }
+      { answer: 'I buy and sell crypto currencies (ICOs and aftermarket)' },
+      { answer: 'I buy and sell equity (shares) in crypto related business' },
+      { answer: 'I look forward to using the EQB network and tools to invest in all manner of companies.' }
   ]
 },
 {
@@ -82,12 +82,12 @@ const questions = [{
   questionType: 'SINGLE',
   sortIndex: 7,
   answerOptions: [
-    { answer: 'Voting Rights (an investor Voice)' },
-    { answer: 'Capital Gains (asset appreciation)' },
-    { answer: 'Dividends' },
-    { answer: 'Diversity' },
-    { answer: 'CUSTOM' },
-    { answer: 'Don’t know' }
+      { answer: 'Voting Rights (an investor Voice)' },
+      { answer: 'Capital Gains (asset appreciation)' },
+      { answer: 'Dividends' },
+      { answer: 'Diversity' },
+      { answer: 'CUSTOM' },
+      { answer: 'Don’t know' }
   ]
 },
 {
@@ -95,13 +95,13 @@ const questions = [{
   questionType: 'MULTI',
   sortIndex: 8,
   answerOptions: [
-    { answer: 'English' },
-    { answer: 'Simplified Chinese' },
-    { answer: 'French' },
-    { answer: 'Spanish' },
-    { answer: 'Hindi' },
-    { answer: 'Korean' },
-    { answer: 'CUSTOM' }
+      { answer: 'English' },
+      { answer: 'Simplified Chinese' },
+      { answer: 'French' },
+      { answer: 'Spanish' },
+      { answer: 'Hindi' },
+      { answer: 'Korean' },
+      { answer: 'CUSTOM' }
   ]
 },
 {
@@ -109,12 +109,12 @@ const questions = [{
   questionType: 'SINGLE',
   sortIndex: 9,
   answerOptions: [
-    { answer: 'North America' },
-    { answer: 'Europe' },
-    { answer: 'Asia' },
-    { answer: 'South America' },
-    { answer: 'Australia' },
-    { answer: 'Africa' }
+      { answer: 'North America' },
+      { answer: 'Europe' },
+      { answer: 'Asia' },
+      { answer: 'South America' },
+      { answer: 'Australia' },
+      { answer: 'Africa' }
   ]
 },
 {
@@ -122,7 +122,7 @@ const questions = [{
   questionType: 'DROPDOWN',
   sortIndex: 10,
   answerOptions: [
-    { answer: 'COUNTRIES' }
+      { answer: 'COUNTRIES' }
   ]
 }]
 

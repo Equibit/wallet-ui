@@ -10,7 +10,7 @@ describe('models/market-cap', function () {
       { companyName: 'Company 1', price: 100 },
       { companyName: 'Company 2', price: 200 }
     ])
-    assert.deepEqual(m.barChart, { labels: ['x', 'Company 1', 'Company 2'], values: [['MarketCap', 100, 200]] })
+    assert.deepEqual(m.barChart, {labels: ['x', 'Company 1', 'Company 2'], values: [['MarketCap', 100, 200]]})
   })
 })
 
@@ -22,7 +22,7 @@ describe('connection algebra', function () {
     })
   })
   it.skip('should be able to fetch BiggestMovers with limit', function () {
-    return BiggestMovers.getList({ $limit: 10, $skip: 0 }).then(data => {
+    return BiggestMovers.getList({$limit: 10, $skip: 0}).then(data => {
       assert.equal(data.length, 10)
     })
   })

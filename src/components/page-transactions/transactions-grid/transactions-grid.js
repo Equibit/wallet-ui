@@ -48,8 +48,8 @@ export const ViewModel = DefineMap.extend({
         this.pagination.params,
         {
           $or:
-          [{ fromAddress: { '$in': this.addresses.get() } },
-            { toAddress: { '$in': this.addresses.get() } }],
+          [{fromAddress: {'$in': this.addresses.get()}},
+            {toAddress: {'$in': this.addresses.get()}}],
           $sort: { createdAt: -1 }
         }
       )

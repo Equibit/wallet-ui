@@ -27,8 +27,8 @@ import { createHtlc4, prepareHtlcConfig4 } from './transaction-create-htlc4'
 import { createTransfer } from './transaction-transfer'
 
 const blockchainInfoBySymbol = {
-  BTC: { network: network },
-  EQB: { network: network, sha: 'SHA3_256' }
+  BTC: {network: network},
+  EQB: {network: network, sha: 'SHA3_256'}
 }
 
 describe('models/transaction/utils', function () {
@@ -45,12 +45,12 @@ describe('models/transaction/utils', function () {
     const aEcPair = bitcoin.ECPair.fromPrivateKey(inputA.privateKey, { network })
     const bEcPair = bitcoin.ECPair.fromPrivateKey(inputB.privateKey, { network })
     const inputs = [
-      { txid: '56674be22f3f85ee41ae126650c35fe74394e2c824322d72307ada7aeed2a4b5', vout: 0, keyPair: aEcPair },
-      { txid: '1edad92db5b66426e050ee60970fccbf283d16855d4f3048c76de98eea8eea79', vout: 0, keyPair: bEcPair }
+      {txid: '56674be22f3f85ee41ae126650c35fe74394e2c824322d72307ada7aeed2a4b5', vout: 0, keyPair: aEcPair},
+      {txid: '1edad92db5b66426e050ee60970fccbf283d16855d4f3048c76de98eea8eea79', vout: 0, keyPair: bEcPair}
     ]
     const outputs = [
-      { address: 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6', value: 1 },
-      { address: 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh', value: 2 }
+      {address: 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6', value: 1},
+      {address: 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh', value: 2}
     ]
     it('should create a transaction hex (bitcoinjs-lib build)', function () {
       // Note: after v4 upgrade the signature is different.

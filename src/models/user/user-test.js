@@ -28,7 +28,7 @@ describe('models/user', function () {
     // const mnemonicHash = sha3.sha3_512(user.email + mnemonic)
     let user, root
     before(function () {
-      user = new User({ _id: 0, email: 'user@test.com' })
+      user = new User({_id: 0, email: 'user@test.com'})
       // Set password:
       user.updatePasswordCache('123')
       root = user.generateWalletKeys(mnemonic)
@@ -53,10 +53,10 @@ describe('models/user', function () {
       assert.ok('User created')
       done()
     })
-      .catch(error => {
-        assert(!error, 'this error should not have occurred.')
-        done()
-      })
+    .catch(error => {
+      assert(!error, 'this error should not have occurred.')
+      done()
+    })
   })
 
   it('should handle a new user with id', function (done) {
@@ -132,9 +132,9 @@ describe('models/user', function () {
           assert.equal(data.email, 'ilya@bitovi.com')
           done()
         })
-          .catch(error => {
-            assert(!error, 'this should not happen')
-          })
+        .catch(error => {
+          assert(!error, 'this should not happen')
+        })
       })
     })
     describe('#forgotPassword', function () {

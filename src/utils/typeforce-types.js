@@ -16,8 +16,8 @@ const TxId = function (value) {
 }
 
 const BlockchainInfoBySymbol = typeforce.compile({
-  BTC: { network: types.Network, sha: '?String' },
-  EQB: { network: types.Network, sha: '?String' }
+  BTC: {network: types.Network, sha: '?String'},
+  EQB: {network: types.Network, sha: '?String'}
 })
 
 export {

@@ -4,7 +4,7 @@ import moment from 'moment'
 import Issuance from '../../../models/issuance'
 import Portfolio from '../../../models/portfolio'
 import feathersClient from '~/models/feathers-client'
-import { translate } from '~/i18n/'
+import {translate} from '~/i18n/'
 
 const FormData = DefineMap.extend('FormData', {
   /**

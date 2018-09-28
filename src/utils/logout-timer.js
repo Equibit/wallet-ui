@@ -15,7 +15,7 @@ function setupLogoutTimer (time, logout) {
   timeoutHandle = setTimeout(logoutHandler, timeoutTime)
   refreshHandle = setInterval(Session.refresh.bind(Session), timeoutTime / 2)
   eventNames.forEach(eventName => {
-    document.addEventListener(eventName, resetLogoutTimer, true) // capture phase, to ensure that it always happens.
+    document.addEventListener(eventName, resetLogoutTimer, true)  // capture phase, to ensure that it always happens.
   })
 }
 
@@ -24,7 +24,7 @@ function clearLogoutTimer () {
   clearInterval(refreshHandle)
   timeoutHandle = null
   eventNames.forEach(eventName => {
-    document.removeEventListener(eventName, resetLogoutTimer, true) // capture phase, to ensure that it always happens.
+    document.removeEventListener(eventName, resetLogoutTimer, true)  // capture phase, to ensure that it always happens.
   })
 }
 

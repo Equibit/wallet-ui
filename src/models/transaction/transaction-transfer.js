@@ -18,7 +18,7 @@ function createTransfer (blockchainInfoBySymbol, type, amount, toAddress, change
       typeforce.value('ISSUANCE')
     ),
     types.Satoshi, types.Address, types.Address, 'Portfolio', '?Issuance',
-    { EQB: 'Number', BTC: 'Number' }, '?String'
+    {EQB: 'Number', BTC: 'Number'}, '?String'
   ), arguments)
   if (type === 'ISSUANCE') {
     typeforce('Issuance', issuance)
@@ -56,7 +56,7 @@ function prepareConfigBtc (
 ) {
   typeforce(typeforce.tuple(
     'Number', types.Address, types.Address, 'Portfolio',
-    { EQB: 'Number', BTC: 'Number' }, '?String', '?Number'
+    {EQB: 'Number', BTC: 'Number'}, '?String', '?Number'
   ), arguments)
 
   // First build tx with the default rate, then based on the tx size calculate the real fee:
@@ -71,7 +71,7 @@ function prepareConfigBtc (
   }
   const availableAmount = utxoInfo.sum
   const utxo = utxoInfo.txouts
-    .map(a => merge(a, { keyPair: portfolio.findAddress(a.address).ecPair }))
+    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
   const buildConfig = {
     vin: utxo.map(pick(['txid', 'vout', 'keyPair'])),
@@ -107,7 +107,7 @@ function prepareConfigEqb (
 ) {
   typeforce(typeforce.tuple(
     'Number', types.Address, types.Address, 'Portfolio', '?Issuance',
-    { EQB: 'Number', BTC: 'Number' }, '?String', '?Number'
+    {EQB: 'Number', BTC: 'Number'}, '?String', '?Number'
   ), arguments)
 
   const assetType = issuance ? 'ISSUANCE' : 'EQUIBIT'
@@ -131,7 +131,7 @@ function prepareConfigEqb (
     }
     availableAmount = issuanceUtxoInfo.sum
     const issuanceUtxo = issuanceUtxoInfo.txouts
-      .map(a => merge(a, { keyPair: issuance.keys.ecPair }))
+      .map(a => merge(a, {keyPair: issuance.keys.ecPair}))
 
     changeAddrMain = issuanceUtxo[0].address
     changeAddrFee = changeAddr
@@ -143,7 +143,7 @@ function prepareConfigEqb (
     }
     availableAmountBlankEqb = utxoBlankEqbInfo.sum
     const utxoBlankEqb = utxoBlankEqbInfo.txouts
-      .map(a => merge(a, { keyPair: portfolio.findAddress(a.address).ecPair }))
+      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
     utxo = issuanceUtxo.concat(utxoBlankEqb)
   }
@@ -156,7 +156,7 @@ function prepareConfigEqb (
     }
     availableAmount = utxoInfo.sum
     utxo = utxoInfo.txouts
-      .map(a => merge(a, { keyPair: portfolio.findAddress(a.address).ecPair }))
+      .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
     changeAddrMain = changeAddr
   }

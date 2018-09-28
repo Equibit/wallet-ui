@@ -50,7 +50,7 @@ MarketCap.List = DefineList.extend('MarketCapList', {
       acc.labels.push(el.companyNameDisplay)
       acc.values[0].push(el.price)
       return acc
-    }, { labels: ['x'], values: [['MarketCap']] })
+    }, {labels: ['x'], values: [['MarketCap']]})
   }
 })
 

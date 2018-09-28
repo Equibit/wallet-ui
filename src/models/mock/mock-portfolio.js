@@ -8,29 +8,29 @@ feathersClient.service('portfolios').patch = () => Promise.resolve()
 
 const addressesMeta = [
   // BTC:
-  { index: 0, type: 'BTC', isUsed: true, isChange: false }, // n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA
-  { index: 1, type: 'BTC', isUsed: true, isChange: false }, // mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA
-  { index: 2, type: 'BTC', isUsed: false, isChange: false }, // mu2DDd2d9yDzS9PoqZrjD6e1ZnmgJnpv54
+  {index: 0, type: 'BTC', isUsed: true, isChange: false},   // n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA
+  {index: 1, type: 'BTC', isUsed: true, isChange: false},   // mnLAGnJbVbneE8uxVNwR7p79Gt81JkrctA
+  {index: 2, type: 'BTC', isUsed: false, isChange: false},  // mu2DDd2d9yDzS9PoqZrjD6e1ZnmgJnpv54
 
   // BTC change:
-  { index: 0, type: 'BTC', isUsed: true, isChange: true }, // mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ
-  { index: 1, type: 'BTC', isUsed: false, isChange: true }, // muJpBHeXzMGoFdUDTUanwwfZSG43Ec6zd8
+  {index: 0, type: 'BTC', isUsed: true, isChange: true},    // mvuf7FVBox77vNEYxxNUvvKsrm2Mq5BtZZ
+  {index: 1, type: 'BTC', isUsed: false, isChange: true},   // muJpBHeXzMGoFdUDTUanwwfZSG43Ec6zd8
 
   // EQB:
-  { index: 0, type: 'EQB', isUsed: true, isChange: false }, // n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo
-  { index: 1, type: 'EQB', isUsed: false, isChange: false }, // mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU
+  {index: 0, type: 'EQB', isUsed: true, isChange: false},   // n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo
+  {index: 1, type: 'EQB', isUsed: false, isChange: false},  // mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU
 
   // EQB change:
-  { index: 0, type: 'EQB', isUsed: true, isChange: true } // muMQ9mZjBy2E45QcWb1YZgD45mP3TfN3gC
+  {index: 0, type: 'EQB', isUsed: true, isChange: true}     // muMQ9mZjBy2E45QcWb1YZgD45mP3TfN3gC
 ]
 
 const btcNode = hdNode.derivePath("m/44'/0'/0'")
 const eqbNode = hdNode.derivePath("m/44'/0'/0'")
-const btcEcPair = bitcoin.ECPair.fromPrivateKey(btcNode.privateKey, { network: btcNode.network })
-const eqbEcPair = bitcoin.ECPair.fromPrivateKey(eqbNode.privateKey, { network: eqbNode.network })
+const btcEcPair = bitcoin.ECPair.fromPrivateKey(btcNode.privateKey, {network: btcNode.network})
+const eqbEcPair = bitcoin.ECPair.fromPrivateKey(eqbNode.privateKey, {network: eqbNode.network})
 const portfolioKeys = {
-  BTC: { node: btcNode, ecPair: btcEcPair },
-  EQB: { node: eqbNode, ecPair: eqbEcPair }
+  BTC: {node: btcNode, ecPair: btcEcPair},
+  EQB: {node: eqbNode, ecPair: eqbEcPair}
 }
 
 const balance = {

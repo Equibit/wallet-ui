@@ -25,7 +25,7 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
   afterEach(() => {
     Order.getList = oldGetList
   })
-
+  
   it('Total reflects all orders', function (done) {
     const vm = new ViewModel({ issuanceAddress: 'baadf00d' })
 
@@ -83,7 +83,7 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
     Session.current = null
     const vm = new ViewModel({
       type: 'SELL',
-      issuanceAddress: 'baadf00d'
+      issuanceAddress: 'baadf00d',
     })
 
     assert.deepEqual(vm.marketWidth, [], 'Market widths is an empty array before rows are loaded')

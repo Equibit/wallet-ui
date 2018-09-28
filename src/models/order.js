@@ -191,7 +191,7 @@ const Order = DefineMap.extend('Order', {
   issuancePromise: {
     get () {
       if (typeof this.issuanceId !== 'undefined') {
-        return Issuance.get({ _id: this.issuanceId })
+        return Issuance.get({_id: this.issuanceId})
       }
     }
   },
@@ -206,7 +206,7 @@ const Order = DefineMap.extend('Order', {
   portfolio: {
     get (val, resolve) {
       if (typeof this.portfolioId !== 'undefined') {
-        Portfolio.get({ _id: this.portfolioId }).then(resolve)
+        Portfolio.get({_id: this.portfolioId}).then(resolve)
       }
       return val
     }
@@ -214,7 +214,7 @@ const Order = DefineMap.extend('Order', {
   fundsPortfolio: {
     get (val, resolve) {
       if (typeof this.fundsPortfolioId !== 'undefined') {
-        Portfolio.get({ _id: this.fundsPortfolioId }).then(resolve)
+        Portfolio.get({_id: this.fundsPortfolioId}).then(resolve)
       }
       return val
     }
@@ -224,7 +224,7 @@ const Order = DefineMap.extend('Order', {
     get (val, resolve) {
       const acceptedOfferIds = this.acceptedOfferIds
       if (acceptedOfferIds && acceptedOfferIds.length > 0) {
-        const offerPromises = acceptedOfferIds.map(id => Offer.get({ _id: id }))
+        const offerPromises = acceptedOfferIds.map(id => Offer.get({_id: id}))
         Promise.all(offerPromises).then(results => resolve(new Offer.List(results)))
       }
       return val

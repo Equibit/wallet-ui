@@ -19,7 +19,7 @@ self.onmessage = function (event) {
       }
 
       const hdNode = keys[coinType].derive(isChange ? 1 : 0).derive(keyIndex)
-      const keyPair = bitcoin.ECPair.fromPrivateKey(hdNode.privateKey, { network: hdNode.network })
+      const keyPair = bitcoin.ECPair.fromPrivateKey(hdNode.privateKey, {network: hdNode.network})
 
       self.postMessage({
         keyPairD: keyPair.privateKey,

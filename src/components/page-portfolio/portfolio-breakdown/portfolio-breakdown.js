@@ -27,7 +27,7 @@ export const ViewModel = DefineMap.extend({
     get () {
       return this.balance && new DefineList([
         new DefineList(['Cash', this.balance.cashTotal]),
-        new DefineList(['Domest. Equity', this.balance.securities || 0]), // equityDomest
+        new DefineList(['Domest. Equity', this.balance.securities || 0]),   // equityDomest
         new DefineList(['Domest. Bonds', this.balance.bondsDomest || 0]),
         new DefineList(['Int. Equity', this.balance.equityInt || 0]),
         new DefineList(['Int. Bonds', this.balance.bondsInt || 0])

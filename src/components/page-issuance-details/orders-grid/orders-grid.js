@@ -91,7 +91,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     }
   },
   get userOffersPromise () {
-    return Offer.getList({ userId: this.session.user._id })
+    return Offer.getList({userId: this.session.user._id})
   },
   userOffers: {
     get (setVal, resolve) {

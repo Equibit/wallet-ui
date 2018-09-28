@@ -32,7 +32,7 @@ export const ViewModel = DefineMap.extend({
   password: {
     type: 'string',
     set (value) {
-      this.passwordError = validate.password(value, { allowEmpty: 1 })
+      this.passwordError = validate.password(value, {allowEmpty: 1})
       return value
     }
   },
@@ -45,7 +45,7 @@ export const ViewModel = DefineMap.extend({
   passwordError: 'string',
   generalError: 'string',
   get isPasswordValid () {
-    this.passwordError = validate.password(this.password, { allowEmpty: 0 })
+    this.passwordError = validate.password(this.password, {allowEmpty: 0})
     return !this.passwordError
   },
 

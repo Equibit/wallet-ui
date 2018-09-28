@@ -28,7 +28,7 @@ export const ViewModel = DefineMap.extend({
       if (val) {
         return val
       }
-      this.rowsPromise = Issuance.getList({ $limit: 10, $skip: 0 }).then(resolve)
+      this.rowsPromise = Issuance.getList({$limit: 10, $skip: 0}).then(resolve)
     }
   }
 })

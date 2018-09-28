@@ -12,7 +12,7 @@ const store = fixture.store(_.times(50, function (i) {
     companyName: companies[i % 9],
     companySlug: companies[i % 9].toLowerCase().split(' ').join('-'),
     issuanceName: ['Series 1', 'Series 2'][i % 2],
-    securityType: ['equity', 'bond'][i % 2], // ENUM ('equity', 'bond')
+    securityType: ['equity', 'bond'][i % 2],   // ENUM ('equity', 'bond')
     quantity: Math.floor(Math.random() * 100),
     cost: Math.random() * 100,
     price: Math.random() * 100,

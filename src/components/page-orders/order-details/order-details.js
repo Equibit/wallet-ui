@@ -35,7 +35,7 @@ export const ViewModel = DefineMap.extend({
       }
       this.offersLoaded = false
       if (this.order) {
-        Offer.getList({ orderId: this.order._id }).then(offers => {
+        Offer.getList({orderId: this.order._id}).then(offers => {
           if (offers && offers[0]) {
             offers[0].isSelected = true
           }

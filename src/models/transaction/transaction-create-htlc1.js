@@ -19,8 +19,8 @@ const hashTimelockContract = eqbTxBuilder.hashTimelockContract
  */
 function createHtlc1 (blockchainInfoBySymbol, offer, order, portfolio, issuance, changeAddr, transactionFeeRates) {
   typeforce(typeforce.tuple(
-    BlockchainInfoBySymbol, 'Offer', 'Order', 'Portfolio', typeforce.maybe('Issuance'), types.Address, { EQB: 'Number', BTC: 'Number' }),
-  arguments
+    BlockchainInfoBySymbol, 'Offer', 'Order', 'Portfolio', typeforce.maybe('Issuance'), types.Address, {EQB: 'Number', BTC: 'Number'}),
+    arguments
   )
   if (order.assetType === 'ISSUANCE') {
     typeforce('Issuance', issuance)
@@ -39,7 +39,7 @@ function createHtlc1 (blockchainInfoBySymbol, offer, order, portfolio, issuance,
       transactionFee = tx.hex.length / 2 * transactionFeeRate
       return build(currencyType, transactionFee)
     } else {
-      return { tx, txConfig }
+      return {tx, txConfig}
     }
   }
 
@@ -80,7 +80,7 @@ function prepareHtlcConfigBtc (offer, order, portfolio, changeAddr, transactionF
   }
   const availableAmount = utxoInfo.sum
   const utxo = utxoInfo.txouts
-    .map(a => merge(a, { keyPair: portfolio.findAddress(a.address).ecPair }))
+    .map(a => merge(a, {keyPair: portfolio.findAddress(a.address).ecPair}))
 
   // const script = simpleHashlockSigContract(toAddress, hashlock)
   const script = hashTimelockContract(toAddress, refundAddress, hashlock, timelock)

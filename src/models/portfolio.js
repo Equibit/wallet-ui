@@ -422,7 +422,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       }
       if (!this.utxoByTypeByAddress) {
         console.log('portfolio.balance is undefined - no utxo yet...')
-        return { cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0 }
+        return {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0}
       }
       this.balancePromise.then(bal => {
         resolve && resolve(bal)
@@ -475,7 +475,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
             }
           }
           return acc
-        }, { cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0 })
+        }, {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0})
 
         totals.total = totals.cashTotal + totals.securities
         const retVal = new DefineMap(totals)
@@ -493,8 +493,8 @@ const Portfolio = DefineMap.extend('Portfolio', {
     }
   },
 
-  unrealizedPL: { type: 'number', value: 0 },
-  unrealizedPLPercent: { type: 'number', value: 0 },
+  unrealizedPL: {type: 'number', value: 0},
+  unrealizedPLPercent: {type: 'number', value: 0},
   createdAt: 'date',
   updatedAt: 'date',
   importFrom: 'date',
@@ -605,10 +605,10 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   getTxouts (amount, type) {
     if (!this.utxoByTypeByAddress) {
-      return { sum: 0, txouts: [] }
+      return {sum: 0, txouts: []}
     }
     if (this.utxoByTypeByAddress[type].summary.total < amount) {
-      return { sum: 0, txouts: [] }
+      return {sum: 0, txouts: []}
     }
     return getUnspentOutputsForAmount(this.utxoByType[type], amount)
   },
@@ -655,7 +655,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       addressItem.meta.isUsed = true
       console.log('[portfolio.markAsUsed] patching portfolio with updated addressesMeta ...')
       return feathersClient.service('portfolio-addresses')
-        .patch(addressItem.meta._id, { isUsed: true })
+        .patch(addressItem.meta._id, {isUsed: true})
         .then((results) => {
           console.log('[portfolio.metaAddresses[x].isUsed]', results)
         })

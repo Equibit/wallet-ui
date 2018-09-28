@@ -64,7 +64,7 @@ const User = DefineMap.extend('User', {
    * @param {String} email User's email.
    */
   forgotPassword (email) {
-    return feathersClient.service('forgot-password').create({ email })
+    return feathersClient.service('forgot-password').create({email})
   }
 }, {
   /**
@@ -276,11 +276,11 @@ const User = DefineMap.extend('User', {
     // TODO: we need to separate index for btc and eqb. E.g. companies have only eqb index for auth issuances.
     const btcNode = _keys.BTC.deriveHardened(index)
     const eqbNode = _keys.EQB.deriveHardened(index)
-    const btcEcPair = bitcoin.ECPair.fromPrivateKey(btcNode.privateKey, { network: btcNode.network })
-    const eqbEcPair = bitcoin.ECPair.fromPrivateKey(eqbNode.privateKey, { network: eqbNode.network })
+    const btcEcPair = bitcoin.ECPair.fromPrivateKey(btcNode.privateKey, {network: btcNode.network})
+    const eqbEcPair = bitcoin.ECPair.fromPrivateKey(eqbNode.privateKey, {network: eqbNode.network})
     return {
-      BTC: { node: btcNode, ecPair: btcEcPair },
-      EQB: { node: eqbNode, ecPair: eqbEcPair }
+      BTC: {node: btcNode, ecPair: btcEcPair},
+      EQB: {node: eqbNode, ecPair: eqbEcPair}
     }
   },
   signWithPrivateKey () {

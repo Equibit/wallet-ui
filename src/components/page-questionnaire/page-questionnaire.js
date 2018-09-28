@@ -17,7 +17,7 @@ export const ViewModel = DefineMap.extend({
         return val
       }
       const _id = route.data.itemId
-      Questionnaire.get({ _id }).then(questionnaire => {
+      Questionnaire.get({_id}).then(questionnaire => {
         resolve(questionnaire)
       })
     }
@@ -108,7 +108,7 @@ export const ViewModel = DefineMap.extend({
   submitAnswers () {
     const toSave = new UserQuestionnaire({
       questionnaireId: route.data.itemId,
-      answers: this.userAnswers.map(({ answer }, index) => {
+      answers: this.userAnswers.map(({answer}, index) => {
         const question = this.questions[index]
         if (this.enabledQuestions[index]) {
           let selection = answer.selection
@@ -144,8 +144,8 @@ export const ViewModel = DefineMap.extend({
     toSave.save().then(
       saved => {
         const message = saved.status === 'REWARDED'
-          ? translate('rewardSent')
-          : translate('rewardDelayed')
+        ? translate('rewardSent')
+        : translate('rewardDelayed')
 
         const options = {
           type: 'alert',

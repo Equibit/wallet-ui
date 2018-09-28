@@ -285,7 +285,7 @@ Transaction = DefineMap.extend('Transaction', Object.assign({}, txStaticMethods,
         return resolve ? resolve(val) : val
       } else if (!this.isNew()) {
         TransactionNote.getList({
-          address: { $in: Session.current.allAddresses[this.currencyType] },
+          address: {$in: Session.current.allAddresses[this.currencyType]},
           txId: this.txId
         }).then(result => resolve(result[0] && result[0].description))
       } else {
@@ -383,7 +383,7 @@ Transaction = DefineMap.extend('Transaction', Object.assign({}, txStaticMethods,
     this.description = description || this.description
     return this.save()
       .then(tx => updateOffer(offer, tx, secret))
-      .then(({ tx }) => dispatchAlert(tx, title, message))
+      .then(({tx}) => dispatchAlert(tx, title, message))
       .catch(dispatchAlertError)
   },
   // todo: incompleted...
