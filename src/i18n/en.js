@@ -297,7 +297,7 @@ export default {
   equibitAppName: 'Equibit Portfolio',
   equibitWebsiteURL: 'https://equibitgroup.com/',
   equity: 'Equity',
-  errorMessageUnexpectedError: 'Sorry, unexpected error happened. Please, try again later.',
+  errorMessageUnexpectedError: 'Sorry, an unexpected error occurred. Please, try again later.',
   errorMessageInvalidLogin1: 'Invalid login. Try again, or',
   errorMessageInvalidLogin2: 'reset your password',
   expirationDate: 'Expiration Date',

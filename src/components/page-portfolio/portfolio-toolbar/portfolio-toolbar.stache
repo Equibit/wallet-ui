@@ -2,7 +2,15 @@
 
 <nav class="navbar toolbar">
   <div class="row">
-    <p class="navbar-text"><label>{{i18n('balance')}}</label> <span class="balance">{{user-units(balance, 8)}} <small>BTC</small></span></p>
+    <p class="navbar-text">
+      <label>{{i18n('balance')}}</label> 
+      <span class="balance">{{user-units(balance, 8)}} <small>BTC</small></span> 
+      {{#if isSyncingBalance}}
+        <div class="sync-balance">
+          <div class="icon icon-refresh spin-effect sync-indication-icon"></div>
+        </div> 
+      {{/if}}
+    </p>
 
     <ul class="nav navbar-nav navbar-right toolbar-actions">
       <li><a on:click="sendFunds()">

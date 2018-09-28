@@ -64,6 +64,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
     type: 'string'
   },
 
+  loadingBalance: {
+    type: 'boolean',
+    default: false
+  },
+
   /**
    * Address information: what blockchain it belongs to, whether its a change, and what its index is.
    * @property {String} models/portfolio.properties.addressesMeta addressesMeta
@@ -277,6 +282,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
           EQB: this.addressesEqb.get()
         }).then(result => {
           initialResolved = true
+          this.cacheInitialBalance(result)
           resolvePromise(result)
         })
 
@@ -417,16 +423,24 @@ const Portfolio = DefineMap.extend('Portfolio', {
 
   balance: {
     get (val, resolve) {
+      let currentBalance = {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0, total: 0}
       if (val) {
-        return val
+        return val || currentBalance
       }
-      if (!this.utxoByTypeByAddress) {
-        console.log('portfolio.balance is undefined - no utxo yet...')
-        return {cashBtc: 0, blankEqb: 0, cashTotal: 0, securities: 0}
+
+      const user = Session.current.user
+      const cached = window.localStorage.getItem(user.hashedEmail)
+      const localBalance = cached && JSON.parse(cached).balance
+
+      if (localBalance !== null) {
+        currentBalance = JSON.parse(user.decrypt(localBalance)) || currentBalance
       }
+
       this.balancePromise.then(bal => {
         resolve && resolve(bal)
       })
+
+      return currentBalance
     }
   },
 
@@ -449,6 +463,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
    */
   balancePromise: {
     get () {
+      this.loadingBalance = true
       return new Promise(resolve => {
         const utxoByType = this.utxoByTypeByAddress
         const updatePromises = []
@@ -485,9 +500,14 @@ const Portfolio = DefineMap.extend('Portfolio', {
           // once all the promises resolve, update the totals in the returned map
           totals.cashTotal += totals.blankEqb * eqbToBtc
           totals.total = totals.cashTotal + totals.securities
+          this.cacheInitialBalance(totals)
           console.log(`portfolio.balance.total is ${totals.total}`)
           retVal.assign(totals)
           resolve && resolve(retVal)
+          return retVal
+        }).then((result) => {
+          this.loadingBalance = false
+          return result
         })
       })
     }
@@ -670,13 +690,21 @@ const Portfolio = DefineMap.extend('Portfolio', {
    * @parent models/session.prototype
    * Method to refresh balance. Will request linstunspent and update balancePromise.
    */
-  refreshBalance: function () {
+  refreshBalance () {
     this.dispatch('refresh')
     return this.securitiesPromise
   },
 
   init () {
     this.on('addressesPromise', () => {})
+  },
+
+  cacheInitialBalance (balance) {
+    const utxos = this.utxoByTypeByAddress
+    const user = Session.current.user
+    if (utxos && (Object.keys(utxos.BTC.addresses).length > 0 || Object.keys(utxos.EQB.addresses).length > 0)) {
+      window.localStorage.setItem(user.hashedEmail, JSON.stringify({ balance: user.encrypt(JSON.stringify(balance)) }))
+    }
   }
 })
 

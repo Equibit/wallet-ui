@@ -23,6 +23,7 @@ export const ViewModel = DefineMap.extend({
   sendFundsPopup: 'boolean',
   showFirstModal: '*',
   isSending: 'boolean',
+  isSyncingBalance: 'boolean',
   sendFunds () {
     this.sendFundsPopup = false
     this.sendFundsPopup = true
