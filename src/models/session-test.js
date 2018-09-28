@@ -61,7 +61,7 @@ describe('models/session', function () {
         if (!session.balance || session.balance.isPending) {
           return
         }
-        const decryptedBalance = session.user.decrypt(window.localStorage.getItem('balance'))
+        const decryptedBalance = session.user.decrypt(window.localStorage.getItem(session.user.hashedEmail))
         assert.deepEqual(JSON.parse(decryptedBalance), session.portfolios[0].balance)
         session.off('balance', balanceHandler)
         done()

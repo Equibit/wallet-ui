@@ -1,6 +1,7 @@
 import assert from 'chai/chai'
 import 'steal-mocha'
 import Portfolio from './portfolio'
+import Session from './session'
 import { omit } from 'ramda'
 import portfolio, { portfolioDisconnected, portfolioBtc, portfolioEqbDisconnected, addressesMeta } from './mock/mock-portfolio'
 import listunspent from './mock/mock-listunspent'

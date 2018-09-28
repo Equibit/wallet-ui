@@ -433,9 +433,9 @@ const Portfolio = DefineMap.extend('Portfolio', {
       const localBalance = cached && JSON.parse(cached).balance
 
       if (localBalance !== null) {
-        currentBalance = JSON.parse(user.decrypt(localBalance)) || emptyBalance
+        currentBalance = JSON.parse(user.decrypt(localBalance)) || currentBalance
       }
-      
+
       this.balancePromise.then(bal => {
         resolve && resolve(bal)
       })
