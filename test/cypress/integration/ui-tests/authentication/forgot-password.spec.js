@@ -17,7 +17,7 @@ describe('Forget Password Test', () => {
   describe('Backup Recovery Phrase Tests', () => {
     beforeEach(() => {
       cy.fixture('users').as('users').then((users) => {
-        const {email, temppassword: temp, tempPasswordHash: temphash} = users.forgotPassword
+        const { email, temppassword: temp, tempPasswordHash: temphash } = users.forgotPassword
 
         cy.get('input[type="email"]')
           .type(email)
@@ -94,7 +94,7 @@ describe('Forget Password Test', () => {
     })
 
     it('valid backup recovery phrase', function () {
-      const {password, newPassword, validPhrase} = this.users.forgotPassword
+      const { password, newPassword, validPhrase } = this.users.forgotPassword
       cy.get('input[type="text"]')
         .type(validPhrase)
       cy.get('button[type="submit"]')

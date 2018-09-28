@@ -34,7 +34,7 @@ describe('Portfolio Test', () => {
       .should('not.be.visible')
     cy.wait(5000)
     cy
-      .get('.alert.alert-warning', {timeout: 1000})
+      .get('.alert.alert-warning', { timeout: 1000 })
       .should('be.visible')
   })
 

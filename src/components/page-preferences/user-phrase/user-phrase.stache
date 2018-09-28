@@ -9,13 +9,13 @@
     </div>
     <div class="col-sm-7 col-xs-12 section-column">
       {{#if user.hasRecordedMnemonic }}
-        <span class="label label-success">{{i18n('statusSet')}}</span>
+        <span class="label label-success" data-cy="user-phrase-set-indicator">{{i18n('statusSet')}}</span>
       {{else}}
-        <span class="label label-danger">{{i18n('statusNotSet')}}</span>
+        <span class="label label-danger" data-cy="user-phrase-notset-indicator">{{i18n('statusNotSet')}}</span>
       {{/if}}
     </div>
     <div class="col-sm-2 col-xs-12 section-column section-cta">
-      <button on:click="showAuthModal()" class="btn btn-primary btn-sm btn-edit">{{i18n('view')}}</button>
+      <button on:click="showAuthModal()" class="btn btn-primary btn-sm btn-edit" data-cy="view-recovery-phrase-button">{{i18n('view')}}</button>
     </div>
   </div>
 </div>

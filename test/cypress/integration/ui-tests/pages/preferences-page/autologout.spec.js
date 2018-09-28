@@ -1,25 +1,31 @@
+'use strict'
+
+let user
+
 describe('Auto Logout Test', () => {
-  beforeEach(() => {
-    cy.loginQA()
+  before(function () {
     cy
       .fixture('users')
       .as('users')
       .then((users) => {
-        cy.login(users.validUsers[0])
-        cy
-          .get('[data-cy=userDropdown]')
-          .should('have.attr', 'href', '#')
-          .click()
-        cy
-          .get('[data-cy=userPreferences]')
-          .should('have.attr', 'href', '/preferences')
-          .click()
+        user = users.twoStepVerification
+        cy.resetUser(user)
       })
+  })
+
+  after(function () {
+    cy.resetUser(user)
+  })
+
+  beforeEach(function () {
+    cy.loginQA()
+    cy.login(user)
+    cy.goTo('preferences')
   })
 
   it('auto logout dialog can open', function () {
     cy
-      .get('[data-cy=editAutoLogoutButton]')
+      .get('[data-cy=edit-autologout-button]')
       .click()
     cy
       .get('#autoLogoutTime')
@@ -28,23 +34,23 @@ describe('Auto Logout Test', () => {
 
   it('auto logout time can be adjusted', function () {
     cy
-      .get('[data-cy=displayedAutoLogoutTime]')
+      .get('[data-cy=displayed-autologout-time]')
       .then(($fld) => {
         const oldTimeout = parseInt($fld.text())
         const newTimeout = oldTimeout + (oldTimeout >= 25 ? -5 : 5)
         cy
-          .get('[data-cy=editAutoLogoutButton]')
+          .get('[data-cy=edit-autologout-button]')
           .click()
         cy
           .get('#autoLogoutTime')
           .clear()
           .type(newTimeout.toString())
         cy
-          .get('[data-cy=saveAutoLogoutButton]')
+          .get('[data-cy=save-autologout-button]')
           .should('have.class', 'btn-primary')
           .click()
         cy
-          .get('[data-cy=displayedAutoLogoutTime]')
+          .get('[data-cy=displayed-autologout-time]')
           .should('contain', newTimeout.toString())
       })
   })

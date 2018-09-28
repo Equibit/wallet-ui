@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" data-cy="recovery-input-group">
   {{#each checkWords.indexes index=value}}
   <div class="col-sm-3 col-xs-12 word-display{{#if ../errorFields[scope.index]}} has-error{{/unless}}">
     <label for="phrase-input1">Word #{{sum(index, 1}}</label>

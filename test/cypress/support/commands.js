@@ -82,6 +82,68 @@ Cypress.Commands.add('loginQA', () => {
     .click()
 })
 
+Cypress.Commands.add('resetSecondFactorAuth', (user) => {
+  Cypress.log({
+    name: 'resetSecondFactorAuth'
+  })
+
+  return cy.exec(
+    'mongo wallet_api-testing --eval \'db.users.updateOne(' +
+    `{ "_id": ObjectId("${user.dbid}") },` +
+    `{ $set: { "twoFactorCode": "${user.hashedTwoFactorCode}" } },` +
+    '{  })\''
+  )
+})
+
+Cypress.Commands.add('getSecondFactorHashedAuth', (user) => {
+  Cypress.log({
+    name: 'getSecondFactorHashedAuth'
+  })
+
+  return cy.exec(
+    'mongo wallet_api-testing --eval \'db.users.find(' +
+    `{ "_id": ObjectId("${user.dbid}") },` +
+    '{ "twoFactorCode": 1, "_id": 0 })\' | grep \'"twoFactorCode"\''
+  ).then((result) => JSON.parse(
+    result.stdout
+  ).twoFactorCode)
+})
+
+Cypress.Commands.add('resetUser', (user) => {
+  Cypress.log({
+    name: 'resetUser'
+  })
+
+  return cy.exec(
+    'mongo wallet_api-testing --eval \'' +
+    'var keys = db.users.findOne(); for (var key in keys) { print(key); }' +
+    '\''
+  )
+    .then((result) => result.stdout.split('_id')[1].trim().split('\n'))
+    .then((dbfields) => {
+      let { dbMapping, ...dbUser } = user
+      Object.entries(dbMapping).forEach(([key, value]) => {
+        // if the value is null it means we don't want to save it in the database
+        if (!value) delete dbUser[key]
+        else delete Object.assign(dbUser, { [value]: dbUser[key] })[key]
+      })
+
+      const resetFields = { ...Object.keys(dbUser)
+        .filter((key) => dbfields.includes(key))
+        .reduce((obj, key) => ({
+          ...obj,
+          [key]: dbUser[key]
+        }), {}) }
+
+      return cy.exec(
+        'mongo wallet_api-testing --eval \'db.users.updateOne(' +
+        `{ "_id": ObjectId("${user.dbid}") },` +
+        `{ $set: ${JSON.stringify(resetFields)} },` +
+        '{  })\''
+      )
+    })
+})
+
 Cypress.Commands.add('goTo', (page) => {
   Cypress.log({
     name: 'goTo'

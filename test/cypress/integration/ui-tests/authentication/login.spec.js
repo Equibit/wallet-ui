@@ -26,8 +26,8 @@ describe('Login Test', () => {
       .type('password{enter}')
 
     cy
-    .get('[data-cy=form-error-text]')
-    .should('contain', 'Email is missing')
+      .get('[data-cy=form-error-text]')
+      .should('contain', 'Email is missing')
   })
 
   it('requires password', () => {
@@ -36,24 +36,24 @@ describe('Login Test', () => {
       .type('test@evenset.com{enter}')
 
     cy
-    .get('[data-cy=form-error-text]')
-    .should('contain', 'Password is missing')
+      .get('[data-cy=form-error-text]')
+      .should('contain', 'Password is missing')
   })
 
   it('requires valid email', function () {
     cy.login(this.users.badEmail)
 
     cy
-    .get('[data-cy=form-error-text]')
-    .should('contain', 'Enter a valid email address')
+      .get('[data-cy=form-error-text]')
+      .should('contain', 'Enter a valid email address')
   })
 
   it('requires valid email and password', function () {
     cy.login(this.users.invalidUser)
 
     cy
-    .get('[data-cy=invalid-login-alert]')
-    .should('contain', 'Invalid login.')
+      .get('[data-cy=invalid-login-alert]')
+      .should('contain', 'Invalid login.')
   })
 
   it('successfully log in using UI', function () {

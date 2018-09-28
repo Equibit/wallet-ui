@@ -27,10 +27,10 @@
 
   <div class="modal-footer">
     {{#is ../mode 'edit'}}
-      <button on:click="../code()" type="button" class="btn btn-primary">{{i18n('continue')}}</button>
+      <button on:click="../code()" type="button" class="btn btn-primary" data-cy="email-continue-button">{{i18n('continue')}}</button>
     {{/is}}
     {{#is ../mode 'code'}}
-      <button on:click="../verify()" type="button" class="btn btn-primary">{{i18n('verify')}}</button>
+      <button on:click="../verify()" type="button" class="btn btn-primary" data-cy="email-verify-button">{{i18n('verify')}}</button>
     {{/is}}
     <button on:click="close()" type="button" class="btn btn-default" data-dismiss="modal">{{i18n('cancel')}}</button>
   </div>
