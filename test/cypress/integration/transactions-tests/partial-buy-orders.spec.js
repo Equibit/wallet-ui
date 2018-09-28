@@ -91,7 +91,7 @@ describe('Partial Buy Orders Test', () => {
       cy.contains('View Details')
         .click()
         // Confirm order details & accept offer
-      helper.confirmOrder()
+      helper.confirmOrder('0.0001')
       helper.acceptOffers()
         // Accept offer and send modal
       helper.sendMoney('Payment')
@@ -118,15 +118,14 @@ describe('Partial Buy Orders Test', () => {
     })
 
     it('filled with multiple offers', function () {
-      /* This test accepts multiple offers at once, and does not test what happens
-      * when a user accepts one offer at a time (this is currently broken) */
+      /* This test accepts multiple offers at once */
 
       cy.login(this.users.validUsers[1])
       cy.goToEquibitPage('portfolio')
 
         // 1. Place Sell Order
       helper.placeOrder('buy')
-      helper.addOrder('.0001', '1000000', 'buy')
+      helper.addOrder('.0002', '1000000', 'buy')
       cy.logout()
 
         // 2. Place Buy Offer & Send Payment - check message
@@ -143,7 +142,7 @@ describe('Partial Buy Orders Test', () => {
         .should('contain', 'Send Offer Equibits')
       cy.get('[data-cy=input-quantity]')
         .clear()
-        .type('.00005')
+        .type('.0001')
       cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
         .click()
@@ -153,6 +152,7 @@ describe('Partial Buy Orders Test', () => {
       cy.get('[data-cy=buy-order-row]')
         .should('exist')
         .should('contain', 'Sell')
+      cy.wait(1000)
 
         // Place second offer
       cy.get('[data-cy=loading-overlay]')
@@ -165,7 +165,7 @@ describe('Partial Buy Orders Test', () => {
         .should('contain', 'Send Offer Equibits')
       cy.get('[data-cy=input-quantity]')
         .clear()
-        .type('.00005')
+        .type('.0001')
       cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
         .click()
@@ -176,7 +176,7 @@ describe('Partial Buy Orders Test', () => {
         // 3. Accept & Send Securities - check message
       cy.login(this.users.validUsers[1])
         // Confirm notification
-      helper.firstNotification('Sell', '0.00005')
+      helper.firstNotification('Sell', '0.0001')
         // Confirm order appears/exists
       cy.goToEquibitPage('portfolio')
 
@@ -188,11 +188,11 @@ describe('Partial Buy Orders Test', () => {
       cy.contains('View Details')
         .click()
         // Confirm order details & accept offer
-      helper.confirmOrder()
+      helper.confirmOrder('0.0002')
       helper.acceptOffers()
         // Accept offer and send modal
       helper.sendMoney('Payment')
-      cy.wait(1000)
+      cy.wait(3000)
         // Repeat
       helper.acceptOffers()
       helper.sendMoney('Payment')

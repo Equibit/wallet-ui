@@ -86,7 +86,7 @@ describe('Fill or Kill Test', () => {
       cy.contains('View Details')
         .click()
       // Confirm order details & accept offer
-      helper.confirmOrder(true)
+      helper.confirmOrder('0.0001', true)
       helper.acceptOffers(true)
       // Accept offer and send modal
       helper.sendMoney('Equibits')
@@ -161,7 +161,7 @@ describe('Fill or Kill Test', () => {
       cy.contains('View Details')
         .click()
       // Confirm order details & accept offer
-      helper.confirmOrder(true)
+      helper.confirmOrder('0.0001', true)
       helper.acceptOffers(true)
       // Accept offer and send modal
       helper.sendMoney('Payment')

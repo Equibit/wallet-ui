@@ -117,7 +117,7 @@ describe('Partial Sell Orders Test', () => {
       cy.contains('View Details')
         .click()
         // Confirm order details & accept offer
-      helper.confirmOrder()
+      helper.confirmOrder('0.0001')
       helper.acceptOffers()
         // Accept offer and send modal
       helper.sendMoney('Equibits')
@@ -144,15 +144,14 @@ describe('Partial Sell Orders Test', () => {
     })
 
     it('filled with multiple offers', function () {
-      /* This test accepts multiple offers at once, and does not test what happens
-      * when a user accepts one offer at a time (this is currently broken) */
+      /* This test accepts multiple offers at once */
 
       cy.login(this.users.validUsers[0])
       cy.goToEquibitPage('portfolio')
 
         // 1. Place Sell Order
       helper.placeOrder('sell')
-      helper.addOrder('.0001', '1000000', 'sell')
+      helper.addOrder('.0002', '1000000', 'sell')
       cy.logout()
 
         // 2. Place Buy Offer & Send Payment - check message
@@ -169,7 +168,7 @@ describe('Partial Sell Orders Test', () => {
         .should('contain', 'Send Offer Payment')
       cy.get('[data-cy=input-quantity]')
         .clear()
-        .type('.00005')
+        .type('.0001')
       cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
         .click()
@@ -191,7 +190,7 @@ describe('Partial Sell Orders Test', () => {
         .should('contain', 'Send Offer Payment')
       cy.get('[data-cy=input-quantity]')
         .clear()
-        .type('.00005')
+        .type('.0001')
       cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
         .click()
@@ -202,7 +201,7 @@ describe('Partial Sell Orders Test', () => {
         // 3. Accept & Send Securities - check message
       cy.login(this.users.validUsers[0])
         // Confirm notification
-      helper.firstNotification('Buy', '0.00005')
+      helper.firstNotification('Buy', '0.0001')
         // Confirm order appears/exists
       cy.goToEquibitPage('portfolio')
 
@@ -214,7 +213,7 @@ describe('Partial Sell Orders Test', () => {
       cy.contains('View Details')
         .click()
         // Confirm order details & accept offer
-      helper.confirmOrder()
+      helper.confirmOrder('0.0002')
       helper.acceptOffers()
         // Accept offer and send modal
       helper.sendMoney('Equibits')

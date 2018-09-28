@@ -95,7 +95,7 @@ export function createOffer (type) {
   cy.get('[data-cy=close-update]').click()
 }
 
-export function confirmOrder (fillorkill = false) {
+export function confirmOrder (quantity, fillorkill = false) {
   cy.url().should('contain', '/orders/')
 
   cy.get('[data-cy=order-item]')
@@ -106,7 +106,7 @@ export function confirmOrder (fillorkill = false) {
     .should('contain', 'Open')
 
   cy.get('[data-cy=order-quantity]')
-    .should('contain', '0.0001')
+    .should('contain', quantity)
 
   if (fillorkill) {
     cy.get('[data-cy=fillkill]')
