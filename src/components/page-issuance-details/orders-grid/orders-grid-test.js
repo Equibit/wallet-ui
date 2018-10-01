@@ -9,7 +9,16 @@ import portfolio from '~/models/mock/mock-portfolio'
 
 // ViewModel unit tests
 describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
-  let oldGetList
+  let oldGetList, origSession
+
+  before(() => {
+    origSession = Session.current
+  })
+
+  after(() => {
+    Session.current = origSession
+  })
+
   beforeEach(() => {
     oldGetList = Order.getList
     Order.getList = function () {
