@@ -67,7 +67,7 @@
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22notEnoughFundsPopoverMessage%22)%7D%7D')}}"
                   data-placement="right">
-                  {{i18n('view')}}
+                  {{i18n('buy')}}
                 </button>
               {{/case}}
               {{#case('No blank equibits')}}
@@ -76,7 +76,7 @@
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22notEnoughEqbPopoverMessage%22)%7D%7D')}}"
                   data-placement="right">
-                  {{i18n('view')}}
+                  {{i18n('buy')}}
                 </button>
               {{/case}}
               {{#default}}

@@ -91,7 +91,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
     }
   },
   get userOffersPromise () {
-    return Offer.getList({userId: Session.current.user._id})
+    return Offer.getList({userId: this.session.user._id})
   },
   userOffers: {
     get (setVal, resolve) {
@@ -106,10 +106,8 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
       .filter(offer => offer.status === 'OPEN' || offer.status === 'TRADING')
       .map(offer => offer.orderId)
   },
-  session: {
-    value: function () {
-      return Session.current
-    }
+  get session () {
+    return Session.current
   },
   rowsList: {
     value: []
