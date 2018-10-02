@@ -30,8 +30,6 @@ Cypress.Commands.add('login', (user) => {
     name: 'login'
   })
 
-  cy.visit('/')
-
   cy.get('input[type="email"]')
     .type(user.email)
     .get('input[type="password"]')
