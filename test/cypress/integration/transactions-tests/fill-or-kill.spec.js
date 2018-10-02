@@ -82,6 +82,7 @@ describe('Fill or Kill Test', () => {
 
       // 3. Accept & Send Securities - check message
       cy.login(this.users.validUsers[0])
+      helper.checkFunds()
       // Confirm notification
       cy.get('[data-cy=notification-icon]')
         .click()
@@ -123,6 +124,7 @@ describe('Fill or Kill Test', () => {
 
       // 4. Collect Securities - check message
       cy.login(this.users.validUsers[1])
+      helper.checkFunds()
       cy.get('[data-cy=notification-icon]')
         .click()
         .contains('Notifications')
@@ -140,6 +142,7 @@ describe('Fill or Kill Test', () => {
 
       // 5. Collect Payment & Close Deal
       cy.login(this.users.validUsers[0])
+      helper.checkFunds()
       helper.goToEquibitPage()
 
       cy.get('[data-cy=sell-order-row]')
@@ -211,6 +214,7 @@ describe('Fill or Kill Test', () => {
 
       // 3. Accept & Send Securities - check message
       cy.login(this.users.validUsers[1])
+      helper.checkFunds()
       // Confirm notification
       cy.get('[data-cy=notification-icon]')
         .click()
@@ -252,6 +256,7 @@ describe('Fill or Kill Test', () => {
 
       // 4. Collect Securities - check message
       cy.login(this.users.validUsers[0])
+      helper.checkFunds()
       cy.get('[data-cy=notification-icon]')
         .click()
         .contains('Notifications')
@@ -269,6 +274,7 @@ describe('Fill or Kill Test', () => {
 
       // 5. Collect Payment & Close Deal
       cy.login(this.users.validUsers[1])
+      helper.checkFunds()
       helper.goToEquibitPage()
 
       cy.get('[data-cy=buy-order-row]')

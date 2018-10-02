@@ -1,5 +1,24 @@
 // This is a helper file for functions related to creating a full trade.
 
+// TODO: Attempting to detect cached balances to determine when the balance is loaded
+export function checkCachedBalance (user) {
+  const cache = (JSON.parse(localStorage.getItem(user.hashedEmail)))
+  cy.wrap(cache).its('balance').should('not.be.null')
+}
+
+export function checkFunds () {
+  cy.url().should('contain', '/portfolio')
+  
+  cy.get('[data-cy=loading-overlay]')
+    .should('not.be.visible')
+  cy.get('[data-cy=btc-balance]')
+    .should('not.have.text', '0')
+  cy.get('[data-cy=eqb-balance]')
+    .should('not.have.text', '0')
+  cy.get('[data-cy=no-funds-alert]')
+    .should('not.be.visible')
+}
+
 export function goToEquibitPage () {
   cy.url().should('contain', '/portfolio')
   cy
@@ -145,6 +164,8 @@ export function sendFunds (address, type, amount) {
     type = 'Bitcoin'
   }
 
+  checkFunds()
+  
   cy.contains('Send')
     .click()
   cy.get('input[placeholder="Paste address"]').type(address)
