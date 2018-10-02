@@ -3,6 +3,5 @@
 <p class="single-paragraph">{{i18n('eqbAirDropPromo')}}</p>
 <div>
     <a href='{{routeUrl(page="questionnaire")}}' type="button" class="btn btn-danger">{{i18n('getFreeEqb')}}</a>
-    <br>
-    <br>
+    <br><br>
 </div>
