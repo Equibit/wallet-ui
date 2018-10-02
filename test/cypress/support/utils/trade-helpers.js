@@ -2,13 +2,13 @@
 
 // TODO: Attempting to detect cached balances to determine when the balance is loaded
 export function checkCachedBalance (user) {
-  const cache = (JSON.parse(localStorage.getItem(user.hashedEmail)))
+  const cache = (JSON.parse(window.localStorage.getItem(user.hashedEmail)))
   cy.wrap(cache).its('balance').should('not.be.null')
 }
 
 export function checkFunds () {
   cy.url().should('contain', '/portfolio')
-  
+
   cy.get('[data-cy=loading-overlay]')
     .should('not.be.visible')
   cy.get('[data-cy=btc-balance]')
@@ -165,7 +165,7 @@ export function sendFunds (address, type, amount) {
   }
 
   checkFunds()
-  
+
   cy.contains('Send')
     .click()
   cy.get('input[placeholder="Paste address"]').type(address)
