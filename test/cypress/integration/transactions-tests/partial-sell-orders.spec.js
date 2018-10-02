@@ -217,13 +217,11 @@ describe('Partial Sell Orders Test', () => {
       helper.acceptOffers()
         // Accept offer and send modal
       helper.sendMoney('Equibits')
-      cy.wait(1000)
         // Repeat
       helper.acceptOffers()
       helper.sendMoney('Equibits')
       cy.get('[data-cy=accepted-offers-length]')
         .should('contain', '2')
-      cy.wait(1000)
       cy.logout()
 
         // 4. Collect Securities - check message

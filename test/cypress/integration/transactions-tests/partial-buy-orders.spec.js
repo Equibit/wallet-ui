@@ -152,7 +152,6 @@ describe('Partial Buy Orders Test', () => {
       cy.get('[data-cy=buy-order-row]')
         .should('exist')
         .should('contain', 'Sell')
-      cy.wait(1000)
 
         // Place second offer
       cy.get('[data-cy=loading-overlay]')
@@ -192,7 +191,6 @@ describe('Partial Buy Orders Test', () => {
       helper.acceptOffers()
         // Accept offer and send modal
       helper.sendMoney('Payment')
-      cy.wait(3000)
         // Repeat
       helper.acceptOffers()
       helper.sendMoney('Payment')
