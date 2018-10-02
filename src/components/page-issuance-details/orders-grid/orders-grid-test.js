@@ -12,11 +12,11 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
   let oldGetList, origSession
 
   before(() => {
-    origSession = Session.current
+    origSession = Session.current.get()
   })
 
   after(() => {
-    Session.current = origSession
+    Session.current = new Session(origSession)
   })
 
   beforeEach(() => {
