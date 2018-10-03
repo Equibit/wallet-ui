@@ -117,40 +117,35 @@ const FormData = DefineMap.extend('OfferFormData', {
 
   quantityProblem: 'string',
   get quantityIsVaild () {
-    // Ignore this validation for blank EQB.
-    if (this.order.assetType === 'EQUIBIT') {
-      return true
-    }
-
     const orderType = this.order.type
     const quantity = this.quantity || 0
     const order = this.order || {}
     const orderQuantity = order.quantity || 0
     this.quantityProblem = ''
 
-    if (orderType === 'SELL' && quantity > orderQuantity) {
+    if (quantity > orderQuantity) {
       this.quantityProblem = translate('sellingSecuritiesQuantityGTSharesOrdered')
       return false
     }
     if (orderType === 'SELL') {
       return true
     }
-    // else orderType === 'SELL'
 
-    const sellDataPromise = this.sellDataPromise
-    const sellData = sellDataPromise && this.sellData
-
-    if (!sellData) {
-      this.quantityProblem = translate('sellingSecuritiesCheckingSellData')
-      // waiting for sellData info
-      return false
+    if (this.order.assetType !== 'EQUIBIT') {
+      const sellDataPromise = this.sellDataPromise
+      const sellData = sellDataPromise && this.sellData
+    
+      if (!sellData) {
+        this.quantityProblem = translate('sellingSecuritiesCheckingSellData')
+        // waiting for sellData info
+        return false
+      } else if (sellData && quantity > sellData.maxSellQuantity) {
+        this.quantityProblem = translate('sellingSecuritiesQuantityGTSharesOwned')
+        // can't sell more than owned (that are not pending)
+        return false
+      }
     }
 
-    if (quantity > sellData.maxSellQuantity) {
-      this.quantityProblem = translate('sellingSecuritiesQuantityGTSharesOwned')
-      // can't sell more than owned (that are not pending)
-      return false
-    }
 
     return true
   },
