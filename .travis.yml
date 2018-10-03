@@ -40,7 +40,6 @@ defaults: &defaults
     - yarn run $TEST_SUITE
   after_script:
     - kill $(jobs -p) || true
-    - sudo service mongodb stop
 
 jobs:
   include:
