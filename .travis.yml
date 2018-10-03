@@ -45,22 +45,17 @@ defaults: &defaults
 jobs:
   include:
   # Parallel testing suites - 1 for transactions, 1 for all other e2e, 1 for unit tests
-    # - stage: Testing
-    #   env:
-    #     - TEST_SUITE=cypress-test
-    #   <<: *before
-    #   <<: *defaults
-    # - stage: Testing
-    #   env:
-    #     - TEST_SUITE=cypress-transactions
-    #   <<: *before
-    #   <<: *defaults
+    - stage: Testing
+      env:
+        - TEST_SUITE=cypress-test
+      <<: *before
+      <<: *defaults
+    - stage: Testing
+      env:
+        - TEST_SUITE=cypress-transactions
+      <<: *before
+      <<: *defaults
     - stage: Testing
       env:
         - TEST_SUITE=test
-      <<: *defaults
-    - stage: No Parallel
-      env:
-        - TEST_SUITE=cypress-serial
-      <<: *before
       <<: *defaults
