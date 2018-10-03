@@ -42,6 +42,7 @@ Cypress.Commands.add('logout', () => {
     name: 'logout'
   })
 
+  cy.wait(3000)
   cy.get('[data-cy=userDropdown]')
     .click()
   cy.contains('Log Out')
