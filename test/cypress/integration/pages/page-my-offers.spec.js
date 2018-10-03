@@ -154,7 +154,7 @@ describe('My Offers Test', () => {
         .should('have.class', 'active')
     })
   })
-  describe.only('Offer Cancellations', () => {
+  describe('Offer Cancellations', () => {
     beforeEach(() => {
       cy.clearOrdersAndOffers()
       cy.fixture('users').as('users').then(users => {
