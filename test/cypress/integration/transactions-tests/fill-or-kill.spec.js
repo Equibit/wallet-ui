@@ -50,7 +50,7 @@ describe('Fill or Kill Test', () => {
       cy.get('[data-cy=order-button-sell]')
         .should('have.class', 'btn-selected')
 
-      helper.addOrder(true, '.0001', '1000000', 'sell')
+      helper.addOrder(true, '.0001', '9000000', 'sell')
       cy.logout()
 
       // 2. Place Buy Offer & Send Payment - check message
@@ -87,11 +87,11 @@ describe('Fill or Kill Test', () => {
         .click()
         .contains('Notifications')
         .should('be.visible')
-        .get('[data-cy=notification-title]', {timeout: 10000})
+        .get('[data-cy=notification-title]', {timeout: 90000})
         .should('contain', 'Buy')
         .should('contain', 'Offer Received')
         .get('[data-cy=quantity-link]')
-        .should('contain', '0.0001@1000000')
+        .should('contain', '0.0001@9000000')
       // Confirm order appears/exists
       helper.goToEquibitPage()
 
@@ -127,7 +127,7 @@ describe('Fill or Kill Test', () => {
         .click()
         .contains('Notifications')
         .should('be.visible')
-        .get('[data-cy=notification-title]', {timeout: 10000})
+        .get('[data-cy=notification-title]', {timeout: 90000})
         .should('contain', 'Buy')
         .should('contain', 'Offer Accepted')
         .get('[data-cy=notification-link]')
@@ -148,7 +148,7 @@ describe('Fill or Kill Test', () => {
         .click()
         .contains('Notifications')
         .should('be.visible')
-        .get('[data-cy=notification-title]', {timeout: 10000})
+        .get('[data-cy=notification-title]', {timeout: 90000})
         .should('contain', 'Collect Payment')
         .get('[data-cy=notification-link]')
         .should('have.attr', 'on:click', 'showOfferModal(notification)')
@@ -179,7 +179,7 @@ describe('Fill or Kill Test', () => {
       cy.get('[data-cy=order-button-buy]')
         .should('have.class', 'btn-selected')
 
-      helper.addOrder(true, '.0001', '1000000', 'buy')
+      helper.addOrder(true, '.0001', '9000000', 'buy')
       cy.logout()
 
       // 2. Place Buy Offer & Send Payment - check message
@@ -216,11 +216,11 @@ describe('Fill or Kill Test', () => {
         .click()
         .contains('Notifications')
         .should('be.visible')
-        .get('[data-cy=notification-title]', {timeout: 10000})
+        .get('[data-cy=notification-title]', {timeout: 90000})
         .should('contain', 'Sell')
         .should('contain', 'Offer Received')
         .get('[data-cy=quantity-link]')
-        .should('contain', '0.0001@1000000')
+        .should('contain', '0.0001@9000000')
       // Confirm order appears/exists
       helper.goToEquibitPage()
 
@@ -256,7 +256,7 @@ describe('Fill or Kill Test', () => {
         .click()
         .contains('Notifications')
         .should('be.visible')
-        .get('[data-cy=notification-title]', {timeout: 10000})
+        .get('[data-cy=notification-title]', {timeout: 90000})
         .should('contain', 'Sell')
         .should('contain', 'Offer Accepted')
         .get('[data-cy=notification-link]')
@@ -277,7 +277,7 @@ describe('Fill or Kill Test', () => {
         .click()
         .contains('Notifications')
         .should('be.visible')
-        .get('[data-cy=notification-title]', {timeout: 10000})
+        .get('[data-cy=notification-title]', {timeout: 90000})
         .should('contain', 'Collect Securities')
         .get('[data-cy=notification-link]')
         .should('have.attr', 'on:click', 'showOfferModal(notification)')
