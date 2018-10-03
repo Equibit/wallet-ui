@@ -81,6 +81,7 @@ Cypress.Commands.add('loginQA', () => {
     .click()
 })
 
+<<<<<<< f2beee1f2050964d54cef158d355522cefbe4c88
 Cypress.Commands.add('resetSecondFactorAuth', (user) => {
   Cypress.log({
     name: 'resetSecondFactorAuth'
@@ -143,6 +144,8 @@ Cypress.Commands.add('resetUser', (user) => {
     })
 })
 
+=======
+>>>>>>> remove change of goTo
 Cypress.Commands.add('goTo', (page) => {
   Cypress.log({
     name: 'goTo'
