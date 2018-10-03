@@ -134,7 +134,7 @@ const FormData = DefineMap.extend('OfferFormData', {
     if (this.order.assetType !== 'EQUIBIT') {
       const sellDataPromise = this.sellDataPromise
       const sellData = sellDataPromise && this.sellData
-    
+
       if (!sellData) {
         this.quantityProblem = translate('sellingSecuritiesCheckingSellData')
         // waiting for sellData info
@@ -145,7 +145,6 @@ const FormData = DefineMap.extend('OfferFormData', {
         return false
       }
     }
-
 
     return true
   },
