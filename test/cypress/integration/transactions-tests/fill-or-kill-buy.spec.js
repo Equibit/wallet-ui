@@ -5,11 +5,10 @@ import * as helper from '../../support/utils/trade-helpers'
 // This means that once in a while when the tests fail, the btc/eqb blocks will
 // need to be mined otherwise mempool error will occur.
 describe('Fill or Kill Buy Order Test', () => {
+  it('loads test@evenset and test3@evenset from QA', () => {
+    helper.loadFundsFromQA()
+  })
   describe('Atomic Trade Test', () => {
-    before(() => {
-      helper.loadFundsFromQA()
-    })
-
     beforeEach(() => {
       cy.clearNotifications()
       cy.clearOrdersAndOffers()
