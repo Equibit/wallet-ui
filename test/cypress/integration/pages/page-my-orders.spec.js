@@ -135,7 +135,6 @@ describe('My Orders Test', () => {
       cy.addOrders('all')
       cy.goTo('orders')
 
-        // TODO: check order details - need to create orders
       cy.get('[data-cy=sell-tab]')
         .should('have.class', 'active')
         .get('[data-cy=switch-sell]')
@@ -175,7 +174,7 @@ describe('My Orders Test', () => {
         .should('have.class', 'active')
     })
   })
-  describe.only('Order Cancellations', () => {
+  describe('Order Cancellations', () => {
     beforeEach(() => {
       cy.clearOrdersAndOffers()
       cy.fixture('users').as('users').then(users => {
