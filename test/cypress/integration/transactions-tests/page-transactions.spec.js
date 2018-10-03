@@ -1,6 +1,6 @@
 'use strict'
 
-import checkFunds from '../../support/utils/trade-helpers'
+import * as helper from '../../support/utils/trade-helpers'
 
 describe('Transactions Page Test', () => {
   describe('Without Transactions', () => {
@@ -44,7 +44,7 @@ describe('Transactions Page Test', () => {
       cy.loginQA()
       cy.fixture('users').as('users').then((users) => {
         cy.login(users.validUsers[3])
-        checkFunds()
+        helper.checkFunds()
         cy.goTo('transactions')
       })
     })
