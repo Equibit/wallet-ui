@@ -5,28 +5,11 @@ import * as helper from '../../support/utils/trade-helpers'
 // This means that once in a while when the tests fail, the btc/eqb blocks will
 // need to be mined otherwise mempool error will occur.
 describe('Fill or Kill Buy Order Test', () => {
-  describe('Load wallet from external QA account', () => {
-    it('loads test@evenset and test3@evenset from QA', () => {
-      cy.fixture('users').as('users').then(users => {
-      // Visit live QA website and login with existing user who has funds
-        cy.visit('https://qa-wallet.equibitgroup.com')
-        cy.get('input[type="password"]')
-          .type(Cypress.env('HTTP_PASSWORD'))
-        cy.get('button[type="submit"]')
-          .click()
-        cy.get('input[type="email"]')
-          .type(users.qaBankAccount.email)
-          .get('input[type="password"]')
-          .type(users.qaBankAccount.password)
-          .get('button[type="submit"]')
-          .click()
-        helper.sendFunds(users.validUsers[0].seededEQBaddress, 'eqb', '.0003')
-        cy.wait(2000)
-        helper.sendFunds(users.validUsers[1].seededBTCaddress, 'btc', '.0003')
-      })
-    })
-  })
   describe('Atomic Trade Test', () => {
+    before(() => {
+      helper.loadFundsFromQA()
+    })
+
     beforeEach(() => {
       cy.clearNotifications()
       cy.clearOrdersAndOffers()
