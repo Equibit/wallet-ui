@@ -15,9 +15,7 @@ export function checkFunds () {
 
 export function goToEquibitPage () {
   cy.url().should('contain', '/portfolio')
-  cy
-    .get('[data-cy=no-funds-alert]')
-    .should('not.exist')
+
   cy.get('[data-cy=equibit-link]').click()
   cy.url().should('contain', 'equibit')
 }
