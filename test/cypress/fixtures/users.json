@@ -16,7 +16,8 @@
             "email": "test@evenset.com",
             "password": "SpicyTunaMayo",
             "seededEQBaddress": "mwGxaTgWApi1jyBRn5GhTzG63tuTUy9hMz",
-            "seededBTCaddress": "mnShg49dkHiVi9TpiNtJDFtMVp8G2F1WXA"
+            "seededBTCaddress": "mnShg49dkHiVi9TpiNtJDFtMVp8G2F1WXA",
+            "hashedEmail": "492341b84ee24d879705dfc645c601558da064afada31e293f2e5c8ac019f8f0718bb51bc2b71be417310387539d901a0c00e60a056bec8700cb0751ba781503"
         },
         {
             "_status": "has funds, use as receiver/buyer",
@@ -24,7 +25,8 @@
             "email": "test3@evenset.com",
             "password": "SpicyTunaMayo",
             "seededEQBaddress": "n2tAEfXGofj8BdrWabaz4oLnBLveb24yro",
-            "seededBTCaddress": "mp9wgLnAgp4gjFcVAAkVhwf4nM64EjJ14j"
+            "seededBTCaddress": "mp9wgLnAgp4gjFcVAAkVhwf4nM64EjJ14j",
+            "hashedEmail": "492341b84ee24d879705dfc645c601558da064afada31e293f2e5c8ac019f8f0718bb51bc2b71be417310387539d901a0c00e60a056bec8700cb0751ba781503"
         },
         {
             "_status": "has no funds",

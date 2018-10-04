@@ -30,8 +30,6 @@ Cypress.Commands.add('login', (user) => {
     name: 'login'
   })
 
-  cy.visit('/')
-
   cy.get('input[type="email"]')
     .type(user.email)
     .get('input[type="password"]')
@@ -44,6 +42,7 @@ Cypress.Commands.add('logout', () => {
     name: 'logout'
   })
 
+  cy.wait(3000)
   cy.get('[data-cy=userDropdown]')
     .click()
   cy.contains('Log Out')
