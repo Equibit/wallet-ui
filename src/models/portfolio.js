@@ -702,7 +702,11 @@ const Portfolio = DefineMap.extend('Portfolio', {
   cacheInitialBalance (balance) {
     const utxos = this.utxoByTypeByAddress
     const user = Session.current.user
-    if (utxos && (Object.keys(utxos.BTC.addresses).length > 0 || Object.keys(utxos.EQB.addresses).length > 0)) {
+    if (
+      utxos && (
+        (utxos.BTC && Object.keys(utxos.BTC.addresses).length > 0) ||
+        (utxos.EQB && Object.keys(utxos.EQB.addresses).length > 0))
+    ) {
       window.localStorage.setItem(user.hashedEmail, JSON.stringify({ balance: user.encrypt(JSON.stringify(balance)) }))
     }
   }
