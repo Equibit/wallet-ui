@@ -339,7 +339,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
   utxoBlankEqb: {
     get () {
       if (!this.utxoByTypeByAddress || !this.utxoByTypeByAddress.EQB) {
-        return
+        return []
       }
       const eqbAddresses = this.utxoByTypeByAddress.EQB.addresses
       return Object.keys(eqbAddresses).reduce((acc, addr) => {

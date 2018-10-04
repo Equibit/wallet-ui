@@ -116,7 +116,7 @@ export const ViewModel = DefineMap.extend({
 
   get userPortfolioForIssuance () {
     return (this.assetType === 'ISSUANCE' && this.session.hasIssuanceUtxo(this.issuance.issuanceAddress)) ||
-      (this.assetType === 'EQUIBIT' && this.portfolio.utxoBlankEqb.length)
+      (this.assetType === 'EQUIBIT' && this.portfolio && this.portfolio.utxoBlankEqb.length)
   },
   isViewAllShown: 'boolean',
   showViewAll () {
