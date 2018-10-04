@@ -45,7 +45,7 @@
           </button>
         {{/if}}
         {{#if hasMoreSell}}
-          <button class="btn btn-link btn-xs pull-right" on:click="loadMoreSell()"><span class="icon icon-sort-amount-desc"></span> {{i18n('loadMore')}} </button>
+          <button class="btn btn-link btn-xs pull-right" on:click="loadMoreSell()" data-cy="load-more-sell"><span class="icon icon-sort-amount-desc"></span> {{i18n('loadMore')}} </button>
         {{/if}}
       </div>
     </div>
@@ -75,7 +75,7 @@
           </button>
         {{/if}}
         {{#if hasMoreBuy}}
-          <button class="btn btn-link btn-xs pull-right" on:click="loadMoreBuy()"><span class="icon icon-sort-amount-desc"></span> {{i18n('loadMore')}} </button>
+          <button class="btn btn-link btn-xs pull-right" on:click="loadMoreBuy()" data-cy="load-more-buy"><span class="icon icon-sort-amount-desc"></span> {{i18n('loadMore')}} </button>
         {{/if}}
       </div>
     </div>

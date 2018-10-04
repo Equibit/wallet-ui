@@ -7,7 +7,7 @@
 
   <div class="grid-responsive order-type-{{../type}} {{#if isLoading}}is-loading{{/if}}">
   {{#if isLoading}}
-    <loading-indicator />
+    <loading-indicator data-cy="order-loading-indicator"/>
   {{/if}}
   {{#is ../type 'SELL'}}
 
