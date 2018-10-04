@@ -114,7 +114,7 @@ describe('My Orders Test', () => {
 
       cy.contains('h3', 'My Orders')
         .should('be.visible')
-      
+
       cy.get('[data-cy=archived-tab]')
         .should('not.have.class', 'active')
         .get('[data-cy=switch-archived]')
@@ -145,7 +145,7 @@ describe('My Orders Test', () => {
         .click()
       cy.get('[data-cy=buy-tab]')
         .should('have.class', 'active')
-      cy.get('[data-cy=order-item]').click({multiple: true})      
+      cy.get('[data-cy=order-item]').click({multiple: true})
 
       cy.get('[data-cy=switch-archived]')
         .click()
