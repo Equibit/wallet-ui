@@ -10,14 +10,14 @@
   <div class="panel-body">
 
     <ul class="nav nav-pills list-tabs">
-      <li role="presentation" class="{{#is mode 'SELL'}}active{{/is}}">
-        <a href="#" on:click="switchMode('SELL')">{{i18n('sell')}}</a>
+      <li role="presentation" class="{{#is mode 'SELL'}}active{{/is}}" data-cy="sell-tab">
+        <a href="#" on:click="switchMode('SELL')" data-cy="switch-sell">{{i18n('sell')}}</a>
       </li>
-      <li role="presentation" class="{{#is mode 'BUY'}}active{{/is}}">
-        <a href="#" on:click="switchMode('BUY')">{{i18n('buy')}}</a>
+      <li role="presentation" class="{{#is mode 'BUY'}}active{{/is}}" data-cy="buy-tab">
+        <a href="#" on:click="switchMode('BUY')" data-cy="switch-buy">{{i18n('buy')}}</a>
       </li>
-      <li role="presentation" class="{{#is mode 'ARCHIVE'}}active{{/is}}">
-        <a href="#" on:click="switchMode('ARCHIVE')">{{i18n('archived')}}</a>
+      <li role="presentation" class="{{#is mode 'ARCHIVE'}}active{{/is}}" data-cy="archived-tab">
+        <a href="#" on:click="switchMode('ARCHIVE')" data-cy="switch-archived">{{i18n('archived')}}</a>
       </li>
     </ul>
 
@@ -52,15 +52,15 @@
           {{#switch mode}}
           {{#case 'ARCHIVE'}}
             <div class="icon icon-folder-open"></div>
-            <p class="message-box-cause">{{#is type 'OFFER'}}{{i18n('notFoundOffersArchived')}}{{else}}{{i18n('notFoundOrdersArchived')}}{{/is}}</p>
+            <p class="message-box-cause" data-cy="no-archived-placeholder">{{#is type 'OFFER'}}{{i18n('notFoundOffersArchived')}}{{else}}{{i18n('notFoundOrdersArchived')}}{{/is}}</p>
           {{/case}}
           {{#case 'BUY'}}
             <div class="icon icon-buy-inversed"></div>
-            <p class="message-box-cause">{{#is type 'OFFER'}}{{i18n('notFoundOffersBuy'}}{{else}}{{i18n('notFoundOrdersBuy'}}{{/is}}</p>
+            <p class="message-box-cause" data-cy="no-buy-placeholder">{{#is type 'OFFER'}}{{i18n('notFoundOffersBuy'}}{{else}}{{i18n('notFoundOrdersBuy'}}{{/is}}</p>
           {{/case}}
           {{#case 'SELL'}}
             <div class="icon icon-sell-inversed"></div>
-            <p class="message-box-cause">{{#is type 'OFFER'}}{{i18n('notFoundOffersSell')}}{{else}}{{i18n('notFoundOrdersSell')}}{{/is}}</p>
+            <p class="message-box-cause" data-cy="no-sell-placeholder">{{#is type 'OFFER'}}{{i18n('notFoundOffersSell')}}{{else}}{{i18n('notFoundOrdersSell')}}{{/is}}</p>
           {{/case}}
           {{/switch}}
         </div>
