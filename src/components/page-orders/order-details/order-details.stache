@@ -51,7 +51,7 @@
       <div class="message-box no-border">
           <div class="message-box-status">{{i18n('placeholderNoOrdersTile')}}</div>
             <p class="message-box-cause">{{i18n('placeholderNoOrdersDescription')}}</p>
-            <a href="/equibit" class="btn btn-primary">{{i18n('placeholderNoOrdersCTA')}}</a>
+            <a href="/equibit" class="btn btn-primary" data-cy="place-order-button">{{i18n('placeholderNoOrdersCTA')}}</a>
         </div>
     </div>
   {{else}}
@@ -61,7 +61,7 @@
         <div class="message-box no-border">
             <div class="message-box-status">{{i18n('placeholderNoOrderSelectedTile')}}</div>
             <p class="message-box-cause">{{i18n('placeholderNoOrdersDescription')}}</p>
-            <a href="/equibit" class="btn btn-primary">{{i18n('placeholderNoOrdersCTA')}}</a>
+            <a href="/equibit" class="btn btn-primary" data-cy="place-order-button">{{i18n('placeholderNoOrdersCTA')}}</a>
           </div>
       </div>
     {{/if}}

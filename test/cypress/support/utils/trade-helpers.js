@@ -1,10 +1,21 @@
 // This is a helper file for functions related to creating a full trade.
 
+export function checkFunds () {
+  cy.url().should('contain', '/portfolio')
+
+  cy.get('[data-cy=loading-overlay]')
+    .should('not.be.visible')
+  cy.get('[data-cy=btc-balance]')
+    .should('not.have.text', '0')
+  cy.get('[data-cy=eqb-balance]')
+    .should('not.have.text', '0')
+  cy.get('[data-cy=no-funds-alert]')
+    .should('not.be.visible')
+}
+
 export function goToEquibitPage () {
   cy.url().should('contain', '/portfolio')
-  cy
-    .get('[data-cy=no-funds-alert]')
-    .should('not.exist')
+
   cy.get('[data-cy=equibit-link]').click()
   cy.url().should('contain', 'equibit')
 }
@@ -145,6 +156,8 @@ export function sendFunds (address, type, amount) {
     type = 'Bitcoin'
   }
 
+  checkFunds()
+
   cy.contains('Send')
     .click()
   cy.get('input[placeholder="Paste address"]').type(address)
@@ -154,4 +167,24 @@ export function sendFunds (address, type, amount) {
   cy.contains('Next').click()
   cy.get('[data-cy=send-button]')
     .click()
+}
+
+export function loadFundsFromQA () {
+  cy.fixture('users').as('users').then(users => {
+    // Visit live QA website and login with existing user who has funds
+    cy.visit('https://qa-wallet.equibitgroup.com')
+    cy.get('input[type="password"]')
+      .type(Cypress.env('HTTP_PASSWORD'))
+    cy.get('button[type="submit"]')
+      .click()
+    cy.get('input[type="email"]')
+      .type(users.qaBankAccount.email)
+      .get('input[type="password"]')
+      .type(users.qaBankAccount.password)
+      .get('button[type="submit"]')
+      .click()
+    sendFunds(users.validUsers[0].seededEQBaddress, 'eqb', '.0003')
+    cy.wait(2000)
+    sendFunds(users.validUsers[1].seededBTCaddress, 'btc', '.0003')
+  })
 }
