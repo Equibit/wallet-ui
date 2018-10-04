@@ -167,7 +167,7 @@
                   data-toggle="popover"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22notEnoughEqbPopoverMessage%22)%7D%7D')}}"
-                  data-placement="right">
+                  data-placement="left">
                   {{i18n('sell')}}
                 </button>
               {{/case}}
