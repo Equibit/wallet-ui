@@ -39,7 +39,7 @@
           <button class="btn btn-primary btn-xs"
             data-toggle="popover"
             data-html="true"
-            data-content="{{i18n('loginToContinue')}}<br><a class='btn btn-default' href='/login'>{{i18n('Log in')}}</a>"
+            data-content="{{i18n('loginToContinue')}}<br><a class='btn btn-default' href='/login' data-cy='login-popover'>{{i18n('Log in')}}</a>"
             data-placement="right">
             {{i18n('addSellOrder')}}
           </button>
@@ -69,7 +69,7 @@
           <button class="btn btn-primary btn-xs"
             data-toggle="popover"
             data-html="true"
-            data-content="{{i18n('loginToContinue')}}<br><a class='btn btn-default' href='/login'>{{i18n('Log in')}}</a>"
+            data-content="{{i18n('loginToContinue')}}<br><a class='btn btn-default' href='/login' data-cy='login-popover'>{{i18n('Log in')}}</a>"
             data-placement="right">
             {{i18n('addBuyOrder')}}
           </button>

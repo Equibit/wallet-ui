@@ -15,7 +15,10 @@ export function checkFunds () {
 
 export function goToEquibitPage () {
   cy.url().should('contain', '/portfolio')
+<<<<<<< c5ebc304f7636bb68ea97e1e5f8a3baf9b4268d4
 
+=======
+>>>>>>> wip order-book tests
   cy.get('[data-cy=equibit-link]').click()
   cy.url().should('contain', 'equibit')
 }
