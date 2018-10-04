@@ -252,7 +252,7 @@ describe('Equibit Page Test', () => {
         cy.get('[data-cy=sell-button]')
           .first()
           .click()
-        cy.contains('Not enough securities').should('be.visible')
+        cy.contains('Not enough EQB').should('be.visible')
       })
       // TEST BLOCKED: User is allowed to create a buy order even though they don't have funds
       it.skip('cannot add buy order', () => {

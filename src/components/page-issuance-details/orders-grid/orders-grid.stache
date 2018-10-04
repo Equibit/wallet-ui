@@ -7,7 +7,7 @@
 
   <div class="grid-responsive order-type-{{../type}} {{#if isLoading}}is-loading{{/if}}">
   {{#if isLoading}}
-    <loading-indicator data-cy="order-loading-indicator"/>
+    <loading-indicator />
   {{/if}}
   {{#is ../type 'SELL'}}
 
@@ -169,7 +169,8 @@
                   data-toggle="popover"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22notEnoughEqbPopoverMessage%22)%7D%7D')}}"
-                  data-placement="left">
+                  data-placement="left"
+                  data-cy="sell-button">
                   {{i18n('sell')}}
                 </button>
               {{/case}}

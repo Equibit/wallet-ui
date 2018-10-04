@@ -9,5 +9,6 @@
     "supportFile": "test/cypress/support/index.js",
     "videosFolder": "test/cypress/videos",
     "videoUploadOnPasses": false,
-    "defaultCommandTimeout": 90000
+    "defaultCommandTimeout": 90000,
+    "pageLoadTimeout": 120000
 }
