@@ -32,7 +32,7 @@ describe('Equibit Page Test', () => {
       })
       it('load more button shows when more than 20 orders, and disappears if there are no more orders to load', () => {
         cy.get('[data-cy=sell-order-row]').should('exist')
-          
+
         cy.get('[data-cy=load-more-sell]')
           .scrollIntoView()
           .should('be.visible')
@@ -57,7 +57,7 @@ describe('Equibit Page Test', () => {
           .should('be.visible')
           .click()
         cy.get('[data-cy=load-more-buy]')
-          .should('not.exist')        
+          .should('not.exist')
       })
     })
   })
@@ -190,8 +190,8 @@ describe('Equibit Page Test', () => {
           .type('1000000')
         cy.contains('Next')
           .click()
-        
-        cy.contains('Not enough funds').should('be.visible')        
+
+        cy.contains('Not enough funds').should('be.visible')
       })
       // TEST BLOCKED: User can still add buy orders that exceed their total balance
       it.skip('cannot add buy order when user does not have enough funds', () => {
