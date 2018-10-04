@@ -139,15 +139,16 @@ describe('Equibit Page Test', () => {
         })
     })
     describe('Logged In', () => {
-        before(() => {
+        beforeEach(() => {
             cy.clearOrdersAndOffers()
         })
         describe.only('With Funds', () => {
             beforeEach(function () {
                 cy.login(this.users.validUsers[0])
-                helper.goToEquibitPage()
             })
             it('does not have login and signup button', () => {
+              helper.goToEquibitPage()
+              
                 cy.get('[data-cy=login-equibit]')
                   .should('not.exist')
     
@@ -155,10 +156,41 @@ describe('Equibit Page Test', () => {
                  .should('not.exist')
             })
             it('can add sell or buy order', () => {
+                helper.checkFunds()
+                helper.goToEquibitPage()
+
+                cy.contains('Add Sell Order')
+                  .should('exist')
+                  .and('have.attr', 'on:click', 'showModal(\'SELL\')')
+                  .click()
                 
+                helper.addOrder(true, '0.0001', '1000000', 'sell')
+                cy.get('[data-cy=sell-order-row]')
+                  .should('exist')
+                  .should('contain', 'View')
+                cy.contains('View')
+                  .click()
+                cy.contains('View Details').should('be.visible')
+
+                cy.contains('Add Buy Order')
+                  .should('exist')
+                  .and('have.attr', 'on:click', 'showModal(\'BUY\')')
+                  .click()
+                
+                  helper.addOrder(true, '0.0001', '1000000', 'buy')
+                cy.get('[data-cy=buy-order-row]')
+                  .should('exist')
+                  .should('contain', 'View')
+                cy.contains('View')
+                  .click()
+                cy.contains('View Details').should('be.visible')
             })
             it('can make offer for orders', () => {
+              cy.addOrders('sell')
+              cy.addOrders('buy')
 
+              helper.checkFunds()
+              helper.goToEquibitPage()
             })
         })
         describe('Without Funds', () => {
