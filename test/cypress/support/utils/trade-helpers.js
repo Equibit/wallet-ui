@@ -1,5 +1,25 @@
 // This is a helper file for functions related to creating a full trade.
 
+export function checkFunds () {
+  cy.url().should('contain', '/portfolio')
+
+  cy.get('[data-cy=loading-overlay]')
+    .should('not.be.visible')
+  cy.get('[data-cy=btc-balance]')
+    .should('not.have.text', '0')
+  cy.get('[data-cy=eqb-balance]')
+    .should('not.have.text', '0')
+  cy.get('[data-cy=no-funds-alert]')
+    .should('not.be.visible')
+}
+
+export function goToEquibitPage () {
+  cy.url().should('contain', '/portfolio')
+
+  cy.get('[data-cy=equibit-link]').click()
+  cy.url().should('contain', 'equibit')
+}
+
 // Notifications
 export function firstNotification (type, value) {
   cy.get('[data-cy=notification-icon]')
@@ -36,7 +56,7 @@ export function placeOrder (type) {
   cy.get(`[data-cy=${type}-order-row]`)
     .should('not.exist')
   cy.contains(`Add ${capitalizeType} Order`)
-    .should('have.attr', 'on:click', `showModal(\'${type.toUpperCase()}\')`)
+    .should('have.attr', 'on:click', `showModal('${type.toUpperCase()}')`)
     .click()
   // Add Sell Order modal
   cy.get('[data-cy=order-modal-title]')
@@ -76,7 +96,7 @@ export function addOrder (quantity, price, type, fillorkill = false) {
     .should('contain', 'View')
 }
 
-export function createOffer (type) {
+export function confirmOffer (type) {
   cy.get('[data-cy=offer-modal-title]')
     .should('contain', `Send Offer ${type}`)
   cy.contains('Please review and confirm your offer.')
@@ -95,7 +115,8 @@ export function createOffer (type) {
   cy.get('[data-cy=close-update]').click()
 }
 
-export function confirmOrder (quantity, fillorkill = false) {
+// Only use for non-fill-or-kill
+export function confirmOrder (quantity) {
   cy.url().should('contain', '/orders/')
 
   cy.get('[data-cy=order-item]')
@@ -108,24 +129,48 @@ export function confirmOrder (quantity, fillorkill = false) {
   cy.get('[data-cy=order-quantity]')
     .should('contain', quantity)
 
-  if (fillorkill) {
-    cy.get('[data-cy=fillkill]')
-      .should('be.visible')
-  }
-
   cy.get('[data-cy=order-ask-price]')
     .should('contain', '1000000.00')
     .get('[data-cy=status]')
     .should('contain', 'Open')
-    .get('[data-cy=offers-length]')
+    .get('[data-cy=accepted-offers-length]')
     .should('contain', '0')
 }
 
-export function acceptOffers (fillorkill = false) {
-  if (fillorkill) {
-    cy.get('[data-cy=offer-length]')
-      .should('not.contain', '2')
-  }
+// Only use for non-fill-or-kill
+export function acceptOffers () {
+  cy.get('[data-cy=offer-quantity]')
+    .should('be.visible')
+    .eq(0)
+    .click()
+
+  cy.get('[data-cy=accept-button]')
+    .should('be.visible')
+    .should('have.attr', 'on:click', 'acceptOffer(offer)')
+    .eq(0)
+    .click()
+}
+
+export function confirmOrderAndAcceptOffer () {
+  cy.url().should('contain', '/orders/')
+
+  cy.get('[data-cy=order-item]')
+    .should('have.attr', 'on:click', 'selectItem(item)')
+    .should('have.class', 'active')
+    .should('contain', 'Blank EQB')
+    .get('[data-cy=list-status]')
+    .should('contain', 'Open')
+
+  cy.get('[data-cy=order-quantity]')
+    .should('contain', '0.0001')
+    .get('[data-cy=fillkill]')
+    .should('be.visible')
+    .get('[data-cy=order-ask-price]')
+    .should('contain', '1000000.00')
+    .get('[data-cy=status]')
+    .should('contain', 'Open')
+    .get('[data-cy=accepted-offers-length]')
+    .should('contain', '0')
 
   cy.get('[data-cy=offer-quantity]')
     .should('be.visible')
@@ -138,13 +183,28 @@ export function acceptOffers (fillorkill = false) {
     .click()
 }
 
+export function sendMoney (title) {
+  cy.get('[data-cy=accept-offer-title]')
+      .should('contain', `Accept Offer and Send ${title}`)
+  cy.contains('Please review and confirm your transaction.')
+    .should('exist')
+  cy.contains('Accept & Send')
+    .should('have.attr', 'on:click', 'send(@close)')
+    .click()
+    // Confirm alert
+  cy.get('.alert-message')
+    .should('contain', 'Trade was updated')
+  cy.get('[data-cy=list-status]')
+    .should('contain', 'Trading')
+  cy.get('[data-cy=close-update]').click()
+}
+
 export function collectEQB () {
   cy.get('[data-cy=collect-title]')
     .should('contain', 'Collect EQB')
-    .get('[data-cy=confirm-summary]')
-    .should('contain', '0.0001')
-    .should('contain', 'EQB')
+    .should('be.visible')
     .get('[data-cy=collect-button]')
+    .should('be.visible')
     .should('have.attr', 'on:click', 'send(@close)')
     .should('contain', 'Collect EQB')
     .click()
@@ -181,12 +241,11 @@ export function closeDeal (type, pos = 0) {
 export function collectPayment () {
   cy.get('[data-cy=collect-title]')
     .should('contain', 'Collect Payment')
-    .get('[data-cy=confirm-summary]')
-    .should('contain', '0.0001')
-    .should('contain', 'BTC')
+    .should('be.visible')
     .get('[data-cy=collect-button]')
     .should('have.attr', 'on:click', 'send(@close)')
     .should('contain', 'Collect & Close Deal')
+    .should('be.visible')
     .click()
 
   // Confirm alert & new notification
@@ -196,6 +255,7 @@ export function collectPayment () {
     .click()
     .get('[data-cy=notification-link]')
     .should('contain', 'You collected the payment')
+  cy.get('[data-cy=close-update]').click()
 }
 
 export function checkDealClosed () {

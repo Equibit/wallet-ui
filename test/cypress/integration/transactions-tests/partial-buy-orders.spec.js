@@ -2,26 +2,8 @@
 import * as helper from '../../support/utils/trade-helpers'
 
 describe('Partial Buy Orders Test', () => {
-  describe('Load wallet from external QA account', () => {
-    it('loads test@evenset and test3@evenset from QA', () => {
-      cy.fixture('users').as('users').then(users => {
-      // Visit live QA website and login with existing user who has funds
-        cy.visit('https://qa-wallet.equibitgroup.com/')
-        cy.get('input[type="password"]')
-          .type(Cypress.env('HTTP_PASSWORD'))
-        cy.get('button[type="submit"]')
-          .click()
-        cy.get('input[type="email"]')
-          .type(users.qaBankAccount.email)
-          .get('input[type="password"]')
-          .type(users.qaBankAccount.password)
-          .get('button[type="submit"]')
-          .click()
-        helper.sendFunds(users.validUsers[0].seededEQBaddress, 'eqb', '.0003')
-        cy.wait(2000)
-        helper.sendFunds(users.validUsers[1].seededBTCaddress, 'btc', '.0003')
-      })
-    })
+  it('loads test@evenset and test3@evenset from QA', () => {
+    helper.loadFundsFromQA()
   })
   describe('Atomic Trade Tests', () => {
     beforeEach(() => {
@@ -43,7 +25,8 @@ describe('Partial Buy Orders Test', () => {
 
     it('filled with one offer', function () {
       cy.login(this.users.validUsers[1])
-      cy.goToEquibitPage('portfolio')
+      helper.checkFunds()
+      helper.goToEquibitPage()
 
         // 1. Place Sell Order
       helper.placeOrder('buy')
@@ -52,7 +35,8 @@ describe('Partial Buy Orders Test', () => {
 
         // 2. Place Buy Offer & Send Payment - check message
       cy.login(this.users.validUsers[0])
-      cy.goToEquibitPage('portfolio')
+      helper.checkFunds()
+      helper.goToEquibitPage()
       cy.get('[data-cy=buy-order-row]')
         .should('exist')
         .should('contain', 'Sell')
@@ -78,10 +62,11 @@ describe('Partial Buy Orders Test', () => {
 
         // 3. Accept & Send Securities - check message
       cy.login(this.users.validUsers[1])
+      helper.checkFunds()
         // Confirm notification
       helper.firstNotification('Sell', '0.0001')
         // Confirm order appears/exists
-      cy.goToEquibitPage('portfolio')
+      helper.goToEquibitPage()
 
       cy.get('[data-cy=buy-order-row]')
         .should('exist')
@@ -99,6 +84,7 @@ describe('Partial Buy Orders Test', () => {
 
         // 4. Collect Securities - check message
       cy.login(this.users.validUsers[0])
+      helper.checkFunds()
       helper.secondNotification('Sell')
         // Confirm modal
       helper.collectPayment()
@@ -106,7 +92,8 @@ describe('Partial Buy Orders Test', () => {
 
         // 5. Collect Payment & Close Deal
       cy.login(this.users.validUsers[1])
-      cy.goToEquibitPage('portfolio')
+      helper.checkFunds()
+      helper.goToEquibitPage()
       helper.closeDeal('buy')
         // Confirm modal
       helper.collectEQB()
@@ -121,7 +108,8 @@ describe('Partial Buy Orders Test', () => {
       /* This test accepts multiple offers at once */
 
       cy.login(this.users.validUsers[1])
-      cy.goToEquibitPage('portfolio')
+      helper.checkFunds()
+      helper.goToEquibitPage()
 
         // 1. Place Sell Order
       helper.placeOrder('buy')
@@ -130,7 +118,8 @@ describe('Partial Buy Orders Test', () => {
 
         // 2. Place Buy Offer & Send Payment - check message
       cy.login(this.users.validUsers[0])
-      cy.goToEquibitPage('portfolio')
+      helper.checkFunds()
+      helper.goToEquibitPage('portfolio')
       cy.get('[data-cy=buy-order-row]')
         .should('exist')
         .should('contain', 'Sell')
@@ -174,10 +163,11 @@ describe('Partial Buy Orders Test', () => {
 
         // 3. Accept & Send Securities - check message
       cy.login(this.users.validUsers[1])
+      helper.checkFunds()
         // Confirm notification
       helper.firstNotification('Sell', '0.0001')
         // Confirm order appears/exists
-      cy.goToEquibitPage('portfolio')
+      helper.goToEquibitPage()
 
       cy.get('[data-cy=buy-order-row]')
         .should('exist')
@@ -200,6 +190,7 @@ describe('Partial Buy Orders Test', () => {
 
         // 4. Collect Securities - check message
       cy.login(this.users.validUsers[0])
+      helper.checkFunds()
       helper.secondNotification('Sell')
         // Confirm modal
       helper.collectPayment()
@@ -210,7 +201,8 @@ describe('Partial Buy Orders Test', () => {
 
         // 5. Collect Payment & Close Deal
       cy.login(this.users.validUsers[1])
-      cy.goToEquibitPage('portfolio')
+      helper.checkFunds()
+      helper.goToEquibitPage()
       helper.closeDeal('buy')
         // Confirm modal
       helper.collectEQB()

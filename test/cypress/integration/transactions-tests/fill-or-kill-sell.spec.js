@@ -18,25 +18,17 @@ describe('Fill or Kill Sell Order Test', () => {
 
     it('Fill or Kill sell order', function () {
       cy.login(this.users.validUsers[0])
+      helper.checkFunds()
       helper.goToEquibitPage()
 
       // 1. Place Sell Order
-      cy.get('[data-cy=sell-order-row]')
-        .should('not.exist')
-      cy.contains('Add Sell Order')
-        .should('have.attr', 'on:click', 'showModal(\'SELL\')')
-        .click()
-      // Add Sell Order modal
-      cy.get('[data-cy=order-modal-title]')
-        .should('contain', 'Place Sell Order')
-      cy.get('[data-cy=order-button-sell]')
-        .should('have.class', 'btn-selected')
-
-      helper.addOrder(true, '.0001', '1000000', 'sell')
+      helper.placeOrder('sell')
+      helper.addOrder('.0001', '1000000', 'sell', true)
       cy.logout()
 
       // 2. Place Buy Offer & Send Payment - check message
       cy.login(this.users.validUsers[1])
+      helper.checkFunds()
       helper.goToEquibitPage()
 
       cy.get('[data-cy=sell-order-row]')
@@ -50,12 +42,11 @@ describe('Fill or Kill Sell Order Test', () => {
         .should('contain', 'Send Offer Payment')
       cy.get('[data-cy=fillkill]')
         .should('be.visible')
-      cy.wait(1500)
       cy.contains('Next')
         .should('have.attr', 'on:click', 'next()')
         .click()
       // Confirm modal
-      helper.createOffer('Payment')
+      helper.confirmOffer('Payment')
       // Confirm order appears/exists
       cy.get('[data-cy=sell-order-row]')
         .should('exist')
@@ -66,15 +57,7 @@ describe('Fill or Kill Sell Order Test', () => {
       cy.login(this.users.validUsers[0])
       helper.checkFunds()
       // Confirm notification
-      cy.get('[data-cy=notification-icon]')
-        .click()
-        .contains('Notifications')
-        .should('be.visible')
-        .get('[data-cy=notification-title]')
-        .should('contain', 'Buy')
-        .should('contain', 'Offer Received')
-        .get('[data-cy=quantity-link]')
-        .should('contain', '0.0001@1000000')
+      helper.firstNotification('Buy', '0.0001')
       // Confirm order appears/exists
       helper.goToEquibitPage()
 
@@ -87,37 +70,14 @@ describe('Fill or Kill Sell Order Test', () => {
         .click()
       // Confirm order details & accept offer
       helper.confirmOrderAndAcceptOffer()
-
       // Accept offer and send modal
-      cy.get('[data-cy=accept-offer-title]')
-        .should('contain', 'Accept Offer and Send Equibits')
-      cy.contains('Please review and confirm your transaction.')
-        .should('exist')
-      cy.contains('Accept & Send')
-        .should('have.attr', 'on:click', 'send(@close)')
-        .click()
-      // Confirm alert
-      cy.get('.alert-message')
-        .should('contain', 'Trade was updated')
-      cy.get('[data-cy=list-status]')
-        .should('contain', 'Trading')
-
+      helper.sendMoney('Equibits')
       cy.logout()
 
       // 4. Collect Securities - check message
       cy.login(this.users.validUsers[1])
       helper.checkFunds()
-      cy.get('[data-cy=notification-icon]')
-        .click()
-        .contains('Notifications')
-        .should('be.visible')
-        .get('[data-cy=notification-title]')
-        .should('contain', 'Buy')
-        .should('contain', 'Offer Accepted')
-        .get('[data-cy=notification-link]')
-        .should('have.attr', 'on:click', 'showOfferModal(notification)')
-        .should('contain', 'Collect Securities')
-        .click()
+      helper.secondNotification('Buy')
       // Confirm modal
       helper.collectEQB()
       cy.logout()
@@ -126,19 +86,7 @@ describe('Fill or Kill Sell Order Test', () => {
       cy.login(this.users.validUsers[0])
       helper.checkFunds()
       helper.goToEquibitPage()
-
-      cy.get('[data-cy=sell-order-row]')
-        .should('not.exist')
-      cy.get('[data-cy=notification-icon]')
-        .click()
-        .contains('Notifications')
-        .should('be.visible')
-        .get('[data-cy=notification-title]')
-        .should('contain', 'Collect Payment')
-        .get('[data-cy=notification-link]')
-        .should('have.attr', 'on:click', 'showOfferModal(notification)')
-        .should('contain', 'Close Deal')
-        .click()
+      helper.closeDeal('sell')
       // Confirm modal
       helper.collectPayment()
       cy.logout()
