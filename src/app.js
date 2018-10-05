@@ -35,7 +35,7 @@ const pages = {
   login: 'public',
   research: 'public',
   issuances: 'public',
-  equibit: 'public',
+  equibit: 'private',
   'issuance-details': 'public',
   'four-oh-one': 'public',
   'forgot-password': 'public',
