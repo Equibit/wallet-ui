@@ -9,6 +9,8 @@ const openDialog = function () {
     .click()
 }
 const prepDialog = function () {
+  cy.url().should('contain', '/portfolio')
+  cy.get('[data-cy=loading-overlay]').should('not.be.visible')
   cy.goTo('preferences')
   openDialog()
   cy.resetSecondFactorAuth(user)
