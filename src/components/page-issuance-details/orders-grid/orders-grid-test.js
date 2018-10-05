@@ -161,4 +161,30 @@ describe('wallet-ui/components/page-issuance-details/orders-grid', () => {
       done()
     })
   })
+
+  it('whyUserCantOffer rejects sell request from user with not enough blank EQB', function (done) {
+    Session.current = {
+      user: userMock,
+      portfolios: [portfolio]
+    }
+    const vm = new ViewModel({
+      type: 'BUY',
+      issuanceAddress: 'baadf00d',
+      assetType: 'EQUIBIT',
+      portfolio: {
+        hasEnoughFunds () {
+          return false
+        }
+      }
+    })
+
+    assert.deepEqual(vm.marketWidth, [], 'Market widths is an empty array before rows are loaded')
+    vm.on('rows', () => {
+      assert.deepEqual(vm.marketWidth, [33, 99], 'Market widths are correct after rows are loaded')
+      vm.rows.forEach(row => {
+        assert.equal(vm.whyUserCantOffer(row), 'No blank equibits', 'User without blank Equibits cannot sell offers')
+      })
+      done()
+    })
+  })
 })
