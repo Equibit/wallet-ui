@@ -371,7 +371,7 @@ Issuance.List = DefineList.extend('IssuanceList', {
   loadUTXO () {
     if (this.addresses.length > 0) {
       return fetchListunspent({EQB: this.addresses}).then(utxoByType => {
-        if (utxoByType.EQB.summary.total === 0) {
+        if (!utxoByType || !utxoByType.EQB || utxoByType.EQB.summary.total === 0) {
           return
         }
         const utxoByAddr = utxoByType.EQB.addresses
