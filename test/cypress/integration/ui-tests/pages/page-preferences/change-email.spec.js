@@ -45,6 +45,8 @@ describe('Change Email Test', () => {
   })
 
   it('email verification is openable', function () {
+    cy.url().should('contain', '/portfolio')
+    cy.get('[data-cy=loading-overlay]').should('not.be.visible')
     cy.goTo('preferences')
     openDialog()
     cy
@@ -53,6 +55,8 @@ describe('Change Email Test', () => {
   })
 
   it('email verification code is sent when the dialog is dialog opened', function () {
+    cy.url().should('contain', '/portfolio')
+    cy.get('[data-cy=loading-overlay]').should('not.be.visible')
     cy.goTo('preferences')
     cy.resetSecondFactorAuth(user)
     openDialog()
@@ -61,6 +65,8 @@ describe('Change Email Test', () => {
   })
 
   it('email verification code is updated when "try again" is clicked', function () {
+    cy.url().should('contain', '/portfolio')
+    cy.get('[data-cy=loading-overlay]').should('not.be.visible')
     cy.goTo('preferences')
     openDialog()
     const currentHashedCode = cy.getSecondFactorHashedAuth(user)
