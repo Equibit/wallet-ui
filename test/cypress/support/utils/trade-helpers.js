@@ -283,9 +283,9 @@ export function sendFunds (address, type, amount) {
   cy.contains(type).click()
   cy.get('input[type="number"]')
     .type(amount)
-  cy.contains('Next').click()
+  cy.contains('Next').click({force: true})
   cy.get('[data-cy=send-button]')
-    .click()
+    .click({force: true})
 }
 
 export function loadFundsFromQA () {
