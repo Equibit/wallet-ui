@@ -45,7 +45,7 @@ app.post('/basic-login', function (req, res) {
 
 app.use(function (req, res, next) {
   // Skip for CI.
-  if (process.env.NODE_ENV !== 'TESTING' && !req.session.authorized) {
+  if (process.env.NODE_ENV !== 'testing' && !req.session.authorized) {
     return res.sendFile(path.join(__dirname, './basic-login.html'))
   }
   return next()
