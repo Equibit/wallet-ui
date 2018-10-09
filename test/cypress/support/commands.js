@@ -148,6 +148,9 @@ Cypress.Commands.add('goTo', (page) => {
     name: 'goTo'
   })
 
+  cy.url().should('contain', '/portfolio')
+  cy.get('[data-cy=loading-overlay]').should('not.be.visible')
+  
   cy.get('[data-cy=userDropdown]')
     .click()
   cy.get(`[data-cy=${page}]`)
