@@ -100,8 +100,10 @@
     },
     "qaBankAccount": {
         "id": 0,
-        "_comment": "change this to a real QA account that has money",
-        "email": "elliott@evenset.com",
-        "password": "password123"
+        "_comment": "seeded user that is reloaded with raw transaction",
+        "email": "bank@evenset.com",
+        "password": "SpicyTunaMayo",
+        "plainEQBaddress": "msW5nT13pW3iKP4T7eqHHwNCjS9ZRz9Hkt",
+        "plainBTCaddress": "mxMvgFt94WxVZhBwJRnTxDZBJQ5UqV1pnr"
     }
 }
