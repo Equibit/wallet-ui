@@ -162,7 +162,7 @@ describe('My Offers Test', () => {
       })
     })
 
-    it('can cancel sell offer', () => {
+    it.skip('can cancel sell offer', () => {
       cy.addOffers('sell')
       cy.goTo('offers')
 
@@ -201,7 +201,7 @@ describe('My Offers Test', () => {
       //   .should('be.visible')
     })
 
-    it('can cancel buy offer', () => {
+    it.skip('can cancel buy offer', () => {
       cy.addOffers('buy')
       cy.goTo('offers')
 
