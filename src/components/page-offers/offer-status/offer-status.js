@@ -47,9 +47,7 @@ export const ViewModel = DefineMap.extend({
       return Session.current && Session.current.portfolios && Session.current.portfolios[0]
     }
   },
-  get testing () {
-    return JSON.stringify(this.offer.htlcTransactions)
-  },
+
   status: {
     set: enumSetter(['OPEN', 'TRADING', 'CLOSED', 'CANCELLED', 'REJECTED'])
   },

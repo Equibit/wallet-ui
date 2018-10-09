@@ -644,6 +644,7 @@ export default {
   streetAddressPlaceholder2: 'Suite, unit, building, floor, etc.',
   statusOPEN: 'Open',
   statusTRADING: 'Trading',
+  'statusTRADING-AVAILABLE': 'Trading',
   statusCANCELLED: 'Cancelled',
   statusCLOSED: 'Closed',
   statusEXPIRED: 'Expired',

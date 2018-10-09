@@ -76,10 +76,6 @@
 {{/recoverButton}}
 {{! end partials defs }}
 
-<div>
-  {{testing}}
-</div>
-
 {{#eq offer.status "CANCELLED"}}
 
   <div class="row timeline-container contextual-bg-danger">

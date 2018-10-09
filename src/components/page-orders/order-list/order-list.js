@@ -23,6 +23,7 @@ import canBatch from 'can-event/batch/'
 const labelStatusMap = {
   OPEN: 'info',
   TRADING: 'progress',
+  'TRADING-AVAILABLE': 'progress',
   CANCELLED: 'danger',
   CLOSED: 'success',
   EXPIRED: 'inactive'
