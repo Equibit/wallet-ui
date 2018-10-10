@@ -14,7 +14,7 @@ const data = times(i => {
     createdAt: [(new Date()).toJSON(), '2017-04-12T04:35:34.835Z', '2017-03-05T08:45:34.835Z'][i % 3],
     isFillOrKill: [true, false, false][i % 3],
     type: ['SELL', 'BUY', 'SELL'][i % 3],
-    status: ['OPEN', 'TRADING', 'CANCELLED', 'CLOSED'][i % 4],
+    status: ['OPEN', 'TRADING', 'CANCELLED', 'CLOSED', 'TRADING-AVAILABLE'][i % 5],
     acceptedOfferIds: (i < 6 ? ['1', '2'] : ['3', '4', '5']),
 
     btcAddress: 'n2iN6cGkFEctaS3uiQf57xmiidA72S7QdA',

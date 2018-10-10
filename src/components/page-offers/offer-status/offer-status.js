@@ -49,7 +49,7 @@ export const ViewModel = DefineMap.extend({
   },
 
   status: {
-    set: enumSetter(['OPEN', 'TRADING', 'CLOSED', 'CANCELLED', 'REJECTED'])
+    set: enumSetter(['OPEN', 'TRADING', 'CLOSED', 'CANCELLED', 'REJECTED', 'TRADING-AVAILABLE'])
   },
 
   get isAskFlow () {
