@@ -17,9 +17,18 @@ export const ViewModel = DefineMap.extend({
         return val
       }
       const _id = route.data.itemId
-      Questionnaire.get({_id}).then(questionnaire => {
-        resolve(questionnaire)
-      })
+
+      /* if questionnaire id is passed in route URL, use it to fetch the questionnaire,
+         otherwise, fetch all active questionnaires from DB and use the first id. */
+      if (_id) {
+        Questionnaire.get({_id}).then(questionnaire => {
+          resolve(questionnaire)
+        })
+      } else {
+        Questionnaire.getList({isActive: true}).then(qList => {
+          resolve(qList[0])
+        })
+      }
     }
   },
   questions: {
@@ -107,7 +116,7 @@ export const ViewModel = DefineMap.extend({
 
   submitAnswers () {
     const toSave = new UserQuestionnaire({
-      questionnaireId: route.data.itemId,
+      questionnaireId: this.questionnaire._id,
       answers: this.userAnswers.map(({answer}, index) => {
         const question = this.questions[index]
         if (this.enabledQuestions[index]) {
@@ -156,7 +165,7 @@ export const ViewModel = DefineMap.extend({
         }
         hub.dispatch(options)
 
-        route.data.page = 'questionnaires'
+        route.data.page = 'portfolio'
       },
       e => {
         const message = e.message === 'Completed answer array is invalid!'
