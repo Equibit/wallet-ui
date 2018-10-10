@@ -24,9 +24,8 @@ before: &before
     # Run server
     - "yarn run e2e &"
     # Wait for server to start
-    - "sleep 15"
+    - "sleep 30"
     - "yarn run load-test-wallet"
-    - "sleep 5"
     - "yarn run clear-mempool"
     - "cd .."
 
