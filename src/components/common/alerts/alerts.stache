@@ -2,7 +2,7 @@
 <div class="alert-container">
 	{{#each alerts}}
 	<div class="alert alert-dismissable alert-{{kind}} alert-floating animated slideInDown">
-	    <button type="button" class="close" ($click)="removeAlert(.)">
+	    <button type="button" class="close" ($click)="removeAlert(.)" data-cy="close-update">
 	    	<span aria-hidden="true" class="icon icon-cross"></span>
       </button>
 	    {{#title}}<div class="alert-message">{{.}}</div>{{/title}}

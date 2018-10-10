@@ -4,7 +4,7 @@
 
 <h2 class="subtitle">
   {{#is order.type 'SELL'}} {{i18n('buyOffers')}} {{else}} {{i18n('sellOffers')}} {{/is}}
-  <span class="badge">{{offers.length}}</span>
+  <span class="badge" data-cy="offers-length">{{offers.length}}</span>
 </h2>
 
 <div class="well stretch {{#if acceptingOffer}}disabled{{/if}}">

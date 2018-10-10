@@ -6,7 +6,7 @@ describe('Transfer Funds Test', () => {
 
   describe('With funds', () => {
     beforeEach(function () {
-      // user 0 (sender/seller) and 1 (receiver/buyer) have funds, user 2 does not
+      // user 0 (sender/seller) and 2 (receiver/buyer) have funds, user 1 does not
       cy.login(this.users.validUsers[0])
       cy.clearNotifications()
       cy.contains('Send').click()
@@ -126,7 +126,7 @@ describe('Transfer Funds Test', () => {
       cy.contains('Bitcoin').click()
       cy
         .get('input[type="number"]')
-        .type('.00001')
+        .type('0.00001')
       cy.contains('Next').click()
 
       cy
@@ -135,9 +135,6 @@ describe('Transfer Funds Test', () => {
       cy
         .get('[data-cy=to-address]')
         .should('contain', this.users.validUsers[3].plainBTCaddress)
-      cy
-        .get('[data-cy=send-value]')
-        .should('contain', '0.00001')
       cy
         .get('[data-cy=send-button]')
         .should('have.attr', 'on:click', 'send(@close)')

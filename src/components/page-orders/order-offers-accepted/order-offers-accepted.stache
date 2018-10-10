@@ -2,7 +2,7 @@
 <can-import from="bootstrap/dist/js/bootstrap" />
 <can-import from="~/components/common/time-remaining/" />
 
-<h3 class="subheading">{{i18n('acceptedOffers')}} <span class="badge" data-cy="offers-length">{{offers.length}}</span></h3>
+<h3 class="subheading">{{i18n('acceptedOffers')}} <span class="badge" data-cy="accepted-offers-length">{{offers.length}}</span></h3>
 
 {{<offerAcceptedEvent}}
   <div class="offer-timeline-event">
