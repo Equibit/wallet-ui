@@ -158,18 +158,18 @@ Cypress.Commands.add('goTo', (page) => {
 })
 
 // Manually add orders to the database
-Cypress.Commands.add('addOrders', (type) => {
+Cypress.Commands.add('addOrders', (type, total = 12) => {
   Cypress.log({
     name: 'addOrders'
   })
 
   switch (type) {
     case 'many':
-      for (let number = 0; number < 6; number++) {
+      for (let number = 0; number < total; number++) {
         cy.exec(
           'mongo wallet_api-testing --eval \'db.orders.insertMany(' +
           '[ {"assetType":"EQUIBIT","btcAddress":"mzjuqxfhBD9GZGq4EHkYuS9ERhojvNxetq","eqbAddress":"","portfolioId":"5ba8fc09347fab2cb9dd8ecf","type":"SELL","quantity":10000,"price":100000000,"isFillOrKill":true,"goodFor":1,"status":"OPEN","userId": ObjectId("5ba8fbf5347fab2cb9dd8ecc"),"__v":0},' +
-          '{"assetType":"EQUIBIT","btcAddress":"mzjuqxfhBD9GZGq4EHkYuS9ERhojvNxetq","eqbAddress":"","portfolioId":"5ba8fc09347fab2cb9dd8ecf","type":"SELL","quantity":10000,"price":100000000,"isFillOrKill":false,"goodFor":1,"status":"OPEN","userId":ObjectId("5ba8fbf5347fab2cb9dd8ecc"),"__v":0} ]' +
+          '{"assetType":"EQUIBIT","btcAddress":"mzjuqxfhBD9GZGq4EHkYuS9ERhojvNxetq","eqbAddress":"","portfolioId":"5ba8fc09347fab2cb9dd8ecf","type":"BUY","quantity":10000,"price":100000000,"isFillOrKill":false,"goodFor":1,"status":"OPEN","userId":ObjectId("5ba8fbf5347fab2cb9dd8ecc"),"__v":0} ]' +
           ')\''
         )
       }

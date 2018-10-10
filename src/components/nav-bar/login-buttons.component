@@ -2,8 +2,8 @@
   <view>
     {{#if isLoggedIn}}
     {{else}}
-      <a href="{{routeUrl page='signup'}}" class="btn btn-primary navbar-btn btn-sm btn-sign-up">{{i18n('signup')}}</a>
-      <a href="{{routeUrl page='login'}}" class="btn btn-default navbar-btn btn-sm">{{i18n('login')}}</a>
+      <a href="{{routeUrl page='signup'}}" class="btn btn-primary navbar-btn btn-sm btn-sign-up" data-cy="signup-equibit">{{i18n('signup')}}</a>
+      <a href="{{routeUrl page='login'}}" class="btn btn-default navbar-btn btn-sm" data-cy="login-equibit">{{i18n('login')}}</a>
     {{/if}}
   </view>
 </can-component>

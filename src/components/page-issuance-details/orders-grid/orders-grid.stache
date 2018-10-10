@@ -39,7 +39,8 @@
                   data-toggle="popover"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22loginToContinue%22)%7D%7D%3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%2Flogin%22%3E%7B%7Bi18n(%22Log in%22)%7D%7D%3C%2Fa%3E')}}"
-                  data-placement="right">
+                  data-placement="right"
+                  data-cy="logged-out-buy">
                   {{i18n('buy')}}
                 </button>
               {{/case}}
@@ -131,7 +132,8 @@
                   data-toggle="popover"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22loginToContinue%22)%7D%7D%3Cbr%3E%3Ca class=%22btn btn-default%22 href=%22%2Flogin%22%3E%7B%7Bi18n(%22Log in%22)%7D%7D%3C%2Fa%3E')}}"
-                  data-placement="left">
+                  data-placement="left"
+                  data-cy="logged-out-sell">
                   {{i18n('sell')}}
                 </button>
               {{/case}}
@@ -167,7 +169,8 @@
                   data-toggle="popover"
                   data-html="true"
                   data-content="{{decodeAndRender('%7B%7Bi18n(%22notEnoughEqbPopoverMessage%22)%7D%7D')}}"
-                  data-placement="left">
+                  data-placement="left"
+                  data-cy="sell-button">
                   {{i18n('sell')}}
                 </button>
               {{/case}}
