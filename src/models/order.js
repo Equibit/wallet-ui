@@ -113,7 +113,7 @@ const Order = DefineMap.extend('Order', {
     return this.assetType === 'EQUIBIT' ? 1 / 100000000 : 1
   },
 
-  // ENUM ('OPEN', 'TRADING', 'CANCELLED', 'CLOSED')
+  // ENUM ('OPEN', 'TRADING', 'CANCELLED', 'CLOSED', 'TRADING-AVAILABLE')
   status: {
     type: 'string',
     value: 'OPEN'

@@ -71,7 +71,7 @@ export const ViewModel = DefineMap.extend({ seal: false }, {
         $limit: this.limit,
         $skip: this.skip,
         type: this.type,
-        status: 'OPEN',
+        status: [ 'OPEN', 'TRADING-AVAILABLE' ],
         $sort: { 'price': this.type === 'BUY' ? -1 : 1 },
         issuanceAddress: this.issuanceAddress
       }

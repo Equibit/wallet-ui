@@ -13,7 +13,7 @@ const data = times(i => {
     price: 70 * (i + 1),
     createdAt: [(new Date()).toJSON(), '2017-04-12T04:35:34.835Z', '2017-03-05T08:45:34.835Z'][i % 3],
     type: ['BUY', 'SELL', 'BUY'][i % 3],
-    status: ['OPEN', 'TRADING', 'CANCELLED', 'CLOSED'][i % 4],
+    status: ['OPEN', 'TRADING', 'CANCELLED', 'CLOSED', 'TRADING-AVAILABLE'][i % 5],
 
     btcAddress: 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1',
     // eqbAddressTrading: ['mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1', '', 'mk7KNEW61JGqTiJ7h4vXUAziChW29igyn1'][i % 3],

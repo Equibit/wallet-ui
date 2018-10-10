@@ -47,8 +47,9 @@ export const ViewModel = DefineMap.extend({
       return Session.current && Session.current.portfolios && Session.current.portfolios[0]
     }
   },
+
   status: {
-    set: enumSetter(['OPEN', 'TRADING', 'CLOSED', 'CANCELLED', 'REJECTED'])
+    set: enumSetter(['OPEN', 'TRADING', 'CLOSED', 'CANCELLED', 'REJECTED', 'TRADING-AVAILABLE'])
   },
 
   get isAskFlow () {
