@@ -42,7 +42,7 @@
   <div class="order-metadata section">
     <dl class="dl-horizontal dl-stripped no-bottom-border responsive ">
       <dt>{{i18n('goodUntil')}}</dt>
-      <dd>{{order.dateDisplay}}</dd>
+      <dd>{{order.goodUntil}}</dd>
     </dl>
   </div>
 
