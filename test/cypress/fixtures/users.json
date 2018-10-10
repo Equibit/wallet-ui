@@ -97,13 +97,5 @@
         "validPhrase": "swift rapid guide holiday artwork other super shed yard edit join fence",
         "password": "SpicyTunaMayo",
         "newPassword": "SpicyTunaMa"
-    },
-    "qaBankAccount": {
-        "id": 0,
-        "_comment": "seeded user that is reloaded with raw transaction",
-        "email": "bank@evenset.com",
-        "password": "SpicyTunaMayo",
-        "plainEQBaddress": "msW5nT13pW3iKP4T7eqHHwNCjS9ZRz9Hkt",
-        "plainBTCaddress": "mxMvgFt94WxVZhBwJRnTxDZBJQ5UqV1pnr"
     }
 }
