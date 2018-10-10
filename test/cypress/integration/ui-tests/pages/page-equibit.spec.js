@@ -155,7 +155,7 @@ describe('Equibit Page Test', () => {
           .and('have.attr', 'on:click', 'showModal(\'SELL\')')
           .click()
 
-        helper.addOrder(true, '.0001', '1000000', 'sell')
+        helper.addOrder('.0001', '1000000', 'sell', true)
         cy.get('[data-cy=sell-order-row]')
           .should('exist')
           .should('contain', 'View')
@@ -168,7 +168,7 @@ describe('Equibit Page Test', () => {
           .and('have.attr', 'on:click', 'showModal(\'BUY\')')
           .click()
 
-        helper.addOrder(true, '.0001', '1000000', 'buy')
+        helper.addOrder('.0001', '1000000', 'buy', true)
         cy.get('[data-cy=buy-order-row]')
           .should('exist')
           .should('contain', 'View')
