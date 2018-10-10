@@ -1,11 +1,8 @@
 @parent wallet-ui
 @module {can.Component} wallet-ui/questionnaire-promo <questionnaire-promo>
 
-A short description of the questionnaire-promo component
+This component contains promotion text and button which leads the user to an active questionnaire.
 
 @signature `<questionnaire-promo>`
 
-@body
-
-## Use
-
+@link ../src/components/page-portfolio/questionnaire-promo/questionnaire-promo.html Full Page Demo

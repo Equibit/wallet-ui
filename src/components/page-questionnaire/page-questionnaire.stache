@@ -27,7 +27,7 @@
                             <strong>{{indexLetter (anum)}})</strong>
                             <span>
                               {{#is answerOption.answer 'CUSTOM'}}
-                                Other - Specify &nbsp;
+                                {{i18n('otherSpecify')}} &nbsp;
 
                                 <input type="text"
                                         value:bind="userAnswers[qnum]['answer'].custom"
@@ -66,7 +66,7 @@
                             <strong>{{indexLetter (anum)}})</strong>
                             <span>
                               {{#is answerOption.answer 'CUSTOM'}}
-                                Other - Specify &nbsp;
+                                {{i18n('otherSpecify')}} &nbsp;
                                 
                                 <input type="text"
                                         value:bind="userAnswers[qnum]['answer'].custom"

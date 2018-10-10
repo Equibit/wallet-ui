@@ -19,9 +19,6 @@ import './questionnaire-promo.less'
 import view from './questionnaire-promo.stache'
 
 export const ViewModel = DefineMap.extend({
-  message: {
-    value: 'This is the questionnaire-promo component'
-  }
 })
 
 export default Component.extend({

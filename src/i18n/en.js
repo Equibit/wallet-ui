@@ -466,6 +466,7 @@ export default {
   orderWasCreated: 'Your order was created',
   orderCancelled: 'Order Cancelled',
   optional: 'Optional',
+  otherSpecify: 'Other - Specify',
   owned: 'Owned',
 
   partial: 'Partial',
