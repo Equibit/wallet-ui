@@ -2,6 +2,6 @@
 <p class="single-paragraph"><b>{{i18n('EQB')}}</b> <font color="red">{{i18n('Airdrop')}}</font></p>
 <p class="single-paragraph">{{i18n('eqbAirDropPromo')}}</p>
 <div>
-    <a href='{{routeUrl(page="questionnaire")}}' type="button" class="btn btn-danger">{{i18n('getFreeEqb')}}</a>
+    <a href='{{routeUrl(page="questionnaire")}}' type="button" class="btn btn-danger" data-cy="questionnaire-button">{{i18n('getFreeEqb')}}</a>
     <br><br>
 </div>

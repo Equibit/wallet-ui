@@ -54,7 +54,7 @@
             <li role="separator" class="divider"></li>
             <li><a href="{{routeUrl(page='transactions')}}" data-cy="transactions">{{i18n('transactions')}}</a></li>
             <li><a href="{{routeUrl(page='preferences')}}" data-cy="preferences">{{i18n('userPreferences')}}</a></li>
-            <li><a href="{{routeUrl(page='questionnaire')}}">{{i18n('earnRewards')}}</a></li>
+            <li><a href="{{routeUrl(page='questionnaire')}}" data-cy="questionnaire">{{i18n('earnRewards')}}</a></li>
             
             <li role="separator" class="divider"></li>
             <li>

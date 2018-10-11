@@ -265,3 +265,13 @@ Cypress.Commands.add('addOffers', (type) => {
       )
   }
 })
+
+// Clear user questionnaire answers and user questoinnaires
+Cypress.Commands.add('clearUserAnswersAndUserQuestionnaires', () => {
+  Cypress.log({
+    name: 'clearUserAnswersAndUserQuestionnaires'
+  })
+
+  cy.exec('mongo wallet_api-testing --eval \'db.useranswers.remove({})\'')
+  cy.exec('mongo wallet_api-testing --eval \'db.userquestionnaires.remove({})\'')
+})
