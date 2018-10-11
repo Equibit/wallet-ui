@@ -72,11 +72,8 @@ describe('Recovery Phrase Test', () => {
       })
   })
 
-  after(function () {
-    cy.resetUser(user)
-  })
-
   beforeEach(function () {
+    cy.resetUser(user)
     cy.loginQA()
     cy.login(user)
   })
