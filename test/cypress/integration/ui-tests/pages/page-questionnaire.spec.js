@@ -36,7 +36,7 @@ describe('Questionnaire Test', () => {
     cy.get('[data-cy=privacy-disclaimer]')
       .should('contain', 'All information gathered will be used for general analytical purposes only.')
       .and('contain', 'Individual responses will not be given to any third parties at any time.')
-      .should('be.visible')
+      .and('be.visible')
 
     cy.contains('h4', 'What best describes your interest in Equibit?').should('be.visible')
     cy.contains('h4', 'How likely are you to use Equibit Portfolio to invest in a company?').should('be.visible')
