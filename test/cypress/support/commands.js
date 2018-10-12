@@ -148,6 +148,9 @@ Cypress.Commands.add('goTo', (page) => {
     name: 'goTo'
   })
 
+  cy.url().should('contain', '/portfolio')
+  cy.get('[data-cy=loading-overlay]').should('not.be.visible')
+
   cy.get('[data-cy=userDropdown]')
     .click()
   cy.get(`[data-cy=${page}]`)
@@ -261,4 +264,14 @@ Cypress.Commands.add('addOffers', (type) => {
         ')\''
       )
   }
+})
+
+// Clear user questionnaire answers and user questoinnaires
+Cypress.Commands.add('clearUserAnswersAndUserQuestionnaires', () => {
+  Cypress.log({
+    name: 'clearUserAnswersAndUserQuestionnaires'
+  })
+
+  cy.exec('mongo wallet_api-testing --eval \'db.useranswers.remove({})\'')
+  cy.exec('mongo wallet_api-testing --eval \'db.userquestionnaires.remove({})\'')
 })

@@ -2,9 +2,6 @@
 import * as helper from '../../support/utils/trade-helpers'
 
 describe('Partial Buy Orders Test', () => {
-  it('loads test@evenset and test3@evenset from QA', () => {
-    helper.loadFundsFromQA()
-  })
   describe('Atomic Trade Tests', () => {
     beforeEach(() => {
       cy.clearNotifications()

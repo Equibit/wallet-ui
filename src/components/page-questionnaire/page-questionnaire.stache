@@ -1,7 +1,7 @@
 <div class="row margin-top">
   <div class="col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
       <h2 class="bold">{{questionnaire.description}}</h2>
-      <p class="single-paragraph">{{i18n('privacyOfInformation')}}</p>
+      <p class="single-paragraph" data-cy="privacy-disclaimer">{{i18n('privacyOfInformation')}}</p>
   </div>
 </div>
 
@@ -92,7 +92,7 @@
 
 <div class="row margin-top">
   <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-4 col-lg-2 col-lg-offset-5">
-    <button type="button" class="btn btn-primary btn-block" on:click="submitAnswers()">Submit Your Answers</button>
+    <button type="button" class="btn btn-primary btn-block" on:click="submitAnswers()" data-cy="submit-questionnaire">Submit Your Answers</button>
     <br><br>
   </div>
 </div>
