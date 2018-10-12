@@ -49,10 +49,12 @@ describe('Questionnaire Test', () => {
 
   it('user must answer all questions shown on the page', () => {
     cy.goTo('questionnaire')
+    cy.url().should('contain', '/questionnaire')
+    cy.contains('h4', 'What best describes your interest in Equibit?').should('be.visible')
+
     cy.get('[data-cy=submit-questionnaire]').click()
     cy.get('.alert-warning')
       .should('contain', 'Questionnaire submission failed')
-      .and('contain', 'Your answers were incomplete or invalid')
 
     let index
     const radios = []
@@ -71,7 +73,6 @@ describe('Questionnaire Test', () => {
     cy.get('[data-cy=submit-questionnaire]').click()
     cy.get('.alert-warning')
       .should('contain', 'Questionnaire submission failed')
-      .and('contain', 'Your answers were incomplete or invalid')
 
     cy.get('#radio-0-B').check()
     cy.get('[data-cy=submit-questionnaire]').click()
