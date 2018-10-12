@@ -22,7 +22,7 @@ import { blockTime } from '~/constants'
 import BlockhainInfo from './blockchain-info'
 
 // information about the duration and expiry of a given tx (exported for testing)
-export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
+export function timeStats (tx, expiryHeight, expiredTime, bcInfo, order) {
   const lastConfirmationMidpoint = bcInfo[tx.currencyType].mediantime * 1000
   let nextConf = lastConfirmationMidpoint + (0.5 * blockTime[tx.currencyType])
   while (nextConf < Date.now()) { // prevents this value from being sensitive to small changes in Date.now()
@@ -37,6 +37,9 @@ export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
       0
     ) : tx.timelock + 1
   // the time at which the tx will (or did) expire
+  console.log(`\n\n\n\n${order}:`)
+  console.log(`EXACT TIME: ${expiredTime || 'NOT FOUND'}`)
+  console.log(`PREDICTED TIME: ${Date(nextConf + (blockTime[tx.currencyType] * blocksRemaining))}\n\n\n\n`)
   const endAt = expiredTime
     ? expiredTime.getTime()
     : nextConf + (blockTime[tx.currencyType] * blocksRemaining)
@@ -321,9 +324,7 @@ const Offer = DefineMap.extend('Offer', {
         partialBlocksRemaining: null,
         safetyZone: null
       })
-      this.timelockInfoPromise.then(info => {
-        timelockInfo.assign(info)
-      })
+      this.timelockInfoPromise.then(info => timelockInfo.assign(info))
       return timelockInfo
     }
   },
@@ -350,9 +351,9 @@ const Offer = DefineMap.extend('Offer', {
         let safetyZone, partialStats
         const step1 = txes.filter(t => t.htlcStep === 1)[0]
         const step2 = txes.filter(t => t.htlcStep === 2)[0]
-        const fullStats = timeStats(step1, timelockExpiresBlockheight, timelockExpiredAt, blockchainInfo)
+        const fullStats = timeStats(step1, timelockExpiresBlockheight, timelockExpiredAt, blockchainInfo, this.orderId)
         if (step2) {
-          partialStats = timeStats(step2, timelock2ExpiresBlockheight, timelock2ExpiredAt, blockchainInfo)
+          partialStats = timeStats(step2, timelock2ExpiresBlockheight, timelock2ExpiredAt, blockchainInfo, this.orderId)
           safetyZone = Math.max(fullStats.endAt - partialStats.endAt, 0)
         }
         return {

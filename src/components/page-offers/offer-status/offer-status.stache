@@ -196,6 +196,10 @@
   </div>
 {{else}}
 
+<div>
+{{ this.order._id }}
+</div>
+
 {{#switch offer.htlcStep}}
   {{#case 1}}
     <div class="row timeline-container {{#if offer.timelockExpiredAt}}contextual-bg-inactive{{else}}contextual-bg-info{{/if}}">
