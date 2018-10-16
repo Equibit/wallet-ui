@@ -36,7 +36,18 @@ export const ViewModel = DefineMap.extend({
       return val === 'OFFER' ? val : 'ORDER'
     }
   },
-  mode: 'string',
+  mode: {
+    get (val) {
+      return val || 'SELL'
+    },
+    set () {
+      // Reset selected item
+      this.selectedItem = null
+    },
+    value () {
+      return 'SELL'
+    }
+  },
   // Either orders or offers:
   items: {
     type: '*',
