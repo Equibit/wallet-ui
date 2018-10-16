@@ -45,5 +45,5 @@
 
 </drag-panel>
 
-{{#if isModalShown}}<cancel-offer offer:from="offer"/>{{/if}}
+{{#if isModalShown}}<cancel-offer offer:from="offer" mode:bind="mode" />{{/if}}
 

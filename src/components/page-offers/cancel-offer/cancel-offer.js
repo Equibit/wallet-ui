@@ -22,6 +22,7 @@ import Offer from '~/models/offer'
 export const ViewModel = DefineMap.extend({
   offer: Offer,
   closeModal: '*',
+  mode: 'string',
   confirm () {
     // a reference to this.offer must be retained because once its status changes
     // to 'CANCELLED' it will immediately be moved to the ARCHIVED tab and this tab
@@ -30,6 +31,7 @@ export const ViewModel = DefineMap.extend({
     offer.status = 'CANCELLED'
     offer.save().then(() => {
       this.closeModal()
+      this.mode = 'ARCHIVE'
     })
   }
 })
