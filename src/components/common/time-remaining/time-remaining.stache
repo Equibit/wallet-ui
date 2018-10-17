@@ -2,4 +2,3 @@
   <span class="icon icon-clock"></span>
   {{hm}}
 </div>
-<div>{{endTime}}</div>
