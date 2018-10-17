@@ -44,7 +44,7 @@ export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
   const duration = endAt - tx.createdAt
   return {
     blocksRemaining,
-    endAt: (endAt - Date.now()) > (tx.timelock * blockTime[tx.currencyType]) ? tx.timelockExpiresAt : endAt,
+    endAt: (endAt - Date.now()) > (tx.timelock * blockTime[tx.currencyType]) ? tx.timelockExpiresAt.getTime() : endAt,
     duration
   }
 }
