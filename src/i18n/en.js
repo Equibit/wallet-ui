@@ -667,6 +667,7 @@ export default {
   timeLock: 'Time Lock',
   timelockTitleOfferExpiration: 'Offer Expiration',
   timelockPopoverMessage: 'This is the time frame the seller will have to accept the offer.',
+  timeRemainingTooltip: 'Displayed time may be slightly offset due to block confirmation times.',
   then: 'Then',
   to: 'To',
   toggleNavigation: 'Toggle Navigation',

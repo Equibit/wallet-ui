@@ -31,12 +31,11 @@ export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
   const blockHeight = bcInfo[tx.currencyType].currentBlockHeight
   // Number of blocks between now (current block height) and the expiration of the htlc1 timelock.
   // Minimum 0
-  const blocksRemaining = Math.max(
-    expiryHeight
-      ? expiryHeight - blockHeight
-      : tx.timelock - (blockHeight - (tx.confirmationBlockHeight || blockHeight)),
-    0
-  )
+  const blocksRemaining = expiryHeight
+    ? Math.max(
+      expiryHeight - blockHeight,
+      0
+    ) : tx.timelock + 1
   // the time at which the tx will (or did) expire
   // Since the actual predicted time of expiry is greater than the user requested expiry
   // (due to transaction confirmation times), we display the user requested expiry as the
@@ -45,7 +44,7 @@ export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
     expiredTime
       ? expiredTime.getTime()
       : nextConf + (blockTime[tx.currencyType] * blocksRemaining),
-    Date.now() + tx.timelock * blockTime[tx.currencyType] - 1000 // user requested expiry (default is 48 hrs)
+    Date.now() + tx.timelock * blockTime[tx.currencyType] - 1000 // user requested expiry
   )
   // How long in total (ms) between when the transaction is created and when the timelock is estimated to expire.
   const duration = endAt - tx.createdAt
