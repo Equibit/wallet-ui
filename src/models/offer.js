@@ -40,6 +40,7 @@ export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
   // Since the actual predicted time of expiry is greater than the user requested expiry
   // (due to transaction confirmation times), we display the user requested expiry as the
   // maximum possible offer expiration.
+  // const endAt = tx.createdAt.getTime() + tx.timelock * blockTime[tx.currencyType]
   const endAt = Math.min(
     expiredTime
       ? expiredTime.getTime()
@@ -47,7 +48,7 @@ export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
     Date.now() + tx.timelock * blockTime[tx.currencyType] - 1000 // user requested expiry
   )
   // How long in total (ms) between when the transaction is created and when the timelock is estimated to expire.
-  const duration = endAt - tx.createdAt
+  const duration = endAt - tx.createdAt.getTime()
 
   return {
     blocksRemaining,
@@ -312,6 +313,11 @@ const Offer = DefineMap.extend('Offer', {
         this.orderPromise.then(resolve)
       }
     }
+  },
+  timelockInfoInterval () {
+    return setInterval(() => {
+      return this.timelockInfo
+    }, 1000)
   },
   // TODO timelockInfo is currently not observable, nor does it change once bound.
   //  This is a problem because it contains "partialBlocksRemaining" and "fullBlocksRemaining",

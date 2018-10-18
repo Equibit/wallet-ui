@@ -24,21 +24,25 @@ export const ViewModel = DefineMap.extend({
     value: 'active',
     set (val) {
       if (val === 'active') {
-        this.interval = setInterval(() => {
-          const prevTime = this.currentTime
-          this.currentTime = Date.now()
-          if (this.endTime &&
-            this.currentTime >= this.endTime &&
-            prevTime < this.endTime &&
-            this.timeExpiredHandler
-          ) {
-            this.timeExpiredHandler()
-          }
-        }, 1000)
+        if (this.interval) {
+          this.interval()
+        } else {
+          this.interval = setInterval(() => {
+            const prevTime = this.currentTime
+            this.currentTime = Date.now()
+            if (this.endTime &&
+              this.currentTime >= this.endTime &&
+              prevTime < this.endTime &&
+              this.timeExpiredHandler
+            ) {
+              this.timeExpiredHandler()
+            }
+          }, 1000)
+        }
         return val
       } else {
         clearInterval(this.interval)
-        this.interval = null
+        // this.interval = null
         return 'pending'
       }
     }
