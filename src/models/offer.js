@@ -34,7 +34,7 @@ export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
   const blocksRemaining = Math.max(
     expiryHeight
       ? expiryHeight - blockHeight
-      : tx.timelock - (blockHeight - (tx.confirmationBlockHeight || 0)),
+      : tx.timelock - (blockHeight - (tx.confirmationBlockHeight || blockHeight)),
     0
   )
   // the time at which the tx will (or did) expire
