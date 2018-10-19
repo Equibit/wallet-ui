@@ -40,13 +40,14 @@ export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
   // Since the actual predicted time of expiry is greater than the user requested expiry
   // (due to transaction confirmation times), we display the user requested expiry as the
   // maximum possible offer expiration.
-  const endAt = tx.createdAt.getTime() + tx.timelock * blockTime[tx.currencyType]
-  // const endAt = Math.min(
-  //   expiredTime
-  //     ? expiredTime.getTime()
-  //     : nextConf + (blockTime[tx.currencyType] * blocksRemaining),
-  //   Date.now() + tx.timelock * blockTime[tx.currencyType] - 1000 // user requested expiry
-  // )
+  // this is meant for testing on QA (since blocks are generated extremely irregularily)
+  // const endAt = tx.createdAt.getTime() + tx.timelock * blockTime[tx.currencyType]
+  const endAt = Math.min(
+    expiredTime
+      ? expiredTime.getTime()
+      : nextConf + (blockTime[tx.currencyType] * blocksRemaining),
+    Date.now() + tx.timelock * blockTime[tx.currencyType] - 1000 // user requested expiry
+  )
   // How long in total (ms) between when the transaction is created and when the timelock is estimated to expire.
   const duration = endAt - tx.createdAt
 
@@ -314,18 +315,12 @@ const Offer = DefineMap.extend('Offer', {
       }
     }
   },
-  timelockInfoInterval () {
-    return () => setInterval(() => {
-      this.timelockUpdate = this.timelockUpdate === 1 ? 0 : 1
-    }, 1000)
-  },
   // TODO timelockInfo is currently not observable, nor does it change once bound.
   //  This is a problem because it contains "partialBlocksRemaining" and "fullBlocksRemaining",
   //  which are both important for conditional views.  These values should be live and update,
   //  especially once we get block height updating live from the server.
-  timelockUpdate: 'number',
   timelockInfo: {
-    value (prop) {
+    get () {
       const timelockInfo = new DefineMap({
         fullDuration: null,
         fullEndAt: null,
@@ -335,13 +330,10 @@ const Offer = DefineMap.extend('Offer', {
         partialBlocksRemaining: null,
         safetyZone: null
       })
-      prop.listenTo('timelockUpdate', () => {
-        this.timelockInfoPromise.then(info => {
-          timelockInfo.assign(info)
-        })
-        prop.resolve(timelockInfo)
+      this.timelockInfoPromise.then(info => {
+        timelockInfo.assign(info)
       })
-      prop.resolve(timelockInfo)
+      return timelockInfo
     }
   },
   timelockInfoPromise: {

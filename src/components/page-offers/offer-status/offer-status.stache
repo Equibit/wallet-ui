@@ -185,7 +185,7 @@
             <div class="col-xs-12 col-sm-3">
               <div class="timer-container">
                 <label>{{i18n('timelockTitleOfferExpiration')}}</label>
-                <time-remaining endTime:from="offer.timelockInfo.fullEndAt" interval:from="@offer.timelockInfoInterval"></time-remaining>
+                <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
               </div>
             </div>
             {{/unless}}
@@ -236,7 +236,7 @@
           <div class="col-xs-12 col-sm-3">
             <div class="timer-container">
               <label>{{i18n('timelockTitleOfferExpiration')}}</label>
-              <time-remaining endTime:from="offer.timelockInfo.fullEndAt" interval:from="@offer.timelockInfoInterval"></time-remaining>
+              <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
             </div>
           </div>
           {{/unless}}
@@ -328,7 +328,7 @@
             <div class="timer-container">
               {{#eq offer.timelockInfo.partialBlocksRemaining 0}}
                 <label>{{i18n('timelockTitleOfferExpiration')}}</label>
-                <time-remaining endTime:from="offer.timelockInfo.fullEndAt" interval:from="@offer.timelockInfoInterval"></time-remaining>
+                <time-remaining endTime:from="offer.timelockInfo.fullEndAt"></time-remaining>
               {{else}}
                 <label>
                   {{#if isAskFlow}}
@@ -341,7 +341,7 @@
                     {{i18n('paymentCollectionTimeLeftDescription')}}
                   {{/if}}
                 </label>
-                <time-remaining endTime:from="offer.timelockInfo.partialEndAt" interval:from="@offer.timelockInfoInterval"></time-remaining>
+                <time-remaining endTime:from="offer.timelockInfo.partialEndAt"></time-remaining>
               {{/eq}}
             </div>
           </div>
