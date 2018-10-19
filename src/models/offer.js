@@ -43,8 +43,8 @@ export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
   // maximum possible offer expiration.
   const endAt = Math.min(
     expiredTime
-    ? expiredTime.getTime()
-    : nextConf + (blockTime[tx.currencyType] * blocksRemaining),
+      ? expiredTime.getTime()
+      : nextConf + (blockTime[tx.currencyType] * blocksRemaining),
     Date.now() + tx.timelock * blockTime[tx.currencyType] - 1000 // user requested expiry
     )
   // the following is meant for testing on QA (since blocks are generated extremely irregularily):
