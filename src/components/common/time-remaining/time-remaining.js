@@ -24,25 +24,11 @@ export const ViewModel = DefineMap.extend({
     value: 'active',
     set (val) {
       if (val === 'active') {
-        if (this.interval) {
-          this.interval()
-        } else {
-          this.interval = setInterval(() => {
-            const prevTime = this.currentTime
-            this.currentTime = Date.now()
-            if (this.endTime &&
-              this.currentTime >= this.endTime &&
-              prevTime < this.endTime &&
-              this.timeExpiredHandler
-            ) {
-              this.timeExpiredHandler()
-            }
-          }, 1000)
-        }
+        this.intervalVal = this.interval()
         return val
       } else {
-        clearInterval(this.interval)
-        // this.interval = null
+        clearInterval(this.intervalVal)
+        this.intervalVal = null
         return 'pending'
       }
     }
@@ -71,7 +57,23 @@ export const ViewModel = DefineMap.extend({
       return [h, m].map(n => n.toString(10).padStart(2, '0')).join(':')
     }
   },
-  interval: '*',
+  intervalVal: '*',
+  interval: {
+    type: '*',
+    default () {
+      return () => setInterval(() => {
+        const prevTime = this.currentTime
+        this.currentTime = Date.now()
+        if (this.endTime &&
+          this.currentTime >= this.endTime &&
+          prevTime < this.endTime &&
+          this.timeExpiredHandler
+        ) {
+          this.timeExpiredHandler()
+        }
+      }, 1000)
+    }
+  },
   // Callback for 'active' status timers.  When the timer hits zero,
   timeExpiredHandler: '*'
 })
