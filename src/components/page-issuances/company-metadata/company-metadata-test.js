@@ -6,7 +6,7 @@ import './company-metadata'
 
 describe('components/page-issuances/company-metadata', function () {
   // You can have this test back when it stops failing the build on Bluemix
-  it.skip('should render issuance domicile', function () {
+  it('should render issuance domicile', function () {
     let data = {
       issuance: {
         issuanceName: 'Series 1',

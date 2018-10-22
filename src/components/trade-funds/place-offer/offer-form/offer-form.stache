@@ -23,7 +23,7 @@
           {{#is formData.order.assetType 'EQUIBIT'}}
             <div class="input-group">
               <input type="text" class="form-control" id="inputQuantity" readonly
-                     value:bind="formData.orderQuantityInCoins">
+                     value:bind="formData.orderQuantityInCoins" data-cy="input-quantity-ask">
               <div class="input-group-addon">EQB</div>
             </div>
           {{else}}
