@@ -67,7 +67,8 @@ export const ViewModel = DefineMap.extend({
         })
       }
     }
-  }
+  },
+  mode: 'string'
 })
 
 export default Component.extend({

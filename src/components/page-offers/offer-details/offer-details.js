@@ -22,6 +22,7 @@ import Offer from '~/models/offer'
 export const ViewModel = DefineMap.extend({
   // ENUM ['SELL', 'BUY']
   type: 'string',
+  mode: 'string',
   offer: Offer,
   offersLength: 'number',
   isModalShown: 'boolean',

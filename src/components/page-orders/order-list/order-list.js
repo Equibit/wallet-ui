@@ -41,7 +41,7 @@ export const ViewModel = DefineMap.extend({
       return val || 'SELL'
     },
     set () {
-      // Reset selected item:
+      // Reset selected item
       this.selectedItem = null
     },
     value () {
