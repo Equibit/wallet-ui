@@ -163,7 +163,7 @@ const sendIssuance = (portfolio, formData) => {
   const amountEqb = txoutsFee.reduce((acc, { amount }) => (acc + amount), 0)
 
   // if we dont send all authorized shares then change goes back to the same issuance address
-  let json = txouts[0].equibit.issuance_json || txouts[0].equibit.payload
+  let json = txouts[0].equibit && (txouts[0].equibit.issuance_json || txouts[0].equibit.payload)
   const issuanceJson = JSON.parse(json)
 
   // todo: for now just send the blank EQB change back to where we got it:
