@@ -345,7 +345,7 @@ const Portfolio = DefineMap.extend('Portfolio', {
       return Object.keys(eqbAddresses).reduce((acc, addr) => {
         const txouts = eqbAddresses[addr].txouts
         const blankEqb = txouts.filter(out => {
-          return out.equibit && (!out.equibit.issuance_tx_id || out.equibit.issuance_tx_id === EMPTY_ISSUANCE_TX_ID)
+          return !out.equibit || !out.equibit.issuance_tx_id || out.equibit.issuance_tx_id === EMPTY_ISSUANCE_TX_ID
         })
         acc.push.apply(acc, blankEqb)
         return acc

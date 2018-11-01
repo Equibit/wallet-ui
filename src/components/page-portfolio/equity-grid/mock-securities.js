@@ -9,12 +9,12 @@ export default [{
     'confirmations': 0,
     'spendable': false,
     'solvable': false,
-    'equibit': {
-      'payment_currency': 0,
-      'payment_tx_id': '',
-      'issuance_tx_id': '40590a6968d9eeb412f476a37faf0c51b75600715a8ed6bb092c1bfb7b686096',
-      'issuance_json': ''
-    }
+    // 'equibit': {
+    //   'payment_currency': 0,
+    //   'payment_tx_id': '',
+    //   'issuance_tx_id': '40590a6968d9eeb412f476a37faf0c51b75600715a8ed6bb092c1bfb7b686096',
+    //   'issuance_json': ''
+    // }
   },
   'data': {
     'company': {

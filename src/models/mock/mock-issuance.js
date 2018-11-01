@@ -26,12 +26,12 @@ const utxo = [{
   confirmations: 0,
   spendable: false,
   solvable: false,
-  equibit: {
-    payment_currency: 0,
-    payment_tx_id: '',
-    issuance_tx_id: '0000000000000000000000000000000000000000000000000000000000000000',
-    issuance_json: '{"company":{"registration_number":"no-registration-number","jurisdiction_country":"cc","jurisdiction_state_or_province":"f","legal_name":"comp","address":"12 h","city":"g","state_or_province":"f","zip_or_postal_code":"d","country":"cc","web":"s","public_key_web":"s","email":"f","phone":""},"issuance":{"issuance_public_key":"mmWBNCAdwoPbF9BRBDeGo6QpoxrF98n7Rn","issuance_name":"User 1 comp series one","issuance_date":1506631380,"restriction_level":0,"security_type":"common_shares"}}'
-  }
+  // equibit: {
+  //   payment_currency: 0,
+  //   payment_tx_id: '',
+  //   issuance_tx_id: '0000000000000000000000000000000000000000000000000000000000000000',
+  //   issuance_json: '{"company":{"registration_number":"no-registration-number","jurisdiction_country":"cc","jurisdiction_state_or_province":"f","legal_name":"comp","address":"12 h","city":"g","state_or_province":"f","zip_or_postal_code":"d","country":"cc","web":"s","public_key_web":"s","email":"f","phone":""},"issuance":{"issuance_public_key":"mmWBNCAdwoPbF9BRBDeGo6QpoxrF98n7Rn","issuance_name":"User 1 comp series one","issuance_date":1506631380,"restriction_level":0,"security_type":"common_shares"}}'
+  // }
 }]
 
 const issuance = new Issuance({

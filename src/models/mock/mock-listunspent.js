@@ -43,12 +43,12 @@ const listunspent = {
           'vout': 0,
           'address': 'n3vviwK6SMu5BDJHgj4z54TMUgfiLGCuoo',
           'amount': 340000000,
-          'equibit': {
-            'payment_currency': 0,
-            'payment_tx_id': '',
-            'issuance_tx_id': '0000000000000000000000000000000000000000000000000000000000000000',
-            'issuance_json': ''
-          }
+          // 'equibit': {
+          //   'payment_currency': 0,
+          //   'payment_tx_id': '',
+          //   'issuance_tx_id': '0000000000000000000000000000000000000000000000000000000000000000',
+          //   'issuance_json': ''
+          // }
         }]
       },
       mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU: {
@@ -58,12 +58,12 @@ const listunspent = {
           'vout': 0,
           'address': 'mjVjVPi7j8CJvqCUzzjigbbqn4GYF7hxMU',
           'amount': 220000000,
-          'equibit': {
-            'payment_currency': 0,
-            'payment_tx_id': '',
-            'issuance_tx_id': '0000000000000000000000000000000000000000000000000000000000000000',
-            'issuance_json': ''
-          }
+          // 'equibit': {
+          //   'payment_currency': 0,
+          //   'payment_tx_id': '',
+          //   'issuance_tx_id': '0000000000000000000000000000000000000000000000000000000000000000',
+          //   'issuance_json': ''
+          // }
         }]
       }
     }
