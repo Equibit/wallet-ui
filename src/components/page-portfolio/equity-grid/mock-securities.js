@@ -8,7 +8,7 @@ export default [{
     'amount': 0.02,
     'confirmations': 0,
     'spendable': false,
-    'solvable': false,
+    'solvable': false
     // 'equibit': {
     //   'payment_currency': 0,
     //   'payment_tx_id': '',

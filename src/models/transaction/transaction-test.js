@@ -244,7 +244,7 @@ describe('models/transaction/utils', function () {
       })
       it('should define main props', function () {
         assert.equal(txData.amount, 500, 'amount')
-        assert.equal(txData.fee, 2920, 'fee')
+        assert.equal(txData.fee, 2360, 'fee') // should be 2920 with equibit data in vout
         assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
       })
       it('should define hashlock', function () {
@@ -357,7 +357,7 @@ describe('models/transaction/utils', function () {
         assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
       })
       it('should calculate fee correctly based on tx hex size', function () {
-        assert.equal(txData.fee, 2575, 'fee')
+        assert.equal(txData.fee, 2030, 'fee') // should be 2575 with equibit data in vout
       })
       // it('should define hashlock', function () {
       //   assert.equal(txData.hashlock.length, 64)
@@ -386,7 +386,7 @@ describe('models/transaction/utils', function () {
         assert.equal(txData.issuanceId, issuance._id, 'issuanceId')
       })
       it('should calculate fee correctly based on tx hex size', function () {
-        assert.equal(txData.fee, 2405, 'fee')
+        assert.equal(txData.fee, 1875, 'fee') // should be 2405 with equibit data in vout
       })
       it.skip('should define hashlock', function () {
         assert.equal(txData.hashlock.length, 64)
@@ -633,7 +633,7 @@ describe('models/transaction/utils', function () {
           toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
           changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
           txData = createTransfer(blockchainInfoBySymbol, 'ISSUANCE', amount, toAddress, changeAddr, portfolio, issuance, transactionFeeRates)
-          expectedTxId = '9ec8649d893229d9407034f77f5b52ff8505bf887c2807eed8b95ea7e1295d94'
+          expectedTxId = '117906d4b14dec452382840274617366b68d83ada55309b1786681adbfaf6468' // 9ec8649d893229d9407034f77f5b52ff8505bf887c2807eed8b95ea7e1295d94
         })
         it('should define amount', function () {
           assert.equal(txData.amount, amount)
@@ -645,7 +645,7 @@ describe('models/transaction/utils', function () {
           assert.equal(txData.currencyType, 'EQB')
         })
         it('should calculate fee correctly based on tx hex size', function () {
-          assert.equal(txData.fee, 2605)
+          assert.equal(txData.fee, 2030) // should be 2605 with equibit data in vout
         })
         it('should define tx id', function () {
           assert.equal(txData.txId, expectedTxId)
@@ -683,7 +683,7 @@ describe('models/transaction/utils', function () {
           toAddress = 'mmFDRwLd2sNzqFHeoKJdrTdwMzVYiH4Hm6'
           changeAddr = 'mwVbp9hMyfvnjW3sEbyfgLqiGd4wMxbekh'
           txData = createTransfer(blockchainInfoBySymbol, 'EQB', amount, toAddress, changeAddr, portfolio, null, transactionFeeRates)
-          expectedTxId = '481bec1f3fc1f824a99f40846c4b9036b635fc78947b659c92ebbf8a51a9a50a'
+          expectedTxId = 'dbcbb20e8bf2e6fa8d09c094ea1de298b2c44771fce94cd7fa4e993df572161b' // 481bec1f3fc1f824a99f40846c4b9036b635fc78947b659c92ebbf8a51a9a50a
         })
         it('should define amount', function () {
           assert.equal(txData.amount, amount)
@@ -695,7 +695,7 @@ describe('models/transaction/utils', function () {
           assert.equal(txData.currencyType, 'EQB')
         })
         it('should calculate fee correctly based on tx hex size', function () {
-          assert.equal(txData.fee, 1505)
+          assert.equal(txData.fee, 1125) // should be 1505 with equibit data in vout
         })
         it('should define tx id', function () {
           assert.equal(txData.txId, expectedTxId)
