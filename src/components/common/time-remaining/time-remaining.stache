@@ -1,3 +1,11 @@
+<div class="remainingTooltip">
+  <span
+    class="icon icon-question"
+    data-toggle="popover"
+    data-content="{{i18n('timeRemainingTooltip')}}"
+    data-placement="left">
+  </span>
+</div>
 <div class="timer timer--{{status}}">
   <span class="icon icon-clock"></span>
   {{hm}}

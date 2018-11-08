@@ -36,12 +36,23 @@ export function timeStats (tx, expiryHeight, expiredTime, bcInfo) {
       expiryHeight - blockHeight,
       0
     ) : tx.timelock + 1
+
   // the time at which the tx will (or did) expire
-  const endAt = expiredTime
-    ? expiredTime.getTime()
-    : nextConf + (blockTime[tx.currencyType] * blocksRemaining)
+  // Since the actual predicted time of expiry is greater than the user requested expiry
+  // (due to transaction confirmation times), we display the user requested expiry as the
+  // maximum possible offer expiration.
+  const endAt = Math.min(
+    expiredTime
+      ? expiredTime.getTime()
+      : nextConf + (blockTime[tx.currencyType] * blocksRemaining),
+    Date.now() + tx.timelock * blockTime[tx.currencyType] - 1000 // user requested expiry
+    )
+  // the following is meant for testing on QA (since blocks are generated extremely irregularily):
+  // const endAt = tx.createdAt.getTime() + tx.timelock * blockTime[tx.currencyType]
+
   // How long in total (ms) between when the transaction is created and when the timelock is estimated to expire.
   const duration = endAt - tx.createdAt
+
   return {
     blocksRemaining,
     endAt,
@@ -367,6 +378,7 @@ const Offer = DefineMap.extend('Offer', {
       })
     }
   },
+
   // Extras:
 
   isSelected: {

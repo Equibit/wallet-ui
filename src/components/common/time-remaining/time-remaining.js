@@ -18,14 +18,6 @@ import DefineMap from 'can-define/map/'
 import './time-remaining.less'
 import view from './time-remaining.stache'
 
-function zp (n) {
-  let val = n.toString(10)
-  if (val.length < 2) {
-    val = '0' + val
-  }
-  return val
-}
-
 export const ViewModel = DefineMap.extend({
   status: {
     type: 'string',
@@ -72,7 +64,7 @@ export const ViewModel = DefineMap.extend({
       const s = timeLeft % 60
       const m = (timeLeft - s) / 60 % 60
       const h = ((timeLeft - s) / 60 - m) / 60
-      return [h, m].map(zp).join(':')
+      return [h, m].map(n => n.toString(10).padStart(2, '0')).join(':')
     }
   },
   interval: '*',
