@@ -76,13 +76,13 @@ function buildTransactionEqb (inputs, outputs, blockchainInfo, locktime = 0) {
   )
   const vout = outputs.map(vout => {
     const res = merge(pick(['value', 'scriptPubKey', 'address'], vout), {
-      equibit: {
-        // TODO: pass payment currency type here.
-        payment_currency: 0,
-        payment_tx_id: (vout.paymentTxId ? vout.paymentTxId : ''),
-        issuance_tx_id: (vout.issuanceTxId ? vout.issuanceTxId : '0000000000000000000000000000000000000000000000000000000000000000'),
-        issuance_json: (vout.issuanceJson ? JSON.stringify(vout.issuanceJson) : '')
-      }
+      // equibit: {
+      //   // TODO: pass payment currency type here.
+      //   payment_currency: 0,
+      //   payment_tx_id: (vout.paymentTxId ? vout.paymentTxId : ''),
+      //   issuance_tx_id: (vout.issuanceTxId ? vout.issuanceTxId : '0000000000000000000000000000000000000000000000000000000000000000'),
+      //   issuance_json: (vout.issuanceJson ? JSON.stringify(vout.issuanceJson) : '')
+      // }
     })
     return res
   })
